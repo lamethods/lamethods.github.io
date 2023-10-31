@@ -1,6 +1,8 @@
 ---
 author: "Mohammed Saqr & Sonsoles López-Pernas"
 toc: false
+margin-footer: |
+    <span></span>
 include-after-body:
   text: |
     <script>

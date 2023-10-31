@@ -1,13 +1,16 @@
 project:
   type: book
   output-dir: "docs"
-  
 book:
   title: "Learning analytics methods and tutorials"
   subtitle: "A practical guide using R"
   editor: "Mohammed Saqr & Sonsoles López-Pernas"
   collection-editor: "Mohammed Saqr & Sonsoles López-Pernas"
   cookie-consent: true
+  repo-url: https://github.com/lamethods/labook-code/
+  google-analytics: "G-Y4VBV3J9WD"
+  twitter-card: true
+  site-url: https://lamethods.github.io
   chapters:
     - text: "Welcome"
       file: index.qmd
