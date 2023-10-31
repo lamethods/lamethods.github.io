@@ -1,0 +1,16 @@
+/.quarto/
+/_freeze/
+/.Rproj.user/
+*.toc
+*.tex
+*.aux
+*.log
+*.rdb
+*.rdx
+*.ipynb
+*.pdf
+.RData
+*.RData
+.Rhistory
+_extensions
+*_cache

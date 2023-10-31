@@ -1,0 +1,159 @@
+# Contributors {.unnumbered}
+
+```{r, echo = F}
+```
+
+```{css}
+#| echo: false
+
+p {
+  margin-bottom: 0 !important;
+}
+```
+
+## Editors
+
+**Mohammed Saqr**, University of Eastern Finland
+
+**Sonsoles López-Pernas**, University of Eastern Finland
+
+
+
+## Associate Editors
+
+
+
+**Miguel Conde**, Universidad de León
+
+**Rogers Kaliisa**, University of Oslo
+
+**Kamila Misiejuk**, University of Bergen 
+
+
+
+## Authors
+
+**Emorie Beck**, UC Davis
+
+**Javier Conde**, Universidad Politécnica de Madrid
+
+**Miguel Ángel Conde-González**, University of León
+
+**Carlos Cuenca-Enrique**, Universidad Politécnica de Madrid
+
+**Laura Del-Río-Carazo**, Universidad Politécnica de Madrid
+
+**Marion Durand**, University of Eastern Finland
+
+**Merja Heinäniemi**, University of Eastern Finland
+
+**Jouni Helske**, University of Jyväskylä 
+
+**Satu Helske**, University of Turku
+
+**Ángel Hernández-García**,  Universidad Politécnica de Madrid
+
+**Rogers Kaliisa**, University of Oslo
+
+**Jelena Jovanovic**, University of Belgrade	
+
+**Joran Jongerling**, Tilburg University	
+
+**Juho Kopra**, University of Eastern Finland
+
+**Sonsoles López-Pernas**, University of Eastern Finland
+
+**Kamila Misiejuk**, University of Bergen
+
+**Keefe Murphy**, Maynooth University
+
+**Gilbert Ritschard**, University of Geneva
+
+**Andrew Ruis**, University of Wisconsin
+
+**Mohammed Saqr**, University of Eastern Finland
+
+**Luca Scrucca**, Università degli Studi di Perugia	
+
+**Matthias Studer**, University of Geneva
+
+**David Williamson Shaffer**, University of Wisconsin 
+
+**Zachari Swiecki**, Monash University
+
+**Yuanru Tan**, University of Wisconsin 
+
+**Santtu Tikka**, University of Jyväskylä 
+
+**Adrienne Traxler**, University of Copenhagen	
+
+**Leonie V.D.E. Vogelsmeier**, Tilburg University	
+
+
+
+
+
+
+
+## Reviewers
+
+**Gökhan Akçapınar**, Hacettepe University
+
+**Daniel Amo-Filva**, Universitat Ramon Llulll
+
+**Enrique Barra**, Universidad Politécnica de Madrid
+
+**Umar Bin Qushem**, University of Turku
+
+**Manuel Castejón-Limas**, Universidad de León
+
+**Javier Conde**, Universidad Politécnica de Madrid
+
+**Tudor Cristea**, TU Eindhoven
+
+**Laura Del-Río-Carazo**, Universidad Politécnica de Madrid
+
+**Ramy Elmoazen**, University of Eastern Finland
+
+**Dilrukshi Gamage**, Tokyo Tech
+
+**Brian P. Godor**, Erasmus University Rotterdam
+
+**Francisco José García Peñalvo**, Universidad de Salamanca
+
+**Sami Heikkinen**, LAB University of Applied Sciences
+
+**Rogers Kaliisa**, University of Oslo
+
+**Qinyi Liu**, University of International Business and Economics
+
+**Sonsoles López-Pernas**, University of Eastern Finland
+
+**Kamila Misiejuk**, University of Bergen 
+
+**Nicolae Nistor**, Ludwig-Maximilians-Universität München
+
+**Dijana Oreški**, Sveučilište u Zagrebu
+
+**Sambit Praharaj**, Ruhr University Bochum
+
+**Miroslava Raspopović Milić**, Belgrade Metropolitan University
+
+**Mohammed Saqr**, University of Eastern Finland
+
+**Yuanru Tan**, University of Wisconsin-Madison
+
+**Santtu Tikka**, University of Jyväskylä 
+
+**Tiina Törmänen**, University of Oulu
+
+**Adrienne Traxler**, University of Copenhagen
+
+**Daphne van de Bongardt**, Erasmus University Rotterdam
+
+**Thijs Vroegh**, Netherlands eScience Center
+
+**Jin Zhou**, Central China Normal University
+
+
+

@@ -1,0 +1,1733 @@
+---
+title: "A Broad Collection of Datasets for Educational Research Training and Application"
+format: 
+  pdf:
+    number-sections: true
+    documentclass: article
+    papersize: a4
+    template-partials:
+      - ../../title.tex
+    geometry:
+      - top=25.4mm
+      - bottom=25.4mm
+      - right=25.4mm
+      - left=25.4mm
+    include-in-header:
+      text: |
+        \usepackage{fontspec}
+        \usepackage{fontawesome}
+        \usepackage[noblocks]{authblk}
+        \renewcommand*{\Authsep}{, }
+        \renewcommand*{\Authand}{, }
+        \renewcommand*{\Authands}{, }
+        \renewcommand\Affilfont{\small}
+        \usepackage{float}
+        \floatplacement{table}{H}
+        \floatplacement{figure}{H}        
+execute:
+  message: FALSE
+author: 
+   - name: "Sonsoles López-Pernas"
+     email: "sonsoles.lopez@uef.fi"
+     affil-id: 1,*
+   - name: "Mohammed Saqr"
+     email: "mohammed.saqr@uef.fi"
+     affil-id: 1
+   - name: "Javier Conde"
+     email: "javier.conde.diaz@upm.es"
+     affil-id: 2
+   - name: "Laura Del-Río-Carazo"
+     email: "laura.delrio@upm.es"
+     affil-id: 2
+affiliations:
+  - id: 1
+    name: "University of Eastern Finland, 80100 Joensuu, Finland"
+  - id: 2
+    name: "Universidad Politécnica de Madrid, 28040 Madrid, Spain"
+  - id: "*"
+    name: "Corresponding author: Sonsoles López-Pernas, `sonsoles.lopez@uef.fi`"
+crossref:
+  fig-title: '**Figure**'
+  fig-labels: arabic
+  title-delim: "**.**"
+abstract-title: "Abstract"
+abstract: "In this chapter we present the main types of data that underpin the realm of learning analytics research. From its beginnings with foundational demographic and academic information, learning analytics has grown to encompass the intricate digital trails left by online learning technologies ---encompassing clicks, events, and interactions---, and even physiological data harnessed from sensors and innovative devices. We present a series of curated open datasets that represent the most common types of educational data. The data have been collected from diverse sources such as learning management systems, online forums, and surveys. These datasets will be operationalized throughout the book to illustrate each of the methods covered, such as sequence analysis, process mining, social network analysis, or structural equation modeling."
+keywords: "learning analytics, datasets, open data"
+fontsize: "9pt"
+dpi: 900
+editor: source
+keep-tex: true
+bibliography: references.bib
+csl: ../../springer.cls
+---
+**Keywords:** {{< meta keywords >}}
+
+```{r, include=F}
+library(dplyr)
+library(ggplot2)
+library(reshape2)
+library(likert)
+library(igraph)
+library(rio)
+source("aux.R")
+```
+
+# Introduction
+
+Learning analytics involves the combination of different types of data such as behavioral data, contextual data, performance data, and self-reported data to gain a comprehensive understanding of the learning process [@data2017; @nistor2018]. Each type of data provides a unique perspective of the learning process and, when analyzed together, can provide a more complete picture of the learner and the learning environment. Throughout the book, we will work with different types of learning analytics data to illustrate the analysis methods covered.  This chapter explores the most common types of data that are commonly used in learning analytics and that we will work with in the subsequent book chapters. Such data include demographic and other contextual data about students, performance data, online activity, interactions with other students and teachers, and self-reported data. 
+
+This chapter also describes a set of datasets that will be used throughout the book, as well as additional datasets that may be useful for readers to put the newly learned methods into practice. We will discuss the characteristics, structure, and contents of each dataset, as well as the context in which they have been used within the book. The goal of this chapter is to give readers a solid foundation for working with the datasets used in the book, as well as to provide a starting point for those interested in exploring additional data sources.
+
+# Types of data
+
+
+## Contextual data
+
+Contextual data refer to data that provide information about the environment in which learning takes place, such as demographic information, socioeconomic status, and prior academic achievement. This type of data can be used to understand how external factors may impact learning, to identify students with similar profiles, and to develop targeted interventions. Demographic data can be used to understand the characteristics of the learners, such as age, gender, race, and ethnicity [@li2021]. Socioeconomic data can be used to examine the impact of the socio-economic status of learners, such as income, employment status, and education level [@rodríguez-hernández2020]. Prior academic achievement data can be used to understand how the academic background of the learners, such as their previous grades and test scores, may influence their learning at present [@mengash2020]. The data about the learning context is also relevant to better understand and support students; for example, the level and difficulty of the educational program and courses, format (online vs. face-to-face), or pedagogical approach (e.g., flipped classroom, laboratory course, etc.) [@mullen2019].
+
+Descriptive statistics can be used to summarize and describe the main characteristics of the contextual  data, such as the mean, median, and standard deviation. In  Chapters 3  [@Tikka2024] and 4  [@Kopra2024-fx], we will learn how to clean and manipulate data and how to summarize it using descriptive statistics. In Chapter 6 [@Lopez-Pernas2024-bn], we will learn how to create different types of plots that will allow us to better understand the data.  Cluster analysis can also be used to group similar students together. This can be used to identify patterns in the data and, for example, to understand which different groups of students exist in a course or degree and whether such groups differ in terms of, e.g., performance [@meaney2022]. We cover clustering in Chapters 8 and 9 [@Scrucca2024-gg; @Murphy2024-no].
+
+It is important to bear in mind that contextual data are essential to understand learners' and the learning process, but they should be used in combination with other types of data to obtain a comprehensive understanding [@du2019]. It is also crucial to comply with data protection laws and regulations and to consider the ethical implications of collecting and operationalizing this type of data, especially when it comes to the existence of bias when making decisions based on contextual data [@slade2013].
+
+## Self-reported data
+
+Self-reported data refers to data provided by students themselves (or other relevant stakeholders), such as data collected through surveys or questionnaires. This type of data can provide valuable insight into learners' and teachers' attitudes, motivation, and perspectives on their learning experiences, and can be used to inform the design of educational programs [@dispositional]. It is important to keep in mind that the data should be cleaned and pre-processed before applying any analytical techniques, especially when dealing with qualitative data (e.g., free text, video, or recordings), and the results should be interpreted with caution, keeping in mind the limitations of self-reported data [@brenner2016].
+
+Regarding the techniques employed to analyze self-reported data, descriptive statistics and data visualization are commonly used to understand the distribution of responses and to identify patterns in the data (see Chapters 4 [@Kopra2024-fx] and 6 [@Lopez-Pernas2024-bn]). Moreover, inferential statistics can be used to make inferences about a population based on a sample of data. This can include techniques such as t-tests and analysis of variance to identify significant differences between groups or chi-squared tests to identify associations in the data. Chapter 5 will help us better understand the most common statistical tests and how to implement them with R [@Tikka2024wl]. Depending on the research question, the type of data, and the level of detail required, a more sophisticated choice of analytical techniques might be needed. For instance, Factor Analysis is a statistical technique that can be used to identify underlying factors or dimensions that explain the relationships between multiple variables [@oster2016]. We will learn about it in Chapter 20  [@Vogelsmeier2024-lm]. Similarly, Structural Equation Modeling (SEM) can be used to test complex models that involve multiple observed and latent variables that depend on one another. We cover this method in Chapter 21 [@Jongerling2024-xr]. Moreover, self-reported data can be analyzed using psychological networks, a relatively new approach in the field of psychology that focuses on understanding psychological phenomena as interconnected networks of individual components. We cover this method in Chapter 19 [@Saqr2024-lx]. Lastly, text mining can be used to analyze unstructured data, such as open-ended responses to surveys or interviews. It can be used to identify key concepts and themes, perform sentiment analysis, and summarize text [@ullmann2021]. This type of analysis is beyond the scope of this book. 
+
+## Activity data
+
+Activity data in learning analytics refers to the data that is collected about a student's interactions with educational technology. Activity data can include information such as the learning resources a student visits, the time spent on a resource, the buttons clicked, and the messages posted [@henrie2017]. Data can be collected automatically by the learning management system (LMS) or other educational technology (e.g., a game, an intelligent tutoring system, eBooks, or coding environments). Log activity data can be used to track student progress, identify areas where students may be struggling, and personalize instruction [@alvarez2016]. For example, if a student is spending an excessive amount of time on a particular concept, it may indicate that they are having difficulty understanding that concept. In this case, the teacher can provide additional support or re-teach the concept to help the student improve. Log activity data can also be used to measure student engagement with the course content and to identify students who are not engaging with the material [@saqr2021]. Log activity data have been used to detect students' online tactics and strategies [@jovanovic2017] paying attention not only to the frequency but to the order and timing of students' events.
+
+Besides basic analysis using descriptive and inferential statistics, activity logs have been operationalized in many ways in learning analytics, especially using temporal methods that allow to take advantage of the availability of large amounts of timestamped data. For example, process mining --- which we cover in Chapter 14 [@Lopez-Pernas2024-as] --- has been used to investigate how students navigate between different online activities [@ahmaduzir2019]. Sequence analysis has been used to detect and interpret students' online tactics and strategies based on the order of learning activities within learning sessions [@saqr2023]. We dedicate several chapters to this technique [@Saqr2024-tv; @Lopez-Pernas2024-lz; @Helske2024-lq; @Lopez-Pernas2024-kf]. Such analyses have been complemented with cluster analysis, which allows to detect distinct patterns of students with different online behavior [@matcha2019] (see Chapters 8 and 9 [@Scrucca2024-gg; @Murphy2024-no]).
+
+## Social interaction data
+
+Social interaction data in learning analytics refers to the data collected about students' interactions with each other (and sometimes teachers too) in a learning environment, social media, or messaging platforms. This can include data such as the frequency and nature of interactions, the content of discussions, and the participation of students in group work or collaborative activities. Social interaction data can be used to understand how students are engaging with each other and to identify patterns or roles that students assume [@saqr2022a]. For example, if a student is not participating in group discussions, it may indicate that they are feeling disengaged or are having difficulty understanding the material. Furthermore, social interaction data can be used to study how students' depth of contributions to the discussion influences performance [@saqr2021a]. For example, an analysis of social interaction data may reveal that students who receive more replies from other students perform better in the course than students whose contributions do not spark a lot of interest.
+
+Social Network Analysis (SNA) is the most common method to study social interaction data. SNA comprises a wealth of quantitative metrics that summarize relationships in a network. In most cases in learning analytics, this network is formed based on students' interactions. These metrics, named centrality measures, pave the path to apply other analytical methods such as cluster analysis to detect collaboration roles [@dowell2018], or predictive analytics to determine whether performance can be predicted from students' centrality measures [@saqr2022b]. We cover the basics of SNA in Chapter 15 of the book [@Saqr2024-yv], community finding in Chapter 16 [@Hernandez-Garcia2024-lx], and temporal network analysis in Chapter 17 [@Saqr2024-vt]. Moreover, the nature and content of students' interactions can be analyzed with Epistemic Network Analysis (ENA), a method for detecting and quantifying connections between elements in coded data and representing them in dynamic network models [@Shaffer2016]. We cover this method in Chapter 18 [@Tan2024-qu].
+
+## Performance data
+
+Performance data refers to data that measures how well learners are able to apply what they have learned. This type of data can be used to evaluate the effectiveness of a particular educational activity, to identify areas where additional support may be needed, or to detect students at risk. Performance includes assessment data from tests, quizzes, projects, essays, exams, and other forms of evaluation used to track students' progress. Assessment can be performed by different entities, such as teachers, peers or automated assessment tools. Moreover, assessment data can have different levels of granularity: it can be the grade for a specific task, a midterm or final exam, or a project; it can be the final grade for a course, or even a whole program GPA [@teasley2019]. Performance data used for learning analytics may not necessarily be assessment data. For instance, pre-test and post-test data are used to evaluate the effectiveness of a particular educational intervention [@gordillo2020]. Another example is the data captured by audience response systems (ARSs) [@li2020], which are often used to evaluate learners' knowledge retention during lectures.
+
+Performance data are rarely analyzed on its own, but rather used in combination with other sources of data. For example, a common use case in learning analytics is to correlate or predict grades with indicators from several sources [@namoun2020; @du2019], such as demographic data, activity data or interaction data. In the book, we cover predictive modelling in Chapter 7 [@Jovanovic2024-ry]. Moreover, grades are often compared among groups or clusters of students, for example, to evaluate the performance of students that use different online learning strategies [@saqr2023] or to establish whether students' assuming different levels of collaboration also show differences in performance [@saqr2022]. Clustering is covered in Chapters 8 and 9 [@Scrucca2024-gg; @Murphy2024-no].
+
+## Other types of data
+
+In recent years, the landscape of data used for learning analytics has undergone a remarkable expansion beyond demographics, grades, surveys and digital logs [@Blikstein]. This evolution has led to the incorporation of novel methodologies designed to capture a more holistic understanding of students' learning experiences, including their physiological responses [@s20236856]. This progression encompasses a diverse range of data acquisition techniques, such as eye-tracking data that traces the gaze patterns of students, electrodermal activity which measures skin conductance and emotional arousal, EEG (electroencephalogram) recordings that capture brain activity patterns, heartbeat analysis reflecting physiological responses to learning stimuli, and motion detection capturing physical movements during learning activities [@Sharma2020]. These physiological datasets are often combined with other forms of information, such as video recordings (e.g., @Blikstein). By amalgamating various data modalities, researchers and educators can unlock a deeper and more nuanced comprehension of how students engage with educational content and respond to different teaching methodologies [@s20236856]. This intricate analysis goes beyond the capabilities of conventional digital learning tools, offering insights into the emotional, cognitive, and physical aspects of learning that might otherwise remain concealed [@Kubsch2022;@Bleck2022]. This synergistic analysis of multiple data sources is often referred to as "multimodal learning analytics". In Chapter 13, we will cover multi-channel sequence analysis, a method suitable for analyzing several modalities of data at the same time [@Lopez-Pernas2024-kf].
+
+# Dataset selection
+
+The present section describes a set of curated datasets that will be used throughout the book. In the introductory chapters, the reader will learn how to import datasets in different formats [@Tikka2024], clean and transform data [@Kopra2024-fx], conduct basic statistics [@Tikka2024wl], and create captivating visualizations [@Lopez-Pernas2024-bn]. Each of the remaining chapters covers a specific method, which is illustrated in a tutorial-like way using one or more of the datasets described below. All the datasets are available on Github[^1].
+
+[^1]: \faGithub{} Github repository: [https://github.com/lamethods/data](https://github.com/lamethods/data)
+
+## LMS data from a blended course on learning analytics
+
+\faGithub{} [Link to the dataset](https://github.com/lamethods/data/tree/main/1_moodleLAcourse)
+
+The first dataset in our book is a synthetic dataset generated from on a real blended course on Learning Analytics offered at the University of Eastern Finland. The course has been previously described in a published article [@Saqr2024-oy] which used the original (non-synthetic) dataset. The lectures in the course provided the bases for understanding the field of learning analytics: the recent advances in the literature, the types of data collected, the methods used, etc. Moreover, the course covered learning theories as well as ethical and privacy concerns related to collecting and using learners' data. The course  had multiple practical sessions which allowed students to become skilled in learning analytics methods such as process mining and social network analysis using real-life datasets and point-and-click software. 
+
+Students in the course were required to submit multiple assignments; most of them were practical, in which they had to apply the methods learned in the course, but others were focused on discussing learning theories, ethics, and even conducting a small review of the literature. The course had a final project that accounted for 30% of the course final grade in which students had to analyze several datasets in multiple ways and comment and discuss their findings. Moreover, there was a group project in which students had to present an implementation of learning analytics application in an institutional setting, discussing the sources of data collection, the analyses that could be conducted, and how to present and make use of the data and analyses. The course was implemented in a blended format: instruction was face-to-face while the learning materials and assignments were available online, in the Moodle LMS. Discussions among students in the group project also took place online in the LMS forum. 
+
+The dataset  contains four files: a file containing students' online activities in Moodle, a file containing their grades, a file containing their demographic data, and a file that aggregates all the information. It is shared with a CC BY 4.0 license, which means that anyone is free to share, adapt, and distribute the data as long as appropriate credit is given. The dataset has been used in the introductory chapters of the book to learn the basics of R [@Tikka2024], data cleaning [@Kopra2024-fx], basic statistics [@Tikka2024wl] and data visualization [@Lopez-Pernas2024-bn]. Moreover, it has been used in two additional chapters to illustrate to well-known learning analytics methods: sequence analysis [@Saqr2024-tv] and process mining [@Lopez-Pernas2024-as]. Below, we provide further details on each of the files of the dataset.
+
+
+### Events
+
+The `Events.xlsx` file contains 95,580 timestamped Moodle logs for 130 distinct students.  The activities include viewing the lectures, discussing on forums, and working on individual assignments, as well as discussion in small groups, among other events. The logs were re-coded to balance granularity with meaningfulness, i.e., grouping together logs that essentially represent the same action. For example, the activities related to the group project were all coded as `Group_work`, log activities related to feedback were coded as `Feedback`, logs of students' access to practical resources or assignments were coded as `Practicals`, social interactions that are unrelated to learning were coded as `Social`, etc. Below we describe the columns of the dataset. A preview of the dataset can be seen in @tbl-moodle-logs. In @fig-moodle-events-la, we show the distribution of events per student.
+
+```{r, include=FALSE}
+moodle = rio::import("https://github.com/lamethods/data/raw/main/1_moodleLAcourse/Events.xlsx")
+rownames(moodle) <- NULL
+```
+
+```{r, results="asis", echo=FALSE}
+summary_df(moodle |> mutate(timecreated = as.character(timecreated)) |> select(-Log), 
+           explanations = list(
+                            c('Resource of the LMS where the event takes place, for example "Assignment: Literature review"', NULL),
+                            c("User name in the LMS", NULL),
+                            c("Timestamp in which each event took place, ranging from September 9th 2019 to October 27th 2019", NULL),
+                            c("Type of resource involved in the event. There are ", NULL),
+                            c("Name of the event in Moodle. There are ", NULL),
+                            c("Column coded based on the combination of the event name and context. There are ", NULL)
+                            ), ignore = c(T,T,T,F,F,F)) 
+```
+
+
+```{r, echo = F, fig.cap="Number of actions per student per type", fig.width= 6, fig.height= 3}
+#| label: fig-moodle-events-la
+#| out-width: 5in
+moodle %>% group_by(user,Action) %>% count() %>% ggplot(aes(y = Action, x = n )) + geom_boxplot( fill = "turquoise", outlier.alpha = 0.2) + theme_minimal() + theme(legend.position="none") + xlab("Distribution of the count of events per student")  + ylab("Action")
+
+```
+
+```{r eval=knitr::is_html_output(), echo=F}
+rmarkdown::paged_table(moodle |> select(-Log), options=list( rows.print=5 ))
+```
+
+```{=tex}
+\begingroup
+\fontsize{5pt}{7pt}\selectfont
+\addtolength{\tabcolsep}{-4pt}
+```
+```{r eval=knitr::is_latex_output(), echo=FALSE}
+#| label: tbl-moodle-logs
+#| tbl-cap: "Preview of the LA course Moodle Events dataset"
+moodle = rio::import("https://github.com/lamethods/data/raw/main/1_moodleLAcourse/Events.xlsx")
+rownames(moodle) <- NULL
+gt::gt_preview(moodle |> select(-Log))
+```
+
+```{=tex}
+\endgroup
+```
+
+### Demographics
+
+The `Demographics.xlsx` file contains simulated demographic data on the students, including name, date of birth, gender, location (on-campus vs. remote student), and employment status. @tbl-moodle-demo shows a preview of the data.
+
+```{r, include=FALSE}
+Demographics = rio::import("https://github.com/lamethods/data/raw/main/1_moodleLAcourse/Demographics.xlsx")
+rownames(Demographics) <- NULL
+```
+
+```{r, results="asis", echo=FALSE}
+summary_df(Demographics, explanations = list(
+  c("User identifier in the learning management system, with 130 distinct entries", NULL),
+  c("User's first name", NULL),
+  c("User's last name", NULL),
+  c("Country of origin", NULL),
+  c("User's gender: F (Female, 50%) or M (Male, 50%)", NULL),
+  c("Date of birth", NULL),
+  c("Whether the student is on campus or studying remotely, with ", NULL),
+  c("Whether the student is working part-time, full-time or not at all, with ", NULL)
+  ), ignore = c(T,T,T,T,T,T,F,F)) 
+```
+
+```{r eval=knitr::is_html_output(), echo=F}
+rmarkdown::paged_table(Demographics, options=list( rows.print=5 ))
+```
+
+```{=tex}
+\begingroup
+\fontsize{6pt}{8pt}\selectfont
+\addtolength{\tabcolsep}{-3pt}
+```
+```{r eval=knitr::is_latex_output(), echo=FALSE}
+#| label: tbl-moodle-demo
+#| tbl-cap: "Preview of the LA course Demographic dataset"
+gt::gt_preview(Demographics)
+```
+
+```{=tex}
+\endgroup
+```
+
+### Results
+
+Performance data is  provided in the `Results.xlsx` file, including grades per assignment and the overall course grade.  @tbl-moodle-results shows a preview of the data (the column names have been abbreviated in the preview). @fig-grades-la shows the distribution of grades per graded item.
+
+```{r, include=FALSE}
+Results = rio::import("https://github.com/lamethods/data/raw/main/1_moodleLAcourse/Results.xlsx")
+rownames(Results) <- NULL
+```
+
+```{r, results='asis', echo=FALSE}
+summary_df(Results ,explanations = list(
+c("User name in the learning management system (it matches the previous files)", NULL),
+c("Grade of the first SNA assignment (0-10)", NULL),
+c("Grade of the second SNA assignment (0-10)", NULL),
+c("Grade of the studies' review assignment (0-10)", NULL),
+c("Individual grade of the group project (0-10)", NULL),
+c("Group grade of the group project (0-10)", NULL),
+c("Grade of the practical exercises (0-10)", NULL),
+c("Final project grade (0-10)", NULL),
+c("Grade of the literature review assignment (0-10)", NULL),
+c("Grade of the data analysis assignment (0-5)", NULL),
+c("Grade of the introductory assigment (0-10)", NULL),
+c("Grade of the theory assignment (0-10)", NULL),
+c("Grade of the ethics assignment (0-10)", NULL),
+c("Grade of the critique assignment (0-10)", NULL),
+c("Final course grade (0-10)", NULL)
+))
+```
+
+```{=tex}
+\begingroup
+\fontsize{5pt}{7pt}\selectfont
+\addtolength{\tabcolsep}{-5pt}
+```
+```{r eval=knitr::is_latex_output(), echo=FALSE}
+#| label: tbl-moodle-results
+#| tbl-cap: "Preview of the LA course Results (grades) dataset"
+Results2 <- Results
+names(Results2) <- str_replace(names(Results2), "Grade.", "")
+gt::gt_preview(Results2)
+```
+
+```{=tex}
+\endgroup
+```
+
+```{r eval=knitr::is_html_output(), echo=F}
+rmarkdown::paged_table(Results, options=list( rows.print=5 ))
+```
+```{r, echo = F, fig.cap="Grade per student and graded item",fig.width= 6, fig.height= 3}
+#| label: fig-grades-la
+#| out-width: 5in
+  Results %>% pivot_longer(2:15)  %>% ggplot(aes(y = name, x=value) ) + 
+  geom_boxplot( fill = "turquoise", outlier.alpha = 0.2) + 
+  theme_minimal() + theme(legend.position="none") + 
+  xlab("Distribution of grades")  + ylab("Action")
+```
+
+
+### AllCombined
+
+This file `AllCombined.xlsx` contains the students' demographics, grades, and frequency of each action in the LMS. The columns from students' demographic data and grades remain the same, while the event data has been grouped per student for each type of event (`Action` column in the `Events` dataset), i.e., there is a new column for each type of event that contains the number of events of that type that each student had. Moreover, a new column `AchievingGroup` separates the high achievers from the low achievers. @tbl-moodle-combined shows a preview of the new columns of the data (the column names have been abbreviated) that were not shown in the previous previews.
+
+```{r, include=FALSE}
+AllCombined = rio::import("https://github.com/lamethods/data/raw/main/1_moodleLAcourse/AllCombined.xlsx")
+rownames(AllCombined) <- NULL
+```
+
+```{r, results="asis", echo=FALSE}
+summary_df(AllCombined |> select(contains("Frequency."), "AchievingGroup"), 
+           explanations = list(
+  c('Number of events related to the "Applications" resource', NULL),
+  c("Number of events related to the assignments' submission", NULL),
+  c("Number of visits to the course main page", NULL),
+  c("Number of views of the assignment feedback", NULL),
+  c("Number of events related to general learning resources", NULL),
+  c("Number of events related to the group work", NULL),
+  c("Number of events related to assignment instructions", NULL),
+  c('Number of events related to the "LA types" resource', NULL),
+  c("Number of events related to the practicals", NULL),
+  c("Number of events related to the forum discussion", NULL),
+  c('Number of events related to the "Ethics" resource', NULL),
+  c('Number of events related to the "Theory" resource', NULL),
+  c("Number of events overall", NULL),
+  c("Categorization as high achievers (top 50% grades) and lows achievers (bottom 50% grades)", NULL)
+))
+```
+
+```{r eval=knitr::is_html_output(), echo=F}
+rmarkdown::paged_table(AllCombined , options = list(rows.print = 5))
+```
+
+```{r, echo = F, fig.cap="Relationship between total frequency of events and final grade",fig.width= 6, fig.height= 3}
+#| label: fig-scatter-la
+#| out-width: 5in
+ggplot(AllCombined, aes(x=Frequency.Total, y = Final_grade)) + geom_point(size=1.4, fill = "turquoise", color = "black", shape = 21) + theme_minimal() + 
+  xlab("Total frequency of events") + ylab("Final grade")
+```
+
+```{=tex}
+\begingroup
+\fontsize{4pt}{6pt}\selectfont
+\addtolength{\tabcolsep}{-4.5pt}
+```
+```{r eval=knitr::is_latex_output(), echo=FALSE}
+#| label: tbl-moodle-combined
+#| tbl-cap: "Preview of the LA course combined dataset"
+
+AllC2 <- AllCombined |> select(contains("Frequency."),AchievingGroup)
+names(AllC2) <- str_replace(names(AllC2), pattern = "Frequency.", replacement = "F.")
+gt::gt_preview(AllC2)
+```
+
+```{=tex}
+\endgroup
+```
+
+
+
+## LMS data from a higher education institution in Oman
+
+
+
+\faGithub{} [Link to the dataset](https://github.com/lamethods/data/tree/main/2_moodleEdify)
+
+
+
+The next dataset includes students' log data enrolled in computing specialization a higher education institution in Oman. The dataset contains data from students enrolled in the sixth semester or beyond. The data was recorded across five modules (Spring 2017-2021) and includes the records of 326 students with 40 features in total, including the students' academic information (24 features), logs of students' activities performed on the Moodle LMS (10 features), and students' video interactions on the eDify mobile application (6 features). The academic data includes demographic data, academic data, study plan, and academic violations. The Moodle activity data includes students' timestamped activities in  Moodle. The eDify data contains video interactions in the eDify mobile application.
+
+The dataset has been described in an article by Hasan et al. @EdifyPaper and was originally made available in the Zenodo repository [@edify_dataset] with a CC BY 4.0 license, which means anyone can share and adapt the dataset but must give credit to the author and cannot apply any further restrictions to the dataset. Besides the raw data, the dataset includes a processed file that contains a series of indicators that can be used for different purposes such as predictive modeling or clustering of students' profiles. It has been used in several publications with the purpose of predicting student performance using different algorithms and approaches [@hasan2018student;@hasan2020modelling]. The main files of the dataset are described below.
+
+### Student academic information
+
+Students' academic information downloaded from the institutional information system. The data are spread in 15 files (starting with `KMS`), but have been combined in a single file (`KMSmodule.RDS`) for convenience. @tbl-activity-oman shows a preview of the data. The resulting dataset has the following structure:
+
+
+```{r, include=FALSE}
+kms = rio::import("https://github.com/lamethods/data/raw/main/2_moodleEdify/KMSmodule.RDS")
+rownames(kms) <- NULL
+```
+
+ 
+```{r, results="asis", echo=FALSE}
+summary_df(kms %>% select(-ApplicantName) %>% select(-ApplicantMobile)  %>% select(-SpecialNeed),  
+           explanations = list(
+             c('Original file name that contains the module offering identifier (e.g., "KMS Module 1 F19.csv"). There are 15 distinct entries (one for each file)', "character"),
+             c("Module identifier (Module 1-5)", "character"),
+             c("Name of the module (Course 1-5)", "character"),
+             c("Class section in which the student has been enrolled (Session-A or Session-B)", "character"),
+             c('Student identifier (e.g., "Student 83"). There are 306 distinct students', "character"),
+             c("Students' cumulative GPA (1-4)", "number"),
+             c("Number of attempts per student and module", "number"),
+             c("Students' advisor identifier (e.g., 'Advisor 16'). There are 50 distinct advisors", "character"),
+             c("Whether the student is studying remotely. There are 2 possible values:  Yes (0.31%) or No (99.69%)", "character"),
+             c("Whether the student has previous incomplete modules. There are 2 possible values: Yes (3.36%) or No (96.64%)", "character"),
+             c("Whether the module has a high risk of failure. There are 2 possible values: Yes (6.73%) or No (93.27%)", "character"),
+             c("Whether the student is progressing in their degree plan. There are 2 possible values: Yes (1.83%) or No (98.17%)", "character"),
+             c("Whether the student has failed two or more modules in the past. There are 2 possible values: Yes (23.55%) or No (76.45%)", "character"),
+             c("Whether the student has been registed for having any educational deficiencies. There are 2 possible values: Yes (4.59%) or No (95.41%)", "character"),
+             c("Number of other modules the student is enrolled in on the same semester", "character"),
+             c("Whether the student has enrolled in the prerequistide module", "character"),
+             c("Modules for which the student has a history of plagiarism", "character"),
+             c("Modules for which the student has a history of academic malpractice", "character")
+           )) 
+
+```
+
+```{r eval=knitr::is_html_output(), echo=F}
+rmarkdown::paged_table(kms %>% select(-ApplicantName) %>% select(-ApplicantMobile)  %>% select(-SpecialNeed), options = list( rows.print = 5 ))
+```
+
+```{=tex}
+\begingroup
+\fontsize{3pt}{4pt}\selectfont
+\addtolength{\tabcolsep}{-5pt}
+\fontfamily{Arial}\selectfont 
+```
+
+```{r eval=knitr::is_latex_output(), echo=FALSE}
+#| label: tbl-kms-oman
+#| tbl-cap: "Preview of the Higher Education Institution Academic data"
+gt::gt_preview(kms %>% select(-ApplicantName) %>% select(-ApplicantMobile)  %>% select(-SpecialNeed))
+```
+
+```{=tex}
+\endgroup
+```
+
+
+
+
+### Moodle
+
+The Moodle data is spread around 15 files (starting with `Moodle`), which contain all the clicks that students performed in the Moodle LMS in each module. The 15 files have been combined in a single file (`moodleEdify.RDS`) for convenience. @tbl-moodle-oman shows a preview of the data. The resulting dataset has the following structure:
+
+
+```{r, include=FALSE}
+moodle = rio::import("https://github.com/lamethods/data/raw/main/2_moodleEdify/moodleEdify.RDS")
+rownames(moodle) <- NULL
+```
+
+ 
+```{r, results="asis", echo=FALSE}
+summary_df(moodle |> select(-`User full name`) |> select(-Description) |> select(-`Affected user` ) |> select(-`IP address`) |> select(-`Origin`),  
+           explanations = list(
+             c("Module offering identifier. There are 15 distinct entries (one for each file)", NULL),
+             c("Timestamp in which the event occurred, ranging between January 1st 2018 to December 9th 2020" , NULL),
+             c('Resource of the LMS where the event takes place, for example "File: Lecture 4"', NULL),
+             c("Type of resource involved in the event. There are ", NULL),
+             c("Name of the event in Moodle. There are ", NULL)
+           ), ignore = c(T,T,T,F,F)) 
+
+```
+
+```{r eval=knitr::is_html_output(), echo=F}
+rmarkdown::paged_table(moodle, options = list( rows.print = 5 ))
+```
+
+```{=tex}
+\begingroup
+\fontsize{5pt}{6pt}\selectfont
+\addtolength{\tabcolsep}{-5pt}
+\fontfamily{Arial}\selectfont 
+```
+```{r eval=knitr::is_latex_output(), echo=FALSE}
+#| label: tbl-moodle-oman
+#| tbl-cap: "Preview of the Higher Education Institution Moodle data"
+gt::gt_preview(moodle |> select(-Description) |>  select(-`Affected user`) |> select(-`User full name`)  |> select(-`IP address`) |> select(-`Origin`) )
+```
+
+```{=tex}
+\endgroup
+```
+
+
+
+```{r, echo=F, fig.width= 8, fig.height= 4}
+# #| label: fig-oman-events
+# #| fig-cap: Number of events per course
+# ggplot(moodle, aes(x=lubridate::date(lubridate::parse_date_time(Time,orders = c("%d/%m/%y, %H:%M"))), fill = csv)) +  geom_bar(stat = "count") + xlab("Date") + ylab("Frequency") + theme_minimal() 
+# ggplot((moodle), aes(y = csv)) +  geom_bar(stat = "count", fill = "turquoise") + theme_minimal()  + xlab("Number of events") + ylab("Course") +   geom_text(aes(label = after_stat(count)), stat = "count", vjust = 0.5, size= 2.9, colour = "black")
+```
+
+### Activity
+
+Aggregated information per student based on the Moodle data, including the activity on campus and at home. The data are also spread in 15 files (starting with `Activity`), but has been combined in a single file (`ActivityModule.RDS`) for convenience. @tbl-activity-oman shows a preview of the data. The resulting dataset has the following structure:
+
+
+```{r, include=FALSE}
+activity = rio::import("https://github.com/lamethods/data/raw/main/2_moodleEdify/ActivityModule.RDS")
+rownames(activity) <- NULL
+```
+
+ 
+```{r, results="asis", echo=FALSE}
+summary_df(activity %>% select(-ApplicantName),  
+           explanations = list(
+             c('Original file name that contains the module offering identifier (e.g., "Activity Module 1 F19.csv"). There are 15 distinct entries (one for each file)', "character"),
+             c('Student identifier (e.g., "Student 208")', "character"),
+             c("Duration of the activity (in minutes) within campus", "number"),
+             c("Duration of the activity (in minutes) off campus", "number")
+           ))
+
+```
+
+```{r eval=knitr::is_html_output(), echo=F}
+rmarkdown::paged_table(activity %>% select(-ApplicantName), options = list( rows.print = 5 ))
+```
+
+```{=tex}
+\begingroup
+\fontsize{5pt}{6pt}\selectfont
+\addtolength{\tabcolsep}{-5pt}
+\fontfamily{Arial}\selectfont 
+```
+```{r eval=knitr::is_latex_output(), echo=FALSE}
+#| label: tbl-activity-oman
+#| tbl-cap: "Preview of the Higher Education Institution Activity data"
+gt::gt_preview(activity %>% select(-ApplicantName))
+```
+
+```{=tex}
+\endgroup
+```
+
+### Results
+Student performance data in each module. The data are also spread in 10 files (starting with `Result`), but has been combined in a single file (`ResultModule.RDS`) for convenience. @tbl-results-oman shows a preview of the data. The resulting dataset has the following structure:
+
+
+```{r, include=FALSE}
+result = rio::import("https://github.com/lamethods/data/raw/main/2_moodleEdify/ResultModule.RDS")
+rownames(result) <- NULL
+```
+
+ 
+```{r, results="asis", echo=FALSE, warning = F}
+summary_df(result %>% select(-ApplicantName) %>% mutate(ESE=as.numeric(ESE)),  
+           explanations = list(
+             c('Original file name that contains the module offering identifier (e.g., "Result Module 1 F19.csv"). There are 10 distinct entries (one for each file)', "character"),
+             c('Student identifier (e.g., "Student 208"). There are 326 distinct students', "character"),
+             c("Class section, Session-A (84.66%), or Session-B (9.82%)", "character"),
+             c("Grade of students' first assignment (0-100)", "number"),
+             c("Grade of students' second assignment (0-100)", "number"),
+             c("Grade of students' end-of-semester examination (0-100)", "number")
+           ))
+
+```
+```{r eval=knitr::is_html_output(), echo=F, warning=F}
+rmarkdown::paged_table(result %>% select(-ApplicantName) %>% mutate(ESE=as.numeric(ESE)), options = list( rows.print = 5 ))
+```
+
+```{=tex}
+\begingroup
+\fontsize{5pt}{6pt}\selectfont
+\addtolength{\tabcolsep}{-5pt}
+\fontfamily{Arial}\selectfont 
+```
+```{r eval=knitr::is_latex_output(), echo = FALSE, warning = FALSE}
+#| label: tbl-results-oman
+#| tbl-cap: "Preview of the Higher Education Institution grade data"
+gt::gt_preview(result %>% select(-ApplicantName) %>% mutate(ESE=as.numeric(ESE)))
+```
+
+```{=tex}
+\endgroup
+```
+
+
+###  eDify
+
+Student aggregated activity data in the eDify mobile application. The data are also spread in 15 files (starting with `VL`), but has been combined in a single file (`VLModule.RDS`) for convenience. @tbl-vl-oman shows a preview of the data. The resulting dataset has the following structure:
+
+
+```{r, include=FALSE}
+vl = rio::import("https://github.com/lamethods/data/raw/main/2_moodleEdify/VLModule.RDS")
+rownames(vl) <- NULL
+```
+
+```{r, results="asis", echo=FALSE, warning = F}
+summary_df(vl %>% select(-ApplicantName) ,  
+           explanations = list(
+             c('Original file name that contains the module offering identifier (e.g., "Result Module 1 F19.csv"). There are 15 distinct entries (one for each file)', "character"),
+             c('Student identifier (e.g., "Student 208"). There are 326 distinct students', "character"),
+             c("Number of times the student has played a video", "character"),
+             c("Number of times the student has paused a video", "number"),
+             c("Number of times the student has liked a video", "number"),
+             c("Number of times a student has scrolled to a specific part of the video", "number")
+           )) 
+```
+```{r eval=knitr::is_html_output(), echo=F, warning=F}
+rmarkdown::paged_table(vl %>% select(-ApplicantName), options = list( rows.print = 5 ))
+```
+
+```{=tex}
+\begingroup
+\fontsize{6pt}{7pt}\selectfont
+\addtolength{\tabcolsep}{-5pt}
+\fontfamily{Arial}\selectfont 
+```
+
+```{r eval=knitr::is_latex_output(), echo = FALSE, warning = FALSE}
+#| label: tbl-vl-oman
+#| tbl-cap: "Preview of the Higher Education Institution eDify data"
+gt::gt_preview(vl %>% select(-ApplicantName))
+```
+
+```{=tex}
+\endgroup
+```
+
+
+
+
+
+## School engagement, academic achievement, and self-regulated learning
+
+\faGithub{} [Link to the dataset](https://github.com/lamethods/data/tree/main/3_engSRLach)
+
+This dataset includes measures of school engagement, self-regulation and academic performance of a group of primary school students in northern Spain [@srlzenodo]. The data contains responses to the questionnaire from 717 primary education students. The subjects were recruited using convenience sampling from 15 schools (5 privately funded and 10 publicly funded) in northern Spain. The objective of collecting these data was to characterize school engagement and to explore to which extent  different engagement profiles are associated with academic performance and self-regulation. In the questionnaire, engagement was assessed with the school engagement measure [@fredricks2005school], which allows to differentiate between behavioral, cognitive and emotional engagement. Self-regulation was assessed using the self-regulation strategy inventory  [@cleary2006development], which allows measuring students' approaches to seeking and learning information, maladaptive regulatory behavior, environment management, and time management. The measure used for achievement was  students' self-reported information about their grades in Spanish and mathematics on a scale of 1 (fail) to 5 (outstanding). 
+
+@fig-srl-grades summarizes the responses of the students in both subjects, @fig-hist-engagement-engagement presents a set of histograms with the engagement measures, and @fig-hist-selfregulation-engagement includes a set of histograms with the self-regulation measures. The dataset was analyzed in a previous article [@su13063011], where the authors carried out cluster analysis using LPA (Latent Profile Analysis) to identify different groups of students according to their engagement and self-regulation and to compare the performance between these groups. The dataset is used in Chapter 9 [@Scrucca2024-gg] of this book, which covers model-based clustering. The dataset is published with a CC BY 4.0 license, which means that you can share, copy and modify this dataset so long as  appropriate credit is given. @tbl-spanish-survey shows a preview of the dataset. Below, we describe the dataset's main variables. 
+
+```{r, include=FALSE}
+srl = rio::import("https://raw.githubusercontent.com/lamethods/data/main/3_engSRLach/Manuscript_School%20Engagment.csv") 
+rownames(srl) <- NULL
+names(srl) <- gsub("\\.pret|PRE_","",names(srl)) 
+filtered_srl <- srl %>%
+  select(
+    "alumno",
+    "sexo",
+    "coleg",
+    "curso",
+    "grup",
+    "ren.mat",
+    "ren.leng",
+    "Emotion_Engage",
+    "Cognitive_Engage",
+    "Behavior_Engage",
+    "Enviroment_Manage",
+    "Information_help_Manage",
+    "Maladapative_Behavior",
+    "Time_Manage"
+  ) %>%  mutate_at(8:14,rep)
+
+
+```
+
+```{r, results="asis", echo=F}
+options(scipen=999999999)
+# Check if its z-score they do not include that information in the paper nor the dataset
+summary_df(filtered_srl, explanations = list(
+  c("Student identifier in the school", "character"),
+  c("Student's gender (1 = Male, 48.40%; 2 = Female, 51.46%)", "character"),
+  c("School identifier (1-15)", "character"),
+  c("Grade that students were in 5th grade (62.48%) or 6th grade (37.52%)", "character"),
+  c("Class section (1-3)", "character"),
+  c("Mathematics self-reported academic achievement (1-5)", NULL),
+  c("Spanish self-reported academic achievement (1-5)", NULL),
+  c("Emotional engagement  (z-score)", "double"),
+  c("Cognitive engagement  (z-score)", "double"),
+  c("Behavioural engagement  (z-score)", "double"),
+  c("Environment management  (z-score)", "double"),
+  c("Information and help management  (z-score)", "double"),
+  c("Maladaptative self-regulation  (z-score)", "double"),
+  c("Time management self-regulation (z-score)", "double")
+)) 
+
+```
+
+```{r eval=knitr::is_html_output(), echo=F}
+rmarkdown::paged_table(filtered_srl, options=list( rows.print=5 ))
+```
+
+```{=tex}
+\begingroup
+\fontsize{4pt}{6pt}\selectfont
+\addtolength{\tabcolsep}{-5pt}
+```
+
+
+```{r eval=knitr::is_latex_output(), echo=F}
+#| label: tbl-spanish-survey 
+#| tbl-cap: "Preview of the School Engagement, Academic Achievement, and SRL data"
+
+gt::gt_preview(filtered_srl |>  select(1:13))
+```
+
+```{=tex}
+\endgroup
+```
+
+```{r, include=FALSE}
+filtered_srl_plot <- filtered_srl %>% select("ren.mat", "ren.leng")
+colnames(filtered_srl_plot) <- c("Mathematics", "Spanish")
+filtered_srl_melt <- melt(filtered_srl_plot, variable.name = "subject", value.name = "grade")
+
+```
+
+```{r, echo = F, fig.width= 4, fig.height= 2}
+#| label: fig-srl-grades
+#| out-width: 3in
+#| fig-cap: Self-reported grades of students in Mathematics and Spanish
+
+ggplot(filtered_srl_melt, aes(y = subject, fill = forcats::fct_rev(as.character(grade)))) + geom_bar(stat="count", color = "black", position="dodge") + ylab("Subject") + xlab("Number of students") + labs(fill ="Grade") + theme_minimal() + scale_fill_brewer(direction=-1,palette = "RdBu")
+```
+
+
+
+
+```{r, echo=F, fig.width= 6, fig.height= 3}
+#| label: fig-hist-engagement-engagement
+#| layout-ncol: 3
+#| fig-cap: School engagement results of the survey
+#| fig-subcap:
+#|  - "Emotion engagement z-score"
+#|  - "Cognitive engagement z-score"
+#|  - "Behavior engagement z-score"
+
+ggplot((filtered_srl), aes(x = as.numeric(gsub(",", ".", Emotion_Engage)))) + geom_histogram(fill = "turquoise", binwidth = 0.5, color = "black", width = 0.7 ) + theme_minimal()  + xlab("") + ylab("Count")
+ggplot((filtered_srl), aes(x = as.numeric(gsub(",", ".", Cognitive_Engage)))) + geom_histogram(fill = "turquoise", binwidth = 0.5, color = "black", width = 0.7 ) + theme_minimal()  + xlab("") + ylab("Count")
+ggplot((filtered_srl), aes(x = as.numeric(gsub(",", ".", Behavior_Engage)))) + geom_histogram(fill = "turquoise", binwidth = 0.5, color = "black", width = 0.7 ) + theme_minimal()  + xlab("") + ylab("Count")
+```
+
+
+```{r, echo=F, fig.width= 8, fig.height= 4}
+#| label: fig-hist-selfregulation-engagement
+#| layout-ncol: 2
+#| out-width: 2in
+#| fig-cap: Self-regulation results of the survey
+#| fig-subcap:
+#|  - "Environment management z-score"
+#|  - "Information help management z-score"
+#|  - "Maladaptative behavior z-score"
+#|  - "Time management z-score"
+ggplot((filtered_srl), aes(x = as.numeric(gsub(",", ".", Enviroment_Manage)))) + geom_histogram(fill = "turquoise", binwidth = 0.5, color = "black", width = 0.7 ) + theme_minimal()  + xlab("") + ylab("Count")
+ggplot((filtered_srl), aes(x = as.numeric(gsub(",", ".", Information_help_Manage)))) + geom_histogram(fill = "turquoise", binwidth = 0.5, color = "black", width = 0.7 ) + theme_minimal()  + xlab("") + ylab("Count")
+ggplot((filtered_srl), aes(x = as.numeric(gsub(",", ".", Maladapative_Behavior)))) + geom_histogram(fill = "turquoise", binwidth = 0.5, color = "black", width = 0.7 ) + theme_minimal()  + xlab("") + ylab("Count")
+ggplot((filtered_srl), aes(x = as.numeric(gsub(",", ".", Time_Manage)))) + geom_histogram(fill = "turquoise", binwidth = 0.5, color = "black", width = 0.7 ) + theme_minimal()  + xlab("") + ylab("Count")
+```
+
+
+## Teacher burnout survey data
+
+\faGithub{} [Link to the dataset](https://github.com/lamethods/data/tree/main/4_teachersBurnout)
+
+The next dataset presents the responses collected from a survey about teacher burnout in Indonesia [@TeacherBurnout]. The survey questionnaire contains 18 items in five different categories. The first category contains five items to assess the teacher self-concept (TSC), from the TSC Evaluation Scale [@Villa2001]. The second category is teacher efficacy (TE), with 5 items adapted from [@yu1995teacher]. The remaining categories are Emotional Exhaustion (EE, 5 items), Depersonalization (DP, 3 items), and Reduced Personal Accomplishment (RPA, 5 items), adapted from the Maslach burnout inventory [@Champion1984]. The survey items were measured using a 5-point Likert scale, where 1 represents "never", and 5 represents "always". 
+
+@tbl-burnout-survey-data shows a preview of the dataset with the questions and answers, and @fig-burnout-likert represents it in a Likert scale chart. The dataset has been analyzed using several statistical methods [@Prasojo2020]: Content Validity Index (CVI), Exploratory Factor Analysis (EFA), Confirmatory Factor Analysis (CFA), Covariance-Based SEM (CB-SEM). The main aim was to determine the factors that may be predictors of teacher burnout. In this book, we also make use of this dataset to illustrate Factor Analysis [@Vogelsmeier2024-lm] and SEM [@Jongerling2024-xr]. The files associated with this dataset are licensed under a CC BY 4.0 license, which means you can share, copy and modify this dataset so long as appropriate credit is given to the authors. The variables of the dataset are described below.
+
+```{r, include=FALSE}
+survey = rio::import("https://github.com/lamethods/data/raw/main/4_teachersBurnout/2.%20Response.xlsx")
+rownames(survey) <- NULL
+```
+
+```{r, results="asis", echo=FALSE}
+
+cat("\n - **Teacher self-concept** \n \n")  
+
+summary_df(survey %>% mutate_all(as.numeric) %>% select(1:5), "  + ", explanations = list(
+  c('Response to the item "I think I have good teaching skills and ability"', "number"),
+  c('Response to the item "I have a reputation for being an efficient teacher"', "number"),
+  c('Response to the item "My colleagues regard me as a competent teacher"', NULL),
+  c('Response to the item "I feel I am a valuable person"', NULL),
+  c('Response to the item "Generally speaking, I am a good teacher"', NULL)))
+
+cat("\n - **Teacher efficacy** \n \n")  
+
+summary_df(survey %>% mutate_all(as.numeric)  %>% select(6:10),"  + ", explanations = list(
+  c('Response to the item "I help my students value learning"', NULL),
+  c('Response to the item "I motivate students who show low interest in schoolwork"', NULL),
+  c('Response to the item "I improve understanding of students who are failing"', NULL),
+  c('Response to the item "I provide appropriate challenges for very capable students"', NULL),
+  c('Response to the item "I get students the students to follow classroom rules"', NULL)))
+
+cat("\n - **Emotional exhaustion** \n \n")  
+
+summary_df(survey %>% mutate_all(as.numeric)  %>% select(11:15),"  + ", explanations = list(
+  c('Response to the item "I feel emotionally drained from my work"', NULL),
+  c('Response to the item "I feel used up at the end of the workday"', NULL),
+  c('Response to the item "I feel fatigued when I get up in the morning and have to face another day on the job"', NULL),
+  c('Response to the item "I feel burnt out from my work"', NULL),
+  c('Response to the item "Working with people all day is really a strain on me"', NULL)))
+
+cat("\n - **Depersonalization** \n \n")  
+
+
+summary_df(survey %>% mutate_all(as.numeric)  %>% select(16:18),"  + ", explanations = list(
+  c('Response to the item "I’ve become more callous toward people since I took this job"', NULL),
+  c('Response to the item "I worry that this job is hardening me emotionally"', NULL),
+  c('Response to the item "I feel frustrated by my job"', NULL)))
+  
+cat("\n - **Reduced Personal Accomplishment** \n \n")  
+
+summary_df(survey %>% mutate_all(as.numeric)  %>% select(19:23), "  + ",explanations = list(
+  c('Response to the item "I cannot easily create a relaxed atmosphere with my students"', NULL),
+  c('Response to the item "I do not feel exhilarated after working closely with my students"', NULL),
+  c('Response to the item "I have not accomplished many worthwhile things in this job"', NULL),
+  c('Response to the item "I do not feel like I’m at the end of my rope"', NULL),
+  c('Response to question "In my work, I do not deal with emotional problems very calmly"', NULL)
+
+)) 
+
+```
+
+```{r eval=knitr::is_html_output(), echo=F}
+rmarkdown::paged_table(survey, options=list( rows.print=5 ))
+```
+
+
+```{=tex}
+\begingroup
+\fontsize{4pt}{6pt}\selectfont
+\addtolength{\tabcolsep}{-3pt}
+```
+```{r eval=knitr::is_latex_output(), echo=FALSE}
+#| label: tbl-burnout-survey-data
+#| tbl-cap: "Preview of the burnout survey data answers"
+survey = rio::import("https://github.com/lamethods/data/raw/main/4_teachersBurnout/2.%20Response.xlsx")
+rownames(survey) <- NULL
+gt::gt_preview(survey)
+```
+```{=tex}
+\endgroup
+```
+
+
+
+```{r, echo=F, fig.width= 4, fig.height= 4}
+#| label: fig-burnout-likert
+#| fig-cap: Results of the burnout survey
+
+for (col_name in colnames(survey)) {
+  survey[[col_name]] <- factor(survey[[col_name]], levels = 1:5)
+} 
+
+likert_items <- likert(survey)
+
+plot(likert_items, group.order = colnames(survey), plot.percent.low = FALSE, plot.percent.high = FALSE, plot.percent.neutral = FALSE )
+```
+
+
+## Interdisciplinary academic writing self-efficacy
+<!--https://doi.org/10.1016/j.asw.2021.100524-->
+
+\faGithub{} [Link to the dataset](https://github.com/lamethods/data/tree/main/5_sawses)
+
+This dataset contains the result of nursing students' responses to the Situated Academic Writing Self-Efficacy Scale (SAWSES) [@sawses] questionnaire for interdisciplinary students (543 undergraduate and 264 graduate). Participating students were recruited from three higher education institutions and from the general public using social media. The survey contains 16 items based on Bandura’s self-efficacy theory [@bandura1999self] and the model proposed by [@Pajares2006-ii]. 
+
+The questionnaire items are related to three dimensions. The first dimension is  Writing Essentials, with three items related to synthesis, emotional control, and language. The second dimension is Relational Reflective Writing, with seven items related to relationship building with writing facilitators and the self through reflection. The third dimension is Creative Identity, with six items related to gaps in student achievement of transformative writing. Demographic data for age, gender, years in post-secondary, English language status, English writing status, and writing attitude are also included.
+
+The survey has been validated in a published article [@Mitchell2021]. We make use of this dataset in Chapter 8 [@Murphy2024-no], devoted to clustering algorithms. The dataset is published under the CC0 1.0, which means that anyone can copy, modify, distribute it, even for commercial purposes, without asking permission from the authors.  The dataset variables are described below.
+
+```{r, include=FALSE}
+sawses = rio::import("https://github.com/lamethods/data/raw/main/5_sawses/Interdisciplinary_Graduate_and_Undergraduate_Student_Data.RDS")
+rownames(sawses) <- NULL
+sawses <- sawses |> mutate_all(as.numeric) 
+sawses_demographic <- sawses %>%
+  select(
+    "Age",
+    "Gender",
+    "WritingAttitude",
+    "TypeStudent",
+    "Ugyears",
+    "Gryears",
+    "WriteEnglish",
+    "SpeakEnglish"
+  )
+```
+
+
+
+
+
+
+
+```{r, include=FALSE}
+sawses_questionary <- sawses %>%
+  select(
+    "overcome",
+    "words",
+    "synthesize",
+    "creativity",
+    "meaning",
+    "improve",
+    "reflect",
+    "spark",
+    "ideas",
+    "overall",
+    "voice",
+    "original",
+    "discipline",
+    "wander",
+    "adapt",
+    "feedback"
+  )
+```
+
+First, we describe the **demographic** variables, which can be previewed in @tbl-sawses-demographic.
+
+```{r, results="asis", echo=FALSE}
+summary_df(sawses_demographic," +",  explanations = list(
+  c("Age", NULL),
+  c("Student's gender, 1 = male (24.91%), 2 = female (72.12%), 3 = non-binary (2.97%)", "character"),  
+  c("Writing attitude, 1 = dislikes writing (44.73%), 2 = somewhere in between (14.37%), or 3 = likes writing (44.73%)", "character"),
+  c("Academic level, 1 = undergraduate (67.29%), 2 =  graduate (32.71%)", "character"),
+  c("Undergraduate years in the school for undergraduate students", NULL),
+  c("Graduate years in the school for graduate students", NULL),
+  c("English writing status (1-5)", "character"),
+  c("English language status (1-5)", NULL)
+)) 
+```
+
+```{=tex}
+\begingroup
+\fontsize{6pt}{8pt}\selectfont
+\addtolength{\tabcolsep}{-3pt}
+```
+
+```{r eval=knitr::is_latex_output(), echo=FALSE}
+#| label: tbl-sawses-demographic
+#| tbl-cap: "Preview of the SAWSES demographic data"
+gt::gt_preview(sawses_demographic)
+```
+
+```{=tex}
+\endgroup
+```
+```{r eval=knitr::is_html_output(), echo=F}
+rmarkdown::paged_table(sawses_demographic, options=list( rows.print=5 ))
+```
+
+Next, we present the questionnaire responses for each of the dimensions. The responses are on a scale of 0-100.  @tbl-sawses-sawses_questionary shows a preview of the data, and @fig-survey-writing presents a box plot with some the response distribution of the questionnaire. 
+
+```{r, results="asis", echo=FALSE}
+cat("\n - **Writing Essentials** \n \n")  
+
+summary_df(sawses_questionary %>% select(1:3), " +", explanations = list(
+  c('Response to the item "Even when the writing is hard, I can find ways to overcome my writing difficulties"', NULL),
+  c('Response to the item "I can successfully use scholarly academic words and phrases when writing in my courses"', NULL),
+  c('Response to the item "I can combine or synthesize multiple sources I’ve read to create an original product or text"', NULL)))
+
+cat("\n - **Relational Reflective Writing** \n \n")  
+
+summary_df(sawses_questionary %>% select(5:7,9,10,14:16),  " +", explanations = list(
+  c('Response to the item "When I write, I can think about my audience and write so they clearly understand my meaning"', NULL),
+  c('Response to the item "When I receive feedback on my writing, no matter how it makes me feel, I can use that feedback to improve my writing in the future"', NULL),
+  c('Response to the item "When I reflect on what I am writing I can make my writing better"', NULL),
+  c('Response to the item "When I read articles about my topic, the connections I feel with the ideas of other authors can inspire me to express my own ideas in writing"', NULL),
+  c('Response to the item "When I look at the overall picture I’ve presented in my writing, I can assess how all the pieces tell the complete story of my topic or argument"', NULL),
+  c('Response to the item "I can recognize when I’ve wandered away from writing what my audience needs to know and have begun writing about interesting, but unrelated, ideas"', NULL),
+  c('Response to the item "With each new writing assignment, I can adapt my writing to meet the needs of that assignment"', NULL),
+  c('Response to the item "When I seek feedback on my writing, I can decide when that feedback should be ignored or incorporated into a revision in my writing"', NULL)))
+
+cat("\n - **Creative Identity** \n \n")  
+
+summary_df(sawses_questionary %>% select(4,8,11,12,13), " +", explanations = list(
+  c('Response to the item "I can use creativity when writing an academic paper"', NULL),
+  c('Response to the item "I feel I can give my writing a creative spark and still sound professional"', NULL),
+  c('Response to the item "I feel I can develop my own writing voice (ways of speaking in my writing that are uniquely me)"', NULL),
+  c('Response to the item "Even with very specific assignment guidelines, I can find ways of writing my assignment to make it original or unique"', NULL),
+  c('Response to the item "I can comfortably express the concepts, language, and values of my discipline or major in my writing assignments"', NULL)
+)) 
+
+```
+
+```{r eval=knitr::is_html_output(), echo=F}
+rmarkdown::paged_table(sawses_questionary, options=list( rows.print=5 ))
+```
+
+
+```{=tex}
+\begingroup
+\fontsize{5pt}{7pt}\selectfont
+\addtolength{\tabcolsep}{-3pt}
+```
+```{r eval=knitr::is_latex_output(), echo=FALSE}
+#| label: tbl-sawses-sawses_questionary
+#| tbl-cap: "Preview of the SAWSES questionnaire responses"
+gt::gt_preview(sawses_questionary)
+```
+
+```{=tex}
+\endgroup
+```
+
+```{r, echo=F, fig.width= 6, fig.height= 4}
+#| label: fig-survey-writing
+#| fig-cap: Results of the SAWSES survey
+#| out-width: 4in
+
+questions_labels <- c(
+    "overcoming difficulties",
+    "academic words",
+    "synthesis",
+    "creativity",
+    "being understandable",
+    "improvement from feedback",
+    "reflectivity",
+    "spark",
+    "connecting ideas",
+    "overall",
+    "active voice",
+    "originalilty",
+    "discipline",
+    "recognising wandering away",
+    "adaptability to the assignment",
+    "detecting unuseful feedback"
+  )
+
+names(sawses_questionary) <- questions_labels
+
+sawses_questionary_plots <- sawses_questionary %>% gather(key = "dimension", value = "value")
+
+#to maintain order in the plot
+sawses_questionary_plots <- sawses_questionary_plots %>%
+  mutate(dimension = factor(dimension, levels = rev(questions_labels)))
+
+# Create boxplots using ggplot2
+ggplot(data = sawses_questionary_plots, aes(x = value, y = dimension)) +
+  geom_boxplot(fill='turquoise', color = "black", width = 0.7, outlier.alpha = 0.2) + 
+  xlab("Survey results") +
+  ylab("Dimension") + theme_minimal() + theme(legend.position="none")
+
+```
+
+
+## Educators' discussions in a MOOC (SNA)
+
+\faGithub{} [Link to the dataset](https://github.com/lamethods/data/tree/main/6_snaMOOC)
+
+This dataset belongs to two offerings of the MOOC "The Digital Learning Transition in K-12 Schools" [@kellogg2015_dataset]. The course was aimed at helping school and district leaders implement digital learning initiatives in K-12 education. The objectives of the course were for participants to understand the advantages of digital learning in schools, to assess the specific goals for their own school, and to devise a plan to achieve such goals. The course consisted of five learning units dealing with the schools of the future, teaching and learning culture, successful digital transition, leading the transition, and crowd sourcing. The MOOCs were offered to American as well as international teachers. There were two offerings of the MOOC, with  minor variations regarding duration and groups. The dataset contains the interactions of the MOOC discussion forums and concerns teachers' communications throughout the courses. The dataset also contains the characteristics of the teachers, e.g., their professional roles, and experience. 
+
+The dataset is extensively described in a dedicated publication where the authors give details about the context and the courses, the files, and the fields contained in each file [@kellogg2015]. In this book, we use this dataset to illustrate Social Network Analysis [@Saqr2024-yv] and Temporal Network Analysis [@Saqr2024-vt]. The dataset is available with a CC0 1.0 license. Therefore, permission to copy, modify, and distribute, even for commercial purposes, is granted. As a standard Social Network Analysis dataset, it comes in two files for each of the courses (four in total), which we describe in detail below.
+
+```{r, include=F}
+interaction_elements = rio::import("https://raw.githubusercontent.com/lamethods/data/main/6_snaMOOC/DLT1%20Edgelist.csv")
+rownames(interaction_elements) <- NULL
+ interaction_elements_filtered <- interaction_elements %>% select(
+ "Sender",
+ "Receiver",
+ "Timestamp",
+ "Discussion Title",
+ "Discussion Category"
+   )
+```
+
+-   **Edges file**: This file defines who interacted (the source or the sender of the communication) with whom (the target or the receiver of the communication). The edges file comes with other metadata, such as time, discussion topic and group. @tbl-mooc-discussions-edges presents a preview of one of the edge files, and @fig-mooc-all-nodes shows the network of collaboration between forum contributors.
+
+
+```{r, results="asis", echo=FALSE}
+summary_df(interaction_elements_filtered, "    +", explanations = list(
+  c("Source of the communication identifier (1-445)", "character"),
+  c("Target of the communication identifier (1-445)", "character"),
+  c('Timestamp of the intervention in "m/d/Y H:M" format, ranging from April 10th 2013 to June 8th 2013', "character"),
+  c("Title of the discussion", NULL),
+  c("Category of the discussion", NULL)
+), ignore = c(T,T,T,T,T)) 
+```
+
+```{r eval=knitr::is_html_output(), echo=F}
+rmarkdown::paged_table(interaction_elements_filtered, options=list( rows.print=5 ))
+```
+
+```{=tex}
+\begingroup
+\fontsize{5pt}{7pt}\selectfont
+\addtolength{\tabcolsep}{-3pt}
+```
+```{r eval=knitr::is_latex_output(), echo=FALSE}
+#| label: tbl-mooc-discussions-edges
+#| tbl-cap: "Preview of the MOOC for educators discussion data (edges)"
+gt::gt_preview(interaction_elements_filtered)
+```
+
+```{=tex}
+\endgroup
+```
+
+```{r, fig.width=5, fig.height=5, echo=F, warning=F, message=F}
+#| out-width: 3.6in
+#| label: fig-mooc-all-nodes
+#| fig-cap: MOOC participants' network
+par(mar=c(0,0,0,0))
+
+weighted <- interaction_elements_filtered  %>% group_by(Sender, Receiver) %>%
+  summarise(weight = n()) %>%
+  arrange(desc(weight))
+
+g3 <- graph_from_data_frame(weighted, directed = FALSE)
+graph3_df <- weighted %>% select("Sender", "Receiver", "weight")
+plot(g3, edge.width = graph3_df$weight/5,  edge.arrow.size = graph3_df$weight/35, vertex.color = "turquoise", loop.size = 0.1, vertex.size = 3, vertex.label.cex=0.0001, 
+     layout = layout_with_fr(graph = g3))
+```
+
+```{r, include=F}
+nodes = rio::import("https://raw.githubusercontent.com/lamethods/data/main/6_snaMOOC/DLT1%20Nodes.csv")
+rownames(nodes) <- NULL
+nodes_filtered <- nodes %>% select ("UID", "role1", "experience", "experience2", "country", "gender", "expert")
+
+```
+
+
+-   **Nodes file**: The file defines the characteristics of the interacting teachers, their IDs, their professional status and expertise level. @tbl-mooc-discussions-nodes shows a preview of one of the nodes file data.
+
+```{r, results="asis", echo=FALSE}
+summary_df(nodes_filtered, "    +", explanations = list(
+c("Teacher identifier (1-445)", "character"),
+c("Role of the teacher", NULL),
+c("Level of experience (1-3)", NULL),
+c("Years of experience", NULL),
+c("Country of origin", NULL),
+c("Teachers' gender, female (68.09%); male (31.69%)", NULL),
+c("Level of expertise (0-1)", NULL)
+))
+```
+```{r eval=knitr::is_html_output(), echo=F}
+rmarkdown::paged_table(nodes , options=list( rows.print=5 ))
+```
+
+```{=tex}
+\begingroup
+\fontsize{5pt}{7pt}\selectfont
+\addtolength{\tabcolsep}{-3pt}
+```
+
+```{r eval=knitr::is_latex_output(), echo=FALSE}
+#| label: tbl-mooc-discussions-nodes
+#| tbl-cap: "Preview of the MOOC for educators discussion data (nodes)"
+gt::gt_preview(nodes)
+```
+
+```{=tex}
+\endgroup
+```
+
+
+
+
+```{r, include=FALSE}
+# most_active_nodes <- interaction_elements_filtered %>%
+#   group_by(Sender) %>%
+#   mutate(total_receivers = n()) %>%
+#   arrange(desc(total_receivers))  %>%
+#   ungroup()
+#   
+# most_active_links <- most_active_nodes %>% group_by(Sender, Receiver, total_receivers) %>%
+#   summarise(weight = n()) %>%
+#   arrange(desc(weight))
+# 
+# most_active_node <- as.integer(most_active_nodes$Sender[1])
+```
+
+```{r, echo=F, fig.width= 8, fig.height= 8, include = F}
+#| label: fig-sna-mooc-educators
+#| fig-cap: MOOC Network
+#| layout-ncol: 2
+#| fig-subcap:
+#|  - "Most active links in the network"
+#|  - "Most active (sender) teacher in the network"
+
+# graph1_df <- most_active_links %>% select("Sender", "Receiver", "weight")
+# graph2_df <- most_active_links[most_active_links$Sender == most_active_node, ] %>% select("Sender", "Receiver", "weight")
+# 
+# 
+# min_value <- min(most_active_links$weight)
+# max_value <- max(most_active_links$weight)
+# 
+# # Normalize the column values between 1 and 8
+# normalized_column_1 <- 1 + (most_active_links$weight - min_value) * (8 - 1) / (max_value - min_value)
+# normalized_column_2 <- 1 + (graph2_df$weight - min_value) * (8 - 1) / (max_value - min_value)
+# 
+# graph1_df$weight_normalized <- normalized_column_1
+# graph2_df$weight_normalized <- normalized_column_2
+# 
+# most_active_links$weight <- as.integer(most_active_links$weight)
+# 
+# 
+# g1 <- graph_from_data_frame(graph1_df[1:15, ] )
+# g2 <- graph_from_data_frame(graph2_df)
+# plot(g1, edge.width = graph1_df$weight_normalized,  edge.arrow.size = graph1_df$weight_normalized/5, vertex.color = "turquoise")
+# plot(g2, edge.width = graph2_df$weight_normalized,  edge.arrow.size = graph2_df$weight_normalized/5, vertex.color = "turquoise")
+```
+
+
+
+## High school learners' interactions (SNA)
+
+\faGithub{} [Link to the dataset](https://github.com/lamethods/data/tree/main/7_snaHS)
+
+The next dataset [@SNAdataset] concerns a course of interactions among 30 students in a high school in Kenitra, Morocco. The course under examination had a duration of two months and covered topics related to computer science: the computer information system,  algorithmis and programming. The course was implemented in the Moodle LMS, using the forum as a discussion space. Students' interactions were aimed at communicating, discussing and exchanging knowledge among them. 
+
+The dataset has been analyzed using social network analysis, is briefly described in an article [@Adraoui2017], and is shared under Creative Commons license CC BY 4.0, which means that anyone can share, copy and modify this dataset so long as appropriate credit is given. The dataset includes two files described below.
+
+-   **Edges file**: The file contains the interactions source, target and weights. @tbl-mooc-hs-edges shows a preview of the edge files.  @fig-kenitra-all-nodes presents the graph of all the interactions on the network.
+
+```{r, include=F}
+interaction_elementss = rio::import("https://raw.githubusercontent.com/lamethods/data/main/7_snaHS/interaction.csv")
+rownames(interaction_elementss) <- NULL
+#rmarkdown::paged_table(interaction_elementss, options=list( rows.print=5 ))
+```
+```{r, results="asis", echo=FALSE} 
+summary_df(interaction_elementss, "    +", explanations = list(
+  c("Source node identifier (1-21)", "character"),
+  c("Target node identifier (1-21)", "character"),
+  c("Weight of the link (the value is always 1)", NULL)
+), ignore = c(T,T,T)) 
+```
+
+```{=tex}
+\begingroup
+\fontsize{10pt}{12pt}\selectfont
+\addtolength{\tabcolsep}{-5pt}
+```
+```{r eval=knitr::is_latex_output(), echo=FALSE}
+#| label: tbl-mooc-hs-edges
+#| tbl-cap: "Preview of the High school learners' interactions data (edges)"
+
+gt::gt_preview(interaction_elementss)
+```
+
+```{=tex}
+\endgroup
+```
+
+```{r, fig.width=6, fig.height=5, echo=F, warning=F, message=F}
+#| out-width: 3.2in
+#| label: fig-kenitra-all-nodes
+#| fig-cap: High school learners' network
+par(mar=c(0,0,0,0))
+
+weighted <- interaction_elementss %>% group_by(source, Target) %>%
+  summarise(weight = sum(W)) %>%
+  arrange(desc(weight))
+
+g3 <- igraph::simplify(
+  graph_from_data_frame(weighted),
+  remove.loops = TRUE)
+graph3_df <- weighted %>% select("source", "Target", "weight")
+plot(g3,  vertex.color = "turquoise",  vertex.label.color = "black",  
+     edge.width = graph3_df$weight/5,  edge.arrow.size = graph3_df$weight/20, layout=layout_with_dh(g3))
+```
+
+-   **Nodes file**: contains the characteristics of the interacting students, e.g., gender and age. @tbl-mooc-hs-nodes presents a preview of the dataset.
+
+```{r, include = F}
+nodes = rio::import("https://raw.githubusercontent.com/lamethods/data/main/7_snaHS/node.csv")
+rownames(nodes) <- NULL
+nodes_filtered <- nodes  %>% select(
+ "ID",
+ "Username",
+ "name",
+ "genre",
+ "Date de naissance"
+   )
+```
+
+```{r, results="asis", echo=FALSE}
+summary_df(nodes_filtered, "    +", explanations = list(
+  c("Student identifier (1-30)", "character"),
+  c("Username of the student", NULL),
+  c("Name of the student", NULL),
+  c("Gender of the student F (n = 23); M (n = 7)", NULL),
+  c('Birthdate of the student in format "D/M/Y"', NULL)
+))
+```
+
+
+
+```{=tex}
+\begingroup
+\fontsize{7pt}{9pt}\selectfont
+\addtolength{\tabcolsep}{-3pt}
+```
+```{r eval=knitr::is_latex_output(), echo=FALSE}
+#| label: tbl-mooc-hs-nodes
+#| tbl-cap: "Preview of the High school learners' interactions data (nodes)"
+gt::gt_preview(nodes_filtered)
+```
+
+```{=tex}
+\endgroup
+```
+
+```{r, include=FALSE}
+# most_active_nodes <- interaction_elementss %>%
+#   group_by(source) %>%
+#   mutate(total_receivers = n()) %>%
+#   arrange(desc(total_receivers))  %>%
+#   ungroup()
+#   
+# most_active_links <- most_active_nodes %>% group_by(source, Target, total_receivers) %>%
+#   summarise(weight = n()) %>%
+#   arrange(desc(weight))
+```
+
+
+
+```{r, echo=F, fig.width= 10, fig.height= 5, include=FALSE}
+#| label: fig-sna-kenitra
+#| fig-cap: Most repeated interactions in Kenitra's network
+# most_active_node <- as.integer(most_active_nodes$source[1])
+# graph1_df <- most_active_links %>% select("source", "Target", "weight")
+# min_value <- min(most_active_links$weight)
+# max_value <- max(most_active_links$weight)
+# 
+# # Normalize the column values between 1 and 3
+# normalized_column_1 <- 1 + (most_active_links$weight - min_value) * (3 - 1) / (max_value - min_value)
+# 
+# graph1_df$weight_normalized <- normalized_column_1
+# 
+# most_active_links$weight <- as.integer(most_active_links$weight)
+# 
+# 
+# g1 <- graph_from_data_frame(graph1_df[1:30, ])
+# plot(g1, edge.width = graph1_df$weight_normalized,  edge.arrow.size = graph1_df$weight_normalized/5, layout=layout_with_dh, vertex.color = "turquoise")
+
+```
+
+```{r, echo=F, fig.width= 8, fig.height= 4}
+# #| label: fig-messages-per-student-kenitra
+# #| fig-cap: Number of messages sent by student
+
+# messages_sent_per_student <- interaction_elementss %>%
+#   group_by(source) %>%
+#   summarize(total_sent = n()) %>%
+#   arrange(source)
+# 
+# colnames(messages_sent_per_student) <- c("Id", "Sent")
+# 
+# messages_received_per_student <- interaction_elementss %>%
+#   group_by(Target) %>%
+#   summarize(total_received = n()) %>%
+#   arrange(Target)
+# 
+# colnames(messages_received_per_student) <- c("Id", "Received")
+# 
+# messages_per_student <- merge(messages_sent_per_student, messages_received_per_student, by = "Id", all = TRUE)
+# 
+# messages_per_student_plots <- messages_per_student %>% gather(key = "Messages", value = "value", -Id)
+# messages_per_student_plots$value <- replace(messages_per_student_plots$value, is.na(messages_per_student_plots$value), 0)
+# 
+# ggplot(messages_per_student_plots, aes(x = Id, y = value, fill = Messages)) +
+#   geom_bar(stat = "identity", color = "black", width = 0.7) +
+#   theme_minimal() +
+#   xlab("Student") +
+#   ylab("Number of messages")
+
+```
+
+
+
+
+
+## Interactions in an LMS forum from a programming course (SNA)
+
+\faGithub{} [Link to the dataset](https://github.com/lamethods/data/tree/main/10_snaProgramming)
+
+This dataset includes message board data collected from a programming undergraduate course in a higher education institution in Spain using the Moodle LMS. The most particular characteristic of the course is that it follows the CTMTC (Comprehensive Training Model of the Teamwork Competence) methodology [@Lers2014], which allows individualized training and assessment of teamwork across all stages of teamwork-based learning: storming, norming, performing, delivery and documentation [@fidalgo2015monitoring].
+
+This is a mandatory course with a workload of 6 ECTS. The data dates back to the first semester of the 2014-2015 academic year. The course  offers foundational knowledge on programming and numeric calculus, has a strong focus on the development of algorithms, and a hands-on approach to teaching. The course starts with a two-hour long introductory session; after this session, students work in class and out of class during the whole semester on a team project, following the CTMTC methodology. Individual evidence of teamwork is collected from forum activity, where the work phases are presented, and group evidence of teamwork is collected from Dropbox and wikis.
+
+The dataset refers to individual evidence of teamwork; in other words, it contains information about forum interactions during the course. The original dataset, obtained from Moodle logs, was processed with the help of GraphFES [@ChaparroPelez2015] to provide condensed information. The output of GraphFES consists of three different datasets: views, or the number of times user `a` read a message posted by user `b`; replies, which informs about the number of replies from user `a` to user `b`; and messages, which provides a network with the hierarchical structure of messages in the forum. This dataset has been used previously in @HernndezGarca2016 and is now being publicly released under a CC 4.0 BY-NC-SA license, which means that anyone is free to share, adapt, and distribute the data as long as appropriate credit is given, it is not used for commercial purposes, and the original license is kept. The dataset is used in Chapter 16 [@Hernandez-Garcia2024-lx] of this book, about community detection. This dataset presents the replies network, a directed graph, and consists of an edges file and a nodes file.
+
+```{r, echo=FALSE}
+edgess = rio::import("https://raw.githubusercontent.com/lamethods/data/main/10_snaProgramming/hg_data_edges.xlsx")
+rownames(edgess) <- NULL
+```
+
+-   **Edges file**: this file includes information about who (attribute `source`) interacted with (replied to) whom (attribute `target`); in other words, the sender and the receiver of the informational exchange, and how many times that exchange happened during the course (attribute `weight`), considering all messages exchanged. The dataset includes a total of 662 weighed edges. @tbl-prog-edges presents a preview of the edges file data, and @fig-sna-moodle represents the complete network of interactions among the Moodle users.
+
+
+```{r, results="asis", echo=FALSE}
+summary_df(edgess, "    +", explanations = list(
+  c("Source node identifier (108 distinct values)", "character"),
+  c("Target node identifier (108 distinct values)", "character"),
+  c("Weight of the link")
+))
+```
+
+```{r eval=knitr::is_html_output(), echo=F}
+rmarkdown::paged_table(edgess, options=list( rows.print=5 ))
+```
+
+```{=tex}
+\begingroup
+\fontsize{7pt}{9pt}\selectfont
+\addtolength{\tabcolsep}{-3pt}
+```
+```{r eval=knitr::is_latex_output(), echo=FALSE}
+#| label: tbl-prog-edges
+#| tbl-cap: "Preview of the programming course interaction data (edges)"
+gt::gt_preview(edgess)
+```
+
+```{=tex}
+\endgroup
+```
+
+```{r, echo=FALSE}
+nodess = rio::import("https://raw.githubusercontent.com/lamethods/data/main/10_snaProgramming/hg_data_nodes.xlsx")
+rownames(nodess) <- NULL
+nodess_filtered <- nodess[, -which(names(nodess) == "Id")]
+```
+
+
+-   **Nodes file**: this file contains information about all users with access to the course in the Moodle space, including students, instructors and administrators. The file includes a total of 124 nodes (users); of these, 110 users are students, distributed in 19 groups of between 5 and 7 members each. The file includes an identifier for each user (attribute `id`), the username (attribute `user`; after anonymization, all usernames have the format `user_id`), the number of initial posts, which refers to the number of first posts in a thread (attribute `initPosts`), the number of replies, or posts that were a reply to another post (attribute `replyPosts`) and the total number of posts by that user in the forum (attribute `totalPosts`), which is the sum of `initPosts` and `replyPosts`. It is worth noting that `user_55`, a central node of the network, corresponds to the main instructor of the course.  @tbl-prog-nodes shows a preview of the nodes file.
+
+
+
+```{r, results="asis", echo=FALSE}
+summary_df(nodess_filtered , "    +", explanations = list(
+  c("User identifier. There are 124 distinct users", "character"),
+  c("Number of first posts in a thread", NULL),
+  c("Number of replies to posts in a thread", NULL),
+  c("Total number of posts by a user in the forum", NULL)
+))
+```
+
+```{r eval=knitr::is_html_output(), echo=F}
+rmarkdown::paged_table(nodess, options=list( rows.print=5 ))
+```
+
+```{=tex}
+\begingroup
+\fontsize{7pt}{9pt}\selectfont
+\addtolength{\tabcolsep}{-5pt}
+```
+```{r eval=knitr::is_latex_output(), echo=FALSE}
+#| label: tbl-prog-nodes
+#| tbl-cap: "Preview of the programming course interaction data (nodes)"
+gt::gt_preview(nodess)  
+```
+
+```{=tex}
+\endgroup
+```
+
+```{r, include=FALSE}
+# most_active_nodes_send <- edgess %>%
+#   group_by(source) %>%
+#   summarize(total_sent = sum(weight)) %>%
+#   arrange(desc(total_sent))
+# 
+# colnames(most_active_nodes_send) <- c("Id", "total_sent")
+# 
+# most_active_nodes_receive <- edgess %>%
+#   group_by(target) %>%
+#   summarize(total_received = sum(weight)) %>%
+#   arrange(desc(total_received))
+# 
+# colnames(most_active_nodes_receive) <- c("Id", "total_received")
+# 
+# most_active_nodes <- merge(most_active_nodes_send, most_active_nodes_receive, by = "Id", all = TRUE)
+# 
+# most_active_nodes$sum_total <- most_active_nodes$total_sent + most_active_nodes$total_received
+# most_active_nodes <- most_active_nodes %>% arrange(desc(sum_total))
+# 
+# most_active_links <- edgess %>% arrange(desc(weight))
+# 
+# most_active_nodes_filtered <- as.integer(most_active_nodes$Id[1:4])
+
+```
+
+
+
+```{r, echo=F, fig.width= 15, fig.height= 15}
+#| label: fig-sna-moodle
+#| out-width: 4.5in
+#| fig-cap: Interactions of the users in the Moodle discussion forum
+
+par(mar=c(0,0,0,0))
+graph1_df <- edgess#[most_active_links$source %in% most_active_nodes_filtered | most_active_links$target %in% most_active_nodes_filtered, ] %>% select("source", "target", "weight")
+min_value <- min(graph1_df$weight)
+max_value <- max(graph1_df$weight)
+
+# Normalize the column values between 1 and 3
+normalized_column_1 <- 1 + (graph1_df$weight - min_value) * (3 - 1) / (max_value - min_value)
+
+graph1_df$weight_normalized <- normalized_column_1
+
+
+g1 <- igraph::simplify(graph_from_data_frame(graph1_df),remove.loops = T)
+plot(g1, edge.width = graph1_df$weight_normalized,  edge.arrow.size = graph1_df$weight_normalized/5, layout=layout_on_sphere(g1), vertex.color = "turquoise", vertex.label.color = "black", vertex.size = 5, vertex.label.cex = 1)
+
+```
+
+
+## Engagement and achievement throughout a study program
+
+\faGithub{} [Link to the dataset](https://github.com/lamethods/data/tree/main/9_longitudinalEngagement)
+
+This dataset contains simulated data of students' online engagement and academic achievement throughout a study program. The dataset has been simulated based on the results of a published article [@Saqr2021]. The article used students' logs  extracted from a university's Moodle LMS for all the subjects and for all the students who attended the years: 2015, 2016, 2017 and 2018. The logs were used to derive indicators of engagement, such as frequency of performing learning activities  (course browsing, forum consumption, forum contribution, and lecture viewing), session count, total session time,  active days and regularity of each activity. Regularity of viewing the course main page, for example, was calculated  by dividing main page browse actions for the given student over the total main page browse actions over the course duration; the resulting probabilities are used within a Shannon entropy formula to calculate the entropy.
+
+Then, Latent Class Analysis was used to cluster students into engagement states for each course: Active, Average or Disengaged. Achievement was measured through course final grades, which were divided into tertiles: Achiever, Intermediate and Low. Hence, for each course, students had an engagement state, and an achievement state. The motivation and process of deriving these states from students' engagement indicators is explained in Chapter 11 [@Lopez-Pernas2024-lz]. 
+
+The simulated dataset contains the data for 142 students for 8 sequential courses, including their engagement and achievement states, as well as covariate data. It is shared with a CC BY 4.0 license, which means that anyone is free to share, adapt, and distribute the data, as long as appropriate credit is given. The dataset is used in Chapter 13 [@Lopez-Pernas2024-kf] of this book, to illustrate multi-channel sequence analysis. A preview of the dataset can be seen on @tbl-engach-preview. A visual representation of the evolution of engagement and achievement throughout the program is depicted in @fig-engach. The dataset contains two files: 
+
+### Longitudinal engagement indicators and grades
+
+The file `LongitudinalEngagement.csv` contains all of the engagement indicators per student and course (frequency, duration and regularity of learning activities) as well as the final grade. Each column is described below and a preview can be seen in @tbl-lgeng-preview and in @fig-engindi.
+```{r, include = F}
+lgeng = rio::import("https://raw.githubusercontent.com/lamethods/data/main/9_longitudinalEngagement/LongitudinalEngagement.csv")
+rownames(lgeng) <- NULL
+
+lgeng2 <- lgeng
+names(lgeng2) <- c("UserID","CourseID","Sequence","FCV","FFCs","FFCt","FLV","RCV","RLV","RFCs","RFCt","SC","TD","AD","FG"  )
+```
+
+```{r, results="asis", echo=FALSE}
+summary_df(lgeng , " +", explanations = list(
+  c("User identifier. There are 142 distinct users", "character"),
+  c("Course identifier. There are 38 distinct courses", "character"),
+  c("Course sequence for the student (1-8)", "character"),
+  c("Number of views of the course main page", NULL),
+  c("Number of views of the forum posts", NULL),
+  c("Number of forum posts created", NULL),
+  c("Number of lectures viewed", NULL),
+  c("Regularity of visiting the course main page", NULL),
+  c("Regularity of visiting the lectures", NULL),
+  c("Regularity of reading forum posts", NULL),
+  c("Regularity of writing forum posts", NULL),
+  c("Number of online learning sessions", NULL),
+  c("Total activity time online", NULL),
+  c("Number of active days (with online activity)", NULL),
+  c("Final grade (0-100)", NULL)
+))
+```
+
+
+
+
+```{r eval=knitr::is_html_output(), echo=F}
+rmarkdown::paged_table(lgeng, options=list( rows.print = 5 ))
+```
+
+```{=tex}
+\begingroup
+\fontsize{5pt}{7pt}\selectfont
+\addtolength{\tabcolsep}{-2pt}
+```
+```{r eval=knitr::is_latex_output(), echo=FALSE}
+#| label: tbl-lgeng-preview
+#| tbl-cap: "Preview of engagement indicators and final grades throughout the eight courses"
+gt::gt_preview(lgeng2)
+```
+
+```{=tex}
+\endgroup
+```
+
+```{r, fig.width=10, fig.height=6, echo = F, warning=F, message=F}
+#| label: fig-engindi
+#| fig-cap: Histogram of engagement indicators and final grade throughout the eight courses
+
+panel.hist <- function(x, ...) {
+    usr <- par("usr")
+    on.exit(par(usr))
+    par(usr = c(usr[1:2], 0, 1.5))
+    his <- hist(x, plot = FALSE)
+    breaks <- his$breaks
+    nB <- length(breaks)
+    y <- his$counts
+    y <- y/max(y)
+    rect(breaks[-nB], 0, breaks[-1], y, col = rgb(0, 1, 1, alpha = 0.25), ...)
+    # lines(density(x), col = 2, lwd = 2) # Uncomment to add density lines
+}
+
+
+lgeng2 %>% pivot_longer(4:15) %>% mutate(Sequence = paste0("Course ",Sequence)) %>% group_by(CourseID,name) %>% 
+  ggplot(aes(x=value)) + geom_histogram(fill = "turquoise",  color = "black", width = 0.1, linewidth = 0.2) + 
+  facet_grid(c("Sequence","name") , scales = "free_x") + theme_minimal() + xlab("Indicator") + ylab("Count") + theme(axis.text.x.bottom = element_text(size = 4),axis.text.y.left = element_text(size = 6))
+```
+
+### Longitudinal engagement and achievement states
+
+The file `SequenceEngagementAchievement.xlsx`  contains students' engagement and achievement states for each course as well as covariates (their previous grade, their attitude towards learning, and their gender). Engagement states were obtained by applying model-based clustering techniques to the engagement indicators in the previous file. Achievement states were obtained in a similar way for the final grade. The dataset columns are described below and a preview of the data can be seen at @tbl-engach-preview and a graphical representation is shown in @fig-engach. 
+
+```{r, include = F}
+engach = rio::import("https://raw.githubusercontent.com/lamethods/data/main/9_longitudinalEngagement/SequenceEngagementAchievement.xlsx")
+rownames(engach) <- NULL
+```
+
+
+```{r, results="asis", echo=FALSE}
+summary_df(engach %>% mutate(Gender = factor(Gender)) , " +", explanations = list(
+  c("User identifier. There are 142 distinct users", "character"),
+  c("Course identifier. There are 38 distinct courses", "character"),
+  c("Course sequence for the student (1-8)", "character"),
+  c("Engagement state. There are 3 distinct states: Active (29.93%), Average (47.98%), amd Disengaged (22.10%)", NULL),
+  c("Final grade of each student for each course (1-100)", "number"),
+  c("Achievement state calculated using model-based clustering. There are 3 distinct states: Achiever (39.26%), Intermediate (23.33%), and Low (37.41%)", NULL),
+  c("Achievement state calculated using tertiles. There are 3 distinct states: Achiever (33.27%), Intermediate (33.36%), and Low (33.36%)", NULL),
+  c("GPA with which the student applied to the program (1-10)", "number"),
+  c("Attitude towards learning (0-20)", "number"),
+  c("Gender (male/female). There are 44% females and 56% males", NULL)
+))
+```
+
+
+```{r eval=knitr::is_html_output(), echo=F}
+rmarkdown::paged_table(engach, options=list( rows.print = 5 ))
+```
+
+```{=tex}
+\begingroup
+\fontsize{5pt}{7pt}\selectfont
+\addtolength{\tabcolsep}{-2pt}
+```
+```{r eval=knitr::is_latex_output(), echo=FALSE}
+#| label: tbl-engach-preview
+#| tbl-cap: "Preview of the dataset about engagement and achievement throughout the eight courses"
+gt::gt_preview(engach)
+```
+
+```{=tex}
+\endgroup
+```
+
+```{r, echo = F, fig.width=8, fig.height=3}
+#| label: fig-engach
+#| fig-cap: Sequence and engagement for each student across eight courses
+library(patchwork)
+eng <- engach %>% mutate(UserID=as.numeric(as.factor(UserID))) %>% ggplot(aes(fill=Engagement)) + geom_rect(aes(xmin = Sequence-0.5, xmax=Sequence+0.5, ymin = UserID - 0.5, ymax = UserID + 0.5)) + scale_fill_manual(values=c("#2B6A00","#f9c22e","#E01A4F")) + theme_minimal() + 
+  theme(panel.grid = element_blank(), axis.text.y = element_blank(), legend.position = "bottom") +
+  xlab("Course order") +  
+  scale_x_continuous(breaks=1:8)
+
+ach <- engach %>% mutate(UserID=as.numeric(as.factor(UserID))) %>% ggplot(aes(fill=Achievement)) + geom_rect(aes(xmin = Sequence-0.5, xmax=Sequence+0.5, ymin = UserID - 0.5, ymax = UserID + 0.5)) + scale_fill_manual(values=c("#1B263B","#718cde","#d0d9f4")) + theme_minimal() + 
+  theme(panel.grid = element_blank(), axis.text.y = element_blank(), legend.position = "bottom") +
+  xlab("Course order") +  
+  scale_x_continuous(breaks=1:8)
+
+eng + ach
+```
+
+
+
+
+## University students’ basic need satisfaction, self-regulated learning and well-being during COVID-19
+
+\faGithub{} [Link to the dataset](https://github.com/lamethods/data/tree/main/11_universityCovid)
+
+This dataset contains the results of a survey investigating students' psychological characteristics related to their well-being during the COVID-19 pandemic.  The variables under study are related to the satisfaction of basic psychological needs (relatedness, autonomy, and experienced competence), self-regulated learning, positive emotion and intrinsic learning motivation. Moreover, the dataset contains demographic variables, such as country, gender, and age. The data were collected from 6,071 students from Austria and Finland. There are, however, 564 records with missing responses to at least one item. 
+
+This dataset has been used in a published study to examine the relationships between the different variables using SEM [@Holzer2021]. The dataset has been used in Chapter 19 [@Saqr2024-lx] of this book, to illustrate the implementation of psychological networks. The dataset has been published under a CC BY 4.0 license, which means that you are free to use and adapt the data but you must give appropriate credit, provide a link to the license, and indicate if changes were made. A preview of the dataset can be found on @tbl-covid-survey-preview. A summary of the responses is in @fig-covid-likert. Below, we describe each of the dataset columns.
+
+```{r, include = F}
+covid = rio::import("https://raw.githubusercontent.com/lamethods/data/main/11_universityCovid/data.sav")
+rownames(covid) <- NULL
+covid_filtered <- covid  %>% select(1:gp3)
+```
+
+```{r, results="asis", echo=FALSE}
+cat("\n - **Demographic data** \n \n")  
+
+summary_df(covid_filtered[,1:3], " +", explanations = list(
+  c("Country of the student: 0 = Austria (78.60%), 1 = Finland  (21.40%)","character"),
+  c("Gender of the student: 1 = Female (70.74%), 2 = Male (28.25%), 3 = Other (0.70%)","character"),
+  c("Age of the student","number")))
+
+cat("\n Below we describe the items of the questionnaire for each construct. The possible responses are: 1 = strongly agree, 2 = agree, 3 = somewhat agree, 4 = disagree, 5 = strongly disagree. \n")  
+
+cat(" \n - **Basic Psychological Needs: Relatedness** \n \n")  
+summary_df(covid_filtered[,4:6], " +", explanations = list( 
+  c('Response to the item "Currently, I feel connected with my fellow students"',"number"),
+  c('Response to the item "Currently, I feel supported by my fellow students"',"number"),
+  c('Response to the item "Currently, I feel connected with the people who are important to me (family, friends)"',"number")
+)) 
+cat(" \n - **Basic Psychological Needs: Competence** \n \n")  
+summary_df(covid_filtered[,7:9], " +", explanations = list( 
+  c('Response to the item "Currently, I am dealing well with the demands of my studies"',"number"),
+  c('Response to the item "Currently, I have no doubts about whether I am capable of doing well in my studies"',"number"),
+  c('Response to the item "Currently, I am managing to make progress in studying for university"',"number")
+)) 
+cat(" \n - **Basic Psychological Needs: Autonomy** \n \n")  
+summary_df(covid_filtered[,10:12], " +", explanations = list( 
+ 	c('Response to the item "Currently, I can define my own areas of focus in my studies"', "number"),
+	c('Response to the item "Currently, I can perform tasks in the way that best suits me"', "number"),
+	c('Response to the item "In the current home-learning situation, I seek out feedback when I need it"', "number")
+))
+
+cat(" \n - **Positive Emotion**  \n \n")  
+summary_df(covid_filtered[,13:15], " +", explanations = list( 
+ 	c('Response to the item "I feel good"',"number"),
+ 	c('Response to the item "I feel confident"',"number"),
+ 	c('Response to the item "Even if things are difficult right now, I believe that everything will turn out all right"',"number")))
+
+cat(" \n - **Intrinsic learning motivation**  \n \n")  
+summary_df(covid_filtered[,16:18], " +", explanations = list( 
+  c('Response to the item "Currently, doing work for university is really fun"', "number"),
+  c('Response to the item "Currently, I am really enjoying studying and doing work for university"', "number"),
+  c('Response to the item "Currently, I find studying for university really exciting"', "number")))
+
+cat(" \n - **Self-regulated learning**  \n \n")  
+summary_df(covid_filtered[,19:21], " +", explanations = list( 
+  c('Response to the item "In the current home-learning situation, I plan my course of action"',"number"),
+  c('Response to the item "In the current home-learning situation, I think about how I want to study before I start"',"number"),
+  c('Response to the item "In the current home-learning situation, I formulate learning goals that I use to orient my studying"',"number")))
+```
+```{r eval=knitr::is_html_output(), echo=F}
+rmarkdown::paged_table(covid_filtered, options=list( rows.print=5 ))
+```
+
+```{=tex}
+\begingroup
+\fontsize{6pt}{8pt}\selectfont
+\addtolength{\tabcolsep}{-3.5pt}
+```
+```{r eval=knitr::is_latex_output(), echo=FALSE}
+#| label: tbl-covid-survey-preview
+#| tbl-cap: "Preview of the COVID-19 well-being survey data"
+gt::gt_preview(covid_filtered)
+```
+
+```{=tex}
+\endgroup
+```
+
+
+```{r, echo=F, fig.width= 4, fig.height= 3}
+#| label: fig-covid-likert
+#| fig-cap: Results of COVID-19 well-being survey
+covid_filtered_survey = covid_filtered[,4:21]
+for (col_name in colnames(covid_filtered_survey)) {
+  covid_filtered_survey[[col_name]] <- factor(covid_filtered_survey[[col_name]], levels = 1:5)
+} 
+
+likert_items <- likert(covid_filtered_survey)
+
+plot(likert_items, group.order = colnames(covid_filtered_survey), plot.percent.low = FALSE, plot.percent.high = FALSE, plot.percent.neutral = FALSE )
+
+```
+
+
+# Discussion
+
+In this chapter, we have provided an overview of the types of data operationalized in learning analytics research. Our journey encompassed a wide spectrum of data types, ranging from foundational demographic information to the intricate footprints left by the interactions of students with online learning technologies, including clicks, activities, social interactions, and assessment data. We have pointed to some of the most commonly employed analytical techniques for each type of data and we referred the reader to the chapters of the book that have covered each type of analysis. Thereafter, we presented a meticulous curation of illustrative datasets. We have described each dataset in detail, describing and representing the relevant variables. We also acknowledged the ways each dataset have been analyzed throughout the remaining chapters of the book.
+
+
+We must disclose  that collecting learners' data is not an easy endeavor. First and foremost, it is crucial to consider the ethical implications of collecting and using different types of data, and to comply with data protection laws and regulations [@slade2013]. Moreover, it is important to ensure the data quality to draw relevant conclusions from the data, especially in scenarios where data come from heterogeneous sources and are provided in large quantities [@qualityOfDataBigData], such as in the educational field [@bigDataLearningAnalytics]. These requirements make finding good-quality open datasets online extremely  challenging. In this regard, we hope that the selection offered in this chapter is useful for the reader beyond the scope of the book. A few articles have offered other dataset collections suitable for learning analytics [@Dietze2016] or educational data mining [@Mihaescu2021]. Moreover,  the reader is encouraged to consult  open data repositories where datasets are continuously published in multiple fields: Zenodo (<https://zenodo.org>),  US Department of Education Open Data Platform (<https://data.ed.gov>), Harvard Dataverse (<https://dataverse.harvard.edu>), European Data Portal (<https://data.europa.eu>), Mendeley Data (<https://data.mendeley.com>), openICPSR (<https://www.openicpsr.org>), Google Dataset Search (<https://datasetsearch.research.google.com>), figshare (<https://figshare.com>), Open Science Framework (<https://osf.io>), or data.world (<https://data.world>). 
+
+
+As we venture deeper into the subsequent chapters of this book, the groundwork laid in this chapter will serve as a solid foundation. The multifaceted nature of learning analytics research calls for a holistic understanding of data types and their implications, and this chapter has acted as a compass, guiding us through this intricate terrain. As the field of learning analytics continues to evolve, the insights gained from these data sources promise to unlock new dimensions of understanding in education and beyond.
+
+
+# References

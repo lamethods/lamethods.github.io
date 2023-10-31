@@ -1,0 +1,100 @@
+project:
+  type: book
+  output-dir: "docs"
+  
+book:
+  title: "Learning analytics methods and tutorials"
+  subtitle: "A practical guide using R"
+  editor: "Mohammed Saqr & Sonsoles López-Pernas"
+  collection-editor: "Mohammed Saqr & Sonsoles López-Pernas"
+  cookie-consent: true
+  chapters:
+    - text: "Welcome"
+      file: index.qmd
+    - text: "Contributors"
+      file: contributors.qmd
+    # - text: "Preface"
+    #   file: preface.qmd
+    - text: "Introduction"
+      file: chapters/ch01-intro/intro.qmd
+    - part: "Getting started"
+      chapters: 
+        - text: "Data"
+          file: chapters/ch02-data/ch2-data.qmd
+        - text: "Intro to R"
+          file: chapters/ch03-intro-r/ch3-intor.qmd
+        - text: "Data cleaning"
+          file: chapters/ch04-data-cleaning/ch4-datacleaning.qmd
+        - text: "Basic statistics"
+          file: chapters/ch05-basic-stats/ch5-stats.qmd
+        - text: "Data visualization"
+          file: chapters/ch06-data-visualization/ch6-viz.qmd
+    - part: "Machine Learning"
+      chapters: 
+        - text: "Predictive modeling"
+          file: chapters/ch07-prediction/ch7-pred.qmd
+        - text: "Clustering"
+          file: chapters/ch08-clustering/ch8-clus.qmd
+        - text: "Model-based clustering"
+          file: chapters/ch09-model-based-clustering/ch9-model.qmd
+    - part: "Temporal methods"
+      chapters: 
+        - text: "Sequence analysis"
+          file: chapters/ch10-sequence-analysis/ch10-seq.qmd
+        - text: "VaSSTra"
+          file: chapters/ch11-vasstra/ch11-vasstra.qmd
+        - text: "Markov models"
+          file: chapters/ch12-markov/ch12-markov.qmd
+        - text: "Multi-channel sequences"
+          file: chapters/ch13-multichannel/ch13-multi.qmd
+        - text: "Process mining"
+          file: chapters/ch14-process-mining/ch14-process.qmd
+    - part: "Network analysis"
+      chapters: 
+        - text: "Social Network Analysis"
+          file: chapters/ch15-sna/ch15-sna.qmd
+        - text: "Community detection"
+          file: chapters/ch16-community/ch16-comm.qmd
+        - text: "Temporal Networks"
+          file: chapters/ch17-temporal-networks/ch17-tna.qmd
+        - text: "Epistemic Network Analysis"
+          file: chapters/ch18-ena-ona/ch18-ena.qmd
+    - part: "Psychometrics"
+      chapters: 
+        - text: "Psychological networks"
+          file: chapters/ch19-psychological-networks/ch19-psych.qmd
+        - text: "Factor analysis"
+          file: chapters/ch20-factor-analysis/ch20-factor.qmd
+        - text: "Structured Equation Modeling"
+          file: chapters/ch21-sem/ch21-sem.qmd
+    - chapters/ch22-conclusion/ch22-conclusion.qmd
+format:
+  html:
+    theme: cosmo
+    citation: true
+    citation-location: document
+    google-scholar: true
+    margin-footer: | 
+       <small>© 2023 The authors</small>
+    include-after-body:
+      text: |
+        <script>
+          document.querySelector(".quarto-title").innerHTML =  '<div class="badge bs-warning bg-warning text-dark" style="float:right;">Pre-print</div>' +  document.querySelector(".quarto-title").innerHTML
+          var keywords = document.querySelector('meta[name="keywords"]')
+          if (keywords && keywords.content) {
+            document.getElementById("title-block-header").innerHTML = document.getElementById("title-block-header").innerHTML + 
+              '<div class="abstract"><div class="abstract-title">Keywords</div><div class="quarto-title-meta-contents"><p>'+
+              keywords.content +
+              '</p></div></div>'
+          }
+        </script>
+    execute:
+      freeze: auto  # re-render only when source changes
+  pdf:
+    documentclass: scrreprt
+csl: springer.cls  
+filters:
+  - section-bibliographies
+reference-section-title: References
+crossref:
+  chapters: true

@@ -1,0 +1,489 @@
+---
+title: "Chapter 15. Social Network Analysis: A primer, a guide and a tutorial in R"
+format: 
+  pdf:
+    number-sections: true
+    documentclass: article
+    papersize: a4
+    template-partials:
+      - ../../title.tex
+    geometry:
+      - top = 25.4mm
+      - bottom = 25.4mm
+      - right = 25.4mm
+      - left = 25.4mm
+    include-in-header:
+      text: |
+        \usepackage[noblocks]{authblk}
+        \renewcommand*{\Authsep}{, }
+        \renewcommand*{\Authand}{, }
+        \renewcommand*{\Authands}{, }
+        \renewcommand\Affilfont{\small}
+        \usepackage{float}
+        \floatplacement{table}{H}
+        \floatplacement{figure}{H}
+execute:
+  message: FALSE
+author: 
+   - name: "Mohammed Saqr"
+     email: "mohammed.saqr@uef.fi"
+     affil-id: 1,*
+   - name: "Sonsoles López-Pernas"
+     email: "sonsoles.lopez@uef.fi"
+     affil-id: 1
+   - name: "Miguel Á. Conde-González"
+     email: "mcong@unileon.es"
+     affil-id: 2
+   - name: "Ángel Hernández-García"
+     email: "angel.hernandez@upm.es"
+     affil-id: 3
+affiliations:
+  - id: 1
+    name: "University of Eastern Finland"
+  - id: 2
+    name: "Universidad de León"
+  - id: 3
+    name: "Universidad Politécnica de Madrid"
+  - id: "*"
+    name: "Corresponding author: Mohammed Saqr, `mohammed.saqr@uef.fi`"
+crossref:
+  fig-title: '**Figure**'
+  fig-labels: arabic
+  title-delim: "**.**"
+abstract-title: "Abstract"
+abstract: This chapter introduces the concept and methods of social network analysis (SNA) with a detailed guide to analysis with real world data using the R programming language. The chapter first introduces the basic concepts and types of networks. Then the chapter goes through a detailed step by step analysis of networks, computation of graph level measures as well as centralities with a concise interpretation in a collaborative environment. The chapter concludes with a discussion of network analysis, next steps as well as a list of further readings.
+keywords: "learning analytics, social network analysis, centrality measures, tutorial"
+fontsize: "9pt"
+dpi: 800
+keep-tex: true
+bibliography: references.bib
+csl: ../../springer.cls  
+---
+**Keywords:** {{< meta keywords >}}
+# Introduction
+
+Social Network Analysis (SNA) has emerged as a computational method for studying interactions, relationships, and connections among a vast array of different entities that include humans, animals, and cities, just to name a few. Two related and largely overlapping fields are also concerned with the network as a concept: network science and network analysis. Network science is concerned with the study of the structure of networks, finding patterns and universal laws that may explain or underpin such structure in a large variety of phenomena. Network analysis is a very closely related field that is concerned with the analysis of networks that are not necessarily "social". In this chapter, we will simply use the terms social network analysis and network analysis interchangeably.
+
+## What are networks?
+
+A quintessential concept in most analytical methods is that observations are ---or should be --- independent from each other whereas, in network analysis, observations can be related and interdependent and may interact with or influence each other Saqr_Poquet_Lopez-Pernas_2022. As such, network analysis offers a more realistic view of the interconnected world around us and allows us to paint an accurate picture of the relationships and interactions that underpin our world [@Barabási_2013; @Borgatti_Mahra_Brass_Labianca_2009]. For instance, when we study students' engagement at a school, we may use a survey to measure each individual student's engagement and compute statistics such as the correlation between engagement and grades. In doing so, we ignore that students interact with peers, teachers, and the environment around them [@Saqr_López-Pernas_2022d; @Saqr_Nouri_Fors_Viberg_Alsuhaibani_Alharbi_Alharbi_Alamer_2021]. We also ignore that students get influenced by an engaged student, get supported by their friends, or face a problematic social environment that may hinder their engagement [@Saqr_Nouri_Vartiainen_Tedre_2020; @Saqr_Poquet_Lopez-Pernas_2022]. Network analysis offers a rich set of methods for modeling and addressing such issues [@Saqr_Alamro_2019].
+
+A network is simply a group of entities (often called *vertices*, nodes, or *actors*) connected through a relationship (often called *edges*, *links, or arcs*) [@Borgatti_Mahra_Brass_Labianca_2009]. In this chapter, we will use the terms vertices and edges for simplicity. Vertices can be humans (students, teachers, or families), ideas, keywords, behaviors, emotions, feelings, concepts, schools, countries, or any entity that can be hypothesized to have a relationship with other entities. Vertices may be connected through a vast array of relations. For instance, students may be connected to each other by being friends, teammates, classmates, group members, neighbors, sporting club fans, competitors, sharing a desk, or working together on an assignment. There is virtually no limit to how a researcher can hypothesize a network. Nevertheless, the interpretation of network analysis relies heavily on how the network was constructed [@Borgatti_Mahra_Brass_Labianca_2009; @Dado_Bodemer_2017].
+
+In learning contexts, the most common type of networks comes from digital data, and in particular online communications, the most common of which are discussion forums, where the conversation occurs between forum participants (vertices). Each reply from one participant to another forms a relationship between the two vertices, creating an edge in the network. In such a situation, we are talking about a *directed* network, where the interaction has a source (the person who replies) and a target (the replied-to) [@Poquet_Saqr_Chen_2021]. Other examples of directed networks are citation networks (where documents cite other documents), or users that follow other users in social media [@López-Pernas_Saqr_Apiola_2023]. In turn, an *undirected* network contains non-directional relationships such as a network of siblings, friends, teammates, husband and wife, or co-workers [@Borgatti_Mahra_Brass_Labianca_2009.] Representing interactions as a network equips the researchers with a rich toolset to harness the power of social network analysis methods. *Please note that the researcher can choose to model a directed network as undirected in case direction is deemed inappropriate according to theory, connect or research question.*
+
+# Analysis of social networks
+
+Two types of analysis methods are commonly used: network visualization and mathematical network analysis [@Borgatti_Mahra_Brass_Labianca_2009.] Visualization summarizes all the interactions in the network, giving the researcher a bird's eye view of the structure of relationships, who is interacting with whom, who is leading the conversation, and who is isolated. Visualization is so powerful that it can summarize a whole semester of interactions in one visualization and still give meaningful information that can be used for intervention e.g., [@Saqr_Fors_Tedre_2018]. Mathematical network analysis offers quantification of all the network properties and the individual actors. The network properties are commonly known as graph-level measures. The mathematical measures of individual nodes are known node-level measures (often referred to as centrality measures) [@Borgatti_Brass_2019; @Borgatti_Mahra_Brass_Labianca_2009; @Dado_Bodemer_2017] Visualization is not discussed in details in this chapter, but interested readers are encouraged to see the excellent visualization tutorial maintained by Kateto Ognyanova [@Ognyanova_2023].
+
+## Mathematical analysis
+
+Three types of mathematical analysis can be obtained with SNA: graph-level measures, node-level measures (centrality measures) and edge-level measures. Graph level measures describe the network as a whole in terms of size, interactivity and components. *Centrality measures* quantify the connectivity and importance of individual actors such as the degree of involvement in interactions, the distance to others, or the importance of position among other interacting actors [@Borgatti_Brass_2019; @Liao_Mariani_Medo_Zhang_Zhou_2017; @Saqr_López-Pernas_2022c]. However, each of these "importance" examples can be measured in different ways. For example, students can be considered central if they frequently contribute to discussions, reply to multiple unique threads of discussions, their contributions receive multiple replies, or their contributions trigger several threads of discussions. As such, there are several centralities with diverse methods that allow us to quantify the degree of connectedness. The website centiserver.org counts more than 400 centrality measures to this date and counting. In this book chapter, we will review and learn the most commonly used centralities in education. We rely on the recent meta-analysis 2022 for listing the used centrality measures, their classification, and operationalization in the literature. Edge measures describe the edge strength, edge weights or edges or edge centralities.
+
+### Graph-level measures
+
+Graph-level measures are a type of analysis used in social network analysis that describes the overall structure and characteristics of a network. They can be used to compare different networks or track changes in a network over time.
+
+**Size** or **vertex count** is the number of vertices (individuals or groups) in the network.
+
+**Edge count** is the number of edges (interactions) between vertices in the network.
+
+**Density** represents the number of edges that are present in the network divided by the number of all possible connections. High density indicates that many vertices in the network are connected to one another.
+
+**Reciprocity** is another important graph-level measure that also reflects group cohesion. A reciprocated edge is an edge where two vertices have a reciprocal relationship (e.g., they are simultaneously source and target) [@Block_2015]. The higher the ratio of the reciprocated edges, the more collaborative the network is, less centralized (dominated by few) and more participatory.
+
+**Transitivity** (or global clustering coefficient) measures the tendency of the vertices to cluster together or form tightly knit cliques. There is a large volume of research that associates the ratio of cliques with cohesion in collaborative groups, strong ties and productive knowledge construction [@Block_2015]
+
+Other graph-level measures are aggregations of vertex-level or edge-level measures. For example, the **mean degree** is the mean number of edges of all the vertices in the network. In a collaborative group, the higher the mean degree, the more interactive the group is.
+
+### Local centrality measures
+
+Local centrality measures are centralities that map the direct or immediate connections of an actor. Put another way, the local centralities quantify the neighbors of a certain vertex where each of these neighbors is directly connected to the target vertex without any intermediates (@fig-vertex-in-degree).
+
+**In-degree centrality** represents the total number of incoming interactions or relationships of a vertex [@Borgatti_Brass_2019; @Liao_Mariani_Medo_Zhang_Zhou_2017]. Several examples exist in the literature with different operationalization and interpretations. In the case of collaborative learning, in-degree centrality has been interpreted as the worthiness of a participant's contributions to receive replies, popularity, or influence [@Jo_Park_Lee_2017; @Romero_López_Luna_Ventura_2013; @Saqr_López-Pernas_2021].
+
+**Out-degree centrality** represents the total number of outgoing interactions or links from an actor to other actors in the network [@Borgatti_Brass_2019; @Liao_Mariani_Medo_Zhang_Zhou_2017; @Saqr_López-Pernas_2022a]. Out-degree has been commonly interpreted as an indicator of participation, effort, and activity [@Marcos-García_Martínez-Monés_Dimitriadis_2015; @Saqr_Viberg_Vartiainen_2020].
+
+**Degree centrality** refers to the total number of connections or interactions (incoming or outgoing) a vertex has. In undirected networks, it is simply the number of all connections of the vertex. Degree centrality can be interpreted in a similar way to the previous similar centralities as an indication of interactivity, communication, and social role in the collaborative process [@Hernández-García_González-González_Jiménez-Zarco_Chaparro-Peláez_2015; @Joksimovic_Manataki_Gaševic_Dawson_Kovanovic_De_Kereki_2016; @Reychav_Raban_McHaney_2018].
+
+![Representation of a vertex in-degree (left), out-degree (middle), and degree (right)](image1.png){#fig-vertex-in-degree width="6.5in" height="2.3846839457567803in"}
+
+### Measures based on shortest paths
+
+Other relevant measures in assessing social network graphs are the shortest paths. These are based on the shortest distance between a pair of points (vertex) in the graph and represent how easy it is for a vertex to access others' resources [@Borgatti_Brass_2019; @Freeman_1978; @Liao_Mariani_Medo_Zhang_Zhou_2017]. Shortest paths can be used to better measure and understand centrality, as it is based on the distribution and distance of different points in a network which can help understand other educational insights [@Cela_Sicilia_Sánchez_2015; @Dado_Bodemer_2017.] The most relevant measures in this sense are represented in @fig-examples and described below.
+
+**Closeness centrality** is a measure based on the farness between the vertices of a network; more specifically between a specific vertex and the rest of the network [@Borgatti_Brass_2019; @Liao_Mariani_Medo_Zhang_Zhou_2017]. Small closeness values indicate greater proximity to other vertices, whereas larger values indicate greater distances from other vertices. In the field of education, it can be seen as a way to measure: 1) closure in interaction [@Cadima_Ojeda_Monguet_2012; @Cho_Gay_Davidson_Ingraffea_2007; @Liu_Kang_Domanska_Liu_Sun_Fang_2018; @Osatuyi_Passerini_2016; @Putnik_Costa_Alves_Castro_Varela_Shah_2016; @Saqr_Fors_Tedre_2018], 2) ease of interaction [@Cho_Gay_Davidson_Ingraffea_2007; @Gašević_Joksimović_Eagan_Shaffer_2019; @Joksimovic_Manataki_Gaševic_Dawson_Kovanovic_De_Kereki_2016; @Saqr_Fors_Nouri_2018; @Saqr_Fors_Tedre_2018], 3) time for accessing information [@Hernández-García_González-González_Jiménez-Zarco_Chaparro-Peláez_2015; @Liu_Chai_Liu_Pinkwart_Han_Hu_2019; @Osatuyi_Passerini_2016], 4) dependencies [@Liu_Kang_Domanska_Liu_Sun_Fang_2018], 5) control over resources [@Cadima_Ojeda_Monguet_2012; @Gašević_Joksimović_Eagan_Shaffer_2019; @Reychav_Raban_McHaney_2018], and 6) awareness of opportunities [@Cadima_Ojeda_Monguet_2012].
+
+**Betweenness centrality** is a measure to show the frequency of a vertex lying on the shortest path between two other vertices. In the field of education, it indicates how actors mediate communication among themselves [@Cela_Sicilia_Sánchez_2015; @Dado_Bodemer_2017]. It can be a way to understand who are the leaders of the interactions, that is, those who can moderate interactions, reach unconnected groups (inter-group connection) , influence the information flow (information brokering) and manage that information to solve problems effectively [@Cadima_Ojeda_Monguet_2012; @Cho_Gay_Davidson_Ingraffea_2007; @De-Marcos_Garciá-López_Garciá-Cabot_Medina-Merodio_Domínguez_Martínez-Herraíz_Diez-Folledo_2016].
+
+**Eccentricity** can help to see the vertices not involved in the interactions. It is calculated as the distance to the farthest other vertices in the network. It can be used in the educational field to understand which are the students at risk of dropout or those that are not participating in the activities [@De-Marcos_Garciá-López_Garciá-Cabot_Medina-Merodio_Domínguez_Martínez-Herraíz_Diez-Folledo_2016; @Saqr_Fors_Nouri_2018; @Saqr_Fors_Tedre_2018].
+
+![Examples of networks where the highlighted vertex has a high value of betweenness (left), closeness (middle), and eccentricity (right)](image2.png){#fig-examples width="6.5in" height="2.3728390201224845in"}
+
+### Eigenvector-Based centralities
+
+Other useful metrics in social network graphs are those based on eigenvector centralities, i.e., those related to the value of a connection between vertices. It is based on the idea that it is preferable to have fewer connections to strong well-connected vertices than to have many connections to weak isolated vertices. There are several measures based on this principle:
+
+**Eigenvector centrality** assesses the importance of a vertex based on the centralities of the vertex to which it is connected, that is, how many connections it has to influential vertices. It has been used to understand social capital, ego, and connection strength [@Hernández-García_González-González_Jiménez-Zarco_Chaparro-Peláez_2015; @Marcos-García_Martínez-Monés_Dimitriadis_2015; @Saqr_Fors_Nouri_2018; @Wise_Cui_2018].
+
+**Pagerank** is based on link analysis and allows for defining the popularity of an individual in a network. It can be used in education to understand the reputation or influence upon a group of stakeholders based on his/her contacts [@De-Marcos_Garciá-López_Garciá-Cabot_Medina-Merodio_Domínguez_Martínez-Herraíz_Diez-Folledo_2016; @Liu_Kang_Su_Liu_Sun_2018].
+
+**Hub centrality** is based on Kleinberg's HITS algorithm [@Kleinberg_1999] that measures who interacts more with the most influential vertices in a network. In the educational field, it could help to understand the type of students' interaction [@García-Saiz_Palazuelos_Zorrilla_2014; @Hernández-García_González-González_Jiménez-Zarco_Chaparro-Peláez_2015; @Liu_Kang_Su_Liu_Sun_2018].
+
+**Authority** is also based on Kleinberg's HITS algorithm but it is used to identify which vertices might be considered an authority on a specific topic score. It is calculated taking into account if its incoming links connect the vertex to others that have an important number of outgoing links [@Hernández-García_González-González_Jiménez-Zarco_Chaparro-Peláez_2015; @Liu_Kang_Su_Liu_Sun_2018].
+
+### Other measures
+
+There are other possible metrics to be applied in social network graphs:
+
+**Clustering coefficient** is a measure of how individuals, represented as vertices, are embedded in their neighborhood [@De-Marcos_Garciá-López_Garciá-Cabot_Medina-Merodio_Domínguez_Martínez-Herraíz_Diez-Folledo_2016], with interactions with other individuals forming triangles. In the educational field, it shows how an individual works with peers in groups or clusters, which shows network cohesion [@Liu_Kang_Su_Liu_Sun_2018; @Reychav_Raban_McHaney_2018; @Saqr_Fors_Nouri_2018; @Saqr_Fors_Tedre_2018].
+
+**Diffusion Centrality** belongs to the diffusion measures that explore the structural properties that facilitate the diffusion and uptake process; that is, the diffusion resulting from the interaction. It tries to measure how well a vertex can diffuse a property given the semantics and structure of a social network and a model of diffusion [@Banerjee_Chandrasekhar_Duflo_Jackson_2013; @Kang_Molinaro_Kraus_Shavitt_Subrahmanian_2012]. In education, it can be used to show the possibility of an interaction to generate replies and these other replies [@Saqr_López-Pernas_2021].
+
+**Cross Clique Centrality** assesses the number of cliques or triangles a vertex belongs to. It is related to the degree of embeddedness, connectivity with other vertices, and strength of ties among vertices. In education, it allows understanding, for example, whether a post is going to be replied to and spread throughout the network [@Saqr_López-Pernas_2021].
+
+**Coreness (k-core or linkage)** is similar to h-index metrics for publications, and is based on networks where all vertices have at least a k degree [@Kitsak_Gallos_Havlin_Liljeros_Muchnik_Stanley_Makse_2010]. It is interesting because if an individual may produce promising contributions, he or she is going to attract others with similar contributions and establish strong connections. In the field of education, those students involved in active interactions/discussions will attract other active users, which will enrich the discussion and therefore the interaction, collaboration, the quality of content, etc. [@Saqr_López-Pernas_2021].
+
+## Network visualization
+
+As we discussed earlier, networks represent the relationships (edges) between actors (vertices). A vertex is commonly represented as a circle ---although other shapes are also used--- and the edge as an arrow (in the case of a directed network) from the source of interaction to the target of the interaction (@fig-directed-edge). For example, a phone call from the caller to the call receiver is represented by an arrow from the caller to the receiver. In the case of an undirected network, the edge is represented by a line connecting both vertices, for instance, two siblings, where the relationship is mutual.
+
+![Left: a directed edge where an interaction happens from A-\>B. Right: an undirected edge where A-B are connected](image3.png){#fig-directed-edge width="1.961088145231846in" height="1.7754232283464566in"}
+
+## Network analysis
+
+Let us start with a simple example that uses a common analysis scenario. Our example is a fictional discussion among students where we model interactions between students as a network. Building a network from interactions in discussion forums has been commonly performed by building a post-reply network where an edge is constructed from the author (source of the reply) to the replied-to (target of the reply). For instance, in @fig-conv, **B** replies to **A** by saying *"I agree, this could slow the progression of the disease but does it prevent the spread completely or terminate the pandemic?"*. This can be represented as an edge from B to A. In the same token, **C** replies to **B** which represents another edge C to B. We can compile all of these interactions in a list of edges as shown in @tbl-table1 which is often referred to as an *edge list*. An edge list is a simple way ---among many others--- to represent the network and therefore we will use it in this chapter. Constructing the network can be performed by aggregating all edges as a network as @fig-conv.
+
+![A conversation between students in a discussion forum](image4.png){#fig-conv width="6.5549660979877515in" height="2.658284120734908in"}
+
+| **Source**   | **Target**   |
+|:-----------:|:-----------:|
+| B  | A |
+| C  | B |
+| D  | C |
+| E  | D |
+| F  | E |
+| B  | D |
+| C  | A |
+| A  | C |
+| D  | A |
+
+: Edge list of students' interactions in the discussion forum {#tbl-table1}
+
+There are other ways to construct the network that depend on the researcher's conceptualization, context, and research question. For instance, researchers may consider all students present in a discussion (co-present) and therefore linked together, which means that all vertices will have connections to each other [@Fincham_Gašević_Pardo_2018; @Poquet_Saqr_Chen_2021; @Saqr_Viberg_Vartiainen_2020]. Similarly, several ways exist to aggregate the network. Figure 5 shows three identical networks where we have duplicate ties (i.e., repeated interactions between the same pair of vertices). In @fig-construct A, all interactions are represented. We can see, for instance, that there are six edges between A and F vertices. We can also see that there is a "loop" or "self-loop" around C and E. A loop exists when an interaction occurs between the vertex and itself, as is the case when one replies to their own post. This type of network configuration where multiple edges and self-loops are allowed is often referred to as *multigraph*. Another possible way to aggregate the network is to create a weight for each edge which represents the frequency of interactions between each pair of vertices (@fig-construct B). For instance, the edge between A and F will have a weight of 6 which is the number of edges between A and F, whereas the weight of the edge between H and B is 1 since this interaction only happened once. The network in Figure 5B has an edge with a thickness that corresponds to the weight of 6, i.e., six times as thick as the edge between H and B. In other instances, we may disregard these repeated edges when they do not make a difference to our conceptualization of the network (@fig-construct C). Such a type of network is often referred to as a simplified network. For a discussion about network configurations and how they influence research results see [@Saqr_Viberg_Vartiainen_2020].
+
+![Several ways of constructing a network: A. Multigraph, B. Weighted, C. Simplified.](image5.png){#fig-construct width="6.5in" height="2.2909339457567803in"}
+
+# Network analysis in R
+
+The R language has a large number of libraries for the analysis of networks. The `igraph` package ---the one used in our chapter--- seems to be the preferred package by the R community given the number of dependencies, i.e., the number of other packages that rely on `igraph` or work with the `igraph` format [@Csárdi_Nepusz_Airoldi_2016; @Csardi_Nepusz_Others_2006; @Kolaczyk_Csárdi_2020]. The `igraph` package is fast, efficient, and well-respected within the academic community. The `igraph` package is also well maintained, continuously updated, has a large community, and has been released for other platforms besides R, e.g., Python. Other packages, such as sna and network, have a large user base, especially among those who are interested in statistical network modeling. Any of these packages ---`sna`, `network` or `igraph`--- can effectively perform the analysis described in this chapter. However, we will use `igraph` based on its relative ease of use and convenience for the chapter objectives.
+
+**Example 1**
+
+Let us start with a simple example where we analyze the network created for Figure 6. Before doing anything else, we need to import the necessary packages. We will use `igraph` to construct and represent networks, and we will use rio to download and import the data files that we need to use as an input for `igraph`.
+
+```{r, message = F}
+library(igraph)
+library(rio)
+```
+
+We can now use the import function from rio to download the data for the example (the data shown in Table 1), and assign it to a variable named SNA_example1.
+
+```{r}
+SNA_example1 <- 
+  import("https://github.com/lamethods/data/raw/main/8_examples/SNA_example1.xlsx")
+```
+
+The function `graph_from_data_frame` from `igraph` converts the edge list in @tbl-table1 into a network. R expects a dataframe where the first two columns are used as edges (the first column is used as source column, and the second is used as source column). Please also note that the two columns can have any name. Also, all extra columns ---if they are there--- will be used as edge attributes. We can print it to see if it has been created correctly. The print function is commonly used to test if the graph creation has been successful. In other words, does the created network have the expected number of vertices, edges, and attributes?
+
+```{r}
+Net <- graph_from_data_frame(SNA_example1)
+print(Net)
+```
+
+The output of the print function gives a glimpse of the network properties. First, `igraph` states that the object is an `igraph` object (a network). Then, `igraph` gives a unique seven-letter identifier for the network (not usually needed for analysis). Next, `igraph` tells us that the network was directed (D) and named (N), i.e., vertices have a name attribute. Then, `igraph` lists the attributes and the edges of the network. We can also visualize the created network (@fig-plot-net) by using the function `plot.`
+
+```{r, eval = F}
+plot(Net)
+```
+
+```{r, echo = F}
+#| label: fig-plot-net
+#| fig-cap: "Example of a simple network plotted with `igraph`"
+#| out-width: '5in'
+par(mar=c(0,0,0,0)); set.seed(1339)
+plot(Net)
+```
+
+We have seen here the most basic functions we can use in a graph with no arguments. As shown, networks work with little effort with R. In the next section, we will take a deeper look into these functions and others using another network from a published paper.
+
+**Example 2**
+
+The next example is a larger network that comes from the interactions of a group of teachers in a Massive Open Online Course (MOOC). The MOOC included 445 participants from different places in the United States. The dataset has an edges file where the first two columns are the sender (`source`) and receiver (`target`). There is also a file for the vertices that contains demographic and other relevant information about each vertex: gender, location, and their role, etc. For more information about this dataset, please refer to the data chapter [@López-Pernas_Saqr_Del_Rio_2024]. To get the data into R, we first need to read the data, store it in a dataframe and then build a network with the appropriate arguments.
+
+The first line of the code reads the edges list data with their attributes into a dataframe with the name `net_edges.` The second line imports the vertex data with their attributes into a dataframe with the name net_nodes.
+
+```{r}
+net_edges <- 
+  import("https://github.com/lamethods/data/raw/main/6_snaMOOC/DLT1%20Edgelist.csv")
+net_nodes <- 
+  import("https://github.com/lamethods/data/raw/main/6_snaMOOC/DLT1%20Nodes.csv")
+```
+
+To create the network, we again use the function `graph_from_data_frame`. This time we have to specify the edges dataframe using the argument d=net_edges. The second argument (optional) tells `igraph` that the network should be directed, if not provided, the network is created directed by default. The third argument which is also optional vertices = net_nodes tells `igraph` to use the dataframe net_nodes for vertex attributes. If the vertices argument is not provided, `igraph` will extract vertex names from the edges data. In case there are important vertex attributes for the analysis, providing the vertices data can be useful. Building the network and explicitly setting all arguments ---as we did--- helps avoid the problems that could happen from the default settings of the function. For instance, the network could be created as directed where we aim at creating an undirected network. Note that `igraph` generates a multigraph network by default (see @fig-dlt1).
+
+```{r}
+DLT1 <- graph_from_data_frame(d=net_edges, directed = TRUE, vertices = net_nodes)
+```
+
+Let us now explore the network and see if it was built correctly using the function print. The print function output shows that the network is an `igraph` object, directed and named (*DN*) has 445 vertices, 2529 edges and then `igraph` lists the attributes of the vertices and the edges. Vertex attributes are listed along with their type. For instance, name (v/c) means the name attribute is a (v)ertex attribute and a ([c]{.underline})haracter. Edge attributes are listed in the same way. For instance, timestamp (e/c) means that it is an (e[)]{.underline}dge and a (c)haracter.
+
+```{r}
+print(DLT1)
+```
+
+A network can also be plotted with the function `plot()` (@fig-dlt1). However, plotting with R is a vast field and will not be discussed in detail here.
+```{r, eval = F, fig.width=20, fig.height=16}
+plot(DLT1,  layout = layout.fruchterman.reingold, 
+     vertex.size = 5, vertex.label.cex = 2)
+```
+```{r, fig.width=20, fig.height=16, echo = F}
+#| label: fig-dlt1
+#| fig-cap: "Example of a complex network plotted with `igraph`"
+par(mar=c(0,0,0,0))
+plot(DLT1,  layout = layout.fruchterman.reingold, 
+     vertex.size = 5, vertex.label.cex = 2)
+```
+
+## Graph level analysis
+
+Now that we have seen how to build a network from edge and vertex data, we are ready to understand some of the most commonly performed analyses in learning settings. The first type of analysis will look at the network level, or the whole group of collaborators. Analyzing the network level can tell us how interactive the group is, how cohesive, and how distributed the interactions are. We will go through each of these graph-level measures with a brief explanation of what they actually mean. We will use the data from example 1 (`DLT1`).
+
+Let us first start by calculating the basic measures of the network. The number of vertices can be queried using the function `vcount`, which adds up to 445, and the number of edges can be queried using the function `ecount`, which is 2,529. We can get the average number of interactions by a participant by dividing the number edges by the number of vertices which is 5.68.
+
+```{r, eval = F}
+vcount(DLT1) # 445
+ecount(DLT1) # 2529
+ecount(DLT1) / vcount(DLT1) # 5.683146
+```
+
+The density of a graph is an important parameter of a collaborative network that refers to the ratio of existing edges to the maximum possible among all participants. Density is maximum (1) when every vertex has interacted with every other vertex in the network. Graph density can be measured using the function `graph.density`.
+
+```{r, eval = F}
+graph.density(DLT1) # 0.01279988
+```
+
+However, the `graph.density` function may result in erratic results if the network is multigraph; this is because the `igraph` algorithm will count the repeated edges and loops. Thus, we need to *simplify* the network (delete all repeated edges and loops) before computing the density and use the simplified network to compute the graph density. The results of the density of the graph of 0.0097 which is rather a low value.
+
+```{r, eval = F}
+graph.density(simplify(DLT1)) # 0.009798563
+```
+
+Reciprocity is another important graph-level measure that also reflects group cohesion. A reciprocated edge is an edge where two vertices have a reciprocal relationship (e.g., they are simultaneously source and target) [@Block_2015]. The higher the ratio of the reciprocated edges, the more collaborative the network is, less centralized (dominated by few) and more participatory. Reciprocity can be computed using the function `reciprocity`, which automatically removes the loops (i.e., does not consider when a person replies to oneself). The reciprocity by `igraph` definition is the fraction of reciprocated edges in a directed graph. The value here is 0.1997544 which means that only 20% of all edges were reciprocated.
+
+```{r, eval = F}
+reciprocity(DLT1) # 0.1997544
+```
+
+We can also compute the dyad.census which returns the number of mutual interactions (reciprocated between a pair of vertices), the number of asymmetric interactions (interactions that are not reciprocated), and the number of non-connected pairs. The number of mutual interactions in our network is 212, which is relatively small given the asymmetric (1512) and non-connected pairs (97066).
+
+```{r, eval = F}
+dyad.census(DLT1) # $mut [1] 212     $asym [1] 1512     $null [1] 97066
+```
+
+Transitivity (or global clustering coefficient) measures the tendency of the vertices to cluster together or form tightly knit cliques. In `igraph`, transitivity is measured as the probability that the neighboring vertices of a vertex are also connected to each other or, more accurately, the ratio of triangles in the network to the total count of triplets (all occurrences of three vertices connected by two edges). There is a large volume of research that associates the ratio of cliques with cohesion in collaborative groups, strong ties and productive knowledge construction Block_2015. There are several methods for the estimation of transitivity. Here, we are going to focus on global transitivity (i.e., at the network-level) using the `igraph` method. The transitivity can be calculated by the function `transitivity`; the default function returns the global transitivity measure by default. The transitivity of our network here is 0.08880774.
+
+```{r, eval = F}
+transitivity(DLT1) # 0.08880774
+```
+
+Another possible way is to use the related function `triad_census` which reports the numbers of triangles and their different types. The reader may need to refer to the package manual to dig deeper in the results.
+
+```{r}
+triad_census(DLT1) 
+```
+
+Group productivity or intensity of interactivity can be explored using the *degree* measures and its variants. The average *degree* of the network measures how much on average each group member has contributed and received interactions. To compute the *average degree*, we first have to compute the *degree* for each member and then compute the *mean*.
+
+In directed networks (like the one in this example), we can also compute the average in-degree and out-degree. For the same set of vertices, the network average in-degree should be equal to out-degree and both combined should be equal to the total degree. However, if we, for instance, compute a subset of vertices (only students excluding the teachers), in-degree and out-degree may be different. The code below computes the mean and median of the three measures, using the function *degree* with the argument `mode="total"` for the total degree, `mode="in"` for the *in-degree*, and mode="out" for *out-degree*.
+
+```{r}
+Mean_degree <-  mean(degree(DLT1, mode = "total")) # 11.36629
+Mean_in_degree <-  mean(degree(DLT1, mode = "in")) # 5.683146
+Mean_out_degree <-  mean(degree(DLT1, mode = "out")) # 5.683146 
+Median_degree <-  median(degree(DLT1, mode = "total")) # 4
+Median_in_degree <-  median(degree(DLT1, mode = "in")) # 1
+Median_out_degree <-  median(degree(DLT1, mode = "out")) # 2
+```
+
+The mean degree is 11.36629 and the mean in-degree and out-degree are 5.683146. The median degree is 4, the median in-degree is 1, and the median out-degree is 2. The median differs significantly from the mean and may be more relevant here in this large network, where participation may not be well-distributed (see next section).
+
+Collaboration is participatory by design but, oftentimes, some students may dominate and contribute disproportionately more than others. In the same vein, some may prefer to be isolated and thus rarely participate. Several measures allow us to measure the distribution of interactions across the network and how skewed the network contribution patterns are. An obvious method that comes straight from statistics is the standard deviation (SD) of the degree centrality. We can compute the SD like we calculated the mean and median in the previous step. The SD of *degree* centrality in our case is 34.2, SD for in-degree centrality is 26.7, and SD for *out-degree* centrality is 9.8. The SD is higher than the mean which suggests that calculation and inspection of the median was justified. We can also see that the SD of the *in-degree* centrality is much higher than the SD of the *out-degree,* which means that the variability in receiving replies is higher than that of contributions. This variability is rather common since students are selective about whom they respond to and choose the reply-worthy contributions.
+
+```{r}
+SD_degree <-  sd(degree(DLT1, mode = "total")) # 34.20511
+SD_in_degree <-  sd(degree(DLT1, mode = "in")) # 26.73596
+SD_out_degree <-  sd(degree(DLT1, mode = "out")) # 9.84249
+```
+
+SNA has dedicated indices for measuring dominance in networks, known as centralization indices. Centralization indices are 0 when every vertex contributes equally and reaches the maximum of 1 when a single vertex dominates. A centralization index exists for many centralities ---e.g., degree, closeness, and betweenness. Nevertheless, most of the literature has reported degree centralization, which we will demonstrate here.
+
+The code below computes the degree, in-degree and out-degree centralization. Please note that we use a simplified network to avoid the loops and repeated edges. The results of degree centralization confirm the previous results. The degree centralization is 0.38, out-degree centralization is 0.16, and in-degree centralization is 0.60. In our network, we see that the in-degree centralization is the highest index (0.60), which means that only a few students received replies.
+
+```{r}
+Centralization_degree <- centralization.degree(simplify(DLT1), 
+mode =  "all", loops = FALSE)$centralization  # 0.3826871 
+Centralization_in_degree <-  centralization.degree(simplify(DLT1), 
+mode = "in", loops = FALSE)$centralization    # 0.6064291
+Centralization_out_degree <- centralization.degree(simplify(DLT1), 
+mode =  "out", loops = FALSE)$centralization  # 0.1572214
+```
+
+Another way to see how the interactions are distributed is to plot the degree distribution using the hist function, as demonstrated in @fig-hist.
+
+```{r fig.height=4, fig.width=9}
+#| label: fig-hist
+#| fig-cap: "Distribution of degree. Left: In-degree. Right: Out-degree"
+par(mfrow=c(1,2))
+hist(degree(DLT1, mode = "in"), breaks = 100)
+hist(degree(DLT1, mode = "out"), breaks = 100)
+```
+
+## Network connectivity
+
+We can also examine how connected the whole group is; this can be performed using the function is.connected which returns `FALSE` in our case, meaning that the graph has some disconnected components or subgroups of vertices that are isolated. We can check these subgroups by the function components which tells us that there are four components:
+
+```{r}
+is.connected(DLT1)
+Components <- components(DLT1)
+print(Components)
+```
+
+Using the function decompose, we can look at each of the components. The largest component has 442 vertices, and three others have one vertex. These isolated vertices are simply students who did not contribute at all and do not represent a real subgroup.
+
+```{r}
+Decomposed <- decompose(DLT1)
+Decomposed[[1]]
+```
+
+We can also look at the network diameter or largest number of steps between vertices to see how far distant vertices are (using the distance function). A more representative variable would be the average distance between vertices, which we can obtain from the `mean_distance` function. The network diameter is 8 and the mean distance is 3. Both numbers are relatively high. Global efficiency is another network-level measure that examines how effective is the network structure as a conduit for information exchange using the distances between vertices. When all vertices are *close* to each other, reachable with a few number of steps, the network is said to be efficient. The value of efficiency is high in well connected groups, and low otherwise. We can examine the efficiency using the function `global_efficiency.`
+
+```{r}
+diameter(DLT1) # 8
+mean_distance(DLT1) # 3.030694
+global_efficiency(DLT1) # 0.1961034
+```
+
+## Network operations
+
+There are many functions and tools to manipulate networks in `igraph`, which makes a comprehensive discussion of all of them beyond the scope of this introductory chapter. Nonetheless, we will discuss the most important functions. Oftentimes, we need to set an attribute to the vertices ---e.g., setting the gender attribute for vertices--- to be used in the analysis. Setting an attribute can be performed by using the V function followed by the \$ character and the attribute that we want to set. Similarly, setting edge attributes can be done using the function E. In the next example, we define an attribute called `weight` for the vertices and we do the same for the edges. Using the skills we learnt, we can use them to create a simplified weighted network. We do so by concatenating all repeated edges into a single edge with the weight as the frequency. For that, we start by first assigning weights of 1 to each node and edge. Lastly, we use the function `simplify` to remove the duplicated edges and aggregate the weights (`edge.attr.comb = list(weight = "sum", "ignore")`) while all other edge attributes will be *ignored*.
+
+```{r}
+V(DLT1)$weight <- 1
+E(DLT1)$weight <- 1
+simple.DLT1 <- simplify(DLT1, remove.multiple = TRUE, remove.loops = TRUE, 
+                        edge.attr.comb = list(weight = "sum", "ignore"))
+```
+
+There are two important functions that we may need if we want to divide or create a subnet of the network. The function `subgraph.edges` allows us to create a subset of a network based on edge characteristics. In the following example, we create a subgraph with the discussions involving *Curriculum & Instruction* by using the argument `E(DLT1)$'Discussion Category'== 'Curriculum & Instruction'`. In the same way, the induced_subgraph function allows us to specify a subgraph based on the vertex characteristics. In the next example, we create a network for North Carolina teachers using `V(DLT1)$location== "NC"`.
+
+```{r}
+k <- subgraph.edges(DLT1, 
+    eids = which(E(DLT1)$'Discussion Category' == 'Curriculum & Instruction'))
+NC_network <- induced_subgraph(DLT1, vids = which(V(DLT1)$location == "NC"))
+```
+
+## Individual vertex measures (centrality measures)
+
+We have discussed the centrality measures in the introductory section and how they can be used in an educational context. Centrality measures may serve many functions, ---e.g., indicators of performance in collaborative environments [@Saqr_Elmoazen_Tedre_López-Pernas_Hirsto_2022] or indicators for roles in collaboration [@Marcos-García_Martínez-Monés_Dimitriadis_2015]. The `igraph` package allows the calculation of several centrality measures, many of which have been used in educational research and some of which may not be relevant. Other packages, such as `centiserve`, allow an even larger number of centrality measures [@Jalili_Salehzadeh-Yazdi_Asgari_Arab_Yaghmaie_Ghavamzadeh_Alimoghaddam_2015]. In this section, we will focus on the common centrality measures according to the recent meta-analysis by [@Saqr_Elmoazen_Tedre_López-Pernas_Hirsto_2022] and other recently used measures, such as diffusion centrality measures.
+
+Degree centrality measures can be computed using the function *degree* and the argument *mode* specifies the type of *degree* where `mode="in"` returns *in-degree*, `mode="out"` returns *out-degree*, `mode="total"` returns total *degree* centrality. In case of undirected networks, the *mode* argument is ignored and the function returns only the *degree* centrality, since there is no direction. We can combine all the centralities that we calculate together in a dataframe using the tibble function from the tibble package.
+
+```{r}
+InDegree  <- degree(DLT1, mode = "in")
+OutDegree <- degree(DLT1, mode = "out")
+Degree    <- degree(DLT1, mode = "total")
+Degree_df <- tibble::tibble(name = V(DLT1)$name, InDegree, OutDegree, Degree)
+print(Degree_df)
+```
+
+Note that `igraph` has another function called graph.strength that computes the *degree* centrality and takes the edge weight attribute into account. In multigraph networks ---like ours--- *degree* centrality and `graph.strength` should return the same result. However, in networks where the edges have a `weight` attribute both functions (`degree` and `graph.strength`) return different results. In such weighted networks ---like the simplified network we created in the previous example--- the `degree` function will return the unique connections of every vertex or the size of the vertex direct collaborators ---known as the size of the ego network. The `graph.strength` function will return the number of interactions a vertex has made. See the next example and compare the results. For more information about the different calculation methods of degree centrality of weighted networks, readers are advised to refer to the seminal article by [@Opsahl_Agneessens_Skvoretz_2010].
+
+```{r}
+InStrength  <- graph.strength(DLT1, mode = "in")
+OutStrength <- graph.strength(DLT1,mode = "out")
+Strength    <- graph.strength(DLT1, mode = "total")
+Strength_df <- tibble::tibble(name=V(DLT1)$name,InStrength,OutStrength,Strength)
+print(Strength_df)
+```
+
+*Closeness* and *betweenness* centralities are the most commonly used centrality measures according to [@Saqr_Elmoazen_Tedre_López-Pernas_Hirsto_2022] and both rely on the position of the vertex on the shortest paths between others. *Closeness* centrality can be calculated using the function closeness, which is directional; this means that we can compute *in-closeness*, *out-closeness* and total *closeness* centrality. *Betweenness* centrality can be computed using the function *betweenness* and the function is directional: the argument `directed=TRUE` computes the directional version, and vice versa. Another commonly used centrality measure is eigenvector centrality, which can be computed using the function `eigen_centrality.` The `eigen_centrality` function default is `directed=FALSE`, since it is less suited for directed networks [@Liao_Mariani_Medo_Zhang_Zhou_2017]. *Pagerank* is another closely related centrality measure that uses a similar algorithm and is more suitable for directed networks. The *Pagerank* centrality can be calculated using the function `pagerank.` Please note that to obtain the value of the centrality, you need to use `$vector` at the end as demonstrated in the code.
+
+An important question here is whether to compute these centralities with a simplified network, weighted network or a multigraph network. The answer depends on the context, the network structure and the research question. However, evidence suggests that multigraph configuration may render the most accurate results when centralities are used as indicators for performance [@Saqr_Viberg_Vartiainen_2020]. The code below computes the aforementioned centralities, you may need to read the help of each centrality function for more options and arguments for customization:
+
+```{r}
+Closeness_In <- closeness(DLT1, mode = c("in"))
+Closeness_Out <- closeness(DLT1, mode = c("out"))
+Closeness_total <- closeness(DLT1, mode = c("total"))
+
+Betweenness <- betweenness(simple.DLT1, directed = FALSE)
+Eigen <- eigen_centrality(simple.DLT1, directed = FALSE)$vector
+Pagerank <- page.rank(DLT1, directed = FALSE)$vector
+```
+
+*Diffusion* centralities have been introduced recently in several studies and seem to offer a more robust estimation of a vertex role in spreading information [@Saqr_López-Pernas_2021; @Saqr_Viberg_2020]. *Diffusion* centrality can be computed in the same way as degree centrality. However, there is no function in the `igraph` package to calculate this centrality, so we rely on the `diffusion.degree` function from the `centiserve` package. The function `diffusion.degree` accepts the mode argument to compute different variants, i.e., `"in"`, `"out"` and `"total"` diffusion degrees.
+
+```{r, message = F}
+library(centiserve)
+Diffusion.degree_in  <- diffusion.degree(DLT1, mode = c("in"))
+Diffusion.degree_out  <- diffusion.degree(DLT1, mode = c("out"))
+Diffusion.degree  <- diffusion.degree(DLT1, mode = c("all"))
+```
+
+*Coreness* and *cross-clique connectivity* are related centralities that estimate the embeddedness of the vertex in the network can be calculated using the functions `coreness` and `crossclique.` Both `coreness` and `crossclique` centralities have been shown to better correlate with performance as well as with productive and reply-worthy content @Saqr_López-Pernas_2021.
+
+```{r}
+Coreness <- coreness(DLT1)
+Cross_clique_connectivity <- crossclique(DLT1)
+```
+
+We can also combine the rest of the centralities together in a single dataframe:
+
+```{r}
+Centdf  <- tibble::tibble(name=V(DLT1)$name,Closeness_total,Betweenness,
+Eigen,Pagerank,Diffusion.degree,Coreness,Cross_clique_connectivity)
+print(Centdf)
+```
+
+The calculation of graph level measures and centrality measures are usually a step in the analysis to answer a research question. For instance, density can tell how distributed the interactions between students are and therefore, how it is collaborative [@Saqr_Nouri_Vartiainen_Tedre_2020]. Centrality may be calculated to identify who are the most important students in the discussions or used to infer the roles e.g., who are the leaders who drive the discussion [@Hernández-García_González-González_Jiménez-Zarco_Chaparro-Peláez_2015; @Marcos-García_Martínez-Monés_Dimitriadis_2015]. Several studies have calculated centrality measures to investigate their relationship with performance @Romero_López_Luna_Ventura_2013. All of such types of analysis can be performed using the analysis we have demonstrated. Of course, there are no limits to the potentials of SNA and researchers have a wide range of possibilities and potentials that they can achieve by building on the aforementioned tutorials.
+
+# Discussion
+
+The present chapter offered a primer on social network analysis as well as a tutorial on the most common types of SNA analysis. SNA is a vast field with diverse applications that are far beyond a chapter or even a whole book. Readers who are interested in expanding their knowledge about SNA are advised to read the literature cited in this chapter. Furthermore, several systematic reviews have tried to offer a synthesis of the extant literature and can help the readers get an idea about the status of SNA research in education. Two systematic reviews, [@Cela_Sicilia_Sánchez_2015;@Sie_Ullmann_Rajagopal_Cela_B._Sloep_2012]. -- despite being relatively old-- they give a useful review on the uses and applications of SNA in learning settings. For instance, the methods used by SNA researchers have been addressed in a dedicated systematic review by [@Dado_Bodemer_2017], where the authors offered a detailed review of methodological approaches used in SNA research. Centrality measures were the topic of a recent systematic review and meta-analysis that synthesized the literature and offered evidence of the association of centrality measures with academic achievement [@Saqr_Elmoazen_Tedre_López-Pernas_Hirsto_2022].
+
+A more recent scientometric study by [@Saqr_Poquet_Lopez-Pernas_2022] offers a comprehensive review of all research on network analysis and network science across the past five decades. The study also offers a review of authors, countries, research themes and research foundations. Whereas not a traditional systematic review, the recent paper by [@Poquet_Saqr_Chen_2021] offers a review of the seminal papers of SNA with a methodological approach. The paper also offers recommendations for a reporting scheme for research using SNA. It is also important to mention that our chapter covered only static networks. Readers who are interested in the more advanced time varying networks, the temporal network chapter offers a great starting point [@Saqr_2023]. Also several guides and empirical papers demonstrate examples of temporal network analysis [@Saqr_López-Pernas_2022a;@Saqr_López-Pernas_2022b;@Saqr_Nouri_2020]. Readers who want to go deeper in analysis of learning communities, the community detection chapter can be a good place [@Hernández-García_Cuenca-Enrique_Traxler_López-Pernas_Conde_Saqr_2024]. Also, for readers interested in the novel methods of psychological networks, they are encouraged to read the psychological network chapter [@Saqr_Beck_López-Pernas_2024].
+
+# More reading resources
+
+Books related to SNA that the readers can consult are:
+
+-   Kolaczyk, E. D., & Csárdi, G. (2014). *Statistical analysis of network data with R* (Vol. 65). New York: Springer.
+
+-   Luke, D. A. (2015). *A user's guide to network analysis in R* (Vol. 72, No. 10.1007, pp. 978-3). New York: Springer.
+
+-   Newman, Mark. *Networks*. Oxford university press, 2018.
+
+-   Hanneman, R. A., & Riddle, M. (2005). Introduction to social network methods. ([[Link]{.underline}](http://faculty.ucr.edu/~hanneman/nettext/))
+
+-   Carolan, B. V. (2013). *Social network analysis and education: Theory, methods & applications*. Sage Publications.
+
+-   Network Science by Albert-László Barabási ([[Link]{.underline}](http://networksciencebook.com/))
+
+# Acknowledgements
+
+This paper is co-funded by the Academy of Finland the project Towards precision education: Idiographic learning analytics (TOPEILA), Decision Number 350560
+
+# References
+
+::: {#refs}
+:::

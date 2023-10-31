@@ -1,0 +1,468 @@
+---
+title: "Modeling the Dynamics of Longitudinal Processes in Education. A tutorial with R for The VaSSTra Method"
+execute:
+  message: FALSE
+  warning: FALSE
+author:
+  - name: "Sonsoles López-Pernas"
+  - name: "Mohammed Saqr"
+dpi: 900
+crossref:
+  fig-title: '**Figure**'
+  fig-labels: arabic
+  title-delim: "**.**"
+bibliography: references.bib
+format: 
+  html:
+    df-print: "paged"
+    fig-align: "center"
+abstract: "Modeling a longitudinal process in educational research brings a lot of variability over time. The modeling procedure becomes even harder when using multivariate continuous variables, e.g., clicks on learning resources, time spent online, and interactions with peers. In fact, most human behavioral constructs are an amalgam of interrelated features with complex fluctuations over time. Modeling such processes requires a method that takes into account the multidimensional nature of the examined construct as well as the temporal evolution. In this chapter we describe the VaSSTra method, which combines person-based methods, sequence analysis and life-events methods. Throughout the chapter, we discuss how to derive states from different variables related to students, how to construct sequences from students’ longitudinal progression of states, and how to identify and study distinct trajectories of sequences that undergo a similar evolution. We also cover some advanced properties of sequences that can help us analyze and compare trajectories. We illustrate the method through a tutorial using the R programming language."
+keywords: "learning analytics, sequence analysis, life-events methods, person-based methods, longitudinal methods"
+
+---
+
+## Introduction
+
+Modeling a longitudinal process brings a lot of variability over time. The modeling procedure becomes even harder when we use multivariate continuous variables to model a single construct. For example, in education research we might model students' online behavioral engagement  through their number of clicks, time spent online, and frequency of interactions [@Henrie2015]. Most human behavioral constructs are an amalgam of interrelated features with complex fluctuations over time. Modeling such processes requires a method that takes into account the multidimensional nature of the examined construct as well as the temporal evolution. Nevertheless, despite the rich boundless information in the quantitative data, discrete patterns can be captured, modeled, and traced using appropriate methods. Such discrete patterns represent an archetype or a "state" that is typical of behavior or function [@Lazarus2023]. For instance, a combination of frequent consumption of online course resources, long online time, interaction with colleagues and intense interactions in cognitively challenging collaborative tasks can be coined as an "engaged state" [@Eng] The same student that shows an "engaged state" at one point, can transition to having few interactions and time spent online at the next time point, i.e., a "disengaged state".
+
+Capturing a multidimensional construct into qualitative discrete states has several advantages. First, it avoids information overload where the information at hand is overwhelmingly hard to process accurately because of the multiplicity and lack of clarity of how to interpret small changes and variations. Second, it allows an easy way of communicating the information; it is understandable that communicating a state such as "engaged" is easier than telling the values of several activity variables. Third, it is easier to trace or track. As we are interested in significant shifts overtime, fine-grained changes in the activities are less meaningful. We are rather interested in significant shifts between behavioral states, e.g., from engaged to disengaged. Besides, such a shift is also actionable. As @Winne2020 puts it, "reliability can sometimes be improved by tuning grain size of data so it is neither too coarse, masking variance within bins, nor too fine-grained, inviting distinctions that cannot be made reliably." More importantly, capturing the states is more tethered to reality of human nature and function. In fact, many psychological, physiological or disease constructs have been described as states with defining criteria, e.g., motivation, depression or migraine. 
+
+Existing methods for longitudinal analysis are often limited to the study of a single variable's evolution over time [@TEEM]. Some examples of such methods are longitudinal k-means [@Genolini2010-zy], group-based trajectory modeling (GBTM) [@Nagin2014-jm], or growth  models [@Ram2009-gc]. However, when multivariate data is the target of analysis, these methods cannot be used. Multivariate methods are usually limited to one step or another of the analysis e.g., clustering of multivariate data into categorical variables (e.g., states), or chart the succession of categories into sequences. The method presented in this chapter provides an ensemble of methods and tools to effectively model, visualize and statistically analyse the longitudinal evolution of multivariate data. As such, modeling the temporal evolution of latent states, as we propose in this chapter, may not be entirely new and has been performed --- at least in part--- using several models, algorithms and software platforms [@Hougaard1999; @Jackson2011; @McClintock2020]. For instance, the package `lmfa` can capture latent states in multivariate data, model their trajectories as well as transition probabilities [@Vogelsmeier2022]. Nevertheless, most of the existing methods are concerned with modeling disease states, time-to event (survival models), time-to-failure models [@McClintock2020] or lack a sequential analysis. 
+
+The *VaSSTra* method  described in this chapter allows to summarize multiple variables into states that can be analyzed using sequence analysis across time. Then, using life-event methods, distinct trajectories of sequences that undergo a similar evolution can be analyzed in detail. *VaSSTra* consists of three steps: (1) capturing the states or patterns (from variables); (2) modeling the temporal process (from states); and (3) capturing the patterns of longitudinal development (similar sequences are grouped in trajectories). As such, the method described in this chapter is a combination of several methods. First, a person-centered method (latent class or latent profile analysis) is used to capture the unobserved "states" within the data. The states are then used to construct a "sequence of states", where a sequence represents a person's ordered states for each time point. The construction of "sequence of states" unlocks the full potential of sequence analysis visually and mathematically. Later, the longitudinal modeling of sequences is performed using a clustering method to capture the possible trajectories of progression of states. Thus, the name of the method is "from variables to states", "from states to sequences" and "from sequences to trajectories" *VaSSTra* [@TEEM]. 
+
+Throughout the chapter, we discuss how to derive states from different variables related to students, how to construct sequences from students' longitudinal progression of states, and how to identify and study distinct trajectories of sequences that undergo a similar evolution. We also cover some advanced properties of sequences that can help us analyze and compare trajectories. In the next section, we explain the *VaSSTra* method in detail. Next, we review the existing literature that has used the method. After that, we present a step-by-step tutorial on how to implement the method using a dataset of students' engagement indicators across a whole program.
+
+## VaSSTra: From variables to states, from states to sequences, from sequences to trajectories
+
+In Chapter 10, we went through the basics of sequence analysis in learning analytics [@Saqr2024-tv]. Specifically, we learned how to construct a sequence from a series of ordered student activities in a learning session, which is a very common technique in learning analytics (e.g., [@Jovanovic2017-uk]). In the sequences we studied, each time point represents a single instantaneous event or action by the students. In this advanced chapter, we take a different approach, where sequences are not built from a series of events but rather from states. Such states represent a certain construct (or cluster of variables) related to students (e.g., engagement, motivation) in a certain period (e.g., a week, a semester, a course). The said states are derived from a series of data variables related to the construct under study over the stipulated time period. Analyzing the sequence of such states over several sequential periods allows us to summarize large amounts of longitudinal information and to study complex phenomena across longer timespans [@TEEM]. This approach is known as the VaSSTra method. VaSSTra utilizes a combination of person-based methods (to capture the latent states) along with life events methods to model the longitudinal process. In doing so, VaSSTra effectively leverages the benefits of both families of methods in mapping the patterns of longitudinal temporal dynamics. The method has three main steps that can be summarized as (1) identifying latent **S**tates from **Va**riables, (2) modeling states as **S**equences, and (3) identifying **Tra**jectories within sequences. The three steps are depicted in @fig-vasstra and described in detail below:
+
+![Summary of the three steps of the VaSSTra method](vasstra.png){#fig-vasstra}
+
+-   **Step 1. From variables to states:** In the first step of the analysis, we identify the "states" within the data using a method that can capture latent or unobserved patterns from multidimensional data (variables). The said states represent a behavioral pattern, function or a construct that can be inferred from the data. For instance, engagement is a multidimensional construct and is usually captured through several indicators. e.g., students' frequency and time spent online, course activities, cognitive activities and social interactions. Using an appropriate method, such as person-based clustering in our case, we can derive students' engagement states for a given activity or course. For instance, the method would classify students who invest significant time, effort and mental work are "engaged." Similarly, students who are investing low effort and time in studying would be classified as "diseganged." Such powerful summarization would allow us to use the discretized states in further steps. An important aspect of such states is that they are calculated for a specific timespan. Therefore, in our example we could infer students' engagement states per activity, per week, per lesson, per course, etc. Sometimes, such time divisions are by design (e.g., lessons or courses), but in other occasions researchers have to establish a time scheme according to the data and research questions (e.g., weeks or days). Computing states for multiple time periods is a necessary step to create time-ordered state sequences and prepare the data for sequence analysis.
+
+-   **Step 2. From states to sequences:** Once we have a state for each student at each time point, we can construct an ordered sequence of such states for each student. For example, if we used the scenario mentioned above about measuring engagement states, a sequence of a single student's engagement states across a six-lesson course would be like the one below. When we convert the ordered states to sequences, we unlock the potential of sequence analysis and life events methods. We are able to plot the distribution of states at each time point, study the individual pathways, the entropy, the mean time spent at each state, etc. We can also estimate how frequently students switch states, and what is the likelihood they finish their sequence in a "desirable" state (i.e., "engaged").
+
+```{=tex}
+\definecolor{disengaged}{HTML}{e01a4f}
+\definecolor{engaged}{HTML}{28a41f}
+\definecolor{average}{HTML}{ffcf4a}
+\begin{center}
+\textcolor{disengaged}{disengaged} - \textcolor{average}{average}  - \textcolor{engaged}{engaged} - \textcolor{engaged}{engaged} - \textcolor{engaged}{engaged} - \textcolor{average}{average} 
+\end{center}
+```
+
+-   **Step 3. From sequences to trajectories:** Our last step is to identify similar trajectories ---sequences of states with a similar temporal evolution--- using temporal clustering methods (e.g., hidden Markov models or hierarchical clustering). Covariates (i.e., variables that could explain cluster membership) can be added at this stage to help identify why a trajectory has evolved in a certain way. Moreover, sequence analysis can be used to study the different trajectories, and not only the complete cohort. We can compare trajectories according to their sequence properties, or to other variables (e.g., performance).
+
+## Review of the literature
+
+The *VaSSTra* method has been used to study different constructs related to students' learning (@tbl-rw), such as engagement [@Eng; @Satu; @ECTEL], roles in computer-supported collaborative learning (CSCL) [@Roles], and learning strategies [@IHE; @Bring]. Several algorithms have been operationalized to identify latent states from students' online data. Some examples are: Agglomerative Hierarchical Clustering (AHC) [@Bring], Latent Class Analysis (LCA) [@Satu; @Eng; @ECTEL], Latent Profile Analysis (LPA) [@Roles], and mixture hidden Markov models (MHMM) [@IHE].
+
+Moreover, sequences of states have mostly been used to represent each course in a program [@Eng; @Satu; @ECTEL; @Roles; @IHE], but also smaller time spans, such as each learning session in a single course [@Bring; @IHE]. Different algorithms have also been used to cluster sequences of states into trajectories including HMM [@Eng; @Bring], mixture hidden Markov models (MHMM) [@Roles; @Satu], and AHC [@ECTEL; @IHE]. Moreover, besides the basic aspects of sequence analysis discussed in the previous chapter, previous work have explored advanced features of sequence analysis such as survival analysis [@Eng; @ECTEL], entropy [@Eng; @IHE; @Roles], sequence implication [@IHE; @Eng], transitions [@Eng; @Roles; @IHE], covariates [@Roles], discriminating subsequences [@ECTEL] or integrative capacity [@Roles]. Other studies have made used of multi-channel sequence analysis [@Bring; @Satu], which is covered in Chapter 13 [@Lopez-Pernas2024-kf].
+
+<!-- \blandscape -->
+
+```{=tex}
+\scriptsize
+\setlength{\tabcolsep}{6pt}
+```
++----------+--------------------------------------------------------------------+---------------------------+--------------------------------------------------------------------------+------------------------+---------------------------+---------------+---------------+--------------------------------------------------------------------------------+
+| Ref.     | Variables                                                          | States                    | Alphabet                                                                 | Actor                  | Time unit                 | Method Step 1 | Method Step 3 | Advance sequence methods                                                       |
++==========+====================================================================+===========================+==========================================================================+========================+===========================+===============+===============+================================================================================+
+| [@Eng]   | Frequency, time spent and regularity of online activities          | Engage- ment              | Active, Average, Disengaged, Withdraw                                    | Study program          | Course                    | LCA           | HMM           | Entropy, sequence implication, survival, transitions                           |
++----------+--------------------------------------------------------------------+---------------------------+--------------------------------------------------------------------------+------------------------+---------------------------+---------------+---------------+--------------------------------------------------------------------------------+
+| [@Satu]  | Frequency, time spent and regularity of online activities. Grades. | Engage- ment, achievement | Active, Average, Disengages.                                             | Study program          | Course                    | LCA           | MHMM          | Multi-channel sequence analysis                                                |
+|          |                                                                    |                           |                                                                          |                        |                           |               |               |                                                                                |
+|          |                                                                    |                           | Achiever, Intermediate, Low.                                             |                        |                           |               |               |                                                                                |
++----------+--------------------------------------------------------------------+---------------------------+--------------------------------------------------------------------------+------------------------+---------------------------+---------------+---------------+--------------------------------------------------------------------------------+
+| [@ECTEL] | Frequency, time spent and regularity of online activities          | Engage- ment              | Actively engaged, Averagely engaged, Disengaged, Dropout                 | Study program          | Course                    | LCA           | AHC           | Survival analysis, discriminating subsequences, mean time                      |
++----------+--------------------------------------------------------------------+---------------------------+--------------------------------------------------------------------------+------------------------+---------------------------+---------------+---------------+--------------------------------------------------------------------------------+
+| [@Roles] | Centrality measures                                                | CSCL roles                | Influencer, Mediator, Isolate                                            | Study program          | Course                    | LPA           | MHMM          | Covariate analysis, spell duration, transitions, entropy, integrative capacity |
++----------+--------------------------------------------------------------------+---------------------------+--------------------------------------------------------------------------+------------------------+---------------------------+---------------+---------------+--------------------------------------------------------------------------------+
+| [@IHE]   | Online activities                                                  | Learning strategies       | Diverse, Forum read, Forum interact, Lecture read.                       | Course. Study program. | Learning session. Course. | MHMM          | AHC           | Entropy, implication, transitions                                              |
+|          |                                                                    |                           |                                                                          |                        |                           |               |               |                                                                                |
+|          |                                                                    |                           | Intense diverse, Light diverse, Light interactive, Moderate interactive. |                        |                           |               |               |                                                                                |
++----------+--------------------------------------------------------------------+---------------------------+--------------------------------------------------------------------------+------------------------+---------------------------+---------------+---------------+--------------------------------------------------------------------------------+
+| [@Bring] | Online activities                                                  | Learning strategies       | Video-oriented instruction, Slide-oriented instruction, Help-seeking.    | Course                 | Learning session          | AHC           | HMM           | Multi-channel sequence analysis                                                |
+|          |                                                                    |                           |                                                                          |                        |                           |               |               |                                                                                |
+|          |                                                                    |                           | Assignment struggling, Assignment approaching, Assignment succeeding.    |                        |                           |               |               |                                                                                |
++----------+--------------------------------------------------------------------+---------------------------+--------------------------------------------------------------------------+------------------------+---------------------------+---------------+---------------+--------------------------------------------------------------------------------+
+
+: Previous literature in which *VaSSTra* has been used {#tbl-rw}
+
+\normalsize
+
+<!-- \elandscape -->
+
+## *VassTra* with R
+
+In this section we provide a step-by-step tutorial on how to implement *VaSSTra* with R. To illustrate the method, we will conduct a case study in which we examine students' engagement throughout all the courses of the first two years of their university studies, using variables derived from their usage of the learning management system.
+
+### The packages
+
+In order to conduct our analysis we will need several packages besides the basic `rio` (for reading and saving data in different extensions), `tidyverse` (for data wrangling), `cluster` (for clustering features), and `ggplot2` (for plotting). Below is a brief summary of the rest of the packages needed:
+
+-   `BBmisc`: A package with miscellaneous helper functions [@BBmisc]. We will use its `normalize` function to normalize our data across courses to remove the differences in students' engagement that are due to different course implementations (e.g., larger number of learning resources).
+
+-   `tidyLPA`: A package for conducting Latent Profile Analysis (LPA) with R [@tidyLPA]. We will use it to cluster students' variables into distinct clusters or states.
+
+-   `TraMineR`: As we have seen in Chapter 10 about sequence analysis [@Saqr2024-tv], this package helps us construct, analyze and visualize sequences from time-ordered states or events [@Gabadinho2011].
+
+-   `seqhandbook`: This package complements `TraMineR` by providing extra analyses and visualizations [@seqhandbook].
+
+-   `Gmisc`: A package with miscellaneous functions for descriptive statistics and plots [@Gmisc]. We will use it to plot transitions between states.
+
+-   `WeightedCluster`: A package for clustering sequences using hierarchical cluster analysis [@studer2013]. We will use it to cluster sequences into similar trajectories.
+
+The code below imports all the packages that we need. You might need to install them beforehand using the `install.packages` command:
+
+```{r, results=F, warning=F, message=F}
+library(rio)
+library(tidyverse)
+library(ggplot2)
+library(cluster)
+library(BBmisc)
+library(tidyLPA)
+library(TraMineR)
+library(seqhandbook)
+library(Gmisc)
+library(WeightedCluster)
+```
+
+### The dataset
+
+For our analysis, we will use a dataset of students' engagement indicators throughout eight courses, corresponding to the first two years of a blended higher education program. The dataset is described in detail in the data chapter. The indicators or variables are calculated from students' log data in the learning management system, and include the frequency (i.e., number of times) with which certain actions have been performed (e.g., view the course lectures, read forum posts), the time spent in the learning management system, the number of sessions, the number of active days, and the regularity (i.e., consistency and investment in learning). These variables represent students' bahavioral engagement indicators. The variables are described in detail in Chapter 2 about the datasets of the book [@Lopez-Pernas2024-hy] and Chapter 7 about predictive learning analytics [@Jovanovic2024-ry] and in previous works [@Eng]. Below we use `rio`'s `import` function to read the data.
+
+
+```{r}
+LongitudinalData <- 
+  import("https://github.com/lamethods/data/raw/main/9_longitudinalEngagement/LongitudinalEngagement.csv")
+LongitudinalData
+```
+
+
+### From variables to states
+
+The first step in our analysis is to detect latent states from the multiple engagement-related variables in our dataset (e.g., frequency of course views, frequency of forum posts, etc.). For this purpose, we will use LPA, a person-based clustering method, to identify each student's engagement state at each course. We first need to standardize the variables, to account for the possible differences in course implementations (e.g., each course has a different number of learning materials and slightly different duration). This way, the mean value of each indicator will be always 0 regardless of the course. Any value above the mean will be always positive, and any value below will be negative. As such the engagement is measures on the same scale. To standardize the data we first group it by `CourseID` using `tidyverse`'s `group_by` and then we apply the `normalize` function from the `BBmisc` package to all the columns that contain the engagement indicators using `mutate_at` and specifying the range of columns. If we inspect the data now, we will see that all variables are centered around 0.
+
+```{r}
+LongitudinalData |> group_by(CourseID) |>  
+  mutate_at(vars(Freq_Course_View:Active_Days), 
+            function(x) normalize(x, method = "standardize")) |> 
+  ungroup() -> df
+df
+```
+
+
+```{r,include=F}
+# This is hidden. This chunk does not run in the rendered chapter.
+LongitudinalData |> 
+  pivot_longer(Freq_Course_View:Active_Days) |> 
+  ggplot(aes(x = value)) + geom_density() + facet_grid("name", scales = "free")
+df |> pivot_longer(Freq_Course_View:Active_Days) |> 
+  ggplot(aes(x = value)) + geom_histogram() + facet_grid("name", scales = "free")
+```
+
+Now, we need to subset our dataset and choose only the variables that we need for clustering. That is, we exclude the metadata about the user and course, and keep only the variables that we believe are relevant to represent the engagement construct.
+
+```{r}
+to_cluster <- dplyr::select(df, Freq_Course_View, Freq_Forum_Consume, 
+                                Freq_Forum_Contribute, Freq_Lecture_View, 
+                                Regularity_Course_View, Session_Count, 
+                                Total_Duration, Active_Days)
+```
+
+Before we go on, we must choose a seed so we can obtain the same results every time we run the clustering algorithm. We can now finally use `tidyLPA` to cluster our data. We try from 1 to 10 clusters and different models that enforce different constraints on the data. For example, model 3 takes equal variances and equal covariances, whereas model 6 takes varying variances and varying covariances. You can find out more about this in the `tidyLPA` documentation [@tidyLPA]. Be aware that running this step may take a while. For more details about LPA, consult the model-based clustering chapter.
+
+```{r, eval=F}
+set.seed(22294)
+Mclustt <- to_cluster |> ungroup() |> 
+  single_imputation() |> 
+  estimate_profiles(1:10, models = c(1, 2, 3, 6)) 
+```
+
+```{r,echo=F}
+set.seed(22294)
+Mclustt <- readRDS("Mclustt.RDS")
+```
+
+Once all the possible cluster models and numbers have been calculated, we can calculate several statistics that will help us choose which is the right model and number of clusters for our data. For this purpose, we use the `compare_solutions` function from `tidyLPA` and we use the results of calling this function to plot the BIC and the entropy of each model for the range of cluster numbers that we have tried (1-10). In the model-based clustering chapter you can find out more details about how to choose the best cluster solution.
+
+```{r, eval=F}
+cluster_statistics <- Mclustt |>  
+  compare_solutions(statistics = c("AIC", "BIC","Entropy"))
+fits <- cluster_statistics$fits |> mutate(Model = factor(Model))
+
+fits |>
+  ggplot(aes(x = Classes,y = Entropy, group = Model, color = Model)) + 
+  geom_line() +
+  scale_x_continuous(breaks = 0:10) +
+   geom_point() +
+  theme_minimal() +
+  theme(legend.position = "bottom")
+
+fits |>
+  ggplot(aes(x = Classes,y = BIC, group = Model, color = Model)) + 
+  geom_line() +
+  scale_x_continuous(breaks = 0:10) +
+  geom_point() +
+  theme_minimal() +
+  theme(legend.position = "bottom")
+```
+
+```{r, echo=F,fig.align='center', fig.cap="Choosing the number of clusters by plotting statistics", fig.width=8, fig.height=3}
+#| label: fig-patchworkstatistics
+library(patchwork)
+cluster_statistics <- Mclustt |>  compare_solutions(statistics = c("AIC", "BIC", "Entropy"))
+fits <- cluster_statistics$fits |> mutate(Model = factor(Model))
+
+p1 <- fits |>
+  ggplot(aes(x = Classes, y = Entropy, group = Model, color = Model)) + 
+  geom_line() +
+  scale_x_continuous(breaks = 0:10) +
+  geom_point() +
+  theme_minimal() +
+  theme(legend.position = "bottom")
+
+p2 <- fits |>
+  ggplot(aes(x = Classes, y = BIC, group = Model, color = Model)) + 
+  geom_line() +
+  scale_x_continuous(breaks = 0:10) +
+  geom_point() +
+  theme_minimal() +
+  theme(legend.position = "bottom")
+p1 + p2
+```
+
+Although, based on the BIC values, Model 6 with 3 classes would be the best fit, the entropy for this model is quite low. Instead, Models 1 and 2 have a higher overall entropy and quite a large fall in BIC when increasing from 2 to 3 classes. Taken together, we choose Model 1 with 3 classes which shows better separation of clusters (high entropy) and a large drop in BIC value (elbow). We add the cluster assignment back to the data so we can compare the different variables between clusters and use the cluster assignment for the next steps. Now, for each student's course enrollment, we have assigned a state (i.e., cluster) that represents the student's engagement during that particular course.
+
+```{r, warning=F, message = F}
+df$State <- Mclustt$model_1_class_3$model$classification
+```
+
+We can plot the mean variable values for each of the three clusters to understand what each of them represents:
+
+```{r, fig.align='center', fig.cap="Mean value of each variable for each cluster",fig.width=8,fig.height=4}
+#| label: fig-profilesunnamed
+df |> pivot_longer(Freq_Course_View:Active_Days) |> 
+  mutate(State = factor(State)) |>
+  filter(name %in% names(to_cluster)) |>
+  mutate(name = gsub("_", " ", name)) |>
+  group_by(name, State) |>
+  summarize_if(is.double, mean) -> long_mean
+
+long_mean |>
+  ggplot(aes(fill = name, y = value, x = State)) +
+  geom_col(position = "dodge") + 
+  scale_fill_brewer("", type = "qual", palette=8) +
+  theme_minimal() +
+  ylab ("Mean value") + 
+  theme(legend.position = "bottom")
+```
+
+We clearly see that the first cluster represents students with low mean levels of all engagement indicators; the second cluster represents students with average values, and the third cluster with high values. We can convert the `State` column of our dataset to a factor to give the clusters an appropriate descriptive label:
+
+```{r}
+engagement_levels = c("Disengaged", "Average", "Active")
+df_named <- df |> 
+  mutate(State = factor(State, levels = 1:3, labels = engagement_levels)) 
+```
+
+### From states to sequences
+
+In the previous step, we turned a large amount of variables representing student engagement in a given course into a single state: **Disengaged**, **Average**, or **Active**. Each student has eight engagement states: one per each course (time point in our data) in the first two years of the program. Since the dataset includes the order of each course for each student, we can construct a sequence of the engagement states throughout all courses for each student. To do that we first need to transform our data into a wide format, in which each row represents a single student, and each column represents the student's engagement state at a given course:
+
+```{r}
+clus_seq_df <- df_named |> arrange(UserID, Sequence) |>
+  pivot_wider(id_cols = "UserID", names_from = "Sequence", values_from = "State")
+```
+
+Now we can use `TraMineR` to construct the sequence and assign colors to represent each of the engagement states:
+
+```{r}
+colors <- c("#28a41f", "#FFDF3C", "#e01a4f")
+clus_seq <- seqdef(clus_seq_df , 2:9, 
+                   alphabet = sort(engagement_levels), cpal = colors)
+```
+
+We can use the sequence distribution plot from `TraMineR` to visualize the distribution of each state at each time point (@fig-seqdplot1). We see that the distribution of states is almost constant throughout the eight courses. The 'Average' state takes the largest share, followed by the 'Engaged' state, and the 'Disengaged' state is consistently the least common. For more hints on how to interpret the sequence distribution plot, refer to Chapter 10 [@Saqr2024-tv].
+
+```{r, fig.align='center', fig.cap="Sequence distribution plot of the course states",fig.width=6,fig.height=4, out.width='4in'}
+#| label: fig-seqdplot1
+seqdplot(clus_seq, border = NA, use.layout = TRUE, 
+         with.legend = T, ncol = 3, legend.prop = 0.2)
+```
+
+We can also visualize each of the individual students' sequences of engagement states using a sequence index plot (@fig-seqIplot1ordered). In this type of visualization, each horizontal bar represents a single student, and each of the eight colored blocks along the bar represents the students' engagement states. We can order the students' sequences according to their similarity for a better understanding. To do this, we calculate the substitution cost matrix (`seqsubm`) and the distance between the sequences according to this cost (`seqdist`). Then we use an Agglomerative Nesting Hierarchical Clustering algorithm (`agnes`) to group sequences together according to their similarity (see Chapter 10 [@Saqr2024-tv]). We may now use the `seq_heatmap` function of `seqhandbook` to plot the sequences ordered by their similarity. From this plot, we already sense the existence of students that are mostly active, students that are mostly disengaged, and students that are in-between, i.e., mostly average.
+
+```{r, fig.align='center', fig.cap="Sequence index plot of the course states ordered by sequence distance",message=F,warning=F }
+#| label: fig-seqIplot1ordered
+
+sm <- seqsubm(clus_seq, method = "CONSTANT")
+mvad.lcss <- seqdist(clus_seq, method = "LCS", sm = sm, with.missing = T)
+clusterward2 <- agnes(mvad.lcss, diss = TRUE, method = "ward")
+seq_heatmap(clus_seq, clusterward2)
+```
+
+### From sequences to trajectories
+
+In the previous step we constructed a sequence of each student's engagement states throughout eight courses. By plotting these sequences, we observed that there might be distinct trajectories of students that undergo a similar evolution of engagement. In this last step, we use hierarchical clustering to cluster the sequences of engagement states into distinct trajectories of similar engagement patterns. To perform hierarchical clustering we first need to calculate the distance between all the sequences. As we have seen in the Sequence Analysis chapter, there are several algorithms to calculate the distance. We choose LCS (Longest Common Subsequence), implemented in the `TraMineR` package which calculates the distance based on the longest common subsequence.
+
+```{r}
+dissimLCS <- seqdist(clus_seq, method = "LCS")
+```
+
+Now we can perform the hierarchical clustering. For this purpose, we use the `hclust` function of the `stats` package
+
+```{r}
+Clustered <- hclust(as.dist(dissimLCS), method = "ward.D2")
+```
+
+We create partitions for clusters ranging from 2 to 10 and we plot the cluster statistics to be able to select the most suitable cluster number.
+
+```{r, fig.align='center', fig.cap="Cluster statistics for the hierarchical clustering",fig.width=8, fig.height=6}
+#| label: fig-clusss
+Clustered_range <- as.clustrange(Clustered, diss = dissimLCS, ncluster = 10)
+plot(Clustered_range, stat = "all", norm = "zscoremed", lwd = 2)
+```
+
+There seems to be a maximum for most statistics at three clusters, so we save the cluster assignment for three clusters in a variable named `grouping`.
+
+```{r}
+grouping <- Clustered_range$clustering$cluster3
+```
+
+Now we can use the variable `grouping` to plot the sequences for each trajectory using the sequence index plot (@fig-seqIplot2):
+
+```{r, fig.align='center', fig.cap="Sequence index plot of the course states per trajectory",fig.width=8, fig.height=6}
+#| label: fig-seqIplot2
+seqIplot(clus_seq, group = grouping, sortv = "from.start")
+```
+
+In @fig-seqIplot2, we see that the first trajectory corresponds to mostly average students, the second one to mostly active students, and the last one to mostly disengaged students. We can rename the clusters accordingly.
+
+```{r}
+trajectories_names = c("Mostly average", "Mostly active", "Mostly disengaged")
+trajectories = trajectories_names[grouping]
+```
+
+We can plot the sequence distribution plot to see the overall distribution of the sequences for each trajectory (@fig-seqdplot2).
+
+```{r, fig.align='center', fig.cap="Sequence distribution plot of the course states per trajectory",fig.width=8, fig.height=5}
+#| label: fig-seqdplot2
+seqdplot(clus_seq, group = trajectories)
+```
+
+### Studying trajectories
+
+There are many aspects that we can study about our trajectories. For example, we can use the mean time plot to compare the time spent in each engagement state for each trajectory. This plot summarizes the time distribution plot across all time points (@fig-seqmtplot2). As expected, we see that the mostly active students spend most of their time in an 'Active' state, the mostly average students in an Average state, and the mostly disengaged students in a 'Disengaged' state, although they spend quite some time in an 'Average' state as well.
+
+```{r, fig.align='center', fig.cap="Mean time plot of the course states per trajectory",fig.width=8, fig.height=6}
+#| label: fig-seqmtplot2
+seqmtplot(clus_seq, group = trajectories)
+```
+
+Another very useful plot is the sequence frequency plot (@fig-seqfplot2), that shows the most common sequences in each trajectory and the percentage of all the sequences that they represent. We see that, for each trajectory, the sequence that has all equal engagement states is the most common. The mostly active has, of course, sequences dominated by 'Active' states, with sparse average states, and one 'Disengaged' state. The mostly disengaged shows a similar pattern dominated by disengaged states with some average and one active state. The mostly average, although it is dominated by 'Average' states, shows diversity of shifts to active or disengaged.
+
+```{r, fig.align='center', fig.cap="The 10 most frequent sequences in each trajectory",fig.width=8, fig.height=6}
+#| label: fig-seqfplot2
+seqfplot(clus_seq, group = trajectories)
+```
+
+To measure the stability of engagement states for each trajectory at each time point, we can use the between-study entropy. Entropy is lowest when all students have the same engagement state at the same time point and highest when the heterogeneity is maximum. We can see that the "Mostly active" and "Mostly disengaged" trajectories have a slightly lower entropy compared to the "Mostly average" one, which is a sign that the students in this trajectory are the least stable (@fig-seqHtplot2).
+
+```{r, fig.align='center', fig.cap="Transversal entropy plot of each trajectory",fig.width=8, fig.height=5}
+#| label: fig-seqHtplot2
+seqHtplot(clus_seq, group = trajectories)
+```
+
+Another interesting aspect to look into is the difference in the most common subsequences among trajectories (@fig-seqecmpgroup2). We first search the most frequent subsequences overall and then compare them among the three trajectories. Interestingly enough, the most frequent subsequence is remaining 'Active', and remaining 'Disengaged' is number five. Remaining average is not among the top 10 most common subsequences, but rather the subsequences containing the 'Average' state always include transitions to other states.
+
+```{r, fig.align='center', fig.cap="Most discriminating subsequences per trajectory",fig.width=9, fig.height=6}
+#| label: fig-seqecmpgroup2
+mvad.seqe <- seqecreate(clus_seq)
+fsubseq <- seqefsub(mvad.seqe, pmin.support = 0.05, max.k = 2)
+discr <- seqecmpgroup(fsubseq, group = trajectories, method = "chisq")
+plot(discr[1:10])
+```
+
+There are other sequence properties that we may need compare among the trajectories. The function `seqindic` calculates sequence properties for each individual sequence (@tbl-seq_indic). Some of these indices need additional information about the sequences, namely, which are the positive and the negative states. In our case, we might consider the *Active* state to be positive and the *Disengaged* state to be negative. Below we discuss some of the most relevant measures:
+
+-   `Trans`: Number of transitions. It represents the number of times there has been a change of state. If a sequence maintains the same state throughout its whole length, the value of `Trans` would be zero; if there were two shifts of state, the value would be 2.
+
+-   `Entr`: Longitudinal entropy or within-student entropy is a measure of the diversity of the sequence states. In contrast with the transversal or between-students entropy that we saw earlier (@fig-seqHtplot2), which is calculated per time point, longitudinal entropy is calculated per sequence (i.e., which represents a student's engagement through the courses in a program in this case). Longitudinal entropy is calculated using Shannon's entropy formula. Sequences that remain in the same state most of the time have a low entropy whereas sequences that shift states continuously with great diversity have a high entropy.
+
+-   `Cplx`: The complexity index is a composite measure of a sequence's complexity based on the number of transitions and the longitudinal entropy. It measures the variety of states within a sequence, as well as the frequency and regularity of transitions between them. In other words, a sequence with a high complexity index is characterized by many different and unpredictable states or events, and frequent transitions between them.
+
+-   `Prec`: Precarity is a measure of the (negative) stability or predictability of a sequence. It measures the proportion of time that a sequence spends in negative or precarious states, as well as the frequency and duration of transitions between positive and negative states. A sequence with a high precarity index is characterized by a high proportion of time spent in negative or precarious states, and frequent transitions between positive and negative states.
+
+-   `Volat`: Objective volatility represents the average between the proportion of states visited and the proportion of transitions (state changes). It is measure of the variability of the states and transitions in a sequence. A sequence with high volatility would be characterized by frequent and abrupt changes in the states or events, while a sequence with low volatility would have more stable and predictable patterns.
+
+-   `Integr`: Integrative capacity (potential) is the ability to reach a positive state and then stay in a positive state. Sequences with a high integrative capacity not only include positive states but also manage to stay in such positive states.
+
+```{r} 
+Indices <- seqindic(clus_seq,
+            indic = c("trans","entr","cplx","prec","volat","integr"), 
+            ipos.args = list(pos.states = c("Active")), 
+            prec.args = list(c("Disengaged")))
+```
+
+```{r, echo=F, warning=F, message=F, fig.align='center'}
+#| label: tbl-seq_indic
+#| tbl-cap: "Sequence indicators"
+Indices |> gt::gt_preview() |> gt::fmt_number(everything(), decimals = 3)
+```
+
+We can compare the distribution of these indices between the different trajectories to study their different properties (@fig-comparison). Below is an example for precarity and integrative capacity. We clearly see how the *Mostly disengaged* trajectory has the highest value of precarity, whereas the *Mostly active* students have the highest integrative capacity. Beyond a mere visual representation, we could also conduct statistical tests to compare whether these properties differ significantly from each other among trajectories.
+
+```{r,eval=F}
+Indices$Trajectory = trajectories
+
+Indices |> ggplot(aes(x = Trajectory, y = Prec, fill = Trajectory)) + 
+  geom_boxplot() + scale_fill_manual(values = colors) + 
+  theme_minimal() + theme(legend.position = "none")
+
+Indices |> ggplot(aes(x = Trajectory, y = Integr, fill = Trajectory)) + 
+  geom_boxplot() + scale_fill_manual(values = colors) + 
+  theme_minimal() + theme(legend.position = "none")
+```
+
+\newpage
+
+```{r,echo=F, fig.width= 10, fig.align='center', fig.cap="Comparison of sequence indicators between trajectories"}
+#| label: fig-comparison
+Indices$Trajectory = trajectories
+(Indices |> ggplot(aes(x = Trajectory, y = Prec, fill = Trajectory)) + geom_boxplot() + scale_fill_manual(values = colors) + theme_minimal() + theme(legend.position = "none", plot.margin=margin(r = 20)))  +
+(Indices |> ggplot(aes(x = Trajectory, y = Integr, fill = Trajectory)) + geom_boxplot() + scale_fill_manual(values = colors) + theme_minimal() + theme(legend.position = "none", plot.margin = margin(l = 20))) 
+```
+
+As we have mentioned, an important aspect of the study of students' longitudinal evolution is looking at the transitions between states. We can calculate the transitions using `seqtrate` from `TraMineR` and plot them using `transitionPlot` from `Gmisc`.
+
+```{r, results=F, message = F}
+transition_matrix = seqtrate(clus_seq, count = T)  
+```
+
+
+From the transition matrix and @fig-transitions we can see how most transitions are between one state and the same (no change). The most unstable state is 'Average' with frequent transitions both to 'Active' and 'Disengaged'. Both 'Active' and 'Disengaged' had occasional transitions to 'Average' but rarely from one another.
+
+```{r, message=F, fig.align='center', fig.cap="Transition plot between states", out.width='4in'}
+#| label: fig-transitions
+transition_matrix = seqtrate(clus_seq, count = T)  
+transitionPlot(transition_matrix, 
+                              fill_start_box = colors,
+                              txt_start_clr = "black",
+                              cex = 1,
+                              box_txt = rev(engagement_levels))
+```
+
+## Discussion
+
+
+In this chapter, the *VaSSTra* method is presented as a person-centered approach for the longitudinal analysis of complex behavioral constructs over time. In the step-by-step tutorial, we have analyzed students' engagement states throughout all the courses in the first two years of program. First, we have clustered all the indicators of student engagement into three engagement states using model-based clustering: active, average and disengaged. This step allowed us to summarize eight continuous numerical variables representing students' online engagement indicators of each course into a single categorical variable (state). Then, we constructed a sequence of engagement states for each student, allowing us to map the temporal evolution of engagement and make use of sequence analysis methods to visualize and investigate such evolution. Lastly, we have clustered students' sequences of engagement states into three different trajectories: a mostly active trajectory which is dominated by engaged students who are stable throughout time, a mostly average trajectory with averagely engaged students who often transition to engaged or disengaged states, and a mostly disengaged trajectory with inactive students that fail to catch up and remain disengaged most of the program. As such, *VaSSTra* offers several advantages over the existing longitudinal methods for clustering (such as growth models or longitudinal k-means) which are limited to a single continuous variable [@Alhadabi2020;@Shin2018;@Vanacore2021], instead of taking advantage of multiple variables in the data. Through the summarizing power of visualization, *VaSSTra* is able to represent complex behaviors captured through several variables using a limited number of states. Moreover, through sequence analysis, we can study how the sequences of such states evolve over time and differ from one another, and whether there are distinct trajectories of evolution.
+
+Several literature reviews of longitudinal studies (e.g., @SalmelaAro2021) have highlighted the shortcomings of existing research for using variable-centered methods or ignoring the heterogeneity of students' behavior. Ignoring the longitudinal heterogeneity means mixing trends of different types, e.g., an increasing trend in a subgroup and a decreasing trend in another subgroup exist. Another limitation of the existing longitudinal clustering methods is that cluster membership can not vary with time so one student is assigned to a single longitudinal cluster, which makes it challenging to study variability and transitions. 
+
+As we have seen in the literature review section, the *VaSSTra* method can be adapted to various scenarios beyond engagement, such as collaborative roles, attitudes, achievement, or self-efficacy, and can be used with different time points such as tasks, days, weeks, or school years. The reader should refer to Chapter 8 [@Murphy2024-si] and Chapter 9 [@Scrucca2024-gg] about clustering to learn other clustering techniques that may be more appropriate for transforming different types of variables into states (that is, conducting the first step of *VaSSTra*). Moreover, in Chapter 10 [@Saqr2024-tv], the basics of sequence analysis are described, including how to cluster sequences into trajectories using different distance measures that might be more appropriate in different situations. The next chapter (Chapter 12) [@Helske2024-lq]  presents Markovian modeling, which constitutes another way of clustering sequences into trajectories according to their state transitions. Lastly, Chapter 13 [@Lopez-Pernas2024-kf] presents multi-channel sequence analysis, which could be used to extend *VaSSTra* to study several parallel sequences (of several constructs) at the same time.
+
+::: {#refs}
+:::

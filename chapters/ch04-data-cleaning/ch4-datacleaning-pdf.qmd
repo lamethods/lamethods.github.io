@@ -1,0 +1,502 @@
+---
+title: "Chapter 4: An R Approach to Data Cleaning and Wrangling for Education Research"
+author: 
+   - name: "Juho Kopra"
+     email: "juho.kopra@uef.fi"
+     affil-id: 1,*
+   - name: "Santtu Tikka"
+     email: "santtu.tikka@jyu.fi"
+     affil-id: 2
+   - name: "Merja Heinäniemi"
+     email: "merja.heinaniemi@uef.fi"
+     affil-id: 3
+   - name: "Sonsoles López-Pernas"
+     email: "sonsoles.lopez@uef.fi"
+     affil-id: 1
+   - name: "Mohammed Saqr"
+     email: "mohammed.saqr@uef.fi"
+     affil-id: 1
+affiliations:
+  - id: 1
+    name: "School of Computing, University of Eastern Finland"
+  - id: 2
+    name: "Department of Mathematics and Statistics, University of Jyväskylä"
+  - id: 3
+    name: "Institute of Biomedicine, University of Eastern Finland"
+  - id: "*"
+    name: "Corresponding author: Juho Kopra, `juho.kopra@uef.fi`"
+format:
+  pdf:
+    keep-tex: true
+    documentclass: article
+    classoption: [a4paper, 10pt]
+    template-partials:
+      - ../../title.tex
+    geometry:
+      - top=1in
+      - left=1in
+      - right=1in
+      - bottom=1in
+    include-in-header:
+      text: |
+        \usepackage[noblocks]{authblk}
+        \renewcommand*{\Authsep}{, }
+        \renewcommand*{\Authand}{, }
+        \renewcommand*{\Authands}{, }
+        \renewcommand\Affilfont{\small}
+        \usepackage{float}
+        \floatplacement{table}{H}
+        \floatplacement{figure}{H}
+bibliography: references.bib
+number-sections: true
+abstract: "Data wrangling, also known as data cleaning and preprocessing, is a critical step in the data analysis process, particularly in the context of learning analytics. This chapter provides an introduction to data wrangling using R and covers topics such as data importing, cleaning, manipulation, and reshaping with a focus on tidy data. Specifically, readers will learn how to read data from different file formats (e.g. CSV, Excel), how to manipulate data using the `dplyr` package, and how to reshape data using the `tidyr` package. Additionally, the chapter covers techniques for combining multiple data sources. By the end of the chapter, readers should have a solid understanding of how to perform data wrangling tasks in R."
+keywords: "data wrangling, data cleaning, tidyverse, R programming, learning analytics"
+csl: ../../springer.cls 
+---
+
+
+**Keywords:** {{< meta keywords >}}
+
+```{r}
+#| include: false
+knitr::opts_chunk$set(echo = TRUE)
+options(
+  width = 84,
+  pillar.print_min = 5,
+  pillar.print_max = 5
+)
+suppressPackageStartupMessages(library("readr"))
+#suppressPackageStartupMessages(library("readxl"))
+suppressPackageStartupMessages(library("tidyr"))
+suppressPackageStartupMessages(library("dplyr"))
+suppressPackageStartupMessages(library("mice"))
+suppressPackageStartupMessages(library("stringr"))
+suppressPackageStartupMessages(library("lubridate"))
+options(dplyr.summarise.inform = FALSE)
+```
+
+# Introduction
+
+When analyzing data, it is crucial that the data is in a suitable format for the tools you will be using. This makes data wrangling essential. Data preparation and cleaning, such as extracting information from raw data or removing erroneous measurements, must also be done before data is ready for analysis. Data wrangling often takes up the majority of the time spent on analysis, sometimes up to 80 percent. To reduce the amount of work required, it is beneficial to use tools that follow the same design paradigm to minimize the time spent on data wrangling. The `tidyverse` [@tidyverse] programming paradigm is currently the most popular approach for this in R.
+
+The `tidyverse` has several advantages that make it preferable over other alternatives such as simply using base R for your data wrangling needs. All packages in the `tidyverse` follow a consistent syntax, making it intuitive to learn and use new `tidyverse` packages. This consistency also makes the code more easier to read, and maintain, and reduces the risk of errors. The `tidyverse` also has a vast range of readily available packages that are actively maintained, reducing the need for customized code for each new data wrangling task. Further, these packages integrate seamlessly with one another, facilitating a complete data analysis pipeline.
+
+<!--
+If you have been using R for a while but have not used tidyverse, you may have noticed that code often becomes messy. One reason for this is that you may fix the problems of the data right before the most important analysis step. Also, it is not uncommon that your results must be processed to create a figure of your choice for example. This kind of "glue code" is more difficult to follow, more challenging to work with if your data is updated, and is prone to stop working in the future.
+
+ If you data becomes hundreds of rows long, it is a good idea to separate different steps to its own file.
+A more recommended style of working is to structure your code so that you first make the changes to your data, and not between the analysis steps. A second factor, which reduces the need of "glue code" is the way your tools have been built. The tools of the tidyverse packages have been designed to provide a unified approach to data wrangling. This is done so that functions following tidy principles return a special type of data frame that is called a tibble. -->
+
+To fully realize the benefits of the `tidyverse` programming paradigm, one must first understand the key concepts of tidy data and pivoting. Tidy data follows three rules:
+
+1. Each variable must have its own column.
+2. Each observation must have its own row.
+3. Each value must have its own cell.
+
+Let's consider examples of tidy data. For instance, if you have data from a Moodle course where two attempts of an exam for each student are located in a single 
+<!-- should there be "separate" instead of "single"? -->
+column. This example data violates the first rule, because there are two variables in a single column instead of separate columns for each variable. What is needed to make this data tidy is to pivot it to a longer format. The pivoted data would have two rows for each student, both of which are different observations (exam attempts 1 and 2). Thus the pivoted data would not conflict with second rule.
+
+<!-- Previously, the data were too wide and we pivoted it to a longer format.  -->
+Data can also be too long, but in practice, this is much more rare. This can occur if two or more variables are stored on a single column across multiple rows. A key indicators of this is if the different rows of the same column have different measurements units (e.g. lb vs. kg). It may also occur that your raw data has multiple values in a single cell. In these cases, it is necessary to split the cells to extract the necessary information. In a simple case, where you have two values systematically in a one cell, the values can be easily separated into their own columns. 
+
+Overall, using `tidyverse` and understanding the key concepts of tidy data and pivoting can streamline the data analysis process and make code easier to work with and maintain. The rest of this chapter will guide readers through the process of data cleaning and wrangling with R in the field of learning analytics. We demonstrate how data can be grouped and summarized, how to select and transform variables of interest, and how data can be rearranged, reshaped and joined with other datasets. We will strongly rely on the `tidyverse` programming paradigm for a consistent and coherent approach to data manipulation, with a focus on tidy data.
+
+<!-- An essential step in analytics is data pre-processing, cleaning, and preparation for analysis. 
+The rest of this chapter will guide readers through the process of data cleaning and wrangling with R in the field of learning analytics. The main data types used in learning analytics are presented with examples. Common transformations to data and fixes to, e.g., missing data are also presented with code examples that are easily replicable by readers. The examples used in the book as well as the dataset will address common problems that learning analysts face, e.g., Moodle logs, forum data, or trace data from game platforms. We will strongly rely on the `tidyverse` [@tidyverse] programming paradigm for a consistent and coherent approach to data manipulation, with a focus on "tidy" data. -->
+
+# Reading data into R
+
+Data files come in many formats, and getting your data ready for analysis can often be a daunting task. The `tidyverse` offers much better alternatives to base R functions for reading data, especially in terms of simplicity and speed when reading large files. Additionally, most of the file input functions in the `tidyverse` follow a similar syntax, meaning that the user does not have to master every function for reading every type of data individually. 
+
+Often, just before the data can be read into R, user must specify the location of data files by setting a working directory. Perhaps most useful way to do that is to create a project in RStudio and then create a folder called "data" within the project folder. Data files can be put into that folder and user can refer to those files just by telling R-functions relative path of data file (e.g. "data/Final%20Dataset.csv") while the project takes care of the rest of the path. A more traditional way of setting this, which also works without RStudio, is by using a command such as `setwd("/home/Projects/LAproject/data/Final%20Dataset.csv")`. Here, a function called `setwd()` is used to set up a folder into location mentioned in a character string given as its argument. A `getwd()` lists current working directory, which can also be seen in RStudio just above the Console output.
+
+Some of the most common text data formats are comma-separated files or semicolon-separated files, both of which typically have the file extension .csv. These files can be read into R using the `readr` [@readr] package and the functions `read_csv()` and `read_csv2()`, respectively. For instance, we can read a comma-separated file R as follows
+
+```{r}
+#| eval: true
+#| echo: false
+#| message: false
+library("readr")
+url <- "https://github.com/lamethods/data/raw/main/2_moodleEdify/"
+lms <- read_csv(paste0(url, "Final%20Dataset.csv"))
+```
+Functions in `readr` provide useful information about how the file was read into R, which can be used to assess if the input was successful and what assumptions about the data were made during the process. In the printout above, the `read_csv()` function tells us the number of rows and columns in the data and the column specification, i.e., what type of data is contained within each column. In this case, we have 17 columns with `character` type of data, and 4 columns of `double` type of data. Functions in `readr` try to guess the column specification automatically, but it can also be specified manually when using the function. For more information about this dataset, please refer to Chapter 2 in this book [@LAbook2].
+
+Data from Excel worksheets can be read into R using the `import()` function  from the `rio` [@rio] package. We will use synthetic data generated based on a real blended course of learning analytics for the remainder of this chapter. These data consist of three Excel files which we will first read into R.
+
+```{r}
+library("rio")
+url <- "https://github.com/lamethods/data/raw/main/1_moodleLAcourse/"
+events <- import(paste0(url, "Events.xlsx"), setclass = "tibble")
+results <- import(paste0(url, "Results.xlsx"), setclass = "tibble")
+demographics <- import(paste0(url, "Demographics.xlsx"), setclass = "tibble")
+```
+
+The data files contain information on students' Moodle events, background information such as their name, study location and employment status, and various grades they've obtained during the course. For more information about the dataset, please refer to Chapter 2 in this book [@LAbook2]. These data are read in the `tibble` [@tibble] format, a special type of `data.frame` commonly used by `tidyverse` packages. We also load the `dplyr` [@dplyr] package which we will use for various tasks throughout this chapter.
+```{r}
+library("dplyr")
+```
+
+# Grouping and summarizing data
+
+Instead of individual-level data metrics, we may be interested in specific groups as specified by some combination of data values. For example, we could compute the number of students studying in each location by gender. To accomplish this, we need to start by creating a grouped dataset with the function `group_by()`. To compute the number of students, we can use the `summarise()` function which we already used previously in Chapter 1 and the function `count()`, which simply returns the number of observations in each category of its argument. 
+
+```{r}
+demographics |>
+  group_by(Gender) |> 
+  count(Location)
+```
+The column `n` lists the number of students in each group. When a `tibble` that contains grouped data is printed into the console, the grouping variable and the number of groups will be displayed in the console below the dimensions. Next, we will compute the total number of Moodle events of each student, which we will also use in the subsequent sections.
+
+```{r}
+events_summary <- events |>
+  group_by(user) |> 
+  tally() |>
+  rename(Frequency.Total = n)
+events_summary
+```
+Here, the function `tally()` simply counts the number of number rows in the data related to each student, reported in the column `n` which we rename to `Frequency.Total` with the `rename()` function. We could also count the number of events by event type for each student
+```{r}
+events |>
+  group_by(user, Action) |>
+  count(Action)
+```
+
+# Selecting variables
+
+In the `tidyverse` paradigm, selecting columns, i.e., variables from data is done using the `select()` function. The `select()` function is very versatile, allowing the user to carry out selections ranging from simple selection of a single variable to highly complicated selections based on multiple criteria. The most basic selection selects only a single variable in the data based on its name. For example, we can select the employment statuses of students as follows
+
+```{r}
+demographics |> 
+  select(Employment)
+```
+
+Note that using `select()` with a single variable is not the same as using the `$` symbol to select a variable, as the result is still a `tibble`, `select()` simply produces a subset of the data, where only the selected columns are present. Select is more similar to `subset()` in base R, which can accomplish similar tasks as `select()` and `filter()` in the `tidyverse.` 
+However, we do not recommend using `subset()`, as it may not work correctly when the working environment has variables that have the same name as columns in the data, which can lead to undesired outcomes.
+
+To extract the values of the selected column as a vector, we can use the function `pull()`. We use the `head()` function here to limit the console output to just the first few values of the vector (default is 6 values).
+
+```{r}
+demographics |> 
+  pull(Employment) |>
+  head()
+```
+
+The `select()` function syntax supports several operations that are similar to base R. We can select ranges of consecutive variables using `:`, complements using `!`, and combine selections using `c()`. The following selections illustrate some of these features:
+
+```{r}
+demographics |> 
+  select(user:Origin)
+demographics |> 
+  select(!Gender)
+demographics |> 
+  select(c(user, Surname))
+```
+
+In the first selection, we select all variables starting from `user` on the left to `Origin` on the right. In the second, we select all variables except `Gender`. In the third, we select both `user` and `Surname` variables. 
+
+Sometimes, our selection might not be based directly on the variable names themselves as in the examples above but instead on vectors that contain the names of columns we wish to select. In such cases, we can use the function `all_of()`. We can consider the intersections or unions of such selections using `&` and `|`, respectively.
+
+```{r}
+cols_a <- c("user", "Name", "Surname")
+cols_b <- c("Surname", "Origin")
+demographics |> 
+  select(all_of(cols_a))
+demographics |> 
+  select(all_of(cols_a) & all_of(cols_b))
+demographics |> 
+  select(all_of(cols_a) | all_of(cols_b))
+```
+
+Often the names of data variables follow a similar pattern, and these patterns can be used to construct selections. Selections based on a prefix or a suffix in the variable name can be carried out with the functions `starts_with()` and `ends_with()`, respectively. The function `contains()` is used to look for a specific substring in the names of the variables, and more complicated search patterns can be defined with the function `matches()` that uses regular expressions (see `?tidyselect::matches` for further information).
+
+```{r}
+results |> 
+  select(starts_with("Grade"))
+results |> 
+  select(contains("Data"))
+```
+
+So far, our selections have been based on variable names, but other conditions for selection are also feasible. The general-purpose helper function `where()` is used to select those variables for which a function provided to it returns `TRUE`. For example, we could select only those columns that contain `character` type data or `double` type data.
+
+```{r}
+results |> 
+  select(where(is.character))
+results |> 
+  select(where(is.double))
+```
+
+# Filtering observations
+
+In contrast to selection which relates to obtaining a subset of the columns of the data, filtering refers to obtaining a subset of the rows. In the `tidyverse`, data filtering is carried out with the `dplyr` package function `filter()`, which should not be confused with the base R `filter()` function in the `stats` package. As we have attached the `dplyr` package, the base R `filter()` function is masked, meaning that when we write code that uses `filter()`, the `dplyr` version of the function will automatically be called.
+
+Filtering is often a much simpler operation than selecting variables, as the filtering conditions are based solely on the values of the data variables. Using `filter()` is analogous to the base R subset operator `[`, but the filtering condition is given as an argument to the `filter()` function instead. It is good to remind that in R a single equal sign (`=`) is merely for arguments of function calls, while double equal sign (`==`) is needed for comparison of two values. And example of filter:
+
+```{r}
+demographics |> 
+  filter(Origin == "Bosnia") |> 
+  select(Name, Surname)
+```
+The code above first filters our student demographics data to only those students whose country of origin is Bosnia. Then, we select their first and last names.
+
+Multiple filtering conditions can be refined and combined using base R logical operators, such as `&` and `|`.
+```{r}
+demographics |>
+  filter(Gender == "F" & Location == "Remote")
+```
+Here, we filtered our data to female students who are studying remotely. The same result could also be obtained by using the `filter()` function two times
+```{r}
+demographics |>
+  filter(Gender == "F") |> 
+  filter(Location == "Remote")
+```
+This type of approach may improve the readability of your code especially when there are several independent filtering conditions to be applied simultaneously.
+
+Filters can naturally be based on numeric values as well. For example, we could select those students whose final grade is higher than 8.
+```{r}
+results |> 
+  filter(Final_grade > 8)
+```
+Similarly, we could select students based on their total number of Moodle events.
+```{r}
+events_summary |>
+  filter(Frequency.Total > 100 & Frequency.Total < 500)
+```
+
+# Transforming variables
+
+In the best-case scenario, our data is already in the desired format after it has been read into R, but this is rarely the case with real datasets. We may need to compute new variables that were not present in the original data, convert measurements to different units, or transform text data into a numeric form. In the `tidyverse`, data transformations are carried out by the `mutate()` function of the `dplyr` package. This function can be used to transform multiple variables at the same time or to construct entirely new variables. The syntax of the function is the same in both cases: first, the name of the variable should be provided followed by an R expression that defines the variable. The transformed data is not automatically assigned to any variable, enabling transformations to be used as temporary variables within a chain of piped operations. 
+
+As a simple example, we could convert the students' locations into a factor variable.
+
+```{r}
+demographics |> 
+  mutate(Location = factor(Location))
+```
+As we see from the `tibble` printout, the `Location` variable is a factor in the transformed data as indicated by the `<fct>` heading under the variable name. Note that the original `demographics` data was not changed, as we did not assign the result of the computation.
+
+The gender and employment status of the students could also be used as factors, which we could do in a single `mutate()` call
+```{r}
+demographics |> 
+  mutate(
+    Gender = factor(Gender),
+    Location = factor(Location),
+    Employment = factor(Employment)
+  )
+```
+However, writing out individual identical transformations manually is cumbersome when the number of variables is large. For such cases, the `across()` function can be leveraged, which applies a function across multiple columns. This function uses the same selection syntax that we already familiarized ourselves with earlier to define the columns that will be transformed. To accomplish the same three transformations into a factor format, we could write
+```{r}
+demographics |> 
+  mutate(across(c(Gender, Location, Employment), factor))
+```
+The first argument to the `across()` function is the selection that defines the variables to be transformed. The second argument defines the transformation, in this case, a function, to be used.
+
+Working with dates can often be challenging. When we read the student demographic data into R, the variable `Birthdate` was assumed to be a `character` type variable. If we would like to use this variable to e.g., compute the ages of the students, we need to first convert it into a proper format using the `as.Date` function. Since the dates in the data are not in any standard format, we must provide the format manually. Afterwards, we can use the `lubridate` [@lubridate] package to easily compute the ages of the students, which we will save into a new variable called `Age`. We will also construct another variable called `FullName` which formats the first and last names of the students as `"Last, First"`.
+```{r}
+library("lubridate")
+demographics |> 
+  mutate(
+    Birthdate = as.Date(Birthdate, format = "%d.%m.%Y"),
+    Age = year(as.period(interval(start = Birthdate, end = date("2023-03-12")))),
+    FullName = paste0(Surname, ", ", Name) 
+  ) |> 
+  select(Age, FullName)
+```
+The computation of the ages involves several steps. First, we construct a time interval object with the `interval()` function from the birthdate to the date for which we wish to compute the ages. Next, the `as.period()` function converts this interval into a time duration, from which we lastly get the number of years with the `year()` function.
+
+Suppose that we would like to construct a new variable `AchievingGroup` that categorizes the students into top 50% achievers and bottom 50% achievers based on their final grade on the course. We leverage two functions from the `dplyr` package to construct this new variable: `case_when()` and `ntile()`. The function `case_when()` is used to transform variables based on multiple sequential conditions. The function `ntile()` has two arguments, a vector `x` and an integer `n`, and it splits `x` into `n` equal-sized groups based on the ranks of the values in `x`.
+```{r}
+results <- results |>
+  mutate(
+    AchievingGroup = factor(
+      case_when(
+        ntile(Final_grade, 2) == 1 ~ "Low achiever",
+        ntile(Final_grade, 2) == 2 ~ "High achiever"
+      )
+    )
+  )
+```
+The syntax of `case_when()` is very simple: we describe the condition for each case followed by `~` after which we define the value that the case should correspond to. We assign the result of the computation to the `results` data, as we will be using the `AchievingGroup` variable in later chapters.
+
+We would also like to categorize the students based on their activity level, i.e., the number of total Moodle events. Our goal is to create three groups of equal size consisting of low activity, moderate activity and high activity students. The approach we applied to categorizing the achievement level of the students is also applicable for this purpose. We name our new variable as `ActivityGroup`, and we assign the result of the computation, as we will also be using this variable in later chapters.
+```{r}
+events_summary <- events_summary |> 
+  mutate(
+    ActivityGroup = factor(
+      case_when(
+        ntile(Frequency.Total, 3) == 1 ~ "Low activity",
+        ntile(Frequency.Total, 3) == 2 ~ "Moderate activity",
+        ntile(Frequency.Total, 3) == 3 ~ "High activity"
+      )
+    )
+  )
+```
+
+# Rearranging data
+
+Sometimes we may want to reorder the rows or columns of our data, for example in alphabetical order based on the names of students on a course. The `arrange()` function from the `dplyr` package orders the rows of the by the values of columns selected by the user. The values are sorted in ascending order by default, but the order can be inverted by using the `desc()` function if desired. The variable order in the selection defines how ties should be broken when duplicate values are encountered in the previous variables of the selection. For instance, the following code would arrange the rows of our `demographics` data by first comparing the surnames of the students, and then the given names for those students with the same surname. Missing values are placed last in the reordered data.
+
+```{r}
+demographics |> 
+  arrange(Surname, Name)
+```
+A descending order based on both names can be obtained by applying the `desc()` function.
+```{r}
+demographics |>
+  arrange(desc(Surname), desc(Name))
+```
+
+Column positions can be changed with the `relocate()` function of the `dplyr` package. Like `arrange()`, we first select the column or columns we wish to move into a different position in the data. Afterwards, we specify the position where the columns should be moved to in relation to positions of the other columns. In our `demographics` data, the user ID column `user` is the first column. The following code moves this column after the `Employment` column so that the `user` column becomes the last column in the data.
+
+```{r}
+demographics |>
+  relocate(user, .after = Employment)
+```
+The mutually exclusive arguments `.before` and `.after` of `relocate()` specify the new column position in relation to columns that were not selected. These arguments also support the `select()` function syntax for more general selections.
+
+# Reshaping data
+
+Broadly speaking, tabular data typically take one of two formats: wide or long. In the wide format, there is one row per subject, where the subjects are identified by an identifier variable, such as the `user` variable in our Moodle data, and multiple columns for each measurement. In the long format, there are multiple rows per subject, and the columns describe the type of measurement and its value. For example, the `events` data is in a long format containing multiple Moodle events per student, but the `results` and `demographics` data are in a wide format with one row per student.
+
+In the previous section, we constructed a summary of the users' Moodle events in total and of different types. The latter data is also in a long format with multiple rows per subject, but we would instead like to have a column for each event type with one row per user, which means that we need to convert this data into a wide format. Conversion between the two tabular formats is often called *pivoting*, and the corresponding functions `pivot_wider()` and `pivot_longer()` from the `tidyr` [@tidyr] package are also named according to this convention. We will create a wide format data of the counts of different event types using the `pivot_wider()` function as follows
+
+```{r}
+library("tidyr")
+events_types <- events |>
+  group_by(user, Action) |>
+  count(Action) |> 
+  pivot_wider(
+    names_from = "Action", 
+    names_prefix = "Frequency.",
+    values_from = "n",
+    values_fill = 0
+  )
+events_types
+```
+Here, we first specify the column name that the names of the wide format data should be taken from in the long format data with `names_from`. In addition, we specify a prefix for the new column names using `names_prefix` that helps to distinguish what these new columns will contain, but in general, the prefix is optional. Next, we specify the column that contains the values for the new columns with `values_from`. Because not every student necessarily has events of every type, we also need to specify what the value should be in cases where there are no events of a particular type by using `values_fill`. As we are considering the frequencies of the events, it is sensible to select 0 to be this value. We save the results to `events_types` as we will use the event type data in later sections and chapters.
+
+# Joining data
+
+Now that we have computed the total number of events for each student and converted the event type data into a wide format, we still need to merge these new data with the demographics and results data. Data merges are also called *joins*, and the `dplyr` package provides several functions for different kinds of joins. Here, we will use the `left_join()` function that will preserve all observations of the first argument.
+
+```{r}
+left_join(demographics, events_summary, by = "user")
+```
+In essence, the above left join adds all columns from `events_summary` to `demographics` whenever there is a matching value in the `by` column. To continue, we can use additional left joins to add the remaining variables from the `results` data, and the Moodle event counts of different types from `events_types` to have all the student data in a single object.
+```{r}
+all_combined <- demographics |> 
+  left_join(events_types, by = "user") |>
+  left_join(events_summary, by = "user") |> 
+  left_join(results, by = "user")
+all_combined
+```
+We will use this combined dataset in the following chapters as well.
+
+# Missing data
+
+Sometimes it occurs that learning analytics data has cells for which the values are missing for some reason. The Moodle event data which we have utilized in this chapter does not naturally contain missing data. Thus, to have an example, we need to create a data which does. Second, handling of missing data is a vast topic of which we can only discuss some of the key points very briefly from a practical perspective. For a more comprehensive overview, we recommend reading @little2019statistical and @vanbuuren2018 for a hands on approach. A short overview of missingness can be found in @kopra2018.
+
+The code below will create missing values randomly to each column of `events_types` data (`user` column is an exception). To do that, we use the `mice` [@mice] package which also has methods for the handling of missing data. Unfortunately, `mice` is not part of the `tidyverse`. For more information about `mice`, a good source is `miceVignettes` at https://www.gerkovink.com/miceVignettes/. Now, let's create some missing data.
+
+```{r}
+#| message: false
+
+library("mice")
+set.seed(44)
+events_types <- events_types |>
+  rename(
+    "Ethics" = "Frequency.Ethics",
+    "Social" = "Frequency.Social",
+    "Practicals" = "Frequency.Practicals"
+  )
+ampute_list <- events_types |>
+  ungroup(user) |>
+  select(Ethics:Practicals)|>
+  as.data.frame() |>
+  ampute(prop = 0.3)
+events_types_mis <- ampute_list$amp |>
+  as_tibble()
+events_types_mis[2, "Practicals"] <- NA
+```
+Above, we also rename the variables that contain the frequencies of Moodle events related to ethics, social and practicals into `Ethics`, `Social` and `Practicals`, respectively. Let's now see some of the values of `events_types_mis`
+```{r}
+events_types_mis
+```
+We can see that now the data contains `NA` values in some of the cells. These are the cells in which a missing value occurs, meaning that a value for those measurements has not been recorded. A missing data pattern, that is how missing of one variable affects missingness of other variables, can be show as:
+
+```{r}
+#| out-width: 70%
+#| results: hide
+md.pattern(events_types_mis, rotate.names = TRUE)
+```
+
+Above, each red square indicates a missing value while blue squares stand for observed ones. We can see that there are 95 complete rows, 10 for which `Practicals` are missing, 17 have missingness on `Social` and 9 are missing on `Ethics`. Also, one row has two red squares indicating a missing value on both `Social` and `Practicals`.
+
+Let's now discuss options of handling missing data briefly. There are four classes of statistical methods for analyzing data with missing values: complete case (CC) methods, weighting methods, imputation methods, and model-based methods. The simplest of these is complete case analysis, which leaves missing values out of the analysis and only uses observations with all variables recorded. This can be done with the `tidyr` [@tidyr] package function `drop_na()`:
+
+```{r}
+events_types_mis |>
+  drop_na()
+```
+
+We can see that after using this method, our data has only 95 rows as those were the rows without any columns having missing values. This made our data much smaller! If there are a lot of missing values, the data may become too small to use for practical purposes.
+
+A more novel group of methods are imputation methods. One of the options is using single imputation (SI) where the mean of each variable will determine the imputed value. The single mean imputation can be done as follows:
+```{r}
+imp <- mice(events_types_mis, method = "mean", m = 1, maxit = 1 , print = FALSE)
+complete(imp) |> 
+  head()
+```
+We can see from above that the imputed values are not integers anymore. However, if we aim to estimate means or regression coefficients (see Chapter 5 [@LAbook5] for details) that is not a problem. One of the problems with mean imputation is that the variance and standard error estimates will become downward biased. A mean of `Ethics` for mean imputation is:
+```{r}
+fit <- with(imp, lm(Ethics ~ 1))
+summary(fit)
+```
+
+Next, let's briefly have a look at how we can utilize multiple imputation (MI) which is an improvement over single imputation. The multiple imputation approach generates more than one imputation thus creating many complete data sets for us. For each of these datasets, we can perform any analysis that we are interested in. After the analysis, one must pool the results from the impured datasets to get the final result. Here, we utilize a method called predictive mean matching (`method = "pmm"` in the code below), which uses the neighbour values of data as imputations.
+
+```{r, message=FALSE}
+imp2 <- mice(events_types_mis, method = "pmm", m = 10, maxit = 100, print = FALSE)
+fit2 <- with(imp2, lm(Ethics ~ Practicals))
+pool_fit <- pool(fit2)
+# Multiple imputation
+summary(pool_fit)
+# Complete cases
+summary(lm(Ethics ~ Practicals, events_types_mis))["coefficients"]
+# Without missingness
+summary(lm(Ethics ~ Practicals, events_types))["coefficients"] 
+```
+From the results above, we can see that in this particular case the multiple imputation performs well in comparison to CC approach. The regression coefficient for full data without any missing values is $0.089$, and it is $0.080$ for multiple imputation, while complete case analysis gives $0.062$. As all of them have very similar standard errors, this yields that MI and full data give statistically significant p-values for significance level 0.01, while CC does not.
+
+# Correcting erroneous data
+
+Lets imagine that our data has an error on the surname variable `Surname` and that all the names ending with "sen" should end with "ssen". What we can do is that we can use regular expressions to detect the erroneous rows and we can also use them to replace the values. Let's first figure out which last names contain a name ending with "sen". We can use a function `str_detect()` to return TRUE/FALSE for each row from `stringr` [@stringr] package within a `filter()` function call. We define `pattern = "sen$"` where `$` indicates the end of the string.
+```{r}
+library("stringr")
+demographics |>
+  filter(str_detect(string = Surname, pattern = "sen$")) |>
+  pull(Surname)
+```
+After pulling the filtered surnames, there seems to be five surnames ending with "sen". Next, let's try to replace "sen" with "ssen". On the next row we filter just as previously to limit output.
+```{r}
+demographics |>
+  mutate(Surname = str_replace(
+    string = Surname, pattern = "sen$", replacement = "ssen")
+  ) |>
+  filter(str_detect(string = Surname, pattern = "sen$")) |>
+  pull(Surname)
+```
+Thus, the following code updates the data so that all the surnames ending with "sen" now end with "ssen" instead.
+```{r}
+demographics <- demographics |>
+  mutate(Surname = str_replace(
+    string = Surname, pattern = "sen$", replacement = "ssen")
+  )
+```
+
+# Conclusion and further reading
+
+Data wrangling is one of the most important steps in any data analysis pipeline. This chapter introduced the `tidyverse`, tidy data, and several commonly used R packages for data manipulation and their use in basic scenarios in the context of learning analytics. However, the `tidyverse` is vast and can hardly be fully covered in a single chapter. We refer the reader to additional resources such as those found on the tidyverse website at \url{https://www.tidyverse.org/learn/} and the book "R for Data Science" by Hadley Wicham and Garret Grolemund. The book is free to use and readily available online at https://r4ds.had.co.nz/.
+
+# References

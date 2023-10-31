@@ -1,0 +1,13 @@
+---
+author: "Mohammed Saqr & Sonsoles López-Pernas"
+toc: false
+include-after-body:
+  text: |
+    <script>
+      document.querySelector(".quarto-title-meta-heading").innerHTML = "Editors"
+    </script>
+---
+#    {.unnumbered}
+
+This is the website for the book **“Learning analytics methods and tutorials: A practical guide using R”** which will be published by Springer in 2024. 
+
