@@ -1,5 +1,5 @@
 ---
-title: "Sequence analysis: Basic principles, technique, and tutorial"
+title: "Sequence Analysis in Education: Principles, Technique, and Tutorial with R"
 author:
   - name: "Mohammed Saqr"
   - name: "Sonsoles López-Pernas"

@@ -1,1 +1,14 @@
-# Clustering
+---
+title: "Dissimiliarity-based Clustering of Educational Data using R"
+author:
+  - name: "Keefe Murphy"
+  - name: "Sonsoles López-Pernas"
+  - name: "Mohammed Saqr"
+crossref:
+  fig-title: '**Figure**'
+  fig-labels: arabic
+  title-delim: "**.**"
+abstract: "TBD"
+keywords: "TBD"
+---
+

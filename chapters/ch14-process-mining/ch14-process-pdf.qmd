@@ -1,5 +1,5 @@
 ---
-title:  "Chapter 14. The why, how and when of process mining in learning analytics: A guided tutorial in R"
+title:  "Chapter 14. The Why, the How and the When of Educational Process Mining in R"
 format: 
   pdf:
     number-sections: true

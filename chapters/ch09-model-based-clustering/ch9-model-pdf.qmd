@@ -1,5 +1,5 @@
 ---
-title: "An introduction and tutorial to model-based clustering in education via latent profile analysis"
+title: "An Introduction and R Tutorial to Model-based Clustering in Education via Latent Profile Analysis"
 author:
   - name: "Luca Scrucca"
     email: "luca.scrucca@unipg.it"

@@ -1,5 +1,5 @@
 ---
-title: "Chapter 12. A modern approach to transition analysis and process mining with Markov models: A tutorial with R" 
+title: "Chapter 12. A Modern Approach to Transition Analysis and Process Mining with Markov Models in Education" 
 format: 
   pdf:
     number-sections: true

@@ -132,7 +132,7 @@ The next section follows with some of the classic machine learning methods of le
 
 Prediction of learners’ course performance has been a central theme in learning analytics since the inception of the field. The main motivation behind it has been to identify learners who are at risk of low achievement so that they could be offered timely support based on intervention strategies derived from analysis of learners’ data. To predict student success, numerous indicators, from varying data sources, have been examined and reported in the literature, as well as various predictive algorithms. Chapter 7 introduces the reader to predictive modeling, through a review of the main objectives, indicators, and algorithms that have been operationalized in previous works as well as a step-by-step tutorial on how to perform predictive modeling in learning analytics using R. The tutorial demonstrates how to predict student success using learning traces originating from a learning management system, guiding the reader through all the required steps from the data preparation to the evaluation of the built models.
 
-**Chapter 8: Clustering Educational Data: A Tutorial with R** [@Murphy_López-Pernas_Saqr_2024]
+**Chapter 8: Dissimilarity-based Clustering Educational Data using R** [@Murphy_López-Pernas_Saqr_2024]
 
 *Keefe Murphy, Sonsoles López-Pernas, Mohammed Saqr*
 TBD
@@ -154,7 +154,7 @@ We continue our journey with an introduction to temporal methods in learning ana
 
 Sequence analysis is a data mining technique that is increasingly gaining ground in learning analytics. Sequence analysis enables researchers to extract meaningful insights from sequential data, i.e., to summarize the sequential patterns of learning data and classify those patterns into homogeneous groups. Chapter 10 introduces readers to sequence analysis techniques and tools through real-life step-by-step examples of sequential trace log data of students’ online activities. Readers are guided on how to visualize the common sequence plots and interpret such visualizations. An essential part of sequence analysis is the discovery of patterns within sequences through clustering techniques. Therefore, this chapter demonstrates the various sequence clustering methods, calculation of cluster indices, and evaluation of clustering results.
 
-**Chapter 11: Modelling the Dynamics of Longitudinal Processes in Education: The VaSSTra Method**  [@López-Pernas_Saqr_2024]
+**Chapter 11: Modeling the Dynamics of Longitudinal Processes in Education. A tutorial with R for The VaSSTra Method**  [@López-Pernas_Saqr_2024]
 
 *Sonsoles López-Pernas, Mohammed Saqr*
 
@@ -219,12 +219,13 @@ When analyzing psychological phenomena that take place in educational settings, 
 
 **Chapter 20: Factor Analysis in Education Research using R**  [@Vogelsmeier_Saqr_López-Pernas_Jongerling_2024]
 
-Leonie V. D. E. Vogelsmeier, Joran Jongerling, Mohammed Saqr, Sonsoles López-Pernas
+*Leonie V. D. E. Vogelsmeier, Mohammed Saqr, Sonsoles López-Pernas,  Joran Jongerling*
+
 Chapter 20 presents factor analysis, a method employed to reduce a large number of variables into fewer numbers of factors. The method is commonly used to identify which observable indicators are representative of latent, not directly-observed constructs. This is a key step in developing valid instruments to assess latent constructs such as student engagement in educational research. The chapter describes the two main approaches for conducting factor analysis in detail and provides a tutorial on how to implement both techniques. The first is confirmatory factor analysis (CFA), a more theory-driven approach,  in which a researcher actively specifies the number of underlying constructs as well as the pattern of relations between these dimensions and observed variables. The second is exploratory factor analysis (EFA), a more data-driven approach,  in which the number of underlying constructs is inferred from the data, and all underlying constructs are assumed to influence all observed variables (at least to some degree).
 
 **Chapter 21: Structural Equation Modeling with R for Education Scientists**  [@Jongerling_López-Pernas_Saqr_Vogelsmeier_2024]
 
-*Joran Jongerling, Leonie V. D .E. Vogelsmeier, Sonsoles López-Pernas, Mohammed Saqr*
+*Joran Jongerling,  Sonsoles López-Pernas, Mohammed Saqr, Leonie V. D .E. Vogelsmeier*
 
 Chapter 21 presents the last method in our book: Structural Equation Modeling (SEM). SEM is a suitable and useful method for modeling the multitude of relationships between latent variables and the observable indicators, as well as the relationship between the latent variables themselves to test theories. In its most common form, SEM combines CFA (covered in Chapter 20) with another method named path analysis. Just like CFA, SEM relates observed variables to latent variables that are measured by those observed variables and, as path analysis does, SEM allows for a wide range of regression-type relations between sets of variables (both latent and observed). This chapter presents an introduction to SEM, an integrated strategy for conducting SEM analysis that is well-suited for educational sciences, and a tutorial on how to carry out an SEM analysis in R. 
 

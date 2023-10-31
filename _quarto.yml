@@ -36,7 +36,7 @@ book:
       chapters: 
         - text: "Predictive modeling"
           file: chapters/ch07-prediction/ch7-pred.qmd
-        - text: "Clustering"
+        - text: "Dissimilarity-based Clustering"
           file: chapters/ch08-clustering/ch8-clus.qmd
         - text: "Model-based clustering"
           file: chapters/ch09-model-based-clustering/ch9-model.qmd

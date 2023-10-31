@@ -1,5 +1,5 @@
 ---
-title:  "The why, how and when of process mining in learning analytics: A guided tutorial in R"
+title:  "The Why, the How and the When of Educational Process Mining in R"
 execute:
   message: FALSE
 author: 
