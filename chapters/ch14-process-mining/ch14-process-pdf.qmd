@@ -45,6 +45,7 @@ fontsize: "9pt"
 dpi: 900
 editor: source
 keep-tex: true
+extract-media: "img"
 bibliography: references.bib
 csl: ../../springer.cls  
 ---
@@ -267,7 +268,7 @@ event_log |> process_map()
 event_log |> process_map(render=F) |> svpm("basic") 
 ```
 
-![Default process map](basic.png){#fig-pmap-basic width="2in"}
+![Default process map](./aux/basic.png){#fig-pmap-basic width="2in"}
 
 By default, the process map contains every single activity and transition between activities. As the number of activities and cases increase, this can become unreadable, as is the case with our example. Therefore, we might need to trim some less frequent activities to be able to better visualize the process. We will choose to cover 80% of the activities. This means that we will select the most frequent activities in order, up to when we have accounted for 80% of all the activities in the event log. If we go back to @tbl-activities, we can see that all activities ranging from the most frequent activity (`Group_work`) to `Instructions` account roughly to 80%, so we are left with the top five activities and exclude the rest. There is no standard for choosing a threshold for trimming and it is up to the researcher to define the threshold. As discussed in the introduction, such approach may yield different process maps according to the trimming threshold. A good rule of thumb for choosing this threshold is that the process map should be readable but at the same time no essential information should be removed. In our case, the activities filtered out are very infrequent and specific to certain lessons in the course, so they are not representative to the course as a whole. Another strategy would be to combine these activities into a single one such as `Reading`, which would allow to simplify our analysis while keeping all the information. For demonstration processes, we proceed by filtering the log and to operate with it in subsequent steps.
 
@@ -285,7 +286,7 @@ event_log_trimmed |> process_map()
 event_log_trimmed |> process_map(render=F) |> svpm("basic-trimmed") 
 ```
 
-![Process map trimmed](basic-trimmed.png){#fig-pmap-basic-trimmed width="4in"}
+![Process map trimmed](aux/basic-trimmed.png){#fig-pmap-basic-trimmed width="4in"}
 
 As we have seen, each node of the process contains the activity name along with its overall frequency, that is, the number of instances of that activity in our event log. Similarly, the edges (the arrows that go from activity to activity) are labeled with the number of times each transition has taken place. These are the default process map settings. Another way of labeling our process map is using the `frequency("absolute-case")` option, which counts the number of cases (i.e., sessions in our event log) that contain each given activity and transition (@fig-pmap-abs-case). Instead of seeing the count of activities and transitions, we are seeing the count of sessions that contain each activity and transition. For example, we could say that 8,203 sessions contain the activity `Course_view`.
 
@@ -297,7 +298,7 @@ event_log_trimmed |> process_map(frequency("absolute-case"), render=F) |> svpm("
 event_log_trimmed |> process_map(frequency("absolute-case"))
 ```
 
-![Absolute case process map](abs-case.png){#fig-pmap-abs-case width="4in"}
+![Absolute case process map](aux/abs-case.png){#fig-pmap-abs-case width="4in"}
 
 
 Sometimes we may be interested in the percentage (relative proportion) rather than the overall counts because it may be easier to compare and interpret. In such a case, we can use the `frequency("relative")` and `frequency("relative-case")` options. In the former, the labels will be relative to the total number of activities and transitions (@fig-pmap-rel), whereas in the latter, the labels will be relative to the number of cases (or proportion thereof) (@fig-pmap-rel-case). For example, in @fig-pmap-rel, we see that `Group_work` accounts for 39.98\% of the activities, whereas in @fig-pmap-rel-case we see that it is present in  55.25\% of the cases (i.e., sessions).
@@ -316,9 +317,9 @@ event_log_trimmed |> process_map(frequency("relative-case"), render = F) |> svpm
 ```
 
 ::: {#fig-rel layout-ncol="2"}
-![Relative](rel.png){#fig-pmap-rel width="95%"}
+![Relative](aux/rel.png){#fig-pmap-rel width="95%"}
 
-![Relative case](rel-case.png){#fig-pmap-rel-case width="95%"}
+![Relative case](aux/rel-case.png){#fig-pmap-rel-case width="95%"}
 
 Relative process maps
 :::
@@ -338,7 +339,7 @@ event_log_trimmed |> process_map(type_nodes = frequency("absolute"),
                    render=F) |> svpm("rel-case-perf")
 ```
 
-![Relative nodes and performance edges process map](rel-case-perf.png){#fig-pmap-rel-perf width="4in"}
+![Relative nodes and performance edges process map](aux/rel-case-perf.png){#fig-pmap-rel-perf width="4in"}
 
 Another very useful feature is to be able to compare processes side by side. We can do so by using the `group_by()` function before calling `process_map()`. We see that the process map does not capture any meaningful difference between the two groups (@fig-ach).
 
@@ -352,9 +353,9 @@ event_log_trimmed |> filter(AchievingGroup == "Low achiever") |> process_map(fre
 ```
 
 ::: {#fig-ach layout-ncol="2"}
-![High achievers](grouped-high.png){#fig-pmap-high width="95%"}
+![High achievers](aux/grouped-high.png){#fig-pmap-high width="95%"}
 
-![Low achievers](grouped-low.png){#fig-pmap-low width="95%"}
+![Low achievers](aux/grouped-low.png){#fig-pmap-low width="95%"}
 
 Comparison between two process maps
 :::

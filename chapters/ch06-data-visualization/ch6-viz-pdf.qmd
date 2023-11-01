@@ -1,5 +1,5 @@
 ---
-title: "Chapter 6: Visualizing and Reporting Educational Data with R"
+title: "Visualizing and Reporting Educational Data with R"
 format: 
   pdf:
     number-sections: true
@@ -64,8 +64,11 @@ keywords: "learning analytics, data visualization, `ggplot2`, visual analytics"
 fontsize: "9pt"
 dpi: 800
 keep-tex: true
+extract-media: "img"
 bibliography: references.bib
 csl: ../../springer.cls  
+keep-tex: true
+extract-media: "img"
 ---
 
 **Keywords:** {{< meta keywords >}}

@@ -1,5 +1,5 @@
 ---
-title: "Chapter 15. Social Network Analysis: A primer, a guide and a tutorial in R"
+title: "Social Network Analysis: A primer, a guide and a tutorial in R"
 format: 
   pdf:
     number-sections: true
@@ -56,6 +56,7 @@ keywords: "learning analytics, social network analysis, centrality measures, tut
 fontsize: "9pt"
 dpi: 800
 keep-tex: true
+extract-media: "img"
 bibliography: references.bib
 csl: ../../springer.cls  
 ---

@@ -82,6 +82,8 @@ p {
 
 **Mohammed Saqr**, University of Eastern Finland
 
+**Marieke Schreuder**, KU Leuven
+
 **Luca Scrucca**, Università degli Studi di Perugia	
 
 **Matthias Studer**, University of Geneva
@@ -108,7 +110,7 @@ p {
 
 **Gökhan Akçapınar**, Hacettepe University
 
-**Daniel Amo-Filva**, Universitat Ramon Llulll
+**Daniel Amo-Filva**, Universitat Ramon Llull
 
 **Enrique Barra**, Universidad Politécnica de Madrid
 

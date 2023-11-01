@@ -68,6 +68,8 @@ keep-tex: true
 bibliography: references.bib
 csl: "../../springer.cls"
 pdf-engine: pdflatex
+keep-tex: true
+extract-media: "img"
 ---
 
 **Keywords:** {{< meta keywords >}}
@@ -162,7 +164,7 @@ Building upon the knowledge acquired in the previous chapter, Chapter 11 covers 
 
 **Chapter 12: A Modern Approach to Transition Analysis and Process Mining with Markov Models in Education** [@Helske_Helske_Saqr_López-Pernas_Murphy_2024]
 
-*Satu Helske, Jouni Helske, Mohammed Saqr, Sonsoles López-Pernas, Keefe Murphy*
+*Jouni Helske, Satu Helske, Mohammed Saqr, Sonsoles López-Pernas, Keefe Murphy*
 
 Chapter 13 presents Markov models, a widely used technique to model temporal processes. Contrary to the deterministic approach seen in the previous sequence analysis chapters, Markovian models are probabilistic models, focusing on the transitions between states instead of studying sequences as a whole. The chapter provides an introduction to Markov models and differentiates between its most common variations: first-order Markov models, hidden Markov models, mixture Markov models, and hidden mixture Markov models. All implementations are illustrated with a step-by-step tutorial using the R package seqHMM using students’ longitudinal data. The chapter also provides a complete guide to performing stochastic process mining with Markovian models as well as plotting, comparing, and clustering different process models
 
@@ -210,7 +212,7 @@ The increasing use of technology in many areas of society and life has led to an
 
 We finalize the book with a section on psychometrics. In the field of educational psychology, psychometrics aims to study how psychological constructs (e.g., intelligence or aptitude) are related to observable variables (e.g., test scores). Traditionally, psychometric methods in educational psychology have relied on self-reported data from validated questionnaire-like instruments, although nowadays researchers have begun to make use of digital data. We present several techniques to investigate the relationship between measured variables and to test hypotheses and theories: psychological networks, factor analysis, and structural equation modeling (SEM).
 
-**Chapter 19: Psychological networks** [@Saqr_Beck_López-Pernas_2024]
+**Chapter 19: Psychological Networks: A Modern Approach to Analysis of Learning and Complex Learning Processes** [@Saqr_Beck_López-Pernas_2024]
 
 *Mohammed Saqr, Emorie Beck, Sonsoles López-Pernas*
 

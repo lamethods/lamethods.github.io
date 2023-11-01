@@ -701,8 +701,8 @@ value (`set.seed`).
 
 In the next step, we use the training portion of the dataset to build a
 RF model, as shown in the code snippet below. We train a model by tuning
-its mtry hyper-parameter and choose the model with optimal mtry value
-based on the Area under the ROC curve (AUC ROC) metric. The mtry
+its `mtry` hyper-parameter and choose the model with optimal `mtry` value
+based on the Area under the ROC curve (AUC ROC) metric. The `mtry`
 hyper-parameter defines the number of features that are randomly chosen
 at each step of tree branching, and thus controls how much variability
 will be present among the trees that RF will build. It is one of the key

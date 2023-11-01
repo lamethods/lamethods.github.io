@@ -1,5 +1,5 @@
 ---
-title: "Chapter 12. A Modern Approach to Transition Analysis and Process Mining with Markov Models in Education" 
+title: "A Modern Approach to Transition Analysis and Process Mining with Markov Models in Education" 
 format: 
   pdf:
     number-sections: true
@@ -65,10 +65,10 @@ keywords: "Markov models, learning analytics, sequence analysis, transition anal
 fontsize: "9pt"
 dpi: 900
 editor: source
-keep-tex: true
 bibliography: references.bib
 csl: ../../springer.cls  
-
+keep-tex: true
+extract-media: "img"
 ---
 
 **Keywords:** {{< meta keywords >}}

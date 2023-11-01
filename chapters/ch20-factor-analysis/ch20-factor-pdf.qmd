@@ -51,11 +51,11 @@ abstract: "Factor analysis is a method commonly employed to reduce a large numbe
 fontsize: "9pt"
 dpi: 900
 editor: source
-keep-tex: true
 bibliography: references.bib
 csl: ../../springer.cls  
 keywords: "factor analysis, exploratory factor analysis, confirmatory factor analysis, learning analytics"
-
+keep-tex: true
+extract-media: "img"
 ---
 
 **Keywords:** {{< meta keywords >}}
@@ -771,7 +771,7 @@ EFA <- efa (data = model.building[, var_names], nfactors = 4:6,
 The `efa()` function is part of lavaan [@Rosseel2012-tj], which is a very
 popular, open-source R package that can be used for estimating various
 latent variable models, including factor analysis and structural
-equation modeling (see Chapter XX). With the first argument `data`, you
+equation modeling (see Chapter 2 [@Lopez-Pernas2024-hy]). With the first argument `data`, you
 again specify the dataset on which you want to perform factor analysis,
 `nfactors` indicates the range of factors for which you want to retrieve
 the results. Next, the argument `rotation` pertains to identifying the

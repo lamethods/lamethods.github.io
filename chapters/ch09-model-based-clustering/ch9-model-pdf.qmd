@@ -26,7 +26,7 @@ affiliations:
 format:
   pdf:
     template-partials: 
-      - title.tex
+      - ../../title.tex
     include-in-header: 
       text: |
         \DeclareMathOperator{\Exp}{E}
@@ -41,29 +41,13 @@ format:
         \renewcommand*{\Authands}{, }
         \renewcommand\Affilfont{\small}
     number-sections: true
-  html:
-    toc: true
-    toc-depth: 4
-    toc-location: left
-    number-sections: true
-    highlight-style: monochrome
-    embed-resources: true
-    grid:
-      sidebar-width: 250px
-      body-width: 1000px
-      margin-width: 50px
-    
-knitr:
-  opts_chunk: 
-    collapse: true
-    warning: false
-    message: false
-    out-width: 80%
 bibliography: "model-based_clustering.bib"
 editor: source
-keep-tex: true
 abstract: "Heterogeneity has been a hot topic in recent educational literature. Several calls have been voiced to adopt methods that capture different patterns or subgroups within students’ behavior or functioning. Assuming that there is “an average” pattern that represents the entirety of student populations requires the measured construct to have the same causal mechanism, same development pattern, and affect students in exactly the same way.  Using a person-centered method (finite Gaussian mixture model or latent profile analysis), the present tutorial shows how to uncover the heterogeneity within engagement data by identifying three latent or unobserved clusters. This chapter offers an introduction to the model-based clustering that includes the principles of the methods, a guide to choice of number of clusters, evaluation of clustering results and a detailed guide with code and a real-life dataset. The discussion elaborates on the interpretation of the results, the advantages of model-based clustering as well as how it compares with other methods."
 keywords: "Gaussian mixture model, latent profile analysis, model-based clustering, learning analytics"
+keep-tex: true
+extract-media: "img"
+csl: ../../springer.cls  
 ---
 **Keywords:** {{< meta keywords >}}
 
@@ -89,7 +73,7 @@ library("mclust")
 \newcommand{\T}{{}^{\!\top}}
 \newcommand{\diag}{\text{diag}}
 \newcommand{\df}{\text{df}}
-\newcommand{\C}{\mathcal{C}}
+\newcommand{\CC}{\mathcal{C}}
 \newcommand{\M}{\mathcal{M}}
 
 \renewcommand{\hat}[1]{\widehat{#1}}
@@ -97,7 +81,7 @@ library("mclust")
 \newcommand{\mub}{\boldsymbol{\mu}}
 \newcommand{\Sigmab}{\boldsymbol{\Sigma}}
 \newcommand{\Lambdab}{\boldsymbol{\Lambda}}
-\newcommand{\U}{\boldsymbol{U}}
+\newcommand{\UU}{\boldsymbol{U}}
 \newcommand{\Deltab}{\boldsymbol{\Delta}}
 \newcommand{\Prior}{\mathcal{P}}
 \newcommand{\coldim}{d}
@@ -165,9 +149,9 @@ $$ {#eq-gmm}
 where $\pi_k$ represents the mixing probabilities, i.e., the marginal probability of belonging to the $k$-th cluster, such that $\pi_k > 0$ and $\sum_{k=1}^K\pi_k=1$, and $\phi_d(\cdot)$ is the $d$-dimensional multivariate Gaussian density with parameters $(\mub_k,\Sigmab_k)$ for $k=1,\ldots,K$. 
 Clusters described by such a GMM are ellipsoidal, centered at the means $\mub_k$, and with other geometric characteristics (namely volume, shape, and orientation) determined by the covariance matrices $\Sigmab_1, \ldots, \Sigmab_K$. Parsimonious parameterisations of covariance matrices can be controlled by imposing some constraints on the covariance matrices through the following eigen-decomposition [@Banfield:Raftery:1993; @Celeux:Govaert:1995]:
 $$
-\Sigmab_k = \lambda_k \U_k \Deltab_k \U\T_k,
+\Sigmab_k = \lambda_k \UU_k \Deltab_k \UU\T_k,
 $$ {#eq-eigendecomp}
-where $\lambda_k = \lvert\Sigmab_k\rvert^{1/d}$ is a scalar which controls the *volume*, $\Deltab_k$ is a diagonal matrix whose entries are the normalised eigenvalues of $\Sigmab_k$ in decreasing order, such that $\lvert\Deltab_k\rvert = 1$, which controls the *shape* of the density contours, and $\U_k$ is an orthogonal matrix whose columns are the eigenvectors of $\Sigmab_k$, which controls the *orientation* of the corresponding ellipsoid. The size of a cluster is distinct from its volume and is proportional to $\pi_k$ [@Celeux:Govaert:1995].
+where $\lambda_k = \lvert\Sigmab_k\rvert^{1/d}$ is a scalar which controls the *volume*, $\Deltab_k$ is a diagonal matrix whose entries are the normalised eigenvalues of $\Sigmab_k$ in decreasing order, such that $\lvert\Deltab_k\rvert = 1$, which controls the *shape* of the density contours, and $\UU_k$ is an orthogonal matrix whose columns are the eigenvectors of $\Sigmab_k$, which controls the *orientation* of the corresponding ellipsoid. The size of a cluster is distinct from its volume and is proportional to $\pi_k$ [@Celeux:Govaert:1995].
 
 GMMs with unconstrained covariance matrices are quite flexible, but require the estimation of several parameters. To obtain a balance between model complexity and accuracy of parameter estimates, a parsimonious model parameterisation can be adopted. Constraining the geometric characteristics of cluster covariances to be equal across clusters can greatly reduce the number of estimable parameters, and is the means by which GMMs obtain intermediate covariance matrices between homoscedasticity and heteroscedasticity.
 A list of the 14 resulting parameterisations available in the `mclust` package [@Rpkg:mclust] for R [@Rstat] is included in Table 2.1 of @mclust:book:2023. Of particular note is the nomenclature adopted by `mclust` whereby each model has a three-letter name with each letter pertaining to the volume, shape, and orientation, respectively, denoting whether the given component is equal (`E`) or free to vary (`V`) across clusters. Some model names also use the letter `I` in the third position to indicate that the covariance matrices are diagonal and two particularly parsimonious models have the letter `I` in the second position to indicate that the covariance matrices are isotropic. Thus, as examples, the fully unconstrained `VVV` model is one for which the volume, shape, and orientation are all free to vary across clusters, the `EVE` model constrains the clusters to have equal volume and orientation but varying shape, and the `VII` model assumes isotropic covariance matrices with cluster-specific volumes. The flexibility to model clusters with different geometric characteristics by modelling correlations according to various parameterisations represents another advantage over heuristic clustering algorithms. Taking the $k$-means algorithm as an example, a larger number of circular, Euclidean distance-based clusters may be required to fit the data well, rather than a more parsimonious and easily interpretable mixture model with fewer non-spherical components. 
@@ -184,7 +168,7 @@ Following the fitting of a GMM and the determination of the MLEs of parameters, 
 $$
 \hat{p}_{ik} = \frac{\hat{\pi}_k \phi_d(\x_i; \hat{\mub}_k, \hat{\Sigmab}_k)}{\displaystyle\sum_{g=1}^K \hat{\pi}_g \phi_d(\x; \hat{\mub}_g, \hat{\Sigmab}_g)}.
 $$ {#eq-postcondprob}
-Then, an observation is assigned to the cluster with the largest posterior conditional probability, i.e., $\x_i \in \C_{k^\star}$ with $k^\star = \argmax_k \hat{p}_{ik}$.
+Then, an observation is assigned to the cluster with the largest posterior conditional probability, i.e., $\x_i \in \CC_{k^\star}$ with $k^\star = \argmax_k \hat{p}_{ik}$.
 
 ## Model selection
 Given that a wide variety of GMMs in @eq-gmm can be estimated by varying the number of mixture components and the covariance decompositions in @eq-eigendecomp, selecting the appropriate model represents a crucial decision. A popular option consists in choosing the "best" model using the Bayesian information criterion [BIC, @Schwarz:1978], which, for a given model $\M$, is defined as 
@@ -196,7 +180,7 @@ Another option available in clustering is the Integrated Complete Likelihood [IC
 $$
 \text{ICL}_{\M} = \text{BIC}_{\M} + 2 \sum_{i=1}^n\sum_{k=1}^K c_{ik} \log(\hat{p}_{ik}),
 $$
-where $\hat{p}_{ik}$ is the conditional probability that $\x_i$ arises from the $k$-th mixture component from @eq-postcondprob, and $c_{ik} = 1$ if the $i$-th observation is assigned to cluster $\C_k$ and 0 otherwise. 
+where $\hat{p}_{ik}$ is the conditional probability that $\x_i$ arises from the $k$-th mixture component from @eq-postcondprob, and $c_{ik} = 1$ if the $i$-th observation is assigned to cluster $\CC_k$ and 0 otherwise. 
 
 Both criteria evaluate the fit of a GMM to a given set of data by considering both the likelihood of the data given the model and the complexity of the model itself, represented by the number of parameters to be estimated. Compared to the BIC, the ICL introduces a further entropy-based penalisation for the overlap of the clusters. For this reason, the ICL tends to select models with well-separated clusters. 
 
@@ -288,7 +272,7 @@ The definition of entropy in information theory [@Cover:Thomas:2006] refers to t
 $$
 E_{\text{FMM}} = - \sum_{i=1}^n \sum_{k=1}^K \hat{p}_{ik} \log(\hat{p}_{ik}),
 $$
-where $\hat{p}_{ik}$ is the estimated posterior probability of case $i$ to belong to cluster $k$ (see @eq-postcondprob). If the mixture components are well separated, $\hat{p}_{ik} \approx 1$ for the assigned cluster $\C_k$ and $0$ otherwise. Consequently, the entropy of the mixture model in this case  is $E_{\text{FMM}} = 0$ (note that $0\log(0)=0$ by convention). On the contrary, in the case of maximal assignment uncertainty, $\hat{p}_{ik} = 1/K$ for all clusters $\C_k$ ($k=1,\ldots,K$). As a result, the entropy of the mixture model is $E_{\text{FMM}} = n\log(K)$.
+where $\hat{p}_{ik}$ is the estimated posterior probability of case $i$ to belong to cluster $k$ (see @eq-postcondprob). If the mixture components are well separated, $\hat{p}_{ik} \approx 1$ for the assigned cluster $\CC_k$ and $0$ otherwise. Consequently, the entropy of the mixture model in this case  is $E_{\text{FMM}} = 0$ (note that $0\log(0)=0$ by convention). On the contrary, in the case of maximal assignment uncertainty, $\hat{p}_{ik} = 1/K$ for all clusters $\CC_k$ ($k=1,\ldots,K$). As a result, the entropy of the mixture model is $E_{\text{FMM}} = n\log(K)$.
 
 In latent class and latent profile analysis, a slightly different definition of entropy is used as a diagnostic statistic to assess how well the fitted model assigns individuals to the identified clusters based on their response patterns. Thus, a normalised version of the entropy is defined as follows
 $$
@@ -303,7 +287,7 @@ $$
 so that the overall total entropy is obtained by averaging over the individual contributions, i.e., $E = \sum_{i=1}^n E_i/n$. The individual contributions $E_i$ can also be used to compute the average entropy of each latent component, which indicates how accurately the model defines components. Average posterior probabilities (AvePP) are a closely related performance assessment measure, given by the average posterior membership probabilities $\hat{p}_{ik}$ for each component for the observations most probably assigned to that component, for which a cutoff of $0.8$ has been suggested to indicate acceptably high assignment certainty and well-separated clusters [@NylundGibsonChoi2018]. The analysis below presents the necessary code to calculate entropies and average posterior probabilities thusly from a fitted `mclust` model.
 
 # Application: School engagement, academic achievement, and self-regulated learning
-A group of 717 primary school students from northern Spain were evaluated in terms of their school engagement, self-regulation, and academic performance through the use of various measures. The school engagement measure (SEM) was employed to assess their engagement, while their self-regulation was evaluated with the self-regulation strategy inventory—self-report. The measure for academic achievement was based on the students' self-reported grades in Spanish and mathematics, which were rated on a scale of 1 to 5. This data set can be used to identify clusters of students based on their engagement and self-regulation. These clusters would represent distinct patterns or "profiles" of engagement. Finding such profiles would allow us to understand individual differences but more importantly to stratify support according to different engagement profiles. 
+A group of 717 primary school students from northern Spain were evaluated in terms of their school engagement, self-regulation, and academic performance through the use of various measures. The school engagement measure (SEM) was employed to assess their engagement, while their self-regulation was evaluated with the self-regulation strategy inventory—self-report. The measure for academic achievement was based on the students' self-reported grades in Spanish and mathematics, which were rated on a scale of 1 to 5. More information about the dataset is available in Chapter 2 [@Lopez-Pernas2024-hy]. This data set can be used to identify clusters of students based on their engagement and self-regulation. These clusters would represent distinct patterns or "profiles" of engagement. Finding such profiles would allow us to understand individual differences but more importantly to stratify support according to different engagement profiles. 
 
 ## Preparing the data
 We start by loading the packages required for the analysis. We note in particular that version 6.0.0 of `mclust` is employed here, the latest release at the time of writing.

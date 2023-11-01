@@ -39,7 +39,7 @@ format:
     documentclass: article
     papersize: a4
     template-partials:
-      - title.tex
+      - ../../title.tex
     geometry:
       - top = 25.4mm
       - bottom = 25.4mm
@@ -72,7 +72,9 @@ fig.width: 6
 abstract: "Sequence analysis is a data mining technique that is increasingly gaining ground in learning analytics. Sequence analysis enables researchers to extract meaningful insights from sequential data, i.e., to summarize the sequential patterns of learning data and classify those patterns into homogeneous groups. In this chapter, readers will become familiar with sequence analysis techniques and tools through real-life step-by-step examples of sequential trace log data of students’ online activities. Readers will be guided on how to visualize the common sequence plots and interpret such visualizations. An essential part of sequence analysis is the discovery of patterns within sequences through clustering techniques. Therefore, this chapter will demonstrate the various sequence clustering methods, calculator of cluster indices, and evaluation of clustering results."
 keywords: "sequence analysis, sequence mining, learning analytics"
 keep-tex: true
-csl: springer.cls  
+csl: ../../springer.cls  
+keep-tex: true
+extract-media: "img"
 ---
 
 **Keywords:** {{< meta keywords >}}
@@ -244,7 +246,7 @@ Dissimilarities are hard to interpret as such (unless the data are very small), 
 
 ### Finding similar groups or clusters of sequences
 
-The sixth step is finding similar sequences, i.e., groups or patterns within the sequences where sequences within each group or cluster are as close to each other as possible and as different from other patterns in other clusters as possible. For instance, we can detect similar groups of sequences that show access patterns to online learning which are commonly referred to as tactics e.g., [@Saqr2023-ao]. Such a step is typically performed using a clustering algorithm which may --or may not-- require dissimilarity measures as an input [@Gabadinho2011-pg; @Studer2013-zm]. Common clustering algorithms that use a dissimilarity matrix are the hierarchical clustering algorithms. Hidden Markov models are among the most non-distance based cluster algorithms. See the remaining chapters about sequence analysis chapters for examples of these algorithms [@Lopez-Pernas2024-kf; @Helske2024-lq; @Lopez-Pernas2024-lz].
+The sixth step is finding similar sequences, i.e., groups or patterns within the sequences where sequences within each group or cluster are as close to each other as possible and as different from other patterns in other clusters as possible. For instance, we can detect similar groups of sequences that show access patterns to online learning which are commonly referred to as tactics e.g., [@Saqr2023-ao]. Such a step is typically performed using a clustering algorithm which may --or may not-- require dissimilarity measures as an input [@Gabadinho2011-pg; @Studer2013-zm]. Common clustering algorithms that use a dissimilarity matrix are the hierarchical clustering algorithms. Hidden Markov models are among the most non-distance based cluster algorithms. See the remaining chapters about sequence analysis  for examples of these algorithms [@Lopez-Pernas2024-kf; @Helske2024-lq; @Lopez-Pernas2024-lz].
 
 ### Analyzing the groups and/or using them in subsequent analyses
 
@@ -531,7 +533,7 @@ dissimilarities <- seqdist(Seqobject, method = "OM", indel = 1,
                            sm = substitution_cost_constant)
 ```
 
-In the resulting pairwise dissimilarity matrix, every sequence has a dissimilarity value with every other sequence in the dataset, and therefore, the dissimilarity matrix can be large and resource intensive in larger matrices. In our case, the dissimilarity matrix is 9383 \* 9383 (i.e., 88,040,689) in size. With these dissimilarities between sequences as input, several distance-based clustering algorithms can be applied to partition the data into homogeneous groups. In our example, we use the hierarchical clustering algorithm from the package `cluster` by using the function `hclust()`, but note that the choice of clustering algorithm can also affect results greatly and should be chosen carefully by the reader. The `seq_heatmap()` function is used to plot a dendrogram of the index plot which shows a hierarchical tree of different levels of subgrouping and helps choose the number of clusters visually.
+In the resulting pairwise dissimilarity matrix, every sequence has a dissimilarity value with every other sequence in the dataset, and therefore, the dissimilarity matrix can be large and resource intensive in larger matrices. In our case, the dissimilarity matrix is 9383 \* 9383 (i.e., 88,040,689) in size. With these dissimilarities between sequences as input, several distance-based clustering algorithms can be applied to partition the data into homogeneous groups. In our example, we use the hierarchical clustering algorithm from the package `stats` by using the function `hclust()`, but note that the choice of clustering algorithm can also affect results greatly and should be chosen carefully by the reader. The `seq_heatmap()` function is used to plot a dendrogram of the index plot which shows a hierarchical tree of different levels of subgrouping and helps choose the number of clusters visually.
 
 ```{r, message=F, fig.align='center', fig.cap="Visualization of clusters using a dendrogram", fig.width=6, fig.height=5, echo=2:3}
 #| label: fig-clusterviz

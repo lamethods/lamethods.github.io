@@ -1,5 +1,5 @@
 ---
-title: "Chapter 4: An R Approach to Data Cleaning and Wrangling for Education Research"
+title: "An R Approach to Data Cleaning and Wrangling for Education Research"
 author: 
    - name: "Juho Kopra"
      email: "juho.kopra@uef.fi"
@@ -52,6 +52,9 @@ number-sections: true
 abstract: "Data wrangling, also known as data cleaning and preprocessing, is a critical step in the data analysis process, particularly in the context of learning analytics. This chapter provides an introduction to data wrangling using R and covers topics such as data importing, cleaning, manipulation, and reshaping with a focus on tidy data. Specifically, readers will learn how to read data from different file formats (e.g. CSV, Excel), how to manipulate data using the `dplyr` package, and how to reshape data using the `tidyr` package. Additionally, the chapter covers techniques for combining multiple data sources. By the end of the chapter, readers should have a solid understanding of how to perform data wrangling tasks in R."
 keywords: "data wrangling, data cleaning, tidyverse, R programming, learning analytics"
 csl: ../../springer.cls 
+keep-tex: true
+extract-media: "img"
+
 ---
 
 

@@ -1,5 +1,5 @@
 ---
-title: "Chapter 13. Multi-channel sequence analysis in educational research: An introduction and tutorial with R"
+title: "Multi-channel sequence analysis in educational research: An introduction and tutorial with R"
 format: 
   pdf:
     number-sections: true
@@ -56,11 +56,11 @@ abstract: "This chapter introduces multi-channel sequence analysis, a novel meth
 fontsize: "9pt"
 dpi: 900
 editor: source
-keep-tex: true
 bibliography: references.bib
 csl: ../../springer.cls  
 keywords: "learning analytics, multichannel sequence analysis, mixture hidden markov models, multimodal data"
-
+keep-tex: true
+extract-media: "img"
 ---
 
 **Keywords:** {{< meta keywords >}}

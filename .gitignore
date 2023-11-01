@@ -14,3 +14,4 @@
 .Rhistory
 _extensions
 *_cache
+/chapters/*/img
