@@ -687,15 +687,14 @@ d3.comm
 ```
 
 
-In the previous visualization, the legend moves when we zoom in or out,
+By default, the legend moves when we zoom in or out,
 or drag the graph. A possible workaround to fix the legend is to use the
-`htmlwidgets` library [@Yetman_2022]. The final result of the interactive
-visualization is shown below:
+`htmlwidgets` library [@Yetman_2022]. 
 ```{r, message = F, warning = F}
 library(htmlwidgets)
 ```
 
-```{r, eval = F}
+```{r, eval=F}
 htmlwidgets::onRender(d3.comm, jsCode = '
   function (el, x) {
     d3.select("svg").append("g").attr("id", "legend-layer");
@@ -705,7 +704,20 @@ htmlwidgets::onRender(d3.comm, jsCode = '
   }
 ')
 ```
+::: {#d3special}
 
+```{r, echo=F}
+d3.comm2<-d3.comm
+htmlwidgets::onRender(d3.comm2, jsCode = '
+  function (el, x) {
+    d3.select("#d3special svg").append("g").attr("id", "legend-layer");
+    var legend_layer = d3.select("#legend-layer");
+    d3.selectAll(".legend")
+      .each(function() { legend_layer.append(() => this); });
+  }
+')
+```
+:::
 
 ## Concluding notes
 
