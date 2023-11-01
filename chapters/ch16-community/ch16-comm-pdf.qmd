@@ -54,6 +54,7 @@ keep-tex: true
 extract-media: "img"
 ---
 **Keywords:** {{< meta keywords >}}
+
 #  Introduction to Community Detection in Social Networks
 
 The world is essentially social. Interactions, relationships and

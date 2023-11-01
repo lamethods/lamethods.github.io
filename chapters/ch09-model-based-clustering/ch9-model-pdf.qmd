@@ -25,6 +25,12 @@ affiliations:
 
 format:
   pdf:
+    papersize: a4
+    geometry:
+      - top = 25.4mm
+      - bottom = 25.4mm
+      - right = 25.4mm
+      - left = 25.4mm
     template-partials: 
       - ../../title.tex
     include-in-header: 

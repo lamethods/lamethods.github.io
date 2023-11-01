@@ -18,6 +18,7 @@ bibliography: references.bib
 keywords: "learning analytics, multichannel sequence analysis, mixture hidden markov models, multimodal data"
 ---
 
+
 ## Introduction
 
 Learning is a dynamic phenomenon which follows the unidirectional forward law of time; that is, learning occurs sequentially in a time-ordered manner [@Saqr2019; @saqr2023temporal]. Throughout this book, we have devoted several chapters to sequence analysis of learner-related data, due to its increasingly central role in learning analytics and education research as a whole. First, in Chapter 10 [@Saqr2024-tv], we presented an introduction to sequence analysis and a discussion on the relevance of this method. Subsequently, in Chapter 11 [@Lopez-Pernas2024-lz], we studied how to build sequences from multiple variables, analyse more complex aspects of sequences, and cluster sequences into trajectories which undergo a similar evolution, using distance-based methods. Then, in Chapter 12 [@Helske2024-lq], we learned how to cluster sequential data using Markov models, and touched briefly on multi-channel sequences. 

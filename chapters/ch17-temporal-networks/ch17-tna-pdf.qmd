@@ -50,6 +50,7 @@ extract-media: "img"
 ---
 
 **Keywords:** {{< meta keywords >}}
+
 # Introduction
 
 Learning is social and therefore, involves relations, interactions and

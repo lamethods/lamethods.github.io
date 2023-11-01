@@ -24,9 +24,54 @@ keywords: "Gaussian mixture model, latent profile analysis, model-based clusteri
 library("mclust")
 # library("formatR")
 ```
+\(\require{amsmath}\)
+\(\require{mathtools}\)
+$$
+\newcommand{\x}{\boldsymbol{x}}
+\newcommand{\X}{\boldsymbol{X}}
+\newcommand{\y}{\boldsymbol{y}}
+\newcommand{\e}{\boldsymbol{e}}
+\newcommand{\xbar}{\bar{x}}
+\newcommand{\ybar}{\bar{y}} 
+\newcommand{\I}{\boldsymbol{I}}
+\newcommand{\V}{\boldsymbol{V}}
+\newcommand{\0}{\boldsymbol{0}}
+\newcommand{\1}{\boldsymbol{1}}
+\newcommand{\Sb}{\boldsymbol{S}}
+\newcommand{\betab}{\boldsymbol{\beta}}
+\newcommand{\Normal}{\mathcal{N}}
+\newcommand{\T}{{}^{\!\top}}
+\newcommand{\diag}{\text{diag}}
+\newcommand{\df}{\text{df}}
+\newcommand{\C}{\mathcal{C}}
+\newcommand{\M}{\mathcal{M}}
+\DeclareMathOperator{\Exp}{E}
+\DeclareMathOperator{\Var}{V}
+\DeclareMathOperator{\se}{se}
+\DeclareMathOperator*{\argmin}{arg\,min}
+\DeclareMathOperator*{\argmax}{arg\,max}
+\DeclareMathOperator{\tr}{tr}
+
+\renewcommand{\hat}[1]{\widehat{#1}}
+\newcommand{\thetab}{\boldsymbol{\theta}}
+\newcommand{\mub}{\boldsymbol{\mu}}
+\newcommand{\Sigmab}{\boldsymbol{\Sigma}}
+\newcommand{\Lambdab}{\boldsymbol{\Lambda}}
+\newcommand{\U}{\boldsymbol{U}}
+\newcommand{\Deltab}{\boldsymbol{\Delta}}
+\newcommand{\Prior}{\mathcal{P}}
+\newcommand{\coldim}{d}
+\newcommand{\invWishart}{\mathcal{IW}}
+\newcommand{\priorShrink}{\kappa_{\scriptscriptstyle \Prior}}
+\newcommand{\priorMean}{\mu_{\scriptscriptstyle \Prior}}
+\newcommand{\priorMeanb}{\mub_{\scriptscriptstyle \Prior}}
+\newcommand{\priorDOF}{\nu_{\scriptscriptstyle \Prior}}
+\newcommand{\priorScaleIW}{\Lambdab_{\scriptscriptstyle \Prior}}
+\newcommand{\priorScaleIG}{\varsigma^2_{\scriptscriptstyle \Prior}}
+$$
 
 
-##Introduction
+## Introduction
 
 Education research is commonly performed with variable-centered methods (e.g., correlation, regression, comparison of means e.g., t-test) using a sample from the population to devise or compare central tendency measures or an "average" (i.e., mean or median). The average is assumed to represent the population under study and therefore could be generalised to the population at large [@Howard2018-iv;@Hickendorff2018-kt]. Put another way, the statistical findings of variable-centered methods are thought to apply to all learners in the same way. In doing so, variable-centered methods ignore the individual differences that are universal across all domains of human function [@Saqr2023-if]. Learners are not an exception; students vary in their behavior, attitude, and dispositions, and they rarely —if at all— conform to a common pattern or an average behavior [@Hickendorff2018-kt;@Tormanen2022-ux]. An "average" is thus a poor simplification of learners' heterogeneity; consequently, methods to capture individual differences have started to gain popularity with the increasing attention to patterns and differences among students. Our focus in this chapter is on such person-centered methods [@Howard2018-iv;@Hickendorff2018-kt; @Saqr2023-if; @saqr2023modelling].
 
