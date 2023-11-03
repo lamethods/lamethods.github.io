@@ -187,7 +187,7 @@ cookieconsent.run({
 <meta name="citation_author" content="Mohammed Saqr">
 <meta name="citation_author" content="Satu Helske">
 <meta name="citation_author" content="Keefe Murphy">
-<meta name="citation_fulltext_html_url" content="https://lamethods.github.io/ch13-multi.html">
+<meta name="citation_fulltext_html_url" content="https://lamethods.github.io/chapters/ch13-multichannel/ch13-multi.html">
 <meta name="citation_language" content="en">
 <meta name="citation_reference" content="citation_title=Latent class models in longitudinal research;,citation_author=Jeroen K Vermunt;,citation_author=Bac Tran;,citation_author=Jay Magidson;,citation_publication_date=2008;,citation_cover_date=2008;,citation_year=2008;,citation_journal_title=Handbook of longitudinal research: Design, measurement, and analysis;">
 <meta name="citation_reference" content="citation_title=Examples and tips for estimating markovian models with seqHMM;,citation_author=Satu Helske;,citation_publication_date=2017;,citation_cover_date=2017;,citation_year=2017;">
@@ -236,6 +236,8 @@ cookieconsent.run({
 <meta name="citation_reference" content="citation_title=Efficient hierarchical clustering of large high dimensional datasets;,citation_author=Sean Gilpin;,citation_author=Buyue Qian;,citation_author=Ian Davidson;,citation_publication_date=2013;,citation_cover_date=2013;,citation_year=2013;,citation_fulltext_html_url=https://doi.org/10.1145/2505515.2505527;,citation_doi=10.1145/2505515.2505527;,citation_isbn=9781450322638;,citation_conference_title=Proceedings of the 22nd ACM international conference on information &amp;amp;amp; knowledge management;,citation_conference=Association for Computing Machinery;,citation_series_title=CIKM ’13;">
 <meta name="citation_reference" content="citation_title=Intense, turbulent, or wallowing in the mire: A longitudinal study of cross-course online tactics, strategies, and trajectories;,citation_abstract=Research has repeatedly demonstrated that students with effective learning strategies are more likely to have better academic achievement. Existing research has mostly focused on a single course or two, while longitudinal studies remain scarce. The present study examines the longitudinal sequence of students’ strategies, their succession, consistency, temporal unfolding, and whether students tend to retain or adapt strategies between courses. We use a large dataset of online traces from 135 students who completed 10 successive courses (i.e., 1350 course enrollments) in a higher education program. The methods used in this study have shown the feasibility of using trace data recorded by learning management systems to unobtrusively trace and model the longitudinal learning strategies across a program. We identified three program-level strategy trajectories: a stable and intense trajectory related to deep learning where students used diverse strategies and scored the highest grades; a fluctuating interactive trajectory, where students focused on course requirements, scored average grades, and were relatively fluctuating; and a light trajectory related to surface learning where students invested the least effort, scored the lowest grades, and had a relatively stable pathway. Students who were intensely active were more likely to transfer the intense strategies and therefore, they were expected to require less support or guidance. Students focusing on course requirements were not as effective self-regulators as they seemed and possibly required early guidance and support from teachers. Students with consistent light strategies or low effort needed proactive guidance and support.;,citation_author=Mohammed Saqr;,citation_author=Sonsoles López-Pernas;,citation_author=Jelena Jovanović;,citation_author=Dragan Gašević;,citation_publication_date=2023;,citation_cover_date=2023;,citation_year=2023;,citation_volume=57;,citation_journal_title=The Internet and Higher Education;">
 <meta name="citation_reference" content="citation_title=Construct and consequential validity for learning analytics based on trace data;,citation_author=Philip H. Winne;,citation_publication_date=2020-11;,citation_cover_date=2020-11;,citation_year=2020;,citation_fulltext_html_url=https://doi.org/10.1016/j.chb.2020.106457;,citation_doi=10.1016/j.chb.2020.106457;,citation_volume=112;,citation_journal_title=Computers in Human Behavior;,citation_publisher=Elsevier BV;">
+<meta name="citation_reference" content="citation_title=A tutorial on hidden Markov models and selected applications in speech recognition;,citation_author=L. R. Rabiner;,citation_publication_date=1989;,citation_cover_date=1989;,citation_year=1989;,citation_issue=2;,citation_doi=10.1109/5.18626;,citation_volume=77;,citation_journal_title=Proceedings of the IEEE;">
+<meta name="citation_reference" content="citation_title=Latent class models in longitudinal research;,citation_author=Jeroen K Vermunt;,citation_author=Bac Tran;,citation_author=Jay Magidson;,citation_publication_date=2008;,citation_cover_date=2008;,citation_year=2008;,citation_journal_title=Handbook of longitudinal research: Design, measurement, and analysis;">
 </head>
 
 <body class="nav-sidebar floating">
@@ -513,9 +515,9 @@ cookieconsent.run({
 
 <section id="introduction" class="level2" data-number="1">
 <h2 data-number="1" class="anchored" data-anchor-id="introduction"><span class="header-section-number">1</span> Introduction</h2>
-<p>Learning is a dynamic phenomenon which follows the unidirectional forward law of time; that is, learning occurs sequentially in a time-ordered manner <span class="citation" data-cites="Saqr2019 saqr2023temporal">[<a href="#ref-Saqr2019" role="doc-biblioref">1</a>, <a href="#ref-saqr2023temporal" role="doc-biblioref">2</a>]</span>. Throughout this book, we have devoted several chapters to sequence analysis of learner-related data, due to its increasingly central role in learning analytics and education research as a whole. First, in Chapter 10 <span class="citation" data-cites="Saqr2024-tv">[<a href="#ref-Saqr2024-tv" role="doc-biblioref">3</a>]</span>, we presented an introduction to sequence analysis and a discussion on the relevance of this method. Subsequently, in Chapter 11 <span class="citation" data-cites="Lopez-Pernas2024-lz">[<a href="#ref-Lopez-Pernas2024-lz" role="doc-biblioref">4</a>]</span>, we studied how to build sequences from multiple variables, analyse more complex aspects of sequences, and cluster sequences into trajectories which undergo a similar evolution, using distance-based methods. Then, in Chapter 12 <span class="citation" data-cites="Helske2024-lq">[<a href="#ref-Helske2024-lq" role="doc-biblioref">5</a>]</span>, we learned how to cluster sequential data using Markov models, and touched briefly on multi-channel sequences.</p>
-<p>In this new chapter, we cover multi-channel sequence analysis, which deals with the analysis of two or more synchronised sequences, in greater detail. An example in educational research would be the analysis of the simultaneous unfolding of motivation, achievement, and engament sequences. Multi-channel sequence analysis is a rather novel method in social sciences <span class="citation" data-cites="Helske2018 EisenbergGuyot2020 Emery2022 Gauthier2010">[<a href="#ref-Helske2018" role="doc-biblioref">6</a>–<a href="#ref-Gauthier2010" role="doc-biblioref">9</a>]</span> and its applications within educational research in general remain scarce. The increasing availability of student multimodal temporal data makes multi-channel sequence analysis a relevant and timely method to tackle the challenges that these new data bring.</p>
-<p>Throughout this chapter, we describe multi-channel sequence analysis in detail, with an emphasis on how to detect patterns within the sequences, i.e., clusters —or trajectories— of multi-channel sequences that share similar temporal evolutions (or similar trajectories). We illustrate the method with a case study in which we examine students’ sequences of online engagement and academic achievement, where we analyse the longitudinal association between both constructs simultaneously. Here, we outline two perspectives on clustering multi-channel sequences and present both in the tutorial. The first approach uses distance-based clustering algorithms, very much in the spirit of the single-channel cluster analysis described in Chapter 10. We describe some limitations of this framework and then principally focus on a more efficient approach to identifying distinct trajectories using mixture hidden Markov models. We also show how covariates can be incorporated to make the Markovian framework even more powerful. This main analysis is inspired by the recently published paper by <span class="citation" data-cites="Saqr2023">[<a href="#ref-Saqr2023" role="doc-biblioref">10</a>]</span>. In the next section, we provide a description of the multi-channel sequence analysis framework. We follow with a review of the existing literature in learning analytics that has relied on multi-channel sequence analysis. Next, we include a step-by-step tutorial on how to implement multi-channel sequence analysis with R, with particular attention paid to clustering via distance-based algorithms and mixture hidden Markov models. Finally, we conclude with a brief discussion and provide recommendations for further reading.</p>
+<p>Learning is a dynamic phenomenon which follows the unidirectional forward law of time; that is, learning occurs sequentially in a time-ordered manner <span class="citation" data-cites="Saqr2019 saqr2023temporal">[<a href="../ch01-intro/intro.html#ref-Saqr2019" role="doc-biblioref">1</a>, <a href="../ch01-intro/intro.html#ref-saqr2023temporal" role="doc-biblioref">2</a>]</span>. Throughout this book, we have devoted several chapters to sequence analysis of learner-related data, due to its increasingly central role in learning analytics and education research as a whole. First, in Chapter 10 <span class="citation" data-cites="Saqr2024-tv">[<a href="../ch01-intro/intro.html#ref-Saqr2024-tv" role="doc-biblioref">3</a>]</span>, we presented an introduction to sequence analysis and a discussion on the relevance of this method. Subsequently, in Chapter 11 <span class="citation" data-cites="Lopez-Pernas2024-lz">[<a href="../ch01-intro/intro.html#ref-Lopez-Pernas2024-lz" role="doc-biblioref">4</a>]</span>, we studied how to build sequences from multiple variables and analyse more complex aspects of sequences. Both Chapter 10 and Chapter 11 also deal with clustering sequences into trajectories which undergo a similar evolution using distance-based methods. Then, in Chapter 12 <span class="citation" data-cites="Helske2024-lq">[<a href="../ch01-intro/intro.html#ref-Helske2024-lq" role="doc-biblioref">5</a>]</span>, we learned how to cluster sequential data using Markov models. Though Chapter 12} <span class="citation" data-cites="Helske2024-lq">[<a href="../ch01-intro/intro.html#ref-Helske2024-lq" role="doc-biblioref">5</a>]</span> touched briefly on simultaneous analysis of multi-channel sequences —albeit only from the Markovian point of view— we present the multi-channel perspective in greater detail here.</p>
+<p>In this new chapter, we cover multi-channel sequence analysis, which deals with the analysis of two or more synchronised sequences, in greater detail. An example in educational research would be the analysis of the simultaneous unfolding of motivation, achievement, and engament sequences. Multi-channel sequence analysis is a rather novel method in social sciences <span class="citation" data-cites="Helske2018 EisenbergGuyot2020 Emery2022 Gauthier2010">[<a href="../ch01-intro/intro.html#ref-Helske2018" role="doc-biblioref">6</a>–<a href="../ch01-intro/intro.html#ref-Gauthier2010" role="doc-biblioref">9</a>]</span> and its applications within educational research in general remain scarce. The increasing availability of student multimodal temporal data makes multi-channel sequence analysis a relevant and timely method to tackle the challenges that these new data bring.</p>
+<p>Throughout this chapter, we describe multi-channel sequence analysis in detail, with an emphasis on how to detect patterns within the sequences, i.e., clusters —or trajectories— of multi-channel sequences that share similar temporal evolutions (or similar trajectories). We illustrate the method with a case study in which we examine students’ sequences of online engagement and academic achievement, where we analyse the longitudinal association between both constructs simultaneously. Here, we outline two perspectives on clustering multi-channel sequences and present both in the tutorial. The first approach uses distance-based clustering algorithms, very much in the spirit of the single-channel cluster analysis described in Chapter 10. We describe some limitations of this framework and then principally focus on a more efficient approach to identifying distinct trajectories using mixture hidden Markov models. We also show how covariates can be incorporated to make the Markovian framework even more powerful. This main analysis is inspired by the recently published paper by <span class="citation" data-cites="Saqr2023">[<a href="../ch01-intro/intro.html#ref-Saqr2023" role="doc-biblioref">10</a>]</span>. In the next section, we provide a description of the multi-channel sequence analysis framework. We follow with a review of the existing literature in learning analytics that has relied on multi-channel sequence analysis. Next, we include a step-by-step tutorial on how to implement multi-channel sequence analysis with R, with particular attention paid to clustering via distance-based algorithms and mixture hidden Markov models. Finally, we conclude with a brief discussion and provide recommendations for further reading.</p>
 </section>
 <section id="multi-channel-sequence-analysis" class="level2" data-number="2">
 <h2 data-number="2" class="anchored" data-anchor-id="multi-channel-sequence-analysis"><span class="header-section-number">2</span> Multi-channel sequence analysis</h2>
@@ -528,11 +530,11 @@ cookieconsent.run({
 </div>
 <section id="step-1-building-the-channel-sequences" class="level3" data-number="2.1">
 <h3 data-number="2.1" class="anchored" data-anchor-id="step-1-building-the-channel-sequences"><span class="header-section-number">2.1</span> Step 1: Building the channel sequences</h3>
-<p>Just like in regular sequence analysis (see Chapter 10 <span class="citation" data-cites="Saqr2024-tv">[<a href="#ref-Saqr2024-tv" role="doc-biblioref">3</a>]</span>), the first step in multi-channel sequence analysis is to construct the sequences which constitute the different channels. A sequence is an ordered list of categorical elements (i.e., events, states or categories). These elements are discrete (as opposed to numerical values such as grades) and are ordered chronologically. In a sequence, time is not a continuum but a succession of discrete timepoints. These timepoints can be generated by sampling (e.g., each 30 seconds constitutes a new timepoint) or can emerge from an existing time scheme (e.g., each new lesson in a course is a new timepoint). In multi-channel sequence analysis, it is very important that all channels (i.e., parallel sequences) follow the same time scheme so they can be synchronised. As well as time points being aligned in this fashion, it is also typically assumed that the sequence length for each observation matches across channels (although some of the methods used can also deal with partially missing information). The elements of each sequence —typically referred to as the <em>alphabet</em>, which is unique for each channel— can be predefined events or categories from the beginning (e.g., utterances or facial expressions) or, in cases where we are dealing with numerical variables (e.g., heart rate or grades), we can convert them into a state or category by dividing the numerical variable into levels (e.g., tertiles, quartiles) or using clustering techniques. This way, we can focus on sharp changes in numerical variables and conceal small, probably insignificant changes. As Winne puts it <span class="citation" data-cites="Winne2020">[<a href="#ref-Winne2020" role="doc-biblioref">11</a>]</span>, “reliability can sometimes be improved by tuning grain size of data so it is neither too coarse, masking variance within bins, nor too fine-grained, inviting distinctions that cannot be made reliably”. Once we have our channels represented as sequences of ordered elements that follow the same time scheme, we can use the steps learned in the introductory sequence analysis chapter to construct the sequences.</p>
+<p>Just like in regular sequence analysis (see Chapter 10 <span class="citation" data-cites="Saqr2024-tv">[<a href="../ch01-intro/intro.html#ref-Saqr2024-tv" role="doc-biblioref">3</a>]</span>), the first step in multi-channel sequence analysis is to construct the sequences which constitute the different channels. A sequence is an ordered list of categorical elements (i.e., events, states or categories). These elements are discrete (as opposed to numerical values such as grades) and are ordered chronologically. In a sequence, time is not a continuum but a succession of discrete timepoints. These timepoints can be generated by sampling (e.g., each 30 seconds constitutes a new timepoint) or can emerge from an existing time scheme (e.g., each new lesson in a course is a new timepoint). In multi-channel sequence analysis, it is very important that all channels (i.e., parallel sequences) follow the same time scheme so they can be synchronised. As well as time points being aligned in this fashion, it is also typically assumed that the sequence length for each observation matches across channels (although some of the methods used can also deal with partially missing information). The elements of each sequence —typically referred to as the <em>alphabet</em>, which is unique for each channel— can be predefined events or categories from the beginning (e.g., utterances or facial expressions) or, in cases where we are dealing with numerical variables (e.g., heart rate or grades), we can convert them into a state or category by dividing the numerical variable into levels (e.g., tertiles, quartiles) or using clustering techniques. This way, we can focus on sharp changes in numerical variables and conceal small, probably insignificant changes. As Winne puts it <span class="citation" data-cites="Winne2020">[<a href="../ch01-intro/intro.html#ref-Winne2020" role="doc-biblioref">11</a>]</span>, “reliability can sometimes be improved by tuning grain size of data so it is neither too coarse, masking variance within bins, nor too fine-grained, inviting distinctions that cannot be made reliably”. Once we have our channels represented as sequences of ordered elements that follow the same time scheme, we can use the steps learned in the introductory sequence analysis chapter to construct the sequences.</p>
 </section>
 <section id="step-2-visualising-the-multi-channel-sequence" class="level3" data-number="2.2">
 <h3 data-number="2.2" class="anchored" data-anchor-id="step-2-visualising-the-multi-channel-sequence"><span class="header-section-number">2.2</span> Step 2: Visualising the multi-channel sequence</h3>
-<p>When we have built the sequences corresponding to all of the channels, we can visualize the data. Visualizing multi-channel sequence data is not a straightforward task, and we need to decide whether we want to present each channel separately or extend the alphabet to show a plot of combined states—or sometimes even both. The extended alphabet approach —in which the states are the combination of the states of all the channels— helps us understand the structure of the data and the typical combinations and evolution of the combined states from all of the channels. It usually works well when (1) the extended alphabet is moderate in size, (2) when there are no state combinations that are very rare, and (3) when the states are either fully observed or missing in all channels at the same time. The extended alphabet is likely to be of moderate size when there are at most 2–3 channels with a small alphabet in each, or if some combinations are not present in the data. Rare state combinations are typically impractical both when visualizing and analyzing the data—especially if there are many rare combinations or if the data are very sensitive in nature. Finally, if there are partially missing observations, i.e., observations that at some specific time point are missing from some of the channels but not all, we would need to deal with each combination of missing and observed states separately, which further extends the alphabet. If one or more of the three conditions are not met, it is often preferable to resort to presenting each channel separately or using visualization techniques that summarize information (e.g., sequence distribution plots).</p>
+<p>When we have built the sequences corresponding to all of the channels, we can visualise the data. Visualizing multi-channel sequence data is not a straightforward task, and we need to decide whether we want to present each channel separately or extend the alphabet to show a plot of combined states—or sometimes even both. The extended alphabet approach —in which the states are the combination of the states of all the channels— helps us understand the structure of the data and the typical combinations and evolution of the combined states from all of the channels. It usually works well when (1) the extended alphabet is moderate in size, (2) when there are no state combinations that are very rare, and (3) when the states are either fully observed or missing in all channels at the same time. The extended alphabet is likely to be of moderate size when there are at most 2–3 channels with a small alphabet in each, or if some combinations are not present in the data. Rare state combinations are typically impractical both when visualizing and analyzing the data—especially if there are many rare combinations or if the data are very sensitive in nature. Finally, if there are partially missing observations, i.e., observations that at some specific time point are missing from some of the channels but not all, we would need to deal with each combination of missing and observed states separately, which further extends the alphabet. If one or more of the three conditions are not met, it is often preferable to resort to presenting each channel separately or using visualization techniques that summarise information (e.g., sequence distribution plots).</p>
 <p>Continuing with the previous example, the possible states in the extended alphabet would be all the combinations between the alphabet of the utterances channel (Question-Argument-Agreement) and the alphabet of the facial expressions channel (Happy-Neutral-Anxious). In <a href="#fig-multi2">Figure&nbsp;<span>13.2</span></a>, we can see that the first student starts by ‘Question/Happy’, then goes to ‘Argument/Anxious’ and so on.</p>
 <div id="fig-multi2" class="quarto-figure quarto-figure-center anchored">
 <figure class="figure">
@@ -547,43 +549,43 @@ cookieconsent.run({
 <section id="traditional-sequence-analysis-extensions" class="level4" data-number="2.3.1">
 <h4 data-number="2.3.1" class="anchored" data-anchor-id="traditional-sequence-analysis-extensions"><span class="header-section-number">2.3.1</span> Traditional sequence analysis extensions</h4>
 <p>Broadly speaking, the first paradigm involves extending techniques commonly adopted in single-channel analyses to the multi-channel domain, by suitably summarising the information arising from all constituent channels. Within this first framework, two different approaches have been proposed.</p>
-<p>The first consists of flattening the multi-channel data by combining the states (such as in the example in <a href="#fig-multi2">Figure&nbsp;<span>13.2</span></a>) and treating the sequence as a single channel with an extended alphabet. Typically, one would then compute dissimilarities using this extended alphabet, most commonly using Optimal Matching (OM). However, this approach is not limited to distance-based clustering; any of the methods, distance-based or otherwise, that we have seen in the previous chapters related to sequence analysis can be used to cluster sequences represented in this way (e.g., aggregated hierarchical clustering using OM, or hidden Markov models). While this seems like an easier choice, the models tend to become too complex —in the sense of requiring a larger number of clusters and/or hidden states in order to adequately characterise the data— when the number of channels or numbers of per-channel states increase. Moreover, for even a moderate number of channels and/or moderate numbers of states per-channel, the size of the combined alphabet can become unwieldy. Indeed, using this approach in conjunction with OM has been criticised because of the difficulty of specifying appropriate substitution costs for such large combined alphabets <span class="citation" data-cites="Ritschard2023">[<a href="#ref-Ritschard2023" role="doc-biblioref">12</a>]</span>. (see Chapter 10 <span class="citation" data-cites="Saqr2024-tv">[<a href="#ref-Saqr2024-tv" role="doc-biblioref">3</a>]</span>).</p>
-<p>The second, more common approach is explicitly distance-based and relies on an extension of the OM metric itself, by using a set of overall multi-channel costs derived from channel-specific costs, to calculate a pairwise dissimilarity matrix. The method relies on computing substitution costs for each constituent channel, combining the channels into a new multi-channel sequence object, and deriving an overall substitution cost matrix for the multi-channel object by adding (or averaging) the appropriate substitution costs across channels for a particular multi-state change, typically with equal weight given to each channel <span class="citation" data-cites="pollock2007">[<a href="#ref-pollock2007" role="doc-biblioref">13</a>]</span>. For instance, if the cost associated with substituting the states ‘Question’ and ‘Agreement’ in the utterances channel in <a href="#fig-multi">Figure&nbsp;<span>13.1</span></a> is <span class="math inline">\(0.6\)</span> and the cost of substituting ‘Happy’ and ‘Neutral’ in the facial expressions channel is <span class="math inline">\(1.2\)</span>, the cost associated with substitutions of ‘Question/Neutral’ for ‘Question/Happy’ and ‘Question/Neutral’ for ‘Agreement/Happy’ in <a href="#fig-multi2">Figure&nbsp;<span>13.2</span></a> would be <span class="math inline">\(1.2\)</span> and <span class="math inline">\(1.8\)</span>, respectively. From such multi-channel costs, a pairwise multi-channel dissimilarity matrix can be obtained and all subsequent steps of the clustering analysis can proceed as per Chapter 10 thereafter.</p>
-<p>That being said, adopting the extended OM approach rather than the extended alphabet approach does not resolve all limitations of the distance-based clustering paradigm. As Saqr et al. <span class="citation" data-cites="IHE">[<a href="#ref-IHE" role="doc-biblioref">14</a>]</span> noted, large sequences are hard to cluster using standard methods such as hierarchical clustering, which is memory inefficient and hard to parallelise or scale <span class="citation" data-cites="BOUGUETTAYA20152785 Gilpin13">[<a href="#ref-BOUGUETTAYA20152785" role="doc-biblioref">15</a>, <a href="#ref-Gilpin13" role="doc-biblioref">16</a>]</span>. Furthermore, distance-based clustering methods are limited by the theoretical maximum dimension of a matrix in R which is 2,147,483,647, <!-- Added/edited the rest of the paragraph (S): --> corresponding to a maximum of 46,430 sequences. Using weights can fix the memory issue if the number of unique sequences remains below the threshold <span class="citation" data-cites="studer2013">[<a href="#ref-studer2013" role="doc-biblioref">17</a>]</span>. However, the more states (and combinations of states), the more unique the sequences tend to be, so the memory issue is even more typical with multi-channel sequence data. In such a case, Markovian methods may be the solution. Moreover, the particular choice of distance-based clustering algorithm must be chosen with care, and as ever the user must pre-specify the number of clusters, thereby often necessitating the evaluation of several computing solutions with different numbers of clusters, different hierarchical clustering linkage criteria, or different distance-based clustering algorithms entirely.</p>
+<p>The first consists of flattening the multi-channel data by combining the states (such as in the example in <a href="#fig-multi2">Figure&nbsp;<span>13.2</span></a>) and treating the sequence as a single channel with an extended alphabet. Typically, one would then compute dissimilarities using this extended alphabet, most commonly using Optimal Matching (OM). However, this approach is not limited to distance-based clustering; any of the methods, distance-based or otherwise, that we have seen in the previous chapters related to sequence analysis can be used to cluster sequences represented in this way (e.g., aggregated hierarchical clustering using OM, or hidden Markov models). While this seems like an easier choice, the models tend to become too complex —in the sense of requiring a larger number of clusters and/or hidden states in order to adequately characterise the data— when the number of channels or numbers of per-channel states increase. Moreover, for even a moderate number of channels and/or moderate numbers of states per-channel, the size of the combined alphabet can become unwieldy. Indeed, using this approach in conjunction with OM has been criticised because of the difficulty of specifying appropriate substitution costs for such large combined alphabets <span class="citation" data-cites="Ritschard2023">[<a href="../ch01-intro/intro.html#ref-Ritschard2023" role="doc-biblioref">12</a>]</span>. As a reminder, the substitution cost refers to the penalty associated with replacing one element of a sequence with another one, which is used to calculate the distance between sequences (a common preliminary step in clustering) (see Chapter 10 <span class="citation" data-cites="Saqr2024-tv">[<a href="../ch01-intro/intro.html#ref-Saqr2024-tv" role="doc-biblioref">3</a>]</span>).</p>
+<p>The second, more common approach is explicitly distance-based and relies on an extension of the OM metric itself, by using a set of overall multi-channel costs derived from channel-specific costs, to calculate a pairwise dissimilarity matrix. The method relies on computing substitution costs for each constituent channel, combining the channels into a new multi-channel sequence object, and deriving an overall substitution cost matrix for the multi-channel object by adding (or averaging) the appropriate substitution costs across channels for a particular multi-state change, typically with equal weight given to each channel <span class="citation" data-cites="pollock2007">[<a href="../ch01-intro/intro.html#ref-pollock2007" role="doc-biblioref">13</a>]</span>. For instance, if the cost associated with substituting the states ‘Question’ and ‘Agreement’ in the utterances channel in <a href="#fig-multi">Figure&nbsp;<span>13.1</span></a> is <span class="math inline">\(0.6\)</span> and the cost of substituting ‘Happy’ and ‘Neutral’ in the facial expressions channel is <span class="math inline">\(1.2\)</span>, the cost associated with substitutions of ‘Question/Neutral’ for ‘Question/Happy’ and ‘Question/Neutral’ for ‘Agreement/Happy’ in <a href="#fig-multi2">Figure&nbsp;<span>13.2</span></a> would be <span class="math inline">\(1.2\)</span> and <span class="math inline">\(1.8\)</span>, respectively. From such multi-channel costs, a pairwise multi-channel dissimilarity matrix can be obtained and all subsequent steps of the clustering analysis can proceed as per Chapter 10 thereafter.</p>
+<p>That being said, adopting the extended OM approach rather than the extended alphabet approach does not resolve all limitations of the distance-based clustering paradigm. As Saqr et al. <span class="citation" data-cites="IHE">[<a href="../ch01-intro/intro.html#ref-IHE" role="doc-biblioref">14</a>]</span> noted, large sequences are hard to cluster using standard methods such as hierarchical clustering, which is memory inefficient and hard to parallelise or scale <span class="citation" data-cites="BOUGUETTAYA20152785 Gilpin13">[<a href="../ch01-intro/intro.html#ref-BOUGUETTAYA20152785" role="doc-biblioref">15</a>, <a href="../ch01-intro/intro.html#ref-Gilpin13" role="doc-biblioref">16</a>]</span>. Furthermore, distance-based clustering methods are limited by the theoretical maximum dimension of a matrix in R which is 2,147,483,647, <!-- Added/edited the rest of the paragraph (S): --> corresponding to a maximum of 46,430 sequences. Using weights can fix the memory issue if the number of unique sequences remains below the threshold <span class="citation" data-cites="studer2013">[<a href="../ch01-intro/intro.html#ref-studer2013" role="doc-biblioref">17</a>]</span>. However, the more states (and combinations of states), the more unique the sequences tend to be, so the memory issue is even more typical with multi-channel sequence data. In such a case, Markovian methods may be the solution. Moreover, the particular choice of distance-based clustering algorithm must be chosen with care, and as ever the user must pre-specify the number of clusters, thereby often necessitating the evaluation of several computing solutions with different numbers of clusters, different hierarchical clustering linkage criteria, or different distance-based clustering algorithms entirely.</p>
 </section>
 <section id="mixture-hidden-markov-models" class="level4" data-number="2.3.2">
 <h4 data-number="2.3.2" class="anchored" data-anchor-id="mixture-hidden-markov-models"><span class="header-section-number">2.3.2</span> Mixture hidden Markov models</h4>
-<p>Even so, the extended OM approach is still liable to overestimate the number of clusters. A second, more sophisticated option is to use mixture hidden Markov models (MHMM) <span class="citation" data-cites="Helske2019">[<a href="#ref-Helske2019" role="doc-biblioref">18</a>]</span>, which we have already encountered in some detail in Chapter 12. Such models notably support both single- and multi-channel sequences and often lead to more parsimonious representations of the latent group structure than the distance-based paradigm. MHMMs are a thus a far more efficient and powerful method for temporally aligning the multiple channels of data into homogeneous temporal patterns. As we have learned in Chapter 12, when we estimate a mixture hidden Markov model, we need to specify the number of clusters (<span class="math inline">\(K\)</span>) and we create <span class="math inline">\(K\)</span> submodels that are each a hidden Markov model. Each submodel can have a different number of hidden states, which allows for great flexibility in modeling the variability of the data, without unduly inflating the number of clusters as per the distance-based approaches, thereby enabling more concise and interpretable characterisation of the distinct patterns in the data. Accommodating multi-channel sequences in the MHMM framework requires treating the observed states in each channel independently given the current hidden state. This can be easily performed by defining multiple emission probability matrices (one per channel). The assumption of conditional independence simplifies the model, but is sometimes unrealistic —if there are strong dependencies or interactions between the different channels—, in which case it is better to either analyse single-channel sequences (using extended alphabet) or resort to the distance-based paradigm described above.</p>
-<p>We also learned in Chapter 12 that an advantage of MHMMs, as a probabilistic modelling approach, is that we can use traditional model selection methods such as likelihood-based information criteria or cross-validation for choosing the best model. For example, if the number of subpopulations is not known in advance —as is typically the case— we can compare models with different clustering solutions (be they those obtained with different numbers of clusters or different sets of initial probabilities, for example) and choose the best-fitting model with, for example, the Bayesian information criterion (BIC) <span class="citation" data-cites="schwarz1978">[<a href="#ref-schwarz1978" role="doc-biblioref">19</a>]</span>. Conversely, the distance-based paradigm relies on heuristic cluster quality measures for conducting model selection. In addition, an advantage of the distance-based approach is that it does not rely on making any assumptions about the data-generating mechanism. </p>
-<p>The extended OM method for calculating multi-channel dissimilarities is implemented in the R package <code>TraMineR</code> and is applied in our case study, while the extended alphabet approach (i.e., combining all channels into a single one where the alphabet contains all possible state combinations) is not pursued any further here. We also cluster via the MHMM framework in our case study, using the R package <code>seqHMM</code> <span class="citation" data-cites="seqHMM">[<a href="#ref-seqHMM" role="doc-biblioref">20</a>]</span>, in order to empirically compare and contrast both perspectives. It is worth noting that, of the Markovian methods we learned about in Chapter 12, only hidden Markov models and mixture hidden Markov models explicitly allow for multi-channel sequences by treating the observed states in each channel independently given the current hidden state. The more basic Markov and mixture Markov models can only accommodate multi-channel sequences by treating them as a single channel using the extended alphabet approach described above, but we do not consider this option any further here. To summarise, we do not explore the extended alphabet approach in either the distance-based or Markovian settings; we only demonstrate the multi-channel extension of the OM metric from the distance-based point of view, and only the MHMM approach from the Markovian point of view.</p>
+<p>Even so, the extended OM approach is still liable to overestimate the number of clusters. A second, more sophisticated option is to use mixture hidden Markov models (MHMM) <span class="citation" data-cites="Helske2019">[<a href="../ch01-intro/intro.html#ref-Helske2019" role="doc-biblioref">18</a>]</span>, which we have already encountered in some detail in Chapter 12. Such models notably support both single- and multi-channel sequences and often lead to more parsimonious representations of the latent group structure than the distance-based paradigm. MHMMs are a thus a far more efficient and powerful method for temporally aligning the multiple channels of data into homogeneous temporal patterns. As we have learned in Chapter 12, when we estimate a mixture hidden Markov model, we need to specify the number of clusters (<span class="math inline">\(K\)</span>) and we create <span class="math inline">\(K\)</span> submodels that are each a hidden Markov model. Each submodel can have a different number of hidden states, which allows for great flexibility in modeling the variability of the data, without unduly inflating the number of clusters as per the distance-based approaches, thereby enabling more concise and interpretable characterisation of the distinct patterns in the data. Accommodating multi-channel sequences in the MHMM framework requires treating the observed states in each channel independently given the current hidden state. This can be easily performed by defining multiple emission probability matrices (one per channel). The assumption of conditional independence simplifies the model, but is sometimes unrealistic —if there are strong dependencies or interactions between the different channels—, in which case it is better to either analyse single-channel sequences (using extended alphabet) or resort to the distance-based paradigm described above.</p>
+<p>We also learned in Chapter 12 that an advantage of MHMMs, as a probabilistic modelling approach, is that we can use traditional model selection methods such as likelihood-based information criteria or cross-validation for choosing the best model. For example, if the number of subpopulations is not known in advance —as is typically the case— we can compare models with different clustering solutions (be they those obtained with different numbers of clusters or different sets of initial probabilities, for example) and choose the best-fitting model with, for example, the Bayesian information criterion (BIC) <span class="citation" data-cites="schwarz1978">[<a href="../ch01-intro/intro.html#ref-schwarz1978" role="doc-biblioref">19</a>]</span>. Conversely, the distance-based paradigm relies on heuristic cluster quality measures for conducting model selection. In addition, an advantage of the distance-based approach is that it does not rely on making any assumptions about the data-generating mechanism. In other words, it does not assume that the data follows a probabilistic model.</p>
+<p>The extended OM method for calculating multi-channel dissimilarities is implemented in the R package <code>TraMineR</code> and is applied in our case study, while the extended alphabet approach (i.e., combining all channels into a single one where the alphabet contains all possible state combinations) is not pursued any further here. We also cluster via the MHMM framework in our case study, using the R package <code>seqHMM</code> <span class="citation" data-cites="seqHMM">[<a href="../ch01-intro/intro.html#ref-seqHMM" role="doc-biblioref">20</a>]</span>, in order to empirically compare and contrast both perspectives. It is worth noting that, of the Markovian methods we learned about in Chapter 12, only hidden Markov models and mixture hidden Markov models explicitly allow for multi-channel sequences by treating the observed states in each channel independently given the current hidden state. The more basic Markov and mixture Markov models can only accommodate multi-channel sequences by treating them as a single channel using the extended alphabet approach described above, but we do not consider this option any further here. To summarise, we do not explore the extended alphabet approach in either the distance-based or Markovian settings; we only demonstrate the multi-channel extension of the OM metric from the distance-based point of view, and only the MHMM approach from the Markovian point of view.</p>
 </section>
 </section>
 <section id="covariates" class="level3" data-number="2.4">
 <h3 data-number="2.4" class="anchored" data-anchor-id="covariates"><span class="header-section-number">2.4</span> Step 4: Relating clusters to covariates</h3>
-<p>As we have seen, there are, broadly speaking, two conflicting perspectives on clustering in the sequence analysis community; algorithmic, distance-based clustering on the one hand, and model-based clustering on the other. Distance-based clustering of multi-channel sequences has already been described above, but it is useful to acknowledge that mixture Markov models and mixture hidden Markov models are precisely examples of model-based clustering methods. Moreover, <code>seqHMM</code> and the methods it implements are unique in offering a model-based approach to clustering multi-channel sequences. A key advantage of the model-based clustering framework is that it can easily be extended to directly account for information available in the form of covariates, as part of the underlying probabilistic model. Though the recently introduced mixture of exponential-distance models framework <span class="citation" data-cites="MEDseq">[<a href="#ref-MEDseq" role="doc-biblioref">21</a>]</span> attempts to reconcile the distance-based and model-based cultures in sequence analysis, while allowing for the direct incorporation of covariates, it is not based on Markovian principles, and most importantly can currently only accommodate single-channel sequences. Otherwise, distance-based approaches typically cannot accommodate covariates, except as part of a post-hoc step whereby, typically, covariates are used as explanatory variables in a post-hoc multinomial regression with the cluster memberships used as the response (or as independent variables in linear or non-linear regression models). This is questionable as substituting a categorical variable indicating cluster membership disregards the heterogeneity within clusters and is clearly only sensible when the clusters are sufficiently homogeneous <span class="citation" data-cites="Studer2018-aw Helske2023-yj">[<a href="#ref-Studer2018-aw" role="doc-biblioref">22</a>, <a href="#ref-Helske2023-yj" role="doc-biblioref">23</a>]</span>. It is often more desirable to incorporate covariates directly, i.e.&nbsp;to cluster sequences and relate the clusters to the covariates simultaneously. This represents an important distinction between the two approaches outlined above; this step does not apply to distance-based clustering approaches and is a crucial advantage of the Markovian approach which makes MHMMs even more powerful tools for clustering multi-channel sequences.</p>
-<p>In theory, MHMMs can include covariates to explain the initial, transition, and/or emission probabilities. A natural use-case would be to allow subject-specific and possibly time-varying transition and emission probabilities (in the case of time-varying covariates). For example, if we think that transitioning from low to high achievement gets harder as the students get older we may add time as an explanatory variable to the model, allowing the probability of transitioning from low to high achievement to diminish in time. However, at the time of writing this chapter, these extensions are not supported in <code>seqHMM</code> (this may change in the future). Instead, the <code>seqHMM</code> package used in the examples supports time-constant covariates only. Specifically, the manner in which covariates are accommodated is similar in spirit to the aforementioned mixture of exponential-distance models framework and latent class regression <span class="citation" data-cites="Dayton1988">[<a href="#ref-Dayton1988" role="doc-biblioref">24</a>]</span>, in that covariates are used for predicting cluster memberships for each observed sequence. Adding covariates to the model thus helps to both explain and influence the probabilities that each individual has of belonging to each cluster. By incorporating covariates in this way, we could, for example, find that being in a high-achievement cluster is predicted by gender, previous grades, or family background</p>
-<p>In the terminology of mixtures of experts modelling, this approach corresponds to a so-called “gating network mixture of experts model”, whereby the distribution of the sequences depends on the latent cluster membership variable, which in turn depends on the covariates, while the sequences are independent of the covariates, conditional on the latent cluster membership variable <span class="citation" data-cites="MoEClust">[<a href="#ref-MoEClust" role="doc-biblioref">25</a>]</span>. This, rather than having covariates affect the component distributions, is particularly appealing, as the interpretation of state-specific parameters is the same as it would be under a model without covariates. However, it is worth noting that the covariates do not merely explain the uncovered clusters; as part of the model, they drive the formation of the clusters. In other words, an otherwise identical model without dependence on covariates may uncover different groupings with different probabilities. However, this can be easily overcome by treating the selection of the most relevant subset of covariates as an issue of model selection via the BIC or other criteria and taking the number of clusters/states, set of initial probabilities, and set of covariates which jointly optimise the chosen criterion. The incorporation of covariates in MHMMs and related practical issues are also illustrated in the case study on the longitudinal association of engagement and achievement which follows.</p>
+<p>As we have seen, there are, broadly speaking, two conflicting perspectives on clustering in the sequence analysis community; algorithmic, distance-based clustering on the one hand, and model-based clustering on the other. Distance-based clustering of multi-channel sequences has already been described above, but it is useful to acknowledge that mixture Markov models and mixture hidden Markov models are precisely examples of model-based clustering methods. Moreover, <code>seqHMM</code> and the methods it implements are unique in offering a model-based approach to clustering multi-channel sequences. A key advantage of the model-based clustering framework is that it can easily be extended to directly account for information available in the form of covariates, as part of the underlying probabilistic model. Though the recently introduced mixture of exponential-distance models framework <span class="citation" data-cites="MEDseq">[<a href="../ch01-intro/intro.html#ref-MEDseq" role="doc-biblioref">21</a>]</span> attempts to reconcile the distance-based and model-based cultures in sequence analysis, while allowing for the direct incorporation of covariates, it is not based on Markovian principles, and most importantly can currently only accommodate single-channel sequences. Otherwise, distance-based approaches typically cannot accommodate covariates, except as part of a post-hoc step whereby, typically, covariates are used as explanatory variables in a post-hoc multinomial regression with the cluster memberships used as the response (or as independent variables in linear or non-linear regression models). This is questionable as substituting a categorical variable indicating cluster membership disregards the heterogeneity within clusters and is clearly only sensible when the clusters are sufficiently homogeneous <span class="citation" data-cites="Studer2018-aw Helske2023-yj">[<a href="../ch01-intro/intro.html#ref-Studer2018-aw" role="doc-biblioref">22</a>, <a href="../ch01-intro/intro.html#ref-Helske2023-yj" role="doc-biblioref">23</a>]</span>. It is often more desirable to incorporate covariates directly, i.e.&nbsp;to cluster sequences and relate the clusters to the covariates simultaneously. This represents an important distinction between the two approaches outlined above; this step does not apply to distance-based clustering approaches and is a crucial advantage of the Markovian approach which makes MHMMs even more powerful tools for clustering multi-channel sequences.</p>
+<p>In theory, MHMMs can include covariates to explain the initial, transition, and/or emission probabilities. A natural use-case would be to allow subject-specific and possibly time-varying transition and emission probabilities (in the case of time-varying covariates). For example, if we think that transitioning from low to high achievement gets harder as the students get older we may add time as an explanatory variable to the model, allowing the probability of transitioning from low to high achievement to diminish in time. However, at the time of writing this chapter, these extensions are not supported in <code>seqHMM</code> (this may change in the future). Instead, the <code>seqHMM</code> package used in the examples supports time-constant covariates only. Specifically, the manner in which covariates are accommodated is similar in spirit to the aforementioned mixture of exponential-distance models framework and latent class regression <span class="citation" data-cites="Dayton1988">[<a href="../ch01-intro/intro.html#ref-Dayton1988" role="doc-biblioref">24</a>]</span>, in that covariates are used for predicting cluster memberships for each observed sequence. Adding covariates to the model thus helps to both explain and influence the probabilities that each individual has of belonging to each cluster. By incorporating covariates in this way, we could, for example, find that being in a high-achievement cluster is predicted by gender, previous grades, or family background</p>
+<p>In the terminology of mixtures of experts modelling, this approach corresponds to a so-called “gating network mixture of experts model”, whereby the distribution of the sequences depends on the latent cluster membership variable, which in turn depends on the covariates, while the sequences are independent of the covariates, conditional on the latent cluster membership variable <span class="citation" data-cites="MoEClust">[<a href="../ch01-intro/intro.html#ref-MoEClust" role="doc-biblioref">25</a>]</span>. This, rather than having covariates affect the component distributions, is particularly appealing, as the interpretation of state-specific parameters is the same as it would be under a model without covariates. However, it is worth noting that the covariates do not merely explain the uncovered clusters; as part of the model, they drive the formation of the clusters. In other words, an otherwise identical model without dependence on covariates may uncover different groupings with different probabilities. However, this can be easily overcome by treating the selection of the most relevant subset of covariates as an issue of model selection via the BIC or other criteria and taking the number of clusters/states, set of initial probabilities, and set of covariates which jointly optimise the chosen criterion. The incorporation of covariates in MHMMs and related practical issues are also illustrated in the case study on the longitudinal association of engagement and achievement which follows.</p>
 </section>
 </section>
 <section id="review-of-the-literature" class="level2" data-number="3">
 <h2 data-number="3" class="anchored" data-anchor-id="review-of-the-literature"><span class="header-section-number">3</span> Review of the literature</h2>
-<p>The use of multi-channel sequence analysis in learning analytics has so far been scarce. Most of the few studies that implemented this method used it to combine multiple modalities of data such as coded video data <span class="citation" data-cites="Trmnen2022a Trmnen2022b">[<a href="#ref-Trmnen2022a" role="doc-biblioref">26</a>, <a href="#ref-Trmnen2022b" role="doc-biblioref">27</a>]</span>, electrodermal activity <span class="citation" data-cites="Trmnen2022a Trmnen2022b">[<a href="#ref-Trmnen2022a" role="doc-biblioref">26</a>, <a href="#ref-Trmnen2022b" role="doc-biblioref">27</a>]</span>, clickstream/logged data <span class="citation" data-cites="Ouyang2023 LopezPernas2021 Saqr2023">[<a href="#ref-Saqr2023" role="doc-biblioref">10</a>, <a href="#ref-Ouyang2023" role="doc-biblioref">28</a>, <a href="#ref-LopezPernas2021" role="doc-biblioref">29</a>]</span>, and assessment/achievement data <span class="citation" data-cites="LopezPernas2021 Saqr2023 Bacci2022">[<a href="#ref-Saqr2023" role="doc-biblioref">10</a>, <a href="#ref-LopezPernas2021" role="doc-biblioref">29</a>, <a href="#ref-Bacci2022" role="doc-biblioref">30</a>]</span>. The data were converted into different sequence channels using a variety of methods. For example, <span class="citation" data-cites="Trmnen2022a">[<a href="#ref-Trmnen2022a" role="doc-biblioref">26</a>]</span> manually coded video interactions as positive/negative/mixed to represent the emotional valence of individual interaction, and used a pre-defined threshold to discern between high and low arousal from electrodermal activity data. In the work by <span class="citation" data-cites="LopezPernas2021">[<a href="#ref-LopezPernas2021" role="doc-biblioref">29</a>]</span>, two sequence channels were built from students’ daily tactics using the learning management system and an automated assessment tool for programming assignments respectively. The learning tactics were identified through hierarchical clustering of students’ trace log data in each environment. Similarly <span class="citation" data-cites="Saqr2023">[<a href="#ref-Saqr2023" role="doc-biblioref">10</a>]</span>, created an engagement channel for each course in a study program based on students’ engagement states derived from the learning management system data, and an achievement state based on their grade tertiles. Another study <span class="citation" data-cites="Ouyang2023">[<a href="#ref-Ouyang2023" role="doc-biblioref">28</a>]</span> had five separate channels: the first channel represented the interactive dimension built from the social interactions through peer communications and online behaviours; the second channel represented the cognitive dimension constructed from students’ knowledge contributions at the superficial, medium, and deep levels; the third channel represented the regulative dimension which represented students’ regulation of their collaborative processes, including task understanding, goal setting and planning, as well as monitoring and reflection; the fourth channel represented the behavioural dimension which analysed students’ online behaviours, including resource management, concept mapping and observation, and the fifth channel represented the socio-emotional dimension, which included active listening and respect, encouraging participation and inclusion, as well as fostering cohesion.</p>
-<p>A common step in the existing works is the use of clustering techniques to detect unobserved patterns within the multi-channel sequences. Articles have relied on hidden Markov models to identify hidden states in the data. For instance, <span class="citation" data-cites="LopezPernas2021">[<a href="#ref-LopezPernas2021" role="doc-biblioref">29</a>]</span> found three hidden states consisting of learning strategies which combine the use of the learning management system and an automated assessment tool: an instruction-oriented strategy where students consume learning resources to learn how to code; an independent coding strategy where students relied on their knowledge or used the learning resources available to complete the assignments, and a dependent coding strategy where students mostly relied on the help forums to complete their programming assignments. Most studies go one step further and identify distinct trajectories based on such hidden states. For example, <span class="citation" data-cites="Trmnen2022b">[<a href="#ref-Trmnen2022b" role="doc-biblioref">27</a>]</span> found four clusters of socio-emotional interaction episodes (positive, negative, occasional regulation, frequent regulation), which differed in terms of fluctuation of affective states and activated regulation of learning. The authors of <span class="citation" data-cites="Ouyang2023">[<a href="#ref-Ouyang2023" role="doc-biblioref">28</a>]</span> found three types of group collaborative patterns: behaviour-oriented, communication-behaviour-synergistic, and communication-oriented. To the knowledge of the authors, no article has relied on the distance-based approach (commonly used in single-channel sequence analysis) to cluster multi-channel sequences. However, this approach has been used in social sciences <span class="citation" data-cites="Gauthier2010">[<a href="#ref-Gauthier2010" role="doc-biblioref">9</a>]</span> as well as in other disciplines <span class="citation" data-cites="Liu2021">[e.g., <a href="#ref-Liu2021" role="doc-biblioref">31</a>]</span>.</p>
+<p>The use of multi-channel sequence analysis in learning analytics has so far been scarce. Most of the few studies that implemented this method used it to combine multiple modalities of data such as coded video data <span class="citation" data-cites="Trmnen2022a Trmnen2022b">[<a href="../ch01-intro/intro.html#ref-Trmnen2022a" role="doc-biblioref">26</a>, <a href="../ch01-intro/intro.html#ref-Trmnen2022b" role="doc-biblioref">27</a>]</span>, electrodermal activity <span class="citation" data-cites="Trmnen2022a Trmnen2022b">[<a href="../ch01-intro/intro.html#ref-Trmnen2022a" role="doc-biblioref">26</a>, <a href="../ch01-intro/intro.html#ref-Trmnen2022b" role="doc-biblioref">27</a>]</span>, clickstream/logged data <span class="citation" data-cites="Ouyang2023 LopezPernas2021 Saqr2023">[<a href="../ch01-intro/intro.html#ref-Saqr2023" role="doc-biblioref">10</a>, <a href="../ch01-intro/intro.html#ref-Ouyang2023" role="doc-biblioref">28</a>, <a href="../ch01-intro/intro.html#ref-LopezPernas2021" role="doc-biblioref">29</a>]</span>, and assessment/achievement data <span class="citation" data-cites="LopezPernas2021 Saqr2023 Bacci2022">[<a href="../ch01-intro/intro.html#ref-Saqr2023" role="doc-biblioref">10</a>, <a href="../ch01-intro/intro.html#ref-LopezPernas2021" role="doc-biblioref">29</a>, <a href="../ch01-intro/intro.html#ref-Bacci2022" role="doc-biblioref">30</a>]</span>. The data were converted into different sequence channels using a variety of methods. For example, <span class="citation" data-cites="Trmnen2022a">[<a href="../ch01-intro/intro.html#ref-Trmnen2022a" role="doc-biblioref">26</a>]</span> manually coded video interactions as positive/negative/mixed to represent the emotional valence of individual interaction, and used a pre-defined threshold to discern between high and low arousal from electrodermal activity data. In the work by <span class="citation" data-cites="LopezPernas2021">[<a href="../ch01-intro/intro.html#ref-LopezPernas2021" role="doc-biblioref">29</a>]</span>, two sequence channels were built from students’ daily tactics using the learning management system and an automated assessment tool for programming assignments respectively. The learning tactics were identified through hierarchical clustering of students’ trace log data in each environment. Similarly <span class="citation" data-cites="Saqr2023">[<a href="../ch01-intro/intro.html#ref-Saqr2023" role="doc-biblioref">10</a>]</span>, created an engagement channel for each course in a study program based on students’ engagement states derived from the learning management system data, and an achievement state based on their grade tertiles. Another study <span class="citation" data-cites="Ouyang2023">[<a href="../ch01-intro/intro.html#ref-Ouyang2023" role="doc-biblioref">28</a>]</span> had five separate channels: the first channel represented the interactive dimension built from the social interactions through peer communications and online behaviours; the second channel represented the cognitive dimension constructed from students’ knowledge contributions at the superficial, medium, and deep levels; the third channel represented the regulative dimension which represented students’ regulation of their collaborative processes, including task understanding, goal setting and planning, as well as monitoring and reflection; the fourth channel represented the behavioural dimension which analysed students’ online behaviours, including resource management, concept mapping and observation, and the fifth channel represented the socio-emotional dimension, which included active listening and respect, encouraging participation and inclusion, as well as fostering cohesion.</p>
+<p>A common step in the existing works is the use of clustering techniques to detect unobserved patterns within the multi-channel sequences. Articles have relied on hidden Markov models to identify hidden states in the data. For instance, <span class="citation" data-cites="LopezPernas2021">[<a href="../ch01-intro/intro.html#ref-LopezPernas2021" role="doc-biblioref">29</a>]</span> found three hidden states consisting of learning strategies which combine the use of the learning management system and an automated assessment tool: an instruction-oriented strategy where students consume learning resources to learn how to code; an independent coding strategy where students relied on their knowledge or used the learning resources available to complete the assignments, and a dependent coding strategy where students mostly relied on the help forums to complete their programming assignments. Most studies go one step further and identify distinct trajectories based on such hidden states. For example, <span class="citation" data-cites="Trmnen2022b">[<a href="../ch01-intro/intro.html#ref-Trmnen2022b" role="doc-biblioref">27</a>]</span> found four clusters of socio-emotional interaction episodes (positive, negative, occasional regulation, frequent regulation), which differed in terms of fluctuation of affective states and activated regulation of learning. The authors of <span class="citation" data-cites="Ouyang2023">[<a href="../ch01-intro/intro.html#ref-Ouyang2023" role="doc-biblioref">28</a>]</span> found three types of group collaborative patterns: behaviour-oriented, communication-behaviour-synergistic, and communication-oriented. To the knowledge of the authors, no article has relied on the distance-based approach (commonly used in single-channel sequence analysis) to cluster multi-channel sequences. However, this approach has been used in social sciences <span class="citation" data-cites="Gauthier2010">[<a href="../ch01-intro/intro.html#ref-Gauthier2010" role="doc-biblioref">9</a>]</span> as well as in other disciplines <span class="citation" data-cites="Liu2021">[e.g., <a href="../ch01-intro/intro.html#ref-Liu2021" role="doc-biblioref">31</a>]</span>.</p>
 </section>
 <section id="case-study-the-longitudinal-association-of-engagement-and-achievement" class="level2" data-number="4">
 <h2 data-number="4" class="anchored" data-anchor-id="case-study-the-longitudinal-association-of-engagement-and-achievement"><span class="header-section-number">4</span> Case study: the longitudinal association of engagement and achievement</h2>
-<p>To learn how to implement multi-channel sequence analysis we are going to practice with a real case study: we will investigate the longitudinal association between engagement and achievement across a study program using simulated data based on the study by <span class="citation" data-cites="Saqr2023">[<a href="#ref-Saqr2023" role="doc-biblioref">10</a>]</span>. We begin by creating a sequence for each of the channels (engagement and achievement) and then explore visualisations thereof. We then focus on clustering these data using the methods described above specifically tailored for multi-channel sequences, in order to present an empirical view of both the distance-based and Markovian perspectives. In doing so, we will first demonstrate how to construct a multi-channel pairwise OM dissimilarity matrix in order to apply the distance-based clustering approach of Chapter 10 to these data. Secondly, we will largely focus on using a mixture hidden Markov model to detect the longitudinal clusters of students that share a similar trajectory of engagement and achievement. Finally, we will demonstrate how to incorporate covariates under the model-based Markovian framework.</p>
+<p>To learn how to implement multi-channel sequence analysis we are going to practice with a real case study: we will investigate the longitudinal association between engagement and achievement across a study program using simulated data based on the study by <span class="citation" data-cites="Saqr2023">[<a href="../ch01-intro/intro.html#ref-Saqr2023" role="doc-biblioref">10</a>]</span>. We begin by creating a sequence for each of the channels (engagement and achievement) and then explore visualisations thereof. We then focus on clustering these data using the methods described above specifically tailored for multi-channel sequences, in order to present an empirical view of both the distance-based and Markovian perspectives. In doing so, we will first demonstrate how to construct a multi-channel pairwise OM dissimilarity matrix in order to apply the distance-based clustering approach of Chapter 10 to these data. Secondly, we will largely focus on using a mixture hidden Markov model to detect the longitudinal clusters of students that share a similar trajectory of engagement and achievement. Finally, we will demonstrate how to incorporate covariates under the model-based Markovian framework.</p>
 <!-- We note that the same data were analysed in Chapter 12, from a Markovian perspective only, albeit mainly from the point of view of single-channel analysis using the engagement sequences. Though some results were presented pertaining to a simultaneous analysis of the engagement and achievement sequences in Chapter 12, we present the multi-channel perspective in greater detail here. -->
 <!-- It is not engagement anymore (SLP)  -->
 <section id="the-packages" class="level3" data-number="4.1">
 <h3 data-number="4.1" class="anchored" data-anchor-id="the-packages"><span class="header-section-number">4.1</span> The packages</h3>
 <p>To accomplish our task, we will rely on several R packages We have use most of them throughout the book. Below is a brief summary of the packages required:</p>
 <ul>
-<li><code>rio</code>: A package for reading and saving data files with different extensions <span class="citation" data-cites="rio">[<a href="#ref-rio" role="doc-biblioref">32</a>]</span>.</li>
-<li><code>seqHMM</code>: A package designed for fitting hidden (latent) Markov models and mixture hidden Markov models for social sequence data and other categorical time series <span class="citation" data-cites="seqHMM">[<a href="#ref-seqHMM" role="doc-biblioref">20</a>]</span>.</li>
-<li><code>tidyverse</code>: A package that encompasses several basic packages for data manipulation and wrangling <span class="citation" data-cites="tidyverse">[<a href="#ref-tidyverse" role="doc-biblioref">33</a>]</span>.</li>
-<li><code>TraMineR</code>: As seen in the introductory sequence analysis chapter, this package helps us construct, analyse, and visualise sequences from time-ordered states or events <span class="citation" data-cites="Gabadinho2011">[<a href="#ref-Gabadinho2011" role="doc-biblioref">34</a>]</span>.</li>
-<li><code>WeightedCluster</code>: A package to cluster sequences and computing quality measures <span class="citation" data-cites="studer2013">[<a href="#ref-studer2013" role="doc-biblioref">17</a>]</span>.</li>
+<li><code>rio</code>: A package for reading and saving data files with different extensions <span class="citation" data-cites="rio">[<a href="../ch01-intro/intro.html#ref-rio" role="doc-biblioref">32</a>]</span>.</li>
+<li><code>seqHMM</code>: A package designed for fitting hidden (latent) Markov models and mixture hidden Markov models for social sequence data and other categorical time series <span class="citation" data-cites="seqHMM">[<a href="../ch01-intro/intro.html#ref-seqHMM" role="doc-biblioref">20</a>]</span>.</li>
+<li><code>tidyverse</code>: A package that encompasses several basic packages for data manipulation and wrangling <span class="citation" data-cites="tidyverse">[<a href="../ch01-intro/intro.html#ref-tidyverse" role="doc-biblioref">33</a>]</span>.</li>
+<li><code>TraMineR</code>: As seen in the introductory sequence analysis chapter, this package helps us construct, analyse, and visualise sequences from time-ordered states or events <span class="citation" data-cites="Gabadinho2011">[<a href="../ch01-intro/intro.html#ref-Gabadinho2011" role="doc-biblioref">34</a>]</span>.</li>
+<li><code>WeightedCluster</code>: A package to cluster sequences and computing quality measures <span class="citation" data-cites="studer2013">[<a href="../ch01-intro/intro.html#ref-studer2013" role="doc-biblioref">17</a>]</span>.</li>
 </ul>
 <p>If you have not done so already, install the packages using the <code>install.packages()</code> command (e.g., <code>install.packages("seqHMM")</code>). We can then import them as follows:</p>
 <div class="cell">
@@ -607,23 +609,23 @@ cookieconsent.run({
 <div class="cell-output-display">
 <div id="tbl-df" class="anchored">
 
-<div id="ucrnoefapz" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
-<style>#ucrnoefapz table {
+<div id="xmxywpliwa" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<style>#xmxywpliwa table {
   font-family: system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
-#ucrnoefapz thead, #ucrnoefapz tbody, #ucrnoefapz tfoot, #ucrnoefapz tr, #ucrnoefapz td, #ucrnoefapz th {
+#xmxywpliwa thead, #xmxywpliwa tbody, #xmxywpliwa tfoot, #xmxywpliwa tr, #xmxywpliwa td, #xmxywpliwa th {
   border-style: none;
 }
 
-#ucrnoefapz p {
+#xmxywpliwa p {
   margin: 0;
   padding: 0;
 }
 
-#ucrnoefapz .gt_table {
+#xmxywpliwa .gt_table {
   display: table;
   border-collapse: collapse;
   line-height: normal;
@@ -649,12 +651,12 @@ cookieconsent.run({
   border-left-color: #D3D3D3;
 }
 
-#ucrnoefapz .gt_caption {
+#xmxywpliwa .gt_caption {
   padding-top: 4px;
   padding-bottom: 4px;
 }
 
-#ucrnoefapz .gt_title {
+#xmxywpliwa .gt_title {
   color: #333333;
   font-size: 125%;
   font-weight: initial;
@@ -666,7 +668,7 @@ cookieconsent.run({
   border-bottom-width: 0;
 }
 
-#ucrnoefapz .gt_subtitle {
+#xmxywpliwa .gt_subtitle {
   color: #333333;
   font-size: 85%;
   font-weight: initial;
@@ -678,7 +680,7 @@ cookieconsent.run({
   border-top-width: 0;
 }
 
-#ucrnoefapz .gt_heading {
+#xmxywpliwa .gt_heading {
   background-color: #FFFFFF;
   text-align: center;
   border-bottom-color: #FFFFFF;
@@ -690,13 +692,13 @@ cookieconsent.run({
   border-right-color: #D3D3D3;
 }
 
-#ucrnoefapz .gt_bottom_border {
+#xmxywpliwa .gt_bottom_border {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
 }
 
-#ucrnoefapz .gt_col_headings {
+#xmxywpliwa .gt_col_headings {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -711,7 +713,7 @@ cookieconsent.run({
   border-right-color: #D3D3D3;
 }
 
-#ucrnoefapz .gt_col_heading {
+#xmxywpliwa .gt_col_heading {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -731,7 +733,7 @@ cookieconsent.run({
   overflow-x: hidden;
 }
 
-#ucrnoefapz .gt_column_spanner_outer {
+#xmxywpliwa .gt_column_spanner_outer {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -743,15 +745,15 @@ cookieconsent.run({
   padding-right: 4px;
 }
 
-#ucrnoefapz .gt_column_spanner_outer:first-child {
+#xmxywpliwa .gt_column_spanner_outer:first-child {
   padding-left: 0;
 }
 
-#ucrnoefapz .gt_column_spanner_outer:last-child {
+#xmxywpliwa .gt_column_spanner_outer:last-child {
   padding-right: 0;
 }
 
-#ucrnoefapz .gt_column_spanner {
+#xmxywpliwa .gt_column_spanner {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
@@ -763,11 +765,11 @@ cookieconsent.run({
   width: 100%;
 }
 
-#ucrnoefapz .gt_spanner_row {
+#xmxywpliwa .gt_spanner_row {
   border-bottom-style: hidden;
 }
 
-#ucrnoefapz .gt_group_heading {
+#xmxywpliwa .gt_group_heading {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -793,7 +795,7 @@ cookieconsent.run({
   text-align: left;
 }
 
-#ucrnoefapz .gt_empty_group_heading {
+#xmxywpliwa .gt_empty_group_heading {
   padding: 0.5px;
   color: #333333;
   background-color: #FFFFFF;
@@ -808,15 +810,15 @@ cookieconsent.run({
   vertical-align: middle;
 }
 
-#ucrnoefapz .gt_from_md > :first-child {
+#xmxywpliwa .gt_from_md > :first-child {
   margin-top: 0;
 }
 
-#ucrnoefapz .gt_from_md > :last-child {
+#xmxywpliwa .gt_from_md > :last-child {
   margin-bottom: 0;
 }
 
-#ucrnoefapz .gt_row {
+#xmxywpliwa .gt_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -835,7 +837,7 @@ cookieconsent.run({
   overflow-x: hidden;
 }
 
-#ucrnoefapz .gt_stub {
+#xmxywpliwa .gt_stub {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -848,7 +850,7 @@ cookieconsent.run({
   padding-right: 5px;
 }
 
-#ucrnoefapz .gt_stub_row_group {
+#xmxywpliwa .gt_stub_row_group {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -862,15 +864,15 @@ cookieconsent.run({
   vertical-align: top;
 }
 
-#ucrnoefapz .gt_row_group_first td {
+#xmxywpliwa .gt_row_group_first td {
   border-top-width: 2px;
 }
 
-#ucrnoefapz .gt_row_group_first th {
+#xmxywpliwa .gt_row_group_first th {
   border-top-width: 2px;
 }
 
-#ucrnoefapz .gt_summary_row {
+#xmxywpliwa .gt_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -880,16 +882,16 @@ cookieconsent.run({
   padding-right: 5px;
 }
 
-#ucrnoefapz .gt_first_summary_row {
+#xmxywpliwa .gt_first_summary_row {
   border-top-style: solid;
   border-top-color: #D3D3D3;
 }
 
-#ucrnoefapz .gt_first_summary_row.thick {
+#xmxywpliwa .gt_first_summary_row.thick {
   border-top-width: 2px;
 }
 
-#ucrnoefapz .gt_last_summary_row {
+#xmxywpliwa .gt_last_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -899,7 +901,7 @@ cookieconsent.run({
   border-bottom-color: #D3D3D3;
 }
 
-#ucrnoefapz .gt_grand_summary_row {
+#xmxywpliwa .gt_grand_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -909,7 +911,7 @@ cookieconsent.run({
   padding-right: 5px;
 }
 
-#ucrnoefapz .gt_first_grand_summary_row {
+#xmxywpliwa .gt_first_grand_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -919,7 +921,7 @@ cookieconsent.run({
   border-top-color: #D3D3D3;
 }
 
-#ucrnoefapz .gt_last_grand_summary_row_top {
+#xmxywpliwa .gt_last_grand_summary_row_top {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -929,11 +931,11 @@ cookieconsent.run({
   border-bottom-color: #D3D3D3;
 }
 
-#ucrnoefapz .gt_striped {
+#xmxywpliwa .gt_striped {
   background-color: rgba(128, 128, 128, 0.05);
 }
 
-#ucrnoefapz .gt_table_body {
+#xmxywpliwa .gt_table_body {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -942,7 +944,7 @@ cookieconsent.run({
   border-bottom-color: #D3D3D3;
 }
 
-#ucrnoefapz .gt_footnotes {
+#xmxywpliwa .gt_footnotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -956,7 +958,7 @@ cookieconsent.run({
   border-right-color: #D3D3D3;
 }
 
-#ucrnoefapz .gt_footnote {
+#xmxywpliwa .gt_footnote {
   margin: 0px;
   font-size: 90%;
   padding-top: 4px;
@@ -965,7 +967,7 @@ cookieconsent.run({
   padding-right: 5px;
 }
 
-#ucrnoefapz .gt_sourcenotes {
+#xmxywpliwa .gt_sourcenotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -979,7 +981,7 @@ cookieconsent.run({
   border-right-color: #D3D3D3;
 }
 
-#ucrnoefapz .gt_sourcenote {
+#xmxywpliwa .gt_sourcenote {
   font-size: 90%;
   padding-top: 4px;
   padding-bottom: 4px;
@@ -987,63 +989,63 @@ cookieconsent.run({
   padding-right: 5px;
 }
 
-#ucrnoefapz .gt_left {
+#xmxywpliwa .gt_left {
   text-align: left;
 }
 
-#ucrnoefapz .gt_center {
+#xmxywpliwa .gt_center {
   text-align: center;
 }
 
-#ucrnoefapz .gt_right {
+#xmxywpliwa .gt_right {
   text-align: right;
   font-variant-numeric: tabular-nums;
 }
 
-#ucrnoefapz .gt_font_normal {
+#xmxywpliwa .gt_font_normal {
   font-weight: normal;
 }
 
-#ucrnoefapz .gt_font_bold {
+#xmxywpliwa .gt_font_bold {
   font-weight: bold;
 }
 
-#ucrnoefapz .gt_font_italic {
+#xmxywpliwa .gt_font_italic {
   font-style: italic;
 }
 
-#ucrnoefapz .gt_super {
+#xmxywpliwa .gt_super {
   font-size: 65%;
 }
 
-#ucrnoefapz .gt_footnote_marks {
+#xmxywpliwa .gt_footnote_marks {
   font-size: 75%;
   vertical-align: 0.4em;
   position: initial;
 }
 
-#ucrnoefapz .gt_asterisk {
+#xmxywpliwa .gt_asterisk {
   font-size: 100%;
   vertical-align: 0;
 }
 
-#ucrnoefapz .gt_indent_1 {
+#xmxywpliwa .gt_indent_1 {
   text-indent: 5px;
 }
 
-#ucrnoefapz .gt_indent_2 {
+#xmxywpliwa .gt_indent_2 {
   text-indent: 10px;
 }
 
-#ucrnoefapz .gt_indent_3 {
+#xmxywpliwa .gt_indent_3 {
   text-indent: 15px;
 }
 
-#ucrnoefapz .gt_indent_4 {
+#xmxywpliwa .gt_indent_4 {
   text-indent: 20px;
 }
 
-#ucrnoefapz .gt_indent_5 {
+#xmxywpliwa .gt_indent_5 {
   text-indent: 25px;
 }
 </style>
@@ -1174,7 +1176,7 @@ cookieconsent.run({
 </div>
 </div>
 </div>
-<p>Please, refer to Chapter 10 <span class="citation" data-cites="Saqr2024-tv">[<a href="#ref-Saqr2024-tv" role="doc-biblioref">3</a>]</span> for guidance on how to interpret sequence distribution and index plots.</p>
+<p>Please, refer to Chapter 10 <span class="citation" data-cites="Saqr2024-tv">[<a href="../ch01-intro/intro.html#ref-Saqr2024-tv" role="doc-biblioref">3</a>]</span> for guidance on how to interpret sequence distribution and index plots.</p>
 </section>
 <section id="achievement-channel" class="level4" data-number="4.3.2">
 <h4 data-number="4.3.2" class="anchored" data-anchor-id="achievement-channel"><span class="header-section-number">4.3.2</span> Achievement channel</h4>
@@ -1208,7 +1210,7 @@ cookieconsent.run({
 </section>
 <section id="visualising-the-multi-channel-sequence" class="level4" data-number="4.3.3">
 <h4 data-number="4.3.3" class="anchored" data-anchor-id="visualising-the-multi-channel-sequence"><span class="header-section-number">4.3.3</span> Visualising the multi-channel sequence</h4>
-<p>Now that we have both channels, we can use the <code>mc_to_sc_data()</code> function from <code>seqHMM</code> to convert the two channels of engagement and achievement sequences to a single channel with an extended alphabet. </p>
+<p>Now that we have both channels, we can use the <code>mc_to_sc_data()</code> function from <code>seqHMM</code> to convert the two channels of engagement and achievement sequences to a single channel with an extended alphabet. If we had additional channels, we would just add them to the list.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>multi_seq <span class="ot">&lt;-</span> <span class="fu">mc_to_sc_data</span>(<span class="fu">list</span>(eng_seq, ach_seq))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
@@ -1250,7 +1252,7 @@ cookieconsent.run({
 </section>
 <section id="clustering-via-multi-channel-dissimilarities" class="level3" data-number="4.4">
 <h3 data-number="4.4" class="anchored" data-anchor-id="clustering-via-multi-channel-dissimilarities"><span class="header-section-number">4.4</span> Clustering via multi-channel dissimilarities</h3>
-<p>We now describe how to construct a dissimilarity matrix for a combined multi-channel sequence object to use as input for distance-based clustering algorithms, using utilities provided in the <code>TraMineR</code> R package and relying on concepts described in Chapter 10. We begin by creating a list of substitution cost matrices for each of the engagement and achievement channels. For simplicity, we adopt the same method of calculating substitution costs for each channel, though this need not be the case. Here, we use the data-driven TRATE method which relies on transition rates. </p>
+<p>We now describe how to construct a dissimilarity matrix for a combined multi-channel sequence object to use as input for distance-based clustering algorithms, using utilities provided in the <code>TraMineR</code> R package and relying on concepts described in Chapter 10. We begin by creating a list of substitution cost matrices for each of the engagement and achievement channels. For simplicity, we adopt the same method of calculating substitution costs for each channel, though this need not be the case. Here, we use the data-driven TRATE method which relies on transition rates. In other scenarios, we might want to use a constant substitution cost (same cost for all substitutions) for one of the channels and, for example, manually specify the substitution cost matrix for the other one.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>sub_mats <span class="ot">&lt;-</span> <span class="fu">list</span>(<span class="at">engagement =</span> <span class="fu">seqsubm</span>(eng_seq, <span class="at">method =</span> <span class="st">"TRATE"</span>),</span>
 <span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>                 <span class="at">achievement =</span> <span class="fu">seqsubm</span>(ach_seq, <span class="at">method =</span> <span class="st">"TRATE"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -1309,7 +1311,7 @@ cookieconsent.run({
 </div>
 </div>
 <p>From this plot, we can see six clusters, relating respectively to 1) mostly averagely engaged high achievers, 2) mostly actively engaged intermediate achievers, 3) mostly disengaged intermediate or high achievement, 4) mostly averagely engaged low achievers, 5) mostly disengaged low achievers, and 6) mostly actively engage high achievers. This clustering approach and this set of plots provides quite a granular view of the group structure and interdependencies across channels, which differs somewhat from the clustering solution obtained by the application of MHMMs which now follows.</p>
-<p> (e.g., <code>eng_seq_df</code>) and assign the <code>Groups</code> variable as follows:</p>
+<p>Before we move on to the next clustering approach, it might be useful to learn how to extract the clustering assignment of each student to be able to conduct further analyses. The <code>Groups</code> vector that we created based on the results of the clustering process is in the same order as the engagement and achievement sequences, and therefore, of the dataframes used to create the sequences. As such, we can simply create a new column in one of the dataframes (e.g., <code>eng_seq_df</code>) and assign the <code>Groups</code> variable as follows:</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a>eng_seq_df<span class="sc">$</span>ClusterDistance <span class="ot">=</span> Groups</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
@@ -1407,7 +1409,7 @@ cookieconsent.run({
 </div>
 </div>
 </div>
-<p>In the previous example, we have used <code>build_mhmm()</code> with the default values in which we only need to provide the number of clusters and hidden states. However, the function allows much more flexibility by allowing us to constrain the different probabilities (initial, transition, and emission) that we have just talked about. An interesting case study can be to investigate how students who start in the same hidden state evolve throughout their academic trajectory; whether they remain in the same hidden state or switch to a different one. To do that, we would need to fix the initial probabilities to be 1 for the first hidden state, and 0 for the other. To do this for the three clusters, we need to create a list with the vector <code>c(1, 0)</code> repeated three times. For the initial transition and emission probabilities, we can just simulate random ones using the functions <code>simulate_transition_probs()</code> and <code>simulate_emission_probs()</code> respectively. </p>
+<p>In the previous example, we have used <code>build_mhmm()</code> with the default values in which we only need to provide the number of clusters and hidden states. However, the function allows much more flexibility by allowing us to constrain the different probabilities (initial, transition, and emission) that we have just talked about. An interesting case study can be to investigate how students who start in the same hidden state evolve throughout their academic trajectory; whether they remain in the same hidden state or switch to a different one. To do that, we would need to fix the initial probabilities to be 1 for the first hidden state, and 0 for the other. To do this for the three clusters, we need to create a list with the vector <code>c(1, 0)</code> repeated three times. For the initial transition and emission probabilities, we can just simulate random ones using the functions <code>simulate_transition_probs()</code> and <code>simulate_emission_probs()</code> respectively. It is worth noting that in the previous MHMM example, when we fitted the model using the default probabilities, we just needed to provide the number of clusters and hidden states. However, now that we need to fix the initial probabilities, we also need to simulate the transition and emission probabilities using the corresponding functions.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb27"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a>initial_probs <span class="ot">&lt;-</span> <span class="fu">list</span>(<span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">0</span>), <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">0</span>), <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">0</span>))</span>
 <span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a>transition_probs <span class="ot">&lt;-</span> <span class="fu">simulate_transition_probs</span>(<span class="at">n_states =</span> <span class="dv">2</span>, </span>
@@ -1495,7 +1497,7 @@ cookieconsent.run({
 </figure>
 </div>
 </div>
-<p>There are countless combinations of numbers of clusters, hidden states, and initial/transition/emission probabilities that we can use to fit our model. The choice depends on our data, our research question, the interpretability of the results, and the goodness of fit. Regarding the latter, a common way to compare the performance of several models is by using the Bayesian Information Criterion (BIC; <span class="citation" data-cites="schwarz1978">[<a href="#ref-schwarz1978" role="doc-biblioref">19</a>]</span>). The BIC can help us score the models which better fit our data while penalising us if we overfit it by adding too many parameters (e.g, if we specified 50 clusters instead of 3, we would better capture the variability of our data but our model would hardly generalise to other scenarios). Therefore, as a general rule, the lower the BIC the better the model, although we need to take into account the aforementioned issues (research questions, interpretability, etc.) to make the final choice. Below we show an example of how to calculate the BIC of the models we have estimated. We see that the first model with the fixed initial probabilities has a somewhat higher BIC than the second one with the restricted initial probabilities. However, we might need to try different numbers of clusters and hidden states to make our final choice.</p>
+<p>There are countless combinations of numbers of clusters, hidden states, and initial/transition/emission probabilities that we can use to fit our model. The choice depends on our data, our research question, the interpretability of the results, and the goodness of fit. Regarding the latter, a common way to compare the performance of several models is by using the Bayesian Information Criterion (BIC; <span class="citation" data-cites="schwarz1978">[<a href="../ch01-intro/intro.html#ref-schwarz1978" role="doc-biblioref">19</a>]</span>). The BIC can help us score the models which better fit our data while penalising us if we overfit it by adding too many parameters (e.g, if we specified 50 clusters instead of 3, we would better capture the variability of our data but our model would hardly generalise to other scenarios). Therefore, as a general rule, the lower the BIC the better the model, although we need to take into account the aforementioned issues (research questions, interpretability, etc.) to make the final choice. Below we show an example of how to calculate the BIC of the models we have estimated. We see that the first model with the fixed initial probabilities has a somewhat higher BIC than the second one with the restricted initial probabilities. However, we might need to try different numbers of clusters and hidden states to make our final choice.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb33"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a><span class="fu">BIC</span>(mhmm_fit<span class="sc">$</span>model)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
@@ -1614,7 +1616,7 @@ cookieconsent.run({
 <div class="cell">
 <div class="sourceCode cell-code" id="cb49"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb49-1"><a href="#cb49-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cluster_names</span>(mhmm_fit_1<span class="sc">$</span>model) <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"LowEngLowAch"</span>, <span class="st">"HighEngHighAch"</span>, <span class="st">"LowEngHighAch"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p>We now present a summary of the model which shows information about parameter estimates of covariates and prior and posterior cluster membership probabilities (these refer to cluster membership probabilities before or after conditioning on the observed sequences, respectively). </p>
+<p>We now present a summary of the model which shows information about parameter estimates of covariates and prior and posterior cluster membership probabilities (these refer to cluster membership probabilities before or after conditioning on the observed sequences, respectively). In other words, prior probabilities set up the initial conditions and state transitions in the model before any data is observed, while posterior probabilities are calculated after observing data to estimate the likelihood of different states and observations given that data.</p>
 <!-- Install the most recent version of seqHMM in order to get proper output (that old version doesn't show cluster labels properly) (S) -->
 <div class="cell">
 <div class="sourceCode cell-code" id="cb50"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb50-1"><a href="#cb50-1" aria-hidden="true" tabindex="-1"></a>summary_mhmm_1 <span class="ot">&lt;-</span> <span class="fu">summary</span>(mhmm_fit_1<span class="sc">$</span>model)</span>
@@ -1660,11 +1662,11 @@ LowEngHighAch       0.01335        0.01552       0.97113</code></pre>
 <div class="sourceCode cell-code" id="cb52"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb52-1"><a href="#cb52-1" aria-hidden="true" tabindex="-1"></a>prior_prob <span class="ot">&lt;-</span> summary_mhmm_1<span class="sc">$</span>prior_cluster_probabilities</span>
 <span id="cb52-2"><a href="#cb52-2" aria-hidden="true" tabindex="-1"></a>posterior_prob <span class="ot">&lt;-</span> summary_mhmm_1<span class="sc">$</span>posterior_cluster_probabilities</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p>access the <code>most_probable_cluster</code> element from the summary object (<code>summary_mhmm_1</code>) and assign it to a dataframe in which the students are in the same order as in the dataframes used to create the sequence objects (<code>eng_seq_df</code> or <code>ach_seq_df</code>).</p>
+<p>To obtain the most likely cluster assignment according to the posterior probabilites, we simply need to access the <code>most_probable_cluster</code> element from the summary object (<code>summary_mhmm_1</code>) and assign it to a dataframe in which the students are in the same order as in the dataframes used to create the sequence objects (<code>eng_seq_df</code> or <code>ach_seq_df</code>).</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb53"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb53-1"><a href="#cb53-1" aria-hidden="true" tabindex="-1"></a>eng_seq_df<span class="sc">$</span>ClusterMHMM <span class="ot">&lt;-</span> summary_mhmm_1<span class="sc">$</span>most_probable_cluster</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p>the <code>hidden_paths()</code> function from <code>seqHMM</code> and pass the MHMM model as an argument (<code>mhmm_fit_1$model</code>). We then need to convert it to the long format to get a row per student and timepoint and then we extract only the <code>value</code> column to get only the hidden state. We can then assign the resulting vector to a column (e.g., <code>HiddenState</code>) in the original dataframe which follows the same data order.</p>
+<p>If we are interested in getting the hidden state for each student for each timepoint, we may use the <code>hidden_paths()</code> function from <code>seqHMM</code> and pass the MHMM model as an argument (<code>mhmm_fit_1$model</code>). We then need to convert it to the long format to get a row per student and timepoint and then we extract only the <code>value</code> column to get only the hidden state. We can then assign the resulting vector to a column (e.g., <code>HiddenState</code>) in the original dataframe which follows the same data order.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb54"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb54-1"><a href="#cb54-1" aria-hidden="true" tabindex="-1"></a>df<span class="sc">$</span>HiddenState <span class="ot">&lt;-</span> <span class="fu">hidden_paths</span>(mhmm_fit_1<span class="sc">$</span>model) <span class="sc">|&gt;</span> <span class="fu">pivot_longer</span>(<span class="fu">everything</span>()) <span class="sc">|&gt;</span> <span class="fu">pull</span>(value)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
@@ -1681,9 +1683,9 @@ LowEngHighAch       0.01335        0.01552       0.97113</code></pre>
 </section>
 <section id="further-readings" class="level2" data-number="6">
 <h2 data-number="6" class="anchored" data-anchor-id="further-readings"><span class="header-section-number">6</span> Further readings</h2>
-<p>For more thorough presentations and comparisons of different options for the distance-based analysis of multi-channel sequences, we recommend the text book by Struffolino and Raab <span class="citation" data-cites="Raab2022">[<a href="#ref-Raab2022" role="doc-biblioref">35</a>]</span> and articles by Emery and Berchtold <span class="citation" data-cites="Emery2022">[<a href="#ref-Emery2022" role="doc-biblioref">8</a>]</span> and Ritschard et al. <span class="citation" data-cites="Ritschard2023">[<a href="#ref-Ritschard2023" role="doc-biblioref">12</a>]</span>. For assessing whether sequences in different channels are associated to the extent of needing joint analysis, Piccarreta and Elzinga <span class="citation" data-cites="Piccarreta2013 Piccarreta2017">[<a href="#ref-Piccarreta2013" role="doc-biblioref">36</a>, <a href="#ref-Piccarreta2017" role="doc-biblioref">37</a>]</span> have proposed solutions for quantifying the extent of association between two or more channels using Cronbach’s <span class="math inline">\(\alpha\)</span> and principal component analysis.</p>
-<p>For general presentations of the MHMM for multi-channel sequences, see the chapter by Vermunt et al. <span class="citation" data-cites="Vermunt2008">[<a href="#ref-Vermunt2008" role="doc-biblioref">38</a>]</span> and the article by Helske and Helske <span class="citation" data-cites="Helske2019">[<a href="#ref-Helske2019" role="doc-biblioref">18</a>]</span>. For further examples and tips for visualization of multi-channel sequence data and estimation of Markovian models with the <code>seqHMM</code> package, see the <code>seqHMM</code> vignettes <span class="citation" data-cites="Helske2017a Helske2017b">[<a href="#ref-Helske2017a" role="doc-biblioref">39</a>, <a href="#ref-Helske2017b" role="doc-biblioref">40</a>]</span>.</p>
-<p>To learn how to combine distance-based sequence analysis and hidden Markov models for the analysis of complex multi-channel sequence data with partially missing observations, see the chapter by Helske et al. <span class="citation" data-cites="Helske2018">[<a href="#ref-Helske2018" role="doc-biblioref">6</a>]</span>.</p>
+<p>For more thorough presentations and comparisons of different options for the distance-based analysis of multi-channel sequences, we recommend the text book by Struffolino and Raab <span class="citation" data-cites="Raab2022">[<a href="../ch01-intro/intro.html#ref-Raab2022" role="doc-biblioref">35</a>]</span> and articles by Emery and Berchtold <span class="citation" data-cites="Emery2022">[<a href="../ch01-intro/intro.html#ref-Emery2022" role="doc-biblioref">8</a>]</span> and Ritschard et al. <span class="citation" data-cites="Ritschard2023">[<a href="../ch01-intro/intro.html#ref-Ritschard2023" role="doc-biblioref">12</a>]</span>. For assessing whether sequences in different channels are associated to the extent of needing joint analysis, Piccarreta and Elzinga <span class="citation" data-cites="Piccarreta2013 Piccarreta2017">[<a href="../ch01-intro/intro.html#ref-Piccarreta2013" role="doc-biblioref">36</a>, <a href="../ch01-intro/intro.html#ref-Piccarreta2017" role="doc-biblioref">37</a>]</span> have proposed solutions for quantifying the extent of association between two or more channels using Cronbach’s <span class="math inline">\(\alpha\)</span> and principal component analysis.</p>
+<p>For general presentations of the MHMM for multi-channel sequences, see the chapter by Vermunt et al. <span class="citation" data-cites="Vermunt2008">[<a href="../ch01-intro/intro.html#ref-Vermunt2008" role="doc-biblioref">38</a>]</span> and the article by Helske and Helske <span class="citation" data-cites="Helske2019">[<a href="../ch01-intro/intro.html#ref-Helske2019" role="doc-biblioref">18</a>]</span>. For further examples and tips for visualization of multi-channel sequence data and estimation of Markovian models with the <code>seqHMM</code> package, see the <code>seqHMM</code> vignettes <span class="citation" data-cites="Helske2017a Helske2017b">[<a href="../ch01-intro/intro.html#ref-Helske2017a" role="doc-biblioref">39</a>, <a href="../ch01-intro/intro.html#ref-Helske2017b" role="doc-biblioref">40</a>]</span>.</p>
+<p>To learn how to combine distance-based sequence analysis and hidden Markov models for the analysis of complex multi-channel sequence data with partially missing observations, see the chapter by Helske et al. <span class="citation" data-cites="Helske2018">[<a href="../ch01-intro/intro.html#ref-Helske2018" role="doc-biblioref">6</a>]</span>.</p>
 </section>
 <section id="acknowledgements" class="level2" data-number="7">
 <h2 data-number="7" class="anchored" data-anchor-id="acknowledgements"><span class="header-section-number">7</span> Acknowledgements</h2>
@@ -1693,7 +1695,7 @@ LowEngHighAch       0.01335        0.01552       0.97113</code></pre>
 </section>
 <section id="bibliography" class="level1 unnumbered">
 <h1 class="unnumbered">References</h1>
-<div id="refs" class="references csl-bib-body" role="doc-bibliography">
+<div id="refs" class="references csl-bib-body" role="doc-bibliography" style="display: none">
 <div id="ref-Saqr2019" class="csl-entry" role="doc-biblioentry">
 <div class="csl-left-margin">1. </div><div class="csl-right-inline">Saqr M, Nouri J, Fors U (2019) Time to focus on the temporal dimension of learning: A learning analytics study of the temporal patterns of students’ interactions and self-regulation. International Journal of Technology Enhanced Learning 11:398. https://doi.org/<a href="https://doi.org/10.1504/ijtel.2019.102549">10.1504/ijtel.2019.102549</a></div>
 </div>
