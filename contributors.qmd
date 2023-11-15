@@ -101,11 +101,6 @@ p {
 **Leonie V.D.E. Vogelsmeier**, Tilburg University	
 
 
-
-
-
-
-
 ## Reviewers
 
 **Gökhan Akçapınar**, Hacettepe University
@@ -142,7 +137,11 @@ p {
 
 **Kamila Misiejuk**, University of Bergen 
 
+**Andrés Munoz-Arcentales**, Universidad Politécnica de Madrid
+
 **Nicolae Nistor**, Ludwig-Maximilians-Universität München
+
+**Merlijn Olthof**, Radboud University
 
 **Dijana Oreški**, Sveučilište u Zagrebu
 

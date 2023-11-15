@@ -43,7 +43,6 @@ crossref:
   fig-title: '**Figure**'
   fig-labels: arabic
   title-delim: "**.**"
-keep-tex: true
 csl: ../../springer.cls  
 abstract-title: "Abstract"
 abstract: "Modeling a longitudinal process in educational research brings a lot of variability over time. The modeling procedure becomes even harder when using multivariate continuous variables, e.g., clicks on learning resources, time spent online, and interactions with peers. In fact, most human behavioral constructs are an amalgam of interrelated features with complex fluctuations over time. Modeling such processes requires a method that takes into account the multidimensional nature of the examined construct as well as the temporal evolution. In this chapter we describe the VaSSTra method, which combines person-based methods, sequence analysis and life-events methods. Throughout the chapter, we discuss how to derive states from different variables related to students, how to construct sequences from students’ longitudinal progression of states, and how to identify and study distinct trajectories of sequences that undergo a similar evolution. We also cover some advanced properties of sequences that can help us analyze and compare trajectories. We illustrate the method through a tutorial using the R programming language."
@@ -349,7 +348,7 @@ seq_heatmap(clus_seq, clusterward2)
 
 ## From sequences to trajectories
 
-In the previous step we constructed a sequence of each student's engagement states throughout eight courses. By plotting these sequences, we observed that there might be distinct trajectories of students that undergo a similar evolution of engagement. In this last step, we use hierarchical clustering to cluster the sequences of engagement states into distinct trajectories of similar engagement patterns. To perform hierarchical clustering we first need to calculate the distance between all the sequences. As we have seen in the Sequence Analysis chapter, there are several algorithms to calculate the distance. We choose LCS (Longest Common Subsequence), implemented in the `TraMineR` package which calculates the distance based on the longest common subsequence.
+In the previous step we constructed a sequence of each student's engagement states throughout eight courses. By plotting these sequences, we observed that there might be distinct trajectories of students that undergo a similar evolution of engagement. In this last step, we use hierarchical clustering to cluster the sequences of engagement states into distinct trajectories of similar engagement patterns. To perform hierarchical clustering we first need to calculate the distance between all the sequences. For more details on the clustering technique, please refer to Chapter 8 [@Murphy2024-si]. As we have seen in the Sequence Analysis chapter, there are several algorithms to calculate the distance. We choose LCS (Longest Common Subsequence), implemented in the `TraMineR` package which calculates the distance based on the longest common subsequence.
 
 ```{r}
 dissimLCS <- seqdist(clus_seq, method = "LCS")

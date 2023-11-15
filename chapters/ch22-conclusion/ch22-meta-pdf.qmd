@@ -1,0 +1,472 @@
+---
+title: "Why educational research needs a complex system revolution that embraces individual differences,  heterogeneity, and uncertainty"
+author:
+  - name: "Mohammed Saqr"
+    affil-id: 1,*
+  - name: "Marieke J. Schreuder"
+    affil-id: 2
+  - name: "Sonsoles López-Pernas"
+    affil-id: 1
+format: 
+  pdf:
+    number-sections: true
+    documentclass: article
+    papersize: a4
+    template-partials:
+      - ../../title.tex
+    geometry:
+      - top=25.4mm
+      - bottom=25.4mm
+      - right=25.4mm
+      - left=25.4mm
+    extract-media: "true"
+    include-in-header:
+      text: |
+        \usepackage[noblocks]{authblk}
+        \renewcommand*{\Authsep}{, }
+        \renewcommand*{\Authand}{, }
+        \renewcommand*{\Authands}{, }
+        \renewcommand\Affilfont{\small}
+        \usepackage{float}
+        \floatplacement{table}{H}
+        \floatplacement{figure}{H}
+
+execute:
+  message: FALSE
+  warning: FALSE
+affiliations:
+  - id: 1
+    name: "University of Eastern Finland"
+  - id: 2
+    name: "KU Leuven"
+  - id: "*"
+    name: "Corresponding author: Mohammed Saqr `mohammed.saqr@uef.fi`"
+crossref:
+  fig-title: '**Figure**'
+  fig-labels: arabic
+  title-delim: "**.**"
+abstract-title: "Abstract"
+abstract: "Whereas the field of learning analytics has matured, several methodological and theoretical issues remain unresolved. In this chapter, we discuss the potentials of complex systems as an overarching paradigm for understanding the learning process, learners and the learning environments and how they influence learning. We show how using complex system methodologies open doors for new possibilities that may contribute new knowledge and solve some of the unresolved problems in learning analytics. Furthermore, we unpack the importance of individual differences in advancing the field bringing a much-needed theoretical perspective that could help offer answers to some of our pressing issues."
+fontsize: "9pt"
+dpi: 900
+editor: source
+bibliography: references.bib
+csl: ../../springer.cls  
+keywords: "learning analytics, complex systems, individual differences"
+keep-tex: true
+
+---
+
+**Keywords:** {{< meta keywords >}}
+
+
+# Introduction
+
+Learning analytics (LA) has emerged to harness the opportunities created
+by the abundance of data and advanced machine learning methods to
+improve learning and teaching and offer the much-needed personalized
+support. The premise was that the availability of massive amounts of
+data would enable novel insights, improve inferences, and deliver
+real-life impact [@Siemens_2013]. A wide array of learning analytics
+applications has been developed over the years to realize such
+aspirations. One of the initial applications of learning analytics
+focused on predictive modeling: that is, collecting data of online
+activities, such as clicks, access to educational resources, or forum
+discussions to create a predictive model that would early flag
+underachievers. The early identification of an underachieving student in
+a course paves the way for proactive intervention [@Ifenthaler_Yau_2020].
+Several studies have reported the successful identification of
+underachievers in individual courses or limited samples. Yet,
+transferring such models across programs or courses has been a
+consistent disappointment. All the more so, very few have reported a
+successful proactive intervention [@Ifenthaler_Yau_2020].
+
+A recent massive study with data from 250,000 students tried to examine
+the effectiveness of a large-scale, evidence-based intervention, and
+reported small benefits. The researchers concluded that interventions
+are likely more effective when implemented for the right person, at the
+right moment in time. In fact, such a conclusion is far from new, Gordon
+Paul\'s stated in 1967 that the important question is "What treatment,
+by whom, is most effective for this individual with that specific
+problem, and under which set of circumstances?"[@Paul_1967]. This requires
+predictions at a dynamic (i.e., time-varying) and individual level
+[@Kizilcec_Reich_Yeomans_Dann_Brunskill_Lopez_Turkay_Williams_Tingley_2020].
+Another recent large-scale study showed that a low proportion of
+variance in students' performance was explained by the behavior-based
+indicators [@Jovanović_Saqr_Joksimović_Gašević_2021], and thus,
+students should best be identified on internal conditions (e.g.,
+knowledge, self-regulation, and motivation). Recent reviews of
+intervention using LA methods further emphasize the difficulty of these
+promises [@Larrabee_Sønderlund_Hughes_Smith_2019]. As Du et al. [@XuDu]
+stated that "every course has different course requirements, it is
+impossible to identify generalisable thresholds of individual behaviors
+across courses" (p. 510). This holds even when courses are similar,
+homogenous, and use the same teaching
+[@Saqr_Jovanovic_Viberg_Gašević_2022].
+
+The lackluster of predictive LA has led to a wide range of research
+threads aiming to tap into other methods that help explain and optimize
+students' learning. Such methods have been used to analyze the
+relational temporal patterns of students' learning processes. For
+instance, building on the importance of time, Process Mining (PM) and
+Sequence Analysis (SM) have gained wide popularity in the analysis of
+online learning activities to explain the time-ordered patterns of
+learning activities and to capture patterns of learning strategies
+[@Saqr_López-Pernas_Jovanović_Gašević_2023]. Social network analysis
+(SNA) has also gained renewed interest and wider application in
+collaborative learning settings to understand students' roles and
+interaction patterns and to find SNA measures that help predict
+performance
+[@Saqr_Elmoazen_Tedre_López-Pernas_Hirsto_2022;@Saqr_Poquet_López-Pernas_2022].
+Nevertheless, most of such methods ---which we covered with examples in
+the book--- require an overarching framework or a theoretical
+underpinning to better ground the analysis. In this chapter, we discuss
+the importance and potential of complex systems in understanding
+learning, learners, and the educational milieu at large.
+
+# Complex systems and education
+
+Most learning theories and frameworks can be conceptualized as systems,
+that is, composed of multiple components, phases, or elements that
+interact with each other. Typically, such interactions are non-linear
+and vary across people, contexts, and time scales resulting in the
+emergence of a unique learning process
+[@Jörg_Davis_Nickmans_2007;@Koopmans_2020;@Ladyman_Lambert_Wiesner_2013].
+For instance, engagement can be considered as a complex system.
+Engagement is then viewed as the result of interaction between different
+components, namely behavioral, cognitive, and emotional dimensions
+[@Reschly_Christenson_2022;@Wang_Fredricks_2014]. Such interactions
+vary between tasks, times, and contexts which are often referred to as
+*interaction-dominant systems* (@fig-diagram B) [@Hilpert_Marchand_2018;@Van_Orden_Holden_Turvey_2003]. In interaction-dominant systems, the
+relationships between components may change intensity and direction
+across times and situations. For instance, a student may enjoy school in
+the early days which drives their engagement and achievement and boosts
+their motivation. These dynamics may change over time, where achievement
+could be the driving force of future engagement but also results in
+anxiety rather than enjoyment. In turn, anxiety may negatively affect
+school enjoyment and engagement. This dynamic view is more realistic
+than the common b*ox-and-arrow* models where the components of the
+system are rigidly assembled in a stable manner and the relationships
+between the components are deemed to be linear (@fig-diagram B). Viewing the
+previous example from a linear perspective would entail that we see that
+the student will always have a stable relationship: enjoyment always
+drives engagement and achievement with little changes in the future nor
+any new patterns emerge. A linear view of engagement is then far from
+realistic.
+
+Engagement follows Gestalt principles, meaning that engagement is
+considered more than just the sum of its parts (i.e., engagement ≠
+emotions+cognition+behavior) [@Wang_Fredricks_2014], the interactions
+between these components are often multiplicative rather than simple
+linear sum and rely on the environment and contextual conditions
+(family, peers, teachers, school, etc.). Additionally, most engagement
+theories describe feedback loops (for instance, achievement drives
+further engagement and vice versa) [@Tinto_2022]. Again, such feedback
+loops fit well with the salient features of a complex dynamic system
+[@Ladyman_Lambert_Wiesner_2013].
+
+![**A.** A complex dynamic system where the interactions vary across time, change direction and strength in a soft-assembled manner. **B.** A box and arrow framework where the interactions are fairly stable and linear.](img/media/image1.png){#fig-diagram Bwidth="6.125481189851269in" height="3.5677088801399823in"}
+
+Self-regulated learning (SRL), too, follows complex systems principles:
+the interaction between SRL phases across different learning scenarios
+and temporal scales results in unique learning strategies which are
+different mixtures of SRL phases. Such interactions may enhance, impede,
+or catalyze each other. For example, reflection on performance can lead
+to improved learning and better goal-setting in a student. In another
+student, reflection can lead to frustration, and low performance. We can
+expect vast amounts of variations and complex interactions in the same
+way. Such conceptualization of SRL as a state of a complex
+person-environment system is necessary to understand the interplay of
+the intricate SRL process [@Hilpert_Marchand_2018;@Koopmans_2020].
+Indeed, Boekaerts and Cascallar @Boekaerts_Cascallar_2006 argue that it is impossible to
+understand learning and achievement "unless one adopts a systems
+approach to the study of self-regulated learning". Similarly, other SRL
+theoreticians share the same conceptualization. For instance,
+[@Zimmerman_Risemberg_1997] states that SRL is "a complex system of
+interdependent processes" [@Zimmerman_Risemberg_1997], and so did Winne
+et al. when they described engagement as complex and dynamically
+changeable across contexts [@Winne_Zhou_Egan_2011].
+
+In fact, many learning concepts have been already described,
+operationalized, and framed in complex system terms including
+motivational [@Papi_Hiver_2020;@Yuan_Zhen_2021], achievement motivation
+theories [@Urdan_Kaplan_2020], agency [@Deakin_Crick_Huang_Ahmed_Shafi_Goldspink_2015], and metacognition theories
+[@Vollmeyer_Rheinberg_1999]. Also, the student has been described as a
+complex system [@Brown_1997], so have small collaborative groups
+[@Mennin_2007], and the classroom as a whole to list a few. The merit of
+this complex systems view is that it not only accounts for many of the
+features of learning-related processes (e.g., being
+interaction-dominant, lacking central control) but also provides a
+framework for better understanding - and perhaps even predicting - such
+processes [@Koopmans_2020]. Nevertheless, endorsing that a system is
+interaction-dominant means that we also understand that forecasting and
+prediction of the system\'s future status may be more uncertain than the
+simple linear dynamics of component-dominant scenarios
+[@Wichers_Schreuder_Goekoop_Groen_2019]. That is, the slightest change
+in initial conditions may lead to substantial differences in the end
+state (a phenomenon called "sensitive dependence on initial
+conditions"). It follows that in order to understand complex systems,
+one has to look into the dynamics of such systems.
+
+## Dynamics in complex systems
+
+The interactions that maintain a complex system tend to give rise to
+relatively stable configurations, which can be considered attractor
+states that emerge again and again [@Scheffer_2009]. Attractors can take
+many different forms, ranging from chaotic to cyclic to simple point
+attractors. In the context of learning analytics, for instance, a point
+attractor could resemble a state of "being relatively engaged".
+Importantly, the attractors of complex systems may change over time. The
+aforementioned point attractor could for instance gradually lose its
+strength, up to a point where the attractor disappears. When reaching
+such a tipping point, the system switches to an alternate attractor
+[@Scheffer_Carpenter_Dakos_van_Nes_2015]. Such a shift between
+different attractors is often labeled a transition. Transitions can be
+harmful - e.g., reflecting a shift from an adaptive state towards a
+maladaptive state - or beneficial - e.g., reflecting a reverse shift.
+Relatively well-investigated dynamics are "critical transitions", which
+entail a shift from one stable regime (i.e., point attractor) towards
+another regime [@Scheffer_2009] (i.e., other point attractor). For
+instance, countries can shift between a state of peace towards a state
+of war and the climate can shift from a greenhouse to an icehouse state
+Similarly, a learning child may shift between a state of engagement
+towards a state of disengagement. An important premise of complex
+systems theory is that such transitions - albeit in very different
+systems - follow the same generic principles. Among these principles is
+the idea of critical slowing down
+[@Scheffer_Bascompte_2009;@Wichers_Schreuder_Goekoop_Groen_2019].
+Critical slowing down describes that, prior to a critical transition, it
+becomes increasingly difficult to recover from perturbations
+[@Scheffer_Bascompte_2009;@Scholz_Kelso_Schöner_1987]. In the
+case of engagement, such perturbations can be school problems (e.g.,
+problems with other pupils). When the student is in a stable, engaged
+state ---and thus, unlikely to experience a transition towards a
+disengaged state--- such perturbations only have a brief effect on the
+student's attention. This means that, upon a perturbation, he/she
+quickly recovers his/her "baseline" engagement levels
+[@Masten_Nelson_Gillespie_2022]. As the resilience of the engaged state
+declines, however, the student becomes increasingly affected by these
+perturbations. This means that recovering his/her normative engagement
+becomes more and more difficult. This in turn translates to altering
+system dynamics, meaning that the interactions between and within system
+elements changes. Monitoring such changes may then allow for
+anticipating otherwise unpredictable transitions in learning processes
+[@Scheffer_Bascompte_2009;@Scholz_Kelso_Schöner_1987;@Wichers_Schreuder_Goekoop_Groen_2019].
+Ultimately, this could aid the prevention of harmful transitions or the
+fostering of beneficial transitions.
+
+An important implication of viewing transitions in learning processes
+through a complex systems lens is that declining resilience may be
+detectable *within* systems, which in this case means that inferences
+are made on the level of the student. This approach contrasts with the
+common group-level inferences, which may allow for telling *who* is
+likely to undergo a transition. For instance, group-level approaches may
+lead to the notion that "individuals with this behavior, this
+personality, or this socio-economic background are more likely to drop
+out of school than others". Within-individual approaches, in contrast,
+may allow for determining *when* a specific individual will drop out.
+For the purposes of targeted and timely intervention, such insight is
+invaluable. A related merit of complex systems principles is that they
+allow for personalization. For instance, it is likely that vulnerability
+to major changes (e.g., transitions in engagement, school drop-out)
+manifests in different variables for different individuals. Because
+declining resilience can be monitored within individuals, such
+heterogeneity does not pose a challenge. Rather, it can be accommodated
+by monitoring resilience in those variables that are considered most
+relevant for this particular student, in this specific context
+[@Olthof_Hasselman_Aas_Lamoth_Scholz_Daniels-Wredenhagen_Goldbeck_Weinans_Strunk_Schiepek_et_al_2023]. In conclusion, the possibility to monitor generic indicators
+of declining resilience may pave the way for deriving person-specific
+insights in predicting (and potentially, preventing or stimulating)
+changes in learning-related processes.
+
+## From theory to practice: measurement and analyses
+
+If we agree that the learning phenomena, process or construct can be
+conceptualized as states in a complex system, then it becomes essential
+that a complex system lens is used to map the structure and dynamics of
+the said phenomena [@Olthof_Hasselman_Oude_Maatman_Bosman_Lichtwarck-Aschoff_2023]. This has profound
+consequences for both measurement and data analyses. With respect to
+measurement, a complex systems lens necessitates the collection of time
+series data. The reason is that systems ---and the interactions between
+elements within those systems--- are by definition time-varying, and it
+is precisely the changes over time that contain information about the
+system as a whole. Thus, instead of a single, cross-sectional
+measurement, a complex systems perspective requires collecting repeated
+measurements for each individual. With advancing technology, collecting
+such measurements has become increasingly feasible. Broadly speaking, we
+can distinguish between passively collected data - which includes mobile
+sensing data (e.g., typing speed, scrolling, app usage, and sometimes
+also location) and actigraphy data (e.g., movement, heart rate, skin
+conductance) ---and self-reported data--- which is gathered through
+repeatedly prompting students with a questionnaire on their mood,
+motivation, or other psychological variables. Both modalities have their
+pros and cons. The main benefit of passively collected data is the
+amount of data that can be collected without burdening participants. The
+other side of the coin is that this amount of data often needs
+aggregation and intensive cleaning, which is far from straightforward,
+and in that sense the data can be "hard to handle". The main benefit of
+self-report data is that the content of measurement may be more closely
+related to the construct of interest. However, self-report data require
+considerable motivation from participants, and it is not inconceivable
+that such demanding research designs introduce sampling bias. Put
+differently, it is possible that the types of individuals who engage in
+studies involving long-term self-reports are not representative of the
+general population (e.g., in terms of conscientiousness
+[@Scollon_Kim-Prieto_Diener_2003]). At the same time, however, studies
+that investigated sampling bias in intensive longitudinal studies
+involving the collection of repeated self-reports did not find evidence
+for self-selection [@Schreuder_Groen_Wigman_Wichers_Hartman_2023]. As
+intuitive as it may seem, scientific evidence for the self-selection of
+participants into intensive longitudinal studies is thus lacking.
+Besides these relatively practical considerations, the necessity of time
+series data also comes with more fundamental questions, for instance,
+related to the timescale of assessments. Ideally, this timescale should
+be informed by the timescale at which the system's dynamics unfold. This
+in turn varies between constructs: engagement may shift over minutes,
+while student's performance may shift over weeks.
+
+Naturally, the focus on time series data has consequences for the
+analyses that are useful. Not only do we require time series analyses
+---which can handle the temporal dependency in the data--- but we also
+need methods that can capture nonlinear and person-specific trends. This
+is because the dynamics of complex systems are typically non-linear, as
+illustrated by the erratic behavior and sudden shifts that govern
+complex systems. Examples of such analytical methods include dynamic
+time-warp analyses, generalized additive models, recurrence
+quantification analysis, state space grids, and moving window analyses
+[@Hilpert_Marchand_2018]. Despite that most learning theories and
+processes can be described in complex system terms and the long history
+of theoretical foundations of complex systems in learning sciences,
+learners' and learning environments, the uptake of suitable methods and
+approaches is lagging behind [@Hilpert_Marchand_2018;@Koopmans_2020].
+Furthermore, applications, framing, and operationalization of learning
+theories as complex systems are rare in educational research
+[@Hilpert_Marchand_2018;@Koopmans_2020]. In this book, we therefore
+provide some theoretical underpinnings of a complex systems perspective
+on learning and education, and we further included several chapters that
+deal with methods and analyses that accommodate a complex systems lens
+e.g., psychological networks, Markovian models, and model-based
+clustering. In other fields, the adoption of such methods has resulted
+in the renewal of theories, understanding of human behavior, and the
+emergence of new solutions to real-life problems
+[@Borsboom_Haslbeck_Robinaugh_2022;@Quintana_2023]. Our aim was to help
+interested researchers to embrace such methods in their analysis.
+
+## Complex systems and individual differences
+
+Complex systems ---as a paradigm--- facilitates a better understanding
+of the heterogeneity and individualized nature of human behavior and
+psychological phenomena. In fact, many complex system methods, some of
+which described earlier, have a strong emphasis on person-specific
+fine-grained dynamics. The next section will offer a more in-depth
+discussion of the individual mechanisms and how they relate to the
+general average assumptions.
+
+### The Individual
+
+The "individual", or the "self" is a central construct in several
+learning theories, methodologies, and approaches. For instance,
+self-regulated learning, self-concept, self-control, and
+self-directedness to mention a few [@Panadero_2017]. Further, the
+literature is awash with the notion of personalization,
+student-centeredness, and adaptive learning. Nonetheless, research is
+commonly conducted using methods that essentially ignore the
+"individual" process. In that, research is performed using what is known
+as variable-centered methods where data is collected from a "group of
+others" to derive generalizable laws. In variable-centered methods,
+researchers compute standard tendency measures (mean or median) from a
+sample of individuals (often referred to as group-level analysis) to
+derive "norms" or "standard recommendations". The average is considered
+a "norm" where everyone is assumed to fit. What is more, the outcome of
+such analysis is deemed representative and therefore, generalizable to
+the population at large. Given that such an average is derived from a
+sample of others, it rarely represents any single student
+[@Fisher_Medaglia_Jeronimus_2018;@Winne_2017]. An accumulating body of
+evidence is mounting that humans are heterogeneous with diverse
+behaviors, attitudes, cognition, and learning approaches. Thereupon,
+using insights based on group-level analysis has so far resulted in
+recommendations that don't work, assumptions that fail to hold, and
+replications that are hard to obtain. Furthermore, intervention programs
+or procedures based on such samples offered no more than negligible
+effects, e.g.,
+[@Kizilcec_Reich_Yeomans_Dann_Brunskill_Lopez_Turkay_Williams_Tingley_2020].
+
+The fact that group-level analysis is less representative of the person
+is far from new and has been recognized for decades. Yet, the methods
+that are more suited for person-specific analysis may have not
+progressed fast enough. The last two decades have witnessed a revolution
+in data collection methods, statistical approaches, and procedures that
+allow such analysis, collectively known as person-specific analysis. In
+many ways, person-specific methods are a paradigm shift in research
+which according to [@Molenaar_Campbell_2009] represent a "brink of a
+major reorientation" that is "no longer an option, but a necessity".
+Endorsing a person-specific approach may change how research is
+performed and how findings are applied
+[@Saqr_2023a;@Saqr_Lopez-Pernas_2021]. The person-specific methods
+---being individualistic--- have low potential for generating
+generalizable recommendations [@Saqr_2023a]. Therefore, a combination of
+group-level and person-specific methods may be the best way forward.
+Such a combination may augment our understanding and provide precise
+interventions **at the high resolution of the single student** and
+sharpen our insights of the group level that are generalizable to the
+wider population [@Epskamp_Waldorp_Mõttus_Borsboom_2018].
+
+There is an abundance of digital tools and data collection methods that
+allow the gathering of fine-grained intensive data about students. Such
+data -where several measurements from the same person are gathered- can
+allow the analysis of more person-specific insights. In doing so, it can
+help obtain an accurate view of a student\'s learning processes and
+offer more precise personalized support
+[@Molenaar_Campbell_2009;@Saqr_2023a;@Saqr_Lopez-Pernas_2021].
+
+### Heterogeneity 
+
+As discussed in the previous section, a central assumption of
+group-level analysis is that "the average individual" represents every
+individual. Yet, the average individual very often does not exist
+[@Molenaar_2004]. To illustrate this problem, let us consider the story of
+Gilbert Daniels. Daniels was given the task to measure the physical
+dimensions of more than 4,000 pilots who were part of the American Air
+Force around 1950. The goal was to find the average pilot size, so that
+cockpits could be re-designed accordingly. However, a remarkable finding
+of Daniels was that not a single pilot (out of all pilots who were
+measured) was approximately equal to the average of the 10 most relevant
+dimensions. Further, for any given combination of three dimensions, only
+4% of pilots would match the average. Hence, he concluded that "The
+tendency to think in terms of the average man is a pitfall into which
+many people blunder \[\...\]. Actually, it is virtually impossible to
+find an average man". The consequence of this discovery was that most
+cockpit material became adjustable so that it would suit everyone
+[@Rose_2016].
+
+It is not difficult to translate Daniels' findings to the field of LA.
+Here, too, students are measured in many dimensions. It is often
+implicitly assumed that the average of those dimensions will illustrate
+"a representative student", but this is not the case. To accommodate
+this lack of "average students", we should embrace person-centered
+methods, similar to how the American Airforce embraced adjustable
+furniture and clothing. In contrast to group-level analyses,
+person-centered methods attempt to find patterns where differences are
+minimal, assumptions are likely to hold and apply to wider groups of
+people. Recently, the range of available person-centered methods has
+vastly increased, coupled with improving rigor and potential. Therefore,
+person-centered methods are increasingly endorsed to model heterogeneity
+and individual differences across a vast range of empirical designs. In
+the current book, we have introduced several methods for capturing the
+heterogeneity of multivariate and longitudinal data, and we encourage
+researchers to take advantage of such data to capture the diversity and
+individual differences of learners
+[@Helske_Helske_Saqr_López-Pernas_Murphy_2024;@López-Pernas_Saqr_2024;@Saqr_2023b;@Scrucca_Saqr_López-Pernas_Murphy_2023].
+
+# Conclusion
+
+The birth of learning analytics signaled a new wave of educational
+research that embraced modern computational methods. Whereas the field
+has matured, several methodological and theoretical issues remain
+unresolved. In this chapter, we discussed the potentials of complexity
+theory and individual differences in advancing the field bringing a
+much-needed theoretical perspective that could help offer answers to
+some of our pressing issues. In fact, a complex systems view on learning
+processes can address some of the major barriers that have hampered
+progress in the field of education and possibly offer a venue for the
+renewal of knowledge.

@@ -991,7 +991,7 @@ We encourage readers to read more about how to interpret the results in the orig
 
 ## Acknowledgements
 
-JH and SH were supported by Research Council of Finland (PREDLIFE: Towards well-informed decisions: Predicting long-term effects of policy reforms on life trajectories, grants 331817 and 331816). MS was supported by Research Council of Finland (TOPEILA: Towards precision education: Idiographic learning analytics, grant 350560).
+JH and SH were supported by Research Council of Finland (PREDLIFE: Towards well-informed decisions: Predicting long-term effects of policy reforms on life trajectories, decision numbers 331817 and 331816, and Research Flagship INVEST: Inequalities, Interventions and New Welfare State, decision number 345546). SH was also supported by the Strategic Research Council (SRC), FLUX consortium: Family Formation in Flux – Causes, Consequences, and Possible Futures (decision numbers: 345130 and 345130). MS was supported by Research Council of Finland (TOPEILA: Towards precision education: Idiographic learning analytics, decision number 350560)
 
 
 ::: {#refs}

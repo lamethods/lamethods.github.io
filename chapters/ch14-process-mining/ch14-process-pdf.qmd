@@ -1,5 +1,5 @@
 ---
-title:  "Chapter 14. The Why, the How and the When of Educational Process Mining in R"
+title:  "The Why, the How and the When of Educational Process Mining in R"
 format: 
   pdf:
     number-sections: true
@@ -50,6 +50,7 @@ bibliography: references.bib
 csl: ../../springer.cls  
 ---
 **Keywords:** {{< meta keywords >}}
+
 # Introduction
 
 In today's digital age, almost all learning platforms generate vast amounts of data that include every interaction a student has with the learning environment. This treasure trove of data offers a unique opportunity to analyze and understand the dynamics of the learning process. In the previous chapters of the book, we covered several methods for analyzing the temporal aspects of learning, such as sequence analysis [@Saqr2024-tv;@Lopez-Pernas2024-lz], Markovian modeling [@Helske2024-lq] or temporal network analysis [@Saqr2024-vt]. In this chapter, we present an analytical method that is specifically oriented at analyzing time-stamped event log data: process mining. Process mining is a technique that allows us to discover, visualize, and analyze the underlying process from time-stamped event logs. Through process mining, we may uncover hidden patterns, bottlenecks, and inefficiencies in students' learning journeys. By tracking students' actions step-by-step, we can identify which resources are most effective, which topics are more challenging, and even predict possible problems before they may occur.

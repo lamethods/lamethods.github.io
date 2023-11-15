@@ -14,7 +14,6 @@ format:
       - left=25.4mm
     include-in-header:
       text: |
-        \usepackage{fontspec}
         \usepackage{fontawesome}
         \usepackage[noblocks]{authblk}
         \renewcommand*{\Authsep}{, }
@@ -41,9 +40,9 @@ author:
      affil-id: 2
 affiliations:
   - id: 1
-    name: "University of Eastern Finland, 80100 Joensuu, Finland"
+    name: "University of Eastern Finland"
   - id: 2
-    name: "Universidad Politécnica de Madrid, 28040 Madrid, Spain"
+    name: "Universidad Politécnica de Madrid"
   - id: "*"
     name: "Corresponding author: Sonsoles López-Pernas, `sonsoles.lopez@uef.fi`"
 crossref:
@@ -51,17 +50,17 @@ crossref:
   fig-labels: arabic
   title-delim: "**.**"
 abstract-title: "Abstract"
-abstract: "In this chapter we present the main types of data that underpin the realm of learning analytics research. From its beginnings with foundational demographic and academic information, learning analytics has grown to encompass the intricate digital trails left by online learning technologies ---encompassing clicks, events, and interactions---, and even physiological data harnessed from sensors and innovative devices. We present a series of curated open datasets that represent the most common types of educational data. The data have been collected from diverse sources such as learning management systems, online forums, and surveys. These datasets will be operationalized throughout the book to illustrate each of the methods covered, such as sequence analysis, process mining, social network analysis, or structural equation modeling."
-keywords: "learning analytics, datasets, open data"
+abstract: "In this chapter, we present the main types of data that are commonly used in learning analytics research. Learning analytics has grown to encompass the digital trails left by online learning technologies ---clicks, events, and interactions---, sensor data and self-reports among others. We present a collection of curated real-life open datasets that represent the most common types of educational data. The datasets have been collected from diverse sources such as learning management systems, online forums, and surveys. These datasets are used throughout the book to illustrate methods of analysis such as sequence analysis, social network analysis, Markov models, predictive analytics and structure equation modeling, to mention a few. Each data set in the chapter is presented with its context, main properties, links to the original source, as well as a brief exploratory data analysis."
+keywords: "learning analytics, datasets, open data, educational data mining"
 fontsize: "9pt"
 dpi: 900
 editor: source
-keep-tex: true
 bibliography: references.bib
 csl: ../../springer.cls
 keep-tex: true
 extract-media: "img"
 ---
+
 **Keywords:** {{< meta keywords >}}
 
 ```{r, include=F}
@@ -1019,7 +1018,7 @@ ggplot(data = sawses_questionary_plots, aes(x = value, y = dimension)) +
 
 This dataset belongs to two offerings of the MOOC "The Digital Learning Transition in K-12 Schools" [@kellogg2015_dataset]. The course was aimed at helping school and district leaders implement digital learning initiatives in K-12 education. The objectives of the course were for participants to understand the advantages of digital learning in schools, to assess the specific goals for their own school, and to devise a plan to achieve such goals. The course consisted of five learning units dealing with the schools of the future, teaching and learning culture, successful digital transition, leading the transition, and crowd sourcing. The MOOCs were offered to American as well as international teachers. There were two offerings of the MOOC, with  minor variations regarding duration and groups. The dataset contains the interactions of the MOOC discussion forums and concerns teachers' communications throughout the courses. The dataset also contains the characteristics of the teachers, e.g., their professional roles, and experience. 
 
-The dataset is extensively described in a dedicated publication where the authors give details about the context and the courses, the files, and the fields contained in each file [@kellogg2015]. In this book, we use this dataset to illustrate Social Network Analysis [@Saqr2024-yv] and Temporal Network Analysis [@Saqr2024-vt]. The dataset is available with a CC0 1.0 license. Therefore, permission to copy, modify, and distribute, even for commercial purposes, is granted. As a standard Social Network Analysis dataset, it comes in two files for each of the courses (four in total), which we describe in detail below.
+The dataset is extensively described in a dedicated publication where the authors give details about the context and the courses, the files, and the fields contained in each file [@kellogg2015]. In this book, we use this dataset to illustrate dissimilarity-based clustering [@Saqr2024-yv], Social Network Analysis [@Saqr2024-yv] and Temporal Network Analysis [@Saqr2024-vt]. The dataset is available with a CC0 1.0 license. Therefore, permission to copy, modify, and distribute, even for commercial purposes, is granted. As a standard Social Network Analysis dataset, it comes in two files for each of the courses (four in total), which we describe in detail below.
 
 ```{r, include=F}
 interaction_elements = rio::import("https://raw.githubusercontent.com/lamethods/data/main/6_snaMOOC/DLT1%20Edgelist.csv")
@@ -1122,8 +1121,43 @@ gt::gt_preview(nodes)
 \endgroup
 ```
 
+-   **Centralities file**: The file contains the centrality measures of the participants which indicate their number of contributions (`OutDegree`), replies (`InDegree`), position in the network (`Closeness_total`), worth of their connections (`Eigen`), spread of their ideas (`Diffusion_degree`), and more. For more information on how to calculate centralities from interaction data, refer to Chapter 15 [@Saqr2024-yv]. @tbl-mooc-discussions-cent shows a preview.
+
+```{r, include=F}
+snamooccent = rio::import("https://raw.githubusercontent.com/lamethods/data/main/6_snaMOOC/Centralities.csv")
+rownames(snamooccent) <- NULL
+names(snamooccent)
+```
 
 
+      +  **name**: Teacher identifier (1-445).
+      +  **InDegree**: In-degree centrality. Number of responses received.
+      +  **OutDegree**: Out-degree centrality. Number of messages sent.
+      +  **Closeness_total**: Closeness centrality. Position in the network.
+      +  **Betweenness**: Betweenness centrality. Influential position.
+      +  **Eigen**: Eigen centrality. Worth of connections.
+      +  **Diffusion.degree**: Diffusion degree centrality [@Saqr2021-go]. Spread of ideas.
+      +  **Coreness**: Coreness centrality. Spreading capability.
+      +  **Cross_clique_connectivity**: Cross clique connectivity. Facilitation of information propagation.
+      
+```{r eval=knitr::is_html_output(), echo=F}
+rmarkdown::paged_table(snamooccent , options=list( rows.print=5 ))
+```
+```{=tex}
+\begingroup
+\fontsize{5pt}{7pt}\selectfont
+\addtolength{\tabcolsep}{-3pt}
+```
+
+```{r eval=knitr::is_latex_output(), echo=FALSE}
+#| label: tbl-mooc-discussions-cent
+#| tbl-cap: "Preview of the MOOC for educators discussion data (nodes)"
+gt::gt_preview(snamooccent)
+```
+
+```{=tex}
+\endgroup
+```
 
 ```{r, include=FALSE}
 # most_active_nodes <- interaction_elements_filtered %>%

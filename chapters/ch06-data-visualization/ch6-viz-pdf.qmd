@@ -67,8 +67,6 @@ keep-tex: true
 extract-media: "img"
 bibliography: references.bib
 csl: ../../springer.cls  
-keep-tex: true
-extract-media: "img"
 ---
 
 **Keywords:** {{< meta keywords >}}

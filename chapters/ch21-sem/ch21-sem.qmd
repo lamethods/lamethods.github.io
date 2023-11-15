@@ -440,8 +440,8 @@ model-building steps from the previous chapter (see the "Integrated
 Strategy for Structural Equation Modeling" above), you need to base your
 required sample size on the number of parameters estimated by an
 exploratory factor analysis (e.g., for a two-factor model fitted to 10
-variables, you would need about (20 factor loadings + 20 intercepts + 20
-error-variances) \* 10 = 600 cases) and multiply that by 2 to also have
+variables, you would need about (20 factor loadings + 10 intercepts + 10
+error-variances) \* 10 = 400 cases) and multiply that by 2 to also have
 enough observations for a new or holdout sample to check
 generalizability of your factor-model and for fitting your SEM model.
 Note that the sample size calculated this way is what you need in each
@@ -456,7 +456,7 @@ parameters to estimate.
 
 You will perform the SEM analysis using the holdout sample from the
 previous chapter. The sample size for that is 438, which is sufficiently
-large to estimate 20 intercepts, 20 loadings, 20 unique variances, and
+large to estimate 20 intercepts, 10 loadings, 10 unique variances, and
 10 relations between factors according to the more lenient rules by
 Bentler and Chou @Bentler_Chou_1987. As you will see in Step 2, this number of
 parameters aligns well with the SEM model that will be fitted to the

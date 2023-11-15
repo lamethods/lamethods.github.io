@@ -70,7 +70,8 @@ book:
           file: chapters/ch20-factor-analysis/ch20-factor.qmd
         - text: "Structured Equation Modeling"
           file: chapters/ch21-sem/ch21-sem.qmd
-    - chapters/ch22-conclusion/ch22-conclusion.qmd
+    - text: "Conclusion"
+      file: chapters/ch22-conclusion/ch22-conclusion.qmd
 format:
   html:
     theme: cosmo
@@ -93,8 +94,8 @@ format:
         </script>
     execute:
       freeze: auto  # re-render only when source changes
-  pdf:
-    documentclass: scrreprt
+  # pdf:
+  #   documentclass: scrreprt
 csl: springer.cls  
 filters:
   - section-bibliographies

@@ -1,0 +1,638 @@
+---
+title: "Psychological Networks: A Modern Approach to Analysis of Learning and Complex Learning Processes"
+format: 
+  pdf:
+    number-sections: true
+    documentclass: article
+    papersize: a4
+    template-partials:
+      - ../../title.tex
+    geometry:
+      - top=25.4mm
+      - bottom=25.4mm
+      - right=25.4mm
+      - left=25.4mm
+    include-in-header:
+      text: |
+        \usepackage[noblocks]{authblk}
+        \renewcommand*{\Authsep}{, }
+        \renewcommand*{\Authand}{, }
+        \renewcommand*{\Authands}{, }
+        \renewcommand\Affilfont{\small}
+        \usepackage{float}
+        \floatplacement{table}{H}
+        \floatplacement{figure}{H}        
+execute:
+  message: FALSE
+author: 
+   - name: "Mohammed Saqr"
+     email: "mohammed.saqr@uef.fi"
+     affil-id: 1,*
+   - name: "Emorie Beck"
+     email: "edbeck@ucdavis.edu"
+     affil-id: 2
+   - name: "Sonsoles López-Pernas"
+     email: "sonsoles.lopez@uef.fi"
+     affil-id: 1
+affiliations:
+  - id: 1
+    name: "University of Eastern Finland, 80100 Joensuu, Finland"
+  - id: 2
+    name: "UC Davis, Davis, CA 95616, United States"
+  - id: "*"
+    name: "Corresponding author: Mohammed Saqr, `mohammed.saqr@uef.fi`"
+crossref:
+  fig-title: '**Figure**'
+  fig-labels: arabic
+  title-delim: "**.**"
+abstract-title: "Abstract"
+abstract: "In the examination of psychological phenomena within educational environments, a multitude of variables come into play, and these variables have the potential to interact with, trigger, and exert influence on one another. To grasp the intricate dependencies among these variables, investigating the linear associations between each variable pair is not enough. Instead, this complexity demands the application of more advanced techniques that capture the full spectrum of interactions between these variables. One of such techniques is psychological networks. In contrast to social networks, where nodes typically represent individuals and edges signify their interactions or relationships, psychological networks differ in that the nodes represent observed psychological variables, and the edges denote the statistical relationships between them. This chapter serves as an introduction to psychological networks within educational research, offering a tutorial on their estimation, visualization, and interpretation using the R programming language."
+keywords: "psychological networks, partial correlation networks, complex systems, learning analytics"
+fontsize: "9pt"
+dpi: 900
+editor: source
+keep-tex: true
+bibliography: references.bib
+csl: ../../springer.cls
+extract-media: "img"
+pdf-engine: pdflatex
+---
+
+**Keywords:** {{< meta keywords >}}
+
+# Introduction
+
+Learning has long been described as a complex system that involves the interactions of several elements across time, persons and contexts [@Koopmans_2020; @Koopmans_Stamovlasis_2016; @Malmberg_Saqr_Järvenoja_Haataja_Pijeira-Díaz_Järvelä_2022]. Such descriptions include learning theories, constructs, classroom, learners, education as a whole and educational policies. For instance, Zimmerman describes self-regulation as a "complex system of interdependent processes" [@Zimmerman_Risemberg_1997]. Winne describes the SRL process as "complex, dynamically changeable and contextually sensitive" [@Winne_Zhou_Egan_2011]. Similar descriptions and operationalizations exist for engagement [@Wang_Fredricks_2014], motivation [@Papi_Hiver_2020; @Yuan_Zhen_2021], metacognition [@Vollmeyer_Rheinberg_1999], agency [@Deakin_Crick_Huang_Ahmed_Shafi_Goldspink_2015] and achievement goals [@Urdan_Kaplan_2020], to mention a few. Similarly, the students [@Brown_1997], the classroom [@Smit_van_Dijk_de_Bot_Lowie_2022], collaborative groups [@Mennin_2007] have all been conceptualized from the perspective of complex systems. Nevertheless, despite the long history and the solid theoretical grounds, methodological approaches that capture the complexities of learning and learners have been lagging behind both in adoption or applications [@Hilpert_Marchand_2018; @Koopmans_2020]. This chapter introduces the complex systems and offers tutorial on one of the most important and promising methods of analyzing complex systems with a real-life dataset.
+
+## Complex systems
+
+A complex system is an ensemble of interdependent elements that interact with one another, evolve, adapt or self-organize in a nonlinear way leading to the emergence of new phenomenon or behavior [@Ladyman_Lambert_Wiesner_2013; @Simon_1962]. Let's for example take engagement as an example. Engagement is  understood as a multidimensional construct with three dimensions: behavioral, cognitive and emotional dimensions [@Fredricks_Blumenfeld_Paris_2004; @Reschly_Christenson_2022]. Research has shown that each of the engagement dimensions influence (or interact with) each other; for example, enjoying school (emotions) stimulates school attendance (behavior) and investment in learning (cognitive) [@Fredricks_Blumenfeld_Paris_2004; @Tinto_2022]. Such interactions may lead to the emergence of resilience (new behavior) [@Skinner_2016]. We also know that such interactions are nonlinear ---that is, we can not combine engagement dimensions together in a single score  (e.g., behavioral + cognitive + emotional $\neq$  engagement). In other words, the sum of the parts does not equal the whole. The same can be said about self-regulated learning, the Zimmerman cyclical phases model describes three phases: forethought (task analysis and goal-setting), performance phase (task enactment and strategies) and self-reflection (evaluation and adaptation). Each of these phases are explicitly modeled as influencing each other in a cyclical way; they interact in a non-linear way and such interactions lead to the emergence of learning strategies [@Zimmerman_Moylan_2009].
+
+The study of these complexities of learning requires methods that account for such interactions, interdependencies and heterogeneity [@Hilpert_Marchand_2018; @Koopmans_2020]. Linear methods such as correlations, regression or comparison of means are essentially reductionist, that is, disregard the inter-relationships between the variables. For instance, in regression analysis, all variables are included as predictors of one predicted variable (dependable variable). By design, such variables are assumed to be independent and not correlated. While this view can offer understanding through simplification, it does so by compromising the understanding of the big picture. In contrast to the reductionist view of human behavior, embracing the view that learning is complex is more tethered to reality and promises for renewal of our knowledge [@Hilpert_Marchand_2018; @Koopmans_2020; @Yoon_2008].
+
+## Network analysis
+
+Network analysis as a framework affords researchers a powerful tool set to chart relations, map connections, and discover clusters or communities between interacting components and therefore, has become one of the most important methods for understanding complex systems [@Barabási_2013; @Saqr_Poquet_Lopez-Pernas_2022]. In education, social network analysis has been used for decades [@Saqr_Poquet_Lopez-Pernas_2022], and we covered it in detail in previous chapters of the book [@Saqr2024-yv; @Hernandez-Garcia2024-yf; @Saqr2024-vt}. Yet, to go beyond social interactions, one needs a different type of networks: probabilistic networks [@Borsboom_Deserno_Rhemtulla_Epskamp_Fried_McNally_Robinaugh_Perugini_Dalege_Costantini_et_al._2021; @Epskamp_Waldorp_Mõttus_Borsboom_2018]. In probabilistic networks, the variables (often indicators of constructs or scale scores) are the nodes or the vertices of the networks, the relationships or magnitude of interactions (i.e. probabilistic associations) between such variables form the edges. In particular, we will focus in this chapter on psychological networks:  Gaussian graphical models (GGM) [@Epskamp_Waldorp_Mõttus_Borsboom_2018]. In psychological networks, the variables may be constructs, behaviors, attitudes, etc., and the interactions are partial correlations among the nodes  [@Malmberg_Saqr_Järvenoja_Haataja_Pijeira-Díaz_Järvelä_2022]. A partial correlation measures the relationship (or the conditions dependence) between two variables after removing (controlling or adjusting) for all other variables in the network or what is known as ceteris paribus [@Epskamp_Fried_2018; @Epskamp_Waldorp_Mõttus_Borsboom_2018]. For instance, if we are modeling a network where motivation, achievement, engagement, self-regulation and well-being are nodes, and we observed a relationship between well-being and achievement, such relationships means that well-being is associated with achievement beyond what can be explained by their associations with motivation, engagement, self-regulation (all other variables in the network). The absence of a relationship between two variables signifies a conditional independence between the two variables after controlling for all other variables in the network [@Epskamp_Fried_2018]. As such, the presence or lack of interactions are both interpretable and carry a meaning. Psychological networks offer rigorous methods for the assessment of the accuracy of estimated networks, edge weights and centrality measures through bootstrapping, assessment of sampling variability through simulation of "expected replicability" of the studied networks)  [@Borsboom_Deserno_Rhemtulla_Epskamp_Fried_McNally_Robinaugh_Perugini_Dalege_Costantini_et_al._2021].
+
+
+# Related work
+
+As the term *psychological networks* suggests, most studies operationalizing this method are rooted in psychological research. Consequently, its connection to educational research is primarily established through educational psychology. For example, a study by Liu et al. [@Liu2022] sought to identify a link between students' personality and their experience of psychological distress during and after the COVID-19 lockdown. Their results suggest that neuroticism was linked to heightened psychological distress both during and after the lockdown, whereas extraversion and conscientiousness were associated with the alleviation of psychological distress. Another study [@Zhou2022] investigated the relationship among various aspects influencing nursing students’ psychological well-being, and found that perceived social support and one's professional self-concept were the most central predictors. 
+
+The cited studies have relied on self-reported data. However, a recent trend is to take advantage of the intensive trace log  data collected from digital educational tools. An example is the work by Saqr et al. [@Saqr2021-lj], who used psychological networks to discover the interplay between self-regulated learning tactics among foreign language students. Their findings reveal a strong correlation between writing text and social bonding, as well as between acknowledging others and social bonding. López-Pernas et al. [@Lopez-Pernas_S_Gordillo_A_Barra_E_Saqr_M2023-kv] clustered students into player profiles according to their performance in an educational game and used psychological networks to map the relationships between game performance indicators for each profile. They found that certain indicators (e.g., the use of hints for help) are decisive for the success of certain player profiles and superfluous for others.
+
+A recent trend in the use of psychological networks in education is to understand and visualize within-person (i.e., idiographic) phenomena, in which networks are constructed for data from a single individual at a time [@Saqr2021-oc; @Saqr2021-gx]. For instance, Malmberg et al. [@Malmberg2022] examined the association between monitoring events and phases of regulation in collaborative learning. Their results showed that cyclical phases of regulation do not occur simultaneously but rather monitoring motivation predicts the monitoring of task definition, ultimately leading to task enactment. A recent study by Saqr [@Saqr2024-rd] constructed a network of engagement indicators using between-person data and another using within-person data. The results revealed that group-level inferences hardly generalize to individuals. For example, regularity in study and frequency of accessing resources were positively correlated at the group level but negatively so at the individual level. Such findings highlighted the need for person-specific insights to leverage personalized interventions to increase learner engagement. 
+
+
+# Tutorial with R
+
+In this section, we present a step-by-step tutorial on how to use psychological networks in cross-sectional survey data. The dataset that we are using contains the results of 6,071 students' responses to a survey investigating  students' psychological characteristics related to their well-being during the COVID-19 pandemic in Finland and Austria. The survey questions cover  students'  basic psychological needs (relatedness, autonomy, and experienced competence), self-regulated learning, positive emotion and intrinsic learning motivation. Moreover, the dataset contains demographic variables, such as country, gender, and age and is well described in the dataset chapter [@Lopez-Pernas2024-hy]. In the tutorial, we will construct and visualize a network that represents the relationship between the different psychological characteristics, we will interpret and evaluate these relationships, and we will compare how the networks differ among demographic groups.
+
+## The libraries
+
+We start by importing the necessary packages We know `rio` [@rio] and `tidyverse` [@tidyverse] from previous chapters for importing and manipulating data respectively. The `bootnet` [@bootnet] package provides  methods to estimate and assess accuracy and stability of estimated network structures and centrality indices. The package `networktools` [@networktools] includes a selection of tools for network analysis and plotting. `NetworkToolbox` [@christensen2018networktoolbox] implements network analysis and graph theory measures used in neuroscience, cognitive science, and psychology. `NetworkComparisonTest` [@NetworkComparisonTest] allows to assess the difference between two networks based on several invariance measures. The package `qgraph` [@qgraph] offers  network visualization and analysis, as well as Gaussian graphical model computation. The package `mgm` [@mgm] provides estimation of k-Order time-varying Mixed Graphical Models and mixed VAR(p) models via elastic-net regularized neighborhood regression. Lastly, `matrixcalc` [@matrixcalc] offers a collection of functions to support matrix calculations for probability, econometric and numerical analysis.  
+
+```{r, warning = F, message = F, results = F}
+library(rio)
+library(tidyverse)
+library(bootnet)
+library(networktools)
+library(NetworkToolbox)
+library(NetworkComparisonTest)
+library(qgraph)
+library(mgm)
+library(matrixcalc)
+```
+
+## Importing and preparing the data
+
+The first step is importing the data and doing the ncessary preparation, that is, removing the missing and incomplete responses.
+
+\scriptsize
+
+```{r, warning = F, message = F }
+df <- 
+  import("https://github.com/sonsoleslp/labook-data/raw/main/11_universityCovid/data.sav") |>
+  drop_na()
+```
+
+\normalsize
+
+To represent each of the constructs that the survey aimed at capturing, we combine all the columns representing items from the same construct into one by averaging the responses. The next code calculates the mean for each construct by averaging all the related items:
+
+```{r}
+aggregated <- df |> rowwise() |> mutate(
+       Competence = rowMeans(cbind(comp1.rec , comp2.rec, comp3.rec), na.rm = T),
+       Autonomy = rowMeans(cbind(auto1.rec , auto2.rec, auto3.rec), na.rm = T),
+       Motivation = rowMeans(cbind(lm1.rec , lm2.rec, lm3.rec), na.rm = T),
+       Emotion = rowMeans(cbind(pa1.rec , pa2.rec, pa3.rec), na.rm = T),
+       Relatedness = rowMeans(cbind(sr1.rec , sr2.rec, sr3.rec), na.rm = T),
+       SRL = rowMeans(cbind(gp1.rec , gp2.rec, gp3.rec), na.rm = T)) 
+```
+ 
+
+We can now keep only the newly created columns. We also create subsets of the data based on gender (a dataset for males and another for females) and country (a data set for Austria and another for Finland). We will use these datasets later for comparison acorss genders and countries.
+
+```{r}
+cols <- c("Relatedness", "Competence", "Autonomy", "Emotion", "Motivation", "SRL")
+
+filter(aggregated, country == 1) |> select(all_of(cols)) -> finlandData 
+filter(aggregated, country == 0) |> select(all_of(cols)) -> austriaData 
+filter(aggregated, gender  == 1) |> select(all_of(cols)) -> femaleData 
+filter(aggregated, gender  == 2) |> select(all_of(cols)) -> maleData
+select(aggregated, all_of(cols)) -> allData 
+```
+The `allData` dataframe should look as follows (@tbl-alldata) :
+```{r, echo = F}
+#| label: tbl-alldata
+#| tbl-cap: "Preview of the data"
+gt::gt_preview(allData) |> gt::fmt_number(columns = gt::everything(), decimals = 3)
+```
+
+## Assumption checks
+
+As a first step of the analysis, we need to check some assumptions to make sure that the dataset and the estimated network are appropriate. First, we need to ensure that the correlation matrix is **positive definite** i.e., the included variables are not a linear combination of each other and therefore, so similar they do not offer new information. This is performed by using the function `is.positive.definite()` from the package `matrixcalc`. Please note that in cases where the correlation matrix is non-positive definite, we can use option `cor_auto` to search for possible positive definite matrices (see later). In our case, the matrix is already positive definite. Note that we also set the `use` argument to `"pairwise.complete.obs"`, or pairwise complete observations to include maximal observations.
+
+```{r,width = 10}
+correlationMatrix <- cor(x = allData, use = c("pairwise.complete.obs"))
+is.positive.definite(correlationMatrix)
+```
+
+The second assumption that we need to check is whether some variables are highly correlated and therefore **redundant**. In doing so we make sure that each variable is sufficiently distinct from all other variables and captures a unique construct. The `goldbricker` algorithm compares the variables' correlation patterns with all other variables in the dataset. Below, we search for items which are highly inter-correlated using the default values: (r \> 0.50) with 0.25 as the significant fraction of variables and p-value of 0.05. The results show that the variables are significantly distinct from each other.
+
+```{r, results = F}
+goldbricker(allData, p = 0.05, method = "hittner2003",
+            threshold = 0.25, corMin = 0.5, progressbar = FALSE)
+```
+```
+  Suggested reductions: Less than 25 % of correlations are significantly 
+  different for the following pairs: 
+  [1] "No suggested reductions"
+```
+
+## Network estimation
+
+Given that we made sure that the data satisfy the necessary assumptions, we can now build or estimate the network. The estimation means that we quantify the associations between the different variables. Several types of associations can be estimated. The most common in psychological networks are *dependency measures*, such as correlation and regression. In these networks, we are interested in how the levels or values of the variables in the network vary together in a similar way (e.g., if and to what extent higher levels of motivation are associated with higher levels of engagement). Such patterns can be estimated using covariance, simple correlation, partial correlation or relative importance (regression). In this tutorial, we focus on the the most commonly used estimation method, which is regularized partial correlation. 
+
+Regularized partial correlations have been shown to (1) retrieve the true structure of the network in most situations, and (2) offer an interpretable sparse network that shows conditional association between variables. A partial correlation means that the association between each two variables is above and beyond all other variables in the network, or conditioning on all other variables in the network or holding all other variables constant often referred to as ***ceteris paribus***. This allows us to estimate, for example, the association between motivation and engagement beyond other variables that are included in the network, e.g., achievement, anxiety or enjoyment. Regularization is the process of applying an extra penalty for the complexity of network model. A growing body of research recommends the procedure for several reasons. Regularization helps eliminate spurious edges that results from influence of other nodes, and shrinks trivial edges to zero and thus help eliminates Type 1 error or "false positive" edges. In doing so, the resulting network model is less complex, sparser, simpler to interpret with only the strong meaningful correlations. In doing so, regularization helps retrieve a true ---and conservative--- structure of the network. The penalty is commonly applied using the *least absolute shrinkage and selection operator* "LASSO".
+
+Network estimation can be performed using several packages. We will use the package `bootnet` and the function `estimateNetwork()`. To estimate the network we need to pass the data as an argument, and select the option `default = "EBICglasso"` to estimate a regularized network. By default, the correlation type is set to `cor_auto` which can detect the distribution of the variables and set the appropriate correlation coefficient: polychoric, polyserial or Pearson correlation. Other options can be `"cor"` which will compute a correlation network and `"npn"` which will apply non-paranormal transformation ---to normalize the data--- and then compute correlations. By default, `estimateNetwork()` computes 100 models with various degrees of sparsity. The best model is selected based on the lowest Extended Bayesian Information Criterion value (EBIC) given a hyperparameter gamma ($\gamma$) which balances a trade off between false positive edges and suppressing of the true edges [@Epskamp_Waldorp_Mõttus_Borsboom_2018]. Gamma ranges from 0 (favors models with more edges [i.e. uses no regularization]) to 0.5 (favors model with fewer edges). The default for the hyper-parameter gamma ($\gamma$) is set to 0.5 to ensure that edges included in the model are true and part of the network. The next code estimates the network and assigns the estimated network to an R object `allNetwork`. The estimated network can be accessed from `allNetwork$graph.` We can also see the details about the network using the function `summary`.
+
+```{r, message = FALSE, warning = FALSE, results=F}
+allNetwork <- estimateNetwork(allData, default = "EBICglasso", 
+                              corMethod = "cor_auto", tuning = 0.5)
+summary(allNetwork)
+```
+```
+=== Estimated network ===
+Number of nodes: 6 
+Number of non-zero edges: 15 / 15 
+Mean weight: 0.1397203 
+Network stored in object$graph 
+ 
+Default set used: EBICglasso 
+```
+
+## Plotting the network 
+
+The  network can be plotted by using the function `plot()`. The resulting plot uses a color blind theme by default where blue edges are positive correlations and red edges are negative correlations. The thickness of the edges is proportional to the magnitude of the regularized partial correlation. As the network shows, we see a very strong correlation between motivation, autonomy and competence. We also observe that emotion is strongly correlated with competence. As we mentioned before, each of the correlations in the network are conditioned ---or above and beyond--- all other nodes in the network same as regression.
+
+Please also note that we assign the plot to an R object under the name `allDataPlot`. This facilitates further plotting as well as retrieving other data,  e.g., the `allDataPlot` object contains the correlation matrix, the plotting parameters, the call arguments etc. For instance, `allDataPlot$layout` returns the network layout which we can get and use in further plotting so that we have a fixed layout for all network to enable us to compare them easily against each other. Plotting in `bootnet` is mostly handled by the  `qgraph` package and most options work with few differences. As such, the plot object works with all functions of the `qgraph` package as we will see later. The next code plots the network using the default settings (@fig-network-default). The second line retrieves the layout and stores it in an object so we can later reuse it to plot our networks.
+
+```{r, fig.cap="Network with default settings"}
+#| label: fig-network-default
+allDataPlot <- plot(allNetwork)
+LX <- allDataPlot$layout
+```
+
+However, in most situations, we will need to customize the plot. First, we may need to add a title using the argument `title = "Both countries combined"`. Second, we define the node size using the argument `vsize=9` (you may need to adjust according to your preference). Third, we choose to show the edge weight (i.e., the magnitude of the partial correlation) by setting `edge.labels = TRUE`; this is very important as it shows exactly how strong the correlation is. Fourth, we can choose `cut = 0.10`, which emphasizes edges higher than a threshold of 0.10. Edges below that threshold are shown with less color intensity. Whereas the `cut` argument is optional and relies on the network, it can be used to emphasize the important strong correlations and downsize the "clutter". Another cosmetic option is to hide (but not remove) edges below 0.05 with the argument `minimum = 0.05`. Both `cut` and `minimum` make the network easy to read, interpret and less crowded. For more options, you need to consult the plot function manual `bootnet.plot()` or `qgraph()`. The final result can be seen in @fig-network-customized.
+
+```{r, fig.cap="Network with customized settings"}
+#| label: fig-network-customized
+allDataPlot <- plot(
+  allNetwork, 
+  title = "Both countries combined", 
+  vsize = 9,                   
+  edge.labels = TRUE, 
+  cut = 0.10, 
+  minimum = 0.05, 
+  layout = "spring") 
+
+```
+
+## Explaining network relationships
+
+It may be useful ---and all the more advisable--- to compute the predictability of all nodes which simply means to calculate to which extent each node is explained by its relationships or the proportion of explained variance when regressing all nodes over the said node. In other words, the function computes regression for each node (where all other nodes are the predictors) and returns the R2. This process is repeated for each node. When the predictability (R2) is zero, the node is not explained at all by it connections and one should think whether the node belongs to this network or whether the measurement was accurate. When predictability is 1, then 100% of the variance is explained by the relationships of the node. This of course is unlikely and warrants serious checks. Predictability has also been linked to controlability, or the extent to which one can control all other nodes if acted on this node e.g. intervention targeting this node.
+
+For the calculation of predictability, we will need the function `mgm()` from the package `mgm` to estimate the model. The only required parameter for the function is the type of each variable which we specify as `type = rep ('g', 6)` or `c("g" ,"g", "g", "g" ,"g" ,"g")`, which means all variables are Gaussian. 
+
+```{r, message = F, results=F}
+fitAllData <- mgm(as.matrix(allData), type = c("g", "g", "g", "g", "g", "g"))
+```
+
+The predictability of each variable can be obtained by querying the resulting object as the code shows below. We can also obtain the mean predictability to see how far our network nodes are explained by their relationships on average. 
+Using predictability in plots can enhance the readability of the network and give more information about the extent the node is explained by the current network. We do so by assigning the pie the value of `R2 pie= predictAll$errors$R2`. We can also see the the RMSE (Root Mean Square Error) which measures the difference between predicted values and the actual values using `predictAll$errors$RMSE`.
+
+```{r,  message = F}
+# Compute the predictability
+predictAll <- predict(fitAllData, na.omit(allData))
+predictAll$errors$R2         # Check  predictability for all variables
+mean(predictAll$errors$R2)   # Mean predictability
+mean(predictAll$errors$RMSE) # Mean RMSE
+```
+
+We can also create a data frame of the predictability (@tbl-predictability-df).
+```{r, eval = F}
+data.frame(
+  var = predictAll$errors$Variable, 
+  R2 = predictAll$errors$R2, 
+  RMSE = predictAll$errors$RMSE
+  ) 
+```
+
+```{r, echo = F}
+#| label: tbl-predictability-df
+#| tbl-cap: "Predictability dataframe"
+data.frame(
+  var = predictAll$errors$Variable, 
+  R2 = predictAll$errors$R2, 
+  RMSE = predictAll$errors$RMSE
+  )|>
+  gt::gt()
+```
+
+
+As the network plot (@fig-predictabiliity) and the data frame show, the highest predictability belongs to the *competence*, *motivation* and *autonomy.* We also see that SRL and relatedness have low predictability and therefore, are less explained by their connections.
+
+```{r, warning=FALSE, fig.cap="Network with predicatability as pie charts in the nodes"}
+#| label: fig-predictabiliity
+allDataPlot <- plot(
+  allNetwork, 
+  title = "Both countries combined", 
+  vsize = 9, 
+  edge.labels = TRUE, 
+  cut = 0.10, 
+  minimum = 0.05, 
+  pie = predictAll$errors$R2
+  ) 
+```
+
+## Network inference
+
+Similar to traditional networks, centrality measures can be computed for psychological networks. Here ---as in any network--- the interpretation depends on the network variables, the estimation method, the weights of edges and of course, the theoretical underpinning that underpins the network structure. In the general sense, centrality measures estimate important, influential or central nodes. Early research has shown that centrality measures can be potential targets for intervention among others. Whereas many centrality measures exist, two centralities have gained traction: degree (or strength) centrality and expected influence. Others, e.g., betweenness, closeness and eigenvector centralities can be calculated but have not so far being "well understood" to be routinely recommended for analysis. 
+
+Degree centrality is the tally of connections a node has regardless of weight. Strength centrality is the sum of absolute weights of all connections (the sum of correlations weights positive or negative). Expected influence is similar, however, expected influence sums the raw values. For instance, if a node has connections of 0.3, -0.1 and 0.5, the degree centrality is 3, the strength centrality is 0.3 + 0.1 + 0.5 = 0.9 and the expected influence centrality is 0.3 - 0.1 + 0.5 = 0.7. Given that the network we have does not have any negative edges, strength and expected influence centralities are equivalent. To compute the centrality measures, we use the function `centralityPlot()` and provide the network as the main argument. We also need to provide the centralities that we wish to compute. The function plots the centralities by default (@fig-centrality-plot). 
+
+
+
+```{r, warning=FALSE, fig.cap="Centrality plot"}
+#| label: fig-centrality-plot
+centralityPlot(allNetwork, include = c("ExpectedInfluence", "Strength"), 
+               scale = "z-scores" )  
+```
+If we wanted only the values, we could obtain the centralities by using the function `centralityTable()` (@tbl-centrality-table).
+
+```{r, eval = F}
+centralityTable(allNetwork)
+```
+
+```{r,  warning=FALSE, echo = F}
+#| label: tbl-centrality-table
+#| tbl-cap: "Centrality table"
+centralityTable(allNetwork) |> gt::gt_preview(top_n = 3, bottom_n = 3)
+```
+
+Another possible way to compute several types of centralities is to use the `NetworkToolbox` package (@tbl-centrality-table-networktoolbox) which offers a large collection of centralities, e.g., degree, strength, closeness, eigenvector or leverage centralities. `NetworkToolbox` has even more centrality measures that the reader can try. Please refer to the manual of this package for more information about the functions and usage. Nevertheless, as mentioned above, the interpretations of these centralities are not clearly understood or straightforward as strength or expected influence. 
+
+```{r,message=FALSE , warning=FALSE, results = F}
+Degree <- degree(allNetwork$graph)
+Strength <- strength(allNetwork$graph)
+Betweenness <- betweenness(allNetwork$graph)
+Closeness <- closeness(allNetwork$graph)
+Eigenvector <- eigenvector(allNetwork$graph)
+Leverage <- leverage(allNetwork$graph)
+data.frame(Var = names(Degree), Degree, Strength, Betweenness, Closeness, Eigenvector, Leverage) 
+```
+```{r, echo = F}
+#| label: tbl-centrality-table-networktoolbox
+#| tbl-cap: "Centrality measures calculated with `NetworkToolbox`"
+data.frame(Var = names(Degree), Degree, Strength, Betweenness, Closeness, Eigenvector, Leverage) |> gt::gt(rowname_col = "Construct") |> gt::fmt_number(decimals = 2)
+```
+
+
+As we mentioned above, besides the regularized partial correlation networks, several other estimation options are possible. We will demonstrate some here (@fig-four-networks). However, interested readers can refer to the manual pages of `estimateNetwork()` function. First, we can fit a model that is simply an association (i.e. correlation) network to explore the correlations between different variables. The association network is not recommended except for data exploration and is shown here for comparison. Another very interesting estimation method is the `ggmModSelect()`. This is recommended in large datasets with a low number of nodes. The `ggmModSelect` algorithm starts by estimating a regularized network as a starting baseline network, then estimates all possible un-regularized networks and selects the best model based on the lowest EBIC criteria. The last model we show here is the relative importance model `relimp` which estimates a directed network where edges are magnitude of the relative importance of the predictors in a linear regression model. You may notice that the `ggmModSelect` network is rather similar to the regularized network we estimated above whereas the correlation network is very dense. The relative importance network is directed and shows how each variable is expected to be influencing the other as per the regression results.
+
+```{r, message = FALSE}
+allNetwork_cor <- estimateNetwork(allData, default = "cor", verbose = FALSE)
+allNetwork_mgm <- estimateNetwork(allData, default = "ggmModSelect", verbose = FALSE)
+allNetwork_relimp <- estimateNetwork(allData, default = "relimp", verbose = FALSE)
+```
+
+```{r, fig.width = 7, fig.height = 3, fig.cap="Correlation networks with several estimation options", echo = 2:10, out.width='6in'}
+#| label: fig-four-networks
+layout(t(1:4))
+plot(allNetwork_cor, title = "Correlation", vsize = 18, edge.labels = TRUE,
+     cut = 0.10, minimum = 0.05, layout = LX) 
+plot(allNetwork, title = "EBICglasso", vsize = 18, edge.labels = TRUE, 
+     cut = 0.10, minimum = 0.05, layout = LX)
+plot(allNetwork_mgm, title = "ggmModSelect", vsize = 18, edge.labels = TRUE, 
+     cut = 0.10, minimum = 0.05, layout = LX)
+plot(allNetwork_relimp, title = "Relative importance", vsize = 18, edge.labels = TRUE, 
+     cut = 0.10, minimum = 0.05, layout = LX) 
+```
+
+## Comparing networks
+
+Having shown the basic steps of estimation of a single network, we now proceed with comparing across different networks. Psychological networks offer rigorous methods to compare networks as a whole as well as edge weights and centralities using robust methods. Given that our data has two countries, we can estimate two networks for each country and test how they differ.
+
+First, to do the comparison we need to estimate the networks as we did before. The next section  repeats the estimation steps for each country. We start with Finland and then Austria. First, the code performs the basic steps of assumption checking for each network. As the results show that the matrix of each of the networks is not positive definite and the `goldbricker` algorithm does not suggest that there are highly similar nodes that need to be reduced. Then, the next code chunk estimates two regularized partial correlation networks. As we have done before, we estimate the predictability of both networks. The results show that in general the mean predictability is similar in the two networks.
+
+```{r,  warning=FALSE, results = F}
+### Check the assumptions
+## Finland
+# check for positive definitiveness
+correlationMatrix <- cor(x = finlandData, use = c("pairwise.complete.obs"))
+is.positive.definite(correlationMatrix)
+
+# check for redundancy
+goldbricker(finlandData, p = 0.05, method = "hittner2003",
+            threshold = 0.25, corMin = 0.5, progressbar = FALSE)
+``` 
+```
+  Suggested reductions: Less than 25 % of correlations are significantly 
+  different for the following pairs: 
+  [1] "No suggested reductions"
+```
+```{r,  warning=FALSE, results = F}
+## Austria
+# check for positive definitiveness
+correlationMatrix <- cor(x = austriaData, use = c("pairwise.complete.obs"))
+is.positive.definite(correlationMatrix)
+
+# check for redundancy
+goldbricker(austriaData, p = 0.05, method = "hittner2003",
+            threshold = 0.25, corMin = 0.5, progressbar = FALSE)
+```
+```
+  Suggested reductions: Less than 25 % of correlations are significantly 
+  different for the following pairs: 
+  [1] "No suggested reductions"
+```
+
+```{r, warning=FALSE, message=FALSE}
+#Estimate the networks 
+finlandNetwork <- estimateNetwork(finlandData, default = "EBICglasso", 
+                                  corMethod = "cor_auto", tuning = 0.5)
+austriaNetwork <- estimateNetwork(austriaData, default = "EBICglasso", 
+                                  corMethod = "cor_auto", tuning = 0.5)
+```
+
+```{r,  message=FALSE, warning=FALSE, results = F }
+# Compute the predictability
+fitFinland <- mgm(
+  as.matrix(finlandData), # data 
+  c("g" ,"g", "g", "g" ,"g" ,"g"),  # distribution for each var
+  verbatim = TRUE, # hide warnings and progress bar
+  signInfo = FALSE # hide message about signs
+  )
+predictFinland <- predict(fitFinland, na.omit(finlandData))
+
+mean(predictFinland$errors$R2) # Mean predictability of Finland: 0.3085
+mean(predictFinland$errors$RMSE) # Mean RMSE of Finland: 0.8283333
+
+fitAustria <- mgm(
+  as.matrix(austriaData), # data
+  c("g" ,"g", "g", "g" ,"g" ,"g"), # distribution for each var
+  verbatim = TRUE, # hide warnings and progress bar
+  signInfo = FALSE # hide message about signs
+  )
+predictAustria <- predict(fitAustria, na.omit(austriaData))
+
+mean(predictAustria$errors$R2) # Mean predictability of Austria: 0.3436667
+mean(predictAustria$errors$RMSE) # Mean RMSE of Austria: 0.8036667
+```
+```
+  [1] 0.3085
+  [1] 0.8283333
+  [1] 0.3436667
+  [1] 0.8036667
+```
+
+Now as the networks were estimated, we plot the networks side by side in the same way we used before (@fig-compare-countries). It is always a good idea to have a common layout to facilitate interpretation. We can use the function `averageLayout()` to generate an average layout from the two networks as the first line of the code below shows. However, we will use the layout of the first network (`LX`) to maintain comparability. Please also note that we use the function `qgraph()` which is very similar to `plot()` with more options and arguments. Yet, two small differences: in `qgraph()` you need to supply the labels as an argument, otherwise `qgraph()` will use shortened labels. Second, `qgraph()` requires either an estimated network or matrix, to plot the difference network we subtract the two matrices `finlandNetwork$graph-austriaNetwork$graph` (not the networks) to get the matrix. The following code plots the three networks using the same layout side by side as well as computes a simple difference network. It is obvious that the two network differ substantially regarding several interactions. Finland has stronger connection between competence and emotion and between motivation and relatedness. Whereas in Austria, there is a stronger connection between motivation and competence, motivation and emotion as well as competence and autonomy and autonomy and relatedness.
+
+```{r, fig.width=8, fig.height=2.5 , warning=FALSE, fig.cap="Country networks and comparison. The weight of the edges represents the magnitude of the correlation while the color represents the sign: blue por positive and red for negative.", echo = 2:12}
+#| label: fig-compare-countries
+layout(t(1:3))
+AverageLayout <-  averageLayout(finlandNetwork, austriaNetwork)
+
+plot(finlandNetwork,             # input network
+     title = "Finland",          # plot title
+     vsize = 19,                 # size of the nodes
+     edge.labels = TRUE,         # label the edge weights
+     cut = 0.10,                 # saturate edges > .10
+     minimum = 0.05,             # remove edges < .05
+     pie = predictAll$errors$R2, # put R2 as pie
+     layout = LX)                # set the layout
+
+plot(austriaNetwork,             # input network
+     title = "Austria",          # plot title
+     vsize = 19,                 # size of the nodes
+     edge.labels = TRUE,         # label the edge weights
+     cut = 0.10,                 # saturate edges > .10
+     minimum = 0.05,             # remove edges < .05
+     pie = predictAll$errors$R2, # put R2 as pie
+     layout = LX)                # set the layout
+
+qgraph(finlandNetwork$graph - abs(austriaNetwork$graph), 
+       title = "Difference",                  # plot title
+       theme = allDataPlot$Arguments$theme,   # borrow the theme
+       vsize = 19,                            # size of the nodes
+       edge.labels = TRUE,                    # label the edge weights
+       labels = allDataPlot$Arguments$labels, # node labels
+       cut = 0.10,                            # saturate edges > .10
+       layout = LX)                           # set the layout
+```
+
+A visual comparison of centralities can be performed in the same way we did before (@fig-centrality-comparison). Here, we supply the networks that we want to compare as a list, and we specify the centralities. As the results show, Motivation has the highest centrality value in the Austria network, meaning that motivation is the factor that is expected to drive the connectivity. In the Finland network, competence is the most central variable that drives the network connectivity.
+
+```{r, fig.cap="Comparison of centralities plot between countries"}
+#| label: fig-centrality-comparison
+#| cache: true
+centralityPlot(
+  list(Finland = finlandNetwork,
+       Austria = austriaNetwork),
+  include = c("ExpectedInfluence", "Strength")) 
+```
+
+Yet, to compare the networks in a rigorous way, we need a statistical test that tells which edges or centrality measures are actually different and not due to chance. For such a comparison, NCT (short for Network Comparison Test) is an effective method that allows for a detailed comparison regarding the network structure, edges, and centralities. To do so, NCT uses permutation to generate a large number of networks (based on the original network) as a references distribution and later compares the original networks against the permuted. To perform the test, we supply the networks and the number of iterations (a large number, at least 1000 iteration is recommended). In addition, it is good practice to specify `test.edges = TRUE, edges = 'all'` to test all edges and `test.centrality = TRUE` to test the centralities since they are not tested by default. The code and the output are in the next chunk. To check the results, we can obtain the global strength (sum of all edge weights) by the using `Compared$glstrinv.sep` which is 2.148451 for Finland and 2.1725 for Austria. The difference between global strength `Compared$glstrinv.real` is 0.02404855 and is statistically insignificant (`Compared$glstrinv.pval` = 0.735). The  maximum difference in any of the edges between the networks (`Compared$nwinv.real`) is 0.1713064. `Compared$einv.real` returns the difference matrix (as the difference network we computed above). The Holm-Bonferroni adjusted p-value (which adjusts for multiple comparisons) for each edge can be obtained using `Compared$einv.pvals.` The results show that most of the edges differed significantly except e.g., Relatedness-Emotion, Relatedness-SRL. Similarly, the difference in centralities can be obtained using `Compared$diffcen.real` and the p-values using `Compared$diffcen.pval` which shows for example, that the difference in expected influence centrality of competence was not statistically significant.
+
+```{r, warning=FALSE, message=FALSE}
+#| cache: true
+set.seed(1337)
+Compared <- NCT(
+  finlandNetwork,         # network 1
+  austriaNetwork,         # network 2
+  verbose = FALSE,        # hide warnings and progress bar
+  it = 1000,              # number of iterations
+  abs = T,                # test strength or expected influence?
+  binary.data = FALSE,    # set data distribution
+  test.edges = TRUE,      # test edge differences
+  edges = 'all',          # which edges to test
+  test.centrality	= TRUE, # test centrality
+  progressbar = FALSE     # progress bar
+  )
+
+Compared$glstrinv.sep # Separate global strength values of the individual networks
+Compared$glstrinv.real # Difference in global strength between the networks
+Compared$glstrinv.pval # p-value of strength difference
+Compared$nwinv.real # Maximum difference in any of the edges between networks
+Compared$einv.real # Difference in edge weight of the observed networks
+Compared$einv.pvals # Holm-Bonferroni adjusted p-values for each edge
+Compared$diffcen.real # Difference in centralities
+Compared$diffcen.pval # Holm-Bonferroni adjusted p-values for each centrality
+```
+
+## The variability network
+
+The variability network offers a good indication of how the edge weights vary across the networks (@fig-variability-plot). In other words, the range of variability (i.e. the degree of individual differences) across the included population. Edges with low variability are expected to be similar across the networks and vice versa. The following code creates two matrices and then loops across the two networks to compute the standard deviation.
+
+```{r, warning=FALSE}
+# Construct a network where edges are standard deviations across edge weights of networks
+edgeMeanJoint <- matrix(0, 6, 6)
+edgeSDJoint <- matrix(0, 6, 6)
+for(i in 1:6){
+  for(j in 1:6) {
+    vector <- c(getWmat(finlandNetwork)[i, j], getWmat(austriaNetwork)[i, j])
+    edgeMeanJoint[i, j] <- mean(vector) 
+    edgeSDJoint[i, j] <- sd(vector) 
+  } 
+} 
+```
+We then plot the networks where the edge weights are the standard deviations of all edges (@fig-variability-plot).
+```{r,fig.cap="Variability plot"}
+#| label: fig-variability-plot
+qgraph(edgeSDJoint, layout = LX, edge.labels = TRUE,
+       labels = allDataPlot$Arguments$labels, vsize = 9, 
+       cut = 0.09, minimum = 0.01, theme = "colorblind")
+```
+In the same way we compared countries, we can compare across genders, and as we see in the next code chunk, we estimated the male network, the female network and the difference network (@fig-compare-genders). Nonetheless, the differences are really small or even trivial. 
+
+```{r, message=FALSE, warning=FALSE, fig.height=2.5, fig.width=8, fig.cap="Gender networks and comparison", echo = 2:12}
+#| label: fig-compare-genders
+layout(t(1:3))
+maleNetwork <- estimateNetwork(maleData, default = "EBICglasso")
+femaleNetwork <- estimateNetwork(femaleData, default = "EBICglasso")
+
+plot(maleNetwork, title = "Male", vsize = 9, edge.labels = TRUE, 
+     cut = 0.10, minimum = 0.05, layout = LX) 
+
+plot(femaleNetwork, title = "Female", vsize = 9, edge.labels = TRUE, 
+     cut = 0.10, minimum = 0.05, layout = LX)
+
+qgraph(femaleNetwork$graph - maleNetwork$graph, title = "Difference", cut = 0.1,
+       labels = allDataPlot$Arguments$labels, vsize = 9,minimum = 0.01, 
+       edge.labels = TRUE, layout = LX, theme = "colorblind")
+```
+
+Below we perform the network comparison test and we see that the p-values of differences between all edges is statistically insignificant.
+
+```{r, warning=FALSE, message=FALSE}
+ComparedGender <- NCT(
+  maleNetwork, # network 1
+  femaleNetwork, # network 2
+  verbose = FALSE,  # hide warnings and progress bar
+  it = 1000, # number of iterations
+  abs = T, # test strength or expected influence?
+  binary.data = FALSE, # set data distribution
+  test.edges = TRUE, # test edge differences
+  edges = 'all', # which edges to test
+  progressbar = FALSE) # progress bar
+
+ComparedGender$einv.pvals # Holm-Bonferroni adjusted p-values for each edge
+```
+
+## Evaluation of robustness and accuracy
+
+The most common procedure to evaluate the stability and accuracy of the of the estimated networks is bootstrapping, in which a large number (1000 or more) of bootstrapped networks are created based on the original data. The resulting edge weights of the bootstrapped networks  are then used to create confidence intervals to assess the accuracy of the edges. Each edge weight in the estimated networks is contrasted to the confidence intervals of the bootstrapped edges. Edges where the upper and lower bounds do not cross zero are considered statistically significant and edges that either the upper or lower bound of the confidence interval crosses the 0 line are considered not significant.
+
+
+```{r, message=F}
+nCores <- parallel::detectCores() - 1
+# Non-parametric bootstrap for stability of edges and of edge differences
+
+allBoot <-  bootnet(
+  allNetwork,                # network input
+  default = "EBICglasso",    # method
+  nCores = nCores,           # number of cores for parallelization
+  computeCentrality = FALSE, # estimate centrality?
+  statistics = "edge"        # what statistics do we want?
+  )
+```
+
+```{r,  message=FALSE, warning=FALSE, fig.cap="Edge weights"}
+#| label: fig-boot-all
+plot(allBoot, plot = "area", order = "sample", legend = FALSE)
+```
+
+
+As @fig-boot-all shows, only the edges of autonomy-emotion and emotion-SRL are crossing the 0 line and therefore, are insignificant. We can also plot the edge difference plot which tests if the edge weights are different from each other (@fig-boot-all-diff). As the figure shows, edges where the 95% bootstrapped confidence interval of the difference between any pair of edges crosses the zero line, the square is grey. The square is black if the edge difference does not cross the 0 (significant). For instance, autonomy-emotion and emotion-SRL have a grey square indicating non-significant difference whereas emotion-SRL and relatedness-SRL has a black square indicating that the two nodes are statistically significantly different.
+
+
+```{r,  message=FALSE, warning=FALSE, fig.cap="Differences between edges", fig.width=4, fig.height=4, fig.dpi=700}
+#| label: fig-boot-all-diff
+#| cache: true
+plot(allBoot, plot = "difference", order = "sample", onlyNonZero = FALSE, labels = TRUE)
+```
+
+The accuracy of centrality is assessed by the case dropping test. In the case dropping test, several proportions of cases are dropped from the data and the correlation between the observed centrality measure and those obtained from the subsetted data is calculated. If the correlation dropped markedly after dropping a small subset of the cases, then the centrality measure is unreliable. 
+
+
+
+```{r, message=FALSE}
+#| cache: true
+set.seed(1)
+centBoot <- bootnet(
+  allNetwork,                # network input
+  default = "EBICglasso",    # method
+  type = "case",             # method for testing centrality stability
+  nCores = nCores,           # number of cores
+  computeCentrality = TRUE,  # compute centrality
+  statistics = c("strength", "expectedInfluence"),
+  nBoots = 19000,            # number of bootstraps
+  caseMin = .05,             # min cases to drop
+  caseMax = .95              # max cases to drop
+  )
+```
+The correlation stability coefficient is a metric that is used to judge the stability of the centrality measure using the case dropping test and is estimated as the maximum drop to retain retain 0.7 of the sample. 
+```{r, eval = F}
+corStability(centBoot)
+```
+ 
+If we plot the results (@fig-cent-boot1), we can see that the correlation stability coefficient is 0.95 which is very high indicating the stability of the edges.
+```{r, message=FALSE, fig.cap="Average correlation stability coefficient"}
+#| label: fig-cent-boot1
+plot(centBoot)
+```
+
+## Discussion
+
+The field of psychological networks is growing fast and methods are refined at a fast speed. In the current chapter, we have tried to show the basic steps of analyzing a psychological network, visualizing the results and comparing different networks. We have also shown how networks can be compared using robust statistical methods. Furthermore, we also showed how to test the accuracy of the estimated networks using the bootstrapping methods. 
+
+An important question here is how psychological networks compare to other methods that are prevalent in the educational field e.g., Epistemic Network Analysis (ENA). In ENA, there is no way to test if the network edges are different from random, there is no rigorous method for comparison of networks or verifying the edge weights. Also, there are no centrality measures or network measures. In fact, ENA loses all connection to network methods and therefore, the usual methods for verifying, randomization or computing of network measures do not apply in ENA [@Elmoazen_Saqr_Tedre_Hirsto_2022]. The same can be said about process mining which produces transition networks. In process mining, there are few confirmatory tests that verify the resulting model or rigorously compare across process models. Perhaps social networks analysis (SNA) is the closest to psychological networks. However, SNA is limited to ---or has been commonly used with–-- limited types of edges (e.g., co-occurrence, reply or interactions); these edges are almost always unsigned (i.e., are always positive) and have been limited to either social interactions or semantic interactions [@López-Pernas_Saqr_2024; @Saqr_López-Pernas_Conde_Hernández-García_2024; @Saqr_Poquet_Lopez-Pernas_2022].
+
+In sum, psychological networks offer far more wider perspectives into interactions ---or interdependencies--- among variables with a vast number of possible estimation methods and optimization techniques. Furthermore, psychological networks have a vibrant community who refine and push the boundary of the existing methods [@Isvoranu_Epskamp_Waldorp_Borsboom_2022]. All of such advantages make psychological networks a promising  method for modeling complex systems, understanding interactions and structure of psychological constructs as we demonstrated here [@Epskamp_Borsboom_Fried_2018; @Malmberg_Saqr_Järvenoja_Haataja_Pijeira-Díaz_Järvelä_2022]. Furthermore, psychological networks require no prior theory or strong assumptions about the modeled variables and can serve as powerful analytical methods. As Borsboom et al. states psychological networks "form a natural bridge from data analysis to theory formation based on network science principles" and therefore can be used "to generate causal hypotheses"  [@Borsboom_Deserno_Rhemtulla_Epskamp_Fried_McNally_Robinaugh_Perugini_Dalege_Costantini_et_al._2021].
+ 
+
+The book is a comprehensive reference for psychological networks from theory, to methods and estimation techniques.  The following papers offer excellent guides and tutorials:
+
+  * Epskamp, S., Borsboom, D., & Fried, E. I. (2018). Estimating psychological networks and their accuracy: A tutorial paper. *Behavior research methods*, 50, 195-212.
+  * Epskamp, S., & Fried, E. I. (2018). A tutorial on regularized partial correlation networks. *Psychological methods*, 23(4), 617.
+  * Van Borkulo, C. D., van Bork, R., Boschloo, L., Kossakowski, J. J., Tio, P., Schoevers, R. A., ... & Waldorp, L. J. (2022). Comparing network structures on three aspects: A permutation test. *Psychological methods*.
+  * Borsboom, D., Deserno, M. K., Rhemtulla, M., Epskamp, S., Fried, E. I., McNally, R. J., ... & Waldorp, L. J. (2021). Network analysis of multivariate data in psychological science. *Nature Reviews Methods Primers*, 1(1), 58.
+  * Bringmann, L. F., Elmer, T., Epskamp, S., Krause, R. W., Schoch, D., Wichers, M., ... & Snippe, E. (2019). What do centrality measures measure in psychological networks?. *Journal of abnormal psychology*, 128(8), 892.
+
+
+# References
+
+::: {#refs}
+:::

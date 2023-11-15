@@ -391,6 +391,7 @@ plot(mod, what = "classification")
 The estimated model identifies three clusters of varying size. The third group (shown as filled green triangles) accounts for more than 50% of the observations, while the first (shown as blue filled points) and the second (shown as red open squares) account for approximately 29% and 16%, respectively. The smallest cluster is also the group with the largest engagement scores.
 
 The different engagement behaviour of the three identified clusters can be shown using a latent profiles plot of the estimated means with point sizes proportional to the estimated mixing probabilities (see @fig-latent-profiles):
+
 ```{r}
 #| label: fig-latent-profiles
 #| fig-width: 5
