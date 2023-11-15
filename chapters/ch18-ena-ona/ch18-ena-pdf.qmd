@@ -895,7 +895,6 @@ ona:::plot.ena.ordered.set(set.ona, title = "FirstGame (red) mean network") |>
     node_size_multiplier = node_size_multiplier,
     node_position_multiplier = node_position_multiplier,
     self_connection_color = c("red"))
-
 ```
 
 Since this is the first ONA network visualization in this chapter, we briefly explain how to read an ONA network.

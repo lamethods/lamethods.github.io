@@ -19,9 +19,6 @@ format:
     df-print: "paged"
     # fig-align: "center"
     self-contained: true
-execute: 
-  results: 'asis'
-    
 always_allow_html: yes
 abstract-title: "Abstract"
 abstract: "This chapter provides a tutorial on conducting epistemic network analysis (ENA) and ordered network analysis (ONA) using R. We introduce these two techniques together because they share similar theoretical foundations, but each addresses a different challenge for analyzing large-scale qualitative data on learning processes. ENA and ONA are methods for quantifying, visualizing, and interpreting network data. Taking coded data as input, ENA and ONA represent associations between codes in undirected or directed weighted network models, respectively. Both techniques measure the strength of association among codes and illustrate the structure of connections in network graphs, and they quantify changes in the composition and strength of those connections over time. Importantly, ENA and ONA enable comparison of networks both visually and via summary statistics, so they can be used to explore a wide range of research questions in contexts where patterns of association in coded data are hypothesized to be meaningful and where comparing those patterns across individuals or groups is important."
@@ -319,8 +316,9 @@ second.game.mean = as.vector(colMeans(second.game.lineweights))
 During plotting, use a pipe `|>` to send the output of one function into the first parameter of the subsequent function. To distinguish the two mean networks, set the color of the FirstGame mean network to red.
 
 ```{r}
-ena.plot(set.ena, title = "FirstGame mean plot")  |>
+p<-ena.plot(set.ena, title = "FirstGame mean plot")  |>
   ena.plot.network(network = first.game.mean, colors = c("red"))
+p
 ```
 
 and the color of the SecondGame mean network to blue.
@@ -452,7 +450,7 @@ In this unit-level subtracted network, Unit A (red) made relatively more connect
 
 The helper function `ena.plotter` enables users to plot points, means, and networks for each condition at the same time. This gives the same results as above more parsimoniously. However, this approach does not enable customization of edge and point colors.
 
-```{r, results='asis'}
+```{r }
 #with helper function
 p<-ena.plotter(set.ena,
             points = T,
@@ -891,7 +889,7 @@ First, plot the mean network for the FirstGame condition. Use a pipe `|>` to con
 
 
 
-```{r,results='asis', out.width="100%"}
+```{r,results='asis', out.width="100%", results='asis'}
 ona:::plot.ena.ordered.set(set.ona, title = "FirstGame (red) mean network") |>
   edges(
     weights =set.ona$line.weights$Condition$FirstGame,
