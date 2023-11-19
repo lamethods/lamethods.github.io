@@ -1,4 +1,4 @@
-e---
+---
 title: "Epistemic Network Analysis and Ordered Network Analysis in Learning Analytics"
 author: 
    - name: "Yuanru Tan"

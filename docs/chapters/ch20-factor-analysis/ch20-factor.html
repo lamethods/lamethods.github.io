@@ -1,0 +1,1340 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.2.269">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="author" content="Leonie V.D.E. Vogelsmeier">
+<meta name="author" content="Mohammed Saqr">
+<meta name="author" content="Sonsoles López-Pernas">
+<meta name="author" content="Joran Jongerling">
+<meta name="keywords" content="factor analysis, exploratory factor analysis, confirmatory factor analysis, learning analytics">
+
+<title>Learning analytics methods and tutorials - 20&nbsp; Factor Analysis in Education Research Using R</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1.6em;
+  vertical-align: middle;
+}
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { color: #008000; } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { color: #008000; font-weight: bold; } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+}
+.hanging div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}
+</style>
+
+
+<script src="../../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../../">
+<link href="../../chapters/ch21-sem/ch21-sem.html" rel="next">
+<link href="../../chapters/ch19-psychological-networks/ch19-psych.html" rel="prev">
+<script src="../../site_libs/cookie-consent/cookie-consent.js"></script>
+<link href="../../site_libs/cookie-consent/cookie-consent.css" rel="stylesheet">
+<script src="../../site_libs/quarto-html/quarto.js"></script>
+<script src="../../site_libs/quarto-html/popper.min.js"></script>
+<script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "sidebar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "start",
+  "type": "textbox",
+  "limit": 20,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit"
+  }
+}</script>
+<script async="" src="https://www.googletagmanager.com/gtag/js?id=G-Y4VBV3J9WD"></script>
+
+<script type="text/plain" cookie-consent="tracking">
+
+window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+gtag('js', new Date());
+gtag('config', 'G-Y4VBV3J9WD', { 'anonymize_ip': true});
+</script>
+
+<script type="text/javascript" charset="UTF-8">
+document.addEventListener('DOMContentLoaded', function () {
+cookieconsent.run({
+  "notice_banner_type":"simple",
+  "consent_type":"implied",
+  "palette":"light",
+  "language":"en",
+  "page_load_consent_levels":["strictly-necessary","functionality","tracking","targeting"],
+  "notice_banner_reject_button_hide":false,
+  "preferences_center_close_button_hide":false,
+  "website_name":""
+  });
+});
+</script> 
+  
+
+<link href="../../site_libs/pagedtable-1.1/css/pagedtable.css" rel="stylesheet">
+<script src="../../site_libs/pagedtable-1.1/js/pagedtable.js"></script>
+
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<meta name="twitter:title" content="Learning analytics methods and tutorials - 20&nbsp; Factor Analysis in Education Research Using R">
+<meta name="twitter:description" content="Factor analysis is a method commonly employed to reduce a large number of variables into fewer numbers of factors.">
+<meta name="twitter:card" content="summary">
+<meta name="citation_title" content="[20]{.chapter-number}&nbsp; [Factor Analysis in Education Research Using R]{.chapter-title}">
+<meta name="citation_abstract" content="Factor analysis is a method commonly employed to reduce a large number of variables into fewer numbers of factors. The method is often used to identify which observable indicators are representative of latent, not directly-observed constructs. This is a key step in developing valid instruments to assess latent constructs in educational research (e.g., student engagement or motivaion). The chapter describes the two main approaches for conducting factor analysis in detail and provides a tutorial on how to implement both techniques with the R programming language. The first is confirmatory factor analysis (CFA), a more theory-driven approach,  in which a researcher actively specifies the number of underlying constructs as well as the pattern of relations between these dimensions and observed variables. The second is exploratory factor analysis (EFA), a more data-driven approach, in which the number of underlying constructs is inferred from the data, and all underlying constructs are assumed to influence all observed variables (at least to some degree).">
+<meta name="citation_keywords" content="factor analysis, exploratory factor analysis, confirmatory factor analysis, learning analytics">
+<meta name="citation_author" content="Leonie V.D.E. Vogelsmeier">
+<meta name="citation_author" content="Mohammed Saqr">
+<meta name="citation_author" content="Sonsoles López-Pernas">
+<meta name="citation_author" content="Joran Jongerling">
+<meta name="citation_fulltext_html_url" content="https://lamethods.github.io/ch20-factor.html">
+<meta name="citation_language" content="en">
+<meta name="citation_reference" content="citation_title=Redefining“ what” in analyses of who does what in MOOCs;,citation_author=Alok Baikadi;,citation_author=Carrie Demmans Epp;,citation_author=Yanjin Long;,citation_author=Christian Schunn;,citation_publication_date=2016;,citation_cover_date=2016;,citation_year=2016;,citation_fulltext_html_url=https://www.educationaldatamining.org/EDM2016/proceedings/paper_128.pdf;,citation_conference_title=Proceedings of the 9th international conference on educational data mining;">
+<meta name="citation_reference" content="citation_title=Tests of significance in factor analysis;,citation_author=M S Bartlett;,citation_publication_date=1950-06;,citation_cover_date=1950-06;,citation_year=1950;,citation_fulltext_html_url=https://bpspsychub.onlinelibrary.wiley.com/doi/10.1111/j.2044-8317.1950.tb00285.x;,citation_issue=2;,citation_doi=10.1111/j.2044-8317.1950.tb00285.x;,citation_issn=0007-1102, 0950-561X;,citation_volume=3;,citation_journal_title=Br. J. Math. Stat. Psychol.;,citation_publisher=Wiley;">
+<meta name="citation_reference" content="citation_title=Practical issues in structural modeling;,citation_abstract=Practical problems that are frequently encountered in applications of covariance structure analysis are discussed and solutions are suggested. Conceptual, statistical, and practical requirements for structural modeling are reviewed to indicate how basic assumptions might be violated. Problems associated with estimation, results, and model fit are also mentioned. Various issues in each area are raised, and possible solutions are provided to encourage more appropriate and successful applications of structural modeling.;,citation_author=P M Bentler;,citation_author=Chih-Ping Chou;,citation_publication_date=1987-08;,citation_cover_date=1987-08;,citation_year=1987;,citation_fulltext_html_url=http://dx.doi.org/10.1177/0049124187016001004;,citation_issue=1;,citation_doi=10.1177/0049124187016001004;,citation_issn=0049-1241, 1552-8294;,citation_volume=16;,citation_journal_title=Sociol. Methods Res.;,citation_publisher=SAGE Publications;">
+<meta name="citation_reference" content="citation_title=Alternative ways of assessing model fit;,citation_abstract=This article is concerned with measures of fit of a model. Two types of error involved in fitting a model are considered. The first is error of approximation which involves the fit of the model, with optimally chosen but unknown parameter values, to the population covariance matrix. The second is overall error which involves the fit of the model, with parameter values estimated from the sample, to the population covariance matrix. Measures of the two types of error are proposed and point and interval estimates of the measures are suggested. These measures take the number of parameters in the model into account in order to avoid penalizing parsimonious models. Practical difficulties associated with the usual tests of exact fit or a model are discussed and a test of ?close fit? of a model is suggested.;,citation_author=Michael W Browne;,citation_author=Robert Cudeck;,citation_publication_date=1992-11;,citation_cover_date=1992-11;,citation_year=1992;,citation_fulltext_html_url=https://doi.org/10.1177/0049124192021002005;,citation_issue=2;,citation_doi=10.1177/0049124192021002005;,citation_issn=0049-1241;,citation_volume=21;,citation_journal_title=Sociol. Methods Res.;,citation_publisher=SAGE Publications Inc;">
+<meta name="citation_reference" content="citation_title=Factor analysis of variables with 2, 3, 5 and 7 response categories: A comparison of categorical variable estimators using simulated data;,citation_abstract=Two estimators in the factor analysis of categorical items are studied, the weighted least squares function implemented in the tandem PRELIS-LISREL 7 and a generalized least squares function implemented in LISCOMP. Of main interest is the performance of these estimators in relatively small samples (200 to 400) and the comparison of their performance with the normal theory maximum likelihood estimator given an increasing number of response categories. The evaluation of the performance of these estimators concerns the variability of the parameter estimates, the bias of the parameter estimates, the distribution of the parameter estimates and the \chi2 goodness-of-fit statistics. The model used in the simulation is an 8-indicator single common factor model. The effect of model size (12- and 16-indicator models) on the categorical item estimator of LISREL 7 is investigated briefly. The results indicate that in the ideal circumstances of the simulation study, 200 is too small a sample size to justify the use of large sample statistics associated with these estimators.;,citation_author=Conor V Dolan;,citation_publication_date=1994-11;,citation_cover_date=1994-11;,citation_year=1994;,citation_fulltext_html_url=https://bpspsychub.onlinelibrary.wiley.com/doi/10.1111/j.2044-8317.1994.tb01039.x;,citation_issue=2;,citation_doi=10.1111/j.2044-8317.1994.tb01039.x;,citation_issn=0007-1102, 2044-8317;,citation_volume=47;,citation_journal_title=Br. J. Math. Stat. Psychol.;,citation_publisher=Wiley;">
+<meta name="citation_reference" content="citation_title=Counting clicks is not enough: Validating a theorized model of engagement in learning analytics;,citation_abstract=Student engagement is often considered an overarching construct in educational research and practice. Though frequently employed in the learning analytics literature, engagement has been subjected to a variety of interpretations and there is little consensus regarding the very definition of the construct. This raises grave concerns with regards to construct validity: namely, do these varied metrics measure the same thing? To address such concerns, this paper proposes, quantifies, and validates a model of engagement which is both grounded in the theoretical literature and described by common metrics drawn from the field of learning analytics. To identify a latent variable structure in our data we used exploratory factor analysis and validated the derived model on a separate sub-sample of our data using confirmatory factor analysis. To analyze the associations between our latent variables and student outcomes, a structural equation model was fitted, and the validity of this model across different course settings was assessed using MIMIC modeling. Across different domains, the broad consistency of our model with the theoretical literature suggest a mechanism that may be used to inform both interventions and course design.;,citation_author=Ed Fincham;,citation_author=Alexander Whitelock-Wainwright;,citation_author=Vitomir Kovanović;,citation_author=Srećko Joksimović;,citation_author=Jan-Paul Staalduinen;,citation_author=Dragan Gašević;,citation_publication_date=2019-03;,citation_cover_date=2019-03;,citation_year=2019;,citation_fulltext_html_url=https://doi.org/10.1145/3303772.3303775;,citation_doi=10.1145/3303772.3303775;,citation_isbn=9781450362566;,citation_conference_title=Proceedings of the 9th international conference on learning analytics &amp;amp;amp; knowledge;,citation_conference=Association for Computing Machinery;,citation_series_title=LAK19;">
+<meta name="citation_reference" content="citation_title=A rationale and test for the number of factors in factor analysis;,citation_author=J L Horn;,citation_publication_date=1965-06;,citation_cover_date=1965-06;,citation_year=1965;,citation_fulltext_html_url=http://dx.doi.org/10.1007/BF02289447;,citation_doi=10.1007/BF02289447;,citation_issn=0033-3123;,citation_pmid=14306381;,citation_volume=30;,citation_journal_title=Psychometrika;">
+<meta name="citation_reference" content="citation_title=Analysis of a complex of statistical variables into principal components;,citation_author=H Hotelling;,citation_publication_date=1933-09;,citation_cover_date=1933-09;,citation_year=1933;,citation_fulltext_html_url=http://doi.apa.org/getdoi.cfm?doi=10.1037/h0071325;,citation_issue=6;,citation_doi=10.1037/h0071325;,citation_issn=0022-0663, 1939-2176;,citation_volume=24;,citation_journal_title=J. Educ. Psychol.;,citation_publisher=American Psychological Association (APA);">
+<meta name="citation_reference" content="citation_title=Cutoff criteria for fit indexes in covariance structure analysis: Conventional criteria versus new alternatives;,citation_abstract=This article examines the adequacy of the ?rules of thumb? conventional cutoff criteria and several new alternatives for various fit indexes used to evaluate model fit in practice. Using a 2?index presentation strategy, which includes using the maximum likelihood (ML)?based standardized root mean squared residual (SRMR) and supplementing it with either Tucker?Lewis Index (TLI), Bollen’s (1989) Fit Index (BL89), Relative Noncentrality Index (RNI), Comparative Fit Index (CFI), Gamma Hat, McDonald’s Centrality Index (Mc), or root mean squared error of approximation (RMSEA), various combinations of cutoff values from selected ranges of cutoff criteria for the ML?based SRMR and a given supplemental fit index were used to calculate rejection rates for various types of true?population and misspecified models; that is, models with misspecified factor covariance(s) and models with misspecified factor loading(s). The results suggest that, for the ML method, a cutoff value close to .95 for TLI, BL89, CFI, RNI, and Gamma Hat; a cutoff value close to .90 for Mc; a cutoff value close to .08 for SRMR; and a cutoff value close to .06 for RMSEA are needed before we can conclude that there is a relatively good fit between the hypothesized model and the observed data. Furthermore, the 2?index presentation strategy is required to reject reasonable proportions of various types of true?population and misspecified models. Finally, using the proposed cutoff criteria, the ML?based TLI, Mc, and RMSEA tend to overreject true?population models at small sample size and thus are less preferable when sample size is small.;,citation_author=Li‐tze Hu;,citation_author=Peter M Bentler;,citation_publication_date=1999-01;,citation_cover_date=1999-01;,citation_year=1999;,citation_fulltext_html_url=https://doi.org/10.1080/10705519909540118;,citation_issue=1;,citation_doi=10.1080/10705519909540118;,citation_issn=1070-5511;,citation_volume=6;,citation_journal_title=Struct. Equ. Modeling;,citation_publisher=Routledge;">
+<meta name="citation_reference" content="citation_title=Revisiting sample size and number of parameter estimates: Some support for the n:q hypothesis;,citation_author=Dennis L. Jackson;,citation_publication_date=2003-01;,citation_cover_date=2003-01;,citation_year=2003;,citation_issue=1;,citation_issn=1070-5511;,citation_volume=10;,citation_journal_title=Structural equation modeling: a multidisciplinary journal;,citation_publisher=Informa UK Limited;">
+<meta name="citation_reference" content="citation_title=Structural equation modeling with R for education scientists;,citation_author=Joran Jongerling;,citation_author=Sonsoles López-Pernas;,citation_author=Mohammed Saqr;,citation_author=Leonie Vogelsmeier;,citation_editor=Mohammed Saqr;,citation_editor=Sonsoles López-Pernas;,citation_publication_date=2024;,citation_cover_date=2024;,citation_year=2024;,citation_inbook_title=Learning analytics methods and tutorials: A practical guide using R;">
+<meta name="citation_reference" content="citation_title=A general approach to confirmatory maximum likelihood factor analysis;,citation_abstract=We describe a general procedure by which any number of parameters of the factor analytic model can be held fixed at any values and the remaining free parameters estimated by the maximum likelihood method. The generality of the approach makes it possible to deal with all kinds of solutions: orthogonal, oblique and various mixtures of these. By choosing the fixed parameters appropriately, factors can be defined to have desired properties and make subsequent rotation unnecessary. The goodness of fit of the maximum likelihood solution under the hypothesis represented by the fixed parameters is tested by a large samplex2 test based on the likelihood ratio technique. A by-product of the procedure is an estimate of the variance-covariance matrix of the estimated parameters. From this, approximate confidence intervals for the parameters can be obtained. Several examples illustrating the usefulness of the procedure are given.;,citation_author=K G Jöreskog;,citation_publication_date=1969-06;,citation_cover_date=1969-06;,citation_year=1969;,citation_fulltext_html_url=https://doi.org/10.1007/BF02289343;,citation_issue=2;,citation_doi=10.1007/BF02289343;,citation_issn=0033-3123, 1860-0980;,citation_volume=34;,citation_journal_title=Psychometrika;">
+<meta name="citation_reference" content="citation_title=LISREL 8: Structural equation modeling with the SIMPLIS command language;,citation_author=Karl G Jöreskog;,citation_author=Dag Sörbom;,citation_publication_date=1993;,citation_cover_date=1993;,citation_year=1993;">
+<meta name="citation_reference" content="citation_title=A second generation little jiffy;,citation_author=Henry F Kaiser;,citation_publication_date=1970-12;,citation_cover_date=1970-12;,citation_year=1970;,citation_fulltext_html_url=https://doi.org/10.1007/BF02291817;,citation_issue=4;,citation_doi=10.1007/BF02291817;,citation_issn=0033-3123, 1860-0980;,citation_volume=35;,citation_journal_title=Psychometrika;">
+<meta name="citation_reference" content="citation_title=Techniques for rotating two or more loading matrices to optimal agreement and simple structure: A comparison and some technical details;,citation_author=Henk A L Kiers;,citation_publication_date=1997-12;,citation_cover_date=1997-12;,citation_year=1997;,citation_fulltext_html_url=https://doi.org/10.1007/BF02294642;,citation_issue=4;,citation_doi=10.1007/BF02294642;,citation_issn=0033-3123, 1860-0980;,citation_volume=62;,citation_journal_title=Psychometrika;">
+<meta name="citation_reference" content="citation_title=Principles and practice of structural equation modeling;,citation_abstract=Emphasizing concepts and rationale over mathematical minutiae, this is the most widely used, complete, and accessible structural equation modeling (SEM) text. Continuing the tradition of using real data examples from a variety of disciplines, the significantly revised fourth edition incorporates recent developments such as Pearl’s graphing theory and the structural causal model (SCM), measurement invariance, and more. Readers gain a comprehensive understanding of all phases of SEM, from data collection and screening to the interpretation and reporting of the results. Learning is enhanced by exercises with answers, rules to remember, and topic boxes. The companion website supplies data, syntax, and output for the book’s examples–now including files for Amos, EQS, LISREL, Mplus, Stata, and R (lavaan). New to This Edition *Extensively revised to cover important new topics: Pearl’s graphing theory and the SCM, causal inference frameworks, conditional process modeling, path models for longitudinal data, item response theory, and more. *Chapters on best practices in all stages of SEM, measurement invariance in confirmatory factor analysis, and significance testing issues and bootstrapping. *Expanded coverage of psychometrics. *Additional computer tools: online files for all detailed examples, previously provided in EQS, LISREL, and Mplus, are now also given in Amos, Stata, and R (lavaan). *Reorganized to cover the specification, identification, and analysis of observed variable models separately from latent variable models. Pedagogical Features *Exercises with answers, plus end-of-chapter annotated lists of further reading. *Real examples of troublesome data, demonstrating how to handle typical problems in analyses. *Topic boxes on specialized issues, such as causes of nonpositive definite correlations. *Boxed rules to remember. *Website promoting a learn-by-doing approach, including syntax and data files for six widely used SEM computer tools.;,citation_author=Rex B Kline;,citation_publication_date=2015-11;,citation_cover_date=2015-11;,citation_year=2015;,citation_fulltext_html_url=https://play.google.com/store/books/details?id=3VauCgAAQBAJ;,citation_isbn=9781462523344;">
+<meta name="citation_reference" content="citation_title=A multiple study investigation of the evaluation framework for learning analytics: Instrument validation and the impact on learner performance;,citation_abstract=The purposes of the two studies reported in this research are to adapt and validate the instrument of the Evaluation Framework for Learning Analytics (EFLA) for learners into the Turkish context, and to examine how metacognitive and behavioral factors predict learner performance. Study 1 was conducted with 83 online learners enrolled in a 16-week course delivered through the Moodle learning management system. The findings from the confirmatory factor analysis indicated that a three-factor model of the EFLA for learners provided the best model fit for the collected data. The model is consistent with the factorial structure of the original instrument developed based on the data from the European learners. Study 2 aimed to reveal how the metacognitive and behavioral factors pertaining to the learning analytics dashboard predict learners’ academic performance. A total of 63 online learners enrolled in a 14-week online computing course participated in this study. The results from the logistic regression analysis indicated that online learners more frequently interacted with the learning analytics dashboard demonstrated greater academic performance. Furthermore, the dimensions of the EFLA, together with the interaction with the dashboard, significantly predicted learners’ academic performance. This multiple-study investigation contributes to the generalizability of the EFLA for learners and highlights the importance of metacognitive and behavioral factors for the impact of learning analytics dashboards on learner performance.;,citation_author=Mehmet Kokoç;,citation_author=Mehmet Kara;,citation_publication_date=2021;,citation_cover_date=2021;,citation_year=2021;,citation_fulltext_html_url=https://www.jstor.org/stable/26977854;,citation_issue=1;,citation_issn=11763647, 14364522;,citation_volume=24;,citation_journal_title=Educational Technology &amp;amp;amp; Society;,citation_publisher=International Forum of Educational Technology &amp;amp; Society;">
+<meta name="citation_reference" content="citation_title=Factor analysis as a statistical method;,citation_author=D N Lawley;,citation_author=A E Maxwell;,citation_publication_date=1962;,citation_cover_date=1962;,citation_year=1962;,citation_fulltext_html_url=http://www.jstor.org/stable/2986915;,citation_issue=3;,citation_doi=10.2307/2986915;,citation_issn=1467-9884;,citation_volume=12;,citation_journal_title=Journal of the Royal Statistical Society. Series D (The Statistician);,citation_publisher=[Royal Statistical Society, Wiley];">
+<meta name="citation_reference" content="citation_title=Visualizing and reporting educational data with R;,citation_author=Sonsoles López-Pernas;,citation_author=Kamila Misiejuk;,citation_author=Santtu Tikka;,citation_author=Mohammed Saqr;,citation_author=Juho Kopra;,citation_author=Merja Heinäniemi;,citation_editor=Mohammed Saqr;,citation_editor=Sonsoles López-Pernas;,citation_publication_date=2024;,citation_cover_date=2024;,citation_year=2024;,citation_inbook_title=Learning analytics methods and tutorials: A practical guide using R;">
+<meta name="citation_reference" content="citation_title=A broad collection of datasets for educational research training and application;,citation_author=Sonsoles López-Pernas;,citation_author=Mohammed Saqr;,citation_author=Javier Conde;,citation_author=Laura Del-Rı́o-Carazo;,citation_editor=Mohammed Saqr;,citation_editor=Sonsoles López-Pernas;,citation_publication_date=2024;,citation_cover_date=2024;,citation_year=2024;,citation_inbook_title=Learning analytics methods and tutorials: A practical guide using R;">
+<meta name="citation_reference" content="citation_title=Factors that affect the success of learning analytics dashboards;,citation_author=Yeonjeong Park;,citation_author=Il-Hyun Jo;,citation_publication_date=2019-12;,citation_cover_date=2019-12;,citation_year=2019;,citation_fulltext_html_url=https://doi.org/10.1007/s11423-019-09693-0;,citation_issue=6;,citation_doi=10.1007/s11423-019-09693-0;,citation_issn=1042-1629, 1556-6501;,citation_volume=67;,citation_journal_title=Educ. Technol. Res. Dev.;">
+<meta name="citation_reference" content="citation_title=Datawizard: An R package for easy data preparation and statistical transformations;,citation_author=Indrajeet Patil;,citation_author=Dominique Makowski;,citation_author=Mattan S Ben-Shachar;,citation_author=Brenton M Wiernik;,citation_author=Etienne Bacher;,citation_author=Daniel Lüdecke;,citation_publication_date=2022-10;,citation_cover_date=2022-10;,citation_year=2022;,citation_fulltext_html_url=https://joss.theoj.org/papers/10.21105/joss.04684;,citation_issue=78;,citation_doi=10.21105/joss.04684;,citation_issn=2475-9066;,citation_volume=7;,citation_journal_title=J. Open Source Softw.;,citation_publisher=The Open Journal;">
+<meta name="citation_reference" content="citation_title=Teachers’ burnout: A SEM analysis in an asian context;,citation_abstract=Researchers in educational psychology have researched Teacher Self-Concept (TSC) and Teacher Efficacy (TE) as two main predictors predicting burnout. Guided by a model developed by Zhu, Liu, Fu, Yang, Zhang &amp;amp;amp; Shi (2018), the researchers aimed at building a model involving TSC, TE, and three components of burnout; Emotional Exhaustion (EE), Depersonalization (DP), and Reduced Personal Accomplishment (RPA) through Structural Equation Modeling (SEM). The researchers investigated predicting factors of burnout by reporting TSC and TE that might directly affect the components and examine the probability of TE to become a mediator of the correlation between TSC and burnout. This research also examined whether the difference emerges constantly among demographic information (gender and teaching experience) regarding all involved variables. A sample of 876 teachers across three Indonesian provinces completed a printed form of questionnaires. Some statistical procedures namely Content Validity Index (CVI), Exploratory Factor Analysis (EFA), Confirmatory Factor Analysis (CFA), Covariance-Based Structural Equation Modeling (CB-SEM), and t-test were conducted. Findings informed that the model is valid and reliable. TSC could directly affect EE, DE, and RPA, as well as indirectly influence them mediated by TE. Besides, TE is also reported to have significant relationships with EE, DE, and RPA. No significant differences in terms of age and teaching experiences emerge, except for EE.;,citation_author=Lantip Diat Prasojo;,citation_author=Akhmad Habibi;,citation_author=Mohd Faiz Mohd Yaakob;,citation_author=Robin Pratama;,citation_author=Mat Rahimi Yusof;,citation_author=Amirul Mukminin;,citation_author=Suyanto;,citation_author=Farida Hanum;,citation_publication_date=2020-01;,citation_cover_date=2020-01;,citation_year=2020;,citation_fulltext_html_url=http://dx.doi.org/10.1016/j.heliyon.2019.e03144;,citation_issue=1;,citation_doi=10.1016/j.heliyon.2019.e03144;,citation_issn=2405-8440;,citation_pmid=31938746;,citation_volume=6;,citation_journal_title=Heliyon;,citation_publisher=Elsevier BV;">
+<meta name="citation_reference" content="citation_title=Lavaan: An R package for structural equation modeling;,citation_author=Yves Rosseel;,citation_publication_date=2012;,citation_cover_date=2012;,citation_year=2012;,citation_fulltext_html_url=http://dx.doi.org/10.18637/jss.v048.i02;,citation_issue=2;,citation_doi=10.18637/jss.v048.i02;,citation_issn=1548-7660;,citation_volume=48;,citation_journal_title=J. Stat. Softw.;,citation_publisher=Foundation for Open Access Statistic;">
+<meta name="citation_reference" content="citation_title=The lavaan tutorial;,citation_author=Yves Rosseel;,citation_publication_date=2023;,citation_cover_date=2023;,citation_year=2023;,citation_fulltext_html_url=https://lavaan.ugent.be/tutorial/;">
+<meta name="citation_reference" content="citation_title=Estimating the dimension of a model;,citation_abstract=The problem of selecting one of a number of models of different dimensions is treated by finding its Bayes solution, and evaluating the leading terms of its asymptotic expansion. These terms are a valid large-sample criterion beyond the Bayesian context, since they do not depend on the a priori distribution.;,citation_author=Gideon Schwarz;,citation_publication_date=1978-03;,citation_cover_date=1978-03;,citation_year=1978;,citation_fulltext_html_url=https://projecteuclid.org/journals/annals-of-statistics/volume-6/issue-2/Estimating-the-Dimension-of-a-Model/10.1214/aos/1176344136.full;,citation_issue=2;,citation_doi=10.1214/aos/1176344136;,citation_issn=0090-5364, 2168-8966;,citation_volume=6;,citation_journal_title=Annals of Statistics;,citation_publisher=Institute of Mathematical Statistics;">
+<meta name="citation_reference" content="citation_title=“General intelligence,” objectively determined and measured;,citation_author=C Spearman;,citation_publication_date=1904;,citation_cover_date=1904;,citation_year=1904;,citation_fulltext_html_url=http://www.jstor.org/stable/1412107;,citation_issue=2;,citation_doi=10.2307/1412107;,citation_issn=0002-9556;,citation_volume=15;,citation_journal_title=Am. J. Psychol.;,citation_publisher=University of Illinois Press;">
+<meta name="citation_reference" content="citation_title=Local fit evaluation of structural equation models using graphical criteria;,citation_abstract=Evaluation of model fit is critically important for every structural equation model (SEM), and sophisticated methods have been developed for this task. Among them are the \chi² goodness-of-fit test, decomposition of the \chi², derived measures like the popular root mean square error of approximation (RMSEA) or comparative fit index (CFI), or inspection of residuals or modification indices. Many of these methods provide a global approach to model fit evaluation: A single index is computed that quantifies the fit of the entire SEM to the data. In contrast, graphical criteria like d-separation or trek-separation allow derivation of implications that can be used for local fit evaluation, an approach that is hardly ever applied. We provide an overview of local fit evaluation from the viewpoint of SEM practitioners. In the presence of model misfit, local fit evaluation can potentially help in pinpointing where the problem with the model lies. For models that do fit the data, local tests can identify the parts of the model that are corroborated by the data. Local tests can also be conducted before a model is fitted at all, and they can be used even for models that are globally underidentified. We discuss appropriate statistical local tests, and provide applied examples. We also present novel software in R that automates this type of local fit evaluation. (PsycINFO Database Record;,citation_author=Felix Thoemmes;,citation_author=Yves Rosseel;,citation_author=Johannes Textor;,citation_publication_date=2018-03;,citation_cover_date=2018-03;,citation_year=2018;,citation_fulltext_html_url=http://dx.doi.org/10.1037/met0000147;,citation_issue=1;,citation_doi=10.1037/met0000147;,citation_issn=1082-989X, 1939-1463;,citation_pmid=28726444;,citation_volume=23;,citation_journal_title=Psychol. Methods;">
+<meta name="citation_reference" content="citation_title=The vectors of the mind: Multiple factor analysis for the isolation of primary traits;,citation_author=Louis Leon Thurstone;,citation_publication_date=2013-03;,citation_cover_date=2013-03;,citation_year=2013;,citation_isbn=9781258625788;">
+<meta name="citation_reference" content="citation_title=The multicultural personality questionnaire: A multidimensional instrument of multicultural effectiveness;,citation_author=Karen I. Zee;,citation_author=Jan Pieter Oudenhoven;,citation_publication_date=2000;,citation_cover_date=2000;,citation_year=2000;,citation_issue=4;,citation_doi=10.1002/1099-0984(200007/08)14:4&amp;amp;amp;lt;291::AID-PER377&amp;gt;3.0.CO;2-6;,citation_volume=14;,citation_journal_title=European Journal of Personality;">
+<meta name="citation_reference" content="citation_title=The student expectations of learning analytics questionnaire;,citation_abstract=Abstract Student engagement within the development of learning analytics services in Higher Education is an important challenge to address. Despite calls for greater inclusion of stakeholders, there still remains only a small number of investigations into students? beliefs and expectations towards learning analytics services. Therefore, this paper presents a descriptive instrument to measure student expectations (ideal and predicted) of learning analytics services. The scales used in the instrument are grounded in a theoretical framework of expectations, specifically ideal and predicted expectations. Items were then generated on the basis of four identified themes (Ethical and Privacy Expectations, Agency Expectations, Intervention Expectations, and Meaningfulness Expectations), which emerged after a review of the learning analytics literature. The results of an exploratory factor analysis and the results from both an exploratory structural equation model and confirmatory factor analysis supported a two-factor structure best accounted for the data pertaining to ideal and predicted expectations. Factor one refers to Ethical and Privacy Expectations, whilst factor two covers Service Feature Expectations. The 12-item Student Expectations of Learning Analytics Questionnaire (SELAQ) provides researchers and practitioners with a means of measuring of students? expectations of learning analytics services.;,citation_author=Alexander Whitelock-Wainwright;,citation_author=Dragan Gašević;,citation_author=Ricardo Tejeiro;,citation_author=Yi-Shan Tsai;,citation_author=Kate Bennett;,citation_publication_date=2019-10;,citation_cover_date=2019-10;,citation_year=2019;,citation_fulltext_html_url=https://onlinelibrary.wiley.com/doi/10.1111/jcal.12366;,citation_issue=5;,citation_doi=10.1111/jcal.12366;,citation_issn=0266-4909, 1365-2729;,citation_volume=35;,citation_journal_title=J. Comput. Assist. Learn.;,citation_publisher=Wiley;">
+<meta name="citation_reference" content="citation_title=Interpreting log data through the lens of learning design: Second-order predictors and their relations with learning outcomes in flipped classrooms;,citation_abstract=Flipped classrooms supported by learning management systems (LMS) have been widely adopted by educational institutions. However, earlier studies have found problems with interpreting LMS log data to understand student approaches to learning within the context of a learning design. This study investigates whether it is possible to use LMS log data as a proxy to understand students’ learning strategies over different periods of time in the flipped-classroom context. A total of 135 sophomores from two classes of a flipped programming course participated in this study. Exploratory factor analysis is first conducted on the log data to synthesize second-order predictors based on the total-effort model. Then, we investigate the extent to which these second-order predictors relate to students’ learning outcomes over time. Four types of learning outcomes are considered, including a quiz, a midterm exam, a final exam and the final grade. For each type of learning outcome, multiple linear regression is used to construct a weekly prediction model from these predictors. Adjusted R-squared and RMSE (Root Mean Square Error) are the metrics used to compare the models. The results show that consistent second-order predictors can be derived from log data, implying that students’ clicking events in LMS could manifest students’ learning strategies understandable in the design context of a flipped classroom. Furthermore, compared with the first-order models, most of the models constructed using the second-order predictors have higher predictive performance, although with lower data fitness. In addition, the predictive performance of the models with MSLQ (Motivated Strategies for Learning Questionnaire) indicators and past assessment data are also examined. It is found that MSQL variables have a positive but short-termed effect on the models’ predictive ability, while past assessment data greatly improve the models of all types of learning outcomes. Theoretical contributions and implications of the proposed approach for practice, research and future research are discussed.;,citation_author=Feng Hsu Wang;,citation_publication_date=2021-07;,citation_cover_date=2021-07;,citation_year=2021;,citation_fulltext_html_url=https://www.sciencedirect.com/science/article/pii/S0360131521000865;,citation_doi=10.1016/j.compedu.2021.104209;,citation_issn=0360-1315;,citation_volume=168;,citation_journal_title=Comput. Educ.;">
+<meta name="citation_reference" content="citation_title=Exploring a refined model of home literacy activities and associations with children’s emergent literacy skills;,citation_abstract=Based on the Home Literacy Model, this study explored a refined model of home literacy activities and their relations with children’s emergent literacy skills in a linguistic and socio-economic diverse sample of 214 Dutch kindergartners (mean age 4 years and 7 months, 46% girls and 29% monolingual speakers of Dutch). The study examined a typology of home literacy activities that explicitly addressed didactic approach and was not restricted to activities involving print. Next, the study explored the relations between activity types and children’s emergent literacy skills. Three activity categories were identified: code, oral language exposure and oral language teaching activities. Results of multilevel structural equation modeling showed that all types of home literacy activities were related to children’s oral language skills, although the association between oral language teaching and oral language skills was negative. Oral language skills were associated with children’s code and phonological skills. The outcomes indicate the existence of a more nuanced pattern of interrelations between elements of the home literacy environment and children’s literacy skills in this diverse sample than observed before.;,citation_author=Eke Krijnen;,citation_author=Roel Steensel;,citation_author=Marieke Meeuwisse;,citation_author=Joran Jongerling;,citation_author=Sabine Severiens;,citation_publication_date=2020-01;,citation_cover_date=2020-01;,citation_year=2020;,citation_fulltext_html_url=https://doi.org/10.1007/s11145-019-09957-4;,citation_issue=1;,citation_doi=10.1007/s11145-019-09957-4;,citation_issn=0922-4777, 1573-0905;,citation_volume=33;,citation_journal_title=Read. Writ.;">
+<meta name="citation_reference" content="citation_title=Validation of the multicultural personality questionnaire short form (MPQ-SF) for use in the context of international education;,citation_abstract=The Multicultural Personality Questionnaire (MPQ) is one of the most widely used instruments for measuring individuals’ intercultural competences. The original version consists of 91 items, divided into five subscales, and has been shown to predict attitudes, behavior, and outcomes in a variety of intercultural contexts. Recently, a 40-item short form of the MPQ was developed (MPQ-SF), which may be particularly useful in settings in which time or survey space are limited, or where respondent drop-out is likely to occur. For example, the MPQ-SF would be a valuable tool for assessing longitudinal development of multicultural personality traits in training or educational settings. A prerequisite for such research is to establish measurement invariance of the MPQ-SF between different respondent groups, as well as across time points. Using a sample of students in an international university program (n = 519), the present study examines how the scales perform among male and female respondents, between students of Western and Non-Western background, and across two time points, five months apart. Based on our findings, we conclude that all five subscales of the MPQ-SF display sufficient measurement invariance to be reliably used in this and similar contexts, in comparative as well as longitudinal study designs.;,citation_author=Joep Hofhuis;,citation_author=Joran Jongerling;,citation_author=Karen I Van der Zee;,citation_author=Jeroen Jansz;,citation_publication_date=2020-12;,citation_cover_date=2020-12;,citation_year=2020;,citation_fulltext_html_url=http://dx.doi.org/10.1371/journal.pone.0244425;,citation_issue=12;,citation_doi=10.1371/journal.pone.0244425;,citation_issn=1932-6203;,citation_pmid=33370395;,citation_volume=15;,citation_journal_title=PLoS One;">
+<meta name="citation_reference" content="citation_title=The learning analytics readiness instrument;,citation_abstract=Little is known about the processes institutions use when discerning their readiness to implement learning analytics. This study aims to address this gap in the literature by using survey data from the beta version of the Learning Analytics Readiness Instrument (LARI) [1]. Twenty-four institutions were surveyed and 560 respondents participated. Five distinct factors were identified from a factor analysis of the results: Culture; Data Management Expertise; Data Analysis Expertise; Communication and Policy Application; and, Training. Data were analyzed using both the role of those completing the survey and the Carnegie classification of the institutions as lenses. Generally, information technology professionals and institutions classified as Research Universities–Very High research activity had significantly different scores on the identified factors. Working within a framework of organizational learning, this paper details the concept of readiness as a reflective process, as well as how the implementation and application of analytics should be done so with ethical considerations in mind. Limitations of the study, as well as next steps for research in this area, are also discussed.;,citation_author=Meghan Oster;,citation_author=Steven Lonn;,citation_author=Matthew D Pistilli;,citation_author=Michael G Brown;,citation_publication_date=2016-04;,citation_cover_date=2016-04;,citation_year=2016;,citation_fulltext_html_url=https://doi.org/10.1145/2883851.2883925;,citation_doi=10.1145/2883851.2883925;,citation_isbn=9781450341905;,citation_conference_title=Proceedings of the sixth international conference on learning analytics &amp;amp;amp; knowledge;,citation_conference=Association for Computing Machinery;,citation_series_title=LAK ’16;">
+<meta name="citation_reference" content="citation_title=Predicting teamwork group assessment using log data-based learning analytics;,citation_abstract=The application of learning analytics techniques to log data from Learning Management Systems (LMS) has raised increasing interest in the past years. Advances in this field include the selection of adequate indicators and development of research frameworks. However, most research has focused on individual students, which has hampered the development of learning analytics for team assessment in collaborative learning contexts. From a four-dimensional view of teamwork, this study proposes a set of log data-based indicators to facilitate group assessment in project-based learning courses, and identify relevant predictors of final project results.;,citation_author=Ángel Hernández-Garcı́a;,citation_author=Emiliano Acquila-Natale;,citation_author=Julián Chaparro-Peláez;,citation_author=Miguel Á Conde;,citation_publication_date=2018-12;,citation_cover_date=2018-12;,citation_year=2018;,citation_fulltext_html_url=https://www.sciencedirect.com/science/article/pii/S0747563218303388;,citation_doi=10.1016/j.chb.2018.07.016;,citation_issn=0747-5632;,citation_volume=89;,citation_journal_title=Comput. Human Behav.;">
+<meta name="citation_reference" content="citation_title=A procedure for conducting factor analysis with large numbers of variables;,citation_author=JW Johnson;,citation_publication_date=2003;,citation_cover_date=2003;,citation_year=2003;,citation_conference_title=Poster presented at the 18th annual conference of the society for industrial and organizational psychology, orlando, FL;">
+<meta name="citation_reference" content="citation_title=The purpose and practice of exploratory and confirmatory factor analysis in psychological research: Decisions for scale development and validation;,citation_abstract=English: There are many high-quality resources available which describe best practices in the implementation of both exploratory factor analysis (EFA) and confirmatory factor analysis (CFA). Yet, partly owing to the complexity of these procedures, confusion persists among psychologists with respect to the implementation of EFA and CFA. Primary among these misunderstandings is the very mathematical distinction between EFA and CFA. The current paper uses a brief example to illustrate the difference between the statistical models underlying EFA and CFA, both of which are particular instantiations of the more general common factor model. Next, important considerations for the implementation of EFA and CFA discussed in this paper include the need to account for the categorical nature of item-level observed variables in factor analyses, the use of factor analysis in studies of the psychometric properties of new tests or questionnaires and previously developed tests, decisions about whether to use EFA or CFA in these contexts, and the importance of replication of factor analytic models in the ongoing pursuit of validation. (PsycINFO Database Record (c) 2019 APA, all rights reserved) French: De nombreuses ressources de haute qualité existent pour décrire les meilleures pratiques en matière de mise en œuvre de l’analyse factorielle exploratoire (AFE) et de l’analyse factorielle confirmatoire (AFC). Or, en partie dû à la complexité de ces procédures, une certaine confusion persiste entre les psychologues quant à la mise en œuvre de l’AFE et de l’AFC. L’une des principales sources de ces malentendus réside dans la distinction mathématique entre l’AFE et l’AFC. Le présent article utilise un bref exemple pour illustrer la différence entre les modèles statistiques sous-jacents à l’AFE et l’AFC, lesquels sont tous deux des instanciations particulières du modèle factoriel plus général. Ensuite, d’importantes considérations relatives à la mise en œuvre de l’AFE et de l’AFC, abordées dans le présent article, incluent la nécessité de tenir compte de la nature catégorique de variables observées au niveau des items dans les analyses factorielles, l’utilisation de l’analyse factorielle dans l’étude de propriétés psychométriques de nouveaux tests ou questionnaires et de tests élaborés dans le passé, des décisions quant à la procédure la plus appropriée – soit l’AFE ou l’AFC – dans ces contextes et l’importance de la reproduction de modèles d’analyse factorielle dans la poursuite de la validation en cours. (PsycINFO Database Record (c) 2019 APA, all rights reserved);,citation_author=David B Flora;,citation_author=Jessica K Flake;,citation_publication_date=2017-04;,citation_cover_date=2017-04;,citation_year=2017;,citation_fulltext_html_url=https://psycnet.apa.org/fulltext/2017-20844-002.pdf;,citation_issue=2;,citation_doi=10.1037/cbs0000069;,citation_issn=0008-400X;,citation_volume=49;,citation_journal_title=Can. J. Behav. Sci.;">
+</head>
+
+<body class="nav-sidebar floating">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+  <nav class="quarto-secondary-nav" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+    <div class="container-fluid d-flex justify-content-between">
+      <h1 class="quarto-secondary-nav-title"><span class="chapter-number">20</span>&nbsp; <span class="chapter-title">Factor Analysis in Education Research Using R</span></h1>
+      <button type="button" class="quarto-btn-toggle btn" aria-label="Show secondary navigation">
+        <i class="bi bi-chevron-right"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse sidebar-navigation floating overflow-auto">
+    <div class="pt-lg-2 mt-2 text-left sidebar-header">
+    <div class="sidebar-title mb-0 py-0">
+      <a href="../../">Learning analytics methods and tutorials</a> 
+        <div class="sidebar-tools-main">
+    <a href="https://github.com/lamethods/labook-code/" title="Source Code" class="sidebar-tool px-1"><i class="bi bi-github"></i></a>
+</div>
+    </div>
+      </div>
+      <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Search"></div>
+        </div>
+      </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../index.html" class="sidebar-item-text sidebar-link">Welcome</a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../contributors.html" class="sidebar-item-text sidebar-link">Contributors</a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../chapters/ch01-intro/intro.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Introduction</span></a>
+  </div>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true">Getting started</a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../chapters/ch02-data/ch2-data.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Data</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../chapters/ch03-intro-r/ch3-intor.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Intro to R</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../chapters/ch04-data-cleaning/ch4-datacleaning.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Data cleaning</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../chapters/ch05-basic-stats/ch5-stats.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Basic statistics</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../chapters/ch06-data-visualization/ch6-viz.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Data visualization</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="true">Machine Learning</a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="true">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../chapters/ch07-prediction/ch7-pred.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Predictive modeling</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../chapters/ch08-clustering/ch8-clus.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Dissimilarity-based Clustering</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../chapters/ch09-model-based-clustering/ch9-model.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Model-based clustering</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" aria-expanded="true">Temporal methods</a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" aria-expanded="true">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../chapters/ch10-sequence-analysis/ch10-seq.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Sequence analysis</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../chapters/ch11-vasstra/ch11-vasstra.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">VaSSTra</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../chapters/ch12-markov/ch12-markov.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Markov models</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../chapters/ch13-multichannel/ch13-multi.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Multi-channel sequences</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../chapters/ch14-process-mining/ch14-process.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">Process mining</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" aria-expanded="true">Network analysis</a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" aria-expanded="true">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../chapters/ch15-sna/ch15-sna.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">15</span>&nbsp; <span class="chapter-title">Social Network Analysis</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../chapters/ch16-community/ch16-comm.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">16</span>&nbsp; <span class="chapter-title">Community detection</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../chapters/ch17-temporal-networks/ch17-tna.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">17</span>&nbsp; <span class="chapter-title">Temporal Networks</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../chapters/ch18-ena-ona/ch18-ena.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">18</span>&nbsp; <span class="chapter-title">Epistemic Network Analysis</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" aria-expanded="true">Psychometrics</a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" aria-expanded="true">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-5" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../chapters/ch19-psychological-networks/ch19-psych.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">19</span>&nbsp; <span class="chapter-title">Psychological networks</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../chapters/ch20-factor-analysis/ch20-factor.html" class="sidebar-item-text sidebar-link active"><span class="chapter-number">20</span>&nbsp; <span class="chapter-title">Factor analysis</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../chapters/ch21-sem/ch21-sem.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">21</span>&nbsp; <span class="chapter-title">Structured Equation Modeling</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../chapters/ch22-conclusion/ch22-conclusion.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">22</span>&nbsp; <span class="chapter-title">Conclusion</span></a>
+  </div>
+</li>
+    </ul>
+    </div>
+</nav>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Table of contents</h2>
+   
+  <ul>
+  <li><a href="#introduction" id="toc-introduction" class="nav-link active" data-scroll-target="#introduction"><span class="toc-section-number">1</span>  Introduction</a></li>
+  <li><a href="#literature-review" id="toc-literature-review" class="nav-link" data-scroll-target="#literature-review"><span class="toc-section-number">2</span>  Literature review</a></li>
+  <li><a href="#recap-of-the-factor-analysis-model" id="toc-recap-of-the-factor-analysis-model" class="nav-link" data-scroll-target="#recap-of-the-factor-analysis-model"><span class="toc-section-number">3</span>  Recap of the Factor Analysis Model</a></li>
+  <li><a href="#integrated-strategy-for-a-factor-analysis" id="toc-integrated-strategy-for-a-factor-analysis" class="nav-link" data-scroll-target="#integrated-strategy-for-a-factor-analysis"><span class="toc-section-number">4</span>  Integrated Strategy for a Factor Analysis</a>
+  <ul class="collapse">
+  <li><a href="#step-1-exploring-the-factor-structure" id="toc-step-1-exploring-the-factor-structure" class="nav-link" data-scroll-target="#step-1-exploring-the-factor-structure"><span class="toc-section-number">4.1</span>  Step 1: Exploring the Factor Structure</a></li>
+  <li><a href="#step-2-building-the-factor-model-and-assessing-fit" id="toc-step-2-building-the-factor-model-and-assessing-fit" class="nav-link" data-scroll-target="#step-2-building-the-factor-model-and-assessing-fit"><span class="toc-section-number">4.2</span>  Step 2: Building the Factor Model and Assessing Fit</a></li>
+  <li><a href="#step-3-assessing-generalizability" id="toc-step-3-assessing-generalizability" class="nav-link" data-scroll-target="#step-3-assessing-generalizability"><span class="toc-section-number">4.3</span>  Step 3: Assessing Generalizability</a></li>
+  </ul></li>
+  <li><a href="#factor-analysis-in-r" id="toc-factor-analysis-in-r" class="nav-link" data-scroll-target="#factor-analysis-in-r"><span class="toc-section-number">5</span>  Factor Analysis in R</a>
+  <ul class="collapse">
+  <li><a href="#preparation" id="toc-preparation" class="nav-link" data-scroll-target="#preparation"><span class="toc-section-number">5.1</span>  Preparation</a></li>
+  <li><a href="#step-1-exploring-the-factor-structure-1" id="toc-step-1-exploring-the-factor-structure-1" class="nav-link" data-scroll-target="#step-1-exploring-the-factor-structure-1"><span class="toc-section-number">5.2</span>  Step 1: Exploring the Factor Structure</a></li>
+  <li><a href="#step-2-building-the-factor-model-and-assessing-fit-1" id="toc-step-2-building-the-factor-model-and-assessing-fit-1" class="nav-link" data-scroll-target="#step-2-building-the-factor-model-and-assessing-fit-1"><span class="toc-section-number">5.3</span>  Step 2: Building the Factor Model and Assessing Fit</a></li>
+  <li><a href="#step-3-assessing-generalizability-1" id="toc-step-3-assessing-generalizability-1" class="nav-link" data-scroll-target="#step-3-assessing-generalizability-1"><span class="toc-section-number">5.4</span>  Step 3: Assessing Generalizability</a></li>
+  </ul></li>
+  <li><a href="#conclusion" id="toc-conclusion" class="nav-link" data-scroll-target="#conclusion"><span class="toc-section-number">6</span>  Conclusion</a></li>
+  <li><a href="#further-readings" id="toc-further-readings" class="nav-link" data-scroll-target="#further-readings"><span class="toc-section-number">7</span>  Further readings</a></li>
+  <li><a href="#bibliography" id="toc-bibliography" class="nav-link" data-scroll-target="#bibliography">References</a></li>
+  </ul>
+</nav>
+    <div class="quarto-margin-footer"><div class="margin-footer-item">
+<p><small>© 2023 The authors</small></p>
+</div></div></div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title d-none d-lg-block"><span class="chapter-number">20</span>&nbsp; <span class="chapter-title">Factor Analysis in Education Research Using R</span></h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    <div>
+    <div class="quarto-title-meta-heading">Authors</div>
+    <div class="quarto-title-meta-contents">
+             <p>Leonie V.D.E. Vogelsmeier </p>
+             <p>Mohammed Saqr </p>
+             <p>Sonsoles López-Pernas </p>
+             <p>Joran Jongerling </p>
+          </div>
+  </div>
+    
+  
+    
+  </div>
+  
+<div>
+  <div class="abstract">
+    <div class="abstract-title">Abstract</div>
+    Factor analysis is a method commonly employed to reduce a large number of variables into fewer numbers of factors. The method is often used to identify which observable indicators are representative of latent, not directly-observed constructs. This is a key step in developing valid instruments to assess latent constructs in educational research (e.g., student engagement or motivaion). The chapter describes the two main approaches for conducting factor analysis in detail and provides a tutorial on how to implement both techniques with the R programming language. The first is confirmatory factor analysis (CFA), a more theory-driven approach, in which a researcher actively specifies the number of underlying constructs as well as the pattern of relations between these dimensions and observed variables. The second is exploratory factor analysis (EFA), a more data-driven approach, in which the number of underlying constructs is inferred from the data, and all underlying constructs are assumed to influence all observed variables (at least to some degree).
+  </div>
+</div>
+
+</header>
+
+<section id="introduction" class="level2" data-number="1">
+<h2 data-number="1" class="anchored" data-anchor-id="introduction"><span class="header-section-number">1</span> Introduction</h2>
+<p>Educational scientists are usually after the invisible: sense of belonging, intelligence, math ability, general aptitude, student engagement…the list of crucial, multifaceted, but not directly observable student characteristics goes on. But how do researchers measure and study what they cannot see? One solution is not looking for the invisible cause itself but for its consequences. Just like one cannot see the wind but can tell it is there from the moving leaves, researchers can indirectly infer student engagement by looking at observable aspects of students' online behavior. For example, the more engaged students are, the more effort they invest in learning (i.e., longer online time), and the more regular and frequent they post on fora. These observable variables are the gateway to the underlying engagement construct that is theorized to drive students to be engaged, and factor analysis is the key to opening that gate. If scores on a set of observed variables are all caused by the same underlying construct of interest, the relations between these variables (i.e., the covariances that indicate how increases/decreases in one behavior are related to increases/decreases in another) are an expression of this underlying construct. This is exactly the core tenet of factor analysis. The method examines the covariances between the observed variables and, from this information, extracts the underlying unobserved or <em>latent</em> construct (as well as students' relative scores on it).</p>
+<p>The inventor of factor analysis is Spearman, who was trying to make sense of the fact that tests of widely varying cognitive abilities all positively correlated with each other. He reasoned that the cause of this was an underlying construct (or factor) called "general intelligence" that was causing people's performance on all of those tests <span class="citation" data-cites="Spearman1904-la">[<a href="#ref-Spearman1904-la" role="doc-biblioref">1</a>]</span>. Spearman's work on factor analysis was later extended by Thurstone, who believed that people's performance was influenced by more than just one latent dimension. Thurstone <span class="citation" data-cites="Thurstone2013-pn">[<a href="#ref-Thurstone2013-pn" role="doc-biblioref">2</a>]</span>, therefore, expanded factor analysis to enable the extraction of multiple underlying constructs based on the covariances between variables. The extension allowed performance on a math test to, for example, be influenced both by math ability (the key ability that should be measured) and reading ability (the ability to accurately understand questions on the math test in order to answer them correctly).</p>
+<p>Jöreskog introduced the final major addition to factor analysis. Although Spearman's and Thurstone's versions of factor analysis already allowed for <em>exploring</em> the factor structure for a given dataset, it was not yet possible to <em>confirm</em> if the factor structure fit well to the data and, thus, if the covariances between variables implied by the factor structure match the observed covariances in the dataset. Jöreskog <span class="citation" data-cites="Joreskog1969-kd">[<a href="#ref-Joreskog1969-kd" role="doc-biblioref">3</a>]</span> figured out how to estimate factor models in a way that made this possible. An added benefit of this estimation method was that it allowed for factor models in which observed variables (e.g., behaviors, tasks, or questionnaire items) were not influenced by all the assumed underlying dimensions but, for example, only by one, which was not possible in the methods of Spearman and Thurstone. This extension allowed adding theory and/or practical experience to the factor analysis. For instance, one could test the hypothesis that students' math ability consists of the separate sub-dimensions <em>addition</em>, <em>subtraction</em>, <em>division</em>, and <em>multiplication</em> by letting all tasks of a math test that involve addition belong to just one underlying <em>addition</em> factor, all the tasks involving multiplication to just one underlying <em>multiplication</em> factor, et cetera. If this multidimensional model of math ability fits the data well, students can subsequently be evaluated on each of these dimensions separately (instead of on an overall math ability factor). The approach in which researchers confirm if a specific factor model (i.e., for which both the number of underlying dimensions and the pattern of relations between these dimensions and the observed variables) fits to the data is nowadays called confirmatory factor analysis (CFA). In contrast, the more data-driven approach in which the number of underlying constructs is inferred from the data and all underlying constructs are assumed to influence all observed variables is called exploratory factor analysis (EFA).</p>
+<p>Nowadays, both EFA and CFA are readily available in modern statistical (open-source) software and applied regularly across the social sciences in general and educational research in particular. For example, Krijnen et al. <span class="citation" data-cites="Krijnen2020-vy">[<a href="#ref-Krijnen2020-vy" role="doc-biblioref">4</a>]</span> used EFA to refine a typology of home literacy activities. They cautiously anticipated four hypothetical categories of home literacy activities (<em>oral language exposure</em>, <em>oral language teaching</em>, <em>code skills exposure</em>, and <em>code skills teaching activities</em>). However, since the authors did not have a strong theory or prior factor-analytical results to support this anticipated factor structure, they refrained from testing if that specific factor structure fit to the data with CFA and instead used the more data-driven EFA approach. Their results suggested that there were actually three factors underlying the observed variables in their dataset (<em>oral language teaching</em>, <em>oral language exposure</em>, and <em>general code activities</em>).</p>
+<p>In contrast, Hofhuis et al. <span class="citation" data-cites="Hofhuis2020-lz">[<a href="#ref-Hofhuis2020-lz" role="doc-biblioref">5</a>]</span> used factor analysis to validate a shortened version of the Multicultural Personality Questionnaire (MPQ; <span class="citation" data-cites="Zee2000">[<a href="#ref-Zee2000" role="doc-biblioref">6</a>]</span>), a measure of intercultural competence, among a sample of students in an international university program. The authors wanted to determine if this short form of the MPQ (MPQ-SF) could be used instead of the longer original and if item scores of both versions of the questionnaire were influenced by the same five theorized aspects of inter-cultural competence (<em>cultural empathy</em>, <em>emotional stability</em>, <em>flexibility</em>, <em>openmindedness</em>, and <em>social initiative</em>). Since previous research on the original MPQ provided insight into both the number of underlying factors and the specific relations between these factors and the set of items retained on the MPQ-SF, the authors used CFA in this study. They found that the factor structure of the MPQ-SF fit well to the data and that the structure was thus comparable to that of the original MPQ.<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a></p>
+<p>In the above, it was stressed that CFA is used when researchers have an idea about the factor structure underlying the data that they want to confirm, while EFA is used more exploratively when researchers have less concrete guiding insights for specifying the model. In practice, CFA and EFA are both used in confirmatory as well as exploratory settings and often even in the same study. Even if researchers have a well-substantiated idea about the number of constructs underlying their observations, they can use EFA to see if the number of factors found by this analysis matches their hypothesis. Similarly, researchers with competing theories about the factors underlying their observed behaviors can still use CFA to explicitly compare these competing models in terms of fit. Flora and Flake <span class="citation" data-cites="Flora2017-bc">[<a href="#ref-Flora2017-bc" role="doc-biblioref">8</a>]</span> discuss how neither EFA nor CFA is purely confirmatory or exploratory in more detail, arguing that, in essence, it comes down to one's specific research context. This will not further be discussed in this chapter. Instead, an integrated use of EFA and CFA often encountered in Educational Sciences is presented. The presentation is kept applied and focuses on conducting factor analysis in R. For more (technical) details, see the readings listed at the end of the chapter.</p>
+</section>
+<section id="literature-review" class="level2" data-number="2">
+<h2 data-number="2" class="anchored" data-anchor-id="literature-review"><span class="header-section-number">2</span> Literature review</h2>
+<p>Several examples of factor analysis exist in learning analytics, which can be grouped broadly under two categories: factor analysis of self-reported data instruments (e.g., surveys) and factor analysis to explore students' online data. Analysis of self-reported instruments seems to be most widely used within the emerging research field of learning analytics. For instance, Whitelock‐Wainwright et al. <span class="citation" data-cites="Whitelock-Wainwright2019-if">[<a href="#ref-Whitelock-Wainwright2019-if" role="doc-biblioref">9</a>]</span> used EFA and CFA to validate an instrument that measures students' expectations of ethics, privacy, and usage of their learning analytics data. The analysis suggested a two-factor model that represented two categories of variables of ideal and predicted expectations of learning analytics. Similarly, Oster et al. <span class="citation" data-cites="Oster2016-fn">[<a href="#ref-Oster2016-fn" role="doc-biblioref">10</a>]</span> used EFA to validate an instrument that measures learning analytics readiness among institutions. The authors found that a five-factor model best represents the data (with the dimensions <em>data management expertise</em>, <em>data analysis expertise</em>, <em>communication and policy application</em>, and <em>training</em>). Similarly, factor analysis has been used to create an instrument for measuring variables influencing learning analytics dashboard success. For instance, Park and Jo <span class="citation" data-cites="Park2019-hy">[<a href="#ref-Park2019-hy" role="doc-biblioref">11</a>]</span> measured learning analytics dashboard success through an instrument based on Kirkpatrick's four evaluation levels (i.e., Reaction, Learning, Behavior, and Results). Through EFA, they found that five dimensions were more appropriate than four, as suggested by the original instrument, which CFA later confirmed. Similarly, Kokoç and Kara <span class="citation" data-cites="Kokoc2021">[<a href="#ref-Kokoc2021" role="doc-biblioref">12</a>]</span> used the Evaluation Framework for Learning Analytics to evaluate the impact of a learning analytics dashboard on learner performance. After conducting CFA, they found that the three-factor model of the Evaluation Framework for Learning Analytics for learners provided the best model fit for the collected data, confirming the structure of the original instrument.</p>
+<p>Besides the aforementioned traditional examples, factor analysis has also been used in learning analytics with students' online data logs. For instance, Hernández-García et al. <span class="citation" data-cites="Hernandez-Garcia2018-ka">[<a href="#ref-Hernandez-Garcia2018-ka" role="doc-biblioref">13</a>]</span> used factor analysis to identify predictors derived from data about students' interactions. The authors found that a three-factor model best represented students' interaction variables (with dimensions <em>groups' team message exchanges</em>, <em>distribution of postings</em>, and <em>reciprocity of interactions</em>). In that case, factor analysis helps find groups of predictors, understand their underlying structure, and reduce dimensionality. Similarly, Fincham et al. <span class="citation" data-cites="Fincham2019-kw">[<a href="#ref-Fincham2019-kw" role="doc-biblioref">14</a>]</span> used EFA and CFA to build a theorized model of engagement based on three groups of variables derived from online log data, analysis of sentiments, and metrics derived from the discourse of online posts. Others have applied similar approaches to study the structure of log data. For instance, Baikadi et al.<span class="citation" data-cites="Baikadi2016-qv">[<a href="#ref-Baikadi2016-qv" role="doc-biblioref">15</a>]</span> applied EFA to learner activities within four online courses to identify emergent behavior factors. The findings suggested a four-factor model including <em>activity</em>, <em>quiz activity</em>, <em>forum participation</em>, and <em>participation in activities</em>. Another example is the work by Wang <span class="citation" data-cites="Wang2021-cs">[<a href="#ref-Wang2021-cs" role="doc-biblioref">16</a>]</span>, who used factor analysis for dimensionality reduction of log data, deriving predictors of learning performance from students' fine-grained actions on the learning management systems.</p>
+<p>The remainder of this chapter first provides a brief description of the factor analysis model, the model that is at the basis of both EFA and CFA. Second, the steps needed to perform factor analysis in R are presented by applying EFA and CFA to education data that is openly available. The application begins with data preparation, requirements, and initial checks. Additionally, it is shown how to set aside a holdout sample from the original dataset (which is necessary for establishing the generalizability of results from an EFA and/or CFA to future samples, as explained below). After these preliminary steps, it is shown how to run an EFA and interpret the outcomes. The part ends with a thorough description of how to do a CFA and assess generalizability. The chapter ends with a discussion and recommendation for further reading.</p>
+</section>
+<section id="recap-of-the-factor-analysis-model" class="level2" data-number="3">
+<h2 data-number="3" class="anchored" data-anchor-id="recap-of-the-factor-analysis-model"><span class="header-section-number">3</span> Recap of the Factor Analysis Model</h2>
+<p>Factor analysis can be seen as a set of (multiple) linear regression models where each observed variable is regressed on one or more latent factors (see Figure 1 in <span class="citation" data-cites="Lawley1962-go">[<a href="#ref-Lawley1962-go" role="doc-biblioref">17</a>]</span>). Like in regression, researchers get regression weights, intercepts, and error terms. They just get a set of these parameters for each observed variable in the analysis. The regression weights are referred to as loadings in factor analysis (the straight arrows in <a href="../ch21-sem/ch21-sem.html#fig-1">Figure&nbsp;<span>21.1</span></a>) and indicate how strongly the observed variables are related to the underlying factors. The intercepts (not explicitly indicated in <a href="../ch21-sem/ch21-sem.html#fig-1">Figure&nbsp;<span>21.1</span></a>) are the expected scores on the observed variables when the factor means are equal to zero. Finally, the error terms (the <span class="math inline">\(\epsilon\)</span>'s in <a href="../ch21-sem/ch21-sem.html#fig-1">Figure&nbsp;<span>21.1</span></a>) capture the variance unexplained by the factors and, thus, the unique variance of the individual observed variables. The difference between the factor analysis model and a regular regression model is that the values of the factors are unobserved. Therefore, estimating a factor analysis model is more complicated than estimating a regular regression analysis model with observed predictors and requires specialized software.</p>
+<div id="fig-1" class="quarto-figure quarto-figure-center anchored">
+<figure class="figure">
+<p><img src="Fa/media/image1.png" style="width:2.51389in;height:2.02723in" class="figure-img"></p>
+<p></p><figcaption class="figure-caption"><strong>Figure</strong>&nbsp;1<strong>.</strong> A basic 1-factor model. Each observed variable (X<sub>1</sub> – X<sub>3</sub>) is regressed on the factor. Straight arrows indicate factor loadings (the regression weights obtained by regressing the observed variable on the factor). The <span class="math inline">\(\epsilon\)</span>'s represent errors. Curved single-headed arrows indicated variances. Each observed variable also has an intercept, but these are not explicitly indicated in the figure.</figcaption><p></p>
+</figure>
+</div>
+<p>As mentioned in the introduction, there are two types of factor analyses: Exploratory factor analysis (EFA; <a href="#fig-2">Figure&nbsp;<span>20.2</span></a>) and confirmatory factor analysis (CFA; <a href="#fig-3">Figure&nbsp;<span>20.3</span></a>). The key difference is that all loadings (i.e., all variable-factor relations) are estimated in EFA. As a result, variables may load on more than one factor (referred to as cross-loadings). In contrast, in CFA, several loadings are set to zero (as thus not estimated) based on researchers' a priori hypotheses about which variables are unrelated to the underlying factors. Therefore, the CFA model is considered a restricted version of the EFA model.</p>
+<div id="fig-2" class="quarto-figure quarto-figure-center anchored">
+<figure class="figure">
+<p><img src="Fa/media/image2.png" style="width:5.46413in;height:2.27292in" class="figure-img"></p>
+<p></p><figcaption class="figure-caption"><strong>Figure</strong>&nbsp;2<strong>.</strong> An EFA Model with two latent factors. Each observed variable (X<sub>1</sub> - X<sub>6</sub>) is influenced by both factors. Straight arrows indicate factor loadings. Loadings for Factor 2 are depicted with dashed lines for visual clarity. The <span class="math inline">\(\epsilon\)</span>'s represent errors. Curved single-headed arrows indicate variances and curved double-headed arrows indicate covariances.</figcaption><p></p>
+</figure>
+</div>
+<p>Another difference is the determination of the number of factors. In EFA, the number of underlying factors is determined using a data-driven approach; that is, the likely number of underlying factors for the sample data is first estimated, for example, using parallel analysis <span class="citation" data-cites="Horn1965-kz">[<a href="#ref-Horn1965-kz" role="doc-biblioref">18</a>]</span>. Researchers then fit a set of factor models, with the number of underlying factors in these models based on the parallel analysis result. For example, if the parallel analysis suggests 5 factors, researchers can fit models with 4, 5, and 6 underlying factors. These three models are then compared in terms of both model fit—using the Bayesian information criterion <span class="citation" data-cites="Schwarz1978-md">[<a href="#ref-Schwarz1978-md" role="doc-biblioref">19</a>]</span>—and in terms of the interpretability of the models (i.e., “<em>Do the relations between the factors and the observed variables they load on make sense?</em>”). All this will be discussed in the Section “Factor Analysis in R” of this chapter.</p>
+<p>In contrast, the number of factors in CFA is determined based on strong a priori hypotheses. When researchers have multiple competing hypotheses, each can be translated into a separate CFA model. These models can then again be compared in terms of how well they fit the data. The hypothesis underlying the best-fitting model can be considered the most likely explanation of the data according to the sample at hand.</p>
+<div id="fig-3" class="quarto-figure quarto-figure-center anchored">
+<figure class="figure">
+<p><img src="Fa/media/image3.png" style="width:5.46413in;height:2.27292in" class="figure-img"></p>
+<p></p><figcaption class="figure-caption"><strong>Figure</strong>&nbsp;3<strong>.</strong> A CFA Model with two latent factors. Each observed variable (X<sub>1</sub> - X<sub>6</sub>) is influenced by only one of the underlying factors. Straight arrows indicate factor loadings. Loadings for Factor 2 are depicted with dashed lines for visual clarity. The <span class="math inline">\(\epsilon\)</span>’s represent errors. Curved single-headed arrows indicate variances and curved double-headed arrows indicate covariances.</figcaption><p></p>
+</figure>
+</div>
+</section>
+<section id="integrated-strategy-for-a-factor-analysis" class="level2" data-number="4">
+<h2 data-number="4" class="anchored" data-anchor-id="integrated-strategy-for-a-factor-analysis"><span class="header-section-number">4</span> Integrated Strategy for a Factor Analysis</h2>
+<p>As described in the introduction, there is no clear delineation between when to use either EFA or CFA, and both methods often co-occur within the same study. Therefore, this section provides a detailed description of a principled modeling strategy that integrates both EFA and CFA. More specifically, the three steps that researchers should go through whenever latent constructs are part of their research (either because the instrument is the main focus of the study or because the latent construct is a predictor or outcome in an analysis) are discussed: (1) exploring the factor structure, (2) building the factor model and assessing fit, and (3) assessing generalizability. As a starting point, it is assumed that the researcher has already completed the initial instrument development phase for a construct of interest such as inter-cultural competence (i.e., that the researcher is using an instrument with variables/tasks/behaviors from previous research, has adjusted an instrument from previous research (e.g., by shortening, extending, translating, or revising content), or has newly developed an instrument (e.g., based on theory)). Furthermore, it is assumed that the researcher has gathered data from their population of interest (e.g., students).</p>
+<section id="step-1-exploring-the-factor-structure" class="level3" data-number="4.1">
+<h3 data-number="4.1" class="anchored" data-anchor-id="step-1-exploring-the-factor-structure"><span class="header-section-number">4.1</span> Step 1: Exploring the Factor Structure</h3>
+<p>Once the variables/tasks/behaviors have been selected and data on them have been obtained using a sample from the population of interest, you, the researcher, should start with an EFA. If a <em>previously validated instrument</em> is used, or if strong prior hypotheses about the underlying factor structure of the instruments are available, you should investigate whether the number of factors and the way the variables load on the factors are in line with anticipated results. Thus, the key questions are “<em>Do variable scores believed to be caused by the same underlying factor indeed all load on the same factor?</em>” and, if only a single underlying factor is assumed to cause the scores on a set of variables, “<em>Do these variables indeed have strong factor loadings with only a single factor?</em>”</p>
+<p>If a <em>new instrument</em> is the starting point, you should determine if the factors and the pattern of loadings can be interpreted. The key questions are “<em>Do all variables (primarily) loading on the same factor indeed have something in common substantively?</em>” and “<em>Are variables that load on different factors indeed qualitatively different somehow?</em>”</p>
+<p>Referring back to the example about a math test, you could see that tasks involving addition, subtraction, division, and multiplication loaded on 4 distinct factors (which could then preliminarily be identified as <em>addition-</em>, <em>subtraction-</em>, <em>division-</em>, and <em>multiplication</em> ability), with each set of tasks being primarily influenced by a single factor. At this stage, you may have to make some adjustments, like removing variables without substantial loadings (e.g., loadings smaller than an absolute value of .3) on any dimensions and reestimating the EFA. Note that you should always think about the reasons for low loadings (e.g., because of an ambiguously formulated item) and not just remove variables.</p>
+</section>
+<section id="step-2-building-the-factor-model-and-assessing-fit" class="level3" data-number="4.2">
+<h3 data-number="4.2" class="anchored" data-anchor-id="step-2-building-the-factor-model-and-assessing-fit"><span class="header-section-number">4.2</span> Step 2: Building the Factor Model and Assessing Fit</h3>
+<p>After choosing a model with EFA, you need to refine this model and use CFA to assess the model fit (and thus how well the covariances between variables implied by the factor structure match the observed covariances in the dataset). In the EFA in the previous step, all variables were allowed to load on all factors, but often, you have theoretical or (prior) empirical information that you want to include in your analyses, and that restricts the number of these cross-loadings. In this model-building step, you could remove all factor-variable relations (i.e., factor loadings) that do not fit your theory or make substantive sense, but attention must be given to the size of the factor loadings. Close-to-zero factor loadings can be removed relatively risk-free, but larger factor loadings require more careful consideration. Even if these factor-variable relations do not make substantive sense (straight away), the data tell you they should be there. So consider them carefully; if, after closer inspection, they can be incorporated into your prior theory or assumptions, you might want to keep them; if not, you can always remove them and see if the model still fits your data.</p>
+<p>After selecting which variable-factor relationships should be removed, you can build the corresponding CFA model and fit it to the data to determine if it fits sufficiently well. If the model does not fit well, you can return to your EFA results and see if you might have to allow additional non-zero loadings (or apply other modifications discussed further below). Note that you should only add relationships to the model that make substantive sense. This process may require several rounds of adjustments until your model fits well and is substantively sound.</p>
+</section>
+<section id="step-3-assessing-generalizability" class="level3" data-number="4.3">
+<h3 data-number="4.3" class="anchored" data-anchor-id="step-3-assessing-generalizability"><span class="header-section-number">4.3</span> Step 3: Assessing Generalizability</h3>
+<p>After the previous step, you have a preliminary model that fits well with both your new or existing theory and the current data. However, since the ultimate goal should be to present instruments that can be used to measure constructs in future studies, it is essential that you also establish that your preliminary model fits new yet unknown data and, thus, that your model does not describe only your initial sample properly but also other samples from your population. Therefore, in the final step, the preliminary model must be fitted to a new dataset from the same population as the data used to build the preliminary model. This final validation step can be referred to as cross-validation.</p>
+<p>To assess the generalizability, one could collect a second dataset. However, in practice, gathering data more than once for instrument development purposes is often unfeasible or undesirable. A suitable alternative is to randomly split one dataset into two parts: one sample on which you perform Steps 1 (exploring the factor structure using EFA) and 2 (building the factor model and assessing fit with CFA) and one so-called holdout sample, which you set aside for Step 3 (assessing generalizability). If the CFA model fits the holdout sample, you can be more confident that your instrument can be used in future studies and settle on it as your final model. On the other hand, if the preliminary model does not fit the holdout sample well, you have to conclude that you have not found an adequate instrument yet. In that case, the sources of misfit between the CFA and the holdout sample need to be investigated (more on this below when local fit and modification indices are discussed), and findings from this inspection need to be used to update your theory/model. This updated theory/model then needs to be investigated again by going through all the steps discussed above on a new (split) dataset.</p>
+<p>The above steps present a suitable factor modeling strategy for any study using instruments to measure latent dimensions. The only situation in which you could theoretically fit a CFA model immediately and assess its fit is when using an existing instrument on a sample from a population for which the instrument had already been validated in previous research. However, even in that situation, going through all the above steps is advisable because your sample might differ in important ways from the ones on which the instrument was validated, which could bias your results.</p>
+</section>
+</section>
+<section id="factor-analysis-in-r" class="level2" data-number="5">
+<h2 data-number="5" class="anchored" data-anchor-id="factor-analysis-in-r"><span class="header-section-number">5</span> Factor Analysis in R</h2>
+<p>In the following, you are taken through the essential steps of investigating the factor structure using both EFA and CFA in the open-source software R. In describing the steps, the following is addressed: checking data characteristics for suitability for EFA/CFA, deciding on the number of factors, assessing global and local model fit, and evaluating the generalizability of the final factor model. To this end, a dataset is used to which factor analysis has been applied before <span class="citation" data-cites="Prasojo2020-wk">[<a href="#ref-Prasojo2020-wk" role="doc-biblioref">20</a>]</span>. The dataset contains survey data about teacher burnout in Indonesia. In total, 876 respondents have answered questions on five domains: <em>Teacher Self-Concept</em> (TSC, 5 questions), <em>Teacher Efficacy</em> (TE, 5 questions), <em>Emotional Exhaustion</em> (EE, 5 questions), <em>Depersonalization</em> (DP, 3 questions), and <em>Reduced Personal Accomplishment</em> (RPA, 7 questions). Thus, the total number of variables equals 25. The questions were assessed on a 5-point Likert scale (ranging from 1 = “never” to 5 = “always”). For more information on the dataset, see the data chapter of this book <span class="citation" data-cites="Lopez-Pernas2024-hy">[<a href="#ref-Lopez-Pernas2024-hy" role="doc-biblioref">21</a>]</span>.</p>
+<p>The first section shows the necessary preparation, which involves reading in the data, evaluating whether the data are suited for factor analysis, and setting apart the holdout sample needed for assessing the generalizability. The next two sections show how to conduct an EFA to arrive at a preliminary factor model/factor structure (Step 1) and refine this model using CFA (Step 2). The final section shows how to test the generalizability of the refined factor model using cross-validation (Step 3).</p>
+<section id="preparation" class="level3" data-number="5.1">
+<h3 data-number="5.1" class="anchored" data-anchor-id="preparation"><span class="header-section-number">5.1</span> Preparation</h3>
+<p>In order to follow all the steps, you have to install the following packages with <code>install.packages()</code>(you only have to install packages the first time you want to use them; therefore, the commands are hashtagged below) and load them with <code>library()</code> whenever you open the R script.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(lavaan) <span class="co"># install.packages("lavaan")</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(psych) <span class="co"># install.packages("psych")</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(semTools) <span class="co"># install.packages("semTools")</span></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(effectsize) <span class="co"># install.packages("effectsize")</span></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(rio) <span class="co"># install.packages("rio")</span></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyr) <span class="co"># install.packages("tidyr")</span></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2) <span class="co"># install.packages("ggplot2")</span></span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(devtools) <span class="co"># install.packages("devtools")</span></span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(sleasy) <span class="co"># install.packages("combinat"); install_github("JoranTiU/sleasy")</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<section id="reading-in-the-data" class="level4" data-number="5.1.1">
+<h4 data-number="5.1.1" class="anchored" data-anchor-id="reading-in-the-data"><span class="header-section-number">5.1.1</span> Reading in the data</h4>
+<p>The data can be read in, and the variable names can be extracted with the following commands: </p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>dataset <span class="ot">&lt;-</span> <span class="fu">import</span>(<span class="st">"https://github.com/lamethods/data/raw/main/4_teachersBurnout/2.%20Response.xlsx"</span>)</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>var_names <span class="ot">&lt;-</span> <span class="fu">colnames</span>(dataset)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>If not all variables in the dataset should be used for the factor analysis, you should only add the relevant variables to the <code>var_name</code> object. The commands below will then take this into account automatically.</p>
+</section>
+<section id="are-the-data-suited-for-factor-analysis" class="level4" data-number="5.1.2">
+<h4 data-number="5.1.2" class="anchored" data-anchor-id="are-the-data-suited-for-factor-analysis"><span class="header-section-number">5.1.2</span> Are the data suited for factor analysis?</h4>
+<p>Several data characteristics are necessary for both EFA and CFA. First, the variables must be continuous. Variables are seldom truly continuous, but they can be treated as such if they were assessed on a scale with at least five response categories <span class="citation" data-cites="Dolan1994-ed">[<a href="#ref-Dolan1994-ed" role="doc-biblioref">22</a>]</span>. If the variables are not continuous, factor analysis can still be conducted, but a specific type of estimation for categorical data is required. Note that this is beyond the scope of this chapter (interested readers are referred to <span class="citation" data-cites="Rosseel2023-pa">[<a href="#ref-Rosseel2023-pa" role="doc-biblioref">23</a>]</span>). Moreover, the scale on which the observed variables are assessed should be the same, which may not hold in certain educational data. If the variables have been measured on different scales, or if the variables are measured on the same scale, but the range of observed scores on the variables differs substantially between variables (e.g., some variables have scores ranging from 1 to 5, while others have scores ranging only from 2 to 4), the variables should be transformed before the factor analysis to make their scales more comparable. The following command can be used to inspect each variables’ range:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">describe</span>(dataset)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>All variables were assessed on 5-point Likert scales, and from the output, you can see that all variables have very similar observed score ranges. Therefore, you can treat them as continuous, and transformation is not necessary (for information on how to transform data in R, see <span class="citation" data-cites="Patil2022-we">[<a href="#ref-Patil2022-we" role="doc-biblioref">24</a>]</span>).</p>
+<p>Second, the sample size needs to be sufficiently large. There are several rules of thumb in the literature. Some simply state that a sample size of about 200 should be targeted, although smaller samples may be sufficient for simpler models (e.g., models with fewer factors and/or stronger relations between the factors and observed variables), while more complicated models (e.g., models with more factors and/or weaker relations between the factors and observed variables) will require larger samples. Other rules are based on the ratio between sample size and the number of estimated parameters (i.e., factor loadings, intercepts, and error variances). Bentler and Chou <span class="citation" data-cites="Bentler1987-io">[<a href="#ref-Bentler1987-io" role="doc-biblioref">25</a>]</span> recommend having 5 observations per estimated parameter, while Jackson <span class="citation" data-cites="Jackson2003-gk">[<a href="#ref-Jackson2003-gk" role="doc-biblioref">26</a>]</span> recommends having 10, and preferably 20 observations, for each parameter you want to estimate (e.g., for a one-factor model with 10 variables, one should aim for 30 (10 factor-loadings + 10 intercepts + 10 error-variances) * 10 = 300 cases. Remember that these recommendations are for the data the model is fitted to. Since you also need a holdout sample to assess the generalizability of your model, you need to have about twice the number of observations! The sample size can be assessed by asking for the number of rows in your dataset with the following command:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">nrow</span>(dataset) <span class="co"># 876</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 876</code></pre>
+</div>
+</div>
+<p>For the example data with 25 variables that are assumed to measure 5 latent constructs, you have to estimate 25 intercepts, 25 residual variances, and 5 * 25 = 125 factor loadings. This results in a total of 175 parameters. Looking at the output, you can conclude that the sample size is sufficiently large for both EFA and CFA according to the guidelines by Bentler and Chou <span class="citation" data-cites="Bentler1987-io">[<a href="#ref-Bentler1987-io" role="doc-biblioref">25</a>]</span> (5 * 175 = 875) but not those of Johnson <span class="citation" data-cites="johnson2003procedure">[<a href="#ref-johnson2003procedure" role="doc-biblioref">27</a>]</span>. Since this dataset does not have twice the recommended sample size, you should not set aside a holdout sample and save the validation of the model for a future study. However, for illustration purposes, it will nevertheless be shown how to create a holdout subset for evaluating the generalizability of the final factor model.</p>
+<p>Next, there need to be sufficiently large correlations between the variables. Otherwise, there is no point in looking at the factor structure. You can rule out that the variables in the dataset are uncorrelated with Bartlett’s test <span class="citation" data-cites="Bartlett1950-pp">[<a href="#ref-Bartlett1950-pp" role="doc-biblioref">28</a>]</span>, which tests whether the correlation matrix is an identity matrix (a matrix with off-diagonal elements equal to zero) and, thus, whether the variables are uncorrelated. The null hypothesis of this test is that the correlation matrix is an identity matrix. If the null hypothesis is rejected, it can be concluded that the variables are correlated and, thus, that you can continue with the factor analysis. With the following command, you test whether the p-value for the Bartlett’s test is smaller than an alpha level of 0.05 and, thus, if the null hypothesis of “no correlation between variables” can be rejected:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>(<span class="fu">cortest.bartlett</span>(<span class="at">R =</span> <span class="fu">cor</span>(dataset[, var_names]), <span class="at">n =</span> <span class="fu">nrow</span>(dataset))<span class="sc">$</span>p.value) <span class="sc">&lt;</span> <span class="fl">0.05</span> </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] TRUE</code></pre>
+</div>
+</div>
+<p>With the argument “R”, you provide the correlation matrix for the data (specifically for the variables that shall be part of the factor analysis), and with the argument “n” you determine the sample size, which is equal to the number of rows. The p-value is indeed smaller than 0.05. Thus, the variables correlate.</p>
+<p>In addition to checking for correlations between variables, it is also relevant to determine if there is enough common variance among the variables. You can assess this with the Kaiser-Meyer-Olkin (KMO) test <span class="citation" data-cites="Kaiser1970-kp">[<a href="#ref-Kaiser1970-kp" role="doc-biblioref">29</a>]</span>. The KMO statistic measures what proportion of the total variance among variables might be common variance. The higher this proportion, the higher the KMO value, and the more suited the data are for factor analysis. Kaiser <span class="citation" data-cites="Kaiser1970-kp">[<a href="#ref-Kaiser1970-kp" role="doc-biblioref">29</a>]</span> indicated that the value should be at least .8 to have good data for factor analysis (and at least .9 to have excellent data). With the following command, you obtain the results:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="fu">KMO</span>(dataset)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Kaiser-Meyer-Olkin factor adequacy
+Call: KMO(r = dataset)
+Overall MSA =  0.94
+MSA for each item = 
+TSC1 TSC2 TSC3 TSC4 TSC5  TE1  TE2  TE3  TE4  TE5  EE1  EE2  EE3  EE4  EE5  DE1 
+0.96 0.96 0.95 0.94 0.96 0.93 0.96 0.94 0.94 0.96 0.95 0.94 0.95 0.94 0.97 0.87 
+ DE2  DE3 RPA1 RPA2 RPA3 RPA4 RPA5 
+0.86 0.92 0.91 0.91 0.95 0.94 0.96 </code></pre>
+</div>
+</div>
+<p>The overall KMO value equals 0.94. Thus, the data are excellent for data analysis.</p>
+<p>Next to the necessary data characteristics, you need to be aware of the non-normality of the variables and missing data. A robust estimation method is required if the variables are not normally distributed. If the data contain missing values for one or more variables, this must also be accounted for in the estimation. How to do this will be described below. Normality can be assessed by inspecting the variables’ histograms<a href="#fn2" class="footnote-ref" id="fnref2" role="doc-noteref"><sup>2</sup></a>:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>dataset <span class="sc">|&gt;</span> <span class="fu">pivot_longer</span>(<span class="dv">2</span><span class="sc">:</span><span class="fu">ncol</span>(dataset), </span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a> <span class="at">names_to =</span> <span class="st">"Variable"</span>, <span class="at">values_to=</span><span class="st">"Score"</span>) <span class="sc">|&gt;</span></span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>   <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x=</span>Score)) <span class="sc">+</span> <span class="fu">geom_histogram</span>(<span class="at">bins=</span><span class="dv">6</span>) <span class="sc">+</span></span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a>     <span class="fu">scale_x_continuous</span>(<span class="at">limits=</span><span class="fu">c</span>(<span class="dv">0</span>,<span class="dv">6</span>),<span class="at">breaks =</span> <span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">3</span>,<span class="dv">4</span>,<span class="dv">5</span>)) <span class="sc">+</span></span>
+<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a>     <span class="fu">facet_wrap</span>(<span class="st">"Variable"</span>,<span class="at">ncol =</span> <span class="dv">4</span>,<span class="at">scales =</span> <span class="st">"free"</span> ) <span class="sc">+</span> <span class="fu">theme_minimal</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: Removed 44 rows containing missing values (`geom_bar()`).</code></pre>
+</div>
+<div class="cell-output-display">
+<div id="fig-4" class="quarto-figure quarto-figure-center anchored">
+<figure class="figure">
+<p><img src="ch20-factor_files/figure-html/fig-4-1.png" class="img-fluid figure-img" width="576"></p>
+<p></p><figcaption class="figure-caption"><strong>Figure</strong>&nbsp;4<strong>.</strong> Histogram of the responses to each of the items</figcaption><p></p>
+</figure>
+</div>
+</div>
+</div>
+<p>Looking at <a href="#fig-4">Figure&nbsp;<span>20.4</span></a>, you can see that the distribution of the variables is somewhat left-skewed. Therefore, an estimation method that is robust against non-normality should be used.</p>
+<p>Next, you can check for missing data with the following command:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="fu">colSums</span>(<span class="fu">is.na</span>(dataset))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>TSC1 TSC2 TSC3 TSC4 TSC5  TE1  TE2  TE3  TE4  TE5  EE1  EE2  EE3  EE4  EE5  DE1 
+   0    0    0    0    0    0    0    0    0    0    0    0    0    0    0    0 
+ DE2  DE3 RPA1 RPA2 RPA3 RPA4 RPA5 
+   0    0    0    0    0    0    0 </code></pre>
+</div>
+</div>
+<p>There are no missing observations for any of the variables in this dataset.</p>
+</section>
+<section id="setting-a-holdout-sample-apart" class="level4" data-number="5.1.3">
+<h4 data-number="5.1.3" class="anchored" data-anchor-id="setting-a-holdout-sample-apart"><span class="header-section-number">5.1.3</span> Setting a Holdout Sample Apart</h4>
+<p>Once you know that the data are suited for factor analysis, you can consider setting a holdout sample apart to assess the generalizability of your findings, as explained before. However, it is important to consider the sample size in your decision. As indicated above, the minimum required sample size should at least be 5 (and preferably 10 or 20) times the number of parameters you will estimate. Do not set a holdout sample apart unless your sample size is approximately twice as large as the minimum required sample size (or larger). Otherwise, you will not have enough data to build an appropriate model in the first place. The validation of the final model then needs to be done in future research. Note, however, that the number of parameters for a CFA model is generally smaller than that for an EFA model. Therefore, it is okay if the holdout sample is somewhat smaller than the model building sample.</p>
+<p>As was already determined above, the sample size was not twice the minimum required sample size for a model with 25 variables and 5 latent factors, but for illustrative purposes, a holdout sample is set apart nevertheless. To this end, you can randomly assign 438 rows to a model-building and holdout dataset. For this, you can use the following commands:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">19</span>)</span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>ind <span class="ot">&lt;-</span> <span class="fu">sample</span> (<span class="fu">c</span> (<span class="fu">rep</span>(<span class="st">"model.building"</span>, <span class="dv">438</span>), <span class="fu">rep</span> (<span class="st">"holdout"</span>, <span class="dv">438</span>)))</span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>tmp <span class="ot">&lt;-</span> <span class="fu">split</span> (dataset, ind)</span>
+<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a>model.building <span class="ot">&lt;-</span> tmp<span class="sc">$</span>model.building</span>
+<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a>holdout <span class="ot">&lt;-</span> tmp<span class="sc">$</span>holdout</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>With the first line of code, you set a seed. Setting a seed ensures that you get the same random sequence of elements every time you rerun the code, which is crucial for replicating your results. Then, you create a vector “ind” that contains 438 times the terms “model.building” and “holdout”, respectively, in random order. This gives you a total of 876 classifications, one for each participant (i.e., row) in your data. Subsequently, you create a temporal list termed “tmp”, which contains two datasets: for each row number, the function <code>split()</code> checks whether it is assigned the label “model.building” or “holdout” and assigns this row to the respective dataset accordingly. For example, suppose the vector “ind” has as the first three elements “model.building”, “model.building”, and “holdout”. In that case, the first two rows of the dataset are assigned to the model-building dataset, and the third observation is assigned to the holdout dataset. In the last step, the two new datasets are extracted from the list and stored in objects named “model.building” and “holdout”. You will use the model-building data for all the following analyses until the section “Assessing Generalizability”.</p>
+</section>
+</section>
+<section id="step-1-exploring-the-factor-structure-1" class="level3" data-number="5.2">
+<h3 data-number="5.2" class="anchored" data-anchor-id="step-1-exploring-the-factor-structure-1"><span class="header-section-number">5.2</span> Step 1: Exploring the Factor Structure</h3>
+<p>The first step in exploring the factor structure is to determine how many dimensions are likely underlying the construct of interest. In this tutorial, you will see how to determine this using a combination of two commonly used data-driven approaches: parallel analysis <span class="citation" data-cites="Horn1965-kz">[<a href="#ref-Horn1965-kz" role="doc-biblioref">18</a>]</span> and the Bayesian information criterion (BIC; <span class="citation" data-cites="Schwarz1978-md">[<a href="#ref-Schwarz1978-md" role="doc-biblioref">19</a>]</span>). These two methods complement each other greatly: Parallel analysis indicates a range for the number of underlying dimensions, and the BIC tells us which specific number of dimensions from this range fits the data best. Parallel analysis is a simulation-based method that chooses the number of factors by comparing the amount of variance explained by a certain number of factors in <em>your data</em> (with this amount of variance explained by each factor being called the factor’s eigenvalue) to the amount of information that the same number of factors would explain on average across many parallel simulated datasets (i.e., with the same number of variables and observations), but with <em>zero correlations between all variables</em>. This comparison allows for testing if the amount of explained variance in your data is larger than expected based on purely random sampling error alone. The number of factors chosen by parallel analysis is the number for which the explained variance in your data is larger than the explained variance for the simulated data. Details about how this method works are beyond the scope of this chapter but can be found in the help file<a href="#fn3" class="footnote-ref" id="fnref3" role="doc-noteref"><sup>3</sup></a> of the <code>fa.parallel()</code> function to perform the analysis.</p>
+<p>With the argument <code>x</code>, you specify that you want to use your model-building data and, more specifically, all the columns corresponding to your variables. With the second argument <code>fa = "fa"</code>, you specify that you assess the best number of factors for factor analysis and not the best number of components for principal components analysis, which is a related yet different method for finding dimensions in data (e.g., <span class="citation" data-cites="Hotelling1933-oc">[<a href="#ref-Hotelling1933-oc" role="doc-biblioref">31</a>]</span>). The output consists of two parts: a message and a figure:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="fu">fa.parallel</span>(<span class="at">x =</span> model.building[,var_names], <span class="at">fa =</span> <span class="st">"fa"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Parallel analysis suggests that the number of factors =  5  and the number of components =  NA </code></pre>
+</div>
+<div class="cell-output-display">
+<div id="fig-5" class="quarto-figure quarto-figure-center anchored">
+<figure class="figure">
+<p><img src="ch20-factor_files/figure-html/fig-5-1.png" class="img-fluid figure-img" width="480"></p>
+<p></p><figcaption class="figure-caption"><strong>Figure</strong>&nbsp;5<strong>.</strong> Parallel analysis</figcaption><p></p>
+</figure>
+</div>
+</div>
+</div>
+<p>The message indicates that five factors are likely underlying the data. <a href="#fig-5">Figure&nbsp;<span>20.5</span></a> shows that with more than five factors (x-axis), the amount of information explained by the factors (on the y-axis) in your data is lower than for the simulated data.</p>
+<p>It is important to note that parallel analysis is a purely data-driven method, and the solution depends on the specific sample. Therefore, you should see the 5 factors only as a starting point (such that the number of underlying factors is likely around five) and treat parallel analysis as giving you a plausible range for the number of underlying factors, equal to the solution plus and minus one factor (or more, if you want to). The final decision for the number of underlying factors is made by running several factor models—one for each plausible number of underlying factors as determined using the parallel analysis—and comparing these models in terms of interpretability (i.e., does the pattern of variable-factor relations make substantive sense and/or does it fit prior knowledge/assumptions) and fit (using the BIC). The BIC can be used for model selection for many analyses, including factor analysis, and the criterion balances the fit of the factor model to the data on the one hand and model parsimony (i.e., simplicity) on the other by penalizing models for each parameter they contain. The lower the BIC value, the better, so if the smallest BIC value corresponds to the model with five factors, you have stronger support for the five-factor solution. Still, the final decision should take interpretability into account. If the parallel analysis and BIC disagree, your final decision should consider interpretability even more.</p>
+<p>The exploratory factor analysis can be performed with the following command:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>EFA <span class="ot">&lt;-</span> <span class="fu">efa</span> (<span class="at">data =</span> model.building[, var_names], <span class="at">nfactors =</span> <span class="dv">4</span><span class="sc">:</span><span class="dv">6</span>, </span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>            <span class="at">rotation =</span> <span class="st">"geomin"</span>, <span class="at">estimator =</span> <span class="st">"MLR"</span>, <span class="at">meanstructure =</span> <span class="cn">TRUE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>The <code>efa()</code> function is part of lavaan <span class="citation" data-cites="Rosseel2012-tj">[<a href="#ref-Rosseel2012-tj" role="doc-biblioref">32</a>]</span>, which is a very popular, open-source R package that can be used for estimating various latent variable models, including factor analysis and structural equation modeling (see Chapter 2 <span class="citation" data-cites="Lopez-Pernas2024-hy">[<a href="#ref-Lopez-Pernas2024-hy" role="doc-biblioref">21</a>]</span>). With the first argument <code>data</code>, you again specify the dataset on which you want to perform factor analysis, <code>nfactors</code> indicates the range of factors for which you want to retrieve the results. Next, the argument <code>rotation</code> pertains to identifying the model, which is only necessary for EFA and not CFA because, in the latter, you specify restrictions (i.e., restricting loadings to be equal to zero) that automatically lead to the identification of the model. In EFA, where you do not have restrictions, there are an infinite number of solutions identical in fit; that is, your factor matrix with loadings can be transformed or “rotated” in infinite ways. To clarify, consider the following: with (continuous) <em>observed</em> variables, you can visualize your data using scatterplots in which each point represents an individual’s combination of scores on two variables that are represented by the x-axis and the y-axis. With observed variables, you have individuals’ actual scores on the variables in your dataset. Therefore, the locations of the points relative to the x-axis and y-axis (and, therefore, the axes’ position) are fixed. With factors, the situation is different. The latent variables are <em>unobserved</em>, which means that the position of the axes (which now represent latent variables) is not “pinned down” by the data. Considering <a href="#fig-6">Figure&nbsp;<span>20.6</span></a>, for example, both axis orientations are equally likely with latent variables. Note that in both plots, the data points are in the exact same location; only the orientations of the axes representing the (in this case, two) latent factors are different. Rotation is about choosing one out of all the many possible orientations of the axes.</p>
+<p>The choice of the orientation of the axes is generally made based on how easy it makes the interpretation of the factors. Typically, the aim is to find a so-called simple structure <span class="citation" data-cites="Kiers1997-ju">[<a href="#ref-Kiers1997-ju" role="doc-biblioref">33</a>]</span> in which the orientation of the axes ensures that each observed variable is strongly related to one factor (i.e., has a large loading on one factor) and is as unrelated as possible to all others (i.e., has small cross-loadings, for example, smaller in absolute value than .3). This simple structure makes interpreting the factors (which is done by looking for a common theme in the variables that load on them) easier.</p>
+<div id="fig-6" class="quarto-figure quarto-figure-center anchored">
+<figure class="figure">
+<p><img src="Fa/media/image6.png" style="width:4.94304in;height:1.76834in" class="figure-img"></p>
+<p></p><figcaption class="figure-caption"><strong>Figure</strong>&nbsp;6<strong>.</strong> The two possible axis orientations (out of an infinite number of plausible orientations) show that with rotation, the data points stay in exactly the same place, but the axes representing the latent factors (here, two factors) change.</figcaption><p></p>
+</figure>
+</div>
+<p>In short, rotation is like taking a good selfie of yourself in front of the Eiffel Tower. You want both yourself and the tower to be clearly visible in the picture, so you move your camera until you get a clear shot of both. You and the Eiffel Tower both stay in exactly the same place! What changes is the vantage point, or angle, from which you look at both. Similarly, rotation moves your vantage point (the axes) to make the factors stand out clearly in your results, while the position of your observed data does not change.</p>
+<p>Going back to the <code>rotation</code> argument in the code above, you can use <code>geomin</code>, a method of rotation that allows your factors to be correlated with each other, which is a reasonable assumption in educational settings. For other rotation options, see <span class="citation" data-cites="Rosseel2023-pa">[<a href="#ref-Rosseel2023-pa" role="doc-biblioref">23</a>]</span>.</p>
+<p>The argument <code>estimator</code> allows you to choose different estimation procedures. The default is standard maximum likelihood (“ML”) estimation. However, for the current data, a robust maximum likelihood (“MLR”) estimation was chosen to account for small violations of the normality assumption. If the data would contain missing values, you could add the argument “missing” and specify it to be equal to “fiml”, which corresponds to a full information maximum likelihood approach and is a sensible approach if you have at least missing at random (MAR) data (details about missing data mechanisms are beyond the scope of this tutorial but can be found in the lavaan tutorial <span class="citation" data-cites="Rosseel2023-pa">[<a href="#ref-Rosseel2023-pa" role="doc-biblioref">23</a>]</span>). The final argument <code>meanstructure = TRUE</code> is necessary if you want to estimate intercepts for the observed variables as well, as opposed to just estimating variances and covariances. Note that if you add the “missing” argument to your model, <code>meanstructure</code> will be set to TRUE automatically.</p>
+<p>With the following command, you can extract and sort the BIC values in ascending order.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sort</span>(<span class="fu">fitMeasures</span>(EFA)[<span class="st">"bic"</span>,])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>nfactors = 5 nfactors = 4 nfactors = 6 
+    18142.38     18167.49     18189.29 </code></pre>
+</div>
+</div>
+<p>The output indicates that the model with five factors is the best according to the BIC. Thus, the two techniques to determine the number of factors agree. From the original article from which the data for this tutorial was obtained, it is known that the expected number of factors was also five. Therefore, continuing the model building with the five-factor solution for this tutorial makes the most sense.</p>
+<p>With the following command, you obtain the factor loadings for the five factors. Note that, by default, lavaan gives you standardized loadings, which means that the loadings can be interpreted as correlations between variables and factors.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a>EFA<span class="sc">$</span>nf5</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+         f1      f2      f3      f4      f5 
+TSC1  0.584*                              . 
+TSC2  0.487*                              . 
+TSC3  0.637*                      .         
+TSC4  0.578*      .               .         
+TSC5  0.547*                              . 
+TE1           0.728*              .         
+TE2       .   0.672*                        
+TE3           0.708*      .                 
+TE4           0.651*              .         
+TE5           0.337*      .       .         
+EE1               .   0.469*      .         
+EE2       .           0.689*                
+EE3                   0.768*                
+EE4       .           0.732*              . 
+EE5               .   0.479*      .         
+DE1                  -0.353*  0.744*      . 
+DE2               .           0.821*        
+DE3                       .   0.755*        
+RPA1                                  0.851*
+RPA2                                  0.906*
+RPA3                                  0.624*
+RPA4                      .       .   0.350*
+RPA5                      .       .   0.338*</code></pre>
+</div>
+</div>
+<p>In the output, all loadings between the variables (rows) and factors (columns) larger than an absolute value of .3 are shown by default. Inspecting the results, you can clearly see a simple structure such that every variable loads on only one factor. An exception is variable <code>DE1</code>, which positively loads on factor 4 with the other DE variables and negatively on factor 3 with the <code>EE</code> variables. Besides this cross-loading, the results align with the theoretical model as all <code>TSC</code> variables, all TE variables, all <code>EE</code> variables, all <code>DE</code> variables, and all RPA variables load on the same factor, respectively. In the next step, the model can be further refined based on fit. Since the model without the cross-loading is entirely in line with theory, the loading of DE1 on factor 3 will be set equal to zero in the CFA in the next section. However, if the CFA model does not fit well, putting back this cross-loading would be the first logical step.</p>
+</section>
+<section id="step-2-building-the-factor-model-and-assessing-fit-1" class="level3" data-number="5.3">
+<h3 data-number="5.3" class="anchored" data-anchor-id="step-2-building-the-factor-model-and-assessing-fit-1"><span class="header-section-number">5.3</span> Step 2: Building the Factor Model and Assessing Fit</h3>
+<p>The first step in building the model is to describe the model you want to estimate using special lavaan syntax. The arguments relevant for this tutorial are “=~”, which can be read as “is measured by”, and “~~”, which translates into “is correlated with”. In the following, a model is specified in which the 5 factors TSC, TE, EE, DE, and RPA are measured by different sets of variables (in line with theory and the EFA results from the previous step), separated by “+”. Moreover, it is explicitly stated that correlations between factors should be estimated. Intercepts are not explicitly included in the model, but these are included again by adding the argument <code>meanstructure = TRUE</code> to the command when estimating the CFA model.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a>CFA_model <span class="ot">&lt;-</span><span class="st">'</span></span>
+<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a><span class="st">#  Regressing items on factors</span></span>
+<span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a><span class="st">TSC =~ TSC1 + TSC2 + TSC3 + TSC5</span></span>
+<span id="cb22-4"><a href="#cb22-4" aria-hidden="true" tabindex="-1"></a><span class="st">TE  =~ TE1  + TE2  + TE3  + TE5</span></span>
+<span id="cb22-5"><a href="#cb22-5" aria-hidden="true" tabindex="-1"></a><span class="st">EE  =~ EE1  + EE2  + EE3  + EE4</span></span>
+<span id="cb22-6"><a href="#cb22-6" aria-hidden="true" tabindex="-1"></a><span class="st">DE  =~ DE1  + DE2  + DE3</span></span>
+<span id="cb22-7"><a href="#cb22-7" aria-hidden="true" tabindex="-1"></a><span class="st">RPA =~ RPA1 + RPA2 + RPA3 + RPA4</span></span>
+<span id="cb22-8"><a href="#cb22-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb22-9"><a href="#cb22-9" aria-hidden="true" tabindex="-1"></a><span class="st"># Correlations between factors</span></span>
+<span id="cb22-10"><a href="#cb22-10" aria-hidden="true" tabindex="-1"></a><span class="st">TSC ~~ TE</span></span>
+<span id="cb22-11"><a href="#cb22-11" aria-hidden="true" tabindex="-1"></a><span class="st">TSC ~~ EE</span></span>
+<span id="cb22-12"><a href="#cb22-12" aria-hidden="true" tabindex="-1"></a><span class="st">TSC ~~ DE</span></span>
+<span id="cb22-13"><a href="#cb22-13" aria-hidden="true" tabindex="-1"></a><span class="st">TSC ~~ RPA</span></span>
+<span id="cb22-14"><a href="#cb22-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb22-15"><a href="#cb22-15" aria-hidden="true" tabindex="-1"></a><span class="st">TE ~~ EE</span></span>
+<span id="cb22-16"><a href="#cb22-16" aria-hidden="true" tabindex="-1"></a><span class="st">TE ~~ DE</span></span>
+<span id="cb22-17"><a href="#cb22-17" aria-hidden="true" tabindex="-1"></a><span class="st">TE ~~ RPA</span></span>
+<span id="cb22-18"><a href="#cb22-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb22-19"><a href="#cb22-19" aria-hidden="true" tabindex="-1"></a><span class="st">EE ~~ DE</span></span>
+<span id="cb22-20"><a href="#cb22-20" aria-hidden="true" tabindex="-1"></a><span class="st">EE ~~ RPA</span></span>
+<span id="cb22-21"><a href="#cb22-21" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb22-22"><a href="#cb22-22" aria-hidden="true" tabindex="-1"></a><span class="st">DE ~~ RPA</span></span>
+<span id="cb22-23"><a href="#cb22-23" aria-hidden="true" tabindex="-1"></a><span class="st">'</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>The next step is to perform the CFA on the model-building data using the specified CFA model with the following command:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a>CFA <span class="ot">&lt;-</span> <span class="fu">cfa</span>(<span class="at">model =</span> CFA_model, <span class="at">data =</span> model.building[,var_names], </span>
+<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a>           <span class="at">estimator =</span> <span class="st">"MLR"</span>, <span class="at">std.lv =</span> <span class="cn">TRUE</span>, <span class="at">meanstructure =</span> <span class="cn">TRUE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Which model should be used is specified by the argument <code>model</code>. The arguments <code>data</code> and <code>estimator</code> are the same as in the code for the EFA. The argument <code>std.lv</code> is used to get results similar to the EFA. Since factors are not directly observed, their scale has to be set, which can be done in two different ways: i) by fixing one of the factor-loadings of each factor to 1 (which will set the scale of the factor equal to the scale of the observed variable which loadings was fixed), or ii) by setting the variance of the factor equal to 1. Here, the second option was chosen. As already mentioned, the final argument <code>meanstructure</code> is necessary if you also want to estimate the intercepts of the observed variables.</p>
+<p>After performing the CFA, you can assess how well the model fits to the data. There are two types of fit measures: global and local. You can start with the global fit measures that describe how well the model as a whole fits to the data. Many different global model fit indices exist in the literature. Kline <span class="citation" data-cites="Kline2015-jd">[<a href="#ref-Kline2015-jd" role="doc-biblioref">34</a>]</span> suggests that at least the following four indices should be considered: (1) the Chi-squared significance test, which tests whether the model has a perfect fit to the data, that is, if the model can perfectly recreate the observed relations between variables; (2) the comparative fit index (CFI), which compares the fit of the chosen model to the fit of a model assuming zero correlations between variables; (3) the root mean square error of approximation (RMSEA), which is closely related to the Chi-squared test, but does not test for perfect fit and instead quantifies (approximate) fit between the model and the data in a single number; and (4) the standardized root mean square residual (SRMR) which summarizes the difference between the sample covariance matrix of the variables and the model-implied covariance matrix into one number. Unlike the Chi-squared significance test, the CFI, RMSEA, and SRMR are no tests and assess approximate fit.</p>
+<p>Each fit measure is accompanied by rules of thumb to decide whether or not a model fits sufficiently to the data. The Chi-squared significance test should be nonsignificant because the null hypothesis is that the model fits to the data perfectly. It is important to note that with increasing sample size, the null hypothesis of perfect fit is easily rejected. Therefore, you should not base your decision on whether the model fits too much on this test.</p>
+<p>Regarding the other three measures, the CFI should be larger than 0.9 <span class="citation" data-cites="Hu1999-lz">[<a href="#ref-Hu1999-lz" role="doc-biblioref">35</a>]</span>, the RMSEA point estimate and the upper bound of the 95 percent confidence interval should be smaller than 0.05 <span class="citation" data-cites="Browne1992-pr Joreskog1993-xk">[<a href="#ref-Browne1992-pr" role="doc-biblioref">36</a>, <a href="#ref-Joreskog1993-xk" role="doc-biblioref">37</a>]</span>, and the SRMR should be smaller than 0.08 <span class="citation" data-cites="Hu1999-lz">[<a href="#ref-Hu1999-lz" role="doc-biblioref">35</a>]</span>. The fit measures and their interpretation can be obtained with the following command:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="fu">globalFit</span>(CFA)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Results------------------------------------------------------------------------ 
+ 
+Chi-Square (142) = 318.8407 with p-value
+          = 1.332268e-15
+
+CFI = 0.9476614
+
+RMSEA = 0.05332242; lower bound = 0.04589762;
+      upper bound = 0.06076663
+
+SRMR = 0.04353874
+
+Interpretations--------------------------------------------------------------- 
+ 
+The hypothesis of perfect fit *is* rejected according to the Chi-
+          Square test statistics because the p-value is smaller than 0.05 
+ 
+The hypothesis of approximate model fit *is not* rejected according
+          to the CFI because the value is larger than 0.9. 
+ 
+The hypothesis of approximate model fit *is* rejected according
+         to the RMSEA because the point estimate is larger or equal to
+         0.05. 
+ 
+The hypothesis of approximate model fit *is not* rejected according
+         to the SRMR because the value is smaller than 0.08. 
+ </code></pre>
+</div>
+</div>
+<p>Inspecting the output, you can see that the Chi-squared significance test rejected perfect fit, but that approximate fit holds according to the CFI and the SRMR. Ideally, at least three of the fit measures should indicate appropriate fit, but for the sake of this tutorial’s brevity, it was decided to continue with the model without further adjustments. In practice, you may further adjust the model, for example, by including the cross-loading between DE1 and factor 3 again, and re-evaluate fit by fitting the updated model and running the <code>globalFit()</code> function again.</p>
+<p>All measures above inspect the global fit of the model, so if the model as a whole matches the data well. While informative and necessary, the above measures can miss <em>local misfit</em> between the model and the data. If, for example, the 5-factor model describes the relations between all but one of the observed variables well, then the global fit of the model will likely be sufficient even though the estimates of the relations between the ill-fitting observed variable and all others will be completely wrong. Because of this, you should also inspect the local fit of your model; that is, if every part of your model fits the data well. There are many local fit measures that you could use <span class="citation" data-cites="Thoemmes2018-bu">[<a href="#ref-Thoemmes2018-bu" role="doc-biblioref">38</a>]</span>, but the most straightforward way of assessing local fit is to look at the absolute difference between the model-implied and the sample covariance matrix. These are the same two matrices that the SRMR is based on, but instead of quantifying the total difference between the two in one number, you obtain the difference between the two matrices for every variance and covariance separately. You can see how much the two matrices deviate for each pair of variables, as well as the maximum difference between the two matrices, by using the following command:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="fu">localFit</span>(CFA)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>$local_misfit
+      TSC1  TSC2  TSC3  TSC5   TE1   TE2   TE3   TE5   EE1   EE2   EE3   EE4
+TSC1 0.000                                                                  
+TSC2 0.012 0.000                                                            
+TSC3 0.007 0.012 0.000                                                      
+TSC5 0.007 0.002 0.010 0.000                                                
+TE1  0.019 0.000 0.009 0.010 0.000                                          
+TE2  0.025 0.014 0.031 0.021 0.011 0.000                                    
+TE3  0.013 0.010 0.048 0.005 0.003 0.008 0.000                              
+TE5  0.025 0.028 0.032 0.022 0.012 0.026 0.005 0.000                        
+EE1  0.013 0.010 0.004 0.016 0.042 0.044 0.001 0.072 0.000                  
+EE2  0.004 0.009 0.025 0.003 0.029 0.050 0.027 0.043 0.002 0.000            
+EE3  0.013 0.015 0.039 0.013 0.021 0.042 0.006 0.081 0.012 0.001 0.000      
+EE4  0.002 0.002 0.000 0.013 0.042 0.021 0.006 0.039 0.017 0.017 0.010 0.000
+DE1  0.011 0.019 0.015 0.002 0.010 0.026 0.011 0.036 0.010 0.048 0.042 0.040
+DE2  0.014 0.018 0.030 0.011 0.008 0.025 0.032 0.059 0.058 0.031 0.012 0.052
+DE3  0.000 0.008 0.041 0.021 0.023 0.006 0.012 0.019 0.048 0.015 0.022 0.012
+RPA1 0.008 0.015 0.034 0.011 0.013 0.022 0.001 0.012 0.011 0.018 0.019 0.041
+RPA2 0.006 0.008 0.044 0.007 0.021 0.004 0.009 0.008 0.015 0.016 0.002 0.053
+RPA3 0.041 0.016 0.012 0.003 0.006 0.010 0.017 0.034 0.035 0.008 0.022 0.009
+RPA4 0.020 0.000 0.003 0.031 0.001 0.027 0.031 0.039 0.042 0.035 0.031 0.053
+       DE1   DE2   DE3  RPA1  RPA2  RPA3  RPA4
+TSC1                                          
+TSC2                                          
+TSC3                                          
+TSC5                                          
+TE1                                           
+TE2                                           
+TE3                                           
+TE5                                           
+EE1                                           
+EE2                                           
+EE3                                           
+EE4                                           
+DE1  0.000                                    
+DE2  0.004 0.000                              
+DE3  0.002 0.006 0.000                        
+RPA1 0.008 0.006 0.002 0.000                  
+RPA2 0.010 0.025 0.024 0.024 0.000            
+RPA3 0.002 0.016 0.021 0.009 0.017 0.000      
+RPA4 0.006 0.056 0.074 0.046 0.011 0.052 0.000
+
+$max_misfit
+[1] 0.08051991</code></pre>
+</div>
+</div>
+<p>Based on the local fit evaluation, you can conclude that no local misfit is present since the biggest difference between the two matrices is only .08, which is small compared to the scale of the observed variables. If local misfit is present, for example, if the correlation between two observed variables had been much larger than predicted by the model, further adjustments could be made to your model that specifically address the source of local misfit, like adding an additional covariance between these observed variables. However, these adjustments should always make sense according to theory! Never just add parameters to your model to improve its fit.</p>
+<p>This concludes the assessment of fit. The last part of this model-building step is to look at the loadings of the final model with the following command:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="fu">inspect</span>(<span class="at">object =</span> CFA, <span class="at">what =</span> <span class="st">"std"</span>)<span class="sc">$</span>lambda</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>       TSC    TE    EE    DE   RPA
+TSC1 0.657 0.000 0.000 0.000 0.000
+TSC2 0.692 0.000 0.000 0.000 0.000
+TSC3 0.628 0.000 0.000 0.000 0.000
+TSC5 0.726 0.000 0.000 0.000 0.000
+TE1  0.000 0.789 0.000 0.000 0.000
+TE2  0.000 0.745 0.000 0.000 0.000
+TE3  0.000 0.788 0.000 0.000 0.000
+TE5  0.000 0.649 0.000 0.000 0.000
+EE1  0.000 0.000 0.739 0.000 0.000
+EE2  0.000 0.000 0.802 0.000 0.000
+EE3  0.000 0.000 0.786 0.000 0.000
+EE4  0.000 0.000 0.760 0.000 0.000
+DE1  0.000 0.000 0.000 0.665 0.000
+DE2  0.000 0.000 0.000 0.640 0.000
+DE3  0.000 0.000 0.000 0.738 0.000
+RPA1 0.000 0.000 0.000 0.000 0.849
+RPA2 0.000 0.000 0.000 0.000 0.854
+RPA3 0.000 0.000 0.000 0.000 0.788
+RPA4 0.000 0.000 0.000 0.000 0.587</code></pre>
+</div>
+</div>
+<p>The loadings are very comparable to the ones of the EFA, which is not surprising given that only a single cross-loading (with absolute value &gt; .3) was removed. Note that if you would want to extract other model parameters like the factor correlations, you could use the <code>inspect()</code> command without the “$lambda` at the end.</p>
+</section>
+<section id="step-3-assessing-generalizability-1" class="level3" data-number="5.4">
+<h3 data-number="5.4" class="anchored" data-anchor-id="step-3-assessing-generalizability-1"><span class="header-section-number">5.4</span> Step 3: Assessing Generalizability</h3>
+<p>The final step is assessing the generalizability of the CFA model from Step 2 by fitting the same model to the holdout sample. If the model fits this alternative dataset, too, you can be more confident that your factor model applies more generally and can capture the underlying structure of your measurement instrument in future studies and samples as well. To assess the generalizability, you use the same code as in Step 2, but now specify your holdout sample under the <code>data</code> argument.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb30"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a>CFA_holdout <span class="ot">&lt;-</span> <span class="fu">cfa</span>(<span class="at">model =</span> CFA_model, <span class="at">data =</span> holdout[,var_names], </span>
+<span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a>                   <span class="at">estimator =</span> <span class="st">"MLR"</span>, <span class="at">std.lv =</span> <span class="cn">TRUE</span>, <span class="at">meanstructure =</span> <span class="cn">TRUE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>After fitting your CFA model to the holdout sample, fit measures and their interpretation can again be obtained with the <code>globalFit()</code> command.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb31"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a><span class="fu">globalFit</span>(CFA_holdout)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Results------------------------------------------------------------------------ 
+ 
+Chi-Square (142) = 339.7732 with p-value
+          = 0
+
+CFI = 0.9429698
+
+RMSEA = 0.05639005; lower bound = 0.04898985;
+      upper bound = 0.06383685
+
+SRMR = 0.04161716
+
+Interpretations--------------------------------------------------------------- 
+ 
+The hypothesis of perfect fit *is* rejected according to the Chi-
+          Square test statistics because the p-value is smaller than 0.05 
+ 
+The hypothesis of approximate model fit *is not* rejected according
+          to the CFI because the value is larger than 0.9. 
+ 
+The hypothesis of approximate model fit *is* rejected according
+         to the RMSEA because the point estimate is larger or equal to
+         0.05. 
+ 
+The hypothesis of approximate model fit *is not* rejected according
+         to the SRMR because the value is smaller than 0.08. 
+ </code></pre>
+</div>
+</div>
+<p>Inspecting the output, you can see that the fit of the model to the holdout sample is very comparable to its fit to the model-building data. Again, the Chi-squared significance test rejects perfect fit, but approximate fit holds according to the CFI and the SRMR.</p>
+<p>Local fit is also tested with the same command as in Step 2 but again applied to your results on the holdout sample.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb33"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a><span class="fu">localFit</span>(CFA_holdout)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>$local_misfit
+      TSC1  TSC2  TSC3  TSC5   TE1   TE2   TE3   TE5   EE1   EE2   EE3   EE4
+TSC1 0.000                                                                  
+TSC2 0.010 0.000                                                            
+TSC3 0.012 0.015 0.000                                                      
+TSC5 0.007 0.007 0.005 0.000                                                
+TE1  0.023 0.023 0.003 0.014 0.000                                          
+TE2  0.027 0.012 0.019 0.008 0.008 0.000                                    
+TE3  0.012 0.010 0.024 0.008 0.012 0.002 0.000                              
+TE5  0.019 0.014 0.008 0.002 0.046 0.006 0.013 0.000                        
+EE1  0.037 0.023 0.009 0.005 0.035 0.009 0.002 0.011 0.000                  
+EE2  0.028 0.003 0.003 0.019 0.038 0.016 0.069 0.008 0.033 0.000            
+EE3  0.032 0.047 0.012 0.017 0.024 0.017 0.004 0.071 0.026 0.019 0.000      
+EE4  0.006 0.033 0.003 0.002 0.027 0.002 0.002 0.048 0.015 0.020 0.004 0.000
+DE1  0.056 0.005 0.007 0.007 0.005 0.020 0.003 0.032 0.037 0.072 0.020 0.036
+DE2  0.005 0.029 0.032 0.061 0.012 0.014 0.046 0.006 0.024 0.038 0.034 0.018
+DE3  0.012 0.019 0.022 0.002 0.034 0.016 0.014 0.005 0.057 0.032 0.050 0.020
+RPA1 0.019 0.009 0.012 0.028 0.018 0.001 0.003 0.004 0.030 0.031 0.037 0.003
+RPA2 0.009 0.020 0.023 0.001 0.017 0.016 0.018 0.004 0.003 0.045 0.008 0.051
+RPA3 0.000 0.007 0.004 0.009 0.000 0.006 0.000 0.028 0.011 0.021 0.025 0.002
+RPA4 0.018 0.015 0.006 0.014 0.021 0.019 0.040 0.036 0.049 0.023 0.046 0.023
+       DE1   DE2   DE3  RPA1  RPA2  RPA3  RPA4
+TSC1                                          
+TSC2                                          
+TSC3                                          
+TSC5                                          
+TE1                                           
+TE2                                           
+TE3                                           
+TE5                                           
+EE1                                           
+EE2                                           
+EE3                                           
+EE4                                           
+DE1  0.000                                    
+DE2  0.020 0.000                              
+DE3  0.019 0.006 0.000                        
+RPA1 0.014 0.029 0.004 0.000                  
+RPA2 0.006 0.010 0.005 0.020 0.000            
+RPA3 0.030 0.006 0.026 0.016 0.017 0.000      
+RPA4 0.008 0.028 0.046 0.057 0.005 0.093 0.000
+
+$max_misfit
+[1] 0.09310116</code></pre>
+</div>
+</div>
+<p>Results show that the local fit is sufficient for the holdout sample as well (the biggest absolute difference between the two matrices is only .09) and that it is again comparable to the results on the model-building data.</p>
+<p>Lastly, you can look at the loadings of the final model when fitted to the holdout sample.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb35"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a><span class="fu">inspect</span>(<span class="at">object =</span> CFA_holdout, <span class="at">what =</span> <span class="st">"std"</span>)<span class="sc">$</span>lambda</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>       TSC    TE    EE    DE   RPA
+TSC1 0.679 0.000 0.000 0.000 0.000
+TSC2 0.689 0.000 0.000 0.000 0.000
+TSC3 0.691 0.000 0.000 0.000 0.000
+TSC5 0.702 0.000 0.000 0.000 0.000
+TE1  0.000 0.694 0.000 0.000 0.000
+TE2  0.000 0.772 0.000 0.000 0.000
+TE3  0.000 0.819 0.000 0.000 0.000
+TE5  0.000 0.677 0.000 0.000 0.000
+EE1  0.000 0.000 0.749 0.000 0.000
+EE2  0.000 0.000 0.794 0.000 0.000
+EE3  0.000 0.000 0.781 0.000 0.000
+EE4  0.000 0.000 0.801 0.000 0.000
+DE1  0.000 0.000 0.000 0.677 0.000
+DE2  0.000 0.000 0.000 0.659 0.000
+DE3  0.000 0.000 0.000 0.766 0.000
+RPA1 0.000 0.000 0.000 0.000 0.851
+RPA2 0.000 0.000 0.000 0.000 0.867
+RPA3 0.000 0.000 0.000 0.000 0.700
+RPA4 0.000 0.000 0.000 0.000 0.618</code></pre>
+</div>
+</div>
+<p>Again, you can see that results from the model-building data and holdout sample are very comparable, as the factor loadings are similar to before.</p>
+<p>Since the model fits the holdout sample sufficiently and equally well as the model-building data and parameter estimates are comparable between the two datasets, you can conclude that the model’s generalizability is okay. Had the model not fit the holdout sample sufficiently, you would have to conclude that while the CFA model from Step 2 fits the model-building data well, you cannot be certain that it reflects a generally applicable structure of your measure and that the factor structure needs to be further refined. Since you already used your holdout sample in this phase, however, this further refinement would require collecting a new set of data that can be split into a model-building and holdout sample and going through all three steps again.</p>
+</section>
+</section>
+<section id="conclusion" class="level2" data-number="6">
+<h2 data-number="6" class="anchored" data-anchor-id="conclusion"><span class="header-section-number">6</span> Conclusion</h2>
+<p>Factor analysis is a great way to study constructs that are not directly observable. Of course, factor analysis has vast applications across several fields that are usually interdisciplinary and has been extended in several ways (e.g., to multi-group factor analysis, which will play an important role in the next chapter, where you will also see a discussion of the important topic of measurement invariance). This chapter serves mainly as a primer to introduce and demonstrate the basics of the method and to get readers interested and confident in applying the method themselves.</p>
+</section>
+<section id="further-readings" class="level2" data-number="7">
+<h2 data-number="7" class="anchored" data-anchor-id="further-readings"><span class="header-section-number">7</span> Further readings</h2>
+<p>In this chapter, you have seen an introduction and tutorial on how to apply factor analysis in educational research. To learn more about factor analysis in general, you can consult:</p>
+<ul>
+<li>Kline, R. B. (2015). Principles and Practice of Structural Equation Modeling (4 ed.). Guilford Press.</li>
+</ul>
+<p>To learn more about the difference between EFA and CFA, you can consult:</p>
+<ul>
+<li>Flora, D. B., &amp; Flake, J. K. (2017). The purpose and practice of exploratory and confirmatory factor analysis in psychological research: Decisions for scale development and validation. <em>Canadian Journal of Behavioural Science, 49</em>, 78–88.</li>
+</ul>
+<p>Finally, to learn more about the history of factor analysis, you can consult:</p>
+<ul>
+<li>Briggs, D. D. (2022). <em>Historical and Conceptual Foundations of Measurement in the Human Sciences. Credos and Controversies</em>. Routledge.</li>
+</ul>
+
+
+</section>
+<section id="bibliography" class="level1 unnumbered">
+<h1 class="unnumbered">References</h1>
+<div id="refs" class="references csl-bib-body" role="doc-bibliography">
+<div id="ref-Spearman1904-la" class="csl-entry" role="doc-biblioentry">
+<div class="csl-left-margin">1. </div><div class="csl-right-inline">Spearman C (1904) <span>“General intelligence,”</span> objectively determined and measured. Am J Psychol 15:201–292. https://doi.org/<a href="https://doi.org/10.2307/1412107">10.2307/1412107</a></div>
+</div>
+<div id="ref-Thurstone2013-pn" class="csl-entry" role="doc-biblioentry">
+<div class="csl-left-margin">2. </div><div class="csl-right-inline">Thurstone LL (2013) The vectors of the mind: Multiple factor analysis for the isolation of primary traits. Literary Licensing</div>
+</div>
+<div id="ref-Joreskog1969-kd" class="csl-entry" role="doc-biblioentry">
+<div class="csl-left-margin">3. </div><div class="csl-right-inline">Jöreskog KG (1969) A general approach to confirmatory maximum likelihood factor analysis. Psychometrika 34:183–202. https://doi.org/<a href="https://doi.org/10.1007/BF02289343">10.1007/BF02289343</a></div>
+</div>
+<div id="ref-Krijnen2020-vy" class="csl-entry" role="doc-biblioentry">
+<div class="csl-left-margin">4. </div><div class="csl-right-inline">Krijnen E, Steensel R van, Meeuwisse M, Jongerling J, Severiens S (2020) Exploring a refined model of home literacy activities and associations with children’s emergent literacy skills. Read Writ 33:207–238. https://doi.org/<a href="https://doi.org/10.1007/s11145-019-09957-4">10.1007/s11145-019-09957-4</a></div>
+</div>
+<div id="ref-Hofhuis2020-lz" class="csl-entry" role="doc-biblioentry">
+<div class="csl-left-margin">5. </div><div class="csl-right-inline">Hofhuis J, Jongerling J, Van der Zee KI, Jansz J (2020) Validation of the multicultural personality questionnaire short form (<span>MPQ-SF</span>) for use in the context of international education. PLoS One 15:e0244425. https://doi.org/<a href="https://doi.org/10.1371/journal.pone.0244425">10.1371/journal.pone.0244425</a></div>
+</div>
+<div id="ref-Zee2000" class="csl-entry" role="doc-biblioentry">
+<div class="csl-left-margin">6. </div><div class="csl-right-inline">Zee KI van der, Oudenhoven JP van (2000) The multicultural personality questionnaire: A multidimensional instrument of multicultural effectiveness. European Journal of Personality 14:291–309. https://doi.org/<a href="https://doi.org/10.1002/1099-0984(200007/08)14:4<291::AID-PER377>3.0.CO;2-6">10.1002/1099-0984(200007/08)14:4&lt;291::AID-PER377&gt;3.0.CO;2-6</a></div>
+</div>
+<div id="ref-Jongerling2024-xr" class="csl-entry" role="doc-biblioentry">
+<div class="csl-left-margin">7. </div><div class="csl-right-inline">Jongerling J, López-Pernas S, Saqr M, Vogelsmeier L (2024) Structural equation modeling with <span>R</span> for education scientists. In: Saqr M, López-Pernas S (eds) Learning analytics methods and tutorials: A practical guide using <span>R</span>. Springer, pp in–press</div>
+</div>
+<div id="ref-Flora2017-bc" class="csl-entry" role="doc-biblioentry">
+<div class="csl-left-margin">8. </div><div class="csl-right-inline">Flora DB, Flake JK (2017) The purpose and practice of exploratory and confirmatory factor analysis in psychological research: Decisions for scale development and validation. Can J Behav Sci 49:78–88. https://doi.org/<a href="https://doi.org/10.1037/cbs0000069">10.1037/cbs0000069</a></div>
+</div>
+<div id="ref-Whitelock-Wainwright2019-if" class="csl-entry" role="doc-biblioentry">
+<div class="csl-left-margin">9. </div><div class="csl-right-inline">Whitelock-Wainwright A, Gašević D, Tejeiro R, Tsai Y-S, Bennett K (2019) The student expectations of learning analytics questionnaire. J Comput Assist Learn 35:633–666. https://doi.org/<a href="https://doi.org/10.1111/jcal.12366">10.1111/jcal.12366</a></div>
+</div>
+<div id="ref-Oster2016-fn" class="csl-entry" role="doc-biblioentry">
+<div class="csl-left-margin">10. </div><div class="csl-right-inline">Oster M, Lonn S, Pistilli MD, Brown MG (2016) <a href="https://doi.org/10.1145/2883851.2883925">The learning analytics readiness instrument</a>. In: Proceedings of the sixth international conference on learning analytics &amp; knowledge. Association for Computing Machinery, New York, NY, USA, pp 173–182</div>
+</div>
+<div id="ref-Park2019-hy" class="csl-entry" role="doc-biblioentry">
+<div class="csl-left-margin">11. </div><div class="csl-right-inline">Park Y, Jo I-H (2019) Factors that affect the success of learning analytics dashboards. Educ Technol Res Dev 67:1547–1571. https://doi.org/<a href="https://doi.org/10.1007/s11423-019-09693-0">10.1007/s11423-019-09693-0</a></div>
+</div>
+<div id="ref-Kokoc2021" class="csl-entry" role="doc-biblioentry">
+<div class="csl-left-margin">12. </div><div class="csl-right-inline">Kokoç M, Kara M (2021) <a href="https://www.jstor.org/stable/26977854">A multiple study investigation of the evaluation framework for learning analytics: Instrument validation and the impact on learner performance</a>. Educational Technology &amp; Society 24:16–28</div>
+</div>
+<div id="ref-Hernandez-Garcia2018-ka" class="csl-entry" role="doc-biblioentry">
+<div class="csl-left-margin">13. </div><div class="csl-right-inline">Hernández-Garcı́a Á, Acquila-Natale E, Chaparro-Peláez J, Conde MÁ (2018) Predicting teamwork group assessment using log data-based learning analytics. Comput Human Behav 89:373–384. https://doi.org/<a href="https://doi.org/10.1016/j.chb.2018.07.016">10.1016/j.chb.2018.07.016</a></div>
+</div>
+<div id="ref-Fincham2019-kw" class="csl-entry" role="doc-biblioentry">
+<div class="csl-left-margin">14. </div><div class="csl-right-inline">Fincham E, Whitelock-Wainwright A, Kovanović V, Joksimović S, Staalduinen J-P van, Gašević D (2019) <a href="https://doi.org/10.1145/3303772.3303775">Counting clicks is not enough: Validating a theorized model of engagement in learning analytics</a>. In: Proceedings of the 9th international conference on learning analytics &amp; knowledge. Association for Computing Machinery, New York, NY, USA, pp 501–510</div>
+</div>
+<div id="ref-Baikadi2016-qv" class="csl-entry" role="doc-biblioentry">
+<div class="csl-left-margin">15. </div><div class="csl-right-inline">Baikadi A, Epp CD, Long Y, Schunn C (2016) <a href="https://www.educationaldatamining.org/EDM2016/proceedings/paper_128.pdf">Redefining<span>“ what”</span> in analyses of who does what in <span>MOOCs</span></a>. In: Proceedings of the 9th international conference on educational data mining. Raleigh, NC, USA, pp 569–570</div>
+</div>
+<div id="ref-Wang2021-cs" class="csl-entry" role="doc-biblioentry">
+<div class="csl-left-margin">16. </div><div class="csl-right-inline">Wang FH (2021) Interpreting log data through the lens of learning design: Second-order predictors and their relations with learning outcomes in flipped classrooms. Comput Educ 168:104209. https://doi.org/<a href="https://doi.org/10.1016/j.compedu.2021.104209">10.1016/j.compedu.2021.104209</a></div>
+</div>
+<div id="ref-Lawley1962-go" class="csl-entry" role="doc-biblioentry">
+<div class="csl-left-margin">17. </div><div class="csl-right-inline">Lawley DN, Maxwell AE (1962) Factor analysis as a statistical method. Journal of the Royal Statistical Society Series D (The Statistician) 12:209–229. https://doi.org/<a href="https://doi.org/10.2307/2986915">10.2307/2986915</a></div>
+</div>
+<div id="ref-Horn1965-kz" class="csl-entry" role="doc-biblioentry">
+<div class="csl-left-margin">18. </div><div class="csl-right-inline">Horn JL (1965) A rationale and test for the number of factors in factor analysis. Psychometrika 30:179–185. https://doi.org/<a href="https://doi.org/10.1007/BF02289447">10.1007/BF02289447</a></div>
+</div>
+<div id="ref-Schwarz1978-md" class="csl-entry" role="doc-biblioentry">
+<div class="csl-left-margin">19. </div><div class="csl-right-inline">Schwarz G (1978) Estimating the dimension of a model. Annals of Statistics 6:461–464. https://doi.org/<a href="https://doi.org/10.1214/aos/1176344136">10.1214/aos/1176344136</a></div>
+</div>
+<div id="ref-Prasojo2020-wk" class="csl-entry" role="doc-biblioentry">
+<div class="csl-left-margin">20. </div><div class="csl-right-inline">Prasojo LD, Habibi A, Mohd Yaakob MF, Pratama R, Yusof MR, Mukminin A, Suyanto, Hanum F (2020) Teachers’ burnout: A <span>SEM</span> analysis in an asian context. Heliyon 6:e03144. https://doi.org/<a href="https://doi.org/10.1016/j.heliyon.2019.e03144">10.1016/j.heliyon.2019.e03144</a></div>
+</div>
+<div id="ref-Lopez-Pernas2024-hy" class="csl-entry" role="doc-biblioentry">
+<div class="csl-left-margin">21. </div><div class="csl-right-inline">López-Pernas S, Saqr M, Conde J, Del-Rı́o-Carazo L (2024) A broad collection of datasets for educational research training and application. In: Saqr M, López-Pernas S (eds) Learning analytics methods and tutorials: A practical guide using <span>R</span>. Springer, pp in–press</div>
+</div>
+<div id="ref-Dolan1994-ed" class="csl-entry" role="doc-biblioentry">
+<div class="csl-left-margin">22. </div><div class="csl-right-inline">Dolan CV (1994) Factor analysis of variables with 2, 3, 5 and 7 response categories: A comparison of categorical variable estimators using simulated data. Br J Math Stat Psychol 47:309–326. https://doi.org/<a href="https://doi.org/10.1111/j.2044-8317.1994.tb01039.x">10.1111/j.2044-8317.1994.tb01039.x</a></div>
+</div>
+<div id="ref-Rosseel2023-pa" class="csl-entry" role="doc-biblioentry">
+<div class="csl-left-margin">23. </div><div class="csl-right-inline">Rosseel Y (2023) <a href="https://lavaan.ugent.be/tutorial/">The lavaan tutorial</a></div>
+</div>
+<div id="ref-Patil2022-we" class="csl-entry" role="doc-biblioentry">
+<div class="csl-left-margin">24. </div><div class="csl-right-inline">Patil I, Makowski D, Ben-Shachar MS, Wiernik BM, Bacher E, Lüdecke D (2022) Datawizard: An <span>R</span> package for easy data preparation and statistical transformations. J Open Source Softw 7:4684. https://doi.org/<a href="https://doi.org/10.21105/joss.04684">10.21105/joss.04684</a></div>
+</div>
+<div id="ref-Bentler1987-io" class="csl-entry" role="doc-biblioentry">
+<div class="csl-left-margin">25. </div><div class="csl-right-inline">Bentler PM, Chou C-P (1987) Practical issues in structural modeling. Sociol Methods Res 16:78–117. https://doi.org/<a href="https://doi.org/10.1177/0049124187016001004">10.1177/0049124187016001004</a></div>
+</div>
+<div id="ref-Jackson2003-gk" class="csl-entry" role="doc-biblioentry">
+<div class="csl-left-margin">26. </div><div class="csl-right-inline">Jackson DL (2003) Revisiting sample size and number of parameter estimates: Some support for the n:q hypothesis. Structural equation modeling: a multidisciplinary journal 10:128–141</div>
+</div>
+<div id="ref-johnson2003procedure" class="csl-entry" role="doc-biblioentry">
+<div class="csl-left-margin">27. </div><div class="csl-right-inline">Johnson J (2003) A procedure for conducting factor analysis with large numbers of variables. In: Poster presented at the 18th annual conference of the society for industrial and organizational psychology, orlando, FL</div>
+</div>
+<div id="ref-Bartlett1950-pp" class="csl-entry" role="doc-biblioentry">
+<div class="csl-left-margin">28. </div><div class="csl-right-inline">Bartlett MS (1950) Tests of significance in factor analysis. Br J Math Stat Psychol 3:77–85. https://doi.org/<a href="https://doi.org/10.1111/j.2044-8317.1950.tb00285.x">10.1111/j.2044-8317.1950.tb00285.x</a></div>
+</div>
+<div id="ref-Kaiser1970-kp" class="csl-entry" role="doc-biblioentry">
+<div class="csl-left-margin">29. </div><div class="csl-right-inline">Kaiser HF (1970) A second generation little jiffy. Psychometrika 35:401–415. https://doi.org/<a href="https://doi.org/10.1007/BF02291817">10.1007/BF02291817</a></div>
+</div>
+<div id="ref-Lopez-Pernas2024-bn" class="csl-entry" role="doc-biblioentry">
+<div class="csl-left-margin">30. </div><div class="csl-right-inline">López-Pernas S, Misiejuk K, Tikka S, Saqr M, Kopra J, Heinäniemi M (2024) Visualizing and reporting educational data with <span>R</span>. In: Saqr M, López-Pernas S (eds) Learning analytics methods and tutorials: A practical guide using <span>R</span>. Springer, pp in–press</div>
+</div>
+<div id="ref-Hotelling1933-oc" class="csl-entry" role="doc-biblioentry">
+<div class="csl-left-margin">31. </div><div class="csl-right-inline">Hotelling H (1933) Analysis of a complex of statistical variables into principal components. J Educ Psychol 24:417–441. https://doi.org/<a href="https://doi.org/10.1037/h0071325">10.1037/h0071325</a></div>
+</div>
+<div id="ref-Rosseel2012-tj" class="csl-entry" role="doc-biblioentry">
+<div class="csl-left-margin">32. </div><div class="csl-right-inline">Rosseel Y (2012) Lavaan: An <span>R</span> package for structural equation modeling. J Stat Softw 48: https://doi.org/<a href="https://doi.org/10.18637/jss.v048.i02">10.18637/jss.v048.i02</a></div>
+</div>
+<div id="ref-Kiers1997-ju" class="csl-entry" role="doc-biblioentry">
+<div class="csl-left-margin">33. </div><div class="csl-right-inline">Kiers HAL (1997) Techniques for rotating two or more loading matrices to optimal agreement and simple structure: A comparison and some technical details. Psychometrika 62:545–568. https://doi.org/<a href="https://doi.org/10.1007/BF02294642">10.1007/BF02294642</a></div>
+</div>
+<div id="ref-Kline2015-jd" class="csl-entry" role="doc-biblioentry">
+<div class="csl-left-margin">34. </div><div class="csl-right-inline">Kline RB (2015) <a href="https://play.google.com/store/books/details?id=3VauCgAAQBAJ">Principles and practice of structural equation modeling</a>, 4th Edition. Guilford Publications</div>
+</div>
+<div id="ref-Hu1999-lz" class="csl-entry" role="doc-biblioentry">
+<div class="csl-left-margin">35. </div><div class="csl-right-inline">Hu L, Bentler PM (1999) Cutoff criteria for fit indexes in covariance structure analysis: Conventional criteria versus new alternatives. Struct Equ Modeling 6:1–55. https://doi.org/<a href="https://doi.org/10.1080/10705519909540118">10.1080/10705519909540118</a></div>
+</div>
+<div id="ref-Browne1992-pr" class="csl-entry" role="doc-biblioentry">
+<div class="csl-left-margin">36. </div><div class="csl-right-inline">Browne MW, Cudeck R (1992) Alternative ways of assessing model fit. Sociol Methods Res 21:230–258. https://doi.org/<a href="https://doi.org/10.1177/0049124192021002005">10.1177/0049124192021002005</a></div>
+</div>
+<div id="ref-Joreskog1993-xk" class="csl-entry" role="doc-biblioentry">
+<div class="csl-left-margin">37. </div><div class="csl-right-inline">Jöreskog KG, Sörbom D (1993) <span>LISREL</span> 8: Structural equation modeling with the <span>SIMPLIS</span> command language. Scientific software international</div>
+</div>
+<div id="ref-Thoemmes2018-bu" class="csl-entry" role="doc-biblioentry">
+<div class="csl-left-margin">38. </div><div class="csl-right-inline">Thoemmes F, Rosseel Y, Textor J (2018) Local fit evaluation of structural equation models using graphical criteria. Psychol Methods 23:27–41. https://doi.org/<a href="https://doi.org/10.1037/met0000147">10.1037/met0000147</a></div>
+</div>
+</div>
+</section>
+<section id="footnotes" class="footnotes footnotes-end-of-document" role="doc-endnotes">
+<hr>
+<ol>
+<li id="fn1"><p>Moreover, they determined that the factor structure of the MPQ-SF was identical for Western and non-Western students and that the MPQ-SF could therefore be used to study and compare both these groups. This comparing factor structures for different groups in terms of similarity is called measurement invariance testing and will be discussed more extensively in the next chapter on SEM <span class="citation" data-cites="Jongerling2024-xr">[<a href="#ref-Jongerling2024-xr" role="doc-biblioref">7</a>]</span>.<a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn2"><p>There are many different ways to obtain histograms in R and this code is just one possible example. To learn more about how to create a histogram step by step, see the chapter on Data Visualization in this book <span class="citation" data-cites="Lopez-Pernas2024-bn">[<a href="#ref-Lopez-Pernas2024-bn" role="doc-biblioref">30</a>]</span>.<a href="#fnref2" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn3"><p>Note that you can open the helpfile for any function of interest by typing <code>?[functionname]</code> (e.g., <code>?fa.parallel</code>).<a href="#fnref3" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+</ol>
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    target: function(trigger) {
+      return trigger.previousElementSibling;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+  function tippyHover(el, contentFn) {
+    const config = {
+      allowHTML: true,
+      content: contentFn,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start'
+    };
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      return note.innerHTML;
+    });
+  }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+<nav class="page-navigation">
+  <div class="nav-page nav-page-previous">
+      <a href="../../chapters/ch19-psychological-networks/ch19-psych.html" class="pagination-link">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">19</span>&nbsp; <span class="chapter-title">Psychological networks</span></span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+      <a href="../../chapters/ch21-sem/ch21-sem.html" class="pagination-link">
+        <span class="nav-page-text"><span class="chapter-number">21</span>&nbsp; <span class="chapter-title">Structured Equation Modeling</span></span> <i class="bi bi-arrow-right-short"></i>
+      </a>
+  </div>
+</nav>
+</div> <!-- /content -->
+<footer class="footer">
+  <div class="nav-footer">
+      <div class="nav-footer-center"><div class="cookie-consent-footer"><a href="#" id="open_preferences_center">Cookie Preferences</a></div></div>
+  </div>
+</footer>
+<script>
+  document.querySelector(".quarto-title").innerHTML =  '<div class="badge bs-warning bg-warning text-dark" style="float:right;">Pre-print</div>' +  document.querySelector(".quarto-title").innerHTML
+  var keywords = document.querySelector('meta[name="keywords"]')
+  if (keywords && keywords.content) {
+    document.getElementById("title-block-header").innerHTML = document.getElementById("title-block-header").innerHTML + 
+      '<div class="abstract"><div class="abstract-title">Keywords</div><div class="quarto-title-meta-contents"><p>'+
+      keywords.content +
+      '</p></div></div>'
+  }
+</script>
+
+
+
+</body></html>
