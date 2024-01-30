@@ -73,11 +73,11 @@ csl: ../../springer.cls
 
 # Introduction
 
-Data visualization can be defined as "the representation and presentation of data that exploits our visual perception abilities in order to amplify cognition" [@Kirk2012, pp. 17]. It has the power to transform complex information into compelling and insightful stories that enlighten, inform, and inspire action. Data visualization is an effective tool for learning analytics, as it helps to present learners' data in a way that is easily understandable and intuitive for students, teachers, researchers, and other stakeholders. Through the use of graphs, charts, and other visual aids, it is possible to quickly identify patterns, trends, and relationships within data that may not be immediately apparent through traditional data analysis methods.
+Data visualization can be defined as "the representation and presentation of data that exploits our visual perception abilities in order to amplify cognition" [@Kirk2012, pp. 17]. It has the power to transform complex information into compelling stories tha inform and inspire action. Data visualization is an effective tool for learning analytics, as it helps to present learners' data in a way that is easily understandable and intuitive for students, teachers, researchers, and other stakeholders. Through the use of graphs, charts, and other visual aids, it is possible to quickly identify patterns, trends, and relationships within data that may not be immediately apparent through traditional data analysis methods.
 
-Visualization in learning analytics has two distinct applications. On the one hand, the use of visual dashboards has become the main vehicle for putting learning analytics into practice. By presenting data in visually appealing and intuitive ways, visualization can help promote data literacy among students and other stakeholders, encouraging greater engagement with data and fostering a culture of continuous improvement. On the other hand, learning analytics scientific production heavily relies on data visualization to present research findings in a clear and accessible manner, making it easier for readers from different scholarly backgrounds to understand and act upon research insights. Regardless of the context, the power of visualization in learning analytics lies in its ability to take complex data and turn it into meaningful insights that support better decision-making and drive improvement. By leveraging the power of visualization, learning analytics professionals can unlock the full potential of data to enhance the quality of education and promote evidence-based practice.
+Visualization in learning analytics has two distinct applications. On the one hand, the use of visual dashboards has become the main vehicle for putting learning analytics into practice. Presenting data in visually appealing and intuitive ways can help promote data literacy among students and other stakeholders, encouraging greater engagement with data and fostering a culture of continuous improvement. On the other hand, learning analytics scientific production heavily relies on data visualization to present research findings in a clear and accessible manner, making it easier for readers from different scholarly backgrounds to understand and act upon research insights. Regardless of the context, the power of visualization in learning analytics lies in its ability to take complex data and turn it into meaningful insights that support better decision-making and drive improvement.  
 
-In this chapter, the reader will be guided through the process of generating meaningful and aesthetically pleasing visualizations of different types of datasets using well-known R packages. Relevant plots and plot types will be demonstrated with an explanation of their usage and usage cases. Furthermore, learning-related examples will be discussed in detail. For instance, readers will learn how to visualize learners' logs extracted from learning management systems to show how trace data can be used to track students' learning activities. Other examples of common research scenarios in which learners' data are visualized will be illustrated throughout the chapter. In addition to creating compelling plots, readers will also be able to generate professional-looking tables with summary statistics to report descriptive statistics.
+In this chapter, the reader will be guided through the process of generating visualizations of different types of data types using well-known R packages. Relevant plots and plot types will be demonstrated with an explanation of their usage and use cases. Furthermore, learning-related examples will be discussed in detail. For instance, readers will learn how to visualize learners' logs extracted from learning management systems to show how trace data can be used to track students' learning activities. Other examples of common research scenarios in which learners' data are visualized will be illustrated throughout the chapter. In addition to creating compelling plots, readers will also be able to generate professional-looking tables with summary statistics to report descriptive statistics.
 
 # Visualization in learning analytics
 
@@ -128,7 +128,7 @@ df <- import(demo_url)
 install.packages <- function(x){}
 ```
 
-We are now going to create our first plot using `ggplot2`. Our example deals with a widely studied matter in learning analytics, which is the relationship between online activity and achievement. We will use a bar chart to represent the number of students that have low, moderate and high activity levels in each achievement group (high achievers vs. low achievers). In order to become familiar with the syntax of `ggplot2`, we will recreate the plot step by step, explaining each of the elements in the plot. Below is the final result we aim at accomplishing:
+We are now going to create our first plot using `ggplot2`. Our example deals with a widely studied matter in learning analytics, which is the relationship between online activity and achievement. We will use a bar chart to represent the number of students that have low, moderate and high activity levels in each achievement group (high achievers vs. low achievers). In order to become familiar with the syntax of `ggplot2`, we will recreate the plot step by step, explaining each of the elements in the plot. Below is the final result we aim at accomplishing (@fig-firstplot):
 
 ```{r, fig.cap = "First plot with ggplot2.", echo = FALSE, fig.width = 6, fig.height = 4}
 #| label: fig-firstplot
@@ -202,23 +202,25 @@ print(df |> dplyr::select(User, Name, Gender, ActivityGroup, AchievingGroup, eve
 
 ### Creating the aesthetic mapping
 
-Now that we have our data, we can pass it on to `ggplot2` as follows:
+Now that we have our data, we can pass it on to `ggplot2` as follows (@fig-empty):
 
 ```{r, fig.align = 'center', fig.cap = "Empty plot", fig.width = 4, fig.height = 2}
 #| label: fig-empty
 ggplot(df)
 ```
 
-We still do not see anything because we have not selected the type of chart or the variables of the data that we want to plot. First, let us specify that we want to plot the `AchievingGroup` column (high vs. low achievers) on the x-axis. Assigning columns of our dataset to different elements of the plot is called constructing an aesthetic mapping. We can do it by calling the `aes` function from `ggplot2`, specifying that we want to map the `AchievingGroup` column to the x-axis, and then passing this call to `aes` to our plot using the second argument of `ggplot`:
+We still do not see anything because we have not selected the type of chart or the variables of the data that we want to plot. First, let us specify that we want to plot the `AchievingGroup` column (high vs. low achievers) on the x-axis. Assigning columns of our dataset to different elements of the plot is called constructing an aesthetic mapping. We can do it by calling the `aes` function from `ggplot2`, specifying that we want to map the `AchievingGroup` column to the x-axis, and then passing this call to `aes` to our plot using the second argument of `ggplot` (@fig-xaxis): 
 
-### Add the geometry component
+
 
 ```{r, fig.align = 'center', fig.cap = "Empty plot with AchievingGroup in x-axis labels", fig.width = 4, fig.height = 2}
 #| label: fig-xaxis
 ggplot(df, aes(x = AchievingGroup)) 
 ```
 
-We now see that the x-axis has the two possible values of `AchievingGroup`: "High achiever" and "Low achiever". We still need to tell `ggplot2` the type of chart we want to use to plot the number of students of each type. To do that we need to add a geometrical (`geom`) component to our plot in which we specify that we want a bar chart. We do it by adding a `+` sign after our call to `ggplot` and calling `geom_bar()` (the name of the geometry that represents a bar chart).
+### Add the geometry component
+
+We now see that the x-axis has the two possible values of `AchievingGroup`: "High achiever" and "Low achiever". We still need to tell `ggplot2` the type of chart we want to use to plot the number of students of each type. To do that we need to add a geometrical (`geom`) component to our plot in which we specify that we want a bar chart. We do it by adding a `+` sign after our call to `ggplot` and calling `geom_bar()` (the name of the geometry that represents a bar chart) (@fig-studentsbyachievementgroup).
 
 ```{r, fig.align = 'center', fig.cap = "Basic bar plot showing students by achievement group", fig.width = 5, fig.height = 3}
 #| label: fig-studentsbyachievementgroup
@@ -234,7 +236,7 @@ df$AchievingGroup = factor(df$AchievingGroup,
                            levels = c("Low achiever", "High achiever"))
 ```
 
-If we generate our plot again, we see that the bars are now in the order we want them to be:
+If we generate our plot again, we see that the bars are now in the order we want them to be (@fig-studentsbyachievmentordered):
 
 ```{r, fig.align = 'center', fig.cap = "Basic bar plot showing students by achievement group after transforming the x-axis variable into a factor", fig.width = 5, fig.height = 3}
 #| label: fig-studentsbyachievmentordered
@@ -243,7 +245,7 @@ ggplot(df, aes(x = AchievingGroup)) + geom_bar()
 
 ### Adding the color scale
 
-We still need to color our bar chart according to students' activity level. We do that by mapping the fill aesthetic to the `ActivityLevel` column inside the `aes`. When we provide the `fill` property, `ggplot` will automatically create the appropriate legend.
+We still need to color our bar chart according to students' activity level. We do that by mapping the fill aesthetic to the `ActivityLevel` column inside the `aes`. When we provide the `fill` property, `ggplot` will automatically create the appropriate legend (@fig-colorby).
 
 ```{r, fig.align = 'center', fig.cap = "Basic bar plot showing students' activity level by achievement group  and colored by activity level", fig.width = 5, fig.height = 3}
 #| label: fig-colorby
@@ -257,14 +259,14 @@ df$ActivityGroup = factor(df$ActivityGroup,
                           levels = c("Low activity", "Moderate activity", "High activity"))
 ```
 
-If we generate the plot again, we see now that the legend is in the right order:
+If we generate the plot again, we see now that the legend is in the right order (@fig-colorbyorder1):
 
 ```{r, fig.align = 'center', fig.cap = "Basic bar plot showing students' activity level by achievement group  and colored by activity level after ordering the legend", fig.width = 5, fig.height = 3}
 #| label: fig-colorbyorder1
 ggplot(df, aes(x = AchievingGroup, fill = ActivityGroup)) + geom_bar()
 ```
 
-However, the stacks are still not in the right order, being the low activity students at the top of the bar, and the high activity students at the bottom, which might be counter-intuitive. To change this, we need to reverse the position of the bar using `position = position_stack(reverse = TRUE)` inside `geom_bar`:
+However, the stacks are still not in the right order, being the low activity students at the top of the bar, and the high activity students at the bottom, which might be counter-intuitive. To change this, we need to reverse the position of the bar using `position = position_stack(reverse = TRUE)` inside `geom_bar` (@fig-colorbyorder2):
 
 ```{r, fig.align = 'center', fig.cap = "Basic bar plot showing students' activity level by achievement group  and colored by activity level after ordering the stacks ", fig.width = 5, fig.height = 3}
 #| label: fig-colorbyorder2
@@ -272,7 +274,7 @@ ggplot(df, aes(x = AchievingGroup, fill = ActivityGroup)) +
   geom_bar(position = position_stack(reverse = TRUE))
 ```
 
-We are getting closer but the color scheme does not quite match our intended result. To add a color scheme to our plot we need to add a `scale` layer. In this case, the scale is for the `fill` property, which is the color of the bars in our chart. There are many ways to specify the color scheme. One option is to use sequential colors from the same palette. For that we add a new layer to our plot named `scale_fill_brewer` and we pass the palette that we want as an argument. For example, palette number 15 would look like this:
+We are getting closer but the color scheme does not quite match our intended result. To add a color scheme to our plot we need to add a `scale` layer. In this case, the scale is for the `fill` property, which is the color of the bars in our chart. There are many ways to specify the color scheme. One option is to use sequential colors from the same palette. For that we add a new layer to our plot named `scale_fill_brewer` and we pass the palette that we want as an argument. For example, palette number 15 would look like this (@fig-brewer):
 
 ```{r, fig.align = 'center', fig.cap = "Bar plot showing students' activity level by achievement group with sequential color scale", fig.width = 5, fig.height = 3}
 #| label: fig-brewer
@@ -281,7 +283,7 @@ ggplot(df, aes(x = AchievingGroup, fill = ActivityGroup)) +
   scale_fill_brewer(palette = 15)
 ```
 
-Another option is to provide a manual scale with the colors of our choice. For that we use `scale_fill_manual` and specify a `values` vector as an argument. You need to specify as many colors as unique elements in your scale. In this case we have three activity groups (for low, moderate or high activity), so we must provide three colors. There are tons of resources online where you can find or create your own palettes (e.g., [Coolors](https://coolors.co/), [Adobe Color](https://color.adobe.com/) or [Lospec](https://lospec.com/palette-list)). You have to provide the hexadecimal code of each color or the [official color name](https://r-graph-gallery.com/42-colors-names.html) recognized by R. Below is an example:
+Another option is to provide a manual scale with the colors of our choice. For that we use `scale_fill_manual` and specify a `values` vector as an argument. You need to specify as many colors as unique elements in your scale. In this case we have three activity groups (for low, moderate or high activity), so we must provide three colors. There are tons of resources online where you can find or create your own palettes (e.g., [Coolors](https://coolors.co/), [Adobe Color](https://color.adobe.com/) or [Lospec](https://lospec.com/palette-list)). You have to provide the hexadecimal code of each color or the [official color name](https://r-graph-gallery.com/42-colors-names.html) recognized by R. Below is an example (@fig-scalemanual):
 
 ```{r, fig.align = 'center', fig.cap = "Bar plot showing students' activity level by achievement group with manual color scale", fig.width = 5, fig.height = 3}
 #| label: fig-scalemanual
@@ -290,7 +292,7 @@ ggplot(df, aes(x = AchievingGroup, fill = ActivityGroup)) +
   scale_fill_manual(values = c("#ef6461", "#7AE7C7", "#8E518D"))  
 ```
 
-Lastly, a very common color scale used is *Viridis*. It is designed to be perceived by viewers with common forms of color blindness. To use it in our plot we just add `scale_fill_viridis_d()`.
+Lastly, a very common color scale used is *Viridis*. It is designed to be perceived by viewers with common forms of color blindness. To use it in our plot we just add `scale_fill_viridis_d()` (@fig-viridis).
 
 ```{r, fig.align = 'center', fig.cap = "Bar plot showing students' activity level by achievement group with viridis color scale", fig.width = 5, fig.height = 3}
 #| label: fig-viridis
@@ -299,7 +301,7 @@ ggplot(df, aes(x = AchievingGroup, fill = ActivityGroup)) +
   scale_fill_viridis_d() 
 ```
 
-Viridis is the palette we need to replicate our target plot. However, the order of the color needs to be reversed so the most dense color represents the higher activity level. We do this by reversing the direction of the palette as follows:
+Viridis is the palette we need to replicate our target plot. However, the order of the color needs to be reversed so the most dense color represents the higher activity level. We do this by reversing the direction of the palette as follows (@fig-viridis-direction):
 
 ```{r, fig.align = 'center', fig.cap = "Bar plot showing students' activity level by achievement group with viridis color scale", fig.width = 5, fig.height = 3}
 #| label: fig-viridis-direction
@@ -310,7 +312,7 @@ ggplot(df, aes(x = AchievingGroup, fill = ActivityGroup)) +
 
 ### Working with themes
 
-Now that the geometry and color scheme of the bars looks like our initial plot, we notice that there are still some differences. An important one is the grey background of the plot. To change the general appearance of our plot, we may use the `ggplot2` themes. Below are some examples:
+Now that the geometry and color scheme of the bars looks like our initial plot, we notice that there are still some differences. An important one is the grey background of the plot. To change the general appearance of our plot, we may use the `ggplot2` themes. @fig-themes shows some examples :
 
 ```{r, message = FALSE, eval = FALSE}
 ggplot(df, aes(x = AchievingGroup, fill = ActivityGroup)) + 
@@ -348,7 +350,7 @@ We have `theme_dark` with a dark background and border, `theme_classic` with thi
 theme_set(theme_minimal())
 ```
 
-Notice how now we get `theme_minimal` even when we do not specify it in our code:
+Notice how now we get `theme_minimal` even when we do not specify it in our code (@fig-minimal):
 
 ```{r, fig.align = 'center', fig.cap = "Bar plot with theme `minimal` by default", fig.width = 5, fig.height = 3}
 #| label: fig-minimal
@@ -359,7 +361,7 @@ ggplot(df, aes(x = AchievingGroup, fill = ActivityGroup)) +
 
 ### Changing the axis ticks
 
-You may have not noticed that another difference with our goal plot is the ticks in our y-axis. In the goal plot we count 10 by 10, whereas in our last plot we do so 20 by 20. Just like we modified the scale of the `fill` aesthetic when we changed the color of our bars, we can also modify the `y` aesthetic to adjust to our needs. We use the `scale_y_continuous` layer and we try different number of breaks (`n.breaks`), until we find what we like best:
+You may have not noticed that another difference with our goal plot is the ticks in our y-axis. In the goal plot we count 10 by 10, whereas in our last plot we do so 20 by 20. Just like we modified the scale of the `fill` aesthetic when we changed the color of our bars, we can also modify the `y` aesthetic to adjust to our needs. We use the `scale_y_continuous` layer and we try different number of breaks (`n.breaks`), until we find what we like best (@fig-breaks):
 
 ```{r, eval = F}
 ggplot(df, aes(x = AchievingGroup, fill = ActivityGroup)) + 
@@ -397,7 +399,7 @@ We choose 7 breaks to obtain our desired result.
 
 ### Titles and labels
 
-Our plot is still missing some slight modifications to be 100% equal to the original one. For instance, the axes' titles are not the same. To specify the y-axis label, we add a new layer to our plot named `ylab` and we pass a string with our desired label "Number of students":
+Our plot is still missing some slight modifications to be 100% equal to the original one. For instance, the axes' titles are not the same. To specify the y-axis label, we add a new layer to our plot named `ylab` and we pass a string with our desired label "Number of students" (@fig-seven):
 
 ```{r, fig.align = 'center', fig.cap = "Bar plot with y-axis label", fig.width = 5, fig.height = 3}
 #| label: fig-seven
@@ -408,7 +410,7 @@ ggplot(df, aes(x = AchievingGroup, fill = ActivityGroup)) +
   ylab("Number of students") 
 ```
 
-We do the same for the x-axis using `xlab`, and for the legend using `labs`:
+We do the same for the x-axis using `xlab`, and for the legend using `labs` (@fig-seven2):
 
 ```{r, fig.align = 'center', fig.cap = "Bar plot with all labels", fig.width = 5, fig.height = 3}
 #| label: fig-seven2
@@ -421,7 +423,7 @@ ggplot(df, aes(x = AchievingGroup, fill = ActivityGroup)) +
   labs(fill = "Activity level")
 ```
 
-More importantly, we are missing the overall title of the plot. To add it we use `ggtitle` and we pass our intended plot title "Activity level by achievement group". Keep in mind that, whenever possible, it is better to add a caption to the image rather than a title on the plot. A caption is more accessible for visually impaired users since it is compatible with screen readers. In scientific papers, it is also more common to have a Figure caption than a title within the plot. In social media, it is frequent to see the title on the plot as images are often shared without context. However, many social media platforms allow to provide an *alternative text* which is what screen readers will read as a substitute for the image, and that is also the case in learning analytics dashboards.
+More importantly, we are missing the overall title of the plot. To add it we use `ggtitle` and we pass our intended plot title "Activity level by achievement group". Keep in mind that, whenever possible, it is better to add a caption to the image rather than a title on the plot. A caption is more accessible for visually impaired users since it is compatible with screen readers. In scientific papers, it is also more common to have a Figure caption than a title within the plot. In social media, it is frequent to see the title on the plot as images are often shared without context. However, many social media platforms allow to provide an *alternative text* which is what screen readers will read as a substitute for the image, and that is also the case in learning analytics dashboards (@fig-titles).
 
 ```{r, fig.align = 'center', fig.cap = "Bar plot with title", fig.width = 5, fig.height = 3}
 #| label: fig-titles
@@ -437,7 +439,7 @@ ggplot(df, aes(x = AchievingGroup, fill = ActivityGroup)) +
 
 ### Other cosmetic modifications
 
-Lastly, we need to do some slight modifications to the overall appearance of the plot. We do this through the generic `theme` function of `ggplot2`. We first modify the position of the legend by setting `legend.position` to "bottom". We then increase the size of the axes titles, by setting `axis.title` to `element_text(size = 12)`. Finally, we make the plot title bigger as well and put it in bold by setting `plot.title` to `element_text(size = 15, face = "bold"))`. With these last changes, we have an exact replica of our original plot.
+Lastly, we need to do some slight modifications to the overall appearance of the plot. We do this through the generic `theme` function of `ggplot2`. We first modify the position of the legend by setting `legend.position` to "bottom". We then increase the size of the axes titles, by setting `axis.title` to `element_text(size = 12)`. Finally, we make the plot title bigger as well and put it in bold by setting `plot.title` to `element_text(size = 15, face = "bold"))`. With these last changes, we have an exact replica of our original plot (@fig-legend).
 
 ```{r, fig.align = 'center', fig.cap = "Bar plot with theme modifications", fig.width = 5, fig.height = 4}
 #| label: fig-legend
@@ -485,14 +487,14 @@ The `ggplot2` library offers many types of plots (or `geom`s) that you can choos
 
 ### Bar plot
 
-We have seen how to construct a bar plot in the previous section as an example of how to use `ggplot2`. But when should we use a bar plot? Bar plots are useful when we want to represent counts or any numerical variable broken down by categories. The y-axis would represent the count (or other continuous numerical variable) and the x-axis would represent the categories. Keep in mind that if the categories follow a natural order, the x-axis should respect it (for example: "Morning", "Afternoon", "Evening"; or "Children", "Adults", "Elders"). Otherwise, you can just order the x-axis alphabetically or from highest to lowest value in the y-axis.
+We have seen how to construct a bar plot in the previous section as an example of how to use `ggplot2`. But when should we use a bar plot? Bar plots are useful when we want to represent counts or any numerical variable broken down by categories. The y-axis would represent the count (or other continuous numerical variable) and the x-axis would represent the categories. Keep in mind that if the categories follow a natural order, the x-axis should respect it (for example: "Morning", "Afternoon", "Evening"; or "Children", "Adults", "Elders"). Otherwise, you can just order the x-axis alphabetically or from highest to lowest value in the y-axis (@fig-barr).
 
 ```{r, fig.align = 'center', fig.cap = "Basic bar plot of students by achievement group", fig.width = 5, fig.height = 3}
 #| label: fig-barr
 ggplot(df, aes(x = AchievingGroup)) +  geom_bar(position = position_stack(reverse = TRUE)) 
 ```
 
-Remember that you can add a "third dimension" to the plot by using the `fill` property. This is known as a 'stacked' bar chart and helps highlight the proportion of, in this case, students' activity level (`ActivityGroup`).
+Remember that you can add a "third dimension" to the plot by using the `fill` property. This is known as a 'stacked' bar chart and helps highlight the proportion of, in this case, students' activity level (`ActivityGroup`) (@fig-filled).
 
 ```{r, fig.align = 'center', fig.cap = "Basic bar plot of students by achievement group filled by activity level", fig.width = 5, fig.height = 3}
 #| label: fig-filled
@@ -501,7 +503,7 @@ ggplot(df, aes(x = AchievingGroup, fill = ActivityGroup)) +
   geom_bar(position = position_stack(reverse = TRUE)) 
 ```
 
-If we care more about the actual number rather than the proportion of students with each activity level, instead of a stacked bar chart we can keep each 'stack' as a whole bar of their own. This plot is very useful to compare values among categories. We accomplish this by passing the `position` argument with the value "dodge" to the `geom_bar` component:
+If we care more about the actual number rather than the proportion of students with each activity level, instead of a stacked bar chart we can keep each 'stack' as a whole bar of their own. This plot is very useful to compare values among categories. We accomplish this by passing the `position` argument with the value "dodge" to the `geom_bar` component (@fig-dodge):
 
 ```{r, fig.align = 'center', fig.cap = "Basic bar plot of students by achievement group filled by activity level with position dodge instead of stacked", fig.width = 5, fig.height = 3}
 #| label: fig-dodge
@@ -525,14 +527,14 @@ head(df)
 print(df |> tibble::as_tibble())
 ```
 
-To create a histogram for this variable we may use the `geom_histogram` feature of `ggplot2`. We just pass our dataset and map the `Frequency.Course_view` variable to the x axis, and we add the geometry `geom_histogram`:
+To create a histogram for this variable we may use the `geom_histogram` feature of `ggplot2`. We just pass our dataset and map the `Frequency.Course_view` variable to the x axis, and we add the geometry `geom_histogram` (@fig-histogram):
 
 ```{r, fig.align = 'center', fig.cap = "Histogram of students' course page views", warning = FALSE, message = FALSE, fig.width = 5, fig.height = 3}
 #| label: fig-histogram
 ggplot(df, mapping = aes(x = Frequency.Total)) + geom_histogram()
 ```
 
-We can provide our own value to the `bins` argument in `geom_histogram` to personalize how many bins we want in our plot:
+We can provide our own value to the `bins` argument in `geom_histogram` to personalize how many bins we want in our plot (@fig-histogram10):
 
 ```{r, fig.align = 'center', fig.cap = "Histogram of students' course page view with 50 bins", fig.width = 5, fig.height = 3}
 #| label: fig-histogram10
@@ -540,7 +542,7 @@ ggplot(df, mapping = aes(x = Frequency.Total)) +
   geom_histogram(bins = 50)
 ```
 
-We can also personalize the color scheme using `fill` for the background of the bars:
+We can also personalize the color scheme using `fill` for the background of the bars (@fig-histogrampink):
 
 ```{r, fig.align = 'center', fig.cap = "Histogram of students' course page view with color, fill and linewidth", fig.width = 5, fig.height = 3}
 #| label: fig-histogrampink
@@ -571,7 +573,7 @@ head(events)
 print(events |> tibble::as_tibble())
 ```
 
-Instead of mapping `timecreated` directly to the `x` aesthetic, we can plot the timeline of the number of events per day by using `as.Date(timecreated)` and the `geom_line` geometry from `ggplot2`. Notice that, unlike `geom_bar`, if we do not provide a `y` aesthetic and want `ggplot2` to count the number of events per day for us, we need to make it explicit by passing the `stat` argument with value `"count"` to `geom_line`.
+Instead of mapping `timecreated` directly to the `x` aesthetic, we can plot the timeline of the number of events per day by using `as.Date(timecreated)` and the `geom_line` geometry from `ggplot2`. Notice that, unlike `geom_bar`, if we do not provide a `y` aesthetic and want `ggplot2` to count the number of events per day for us, we need to make it explicit by passing the `stat` argument with value `"count"` to `geom_line` (@fig-lineplot).
 
 ```{r, fig.align = 'center', fig.cap = "Line plot of number of events per day", fig.width = 5, fig.height = 3}
 #| label: fig-lineplot
@@ -580,7 +582,7 @@ ggplot(events, aes(x = as.Date(timecreated) )) + geom_line(stat = "count")
 
 The line plot of students' events allows us to identify periods of increased activity. We can see that it was low at the very beginning of the course, with some peaks corresponding to the assignment deadlines and one last peak for the final project. When the course is over, activity begins to decrease.
 
-To make our plot more aesthetically pleasing, we can customize the color and line width. We do so by tweaking the `color` and `linewidth` properties of the `geom_line`. We can also fix the axes' titles as we learned before. For example:
+To make our plot more aesthetically pleasing, we can customize the color and line width. We do so by tweaking the `color` and `linewidth` properties of the `geom_line`. We can also fix the axes' titles as we learned before. For example (@fig-lineplotturquoise):
 
 ```{r, fig.align = 'center', fig.cap = "Line plot of number of events per day with color, linewidth, and custom labels", fig.width = 5, fig.height = 3}
 #| label: fig-lineplotturquoise
@@ -589,7 +591,7 @@ ggplot(events, aes(x = as.Date(timecreated) )) +
   xlab ("Date") + ylab("Number of events")
 ```
 
-We can also add a point to mark each date using `geom_point`:
+We can also add a point to mark each date using `geom_point` (@fig-lineplotdots):
 
 ```{r, fig.align = 'center', fig.cap = "Line plot of number of events per hour with points every hour", fig.width = 5, fig.height = 3}
 #| label: fig-lineplotdots
@@ -616,7 +618,7 @@ Then, we import it as usual:
 library(dplyr)
 ```
 
-We can now filter the data and pass it on to `ggplot2`:
+We can now filter the data and pass it on to `ggplot2` (@fig-lineplotdotssinglestudent):
 
 ```{r, fig.align = 'center', fig.cap = "Line plot of number of events per date for a single student", fig.width = 5, fig.height = 3}
 #| label: fig-lineplotdotssinglestudent
@@ -631,7 +633,7 @@ events |> filter(user == "9d744e5bf") |> ggplot(aes(x = as.Date(timecreated) )) 
 
 In the previous plots we have seen aggregated information for all the cohort of students as well as information for a single student. However, in some occasions, it is very useful to see the general picture while accounting for possible individual differences. For example, using our original `df` dataset, we can plot the number of events on the LMS, differentiating between high achievers and low achievers.
 
-One option is to use `geom_point` to represent each students' count of events as a single point. To do this, we map the `Event` column to the `x` aesthetic, the `Frequency` column to the `y` aesthetic, and the `User` column to the `group` aesthetic:
+One option is to use `geom_point` to represent each students' count of events as a single point. To do this, we map the `Event` column to the `x` aesthetic, the `Frequency` column to the `y` aesthetic, and the `User` column to the `group` aesthetic (@fig-jitterpoints):
 
 ```{r,   fig.align = 'center', out.width = '4in', fig.cap = "Jitter plot of number of events per achievement group using `geom_point`"}
 #| label: fig-jitterpoints
@@ -644,7 +646,7 @@ ggplot(df, aes(x = AchievingGroup, y = Frequency.Total)) +
         legend.title = element_blank())
 ```
 
-However, there are many points that overlap. If we use `geom_jitter` instead, we take advantage of the horizontal gap between the event names to spread the points and avoid the overlap:
+However, there are many points that overlap. If we use `geom_jitter` instead, we take advantage of the horizontal gap between the event names to spread the points and avoid the overlap (@fig-jitter):
 
 ```{r, fig.align = 'center', out.width = '4in', fig.cap = "Jitter plot of number of events per achievement group using `geom_jitter`"}
 #| label: fig-jitter
@@ -661,7 +663,7 @@ The plot shows that students that are high achievers generally have a higher num
 
 ### Box plot
 
-When we have too many data points, it is often more useful to visualize summary statistics instead of all the points. Box plots are very useful in summarizing data distributions. We can create a box plot for the number of events per achievement group using `geom_boxplot`:
+When we have too many data points, it is often more useful to visualize summary statistics instead of all the points. Box plots are very useful in summarizing data distributions. We can create a box plot for the number of events per achievement group using `geom_boxplot` (@fig-boxplot):
 
 ```{r,     fig.align = 'center', out.width = '4in', fig.cap = "Box plot of activity per achievement group"}
 #| label: fig-boxplot
@@ -673,7 +675,7 @@ The lower hinge of each box indicates the 25% percentile, the thick middle line 
 
 ### Violin plot
 
-We can also visualize the distribution of the number of events for each group using violin plots (`geom_violin`), but these are recommended when we have a large amount of data:
+We can also visualize the distribution of the number of events for each group using violin plots (`geom_violin`), but these are recommended when we have a large amount of data (@fig-violin):
 
 ```{r,  fig.align = 'center', out.width = '4in', fig.cap = "Violin plot of total activity per achievement group"}
 #| label: fig-violin
@@ -683,7 +685,7 @@ ggplot(df, aes(x = AchievingGroup, y = Frequency.Total)) + geom_violin() +
 
 ### Scatter plots
 
-The examples we have seen so far have dealt with plotting a single variable alone or divided in categories. Another common scenario is to investigate the direct relationship between two or more variables. Scatter plots are used to visualize how two numerical variables relate to each other. For example, we can use them to see how LMS activity relates to grades.
+The examples we have seen so far have dealt with plotting a single variable alone or divided in categories. Another common scenario is to investigate the direct relationship between two or more variables. Scatter plots are used to visualize how two numerical variables relate to each other. For example, we can use them to see how LMS activity relates to grades (@fig-scatter).
 
 ```{r,  fig.width = 5, fig.height = 3,  fig.align = 'center', fig.cap = "Scatter plot of number of events vs. final grade", out.width = '4in'}
 #| label: fig-scatter
@@ -694,7 +696,7 @@ ggplot(df, aes(x = Frequency.Total, y = Final_grade)) +
 
 In the plot, each point represents a student. Students at the right side of the plot represent students with higher activity, while students closer to the left side of the plot, represent students with lower activity. At the same time, students with low grades are closer to the bottom of the plot, while students with high grades are closer to the top. Overall, se see an upward trend whereby students with higher activity indeed obtain better grades.
 
-We can add another dimension by coloring points according to another variable. For example, we can color the points according to high vs. low achievers, so we can now where the division between the two groups is:
+We can add another dimension by coloring points according to another variable. For example, we can color the points according to high vs. low achievers, so we can now where the division between the two groups is (@fig-scatter-2):
 
 ```{r,  fig.width = 5, fig.height = 3,  fig.align = 'center', fig.cap = "Scatter plot of number of events vs. final grade colored by achievement group"}
 #| label: fig-scatter-2
@@ -705,7 +707,7 @@ ggplot(df, aes(x = Frequency.Total, y = Final_grade, color = AchievingGroup)) +
 
 ```
 
-We can add yet another dimension by mapping the `size` aesthetic to another variable, for example `Frequency.Group_work` which represents the number of events related to group work.
+We can add yet another dimension by mapping the `size` aesthetic to another variable, for example `Frequency.Group_work` which represents the number of events related to group work (@fig-scatter-3).
 
 ```{r,  fig.width = 5, fig.height = 3,  fig.align = 'center', fig.cap = "Scatter plot of number of events vs. final grade colored by achievement group and sized by frequency of group work"}
 #| label: fig-scatter-3
@@ -721,7 +723,7 @@ ggplot(df, aes(x = Frequency.Total, y = Final_grade,
 
 ### Plot grids
 
-Sometimes, adding all the information in a single plot can be overwhelming and hard to interpret. For example, take a look at the following line plot that shows the number of events per day for each of the course online components:
+Sometimes, adding all the information in a single plot can be overwhelming and hard to interpret. For example, take a look at the following line plot that shows the number of events per day for each of the course online components (@fig-multiplelineplot):
 
 ```{r, fig.align = 'center', fig.cap = "Multiple series line plot", fig.width = 9, fig.height = 5}
 #| label: fig-multiplelineplot
@@ -732,7 +734,7 @@ ggplot(events, aes(x = as.Date(timecreated), color = Action )) +
   ylab("Number of events")
 ```
 
-If we had only a few (2-5) lines, the plot would probably look very good, but as the number of categories grow, the plot becomes unintelligible. Instead of showing all the lines together, the plot would be easier to understand if each component had their own plot. To do this, instead of mapping the `Action` column to the `color` aesthetic, we add a new component to our plot using `facet_wrap` and we pass the name of the column as a character string (`"Action"`). We can change the `geom_line` to a `geom_area` to enhance the visualization.
+If we had only a few (2-5) lines, the plot would probably look very good, but as the number of categories grow, the plot becomes unintelligible. Instead of showing all the lines together, the plot would be easier to understand if each component had their own plot. To do this, instead of mapping the `Action` column to the `color` aesthetic, we add a new component to our plot using `facet_wrap` and we pass the name of the column as a character string (`"Action"`). We can change the `geom_line` to a `geom_area` to enhance the visualization (@fig-facetwrap).
 
 ```{r, fig.align = 'center', fig.cap = "Grid of multiple plots", fig.width = 9, fig.height = 5.5}
 #| label: fig-facetwrap
@@ -780,21 +782,21 @@ p3 <- ggplot(events, aes(x = as.Date(timecreated) )) +
   ylab("Number of events")
 ```
 
-Now, if we add the three variables together separated by the `+` sign, the plots will be placed horizontally next to each other:
+Now, if we add the three variables together separated by the `+` sign, the plots will be placed horizontally next to each other (@fig-patchworkhorizontal):
 
 ```{r, fig.align = 'center', fig.cap = "Multiple plots stacked horizontally", fig.width = 12, fig.height = 3}
 #| label: fig-patchworkhorizontal
 p1 + p2 + p3
 ```
 
-If we use the `/` character side instead, we lay them out vertically:
+If we use the `/` character side instead, we lay them out vertically (@fig-patchworkvertical):
 
 ```{r, fig.align = 'center', fig.cap = "Multiple plots stacked vertically", fig.width = 6, fig.height = 8.5, out.width = "3.8in"}
 #| label: fig-patchworkvertical
 p1 / p2 / p3
 ```
 
-We can use combinations of both signs and even leave blank spaces as follows:
+We can use combinations of both signs and even leave blank spaces as follows (@fig-patchworkcombined):
 
 ```{r, fig.align = 'center', fig.cap = "Multiple plots in a grid", fig.width = 9, fig.height = 5, out.width= '5.5in'}
 #| label: fig-patchworkcombined
@@ -831,7 +833,7 @@ events |>
   summarize(Mean = mean(n), SD = sd(n))
 ```
 
-Now that we have a data frame with the shape that we like, we can use `gt` to create the formatted table by simply adding `gt` to the pipeline of operations:
+Now that we have a data frame with the shape that we like, we can use `gt` to create the formatted table by simply adding `gt` to the pipeline of operations (@tbl-gt-1):
 
 ```{r}
 #| label: tbl-gt-1
@@ -844,7 +846,7 @@ events |>
   gt()
 ```
 
-We might add some tweaks by forcing the numerical columns to have two decimals and the first column to be aligned left. You can also apply themes to the table using the library `gtExtras`.
+We might add some tweaks by forcing the numerical columns to have two decimals and the first column to be aligned left. You can also apply themes to the table using the library `gtExtras` (@tbl-gt-2).
 
 ```{r}
 #| label: tbl-gt-2
@@ -861,9 +863,9 @@ events |>
 
 # Discussion
 
-The use of data visualization in the context of learning analytics has the potential to greatly enhance our understanding of student behavior and performance. By leveraging the power of tools such as `ggplot2`, instructors and researchers can create informative and visually appealing plots that highlight important patterns and trends in student activity providing insights into factors that may be impacting student success. Whether through exploring patterns in LMS activity, tracking completion rates of online assignments, or monitoring engagement with course materials, data visualization can provide valuable information that can inform instructional decisions. Ultimately, the use of data visualization in learning analytics can help create a more data-driven approach to education, enabling educators to more effectively support their students' success.
+The use of data visualization in the context of learning analytics has the potential to greatly enhance our understanding of student behavior and performance. Using tools such as `ggplot2`, instructors and researchers can create informative and visually appealing plots that highlight important patterns and trends in student activity, providing insights into factors that may be impacting student success and therefore inform instructional decisions and improve student outcomes.
 
-As we have already seen throughout the chapter, we often use different plots when dealing with categorical variables or numerical variables; when plotting a single variable or two (or more), etc. Moreover, on some occasions when we need very detailed information, a table might be more informative compared to a figure. As a summary for the possible visualizations,  @tbl-summary-viz gathers the most commonly used visualization types that we have seen throughout this chapter according to the number of variables and the data type. It also points to the `ggplot2` geometry that is used to create each visualization.
+As we have already seen throughout the chapter, we often do not use the same plots when we are dealing with categorical variables or numerical variables; when we are plotting a single variable or two or more, etc. Moreover, on some occasions when we need very detailed information, a table might be needed instead of or in addition to a figure. @tbl-summary-viz summarizes the most commonly used visualization types that we have seen throughout this chapter according to the number of variables and the data type. It also points to the `ggplot2` geometry that is used to create each visualization.
 
 | Number of variables   | Variable types         | Type of visualization | `ggplot2` geometry |
 |------------------|------------------|-------------------|------------------|

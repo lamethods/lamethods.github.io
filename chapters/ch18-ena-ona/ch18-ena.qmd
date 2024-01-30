@@ -22,7 +22,24 @@ abstract-title: "Abstract"
 abstract: "This chapter provides a tutorial on conducting epistemic network analysis (ENA) and ordered network analysis (ONA) using R. We introduce these two techniques together because they share similar theoretical foundations, but each addresses a different challenge for analyzing large-scale qualitative data on learning processes. ENA and ONA are methods for quantifying, visualizing, and interpreting network data. Taking coded data as input, ENA and ONA represent associations between codes in undirected or directed weighted network models, respectively. Both techniques measure the strength of association among codes and illustrate the structure of connections in network graphs, and they quantify changes in the composition and strength of those connections over time. Importantly, ENA and ONA enable comparison of networks both visually and via summary statistics, so they can be used to explore a wide range of research questions in contexts where patterns of association in coded data are hypothesized to be meaningful and where comparing those patterns across individuals or groups is important."
 keywords: "epistemic network analysis, ordered network Analysis, quantitative ethnography, learning analytics"
 self-contained: true
+include-in-header: 
+  - text: |
+      <script src="/site_libs/plotly-binding-4.10.3/plotly.js"></script>
+      <script src="/site_libs/htmlwidgets-1.6.2/htmlwidgets.js"></script>
+      <script src="/site_libs/plotly-binding-4.10.3/plotly.js"></script>
+      <script src="/site_libs/typedarray-0.1/typedarray.min.js"></script>
+      <script src="/site_libs/jquery-3.5.1/jquery.min.js"></script>
+      <link href="/site_libs/crosstalk-1.2.0/css/crosstalk.min.css" rel="stylesheet">
+      <script src="/site_libs/crosstalk-1.2.0/js/crosstalk.min.js"></script>
+      <link href="/site_libs/plotly-htmlwidgets-css-2.11.1/plotly-htmlwidgets.css" rel="stylesheet">
+      <script src="/site_libs/plotly-main-2.11.1/plotly-latest.min.js"></script>
+      <style id="plotly.js-style-global"></style>
 ---
+
+```{r, include = F}
+source("overwritten.R")
+```
+
 
 ## Introduction
 
@@ -66,7 +83,7 @@ First, install the `rENA` package and then load the `rENA` library after install
 # install.packages("rENA", repos = c("https://cran.qe-libs.org", "https://cran.rstudio.org"))
 ```
 
-```{r message=FALSE}
+```{r message=FALSE, eval = F}
 library(rENA)
 ```
 
@@ -76,8 +93,8 @@ We also install the other package that is required for accessing the `view()` fu
 # install.packages("tma", repos = c("https://cran.qe-libs.org", "https://cran.rstudio.org"))
 ```
 
-```{r message = FALSE}
-library(tma )
+```{r message = FALSE, eval = F}
+library(tma)
 ```
 
 ### Dataset
@@ -119,7 +136,7 @@ unitCols = c("Condition", "UserName")
 To verify that the units are correctly specified, subset and preview the unique values in the units columns. There are 48 units from two conditions, which means that the ENA model will produce 48 individual-level networks for each of the units, and each unit is uniquely associated with either the novice group (`FirstGame`) or the relative expert group (`SecondGame`).
 
 ```{r}
-head(unique(data[, unitCols]),3)
+unique(data[, unitCols])
 ```
 
 #### Specify codes
@@ -135,14 +152,14 @@ codeCols = c('Data', 'Technical.Constraints', 'Performance.Parameters', 'Client.
 To verify that the codes are correctly specified, preview the code columns selected.
 
 ```{r}
-head(data[,codeCols],3)
+data[,codeCols]
 ```
 
 #### Specify conversations
 
 The conversation parameter determines which lines in the data *can* be connected. Codes in lines that are not in the same conversation cannot be connected. For example, you may want to model connections within different time segments, such as days, or different steps in a process, such as activities.
 
-In our example, choose the "Condition", "GroupName", and "ActivityNumber" columns to define the conversations. These choices indicate that connections can only happen between students who were in the same condition (FirstGame or SecondGame) and on the same project team (group), and within the same activity. This definition of conversation reflects what actually happened in the simulation: in a given condition, students only interacted with those who were in the same group, and each activity occurred on a different day.
+In our example, choose the "Condition", "GroupName", and "ActivityNumber" columns to define the conversations. These choices indicate that connections can only happen between students who were in the same condition (FirstGame or `SecondGame`) and on the same project team (group), and within the same activity. This definition of conversation reflects what actually happened in the simulation: in a given condition, students only interacted with those who were in the same group, and each activity occurred on a different day.
 
 To specify the conversation parameter, enter the column names in a vector.
 
@@ -153,7 +170,7 @@ conversationCols = c("Condition", "GroupName", "ActivityNumber")
 To verify that the conversations are correctly specified, subset and preview the unique values in the conversation columns.
 
 ```{r}
-head(unique(data[, conversationCols]),3)
+unique(data[, conversationCols])
 ```
 
 #### Specify the window
@@ -269,7 +286,7 @@ ENA points are thus summary statistics that researchers can use to conduct stati
 The rotation matrix used during the dimensional reduction can be accessed through `set.ena$rotation`. This is mostly useful when you want to construct an ENA metric space using one dataset and then project ENA points from different data into that space, as in section 5.1.
 
 ```{r}
-head(set.ena$rotation.matrix,3)
+set.ena$rotation.matrix
 ```
 
 #### Metadata
@@ -277,7 +294,7 @@ head(set.ena$rotation.matrix,3)
 `set$meta.data` returns a data frame that includes all the columns of the ENA set except for the columns representing code co-occurrences.
 
 ```{r}
-head(set.ena$meta.data,3)
+set.ena$meta.data
 ```
 
 ### ENA visualization
@@ -291,10 +308,10 @@ To plot a network, use the `ena.plot.network` function. This function requires t
 First, subset line weights for each of the two groups.
 
 ```{r}
-# Subset lineweights for FirstGame
+# Subset lineweights for `FirstGame`
 first.game.lineweights = as.matrix(set.ena$line.weights$Condition$FirstGame)
 
-# Subset lineweights for SecondGame
+# Subset lineweights for `SecondGame`
 second.game.lineweights = as.matrix(set.ena$line.weights$Condition$SecondGame)
 ```
 
@@ -305,7 +322,7 @@ first.game.mean = as.vector(colMeans(first.game.lineweights))
 second.game.mean = as.vector(colMeans(second.game.lineweights))
 ```
 
-During plotting, use a pipe `|>` to send the output of one function into the first parameter of the subsequent function. To distinguish the two mean networks, set the color of the FirstGame mean network to red.
+During plotting, use a pipe `|>` to send the output of one function into the first parameter of the subsequent function. To distinguish the two mean networks, set the color of the `FirstGame` mean network to red.
 ```{r, echo = F}
 ena.plot <- function (enaset, title = "ENA Plot", dimension.labels = c("", 
   ""), font.size = 10, font.color = "#000000", font.family = c("Arial", 
@@ -361,12 +378,12 @@ subtracted.mean = first.game.mean - second.game.mean
 Then, use the `ena.plot` function to plot the subtracted network. If the differences are relatively small, a multiplier can be applied to rescale the line weights, improving legibility.
 
 ```{r, eval = F}
-ena.plot(set.ena, title = "Subtracted: FirstGame (red) - SecondGame (blue)")  |>
+ena.plot(set.ena, title = "Subtracted: `FirstGame` (red) - `SecondGame` (blue)")  |>
   ena.plot.network(network = subtracted.mean * 5, # Optional rescaling of the line weights
                    colors = c("red", "blue"))
 ```
 ```{r, results='asis', echo = F}
-p<-ena.plot(set.ena, title = "Subtracted: FirstGame (red) - SecondGame (blue)")  |>
+p<-ena.plot(set.ena, title = "Subtracted: `FirstGame` (red) - `SecondGame` (blue)")  |>
   ena.plot.network(network = subtracted.mean * 5, # Optional rescaling of the line weights
                    colors = c("red", "blue"))
 p$plot
@@ -465,7 +482,7 @@ p$plot
 Lastly, do the same for subtraction as well.
 
 ```{r, eval = F}
-ena.plot(set.ena, title = "Subtracted mean network: FirstGame (red) - SecondGame (blue)")  |>
+ena.plot(set.ena, title = "Subtracted mean network: `FirstGame` (red) - `SecondGame` (blue)")  |>
           ena.plot.network(network = subtracted.mean * 5,
           colors = c("red", "blue")) |>
           ena.plot.points(points = first.game.points, colors = c("red")) |> 
@@ -476,7 +493,7 @@ ena.plot(set.ena, title = "Subtracted mean network: FirstGame (red) - SecondGame
                          confidence.interval = "box")
 ```
 ```{r, results='asis', echo = F}
-p<-ena.plot(set.ena, title = "Subtracted mean network: FirstGame (red) - SecondGame (blue)")  |>
+p<-ena.plot(set.ena, title = "Subtracted mean network: `FirstGame` (red) - `SecondGame` (blue)")  |>
           ena.plot.network(network = subtracted.mean * 5,
           colors = c("red", "blue")) |>
           ena.plot.points(points = first.game.points, colors = c("red")) |> 
@@ -502,12 +519,12 @@ unit.A.point = as.matrix(set.ena$points$ENA_UNIT$`FirstGame.steven z`) # subset 
 Then, plot the network and point for that unit.
 
 ```{r, eval = F}
-ena.plot(set.ena, title = "Individual network: FirstGame.steven z") |> 
+ena.plot(set.ena, title = "Individual network: `FirstGame`.steven z") |> 
           ena.plot.network(network = unit.A.line.weights, colors = c("red")) |>
           ena.plot.points(points = unit.A.point, colors = c("red"))
 ```
 ```{r, results='asis', echo = F}
-p<-ena.plot(set.ena, title = "Individual network: FirstGame.steven z") |> 
+p<-ena.plot(set.ena, title = "Individual network: `FirstGame`.steven z") |> 
           ena.plot.network(network = unit.A.line.weights, colors = c("red")) |>
           ena.plot.points(points = unit.A.point, colors = c("red"))
 p$plot
@@ -521,13 +538,13 @@ unit.B.point = as.matrix(set.ena$points$ENA_UNIT$`SecondGame.samuel o`) # subset
 ```
 
 ```{r, eval = F}
-ena.plot(set.ena, title = "Individual network: SecondGame.samuel o") |> 
+ena.plot(set.ena, title = "Individual network: `SecondGame`.samuel o") |> 
           ena.plot.network(network = unit.B.line.weights, colors = c("blue")) |>
           ena.plot.points(points = unit.B.point, colors = c("blue"))
 ```
 
 ```{r, results='asis', echo = F}
-p <- ena.plot(set.ena, title = "Individual network: SecondGame.samuel o") |> 
+p <- ena.plot(set.ena, title = "Individual network: `SecondGame`.samuel o") |> 
           ena.plot.network(network = unit.B.line.weights, colors = c("blue")) |>
           ena.plot.points(points = unit.B.point, colors = c("blue"))
 p$plot
@@ -536,14 +553,14 @@ p$plot
 To visually analyze the differences between the two individual networks, plot their subtracted network.
 
 ```{r, eval = F}
-ena.plot(set.ena, title = "Subtracted network: FirstGame.steven z (red) - SecondGame.samuel o (blue)")  |>
+ena.plot(set.ena, title = "Subtracted network: `FirstGame`.steven z (red) - `SecondGame`.samuel o (blue)")  |>
           ena.plot.network(network = (unit.A.line.weights - unit.B.line.weights) * 5,
           colors = c("red", "blue")) |>
           ena.plot.points(points = unit.A.point, colors = c("red")) |> 
           ena.plot.points(points = unit.B.point, colors = c("blue"))
 ```
 ```{r, results='asis', echo = F}
-p <- ena.plot(set.ena, title = "Subtracted network: FirstGame.steven z (red) - SecondGame.samuel o (blue)")  |>
+p <- ena.plot(set.ena, title = "Subtracted network: `FirstGame`.steven z (red) - `SecondGame`.samuel o (blue)")  |>
           ena.plot.network(network = (unit.A.line.weights - unit.B.line.weights) * 5,
           colors = c("red", "blue")) |>
           ena.plot.points(points = unit.A.point, colors = c("red")) |> 
@@ -557,7 +574,7 @@ In this unit-level subtracted network, Unit A (red) made relatively more connect
 
 The helper function `ena.plotter` enables users to plot points, means, and networks for each condition at the same time. This gives the same results as above more parsimoniously. However, this approach does not enable customization of edge and point colors.
 
-```{r}
+```{r, results='asis', fig.keep='all'}
 #with helper function
 p<-ena.plotter(set.ena,
             points = T,
@@ -567,7 +584,8 @@ p<-ena.plotter(set.ena,
             groupVar = "Condition",
             groups = c("SecondGame","FirstGame"),
             subtractionMultiplier = 5)
-p$plot
+  class(p) <- c("plotly", "enaplot", "html-fill-item-overflow-hidden", "html-fill-item", class(p))
+
 ```
 
 ### Compare groups statistically
@@ -578,7 +596,7 @@ To demonstrate both parametric and non-parametric approaches to this question, t
 
 First, install the `lsr` package to enable calculation of effect size (Cohen's *d*) for the *t* test.
 
-```{r}
+```{r, eval = F}
 # install.packages('lsr')
 library(lsr)
 ```
@@ -626,13 +644,13 @@ cohensD(ena_first_points_d1, ena_second_points_d1)
 cohensD(ena_first_points_d2, ena_second_points_d2)
 ```
 
-Here, along the *x* axis (MR1), a two-sample *t* test assuming unequal variance shows that the FirstGame (mean=-0.09, SD=0.11, N=26) condition is statistically significantly different for alpha=0.05 from the SecondGame condition (mean=0.11, SD=0.10, N=22; t(45.31)=-6.52, *p*=0.00, Cohen's *d*=1.88). Along the *y* axis (SVD2), a two-sample *t* test assuming unequal variance shows that the FirstGame condition (mean=0.11, SD=0.13, N=26) is not statistically significantly different for alpha=0.05 from the SecondGame condition (mean=0.00, SD=1.3, N=22; t(43.17)=0, *p*=1.00).
+Here, along the *x* axis (MR1), a two-sample *t* test assuming unequal variance shows that the `FirstGame` (mean=-0.09, SD=0.11, N=26) condition is statistically significantly different for alpha=0.05 from the `SecondGame` condition (mean=0.11, SD=0.10, N=22; t(45.31)=-6.52, *p*=0.00, Cohen's *d*=1.88). Along the *y* axis (SVD2), a two-sample *t* test assuming unequal variance shows that the `FirstGame` condition (mean=0.11, SD=0.13, N=26) is not statistically significantly different for alpha=0.05 from the `SecondGame` condition (mean=0.00, SD=1.3, N=22; t(43.17)=0, *p*=1.00).
 
 The Mann-Whitney *U* test is a non-parametric alternative to the independent two-sample *t* test.
 
 First, install the `rcompanion` package to calculate the effect size (*r*) for a Mann-Whitney *U* test.
 
-```{r}
+```{r, eval = F}
 # install.packages('rcompanion')
 library(rcompanion)
 ```
@@ -665,7 +683,7 @@ abs(wilcoxonR(ena_first_points_d1, ena_second_points_d1))
 abs(wilcoxonR(ena_first_points_d2, ena_second_points_d2))
 ```
 
-Here, along the *x* axis (MR1), a Mann-Whitney *U* test shows that the FirstGame condition (Mdn=-0.08, N=26) was statistically significantly different for alpha=0.05 from the SecondGame condition (Mdn=-0.007, N=22; *U*=50, *p*=0.00, *r*=0.86). Along the *y* axis (SVD2), a Mann-Whitney *U* test shows that the FirstGame condition (Mdn=0.13, N=26) is not statistically significantly different for alpha=0.05 from the SecondGame condition (Mdn=0.00, N=22; U=287, *p*=0.99). The absolute value of `r` value in Mann-Whitney U test varies from 0 to close to 1. The interpretation values for r commonly in published literature is: `0.10 - < 0.3` (small effect), `0.30 - < 0.5` (moderate effect) and `>= 0.5` (large effect).
+Here, along the *x* axis (MR1), a Mann-Whitney *U* test shows that the `FirstGame` condition (Mdn=-0.08, N=26) was statistically significantly different for alpha=0.05 from the `SecondGame` condition (Mdn=-0.007, N=22; *U*=50, *p*=0.00, *r*=0.86). Along the *y* axis (SVD2), a Mann-Whitney *U* test shows that the `FirstGame` condition (Mdn=0.13, N=26) is not statistically significantly different for alpha=0.05 from the `SecondGame` condition (Mdn=0.00, N=22; U=287, *p*=0.99). The absolute value of `r` value in Mann-Whitney U test varies from 0 to close to 1. The interpretation values for r commonly in published literature is: `0.10 - < 0.3` (small effect), `0.30 - < 0.5` (moderate effect) and `>= 0.5` (large effect).
 
 ### Model evaluation
 
@@ -701,18 +719,18 @@ ena.correlations(set.ena)
 
 Another approach to evaluate an ENA model is to confirm the alignment between quantitative model (in our case, our ENA model) and the original qualitative data. In other words, we can return to the original data to confirm that quantitative findings give a fair representation of the data. This approach is an example of what's called as closing the interpretative loop in Quantitative Ethnography field (Shaffer, 2017).
 
-For example, based on our visual analysis of the network of `SecondGame.samuel o` in previous section, we are interested in what the lines are in the original data that contributed to the connection between Design.Reasoning and Performance.Parameters.
+For example, based on our visual analysis of the network of `SecondGame.samuel o` in previous section, we are interested in what the lines are in the original data that contributed to the connection between `Design.Reasoning` and `Performance.Parameters`.
 
 Let's first review what `SecondGame.samuel o` ENA network looks like.
 
 ```{r, eval = F}
-ena.plot(set.ena, title = "Individual network: SecondGame.samuel o") |> 
+ena.plot(set.ena, title = "Individual network: `SecondGame`.samuel o") |> 
           ena.plot.network(network = as.matrix(set.ena$line.weights$ENA_UNIT$`SecondGame.samuel o`), colors = c("blue")) |>
           ena.plot.points(points = as.matrix(set.ena$points$ENA_UNIT$`SecondGame.samuel o`), colors = c("blue"))
 ```
 
 ```{r, results = 'asis', echo = F }
-p<-ena.plot(set.ena, title = "Individual network: SecondGame.samuel o") |> 
+p<-ena.plot(set.ena, title = "Individual network: `SecondGame`.samuel o") |> 
           ena.plot.network(network = as.matrix(set.ena$line.weights$ENA_UNIT$`SecondGame.samuel o`), colors = c("blue")) |>
           ena.plot.points(points = as.matrix(set.ena$points$ENA_UNIT$`SecondGame.samuel o`), colors = c("blue"))
 p$plot
@@ -733,31 +751,6 @@ view(accum.ena,
 ```
 
 ```{r,echo = F, results = 'asis'}
-viewover <- function (x, wh, text_col = "text", units.by = x$`_function.params`$units.by, 
-  conversation.by = x$`_function.params`$conversation.by, 
-  codes = x$rotation$codes, window_size = x$`_function.params`$window_size, 
-  more_cols = NULL, in_browser = FALSE, id_col = "QEUNIT", filename = "tmp") 
-{
-  unit_conv <- tma:::tma.conversations(x = x, units = wh, units.by = units.by, 
-    conversation.by = conversation.by, codes = codes, window = window_size, 
-    id_col = id_col)
-  cols <- unique(c("QEID", id_col, units.by, conversation.by, 
-    text_col, more_cols, codes))
-  cols <- cols[cols %in% colnames(x$model$raw.input)]
-  tbl <- x$model$raw.input[unit_conv$convRows, cols, with = FALSE]
-  unit_conv$unitRows <- unit_conv$unitRows
-  unit_conv$toRemove <- unit_conv$toRemove
-  unit_conv$data <- tbl
-  unit_conv$units <- wh
-  unit_conv$window <- window_size
-  tbl_json <- jsonlite::toJSON(unit_conv, auto_unbox = TRUE)
-  tmp_html <- tempfile(fileext = ".html")
-  html_lines <- readLines(system.file(package = "tma", paste0("apps/viewer.html")))
-  html_lines[grepl("//_ENA_MODEL_//", x = html_lines)] <- paste0("data = ", 
-    tbl_json, ";")
-  writeLines(text = html_lines, con = paste0(filename,".html"))
-  cat(paste0("<iframe src='",filename,".html' style='width:100%;height:600px;'></iframe>"));
-}
 viewover(accum.ena, 
      id_col = "ENA_UNIT", # do not need to change this
      wh = c("SecondGame.samuel o"), # the unit we are interested in
@@ -768,7 +761,7 @@ viewover(accum.ena,
 ```
 
 
-In the `Viewer` panel, hover over your cursor on any of the lines that are in bold, a size of 7 lines rectangle shows up, representing that in a moving stanza window of size 7, the referent line (the line in bold) and its preceding 6 lines. The 1 and 0 in Technical.Constraints column and Design.Reasoning column shows where the connections happened.
+In the `Viewer` panel, hover over your cursor on any of the lines that are in bold, a size of 7 lines rectangle shows up, representing that in a moving stanza window of size 7, the referent line (the line in bold) and its preceding 6 lines. The 1 and 0 in `Technical.Constraints` column and Design.Reasoning column shows where the connections happened.
 
 For example, line 2477 Samuel shared his `Design.Reasoning` about "mindful of (the) how one device scores relative to other ones", to reference back to what Casey said in line 2476 about `Performance.Parameters` "not one source/censor can be the best in every area so we had to sacrifice certain attributes", as well as what Jackson said in line 2475 about safety as one of the `Performance.Parameters` "when it came to the different attributes, i think that all were important in their own way but i think safety is one of the most important".
 
@@ -806,7 +799,7 @@ Install the ona package and load the ona library after installing.
 # install.packages("ona", repos = c("https://cran.qe-libs.org", "https://cran.rstudio.org"))
 ```
 
-```{r message = FALSE}
+```{r message = FALSE, eval = F}
 library(ona)
 ```
 
@@ -816,7 +809,7 @@ Then, install the other package that is required for ONA analysis.
 # install.packages("tma", repos = c("https://cran.qe-libs.org", "https://cran.rstudio.org"))
 ```
 
-```{r message = FALSE}
+```{r message = FALSE, eval = F}
 library(tma)
 ```
 
@@ -895,7 +888,7 @@ Now that all the parameters are specified, connections can be accumulated. For e
 
 Unlike in ENA, where connections among codes are recorded in a symmetric adjacency matrix, ONA accounts for the order in which the connections occur by constructing an *asymmetric adjacency matrix* for each unit; that is, the number of connections from code A to code B may be different than the number of connections from B to A.
 
-To accumulate connections, pass the parameters specified to the `contexts` and `accumulate_contexts` functions, and store the output in an object (in this case, **accum.ona**)**.**
+To accumulate connections, pass the parameters specified to the `contexts` and `accumulate_contexts` functions, and store the output in an object (in this case, **accum.ona**).
 
 ```{r}
 accum.ona <-
@@ -931,7 +924,7 @@ set.ona <-
         rotate.using ="mean",                  # means rotation method
         rotation.params =                      # two groups for means rotation in a list
               list(FirstGame=accum.ona$meta.data$Condition=="FirstGame",
-                   SecondGame=accum.ona$meta.data$Condition=="SecondGame")   
+                   `SecondGame`=accum.ona$meta.data$Condition=="SecondGame")   
         )
 ```
 
@@ -1002,30 +995,9 @@ edge_size_multiplier = 1 # scale up or down edge sizes
 Mean ONA networks can be plotted for each of the conditions along with their subtracted network.
 
 First, plot the mean network for the `FirstGame` condition. Use a pipe `|>` to connect the `edges` function and the `nodes` function. Users are only required to specify the `weights` parameter, as the remaining parameters have default values unless specified otherwise.
-```{r, echo=F}
-library(ona)
-comodin<- function (x, y, ...) 
-{
-  p <- ona:::base_plot(...)
-  attr(p, "model") <- x
-  args <- list(...)
-  dimensions <- colnames(as.matrix(x$points))[1:2]
-  if (!is.null(args$dimensions)) {
-    dimensions <- args$dimensions
-  }
-  attr(p, "dimensions") <- dimensions
-  p
-}
-plot.ena.ordered.set <- function(x, y,...) {
-  p<- comodin(x, y,...)
-  class(p) <- c("plotly", "enaplot", "html-fill-item-overflow-hidden", "html-fill-item", class(p))
-  p
-}
-```
 
-xyz
 ```{r}
-p<-plot.ena.ordered.set(set.ona, title = "FirstGame (red) mean network") |>
+plot.ena.ordered.set(set.ona, title = "FirstGame (red) mean network") |>
   edges(
     weights =set.ona$line.weights$Condition$FirstGame,
     edge_size_multiplier = edge_size_multiplier,
@@ -1036,12 +1008,13 @@ p<-plot.ena.ordered.set(set.ona, title = "FirstGame (red) mean network") |>
     node_size_multiplier = node_size_multiplier,
     node_position_multiplier = node_position_multiplier,
     self_connection_color = c("red"))
-p
 ```
+
+
 
 Since this is the first ONA network visualization in this chapter, we briefly explain how to read an ONA network.
 
-**Node size**: In ONA, the node size is proportional to the number of occurrences of that code as a *response* to other codes in the data, with larger nodes indicating more responses. For example, in this plot, students in the FirstGame condition responded most frequently with discourse about Technical.Constraints.
+**Node size**: In ONA, the node size is proportional to the number of occurrences of that code as a *response* to other codes in the data, with larger nodes indicating more responses. For example, in this plot, students in the `FirstGame` condition responded most frequently with discourse about `Technical.Constraints.`
 
 **Self-connections**: The color and saturation of the circle within each node is proportional to the number of *self-connections* for that code: that is, when a code is both what students *responded to* and what they *responded with.* Colored circles that are larger and more saturated reflect codes with more frequent self-connections.
 
@@ -1069,7 +1042,7 @@ plot.ena.ordered.set(set.ona, title = "SecondGame (blue) mean network") |>
 Then, plot the subtracted network to show the differences between the mean networks of the `FirstGame` and `SecondGame` conditions.
 
 ```{r}
-plot.ena.ordered.set(set.ona, title = "Subtracted mean network: FirstGame (red) vs SecondGame (blue)") |>
+plot.ena.ordered.set(set.ona, title = "Subtracted mean network: `FirstGame` (red) vs `SecondGame` (blue)") |>
   edges(
     weights = (colMeans(set.ona$line.weights$Condition$FirstGame) - colMeans(set.ona$line.weights$Condition$SecondGame))*4, # optional weights multiplier to adjust readability
     edge_size_multiplier = edge_size_multiplier,
@@ -1145,8 +1118,8 @@ plot.ena.ordered.set(set.ona, title = "SecondGame (blue) mean network") |>
 Plot the subtracted network as follows.
 
 ```{r}
-# FirstGame and SecondGame subtracted plot
-plot.ena.ordered.set(set.ona, title = "Difference: FirstGame (red) vs SecondGame (blue)") |>
+# `FirstGame` and `SecondGame` subtracted plot
+plot.ena.ordered.set(set.ona, title = "Difference: `FirstGame` (red) vs `SecondGame` (blue)") |>
   units(
     points = set.ona$points$Condition$FirstGame, 
     points_color = "red",
@@ -1211,7 +1184,7 @@ plot.ena.ordered.set(set.ona, title = "SecondGame::samuel o") |>
     self_connection_color = c("blue"))
 ```
 
-In this case, both units make relatively strong connections between Design.Reasoning and Data. However, for Unit A (red), the connection is relatively more *from* `Design.Reasoning` *to* `Data` than the other way around. This indicates that more often this unit responded with `Data`. In contrast, Unit B (blue) responded more frequently to `Data` with `Design.Reasoning`.
+In this case, both units make relatively strong connections between `Design.Reasoning` and `Data`. However, for Unit A (red), the connection is relatively more *from* `Design.Reasoning` *to* `Data` than the other way around. This indicates that more often this unit responded with `Data`. In contrast, Unit B (blue) responded more frequently to `Data` with `Design.Reasoning`.
 
 A subtracted network can make such differences more salient.
 
@@ -1251,11 +1224,11 @@ The connection between `Design.Reasoning` and `Data` consists of two triangles, 
 
 In addition to visual comparison of networks, ENA points can be analyzed statistically. For example, here we might test whether the patterns of association in one condition are significantly different from those in the other condition.
 
-To demonstrate both parametric and non-parametric approaches to this question, the examples below use a Student's *t* test and a Mann-Whitney *U* test to test for differences between the FirstGame and SecondGame condition. For more instructions on when to choose parametric and non-parametric tests, please refer to Kaur & Kumar (2015).
+To demonstrate both parametric and non-parametric approaches to this question, the examples below use a Student's *t* test and a Mann-Whitney *U* test to test for differences between the `FirstGame` and `SecondGame` condition. For more instructions on when to choose parametric and non-parametric tests, please refer to Kaur & Kumar (2015).
 
 First, install the `lsr` package to enable calculation of effect size (Cohen's *d*) for the *t* test.
 
-```{r}
+```{r, eval = F}
 # install.packages('lsr')
 library(lsr)
 ```
@@ -1303,13 +1276,13 @@ cohensD(ona_first_points_d1, ona_second_points_d1)
 cohensD(ona_first_points_d2, ona_second_points_d2)
 ```
 
-Here, along the *x* axis (MR1), a two-sample *t* test assuming unequal variance shows that the FirstGame (mean=-0.05, SD=0.09, N=26) condition is statistically significantly different for alpha=0.05 from the SecondGame condition (mean=0.06, SD=0.12, N=22; t(41.001)= -3.77, p=0.00, Cohen's d=1.1). Along the *y* axis (SVD2), a two-sample *t* test assuming unequal variance shows that the FirstGame condition (mean=-1.73, SD=0.17, N=26) is not statistically significantly different for alpha=0.05 from the SecondGame condition (mean=1,74, SD=0.17, N=22; t(45.45)= 0, p=1.00, Cohen's d=0.00).
+Here, along the *x* axis (MR1), a two-sample *t* test assuming unequal variance shows that the `FirstGame` (mean=-0.05, SD=0.09, N=26) condition is statistically significantly different for alpha=0.05 from the `SecondGame` condition (mean=0.06, SD=0.12, N=22; t(41.001)= -3.77, p=0.00, Cohen's d=1.1). Along the *y* axis (SVD2), a two-sample *t* test assuming unequal variance shows that the `FirstGame` condition (mean=-1.73, SD=0.17, N=26) is not statistically significantly different for alpha=0.05 from the `SecondGame` condition (mean=1,74, SD=0.17, N=22; t(45.45)= 0, p=1.00, Cohen's d=0.00).
 
 The Mann-Whitney *U* test is a non-parametric alternative to the independent two-sample *t* test.
 
 First, install the `rcompanion` package to calculate the effect size (*r*) for a Mann-Whitney *U* test.
 
-```{r}
+```{r, eval = F}
 # install.packages('rcompanion')
 library(rcompanion)
 ```
@@ -1342,7 +1315,7 @@ abs(wilcoxonR(ona_first_points_d1, ona_second_points_d1))
 abs(wilcoxonR(ona_first_points_d2, ona_second_points_d2))
 ```
 
-Here, along the *x* axis (MR1), a Mann-Whitney *U* test shows that the FirstGame condition (Mdn=-0.04, N=26) was statistically significantly different for alpha=0.05 from the SecondGame condition (Mdn=0.10, N=22 U=130, p=0.001, r=0.00). Along the *y* axis (SVD2), a Mann-Whitney *U* test shows that the FirstGame condition (Mdn=0.001, N=26) is not statistically significantly different for alpha=0.05 from the SecondGame condition (Mdn=0.00, N=22, U=264, p=0.66, r=0.71). The absolute value of `r` value in Mann-Whitney U test varies from 0 to close to 1. The interpretation values for r commonly in published literature is: `0.10 - < 0.3` (small effect), `0.30 - < 0.5` (moderate effect) and `>= 0.5` (large effect).
+Here, along the *x* axis (MR1), a Mann-Whitney *U* test shows that the `FirstGame` condition (Mdn=-0.04, N=26) was statistically significantly different for alpha=0.05 from the `SecondGame` condition (Mdn=0.10, N=22 U=130, p=0.001, r=0.00). Along the *y* axis (SVD2), a Mann-Whitney *U* test shows that the `FirstGame` condition (Mdn=0.001, N=26) is not statistically significantly different for alpha=0.05 from the `SecondGame` condition (Mdn=0.00, N=22, U=264, p=0.66, r=0.71). The absolute value of `r` value in Mann-Whitney U test varies from 0 to close to 1. The interpretation values for r commonly in published literature is: `0.10 - < 0.3` (small effect), `0.30 - < 0.5` (moderate effect) and `>= 0.5` (large effect).
 
 ### Model evaluation
 
@@ -1378,7 +1351,7 @@ ona::correlations(set.ona)
 
 Another approach to evaluate an ONA model is to confirm the alignment between quantitative model (in our case, our ONA model) and the original qualitative data. In other words, we can return to the original data to confirm that quantitative findings give a fair representation of the data. This approach is an example of what's called as closing the interpretative loop in Quantitative Ethnography field (Shaffer, 2017).
 
-For example, based on our visual analysis of the network of "SecondGame::samuel o" in previous section, we are interested in what the lines are in the original data that contributed to the connection *from* Performance.Parameters *to* Design.Reasoning.
+For example, based on our visual analysis of the network of "SecondGame::samuel o" in previous section, we are interested in what the lines are in the original data that contributed to the connection *from* `Performance.Parameters` *to* `Design.Reasoning`.
 
 Let's first review what `SecondGame::samuel o` ONA network looks like. Based on the connection direction and strength from `Technical.Constraints` to `Performance.Parameters`, we would expect to see more examples of Samuel responded with `Design.Reasoning` to `Performance.Parameters`, than the other way around.
 
@@ -1467,8 +1440,8 @@ set_exp =
 ) |>
   ena.make.set()
 
-head(set_exp$rotation$rotation.matrix)
-head(set_exp$model$points.for.projection)
+set_exp$rotation$rotation.matrix
+set_exp$model$points.for.projection
 
 #novice model
 units_nov = nov.data[,c("Condition","UserName")]
