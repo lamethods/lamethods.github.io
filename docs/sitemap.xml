@@ -2,98 +2,98 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
     <loc>https://lamethods.github.io/index.html</loc>
-    <lastmod>2024-01-30T17:50:01.478Z</lastmod>
+    <lastmod>2024-01-31T08:02:23.612Z</lastmod>
   </url>
   <url>
     <loc>https://lamethods.github.io/contributors.html</loc>
-    <lastmod>2024-01-30T17:50:01.482Z</lastmod>
+    <lastmod>2024-01-31T08:02:23.612Z</lastmod>
   </url>
   <url>
     <loc>https://lamethods.github.io/chapters/ch01-intro/intro.html</loc>
-    <lastmod>2024-01-30T17:50:01.482Z</lastmod>
+    <lastmod>2024-01-31T08:02:23.616Z</lastmod>
   </url>
   <url>
     <loc>https://lamethods.github.io/chapters/ch02-data/ch2-data.html</loc>
-    <lastmod>2024-01-30T17:50:01.498Z</lastmod>
+    <lastmod>2024-01-31T08:02:23.636Z</lastmod>
   </url>
   <url>
     <loc>https://lamethods.github.io/chapters/ch03-intro-r/ch3-intor.html</loc>
-    <lastmod>2024-01-30T17:50:01.506Z</lastmod>
+    <lastmod>2024-01-31T08:02:23.644Z</lastmod>
   </url>
   <url>
     <loc>https://lamethods.github.io/chapters/ch04-data-cleaning/ch4-datacleaning.html</loc>
-    <lastmod>2024-01-30T17:50:01.514Z</lastmod>
+    <lastmod>2024-01-31T08:02:23.656Z</lastmod>
   </url>
   <url>
     <loc>https://lamethods.github.io/chapters/ch05-basic-stats/ch5-stats.html</loc>
-    <lastmod>2024-01-30T17:50:01.522Z</lastmod>
+    <lastmod>2024-01-31T08:02:23.660Z</lastmod>
   </url>
   <url>
     <loc>https://lamethods.github.io/chapters/ch06-data-visualization/ch6-viz.html</loc>
-    <lastmod>2024-01-30T17:50:01.526Z</lastmod>
+    <lastmod>2024-01-31T08:02:23.668Z</lastmod>
   </url>
   <url>
     <loc>https://lamethods.github.io/chapters/ch07-prediction/ch7-pred.html</loc>
-    <lastmod>2024-01-30T17:50:01.538Z</lastmod>
+    <lastmod>2024-01-31T08:02:23.676Z</lastmod>
   </url>
   <url>
     <loc>https://lamethods.github.io/chapters/ch08-clustering/ch8-clus.html</loc>
-    <lastmod>2024-01-30T17:50:01.546Z</lastmod>
+    <lastmod>2024-01-31T08:02:23.684Z</lastmod>
   </url>
   <url>
     <loc>https://lamethods.github.io/chapters/ch09-model-based-clustering/ch9-model.html</loc>
-    <lastmod>2024-01-30T17:50:01.554Z</lastmod>
+    <lastmod>2024-01-31T08:02:23.692Z</lastmod>
   </url>
   <url>
     <loc>https://lamethods.github.io/chapters/ch10-sequence-analysis/ch10-seq.html</loc>
-    <lastmod>2024-01-30T17:50:01.562Z</lastmod>
+    <lastmod>2024-01-31T08:02:23.700Z</lastmod>
   </url>
   <url>
     <loc>https://lamethods.github.io/chapters/ch11-vasstra/ch11-vasstra.html</loc>
-    <lastmod>2024-01-30T17:50:01.570Z</lastmod>
+    <lastmod>2024-01-31T08:02:23.708Z</lastmod>
   </url>
   <url>
     <loc>https://lamethods.github.io/chapters/ch12-markov/ch12-markov.html</loc>
-    <lastmod>2024-01-30T17:50:01.578Z</lastmod>
+    <lastmod>2024-01-31T08:02:23.716Z</lastmod>
   </url>
   <url>
     <loc>https://lamethods.github.io/chapters/ch13-multichannel/ch13-multi.html</loc>
-    <lastmod>2024-01-30T17:50:01.586Z</lastmod>
+    <lastmod>2024-01-31T09:06:18.395Z</lastmod>
   </url>
   <url>
     <loc>https://lamethods.github.io/chapters/ch14-process-mining/ch14-process.html</loc>
-    <lastmod>2024-01-30T17:50:01.610Z</lastmod>
+    <lastmod>2024-01-31T08:02:23.748Z</lastmod>
   </url>
   <url>
     <loc>https://lamethods.github.io/chapters/ch15-sna/ch15-sna.html</loc>
-    <lastmod>2024-01-30T17:50:01.634Z</lastmod>
+    <lastmod>2024-01-31T08:02:23.772Z</lastmod>
   </url>
   <url>
     <loc>https://lamethods.github.io/chapters/ch16-community/ch16-comm.html</loc>
-    <lastmod>2024-01-30T17:50:01.638Z</lastmod>
+    <lastmod>2024-01-31T08:02:23.776Z</lastmod>
   </url>
   <url>
     <loc>https://lamethods.github.io/chapters/ch17-temporal-networks/ch17-tna.html</loc>
-    <lastmod>2024-01-30T17:50:01.646Z</lastmod>
+    <lastmod>2024-01-31T08:02:23.784Z</lastmod>
   </url>
   <url>
     <loc>https://lamethods.github.io/chapters/ch18-ena-ona/ch18-ena.html</loc>
-    <lastmod>2024-01-30T17:50:01.682Z</lastmod>
+    <lastmod>2024-01-31T08:02:23.824Z</lastmod>
   </url>
   <url>
     <loc>https://lamethods.github.io/chapters/ch19-psychological-networks/ch19-psych.html</loc>
-    <lastmod>2024-01-30T17:50:01.734Z</lastmod>
+    <lastmod>2024-01-31T08:02:23.844Z</lastmod>
   </url>
   <url>
     <loc>https://lamethods.github.io/chapters/ch20-factor-analysis/ch20-factor.html</loc>
-    <lastmod>2024-01-30T17:50:01.742Z</lastmod>
+    <lastmod>2024-01-31T08:02:23.848Z</lastmod>
   </url>
   <url>
     <loc>https://lamethods.github.io/chapters/ch21-sem/ch21-sem.html</loc>
-    <lastmod>2024-01-30T17:50:01.746Z</lastmod>
+    <lastmod>2024-01-31T08:02:23.852Z</lastmod>
   </url>
   <url>
     <loc>https://lamethods.github.io/chapters/ch22-conclusion/ch22-conclusion.html</loc>
-    <lastmod>2024-01-30T17:50:01.750Z</lastmod>
+    <lastmod>2024-01-31T08:02:23.852Z</lastmod>
   </url>
 </urlset>

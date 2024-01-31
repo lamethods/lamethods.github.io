@@ -78,6 +78,8 @@ format:
     citation: true
     citation-location: document
     google-scholar: true
+    df-print: "paged"
+    fig-align: "center"
     margin-footer: | 
        <small>© 2023 The authors</small>
     include-after-body:
