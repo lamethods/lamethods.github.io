@@ -1011,7 +1011,6 @@ plot.ena.ordered.set(set.ona, title = "FirstGame (red) mean network") |>
 ```
 
 
-
 Since this is the first ONA network visualization in this chapter, we briefly explain how to read an ONA network.
 
 **Node size**: In ONA, the node size is proportional to the number of occurrences of that code as a *response* to other codes in the data, with larger nodes indicating more responses. For example, in this plot, students in the `FirstGame` condition responded most frequently with discourse about `Technical.Constraints.`
@@ -1037,6 +1036,7 @@ plot.ena.ordered.set(set.ona, title = "SecondGame (blue) mean network") |>
     node_size_multiplier = node_size_multiplier,
     node_position_multiplier = node_position_multiplier,
     self_connection_color = c("blue"))
+
 ```
 
 Then, plot the subtracted network to show the differences between the mean networks of the `FirstGame` and `SecondGame` conditions.

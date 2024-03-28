@@ -447,7 +447,6 @@ From the transition matrix and @fig-transitions we can see how most transitions 
 
 ```{r, message=F, fig.align='center', fig.cap="Transition plot between states", out.width='4in'}
 #| label: fig-transitions
-transition_matrix = seqtrate(clus_seq, count = T)  
 transitionPlot(transition_matrix, 
                               fill_start_box = colors,
                               txt_start_clr = "black",

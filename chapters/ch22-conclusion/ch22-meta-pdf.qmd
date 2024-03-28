@@ -46,7 +46,7 @@ crossref:
   fig-labels: arabic
   title-delim: "**.**"
 abstract-title: "Abstract"
-abstract: "Whereas the field of learning analytics has matured, several methodological and theoretical issues remain unresolved. In this chapter, we discuss the potentials of complex systems as an overarching paradigm for understanding the learning process, learners and the learning environments and how they influence learning. We show how using complex system methodologies open doors for new possibilities that may contribute new knowledge and solve some of the unresolved problems in learning analytics. Furthermore, we unpack the importance of individual differences in advancing the field bringing a much-needed theoretical perspective that could help offer answers to some of our pressing issues."
+abstract: "Whereas the field of learning analytics has matured, several methodological and theoretical issues remain unresolved. In this chapter, we discuss the potentials of complex systems as an overarching paradigm for understanding the learning process, learners and the learning environments and how they influence learning. We show how using complex system methodologies opens doors for new possibilities that may contribute new knowledge and solve some of the unresolved problems in learning analytics. Furthermore, we unpack the importance of individual differences in advancing the field bringing a much-needed theoretical perspective that could help offer answers to some of our pressing issues."
 fontsize: "9pt"
 dpi: 900
 editor: source

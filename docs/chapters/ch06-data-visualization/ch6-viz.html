@@ -177,6 +177,9 @@ cookieconsent.run({
 </script> 
   
 
+<link href="../../site_libs/pagedtable-1.1/css/pagedtable.css" rel="stylesheet">
+<script src="../../site_libs/pagedtable-1.1/js/pagedtable.js"></script>
+
 
 <meta name="twitter:title" content="Learning analytics methods and tutorials - 6&nbsp; Visualizing and Reporting Educational Data with R">
 <meta name="twitter:description" content="Visualizing data is central in learning analytics research, underpins learning dashboards, and is a prime method for reporting results and insights to stakeholders.">
@@ -477,7 +480,7 @@ cookieconsent.run({
   </ul>
 </nav>
     <div class="quarto-margin-footer"><div class="margin-footer-item">
-<p><small>© 2023 The authors</small></p>
+<p><a href="https://github.com/lamethods/code" target="_blank"> <button class="btn btn-outline-dark"> <svg xmlns="http://www.w3.org/2000/svg" viewbox="0 0 496 512" style="width: 22px;vertical-align: text-top;margin-right: 9px;"> <path d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3 .3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5 .3-6.2 2.3zm44.2-1.7c-2.9 .7-4.9 2.6-4.6 4.9 .3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3 .7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3 .3 2.9 2.3 3.9 1.6 1 3.6 .7 4.3-.7 .7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3 .7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3 .7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z" style="width: 24px;"> </path> </svg>Download code </button> </a> <br> <br> <small>© 2023 The authors</small></p>
 </div></div></div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
@@ -518,7 +521,7 @@ cookieconsent.run({
 
 <section id="introduction" class="level2" data-number="1">
 <h2 data-number="1" class="anchored" data-anchor-id="introduction"><span class="header-section-number">1</span> Introduction</h2>
-<p>Data visualization can be defined as “the representation and presentation of data that exploits our visual perception abilities in order to amplify cognition” <span class="citation" data-cites="Kirk2012">[<a href="#ref-Kirk2012" role="doc-biblioref">1</a>]</span>. It has the power to transform complex information into compelling stories tha inform and inspire action. Data visualization is an effective tool for learning analytics, as it helps to present learners’ data in a way that is easily understandable and intuitive for students, teachers, researchers, and other stakeholders. Through the use of graphs, charts, and other visual aids, it is possible to quickly identify patterns, trends, and relationships within data that may not be immediately apparent through traditional data analysis methods.</p>
+<p>Data visualization can be defined as “the representation and presentation of data that exploits our visual perception abilities in order to amplify cognition” <span class="citation" data-cites="Kirk2012">[<a href="#ref-Kirk2012" role="doc-biblioref">1</a>]</span>. It has the power to transform complex information into stories that inform and inspire action. Data visualization is an effective tool for learning analytics, as it helps to present learners’ data in a way that is easily understandable and intuitive for students, teachers, researchers, and other stakeholders. Through the use of graphs, charts, and other visual aids, it is possible to quickly identify patterns, trends, and relationships within data that may not be immediately apparent through traditional data analysis methods.</p>
 <p>Visualization in learning analytics has two distinct applications. On the one hand, the use of visual dashboards has become the main vehicle for putting learning analytics into practice. Presenting data in visually appealing and intuitive ways can help promote data literacy among students and other stakeholders, encouraging greater engagement with data and fostering a culture of continuous improvement. On the other hand, learning analytics scientific production heavily relies on data visualization to present research findings in a clear and accessible manner, making it easier for readers from different scholarly backgrounds to understand and act upon research insights. Regardless of the context, the power of visualization in learning analytics lies in its ability to take complex data and turn it into meaningful insights that support better decision-making and drive improvement.</p>
 <p>In this chapter, the reader will be guided through the process of generating visualizations of different types of data types using well-known R packages. Relevant plots and plot types will be demonstrated with an explanation of their usage and use cases. Furthermore, learning-related examples will be discussed in detail. For instance, readers will learn how to visualize learners’ logs extracted from learning management systems to show how trace data can be used to track students’ learning activities. Other examples of common research scenarios in which learners’ data are visualized will be illustrated throughout the chapter. In addition to creating compelling plots, readers will also be able to generate professional-looking tables with summary statistics to report descriptive statistics.</p>
 </section>
@@ -526,7 +529,7 @@ cookieconsent.run({
 <h2 data-number="2" class="anchored" data-anchor-id="visualization-in-learning-analytics"><span class="header-section-number">2</span> Visualization in learning analytics</h2>
 <p>Developing visualizations is a challenging task of balancing the cognitive load of users while not compromising on conveying specific insights from data <span class="citation" data-cites="demmansepp2015">[<a href="#ref-demmansepp2015" role="doc-biblioref">2</a>]</span>. Visualizations for practice in learning analytics are mostly developed for two main stakeholders: learners and instructors. Depending on the target group, a visualization or a dashboard (i.e., a collection of visualizations depicting multiple indicators) have different goals.</p>
 <p>Learner-facing visualizations are meant to make learners aware of their own learning and to provide them with actionable feedback on their learning. Visualizations display learners’ performance on a specific metric and compare it with a reference frame: other peers, desirable learning achievement, or their own progress over time <span class="citation" data-cites="jivet2017">[<a href="#ref-jivet2017" role="doc-biblioref">3</a>]</span>. Sense-making questions triggering reflection can be added to a visualization <span class="citation" data-cites="park2019 jivet2021">[<a href="#ref-park2019" role="doc-biblioref">4</a>, <a href="#ref-jivet2021" role="doc-biblioref">5</a>]</span>, or some elements of the visualizations can be highlighted and described in words using layered storytelling <span class="citation" data-cites="sedrakyan2020 martinez-maldonado2020">[<a href="#ref-sedrakyan2020" role="doc-biblioref">6</a>, <a href="#ref-martinez-maldonado2020" role="doc-biblioref">7</a>]</span>. Another option is to gamify a dashboard, for example, by using badges <span class="citation" data-cites="defreitas2017">[<a href="#ref-defreitas2017" role="doc-biblioref">8</a>]</span>. To provide feedback to learners, visualizations can be augmented with links to recommended resources <span class="citation" data-cites="bodily2018">[<a href="#ref-bodily2018" role="doc-biblioref">9</a>]</span>, information about specific topics to review to close the achievement gap <span class="citation" data-cites="sedrakyan2020">[<a href="#ref-sedrakyan2020" role="doc-biblioref">6</a>]</span>, or explanations of the meaning of visualizations and their implications for the learner <span class="citation" data-cites="susnjak2022">[<a href="#ref-susnjak2022" role="doc-biblioref">10</a>]</span>. Current learner-facing dashboards mostly show resource use and assessment data <span class="citation" data-cites="bodily2017">[<a href="#ref-bodily2017" role="doc-biblioref">11</a>]</span>, compare learners to their peers <span class="citation" data-cites="valle2021">[<a href="#ref-valle2021" role="doc-biblioref">12</a>]</span>, display descriptive analytics rather than predictive or prescriptive analytics <span class="citation" data-cites="susnjak2022">[<a href="#ref-susnjak2022" role="doc-biblioref">10</a>]</span>, and use self-regulated learning theory as their framework <span class="citation" data-cites="valle2021 alvarez2022">[<a href="#ref-valle2021" role="doc-biblioref">12</a>, <a href="#ref-alvarez2022" role="doc-biblioref">13</a>]</span>. Some reviews found a positive effect on student outcomes <span class="citation" data-cites="susnjak2022">[<a href="#ref-susnjak2022" role="doc-biblioref">10</a>]</span>, while others reported mixed results <span class="citation" data-cites="bodily2017 matcha2020">[<a href="#ref-bodily2017" role="doc-biblioref">11</a>, <a href="#ref-matcha2020" role="doc-biblioref">14</a>]</span>. Showing visualizations to learners can change their behavior. For example, social network analysis visualizations have resulted in fewer cross-group commenting <span class="citation" data-cites="cheng2020">[<a href="#ref-cheng2020" role="doc-biblioref">15</a>]</span>, while a visualization comparing individual submission patterns with the top 25% of students in a class led to earlier homework submissions <span class="citation" data-cites="duan2022">[<a href="#ref-duan2022" role="doc-biblioref">16</a>]</span>.</p>
-<p>In comparison, the goal of instructor-facing visualizations is to support teachrs and their decision-making process by tracking student progress. Two main types can be distinguished. Mirroring or descriptive visualizations provide insights about the learners on an aggregated or an individual level using either descriptive or comparative data. Advising or prescriptive visualizations show not only information about the learners but also alert the instructor to undertake a pedagogical action <span class="citation" data-cites="vanleeuwen2020 isaias2020">[<a href="#ref-vanleeuwen2020" role="doc-biblioref">17</a>, <a href="#ref-isaias2020" role="doc-biblioref">18</a>]</span>. Current instructor-facing visualizations mostly display course-wide information about the learners or track group work <span class="citation" data-cites="matcha2020">[<a href="#ref-matcha2020" role="doc-biblioref">14</a>]</span>. These visualizations can support teachers in facilitating student collaboration <span class="citation" data-cites="verbert2013">[<a href="#ref-verbert2013" role="doc-biblioref">19</a>]</span>, planning and collecting student feedback on learning activities <span class="citation" data-cites="chavan2022">[<a href="#ref-chavan2022" role="doc-biblioref">20</a>]</span>, or obtaining insights into student interactions within an online environment, such as simulations, virtual labs or online games <span class="citation" data-cites="lopez-pernas2021 lópeztavares2019">[<a href="#ref-lopez-pernas2021" role="doc-biblioref">21</a>, <a href="#ref-lópeztavares2019" role="doc-biblioref">22</a>]</span>. However, interpreting dashboard information is a challenging task for instructors. Although some teachers use dashboards as complementary sources of information, others act based only on the dashboard information without further investigation <span class="citation" data-cites="li2022">[<a href="#ref-li2022" role="doc-biblioref">23</a>]</span>.</p>
+<p>In comparison, the goal of instructor-facing visualizations is to support teachers and their decision-making process by tracking student progress. Two main types can be distinguished. Mirroring or descriptive visualizations provide insights about the learners on an aggregated or an individual level using either descriptive or comparative data. Advising or prescriptive visualizations show not only information about the learners but also alert the instructor to undertake a pedagogical action <span class="citation" data-cites="vanleeuwen2020 isaias2020">[<a href="#ref-vanleeuwen2020" role="doc-biblioref">17</a>, <a href="#ref-isaias2020" role="doc-biblioref">18</a>]</span>. Current instructor-facing visualizations mostly display course-wide information about the learners or track group work <span class="citation" data-cites="matcha2020">[<a href="#ref-matcha2020" role="doc-biblioref">14</a>]</span>. These visualizations can support teachers in facilitating student collaboration <span class="citation" data-cites="verbert2013">[<a href="#ref-verbert2013" role="doc-biblioref">19</a>]</span>, planning and collecting student feedback on learning activities <span class="citation" data-cites="chavan2022">[<a href="#ref-chavan2022" role="doc-biblioref">20</a>]</span>, or obtaining insights into student interactions within an online environment, such as simulations, virtual labs or online games <span class="citation" data-cites="lopez-pernas2021 lópeztavares2019">[<a href="#ref-lopez-pernas2021" role="doc-biblioref">21</a>, <a href="#ref-lópeztavares2019" role="doc-biblioref">22</a>]</span>. However, interpreting dashboard information is a challenging task for instructors. Although some teachers use dashboards as complementary sources of information, others act based only on the dashboard information without further investigation <span class="citation" data-cites="li2022">[<a href="#ref-li2022" role="doc-biblioref">23</a>]</span>.</p>
 <p>A common point of criticism of learning analytics dashboards is that most of them are not grounded in learning theories <span class="citation" data-cites="matcha2020 alvarez2022">[<a href="#ref-alvarez2022" role="doc-biblioref">13</a>, <a href="#ref-matcha2020" role="doc-biblioref">14</a>]</span>. Data-driven evaluations of dashboards focused on dashboard acceptance, usefulness, or usability are more prevalent than pedagogically-focused evaluations <span class="citation" data-cites="jivet2018">[<a href="#ref-jivet2018" role="doc-biblioref">24</a>]</span>. Some approaches were developed to mitigate these issues. The model of user-centered learning analytics systems (MULAS) presents a set of recommendations on four interconnected dimensions: theory, design, evaluation, and feedback, and can be used to guide dashboard development <span class="citation" data-cites="matcha2020">[<a href="#ref-matcha2020" role="doc-biblioref">14</a>]</span>. Another approach is an iterative five-stage Learning Awareness Tools – User eXperience (LATUX) workflow, including problem identification, low-fidelity prototyping, high-fidelity prototyping, pilot studies, and classroom use, that can be used to develop visual analytics <span class="citation" data-cites="martinez-maldonado2015">[<a href="#ref-martinez-maldonado2015" role="doc-biblioref">25</a>]</span>. Finally, open learner model research could be used as a source of insights while developing learning analytics visualizations, such as dashboards <span class="citation" data-cites="bodily2018">[<a href="#ref-bodily2018" role="doc-biblioref">9</a>]</span>.</p>
 </section>
 <section id="generating-plots-with-ggplot2" class="level2" data-number="3">
@@ -585,7 +588,7 @@ cookieconsent.run({
 </div>
 <p>Now we can download the data using the <code>import</code> function from <code>rio</code> and assign it to a variable named <code>df</code> (short for dataframe).</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>demo_url <span class="ot">=</span> <span class="st">"https://github.com/sonsoleslp/labook-data/raw/main/1_moodleLAcourse/AllCombined.xlsx"</span></span>
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>demo_url <span class="ot">=</span> <span class="st">"https://github.com/lamethods/data/raw/main/1_moodleLAcourse/AllCombined.xlsx"</span></span>
 <span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>df <span class="ot">&lt;-</span> <span class="fu">import</span>(demo_url)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>We can use the <code>head</code> command to get an idea of what the dataset looks like. To recreate the plot above we will need the <code>AchievingGroup</code> column —which indicates whether students’ are high achievers (to 50%) or low achievers (bottom 50%), according to their final grade— and the <code>ActivityGroup</code> column —which indicates whether students have a high level of activity (top 33%), moderate activity (middle 33%), or low activity (bottom 33%), according to their total number of events in the LMS.</p>
@@ -1078,7 +1081,7 @@ cookieconsent.run({
 <h3 data-number="6.3" class="anchored" data-anchor-id="line-plot"><span class="header-section-number">6.3</span> Line plot</h3>
 <p>Another very widely used type of plot is the line plot. Like the histogram, it is also appropriate when we have both a numerical continuous x-axis and y-axis but it gives us a bit more liberty of what we plot and it is suitable for when we want to plot several series of data together. A very common scenario for a line plot is when we deal with timelines and we wish to visualize the evolution of a certain variable over time. Let us, for instance, plot the students’ daily events in the LMS throughout the course, a common plot in learning analytics dashboards. In the dataset that we have been using, we have the total count of events per user but not the timestamp of each event. We need to import the original event data from the dataset:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb39"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a>ev_url <span class="ot">&lt;-</span> <span class="st">"https://github.com/sonsoleslp/labook-data/raw/main/1_moodleLAcourse/Events.xlsx"</span></span>
+<div class="sourceCode cell-code" id="cb39"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a>ev_url <span class="ot">&lt;-</span> <span class="st">"https://github.com/lamethods/data/raw/main/1_moodleLAcourse/Events.xlsx"</span></span>
 <span id="cb39-2"><a href="#cb39-2" aria-hidden="true" tabindex="-1"></a>events <span class="ot">&lt;-</span> <span class="fu">import</span>(ev_url)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>The <code>Events.xlsx</code> file contains all the actions that the students enrolled in this course performed in the LMS (<code>Action</code>) with their corresponding timestamp (<code>timecreated</code>): clicking on a lecture file, viewing the assignment instructions, etc.</p>
@@ -1416,52 +1419,43 @@ cookieconsent.run({
 <span id="cb65-3"><a href="#cb65-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">count</span>() <span class="sc">|&gt;</span> </span>
 <span id="cb65-4"><a href="#cb65-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(Action) <span class="sc">|&gt;</span></span>
 <span id="cb65-5"><a href="#cb65-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarize</span>(<span class="at">Mean =</span> <span class="fu">mean</span>(n), <span class="at">SD =</span> <span class="fu">sd</span>(n))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code># A tibble: 12 × 3
-   Action        Mean     SD
-   &lt;chr&gt;        &lt;dbl&gt;  &lt;dbl&gt;
- 1 Applications  11.1   9.83
- 2 Assignment    56.7  34.1 
- 3 Course_view  195.  152.  
- 4 Ethics        11.7  10.7 
- 5 Feedback      24.7  16.2 
- 6 General       25.7  21.4 
- 7 Group_work   252.  163.  
- 8 Instructions  49.8  40.3 
- 9 La_types      14.5   7.58
-10 Practicals    77.1  33.8 
-11 Social        18.1  19.0 
-12 Theory        11.1   6.92</code></pre>
+<div class="cell-output-display">
+
+<div data-pagedtable="false">
+  <script data-pagedtable-source="" type="application/json">
+{"columns":[{"label":["Action"],"name":[1],"type":["chr"],"align":["left"]},{"label":["Mean"],"name":[2],"type":["dbl"],"align":["right"]},{"label":["SD"],"name":[3],"type":["dbl"],"align":["right"]}],"data":[{"1":"Applications","2":"11.07143","3":"9.825022"},{"1":"Assignment","2":"56.68462","3":"34.129492"},{"1":"Course_view","2":"194.56154","3":"151.656947"},{"1":"Ethics","2":"11.68182","3":"10.669050"},{"1":"Feedback","2":"24.71429","3":"16.243082"},{"1":"General","2":"25.73846","3":"21.390991"},{"1":"Group_work","2":"251.90769","3":"162.899810"},{"1":"Instructions","2":"49.80000","3":"40.272213"},{"1":"La_types","2":"14.54615","3":"7.583245"},{"1":"Practicals","2":"77.07692","3":"33.751627"},{"1":"Social","2":"18.10744","3":"19.034093"},{"1":"Theory","2":"11.10484","3":"6.922120"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
+  </script>
+</div>
 </div>
 </div>
 <p>Now that we have a data frame with the shape that we like, we can use <code>gt</code> to create the formatted table by simply adding <code>gt</code> to the pipeline of operations:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb67"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb67-1"><a href="#cb67-1" aria-hidden="true" tabindex="-1"></a>events <span class="sc">|&gt;</span> </span>
-<span id="cb67-2"><a href="#cb67-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(user, Action) <span class="sc">|&gt;</span> </span>
-<span id="cb67-3"><a href="#cb67-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">count</span>() <span class="sc">|&gt;</span> </span>
-<span id="cb67-4"><a href="#cb67-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(Action) <span class="sc">|&gt;</span></span>
-<span id="cb67-5"><a href="#cb67-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarize</span>(<span class="at">Mean =</span> <span class="fu">mean</span>(n), <span class="at">SD =</span> <span class="fu">sd</span>(n)) <span class="sc">|&gt;</span></span>
-<span id="cb67-6"><a href="#cb67-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">gt</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb66"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb66-1"><a href="#cb66-1" aria-hidden="true" tabindex="-1"></a>events <span class="sc">|&gt;</span> </span>
+<span id="cb66-2"><a href="#cb66-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(user, Action) <span class="sc">|&gt;</span> </span>
+<span id="cb66-3"><a href="#cb66-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">count</span>() <span class="sc">|&gt;</span> </span>
+<span id="cb66-4"><a href="#cb66-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(Action) <span class="sc">|&gt;</span></span>
+<span id="cb66-5"><a href="#cb66-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarize</span>(<span class="at">Mean =</span> <span class="fu">mean</span>(n), <span class="at">SD =</span> <span class="fu">sd</span>(n)) <span class="sc">|&gt;</span></span>
+<span id="cb66-6"><a href="#cb66-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">gt</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div id="tbl-gt-1" class="anchored">
 
-<div id="msyewrowne" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
-<style>#msyewrowne table {
+<div id="mhtzwgumac" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<style>#mhtzwgumac table {
   font-family: system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
-#msyewrowne thead, #msyewrowne tbody, #msyewrowne tfoot, #msyewrowne tr, #msyewrowne td, #msyewrowne th {
+#mhtzwgumac thead, #mhtzwgumac tbody, #mhtzwgumac tfoot, #mhtzwgumac tr, #mhtzwgumac td, #mhtzwgumac th {
   border-style: none;
 }
 
-#msyewrowne p {
+#mhtzwgumac p {
   margin: 0;
   padding: 0;
 }
 
-#msyewrowne .gt_table {
+#mhtzwgumac .gt_table {
   display: table;
   border-collapse: collapse;
   line-height: normal;
@@ -1487,12 +1481,12 @@ cookieconsent.run({
   border-left-color: #D3D3D3;
 }
 
-#msyewrowne .gt_caption {
+#mhtzwgumac .gt_caption {
   padding-top: 4px;
   padding-bottom: 4px;
 }
 
-#msyewrowne .gt_title {
+#mhtzwgumac .gt_title {
   color: #333333;
   font-size: 125%;
   font-weight: initial;
@@ -1504,7 +1498,7 @@ cookieconsent.run({
   border-bottom-width: 0;
 }
 
-#msyewrowne .gt_subtitle {
+#mhtzwgumac .gt_subtitle {
   color: #333333;
   font-size: 85%;
   font-weight: initial;
@@ -1516,7 +1510,7 @@ cookieconsent.run({
   border-top-width: 0;
 }
 
-#msyewrowne .gt_heading {
+#mhtzwgumac .gt_heading {
   background-color: #FFFFFF;
   text-align: center;
   border-bottom-color: #FFFFFF;
@@ -1528,13 +1522,13 @@ cookieconsent.run({
   border-right-color: #D3D3D3;
 }
 
-#msyewrowne .gt_bottom_border {
+#mhtzwgumac .gt_bottom_border {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
 }
 
-#msyewrowne .gt_col_headings {
+#mhtzwgumac .gt_col_headings {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -1549,7 +1543,7 @@ cookieconsent.run({
   border-right-color: #D3D3D3;
 }
 
-#msyewrowne .gt_col_heading {
+#mhtzwgumac .gt_col_heading {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -1569,7 +1563,7 @@ cookieconsent.run({
   overflow-x: hidden;
 }
 
-#msyewrowne .gt_column_spanner_outer {
+#mhtzwgumac .gt_column_spanner_outer {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -1581,15 +1575,15 @@ cookieconsent.run({
   padding-right: 4px;
 }
 
-#msyewrowne .gt_column_spanner_outer:first-child {
+#mhtzwgumac .gt_column_spanner_outer:first-child {
   padding-left: 0;
 }
 
-#msyewrowne .gt_column_spanner_outer:last-child {
+#mhtzwgumac .gt_column_spanner_outer:last-child {
   padding-right: 0;
 }
 
-#msyewrowne .gt_column_spanner {
+#mhtzwgumac .gt_column_spanner {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
@@ -1601,11 +1595,11 @@ cookieconsent.run({
   width: 100%;
 }
 
-#msyewrowne .gt_spanner_row {
+#mhtzwgumac .gt_spanner_row {
   border-bottom-style: hidden;
 }
 
-#msyewrowne .gt_group_heading {
+#mhtzwgumac .gt_group_heading {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1631,7 +1625,7 @@ cookieconsent.run({
   text-align: left;
 }
 
-#msyewrowne .gt_empty_group_heading {
+#mhtzwgumac .gt_empty_group_heading {
   padding: 0.5px;
   color: #333333;
   background-color: #FFFFFF;
@@ -1646,15 +1640,15 @@ cookieconsent.run({
   vertical-align: middle;
 }
 
-#msyewrowne .gt_from_md > :first-child {
+#mhtzwgumac .gt_from_md > :first-child {
   margin-top: 0;
 }
 
-#msyewrowne .gt_from_md > :last-child {
+#mhtzwgumac .gt_from_md > :last-child {
   margin-bottom: 0;
 }
 
-#msyewrowne .gt_row {
+#mhtzwgumac .gt_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1673,7 +1667,7 @@ cookieconsent.run({
   overflow-x: hidden;
 }
 
-#msyewrowne .gt_stub {
+#mhtzwgumac .gt_stub {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -1686,7 +1680,7 @@ cookieconsent.run({
   padding-right: 5px;
 }
 
-#msyewrowne .gt_stub_row_group {
+#mhtzwgumac .gt_stub_row_group {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -1700,15 +1694,15 @@ cookieconsent.run({
   vertical-align: top;
 }
 
-#msyewrowne .gt_row_group_first td {
+#mhtzwgumac .gt_row_group_first td {
   border-top-width: 2px;
 }
 
-#msyewrowne .gt_row_group_first th {
+#mhtzwgumac .gt_row_group_first th {
   border-top-width: 2px;
 }
 
-#msyewrowne .gt_summary_row {
+#mhtzwgumac .gt_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -1718,16 +1712,16 @@ cookieconsent.run({
   padding-right: 5px;
 }
 
-#msyewrowne .gt_first_summary_row {
+#mhtzwgumac .gt_first_summary_row {
   border-top-style: solid;
   border-top-color: #D3D3D3;
 }
 
-#msyewrowne .gt_first_summary_row.thick {
+#mhtzwgumac .gt_first_summary_row.thick {
   border-top-width: 2px;
 }
 
-#msyewrowne .gt_last_summary_row {
+#mhtzwgumac .gt_last_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1737,7 +1731,7 @@ cookieconsent.run({
   border-bottom-color: #D3D3D3;
 }
 
-#msyewrowne .gt_grand_summary_row {
+#mhtzwgumac .gt_grand_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -1747,7 +1741,7 @@ cookieconsent.run({
   padding-right: 5px;
 }
 
-#msyewrowne .gt_first_grand_summary_row {
+#mhtzwgumac .gt_first_grand_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1757,7 +1751,7 @@ cookieconsent.run({
   border-top-color: #D3D3D3;
 }
 
-#msyewrowne .gt_last_grand_summary_row_top {
+#mhtzwgumac .gt_last_grand_summary_row_top {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1767,11 +1761,11 @@ cookieconsent.run({
   border-bottom-color: #D3D3D3;
 }
 
-#msyewrowne .gt_striped {
+#mhtzwgumac .gt_striped {
   background-color: rgba(128, 128, 128, 0.05);
 }
 
-#msyewrowne .gt_table_body {
+#mhtzwgumac .gt_table_body {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -1780,7 +1774,7 @@ cookieconsent.run({
   border-bottom-color: #D3D3D3;
 }
 
-#msyewrowne .gt_footnotes {
+#mhtzwgumac .gt_footnotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -1794,7 +1788,7 @@ cookieconsent.run({
   border-right-color: #D3D3D3;
 }
 
-#msyewrowne .gt_footnote {
+#mhtzwgumac .gt_footnote {
   margin: 0px;
   font-size: 90%;
   padding-top: 4px;
@@ -1803,7 +1797,7 @@ cookieconsent.run({
   padding-right: 5px;
 }
 
-#msyewrowne .gt_sourcenotes {
+#mhtzwgumac .gt_sourcenotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -1817,7 +1811,7 @@ cookieconsent.run({
   border-right-color: #D3D3D3;
 }
 
-#msyewrowne .gt_sourcenote {
+#mhtzwgumac .gt_sourcenote {
   font-size: 90%;
   padding-top: 4px;
   padding-bottom: 4px;
@@ -1825,63 +1819,63 @@ cookieconsent.run({
   padding-right: 5px;
 }
 
-#msyewrowne .gt_left {
+#mhtzwgumac .gt_left {
   text-align: left;
 }
 
-#msyewrowne .gt_center {
+#mhtzwgumac .gt_center {
   text-align: center;
 }
 
-#msyewrowne .gt_right {
+#mhtzwgumac .gt_right {
   text-align: right;
   font-variant-numeric: tabular-nums;
 }
 
-#msyewrowne .gt_font_normal {
+#mhtzwgumac .gt_font_normal {
   font-weight: normal;
 }
 
-#msyewrowne .gt_font_bold {
+#mhtzwgumac .gt_font_bold {
   font-weight: bold;
 }
 
-#msyewrowne .gt_font_italic {
+#mhtzwgumac .gt_font_italic {
   font-style: italic;
 }
 
-#msyewrowne .gt_super {
+#mhtzwgumac .gt_super {
   font-size: 65%;
 }
 
-#msyewrowne .gt_footnote_marks {
+#mhtzwgumac .gt_footnote_marks {
   font-size: 75%;
   vertical-align: 0.4em;
   position: initial;
 }
 
-#msyewrowne .gt_asterisk {
+#mhtzwgumac .gt_asterisk {
   font-size: 100%;
   vertical-align: 0;
 }
 
-#msyewrowne .gt_indent_1 {
+#mhtzwgumac .gt_indent_1 {
   text-indent: 5px;
 }
 
-#msyewrowne .gt_indent_2 {
+#mhtzwgumac .gt_indent_2 {
   text-indent: 10px;
 }
 
-#msyewrowne .gt_indent_3 {
+#mhtzwgumac .gt_indent_3 {
   text-indent: 15px;
 }
 
-#msyewrowne .gt_indent_4 {
+#mhtzwgumac .gt_indent_4 {
   text-indent: 20px;
 }
 
-#msyewrowne .gt_indent_5 {
+#mhtzwgumac .gt_indent_5 {
   text-indent: 25px;
 }
 </style>
@@ -1941,34 +1935,34 @@ cookieconsent.run({
 </div>
 <p>We might add some tweaks by forcing the numerical columns to have two decimals and the first column to be aligned left. You can also apply themes to the table using the library <code>gtExtras</code>.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb68"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb68-1"><a href="#cb68-1" aria-hidden="true" tabindex="-1"></a>events <span class="sc">|&gt;</span> </span>
-<span id="cb68-2"><a href="#cb68-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(user, Action) <span class="sc">|&gt;</span> </span>
-<span id="cb68-3"><a href="#cb68-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">count</span>() <span class="sc">|&gt;</span> </span>
-<span id="cb68-4"><a href="#cb68-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(Action) <span class="sc">|&gt;</span></span>
-<span id="cb68-5"><a href="#cb68-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarize</span>(<span class="at">Mean =</span> <span class="fu">mean</span>(n), <span class="at">SD =</span> <span class="fu">sd</span>(n)) <span class="sc">|&gt;</span></span>
-<span id="cb68-6"><a href="#cb68-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">gt</span>() <span class="sc">|&gt;</span> </span>
-<span id="cb68-7"><a href="#cb68-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">fmt_number</span>(<span class="at">decimals =</span> <span class="dv">2</span>, <span class="at">columns =</span> <span class="fu">where</span>(is.numeric)) <span class="sc">|&gt;</span></span>
-<span id="cb68-8"><a href="#cb68-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">cols_align</span>(<span class="at">align =</span> <span class="st">"left"</span>, <span class="at">columns =</span> <span class="dv">1</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb67"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb67-1"><a href="#cb67-1" aria-hidden="true" tabindex="-1"></a>events <span class="sc">|&gt;</span> </span>
+<span id="cb67-2"><a href="#cb67-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(user, Action) <span class="sc">|&gt;</span> </span>
+<span id="cb67-3"><a href="#cb67-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">count</span>() <span class="sc">|&gt;</span> </span>
+<span id="cb67-4"><a href="#cb67-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(Action) <span class="sc">|&gt;</span></span>
+<span id="cb67-5"><a href="#cb67-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarize</span>(<span class="at">Mean =</span> <span class="fu">mean</span>(n), <span class="at">SD =</span> <span class="fu">sd</span>(n)) <span class="sc">|&gt;</span></span>
+<span id="cb67-6"><a href="#cb67-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">gt</span>() <span class="sc">|&gt;</span> </span>
+<span id="cb67-7"><a href="#cb67-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">fmt_number</span>(<span class="at">decimals =</span> <span class="dv">2</span>, <span class="at">columns =</span> <span class="fu">where</span>(is.numeric)) <span class="sc">|&gt;</span></span>
+<span id="cb67-8"><a href="#cb67-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">cols_align</span>(<span class="at">align =</span> <span class="st">"left"</span>, <span class="at">columns =</span> <span class="dv">1</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div id="tbl-gt-2" class="anchored">
 
-<div id="nenvgwjzyh" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
-<style>#nenvgwjzyh table {
+<div id="evbjsyphgj" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<style>#evbjsyphgj table {
   font-family: system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
-#nenvgwjzyh thead, #nenvgwjzyh tbody, #nenvgwjzyh tfoot, #nenvgwjzyh tr, #nenvgwjzyh td, #nenvgwjzyh th {
+#evbjsyphgj thead, #evbjsyphgj tbody, #evbjsyphgj tfoot, #evbjsyphgj tr, #evbjsyphgj td, #evbjsyphgj th {
   border-style: none;
 }
 
-#nenvgwjzyh p {
+#evbjsyphgj p {
   margin: 0;
   padding: 0;
 }
 
-#nenvgwjzyh .gt_table {
+#evbjsyphgj .gt_table {
   display: table;
   border-collapse: collapse;
   line-height: normal;
@@ -1994,12 +1988,12 @@ cookieconsent.run({
   border-left-color: #D3D3D3;
 }
 
-#nenvgwjzyh .gt_caption {
+#evbjsyphgj .gt_caption {
   padding-top: 4px;
   padding-bottom: 4px;
 }
 
-#nenvgwjzyh .gt_title {
+#evbjsyphgj .gt_title {
   color: #333333;
   font-size: 125%;
   font-weight: initial;
@@ -2011,7 +2005,7 @@ cookieconsent.run({
   border-bottom-width: 0;
 }
 
-#nenvgwjzyh .gt_subtitle {
+#evbjsyphgj .gt_subtitle {
   color: #333333;
   font-size: 85%;
   font-weight: initial;
@@ -2023,7 +2017,7 @@ cookieconsent.run({
   border-top-width: 0;
 }
 
-#nenvgwjzyh .gt_heading {
+#evbjsyphgj .gt_heading {
   background-color: #FFFFFF;
   text-align: center;
   border-bottom-color: #FFFFFF;
@@ -2035,13 +2029,13 @@ cookieconsent.run({
   border-right-color: #D3D3D3;
 }
 
-#nenvgwjzyh .gt_bottom_border {
+#evbjsyphgj .gt_bottom_border {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
 }
 
-#nenvgwjzyh .gt_col_headings {
+#evbjsyphgj .gt_col_headings {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -2056,7 +2050,7 @@ cookieconsent.run({
   border-right-color: #D3D3D3;
 }
 
-#nenvgwjzyh .gt_col_heading {
+#evbjsyphgj .gt_col_heading {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -2076,7 +2070,7 @@ cookieconsent.run({
   overflow-x: hidden;
 }
 
-#nenvgwjzyh .gt_column_spanner_outer {
+#evbjsyphgj .gt_column_spanner_outer {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -2088,15 +2082,15 @@ cookieconsent.run({
   padding-right: 4px;
 }
 
-#nenvgwjzyh .gt_column_spanner_outer:first-child {
+#evbjsyphgj .gt_column_spanner_outer:first-child {
   padding-left: 0;
 }
 
-#nenvgwjzyh .gt_column_spanner_outer:last-child {
+#evbjsyphgj .gt_column_spanner_outer:last-child {
   padding-right: 0;
 }
 
-#nenvgwjzyh .gt_column_spanner {
+#evbjsyphgj .gt_column_spanner {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
@@ -2108,11 +2102,11 @@ cookieconsent.run({
   width: 100%;
 }
 
-#nenvgwjzyh .gt_spanner_row {
+#evbjsyphgj .gt_spanner_row {
   border-bottom-style: hidden;
 }
 
-#nenvgwjzyh .gt_group_heading {
+#evbjsyphgj .gt_group_heading {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -2138,7 +2132,7 @@ cookieconsent.run({
   text-align: left;
 }
 
-#nenvgwjzyh .gt_empty_group_heading {
+#evbjsyphgj .gt_empty_group_heading {
   padding: 0.5px;
   color: #333333;
   background-color: #FFFFFF;
@@ -2153,15 +2147,15 @@ cookieconsent.run({
   vertical-align: middle;
 }
 
-#nenvgwjzyh .gt_from_md > :first-child {
+#evbjsyphgj .gt_from_md > :first-child {
   margin-top: 0;
 }
 
-#nenvgwjzyh .gt_from_md > :last-child {
+#evbjsyphgj .gt_from_md > :last-child {
   margin-bottom: 0;
 }
 
-#nenvgwjzyh .gt_row {
+#evbjsyphgj .gt_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -2180,7 +2174,7 @@ cookieconsent.run({
   overflow-x: hidden;
 }
 
-#nenvgwjzyh .gt_stub {
+#evbjsyphgj .gt_stub {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -2193,7 +2187,7 @@ cookieconsent.run({
   padding-right: 5px;
 }
 
-#nenvgwjzyh .gt_stub_row_group {
+#evbjsyphgj .gt_stub_row_group {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -2207,15 +2201,15 @@ cookieconsent.run({
   vertical-align: top;
 }
 
-#nenvgwjzyh .gt_row_group_first td {
+#evbjsyphgj .gt_row_group_first td {
   border-top-width: 2px;
 }
 
-#nenvgwjzyh .gt_row_group_first th {
+#evbjsyphgj .gt_row_group_first th {
   border-top-width: 2px;
 }
 
-#nenvgwjzyh .gt_summary_row {
+#evbjsyphgj .gt_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -2225,16 +2219,16 @@ cookieconsent.run({
   padding-right: 5px;
 }
 
-#nenvgwjzyh .gt_first_summary_row {
+#evbjsyphgj .gt_first_summary_row {
   border-top-style: solid;
   border-top-color: #D3D3D3;
 }
 
-#nenvgwjzyh .gt_first_summary_row.thick {
+#evbjsyphgj .gt_first_summary_row.thick {
   border-top-width: 2px;
 }
 
-#nenvgwjzyh .gt_last_summary_row {
+#evbjsyphgj .gt_last_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -2244,7 +2238,7 @@ cookieconsent.run({
   border-bottom-color: #D3D3D3;
 }
 
-#nenvgwjzyh .gt_grand_summary_row {
+#evbjsyphgj .gt_grand_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -2254,7 +2248,7 @@ cookieconsent.run({
   padding-right: 5px;
 }
 
-#nenvgwjzyh .gt_first_grand_summary_row {
+#evbjsyphgj .gt_first_grand_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -2264,7 +2258,7 @@ cookieconsent.run({
   border-top-color: #D3D3D3;
 }
 
-#nenvgwjzyh .gt_last_grand_summary_row_top {
+#evbjsyphgj .gt_last_grand_summary_row_top {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -2274,11 +2268,11 @@ cookieconsent.run({
   border-bottom-color: #D3D3D3;
 }
 
-#nenvgwjzyh .gt_striped {
+#evbjsyphgj .gt_striped {
   background-color: rgba(128, 128, 128, 0.05);
 }
 
-#nenvgwjzyh .gt_table_body {
+#evbjsyphgj .gt_table_body {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -2287,7 +2281,7 @@ cookieconsent.run({
   border-bottom-color: #D3D3D3;
 }
 
-#nenvgwjzyh .gt_footnotes {
+#evbjsyphgj .gt_footnotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -2301,7 +2295,7 @@ cookieconsent.run({
   border-right-color: #D3D3D3;
 }
 
-#nenvgwjzyh .gt_footnote {
+#evbjsyphgj .gt_footnote {
   margin: 0px;
   font-size: 90%;
   padding-top: 4px;
@@ -2310,7 +2304,7 @@ cookieconsent.run({
   padding-right: 5px;
 }
 
-#nenvgwjzyh .gt_sourcenotes {
+#evbjsyphgj .gt_sourcenotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -2324,7 +2318,7 @@ cookieconsent.run({
   border-right-color: #D3D3D3;
 }
 
-#nenvgwjzyh .gt_sourcenote {
+#evbjsyphgj .gt_sourcenote {
   font-size: 90%;
   padding-top: 4px;
   padding-bottom: 4px;
@@ -2332,63 +2326,63 @@ cookieconsent.run({
   padding-right: 5px;
 }
 
-#nenvgwjzyh .gt_left {
+#evbjsyphgj .gt_left {
   text-align: left;
 }
 
-#nenvgwjzyh .gt_center {
+#evbjsyphgj .gt_center {
   text-align: center;
 }
 
-#nenvgwjzyh .gt_right {
+#evbjsyphgj .gt_right {
   text-align: right;
   font-variant-numeric: tabular-nums;
 }
 
-#nenvgwjzyh .gt_font_normal {
+#evbjsyphgj .gt_font_normal {
   font-weight: normal;
 }
 
-#nenvgwjzyh .gt_font_bold {
+#evbjsyphgj .gt_font_bold {
   font-weight: bold;
 }
 
-#nenvgwjzyh .gt_font_italic {
+#evbjsyphgj .gt_font_italic {
   font-style: italic;
 }
 
-#nenvgwjzyh .gt_super {
+#evbjsyphgj .gt_super {
   font-size: 65%;
 }
 
-#nenvgwjzyh .gt_footnote_marks {
+#evbjsyphgj .gt_footnote_marks {
   font-size: 75%;
   vertical-align: 0.4em;
   position: initial;
 }
 
-#nenvgwjzyh .gt_asterisk {
+#evbjsyphgj .gt_asterisk {
   font-size: 100%;
   vertical-align: 0;
 }
 
-#nenvgwjzyh .gt_indent_1 {
+#evbjsyphgj .gt_indent_1 {
   text-indent: 5px;
 }
 
-#nenvgwjzyh .gt_indent_2 {
+#evbjsyphgj .gt_indent_2 {
   text-indent: 10px;
 }
 
-#nenvgwjzyh .gt_indent_3 {
+#evbjsyphgj .gt_indent_3 {
   text-indent: 15px;
 }
 
-#nenvgwjzyh .gt_indent_4 {
+#evbjsyphgj .gt_indent_4 {
   text-indent: 20px;
 }
 
-#nenvgwjzyh .gt_indent_5 {
+#evbjsyphgj .gt_indent_5 {
   text-indent: 25px;
 }
 </style>

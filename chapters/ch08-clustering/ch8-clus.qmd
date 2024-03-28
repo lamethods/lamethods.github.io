@@ -731,7 +731,7 @@ Thereafter, `plot()` can be called on `kmeans_sil`, `hclust_sil`, or `pam_sil` t
 plot(hclust_sil, main="", col=2:3)
 ```
 
-```{r, echo=FALSE, fig.height=5, fig.width=5}
+```{r, echo=FALSE, fig.height=7, fig.width=7, dpi = 900, dev = "png" }
 #| label: "fig-sil1"
 #| fig-cap: "Silhouette plot for the $K=2$ hierarchical clustering solution obtained using the Ward criterion with Euclidean distances."
 par(mar=c(5.1, 4.1, 1.1, 1.1))
@@ -778,7 +778,7 @@ legend("topright", colnames(silhouettes)[-1], ncol=2, cex=0.75, inset=0.05,
 
 According to @fig-silall, there is generally little support for $K > 5$ across almost all methods considered, as most method's ASW values begin to decline after this point. The ASW values also make clear that incorporating the additional categorical demographic variables in a mixed-type clustering using the Gower distance does not lead to reasonable partitions, for any number of clusters $K$. Overall, the most promising solutions in terms of having the highest ASW are $K$-Means, Ward hierarchical clustering, and $K$-Medoids with the Manhattan distance, all with $K=2$, and $K$-Medoids with the Euclidean and Minkowski distances, each with $K=3$. However, it would be wise to examine silhouette widths in more detail, rather than relying merely on the average. The silhouettes for this hierarchical clustering solution are already depicted in @fig-sil1, so @fig-silplots shows individual silhouette widths for the remaining solutions.
 
-```{r, echo=FALSE, fig.width=7, fig.height=8.125}
+```{r, echo=F, fig.width=15, fig.height=16.25}
 #| label: "fig-silplots"
 #| fig-cap: "Silhouette plots showing silhouette widths for a numbering of promising solutions, coloured according to cluster membership."
 par(mfrow=c(2,2), mar=c(5.1, 1.1, 4.1, 1.1))
