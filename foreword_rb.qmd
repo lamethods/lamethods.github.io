@@ -1,0 +1,16 @@
+---
+toc: false
+margin-footer: |
+    <span></span>
+include-after-body:
+  text: |
+    <script>
+    </script>
+---
+# Foreword by Ryan Baker {.unnumbered}
+
+Learning analytics and its sister community of educational data mining have, over the years, matured into a field where an increasing community of scholars and practitioners work together to understand the best methods for exploring the high-volume data available about learners and their learning. This has led to an increasing number of handbooks and online courses. However, none of these prior resources had focused on providing step-by-step tutorials for how to carry out the various types of analyses conducted in learning analytics. This book, by Saqr and Lopez-Pernas, and their colleagues, fills this important gap, offering clear and concise step-by-step tutorials combined with high level explanations of why each step is necessary. As such, it is an important contribution to the field and represents a manuscript that I am sure many learners will find extremely valuable -- both newcomers and relatively experienced practitioners looking to learn a new method.
+
+<a href="https://learninganalytics.upenn.edu/ryanbaker/">Ryan Baker</a><br/>
+Professor of Education and Computer Science <br/>
+University of Pennsylvania <br/>

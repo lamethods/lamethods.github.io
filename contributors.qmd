@@ -39,6 +39,12 @@ p {
 **Kamila Misiejuk**, University of Bergen 
 
 
+## Foreword
+
+[**Dragan Gašević**](https://research.monash.edu/en/persons/dragan-gasevic), Monash University
+
+[**Ryan Baker**](https://learninganalytics.upenn.edu/ryanbaker), University of Pennsylvania
+
 
 ## Authors
 

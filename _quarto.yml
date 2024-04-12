@@ -18,6 +18,10 @@ book:
       file: contributors.qmd
     # - text: "Preface"
     #   file: preface.qmd
+    - text: "Foreword by Dragan Gašević"
+      file: foreword_dg.qmd
+    - text: "Foreword by Ryan Baker"
+      file: foreword_rb.qmd
     - text: "Introduction"
       file: chapters/ch01-intro/intro.qmd
     - part: "Getting started"

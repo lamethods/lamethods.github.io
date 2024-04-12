@@ -185,7 +185,7 @@ Indeed, transition analysis in general has been a popular usage for Markovian mo
 
 As a first step, we will import all the packages required for our analyses. We have used most of them throughout the book. Below is a brief summary:
 
--   `qgraph`: A package for visualising networks, which can be used to plot transition probabilities [@qgraph]. This is used only for the process mining application in Section \ref{process}.
+-   `qgraph`: A package for visualising networks, which can be used to plot transition probabilities [@qgraph]. This is used only for the process mining application in @sec-process.
 -   `rio`: A package for reading and saving data files with different extensions [@rio].
 -   `seqHMM`: A package designed for fitting hidden (latent) Markov models and mixture hidden Markov models for social sequence data and other categorical time series [@seqHMM].
 -   `tidyverse`: A package that encompasses several basic packages for data manipulation and wrangling [@tidyverse].
@@ -199,7 +199,7 @@ library(tidyverse)
 library(TraMineR)
 ```
 
-Henceforth, we divide our examples into two parts: the first largely focuses on traditional uses of the `seqHMM` package to fit Markovian models of varying complexity to sequence data; the latter presents a demonstration of Markovian models from the perspective of process mining. We outline the steps involved in using `seqHMM` in general in Section \ref{steps}, demonstrate the application of MMs, HMMs, MMMs, and MHMMs in Section \ref{markov}, and explore process mining using Markovian models in Section \ref{process}, leveraging much of the steps and code from the previous two sections. We note that different datasets are used in Section \ref{markov} and Section \ref{process}; we begin by importing the data required for Section \ref{markov} and defer the importing of the data used in the process mining application to the later section.
+Henceforth, we divide our examples into two parts: the first largely focuses on traditional uses of the `seqHMM` package to fit Markovian models of varying complexity to sequence data; the latter presents a demonstration of Markovian models from the perspective of process mining. We outline the steps involved in using `seqHMM` in general in @sec-steps, demonstrate the application of MMs, HMMs, MMMs, and MHMMs in @sec-markov, and explore process mining using Markovian models in @sec-process, leveraging much of the steps and code from the previous two sections. We note that different datasets are used in @sec-markov and @sec-process; we begin by importing the data required for @sec-markov and defer the importing of the data used in the process mining application to the later section.
 
 With this in mind, we start by using the `ìmport()` function from the `rio` package to import our sequence data. Based on the description of the MHMM in [@Satu], we used the `seqHMM` package to simulate a synthetic dataset (`simulated_data`) consisting of students' collaboration roles (obtained from [@SAQR2022104581]) on different courses across a whole program. As the original data, the simulation was based on the two-channel model (collaboration and achievement), but we only use the collaboration sequences in the following examples, and leave the multi-channel sequence analysis to Chapter 13 [@Lopez-Pernas2024-kf]. While not available in the original study, we also simulated students' high school grade point average (`GPA`, for simplicity categorised into three levels) for each student, which will be used to predict cluster memberships. Using this data, we show how the `seqHMM` package can be used to analyse such sequences. We start with the simple MM, and then transition to HMMs and their mixtures. To be able to use the `seqHMM` functions, we need to convert the imported data to a sequence using the function `seqdef()` from the `TraMineR` package (see Chapter 10 [@Saqr2024-tv] for more information about creating `stslist` objects). We subsequently assign a colour palette to each state in the alphabet for later visualisations using the function `cpal()`. Finally, we can also extract the covariate information separately (`cov_data`).
 
@@ -223,7 +223,7 @@ cov_data <- simulated_data |>
   mutate(GPA = factor(GPA, levels = c("Low", "Middle", "High")))
 ```
 
-### Steps of estimation {#steps}
+### Steps of estimation {#sec-steps}
 
 We will first briefly introduce the steps of the analysis with the `seqHMM` package and then show examples of estimating MMs, HMMs, MMMs, and MHMMs.
 
@@ -241,7 +241,7 @@ In order to reduce the risk of being trapped in a local optimum of the likelihoo
 
 The output of the `fit_model` contains the estimated model (stored in `fit_hmm$model`) as well as information about the estimation of the model, such as the log-likelihood of the final model (`fit_hmm$logLik`). The `print` method provides information about the estimated model in a written format, while the `plot()` function visualises the model parameters as a graph. For HMMs and MHMMs, we can calculate the most probable sequence of hidden states for each individual with the `hidden_paths()` function. Sequences of observed and hidden state sequences can be plotted with the `ssplot()` function for MMs and HMMs and with the `mssplot()` function for the MMMs and the MHMMs. For MMMs and MHMMs, the `summary()` method automatically computes some features of the models such as standard errors for covariates and prior and posterior cluster membership probabilities for the subjects.
 
-### Markov models {#markov}
+### Markov models {#sec-markov}
 
 We now follow the steps outlined above for each model in turn, starting from the most basic Markov model, proceeding through a hidden Markov model and a mixture Markov model, and finally concluding with a mixture hidden Markov model.
 
@@ -707,7 +707,7 @@ In light of this, it is worth noting that the covariates do not merely explain t
 
 If we are not sure how many clusters or hidden states we expect, or if we wish to investigate different combinations of covariates, we can estimate several models and compare the results with information criteria or cross-validation. Estimating a large number of complex models is, however, very time-consuming. Using prior information for restricting the pool of potential models is useful, and sequence analysis can also be used as a helpful first step [@Helske2018; @Helske2023].
 
-### Stochastic process mining with Markovian models {#process}
+### Stochastic process mining with Markovian models {#sec-process}
 
 Process miming is a relatively recent method for the analysis of event-log  data (time-stamped logs) which aims to understand the flow and dynamics of the process under study. In education, process mining has been used extensively to analyse learners' online logs collected from Learning Management Systems (LMS), to understand how they utilize learning resources and transitions between learning activities to mention a few [@peeters2020applying; @saqr2022transferring]. In this book, we have devoted a full chapter for process mining where we explained how process mining can be performed in R @Lopez-Pernas2024-as. Yet, in this chapter we will present a novel method that we propose to perform stochastic process mining using MMs.
 While process mining can be performed using different software, techniques and algorithms, MMs offer a powerful framework for process mining with several advantages over the commonly used methods. First, it is more theoretically aligned with the idea of a transition from an action to an action and that actions are temporally dependent on each other. Second, MMs allow for data to be clustered into similar transition patterns, a possibility not offered by other process mining methods (see the process mining chapter of this book @Lopez-Pernas2024-as). Third, contrary to other process mining methods, MMs do not require researchers to arbitrarily exclude ---or trim--- a large part of the data to "simplify" the model. For instance, most of the process mining analyses require an arbitrary cutoff to trim the data so that the process model is readable. This trimming signficaintly affect the resulting model and makes it hard to replicate. Most importantly, MMs have several fit statistics that we can use to compare and judge the model fit as we have seen before. 
@@ -779,7 +779,7 @@ transitionsplot <- qgraph(
 ```
 
 
-The `seqtrate()` function only computes the transition probabilities but does not compute the initial probabilities. While it is not difficult to calculate the proportions of starting in each state, we can also estimate a simple Markov model which does the same with a short command. We do so using the `build_mm()` function as per Section \ref{markov}, recalling that the `build_mm()` function is distinct from `build_hmm()`, `build_mmm()`, and `build_mhmm()` in that it is the only build function that automatically estimates the parameters of the model. 
+The `seqtrate()` function only computes the transition probabilities but does not compute the initial probabilities. While it is not difficult to calculate the proportions of starting in each state, we can also estimate a simple Markov model which does the same with a short command. We do so using the `build_mm()` function as per @sec-markov, recalling that the `build_mm()` function is distinct from `build_hmm()`, `build_mmm()`, and `build_mhmm()` in that it is the only build function that automatically estimates the parameters of the model. 
 
 The plotting now includes an extra option called `pie = overallmodel$initial_probs` which tells `qgraph` to use the initial probabilities from the fitted MM as the sizes of the pie charts in the borders of the nodes in @fig-overallplot2. For instance, the pie around *Course view* is around half of the circle corresponding to 0.48 initial probability to start from *Course view*. Please also note that the graph is otherwise equal to the one generated via `seqtrate()` apart from these initial probabilities.
 
