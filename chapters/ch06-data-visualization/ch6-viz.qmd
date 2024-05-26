@@ -61,7 +61,7 @@ The `ggplot2` library is based on Wilkinson's grammar of graphics [@wilkinson199
 
 -   **Facet** (`facet`) : It allows to split the data into subsets and display each subset in a separate panel. It often useful for visualizing data with multiple categories or groups.
 
-By combining and customizing these components, we can create a wide variety of complex and informative visualizations in `ggplot2`. The idea behind the graphics grammar is to provide a consistent and intuitive framework for constructing plots, allowing users to focus on the data and the message they want to convey, rather than on the technical details of the visualization. In the following section, we will create a plot from scratch step by step to become familiar with the most relevant components.
+Through the combination and customization of these components, we can create a wide variety of complex and informative visualizations in `ggplot2`. The idea behind the graphics grammar is to provide a consistent framework for constructing plots, allowing users to focus on the data and the message they want to convey, rather than on the technical details of the visualization. In the following section, we will create a plot from scratch step by step to become familiar with the most relevant components.
 
 ## Creating your first plot
 
@@ -74,7 +74,7 @@ df <- import(demo_url)
 install.packages <- function(x){}
 ```
 
-We are now going to create our first plot using `ggplot2`. Our example deals with a widely studied matter in learning analytics, which is the relationship between online activity and achievement. We will use a bar chart to represent the number of students that have low, moderate and high activity levels in each achievement group (high achievers vs. low achievers). In order to become familiar with the syntax of `ggplot2`, we will recreate the plot step by step, explaining each of the elements in the plot. Below is the final result we aim at accomplishing:
+We will now create our first plot using `ggplot2`. Our example deals with a widely studied matter in learning analytics, which is the relationship between online activity and achievement. We will use a bar chart to represent the number of students that have low, moderate and high activity levels in each achievement group (high achievers vs. low achievers). In order to become familiar with the syntax of `ggplot2`, we will recreate the plot step by step, explaining each of the elements in the plot. Below is the final result we aim at accomplishing:
 
 ```{r, fig.cap = "First plot with ggplot2.", echo = FALSE, fig.width = 6, fig.height = 4}
 #| label: fig-firstplot
@@ -113,7 +113,7 @@ library(ggplot2)
 
 ### Downloading the data
 
-Next, we need to import the data that we are going to plot. For this chapter, we are using synthetic data from a blended course on learning analytics. For more details about this dataset, refer to Chapter X in this book. The data is in Excel format. We can use the library `rio` since it makes it easy to read data in several formats. We first install the library:
+Next, we need to import the data that we are going to plot. For this chapter, we are using synthetic data from a blended course on learning analytics. For more details about this dataset, refer to Chapter 2 in this book. The data is in Excel format. We can use the library `rio` since it makes it easy to read data in several formats. We first install the library:
 
 ```{r, message = FALSE, error = FALSE, warning = FALSE, results = F}
 install.packages("rio")
@@ -227,7 +227,7 @@ ggplot(df, aes(x = AchievingGroup, fill = ActivityGroup)) +
   scale_fill_brewer(palette = 15)
 ```
 
-Another option is to provide a manual scale with the colors of our choice. For that we use `scale_fill_manual` and specify a `values` vector as an argument. You need to specify as many colors as unique elements in your scale. In this case we have three activity groups (for low, moderate or high activity), so we must provide three colors. There are tons of resources online where you can find or create your own palettes (e.g., [Coolors](https://coolors.co/), [Adobe Color](https://color.adobe.com/) or [Lospec](https://lospec.com/palette-list)). You have to provide the hexadecimal code of each color or the [official color name](https://r-graph-gallery.com/42-colors-names.html) recognized by R. Below is an example:
+Another option is to provide a manual scale with the colors of our choice. For that we use `scale_fill_manual` and specify a `values` vector as an argument. You need to specify as many colors as unique elements in your scale. In this case we have three activity groups (for low, moderate or high activity), so we must provide three colors. There are tons of resources online where you can find or create your own palettes (e.g., [Coolors](https://coolors.co/), [Adobe Color](https://color.adobe.com/) or [Lospec](https://lospec.com/palette-list)). You have to provide the hexadecimal code of each color or the [official color names](https://r-graph-gallery.com/42-colors-names.html) recognized by R. Below is an example:
 
 ```{r, fig.align = 'center', fig.cap = "Bar plot showing students' activity level by achievement group with manual color scale", fig.width = 5, fig.height = 3}
 #| label: fig-scalemanual

@@ -53,7 +53,7 @@ In the following sections, we will (1) briefly review literature relevant to the
 
 ### Epistemic network analysis (ENA)
 
-ENA is a method for identifying and quantifying connections in coded data and representing them in undirected weighted network models (Shaffer et al., 2016). There are two key features that differentiate ENA from other networks analysis tools or multivariate analyses: (1) ENA produces summary statistics that can be used to compare the differences in the content of networks rather than just their structure; and (2) ENA network visualizations provide information that is mathematically consistent with those summary statistics, which facilitates meaningful interpretation of statistical differences (Bowman et al., 2021). These features enable researchers to analyze a wide range of phenomena in learning analytics, including complex thinking and knowledge construction (Csanadi et al, 2018; Oshima et al., 2018), collaborative problem solving (Bressler et al., 2019; Swiecki et al., 2020; ), socio-emotional aspects of learning (Prieto et al., 2021), mentoring (Zhang et al., 2022), and teacher professional development (Bauer et al., 2019; Fernandez-Nieto et al., 2021; Phillips et al., 2023)
+ENA is a method for identifying and quantifying connections in coded data and representing them in undirected weighted network models (Shaffer et al., 2016). There are two key features that differentiate ENA from other networks analysis tools or multivariate analyses: (1) ENA produces summary statistics that can be used to compare the differences in the content of networks rather than just their structure; and (2) ENA network visualizations provide information that is mathematically consistent with those summary statistics, which facilitates meaningful interpretation of statistical differences (Bowman et al., 2021). These features enable researchers to analyze a wide range of phenomena in learning analytics, including complex thinking and knowledge construction (Csanadi et al, 2018; Oshima et al., 2018), collaborative problem solving (Bressler et al., 2019; Swiecki et al., 2020), socio-emotional aspects of learning (Prieto et al., 2021), mentoring (Zhang et al., 2022), and teacher professional development (Bauer et al., 2019; Fernandez-Nieto et al., 2021; Phillips et al., 2023)
 
 One key feature that makes ENA an effective method in modeling collaborative interaction is that ENA can model individuals' unique contributions to collaborative discourse *while accounting for* group context, and thus both individuals *and* groups can be analyzed in the same model. This feature is particularly valuable in collaborative learning environments, where the interactions and contributions of each individual are related and should not be treated as a series of isolated events. For example, Swiecki et al., (2020) analyzed the communications of air defense warfare teams in training exercises and found that ENA was not only able to reveal differences in individual performance identified in a qualitative analysis of the collaborative discourse, but also to test those differences statistically.
 
@@ -73,7 +73,7 @@ In the following sections, we provide a step-by-step guide to conducting ENA and
 
 In this section, we demonstrate how to conduct an ENA analysis using the `rENA` package. If you are not familiar with ENA as an analytic technique, we recommend that you first read Shaffer & Ruis (2017) and Bowman et al. (2022) to familiarize yourself with the theoretical and methodological foundations of ENA.
 
-### Install the rENA package and load the library
+### Install the `rENA`package and load the library
 
 Before installing the `rENA` package, be sure that you are using R version 4.1 or newer. To check your R version, type `R.version` in your console. To update your R version (if needed), download and install R from the official R website: <https://cran.r-project.org/>
 
@@ -87,7 +87,7 @@ First, install the `rENA` package and then load the `rENA` library after install
 library(rENA)
 ```
 
-We also install the other package that is required for accessing the `view()` function section 3.7.3 in rENA.
+We also install the other package that is required for accessing the `view()` function (section 3.7.3) in `rENA`.
 
 ```{r message = FALSE}
 # install.packages("tma", repos = c("https://cran.qe-libs.org", "https://cran.rstudio.org"))
@@ -101,7 +101,7 @@ library(tma)
 
 The dataset we will use as an example, `RS.data`, is included in the `rENA` package. Note that the `RS.data` file in the package is only a subset of the full dataset, and is thus intended for demonstration purposes only.
 
-To start, pass `RS.data` from the rENA package to a data frame named **data**.
+To start, pass `RS.data` from the `rENA`package to a data frame named **data**.
 
 ```{r}
 data = rENA::RS.data
@@ -271,7 +271,7 @@ set.ena$line.weights
 
 As the product of a dimensional reduction, for each unit, ENA produces an ENA point in a two-dimensional space. Since there are 48 units, ENA produces 48 ENA points.
 
-By default, rENA visualizes ENA points on an x-y coordinate plane defined by the first two dimensions of the dimensional reduction: for a means rotation, MR1 and SVD2, and for an SVD, SVD1 and SVD2.
+By default, `rENA`visualizes ENA points on an x-y coordinate plane defined by the first two dimensions of the dimensional reduction: for a means rotation, MR1 and SVD2, and for an SVD, SVD1 and SVD2.
 
 To access these points, use `set.ena$points` .
 
@@ -851,7 +851,7 @@ my_codes = c(
 
 #### Specify conversations
 
-The parameter to specify *conversations* in rENA is called `conversation`; in ONA, the equivalent is called `my_hoo_rules`, where `hoo` is an abbreviation of `horizon of observation`.
+The parameter to specify *conversations* in `rENA`is called `conversation`; in ONA, the equivalent is called `my_hoo_rules`, where `hoo` is an abbreviation of `horizon of observation`.
 
 Choose the combination of `Condition` column, `GroupName` column, and `ActivityNumber` column to define the conversation parameter.
 

@@ -188,10 +188,10 @@ cookieconsent.run({
 
 
 <meta name="twitter:title" content="Learning analytics methods and tutorials - 16&nbsp; Community Detection in Learning Networks Using R">
-<meta name="twitter:description" content="In the field of social network analysis, the quest for understanding interactions and group structures takes a center stage.">
+<meta name="twitter:description" content="In the field of social network analysis, understanding interactions and group structures takes a center stage.">
 <meta name="twitter:card" content="summary">
 <meta name="citation_title" content="[16]{.chapter-number}&nbsp; [Community Detection in Learning Networks Using R]{.chapter-title}">
-<meta name="citation_abstract" content="In the field of social network analysis, the quest for understanding interactions and group structures takes a center stage. This chapter focuses on finding such groups, constellations or ensembles of actors who can be grouped together, a process often referred to as community detection, particularly in the context of educational research. Community detection aims to uncover tightly knit subgroups of nodes who share strong connectivity within a network or have connectivity patterns that demarcates them from the others. This chapter explores various algorithms and techniques that unveil these groups or cohesive clusters. Using well-known R packages, the chapter primarily delves into the core approach of identifying and visualizing densely connected subgroups, offering practical insights into its application within educational contexts. Ultimately, the chapter aims to serve as a guide to unraveling learning communities, providing educators and researchers with valuable tools to discern and harness the power of interconnectedness in learning networks.">
+<meta name="citation_abstract" content="In the field of social network analysis, understanding interactions and group structures takes a center stage. This chapter focuses on finding such groups, constellations or ensembles of actors who can be grouped together, a process often referred to as community detection, particularly in the context of educational research. Community detection aims to uncover tightly knit subgroups of nodes who share strong connectivity within a network or have connectivity patterns that demarcates them from the others. This chapter explores various algorithms and techniques to identify these groups or cohesive clusters. Using well-known R packages, the chapter primarily presents the core approach of identifying and visualizing densely connected subgroups in learning networks.">
 <meta name="citation_keywords" content="community detection, social network analysis, learning analytics, educational data mining">
 <meta name="citation_author" content="Ángel Hernández-García">
 <meta name="citation_author" content="Carlos Cuenca-Enrique">
@@ -527,7 +527,7 @@ cookieconsent.run({
 <div>
   <div class="abstract">
     <div class="abstract-title">Abstract</div>
-    In the field of social network analysis, the quest for understanding interactions and group structures takes a center stage. This chapter focuses on finding such groups, constellations or ensembles of actors who can be grouped together, a process often referred to as community detection, particularly in the context of educational research. Community detection aims to uncover tightly knit subgroups of nodes who share strong connectivity within a network or have connectivity patterns that demarcates them from the others. This chapter explores various algorithms and techniques that unveil these groups or cohesive clusters. Using well-known R packages, the chapter primarily delves into the core approach of identifying and visualizing densely connected subgroups, offering practical insights into its application within educational contexts. Ultimately, the chapter aims to serve as a guide to unraveling learning communities, providing educators and researchers with valuable tools to discern and harness the power of interconnectedness in learning networks.
+    In the field of social network analysis, understanding interactions and group structures takes a center stage. This chapter focuses on finding such groups, constellations or ensembles of actors who can be grouped together, a process often referred to as community detection, particularly in the context of educational research. Community detection aims to uncover tightly knit subgroups of nodes who share strong connectivity within a network or have connectivity patterns that demarcates them from the others. This chapter explores various algorithms and techniques to identify these groups or cohesive clusters. Using well-known R packages, the chapter primarily presents the core approach of identifying and visualizing densely connected subgroups in learning networks.
   </div>
 </div>
 
@@ -611,17 +611,17 @@ examined whether students formed communities dominated by a specific gender or r
   .. ..$ totalPosts: num [1:124] 0 25 0 0 0 0 4 0 22 56 ...
   ..$ :List of 1
   .. ..$ weight: num [1:662] 1 2 1 2 5 4 1 1 1 1 ...
- $ :&lt;environment: 0x557494fa1578&gt; </code></pre>
+ $ :&lt;environment: 0x5632d027c790&gt; </code></pre>
 </div>
 </div>
 <p>We can also inspect the main attributes of the graph, which is shown as a directed, named and weighted network with 124 nodes and 662 edges:</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(ds)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>IGRAPH e7703b7 DNW- 124 662 -- 
+<pre><code>IGRAPH bc58286 DNW- 124 662 -- 
 + attr: name (v/c), User (v/c), initPosts (v/n), replyPosts (v/n),
 | totalPosts (v/n), weight (e/n)
-+ edges from e7703b7 (vertex names):
++ edges from bc58286 (vertex names):
  [1] 192-&gt;164 164-&gt;55  139-&gt;142 142-&gt;55  175-&gt;55  149-&gt;55  139-&gt;192 192-&gt;153
  [9] 153-&gt;118 118-&gt;142 160-&gt;160 158-&gt;55  163-&gt;175 152-&gt;55  182-&gt;161 161-&gt;55 
 [17] 210-&gt;55  149-&gt;138 138-&gt;55  117-&gt;178 178-&gt;55  127-&gt;55  160-&gt;55  197-&gt;55 

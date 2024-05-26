@@ -560,11 +560,11 @@ cookieconsent.run({
 <li><p><strong>Coordinate system</strong> (<code>coord</code>): It defines the spatial or geographic context in which the plot is displayed, such as Cartesian coordinates, polar coordinates, or maps.</p></li>
 <li><p><strong>Facet</strong> (<code>facet</code>) : It allows to split the data into subsets and display each subset in a separate panel. It often useful for visualizing data with multiple categories or groups.</p></li>
 </ul>
-<p>By combining and customizing these components, we can create a wide variety of complex and informative visualizations in <code>ggplot2</code>. The idea behind the graphics grammar is to provide a consistent and intuitive framework for constructing plots, allowing users to focus on the data and the message they want to convey, rather than on the technical details of the visualization. In the following section, we will create a plot from scratch step by step to become familiar with the most relevant components.</p>
+<p>Through the combination and customization of these components, we can create a wide variety of complex and informative visualizations in <code>ggplot2</code>. The idea behind the graphics grammar is to provide a consistent framework for constructing plots, allowing users to focus on the data and the message they want to convey, rather than on the technical details of the visualization. In the following section, we will create a plot from scratch step by step to become familiar with the most relevant components.</p>
 </section>
 <section id="creating-your-first-plot" class="level2" data-number="5">
 <h2 data-number="5" class="anchored" data-anchor-id="creating-your-first-plot"><span class="header-section-number">5</span> Creating your first plot</h2>
-<p>We are now going to create our first plot using <code>ggplot2</code>. Our example deals with a widely studied matter in learning analytics, which is the relationship between online activity and achievement. We will use a bar chart to represent the number of students that have low, moderate and high activity levels in each achievement group (high achievers vs.&nbsp;low achievers). In order to become familiar with the syntax of <code>ggplot2</code>, we will recreate the plot step by step, explaining each of the elements in the plot. Below is the final result we aim at accomplishing:</p>
+<p>We will now create our first plot using <code>ggplot2</code>. Our example deals with a widely studied matter in learning analytics, which is the relationship between online activity and achievement. We will use a bar chart to represent the number of students that have low, moderate and high activity levels in each achievement group (high achievers vs.&nbsp;low achievers). In order to become familiar with the syntax of <code>ggplot2</code>, we will recreate the plot step by step, explaining each of the elements in the plot. Below is the final result we aim at accomplishing:</p>
 <div class="cell">
 <div class="cell-output-display">
 <div id="fig-firstplot" class="quarto-figure quarto-figure-center anchored">
@@ -588,7 +588,7 @@ cookieconsent.run({
 </section>
 <section id="downloading-the-data" class="level3" data-number="5.2">
 <h3 data-number="5.2" class="anchored" data-anchor-id="downloading-the-data"><span class="header-section-number">5.2</span> Downloading the data</h3>
-<p>Next, we need to import the data that we are going to plot. For this chapter, we are using synthetic data from a blended course on learning analytics. For more details about this dataset, refer to Chapter X in this book. The data is in Excel format. We can use the library <code>rio</code> since it makes it easy to read data in several formats. We first install the library:</p>
+<p>Next, we need to import the data that we are going to plot. For this chapter, we are using synthetic data from a blended course on learning analytics. For more details about this dataset, refer to Chapter 2 in this book. The data is in Excel format. We can use the library <code>rio</code> since it makes it easy to read data in several formats. We first install the library:</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">"rio"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
@@ -748,7 +748,7 @@ cookieconsent.run({
 </div>
 </div>
 </div>
-<p>Another option is to provide a manual scale with the colors of our choice. For that we use <code>scale_fill_manual</code> and specify a <code>values</code> vector as an argument. You need to specify as many colors as unique elements in your scale. In this case we have three activity groups (for low, moderate or high activity), so we must provide three colors. There are tons of resources online where you can find or create your own palettes (e.g., <a href="https://coolors.co/">Coolors</a>, <a href="https://color.adobe.com/">Adobe Color</a> or <a href="https://lospec.com/palette-list">Lospec</a>). You have to provide the hexadecimal code of each color or the <a href="https://r-graph-gallery.com/42-colors-names.html">official color name</a> recognized by R. Below is an example:</p>
+<p>Another option is to provide a manual scale with the colors of our choice. For that we use <code>scale_fill_manual</code> and specify a <code>values</code> vector as an argument. You need to specify as many colors as unique elements in your scale. In this case we have three activity groups (for low, moderate or high activity), so we must provide three colors. There are tons of resources online where you can find or create your own palettes (e.g., <a href="https://coolors.co/">Coolors</a>, <a href="https://color.adobe.com/">Adobe Color</a> or <a href="https://lospec.com/palette-list">Lospec</a>). You have to provide the hexadecimal code of each color or the <a href="https://r-graph-gallery.com/42-colors-names.html">official color names</a> recognized by R. Below is an example:</p>
 <div class="cell" data-layout-align="center">
 <div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(df, <span class="fu">aes</span>(<span class="at">x =</span> AchievingGroup, <span class="at">fill =</span> ActivityGroup)) <span class="sc">+</span> </span>
 <span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_bar</span>(<span class="at">position =</span> <span class="fu">position_stack</span>(<span class="at">reverse =</span> <span class="cn">TRUE</span>)) <span class="sc">+</span> </span>
@@ -1449,23 +1449,23 @@ cookieconsent.run({
 <div class="cell-output-display">
 <div id="tbl-gt-1" class="anchored">
 
-<div id="mhtzwgumac" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
-<style>#mhtzwgumac table {
+<div id="mxqxjpcodp" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<style>#mxqxjpcodp table {
   font-family: system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
-#mhtzwgumac thead, #mhtzwgumac tbody, #mhtzwgumac tfoot, #mhtzwgumac tr, #mhtzwgumac td, #mhtzwgumac th {
+#mxqxjpcodp thead, #mxqxjpcodp tbody, #mxqxjpcodp tfoot, #mxqxjpcodp tr, #mxqxjpcodp td, #mxqxjpcodp th {
   border-style: none;
 }
 
-#mhtzwgumac p {
+#mxqxjpcodp p {
   margin: 0;
   padding: 0;
 }
 
-#mhtzwgumac .gt_table {
+#mxqxjpcodp .gt_table {
   display: table;
   border-collapse: collapse;
   line-height: normal;
@@ -1491,12 +1491,12 @@ cookieconsent.run({
   border-left-color: #D3D3D3;
 }
 
-#mhtzwgumac .gt_caption {
+#mxqxjpcodp .gt_caption {
   padding-top: 4px;
   padding-bottom: 4px;
 }
 
-#mhtzwgumac .gt_title {
+#mxqxjpcodp .gt_title {
   color: #333333;
   font-size: 125%;
   font-weight: initial;
@@ -1508,7 +1508,7 @@ cookieconsent.run({
   border-bottom-width: 0;
 }
 
-#mhtzwgumac .gt_subtitle {
+#mxqxjpcodp .gt_subtitle {
   color: #333333;
   font-size: 85%;
   font-weight: initial;
@@ -1520,7 +1520,7 @@ cookieconsent.run({
   border-top-width: 0;
 }
 
-#mhtzwgumac .gt_heading {
+#mxqxjpcodp .gt_heading {
   background-color: #FFFFFF;
   text-align: center;
   border-bottom-color: #FFFFFF;
@@ -1532,13 +1532,13 @@ cookieconsent.run({
   border-right-color: #D3D3D3;
 }
 
-#mhtzwgumac .gt_bottom_border {
+#mxqxjpcodp .gt_bottom_border {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
 }
 
-#mhtzwgumac .gt_col_headings {
+#mxqxjpcodp .gt_col_headings {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -1553,7 +1553,7 @@ cookieconsent.run({
   border-right-color: #D3D3D3;
 }
 
-#mhtzwgumac .gt_col_heading {
+#mxqxjpcodp .gt_col_heading {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -1573,7 +1573,7 @@ cookieconsent.run({
   overflow-x: hidden;
 }
 
-#mhtzwgumac .gt_column_spanner_outer {
+#mxqxjpcodp .gt_column_spanner_outer {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -1585,15 +1585,15 @@ cookieconsent.run({
   padding-right: 4px;
 }
 
-#mhtzwgumac .gt_column_spanner_outer:first-child {
+#mxqxjpcodp .gt_column_spanner_outer:first-child {
   padding-left: 0;
 }
 
-#mhtzwgumac .gt_column_spanner_outer:last-child {
+#mxqxjpcodp .gt_column_spanner_outer:last-child {
   padding-right: 0;
 }
 
-#mhtzwgumac .gt_column_spanner {
+#mxqxjpcodp .gt_column_spanner {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
@@ -1605,11 +1605,11 @@ cookieconsent.run({
   width: 100%;
 }
 
-#mhtzwgumac .gt_spanner_row {
+#mxqxjpcodp .gt_spanner_row {
   border-bottom-style: hidden;
 }
 
-#mhtzwgumac .gt_group_heading {
+#mxqxjpcodp .gt_group_heading {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1635,7 +1635,7 @@ cookieconsent.run({
   text-align: left;
 }
 
-#mhtzwgumac .gt_empty_group_heading {
+#mxqxjpcodp .gt_empty_group_heading {
   padding: 0.5px;
   color: #333333;
   background-color: #FFFFFF;
@@ -1650,15 +1650,15 @@ cookieconsent.run({
   vertical-align: middle;
 }
 
-#mhtzwgumac .gt_from_md > :first-child {
+#mxqxjpcodp .gt_from_md > :first-child {
   margin-top: 0;
 }
 
-#mhtzwgumac .gt_from_md > :last-child {
+#mxqxjpcodp .gt_from_md > :last-child {
   margin-bottom: 0;
 }
 
-#mhtzwgumac .gt_row {
+#mxqxjpcodp .gt_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1677,7 +1677,7 @@ cookieconsent.run({
   overflow-x: hidden;
 }
 
-#mhtzwgumac .gt_stub {
+#mxqxjpcodp .gt_stub {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -1690,7 +1690,7 @@ cookieconsent.run({
   padding-right: 5px;
 }
 
-#mhtzwgumac .gt_stub_row_group {
+#mxqxjpcodp .gt_stub_row_group {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -1704,15 +1704,15 @@ cookieconsent.run({
   vertical-align: top;
 }
 
-#mhtzwgumac .gt_row_group_first td {
+#mxqxjpcodp .gt_row_group_first td {
   border-top-width: 2px;
 }
 
-#mhtzwgumac .gt_row_group_first th {
+#mxqxjpcodp .gt_row_group_first th {
   border-top-width: 2px;
 }
 
-#mhtzwgumac .gt_summary_row {
+#mxqxjpcodp .gt_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -1722,16 +1722,16 @@ cookieconsent.run({
   padding-right: 5px;
 }
 
-#mhtzwgumac .gt_first_summary_row {
+#mxqxjpcodp .gt_first_summary_row {
   border-top-style: solid;
   border-top-color: #D3D3D3;
 }
 
-#mhtzwgumac .gt_first_summary_row.thick {
+#mxqxjpcodp .gt_first_summary_row.thick {
   border-top-width: 2px;
 }
 
-#mhtzwgumac .gt_last_summary_row {
+#mxqxjpcodp .gt_last_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1741,7 +1741,7 @@ cookieconsent.run({
   border-bottom-color: #D3D3D3;
 }
 
-#mhtzwgumac .gt_grand_summary_row {
+#mxqxjpcodp .gt_grand_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -1751,7 +1751,7 @@ cookieconsent.run({
   padding-right: 5px;
 }
 
-#mhtzwgumac .gt_first_grand_summary_row {
+#mxqxjpcodp .gt_first_grand_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1761,7 +1761,7 @@ cookieconsent.run({
   border-top-color: #D3D3D3;
 }
 
-#mhtzwgumac .gt_last_grand_summary_row_top {
+#mxqxjpcodp .gt_last_grand_summary_row_top {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1771,11 +1771,11 @@ cookieconsent.run({
   border-bottom-color: #D3D3D3;
 }
 
-#mhtzwgumac .gt_striped {
+#mxqxjpcodp .gt_striped {
   background-color: rgba(128, 128, 128, 0.05);
 }
 
-#mhtzwgumac .gt_table_body {
+#mxqxjpcodp .gt_table_body {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -1784,7 +1784,7 @@ cookieconsent.run({
   border-bottom-color: #D3D3D3;
 }
 
-#mhtzwgumac .gt_footnotes {
+#mxqxjpcodp .gt_footnotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -1798,7 +1798,7 @@ cookieconsent.run({
   border-right-color: #D3D3D3;
 }
 
-#mhtzwgumac .gt_footnote {
+#mxqxjpcodp .gt_footnote {
   margin: 0px;
   font-size: 90%;
   padding-top: 4px;
@@ -1807,7 +1807,7 @@ cookieconsent.run({
   padding-right: 5px;
 }
 
-#mhtzwgumac .gt_sourcenotes {
+#mxqxjpcodp .gt_sourcenotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -1821,7 +1821,7 @@ cookieconsent.run({
   border-right-color: #D3D3D3;
 }
 
-#mhtzwgumac .gt_sourcenote {
+#mxqxjpcodp .gt_sourcenote {
   font-size: 90%;
   padding-top: 4px;
   padding-bottom: 4px;
@@ -1829,63 +1829,63 @@ cookieconsent.run({
   padding-right: 5px;
 }
 
-#mhtzwgumac .gt_left {
+#mxqxjpcodp .gt_left {
   text-align: left;
 }
 
-#mhtzwgumac .gt_center {
+#mxqxjpcodp .gt_center {
   text-align: center;
 }
 
-#mhtzwgumac .gt_right {
+#mxqxjpcodp .gt_right {
   text-align: right;
   font-variant-numeric: tabular-nums;
 }
 
-#mhtzwgumac .gt_font_normal {
+#mxqxjpcodp .gt_font_normal {
   font-weight: normal;
 }
 
-#mhtzwgumac .gt_font_bold {
+#mxqxjpcodp .gt_font_bold {
   font-weight: bold;
 }
 
-#mhtzwgumac .gt_font_italic {
+#mxqxjpcodp .gt_font_italic {
   font-style: italic;
 }
 
-#mhtzwgumac .gt_super {
+#mxqxjpcodp .gt_super {
   font-size: 65%;
 }
 
-#mhtzwgumac .gt_footnote_marks {
+#mxqxjpcodp .gt_footnote_marks {
   font-size: 75%;
   vertical-align: 0.4em;
   position: initial;
 }
 
-#mhtzwgumac .gt_asterisk {
+#mxqxjpcodp .gt_asterisk {
   font-size: 100%;
   vertical-align: 0;
 }
 
-#mhtzwgumac .gt_indent_1 {
+#mxqxjpcodp .gt_indent_1 {
   text-indent: 5px;
 }
 
-#mhtzwgumac .gt_indent_2 {
+#mxqxjpcodp .gt_indent_2 {
   text-indent: 10px;
 }
 
-#mhtzwgumac .gt_indent_3 {
+#mxqxjpcodp .gt_indent_3 {
   text-indent: 15px;
 }
 
-#mhtzwgumac .gt_indent_4 {
+#mxqxjpcodp .gt_indent_4 {
   text-indent: 20px;
 }
 
-#mhtzwgumac .gt_indent_5 {
+#mxqxjpcodp .gt_indent_5 {
   text-indent: 25px;
 }
 </style>
@@ -1956,23 +1956,23 @@ cookieconsent.run({
 <div class="cell-output-display">
 <div id="tbl-gt-2" class="anchored">
 
-<div id="evbjsyphgj" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
-<style>#evbjsyphgj table {
+<div id="lhhxdktitx" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<style>#lhhxdktitx table {
   font-family: system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
-#evbjsyphgj thead, #evbjsyphgj tbody, #evbjsyphgj tfoot, #evbjsyphgj tr, #evbjsyphgj td, #evbjsyphgj th {
+#lhhxdktitx thead, #lhhxdktitx tbody, #lhhxdktitx tfoot, #lhhxdktitx tr, #lhhxdktitx td, #lhhxdktitx th {
   border-style: none;
 }
 
-#evbjsyphgj p {
+#lhhxdktitx p {
   margin: 0;
   padding: 0;
 }
 
-#evbjsyphgj .gt_table {
+#lhhxdktitx .gt_table {
   display: table;
   border-collapse: collapse;
   line-height: normal;
@@ -1998,12 +1998,12 @@ cookieconsent.run({
   border-left-color: #D3D3D3;
 }
 
-#evbjsyphgj .gt_caption {
+#lhhxdktitx .gt_caption {
   padding-top: 4px;
   padding-bottom: 4px;
 }
 
-#evbjsyphgj .gt_title {
+#lhhxdktitx .gt_title {
   color: #333333;
   font-size: 125%;
   font-weight: initial;
@@ -2015,7 +2015,7 @@ cookieconsent.run({
   border-bottom-width: 0;
 }
 
-#evbjsyphgj .gt_subtitle {
+#lhhxdktitx .gt_subtitle {
   color: #333333;
   font-size: 85%;
   font-weight: initial;
@@ -2027,7 +2027,7 @@ cookieconsent.run({
   border-top-width: 0;
 }
 
-#evbjsyphgj .gt_heading {
+#lhhxdktitx .gt_heading {
   background-color: #FFFFFF;
   text-align: center;
   border-bottom-color: #FFFFFF;
@@ -2039,13 +2039,13 @@ cookieconsent.run({
   border-right-color: #D3D3D3;
 }
 
-#evbjsyphgj .gt_bottom_border {
+#lhhxdktitx .gt_bottom_border {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
 }
 
-#evbjsyphgj .gt_col_headings {
+#lhhxdktitx .gt_col_headings {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -2060,7 +2060,7 @@ cookieconsent.run({
   border-right-color: #D3D3D3;
 }
 
-#evbjsyphgj .gt_col_heading {
+#lhhxdktitx .gt_col_heading {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -2080,7 +2080,7 @@ cookieconsent.run({
   overflow-x: hidden;
 }
 
-#evbjsyphgj .gt_column_spanner_outer {
+#lhhxdktitx .gt_column_spanner_outer {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -2092,15 +2092,15 @@ cookieconsent.run({
   padding-right: 4px;
 }
 
-#evbjsyphgj .gt_column_spanner_outer:first-child {
+#lhhxdktitx .gt_column_spanner_outer:first-child {
   padding-left: 0;
 }
 
-#evbjsyphgj .gt_column_spanner_outer:last-child {
+#lhhxdktitx .gt_column_spanner_outer:last-child {
   padding-right: 0;
 }
 
-#evbjsyphgj .gt_column_spanner {
+#lhhxdktitx .gt_column_spanner {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
@@ -2112,11 +2112,11 @@ cookieconsent.run({
   width: 100%;
 }
 
-#evbjsyphgj .gt_spanner_row {
+#lhhxdktitx .gt_spanner_row {
   border-bottom-style: hidden;
 }
 
-#evbjsyphgj .gt_group_heading {
+#lhhxdktitx .gt_group_heading {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -2142,7 +2142,7 @@ cookieconsent.run({
   text-align: left;
 }
 
-#evbjsyphgj .gt_empty_group_heading {
+#lhhxdktitx .gt_empty_group_heading {
   padding: 0.5px;
   color: #333333;
   background-color: #FFFFFF;
@@ -2157,15 +2157,15 @@ cookieconsent.run({
   vertical-align: middle;
 }
 
-#evbjsyphgj .gt_from_md > :first-child {
+#lhhxdktitx .gt_from_md > :first-child {
   margin-top: 0;
 }
 
-#evbjsyphgj .gt_from_md > :last-child {
+#lhhxdktitx .gt_from_md > :last-child {
   margin-bottom: 0;
 }
 
-#evbjsyphgj .gt_row {
+#lhhxdktitx .gt_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -2184,7 +2184,7 @@ cookieconsent.run({
   overflow-x: hidden;
 }
 
-#evbjsyphgj .gt_stub {
+#lhhxdktitx .gt_stub {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -2197,7 +2197,7 @@ cookieconsent.run({
   padding-right: 5px;
 }
 
-#evbjsyphgj .gt_stub_row_group {
+#lhhxdktitx .gt_stub_row_group {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -2211,15 +2211,15 @@ cookieconsent.run({
   vertical-align: top;
 }
 
-#evbjsyphgj .gt_row_group_first td {
+#lhhxdktitx .gt_row_group_first td {
   border-top-width: 2px;
 }
 
-#evbjsyphgj .gt_row_group_first th {
+#lhhxdktitx .gt_row_group_first th {
   border-top-width: 2px;
 }
 
-#evbjsyphgj .gt_summary_row {
+#lhhxdktitx .gt_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -2229,16 +2229,16 @@ cookieconsent.run({
   padding-right: 5px;
 }
 
-#evbjsyphgj .gt_first_summary_row {
+#lhhxdktitx .gt_first_summary_row {
   border-top-style: solid;
   border-top-color: #D3D3D3;
 }
 
-#evbjsyphgj .gt_first_summary_row.thick {
+#lhhxdktitx .gt_first_summary_row.thick {
   border-top-width: 2px;
 }
 
-#evbjsyphgj .gt_last_summary_row {
+#lhhxdktitx .gt_last_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -2248,7 +2248,7 @@ cookieconsent.run({
   border-bottom-color: #D3D3D3;
 }
 
-#evbjsyphgj .gt_grand_summary_row {
+#lhhxdktitx .gt_grand_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -2258,7 +2258,7 @@ cookieconsent.run({
   padding-right: 5px;
 }
 
-#evbjsyphgj .gt_first_grand_summary_row {
+#lhhxdktitx .gt_first_grand_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -2268,7 +2268,7 @@ cookieconsent.run({
   border-top-color: #D3D3D3;
 }
 
-#evbjsyphgj .gt_last_grand_summary_row_top {
+#lhhxdktitx .gt_last_grand_summary_row_top {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -2278,11 +2278,11 @@ cookieconsent.run({
   border-bottom-color: #D3D3D3;
 }
 
-#evbjsyphgj .gt_striped {
+#lhhxdktitx .gt_striped {
   background-color: rgba(128, 128, 128, 0.05);
 }
 
-#evbjsyphgj .gt_table_body {
+#lhhxdktitx .gt_table_body {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -2291,7 +2291,7 @@ cookieconsent.run({
   border-bottom-color: #D3D3D3;
 }
 
-#evbjsyphgj .gt_footnotes {
+#lhhxdktitx .gt_footnotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -2305,7 +2305,7 @@ cookieconsent.run({
   border-right-color: #D3D3D3;
 }
 
-#evbjsyphgj .gt_footnote {
+#lhhxdktitx .gt_footnote {
   margin: 0px;
   font-size: 90%;
   padding-top: 4px;
@@ -2314,7 +2314,7 @@ cookieconsent.run({
   padding-right: 5px;
 }
 
-#evbjsyphgj .gt_sourcenotes {
+#lhhxdktitx .gt_sourcenotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -2328,7 +2328,7 @@ cookieconsent.run({
   border-right-color: #D3D3D3;
 }
 
-#evbjsyphgj .gt_sourcenote {
+#lhhxdktitx .gt_sourcenote {
   font-size: 90%;
   padding-top: 4px;
   padding-bottom: 4px;
@@ -2336,63 +2336,63 @@ cookieconsent.run({
   padding-right: 5px;
 }
 
-#evbjsyphgj .gt_left {
+#lhhxdktitx .gt_left {
   text-align: left;
 }
 
-#evbjsyphgj .gt_center {
+#lhhxdktitx .gt_center {
   text-align: center;
 }
 
-#evbjsyphgj .gt_right {
+#lhhxdktitx .gt_right {
   text-align: right;
   font-variant-numeric: tabular-nums;
 }
 
-#evbjsyphgj .gt_font_normal {
+#lhhxdktitx .gt_font_normal {
   font-weight: normal;
 }
 
-#evbjsyphgj .gt_font_bold {
+#lhhxdktitx .gt_font_bold {
   font-weight: bold;
 }
 
-#evbjsyphgj .gt_font_italic {
+#lhhxdktitx .gt_font_italic {
   font-style: italic;
 }
 
-#evbjsyphgj .gt_super {
+#lhhxdktitx .gt_super {
   font-size: 65%;
 }
 
-#evbjsyphgj .gt_footnote_marks {
+#lhhxdktitx .gt_footnote_marks {
   font-size: 75%;
   vertical-align: 0.4em;
   position: initial;
 }
 
-#evbjsyphgj .gt_asterisk {
+#lhhxdktitx .gt_asterisk {
   font-size: 100%;
   vertical-align: 0;
 }
 
-#evbjsyphgj .gt_indent_1 {
+#lhhxdktitx .gt_indent_1 {
   text-indent: 5px;
 }
 
-#evbjsyphgj .gt_indent_2 {
+#lhhxdktitx .gt_indent_2 {
   text-indent: 10px;
 }
 
-#evbjsyphgj .gt_indent_3 {
+#lhhxdktitx .gt_indent_3 {
   text-indent: 15px;
 }
 
-#evbjsyphgj .gt_indent_4 {
+#lhhxdktitx .gt_indent_4 {
   text-indent: 20px;
 }
 
-#evbjsyphgj .gt_indent_5 {
+#lhhxdktitx .gt_indent_5 {
   text-indent: 25px;
 }
 </style>

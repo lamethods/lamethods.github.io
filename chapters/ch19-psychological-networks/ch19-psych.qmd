@@ -170,7 +170,7 @@ allDataPlot <- plot(
 
 ### Explaining network relationships
 
-It may be useful ---and all the more advisable--- to compute the predictability of all nodes which simply means to calculate to which extent each node is explained by its relationships or the proportion of explained variance when regressing all nodes over the said node. In other words, the function computes regression for each node (where all other nodes are the predictors) and returns the R2. This process is repeated for each node. When the predictability (R2) is zero, the node is not explained at all by it connections and one should think whether the node belongs to this network or whether the measurement was accurate. When predictability is 1, then 100% of the variance is explained by the relationships of the node. This of course is unlikely and warrants serious checks. Predictability has also been linked to controlability, or the extent to which one can control all other nodes if acted on this node e.g. intervention targeting this node.
+It may be useful ---and all the more advisable--- to compute the predictability of all nodes which simply means to calculate to which extent each node is explained by its relationships or the proportion of explained variance when regressing all nodes over the said node. In other words, the function computes regression for each node (where all other nodes are the predictors) and returns the R^2. This process is repeated for each node. When the predictability (R2) is zero, the node is not explained at all by it connections and one should think whether the node belongs to this network or whether the measurement was accurate. When predictability is 1, then 100% of the variance is explained by the relationships of the node. This of course is unlikely and warrants serious checks. Predictability has also been linked to controlability, or the extent to which one can control all other nodes if acted on this node e.g. intervention targeting this node.
 
 For the calculation of predictability, we will need the function `mgm()` from the package `mgm` to estimate the model. The only required parameter for the function is the type of each variable which we specify as `type = rep ('g', 6)` or `c("g" ,"g", "g", "g" ,"g" ,"g")`, which means all variables are Gaussian. 
 
@@ -179,7 +179,7 @@ fitAllData <- mgm(as.matrix(allData), type = c("g", "g", "g", "g", "g", "g"))
 ```
 
 The predictability of each variable can be obtained by querying the resulting object as the code shows below. We can also obtain the mean predictability to see how far our network nodes are explained by their relationships on average. 
-Using predictability in plots can enhance the readability of the network and give more information about the extent the node is explained by the current network. We do so by assigning the pie the value of `R2 pie= predictAll$errors$R2`. We can also see the the RMSE (Root Mean Square Error) which measures the difference between predicted values and the actual values using `predictAll$errors$RMSE`.
+Using predictability in plots can enhance the readability of the network and give more information about the extent the node is explained by the current network. We do so by assigning the pie the value of R^2:  `pie= predictAll$errors$R2`. We can also see the the RMSE (Root Mean Square Error) which measures the difference between predicted values and the actual values using `predictAll$errors$RMSE`.
 
 ```{r,  message = F}
 ## Compute the predictability
@@ -357,7 +357,7 @@ plot(finlandNetwork,             # input network
      edge.labels = TRUE,         # label the edge weights
      cut = 0.10,                 # saturate edges > .10
      minimum = 0.05,             # remove edges < .05
-     pie = predictAll$errors$R2, # put R2 as pie
+     pie = predictAll$errors$R2, # put R^2 as pie
      layout = LX)                # set the layout
 
 plot(austriaNetwork,             # input network
@@ -366,7 +366,7 @@ plot(austriaNetwork,             # input network
      edge.labels = TRUE,         # label the edge weights
      cut = 0.10,                 # saturate edges > .10
      minimum = 0.05,             # remove edges < .05
-     pie = predictAll$errors$R2, # put R2 as pie
+     pie = predictAll$errors$R2, # put R^2 as pie
      layout = LX)                # set the layout
 
 qgraph(finlandNetwork$graph - abs(austriaNetwork$graph), 

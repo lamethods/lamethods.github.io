@@ -11,16 +11,20 @@ include-after-body:
     
 ---
 #    {.unnumbered}
-
+<img src="1712067211600.jpeg" alt="Smiley face"  style="float:left;max-width: min(100%,17em);margin: 0px 20px 0px 0px;">
+<p>
 This is the website for the book **“Learning analytics methods and tutorials: A practical guide using R”** which will be published by Springer in 2024. 
-
-
+</p>
+<p>
 The lack of resources and methodological guidance on learning analytics has been a problem ever since the field started, and continues to be a problem today. We thought that the arduous journey in learning analytics should not be endured by everyone and we decided to make that resource with the help of the learning analytics community as well as our collaborators.
-
+</p>
+<p>
 In this book, we tried to include all the basics of R as a programming language as well as the basics of data cleaning, statistics, and data manipulation. In doing so, we wanted the newcomers to find an easy entry to the field. We also tried to be as comprehensive as we could and included almost all major methodologies. For every method, we started with the basics, explaining the main concepts, the essential techniques, and basic functions. In subsequent chapters, we went deeper into advanced methods that are at the forefront of novel methodological innovations. We also used real-life learning analytics data and made it readily available to researchers. To do so, we collaborated with world-renowned researchers, package developers, and methodological experts from other fields to offer an unprecedented resource on novel topics that are hard to find any resource for. 
-
+</p>
+<p>
 We hope the readers find this book useful as a guide through learning analytics methods, highlighting the ways in which data-driven insights can benefit educators, learners, and researchers.
-
-The editors
-
+</p>
+<p>The editors</p>
+<p>
 [Mohammed Saqr](https://saqr.me) and [Sonsoles López-Pernas](https://sonsoles.me)
+</p>

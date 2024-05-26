@@ -175,13 +175,16 @@ cookieconsent.run({
 </script> 
   
 
+<link href="../../site_libs/pagedtable-1.1/css/pagedtable.css" rel="stylesheet">
+<script src="../../site_libs/pagedtable-1.1/js/pagedtable.js"></script>
+
   <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
 
 <meta name="twitter:title" content="Learning analytics methods and tutorials - 21&nbsp; Structural Equation Modeling with R for Education Scientists">
 <meta name="twitter:description" content="Structural Equation Modeling (SEM) is a  method for modeling the multitude of relationships between latent variables and the observable indicators, as well as the relationship between the latent…">
 <meta name="twitter:card" content="summary">
 <meta name="citation_title" content="[21]{.chapter-number}&nbsp; [Structural Equation Modeling with R for Education Scientists]{.chapter-title}">
-<meta name="citation_abstract" content="Structural Equation Modeling (SEM) is a  method for modeling the multitude of relationships between latent variables and the observable indicators, as well as the relationship between the latent variables themselves to test theories. In its most common form, SEM combines confirmatory factor analysis (CFA with another method named path analysis. Just like CFA, SEM relates observed variables to latent variables that are measured by those observed variables and, as path analysis does, SEM allows for a wide range of regression-type relations between sets of variables (both latent and observed). This chapter presents an introduction to SEM, an integrated strategy for conducting SEM analysis that is well-suited for educational sciences, and a tutorial on how to carry out an SEM analysis in R.">
+<meta name="citation_abstract" content="Structural Equation Modeling (SEM) is a  method for modeling the multitude of relationships between latent variables and the observable indicators, as well as the relationship between the latent variables themselves to test theories. In its most common form, SEM combines confirmatory factor analysis (CFA with another method named path analysis). Just like CFA, SEM relates observed variables to latent variables that are measured by those observed variables and, as path analysis does, SEM allows for a wide range of regression-type relations between sets of variables (both latent and observed). This chapter presents an introduction to SEM, an integrated strategy for conducting SEM analysis that is well-suited for educational sciences, and a tutorial on how to carry out an SEM analysis in R.">
 <meta name="citation_keywords" content="Structural Equation Modeling, learning analytics, SEM">
 <meta name="citation_author" content="Joran Jongerling">
 <meta name="citation_author" content="Sonsoles López-Pernas">
@@ -492,7 +495,7 @@ cookieconsent.run({
 <div>
   <div class="abstract">
     <div class="abstract-title">Abstract</div>
-    Structural Equation Modeling (SEM) is a method for modeling the multitude of relationships between latent variables and the observable indicators, as well as the relationship between the latent variables themselves to test theories. In its most common form, SEM combines confirmatory factor analysis (CFA with another method named path analysis. Just like CFA, SEM relates observed variables to latent variables that are measured by those observed variables and, as path analysis does, SEM allows for a wide range of regression-type relations between sets of variables (both latent and observed). This chapter presents an introduction to SEM, an integrated strategy for conducting SEM analysis that is well-suited for educational sciences, and a tutorial on how to carry out an SEM analysis in R.
+    Structural Equation Modeling (SEM) is a method for modeling the multitude of relationships between latent variables and the observable indicators, as well as the relationship between the latent variables themselves to test theories. In its most common form, SEM combines confirmatory factor analysis (CFA with another method named path analysis). Just like CFA, SEM relates observed variables to latent variables that are measured by those observed variables and, as path analysis does, SEM allows for a wide range of regression-type relations between sets of variables (both latent and observed). This chapter presents an introduction to SEM, an integrated strategy for conducting SEM analysis that is well-suited for educational sciences, and a tutorial on how to carry out an SEM analysis in R.
   </div>
 </div>
 
@@ -693,15 +696,13 @@ The hypothesis of approximate loading invariance *is not* rejected
 <p>The arguments are the same as for the <code>cfa()</code> function discussed in the previous chapter. The relevant (standardized) output about the structural relations can be extracted from the SEM model with the command below. The first argument asks you to specify the <code>lavaan</code> object from which you want to extract the structural relations, <code>nd</code> lets you specify the number of decimals you want to display (with default 3).</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sem_structural_results</span>(sem_robust, <span class="at">nd =</span> <span class="dv">3</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>  outcome predictor std estimate    se p-value
-1     TSC        TE        0.693 0.121       0
-2     TSC        EE        0.547  0.17       0
-3     TSC        DE          0.4 0.143       0
-4     TSC       RPA        0.413 0.111       0
-5      TE        EE         0.32 0.114       0
-6      TE        DE        0.293 0.088   0.001
-7      TE       RPA        0.326 0.084       0</code></pre>
+<div class="cell-output-display">
+
+<div data-pagedtable="false">
+  <script data-pagedtable-source="" type="application/json">
+{"columns":[{"label":["outcome"],"name":[1],"type":["chr"],"align":["left"]},{"label":["predictor"],"name":[2],"type":["chr"],"align":["left"]},{"label":["std estimate"],"name":[3],"type":["chr"],"align":["left"]},{"label":["se"],"name":[4],"type":["chr"],"align":["left"]},{"label":["p-value"],"name":[5],"type":["chr"],"align":["left"]}],"data":[{"1":"TSC","2":"TE","3":"0.693","4":"0.121","5":"0"},{"1":"TSC","2":"EE","3":"0.547","4":"0.17","5":"0"},{"1":"TSC","2":"DE","3":"0.4","4":"0.143","5":"0"},{"1":"TSC","2":"RPA","3":"0.413","4":"0.111","5":"0"},{"1":"TE","2":"EE","3":"0.32","4":"0.114","5":"0"},{"1":"TE","2":"DE","3":"0.293","4":"0.088","5":"0.001"},{"1":"TE","2":"RPA","3":"0.326","4":"0.084","5":"0"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
+  </script>
+</div>
 </div>
 </div>
 <p>Looking at the output from left to right, you can see the outcome variable of the structural relationship, the predictor of the structural relationship, the regression coefficient, the standard error of the regression coefficient, and the p-value of the effect. Here, you see that all structural relations are significantly different from zero and thus that TE, EE, DE, and RPA are all related to TSC and that EE, DE, and RPA are related to TE. As mentioned, the function <code>sem_structural_results()</code> displays the most relevant information about the structural relations. For more information and unstandardized estimates, you can use the <code>summary()</code> function on the <code>lavaan</code> object <code>sem_robust</code> also see the <code>lavaan</code> tutorial by <span class="citation" data-cites="Rosseel_2023">[<a href="#ref-Rosseel_2023" role="doc-biblioref">27</a>]</span>.</p>

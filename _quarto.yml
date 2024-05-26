@@ -135,3 +135,5 @@ filters:
 reference-section-title: References
 crossref:
   chapters: true
+resources:
+  - CNAME
