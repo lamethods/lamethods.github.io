@@ -17,6 +17,9 @@ format:
   html:
     df-print: "paged"
     fig-align: "center"
+citation:
+    page: 467-488
+    doi: 10.1007/978-3-031-54464-4_14
 ---
 
 ## Introduction

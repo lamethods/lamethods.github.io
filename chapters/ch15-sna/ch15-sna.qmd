@@ -16,6 +16,9 @@ abstract-title: "Abstract"
 abstract: This chapter introduces the concept and methods of social network analysis (SNA) with a detailed guide to analysis with real world data using the R programming language. The chapter first introduces the basic concepts and types of networks. Then the chapter goes through a detailed step by step analysis of networks, computation of graph level measures as well as centralities with a concise interpretation in a collaborative environment. The chapter concludes with a discussion of network analysis, next steps as well as a list of further readings.
 bibliography: references.bib
 keywords: "learning analytics, social network analysis, centrality measures, tutorial"
+citation:
+    page: 491-518
+    doi: 10.1007/978-3-031-54464-4_15
 ---
 
 ## Introduction

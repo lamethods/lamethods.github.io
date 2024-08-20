@@ -20,6 +20,9 @@ editor: source
 keep-tex: true
 bibliography: references.bib
 keywords: "factor analysis, exploratory factor analysis, confirmatory factor analysis, learning analytics"
+citation:
+    page: 673-703
+    doi: 10.1007/978-3-031-54464-4_20
 ---
 
 ## Introduction

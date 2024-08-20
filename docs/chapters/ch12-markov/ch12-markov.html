@@ -193,7 +193,10 @@ cookieconsent.run({
 <meta name="citation_author" content="Sonsoles López-Pernas">
 <meta name="citation_author" content="Keefe Murphy">
 <meta name="citation_fulltext_html_url" content="https://lamethods.github.io/ch12-markov.html">
+<meta name="citation_doi" content="10.1007/978-3-031-54464-4_12">
 <meta name="citation_language" content="en">
+<meta name="citation_firstpage" content="381">
+<meta name="citation_lastpage" content="427">
 <meta name="citation_reference" content="citation_title=A tutorial on hidden Markov models and selected applications in speech recognition;,citation_author=Lawrence Rabiner;,citation_publication_date=1989;,citation_cover_date=1989;,citation_year=1989;,citation_issue=2;,citation_doi=10.1109/5.18626;,citation_volume=77;,citation_journal_title=Proceedings of the IEEE;,citation_publisher=IEEE;">
 <meta name="citation_reference" content="citation_title=dynamite: An R package for dynamic multivariate panel models;,citation_author=Santtu Tikka;,citation_author=Jouni Helske;,citation_publication_date=2023;,citation_cover_date=2023;,citation_year=2023;,citation_fulltext_html_url=https://arxiv.org/abs/2302.01607;,citation_doi=10.48550/ARXIV.2302.01607;,citation_publisher=arXiv;">
 <meta name="citation_reference" content="citation_title=LMest: An R package for latent Markov models for longitudinal categorical data;,citation_author=Francesco Bartolucci;,citation_author=Silvia Pandolfi;,citation_author=Fulvia Pennoni;,citation_publication_date=2017;,citation_cover_date=2017;,citation_year=2017;,citation_issue=4;,citation_doi=10.18637/jss.v081.i04;,citation_volume=81;,citation_journal_title=Journal of Statistical Software;">
@@ -458,7 +461,7 @@ cookieconsent.run({
   </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../chapters/ch22-conclusion/ch22-conclusion.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">22</span>&nbsp; <span class="chapter-title">Conclusion</span></a>
+  <a href="../../chapters/ch22-conclusion/ch22-conclusion.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">22</span>&nbsp; <span class="chapter-title">Future of LA</span></a>
   </div>
 </li>
     </ul>
@@ -2808,7 +2811,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
   </div>
 </footer>
 <script>
-  document.querySelector(".quarto-title").innerHTML =  '<div class="badge bs-warning bg-warning text-dark" style="float:right;">Pre-print</div>' +  document.querySelector(".quarto-title").innerHTML
+  document.querySelector(".quarto-title").innerHTML =  /*'<div class="badge bs-warning bg-warning text-dark" style="float:right;">Pre-print</div>' + */ document.querySelector(".quarto-title").innerHTML
   var keywords = document.querySelector('meta[name="keywords"]')
   if (keywords && keywords.content) {
     document.getElementById("title-block-header").innerHTML = document.getElementById("title-block-header").innerHTML + 
@@ -2820,6 +2823,9 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       referenceNode.parentNode.insertBefore(newNode, referenceNode.nextSibling);
   }
   var authors = document.querySelectorAll('meta[name="author"]')
+  var firstpage = document.querySelector('meta[name="citation_firstpage"]').content
+  var lastpage = document.querySelector('meta[name="citation_lastpage"]').content
+  var doi = document.querySelector('meta[name="citation_doi"]').content
   if (authors) {
     var authorlist = Array.from(authors).map(e=>e.content).reduce((accum, curr) =>  accum + curr + ", ", "","").replace(/\,\s$/,"")
     var citt = `<div class="card border-primary mb-3" style=;">
@@ -2827,8 +2833,8 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       <div class="card-body small">
         <p class="card-text">${authorlist} (2024).
         <b>${document.getElementsByClassName("chapter-title")[0].innerText}</b>. 
-        In M. Saqr & S. López-Pernas (Eds.), <i>Learning analytics methods and tutorials: A practical guide using R</i> 
-        (in – press). Springer. <a href="${window.location.href}">${window.location.href}</a></p>
+        In M. Saqr & S. López-Pernas (Eds.), <i>Learning analytics methods and tutorials: A practical guide using R</i> &nbsp;
+         (pp. ${firstpage}-${lastpage}).Springer, Cham. doi: <a href="https://doi.org/${doi}">${doi}</a></p>
       </div>
     </div>`;
     insertAfter(document.getElementsByTagName("HEADER")[1],new DOMParser().parseFromString(citt, 'text/html').body.childNodes[0])

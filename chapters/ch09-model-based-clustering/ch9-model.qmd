@@ -21,6 +21,9 @@ knitr:
 bibliography: "model-based_clustering.bib"
 abstract: "Heterogeneity has been a hot topic in recent educational literature. Several calls have been voiced to adopt methods that capture different patterns or subgroups within students’ behavior or functioning. Assuming that there is “an average” pattern that represents the entirety of student populations requires the measured construct to have the same causal mechanism, same development pattern, and affect students in exactly the same way.  Using a person-centered method (finite Gaussian mixture model or latent profile analysis), the present tutorial shows how to uncover the heterogeneity within engagement data by identifying three latent or unobserved clusters. This chapter offers an introduction to the model-based clustering that includes the principles of the methods, a guide to choice of number of clusters, evaluation of clustering results and a detailed guide with code and a real-life dataset. The discussion elaborates on the interpretation of the results, the advantages of model-based clustering as well as how it compares with other methods."
 keywords: "Gaussian mixture model, latent profile analysis, model-based clustering, learning analytics"
+citation:
+    page: 285-317
+    doi: 10.1007/978-3-031-54464-4_9
 ---
 
 ```{r}
@@ -230,7 +233,7 @@ Specifically, setting `prior = priorControl(functionName = "defaultPrior")` allo
 
 - degrees of freedom $\priorDOF =  d+2$;
 
-- scale matrix $\priorScaleIW  = \S/(K^{2/d})$, where $\S$ is the sample covariance matrix.
+- scale matrix $\priorScaleIW  = \Sb/(K^{2/d})$, where $\Sb$ is the sample covariance matrix.
 
 Rationale for the above default values for the prior hyperparameters, together with the corresponding MAP estimates of the GMM parameters, can be found in @Fraley:Raftery:2007a [Table 2]. These values should suffice for most applications, but experienced users who want to tune the hyperparameters can refer to the documentation available in the help pages for `priorControl` and `defaultPrior()`. Further details about specifying different hyperparameter values can be found in @mclust:book:2023 [Section 7.2].
 

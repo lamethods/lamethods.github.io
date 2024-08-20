@@ -191,7 +191,10 @@ cookieconsent.run({
 <meta name="citation_author" content="Sonsoles López-Pernas">
 <meta name="citation_author" content="Keefe Murphy">
 <meta name="citation_fulltext_html_url" content="https://lamethods.github.io/ch9-model.html">
+<meta name="citation_doi" content="10.1007/978-3-031-54464-4_9">
 <meta name="citation_language" content="en">
+<meta name="citation_firstpage" content="285">
+<meta name="citation_lastpage" content="317">
 <meta name="citation_reference" content="citation_title=Sequence analysis in education: Principles, technique, and tutorial with r;,citation_author=Mohammed Saqr;,citation_author=Sonsoles López-Pernas;,citation_author=Satu Helske;,citation_author=Marion Durand;,citation_author=Keefe Murphy;,citation_author=Matthias Studer;,citation_author=Gilbert Ritschard;,citation_editor=Mohammed Saqr;,citation_editor=Sonsoles López-Pernas;,citation_publication_date=2024;,citation_cover_date=2024;,citation_year=2024;,citation_inbook_title=Learning analytics methods and tutorials: A practical guide using R;">
 <meta name="citation_reference" content="citation_title=A modern approach to transition analysis and process mining with markov models: A tutorial with R;,citation_author=Jouni Helske;,citation_author=Satu Helske;,citation_author=Mohammed Saqr;,citation_author=Sonsoles López-Pernas;,citation_author=Keefe Murphy;,citation_editor=Mohammed Saqr;,citation_editor=Sonsoles López-Pernas;,citation_publication_date=2024;,citation_cover_date=2024;,citation_year=2024;,citation_inbook_title=Learning analytics methods and tutorials: A practical guide using R;">
 <meta name="citation_reference" content="citation_title=Model-based Gaussian and non-Gaussian clustering;,citation_author=J. Banfield;,citation_author=Adrian E. Raftery;,citation_publication_date=1993;,citation_cover_date=1993;,citation_year=1993;,citation_issue=3;,citation_doi=10.2307/2532201;,citation_volume=49;,citation_journal_title=Biometrics;">
@@ -466,7 +469,7 @@ cookieconsent.run({
   </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../chapters/ch22-conclusion/ch22-conclusion.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">22</span>&nbsp; <span class="chapter-title">Conclusion</span></a>
+  <a href="../../chapters/ch22-conclusion/ch22-conclusion.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">22</span>&nbsp; <span class="chapter-title">Future of LA</span></a>
   </div>
 </li>
     </ul>
@@ -641,7 +644,7 @@ f(\boldsymbol{x}) = \sum_{k=1}^K \pi_k \phi_d(\boldsymbol{x};\boldsymbol{\mu}_k,
 <li><p>mean vector <span class="math inline">\(\boldsymbol{\mu}_{\scriptscriptstyle \mathcal{P}}= \bar{\boldsymbol{x}}\)</span>, the sample mean of each variable;</p></li>
 <li><p>shrinkage <span class="math inline">\(\kappa_{\scriptscriptstyle \mathcal{P}}= 0.1\)</span>;</p></li>
 <li><p>degrees of freedom <span class="math inline">\(\nu_{\scriptscriptstyle \mathcal{P}}= d+2\)</span>;</p></li>
-<li><p>scale matrix <span class="math inline">\(\boldsymbol{\Lambda}_{\scriptscriptstyle \mathcal{P}}= \S/(K^{2/d})\)</span>, where <span class="math inline">\(\S\)</span> is the sample covariance matrix.</p></li>
+<li><p>scale matrix <span class="math inline">\(\boldsymbol{\Lambda}_{\scriptscriptstyle \mathcal{P}}= \boldsymbol{S}/(K^{2/d})\)</span>, where <span class="math inline">\(\boldsymbol{S}\)</span> is the sample covariance matrix.</p></li>
 </ul>
 <p>Rationale for the above default values for the prior hyperparameters, together with the corresponding MAP estimates of the GMM parameters, can be found in <span class="citation" data-cites="Fraley:Raftery:2007a">[<a href="#ref-Fraley:Raftery:2007a" role="doc-biblioref">36</a>, Table 2]</span>. These values should suffice for most applications, but experienced users who want to tune the hyperparameters can refer to the documentation available in the help pages for <code>priorControl</code> and <code>defaultPrior()</code>. Further details about specifying different hyperparameter values can be found in <span class="citation" data-cites="mclust:book:2023">[<a href="#ref-mclust:book:2023" role="doc-biblioref">30</a>]</span>.</p>
 </section>
@@ -1459,7 +1462,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
   </div>
 </footer>
 <script>
-  document.querySelector(".quarto-title").innerHTML =  '<div class="badge bs-warning bg-warning text-dark" style="float:right;">Pre-print</div>' +  document.querySelector(".quarto-title").innerHTML
+  document.querySelector(".quarto-title").innerHTML =  /*'<div class="badge bs-warning bg-warning text-dark" style="float:right;">Pre-print</div>' + */ document.querySelector(".quarto-title").innerHTML
   var keywords = document.querySelector('meta[name="keywords"]')
   if (keywords && keywords.content) {
     document.getElementById("title-block-header").innerHTML = document.getElementById("title-block-header").innerHTML + 
@@ -1471,6 +1474,9 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       referenceNode.parentNode.insertBefore(newNode, referenceNode.nextSibling);
   }
   var authors = document.querySelectorAll('meta[name="author"]')
+  var firstpage = document.querySelector('meta[name="citation_firstpage"]').content
+  var lastpage = document.querySelector('meta[name="citation_lastpage"]').content
+  var doi = document.querySelector('meta[name="citation_doi"]').content
   if (authors) {
     var authorlist = Array.from(authors).map(e=>e.content).reduce((accum, curr) =>  accum + curr + ", ", "","").replace(/\,\s$/,"")
     var citt = `<div class="card border-primary mb-3" style=;">
@@ -1478,8 +1484,8 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       <div class="card-body small">
         <p class="card-text">${authorlist} (2024).
         <b>${document.getElementsByClassName("chapter-title")[0].innerText}</b>. 
-        In M. Saqr & S. López-Pernas (Eds.), <i>Learning analytics methods and tutorials: A practical guide using R</i> 
-        (in – press). Springer. <a href="${window.location.href}">${window.location.href}</a></p>
+        In M. Saqr & S. López-Pernas (Eds.), <i>Learning analytics methods and tutorials: A practical guide using R</i> &nbsp;
+         (pp. ${firstpage}-${lastpage}).Springer, Cham. doi: <a href="https://doi.org/${doi}">${doi}</a></p>
       </div>
     </div>`;
     insertAfter(document.getElementsByTagName("HEADER")[1],new DOMParser().parseFromString(citt, 'text/html').body.childNodes[0])

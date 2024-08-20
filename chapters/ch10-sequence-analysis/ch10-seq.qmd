@@ -24,6 +24,9 @@ fig.width: 6
 bibliography: references.bib
 abstract: "Sequence analysis is a data mining technique that is increasingly gaining ground in learning analytics. Sequence analysis enables researchers to extract meaningful insights from sequential data, i.e., to summarize the sequential patterns of learning data and classify those patterns into homogeneous groups. In this chapter, readers will become familiar with sequence analysis techniques and tools through real-life step-by-step examples of sequential trace log data of students’ online activities. Readers will be guided on how to visualize the common sequence plots and interpret such visualizations. An essential part of sequence analysis is the discovery of patterns within sequences through clustering techniques. Therefore, this chapter will demonstrate the various sequence clustering methods, calculator of cluster indices, and evaluation of clustering results."
 keywords: "sequence analysis, sequence mining, learning analytics"
+citation:
+    page: 321-354
+    doi: 10.1007/978-3-031-54464-4_10
 ---
 
 ```{css}

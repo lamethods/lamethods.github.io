@@ -14,7 +14,9 @@ abstract: "Structural Equation Modeling (SEM) is a  method for modeling the mult
 dpi: 900
 bibliography: references.bib
 keywords: "Structural Equation Modeling, learning analytics, SEM"
-
+citation:
+    page: 705-721
+    doi: 10.1007/978-3-031-54464-4_21
 ---
 
 

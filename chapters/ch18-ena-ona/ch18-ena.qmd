@@ -34,6 +34,9 @@ include-in-header:
       <link href="/site_libs/plotly-htmlwidgets-css-2.11.1/plotly-htmlwidgets.css" rel="stylesheet">
       <script src="/site_libs/plotly-main-2.11.1/plotly-latest.min.js"></script>
       <style id="plotly.js-style-global"></style>
+citation:
+    page: 569-636
+    doi: 10.1007/978-3-031-54464-4_18
 ---
 
 ```{r, include = F}

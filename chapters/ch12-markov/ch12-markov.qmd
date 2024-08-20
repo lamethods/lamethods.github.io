@@ -19,6 +19,9 @@ abstract: "This chapter presents an introduction to Markovian modelling for the 
 keywords: "Markov models, learning analytics, sequence analysis, transition analysis"
 dpi: 900
 bibliography: references.bib
+citation:
+    page: 381-427
+    doi: 10.1007/978-3-031-54464-4_12
 ---
 
 ## Introduction

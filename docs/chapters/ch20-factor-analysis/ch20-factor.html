@@ -191,7 +191,10 @@ cookieconsent.run({
 <meta name="citation_author" content="Sonsoles López-Pernas">
 <meta name="citation_author" content="Joran Jongerling">
 <meta name="citation_fulltext_html_url" content="https://lamethods.github.io/ch20-factor.html">
+<meta name="citation_doi" content="10.1007/978-3-031-54464-4_20">
 <meta name="citation_language" content="en">
+<meta name="citation_firstpage" content="673">
+<meta name="citation_lastpage" content="703">
 <meta name="citation_reference" content="citation_title=Redefining“ what” in analyses of who does what in MOOCs;,citation_author=Alok Baikadi;,citation_author=Carrie Demmans Epp;,citation_author=Yanjin Long;,citation_author=Christian Schunn;,citation_publication_date=2016;,citation_cover_date=2016;,citation_year=2016;,citation_fulltext_html_url=https://www.educationaldatamining.org/EDM2016/proceedings/paper_128.pdf;,citation_conference_title=Proceedings of the 9th international conference on educational data mining;">
 <meta name="citation_reference" content="citation_title=Tests of significance in factor analysis;,citation_author=M S Bartlett;,citation_publication_date=1950-06;,citation_cover_date=1950-06;,citation_year=1950;,citation_fulltext_html_url=https://bpspsychub.onlinelibrary.wiley.com/doi/10.1111/j.2044-8317.1950.tb00285.x;,citation_issue=2;,citation_doi=10.1111/j.2044-8317.1950.tb00285.x;,citation_issn=0007-1102, 0950-561X;,citation_volume=3;,citation_journal_title=Br. J. Math. Stat. Psychol.;,citation_publisher=Wiley;">
 <meta name="citation_reference" content="citation_title=Practical issues in structural modeling;,citation_abstract=Practical problems that are frequently encountered in applications of covariance structure analysis are discussed and solutions are suggested. Conceptual, statistical, and practical requirements for structural modeling are reviewed to indicate how basic assumptions might be violated. Problems associated with estimation, results, and model fit are also mentioned. Various issues in each area are raised, and possible solutions are provided to encourage more appropriate and successful applications of structural modeling.;,citation_author=P M Bentler;,citation_author=Chih-Ping Chou;,citation_publication_date=1987-08;,citation_cover_date=1987-08;,citation_year=1987;,citation_fulltext_html_url=http://dx.doi.org/10.1177/0049124187016001004;,citation_issue=1;,citation_doi=10.1177/0049124187016001004;,citation_issn=0049-1241, 1552-8294;,citation_volume=16;,citation_journal_title=Sociol. Methods Res.;,citation_publisher=SAGE Publications;">
@@ -441,7 +444,7 @@ cookieconsent.run({
   </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../chapters/ch22-conclusion/ch22-conclusion.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">22</span>&nbsp; <span class="chapter-title">Conclusion</span></a>
+  <a href="../../chapters/ch22-conclusion/ch22-conclusion.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">22</span>&nbsp; <span class="chapter-title">Future of LA</span></a>
   </div>
 </li>
     </ul>
@@ -646,7 +649,8 @@ TSC1 TSC2 TSC3 TSC4 TSC5  TE1  TE2  TE3  TE4  TE5  EE1  EE2  EE3  EE4  EE5  DE1
 <span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a>     <span class="fu">scale_x_continuous</span>(<span class="at">limits=</span><span class="fu">c</span>(<span class="dv">0</span>,<span class="dv">6</span>),<span class="at">breaks =</span> <span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">3</span>,<span class="dv">4</span>,<span class="dv">5</span>)) <span class="sc">+</span></span>
 <span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a>     <span class="fu">facet_wrap</span>(<span class="st">"Variable"</span>,<span class="at">ncol =</span> <span class="dv">4</span>,<span class="at">scales =</span> <span class="st">"free"</span> ) <span class="sc">+</span> <span class="fu">theme_minimal</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stderr">
-<pre><code>Warning: Removed 44 rows containing missing values (`geom_bar()`).</code></pre>
+<pre><code>Warning: Removed 44 rows containing missing values or values outside the scale range
+(`geom_bar()`).</code></pre>
 </div>
 <div class="cell-output-display">
 <div id="fig-4" class="quarto-figure quarto-figure-center anchored">
@@ -1335,7 +1339,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
   </div>
 </footer>
 <script>
-  document.querySelector(".quarto-title").innerHTML =  '<div class="badge bs-warning bg-warning text-dark" style="float:right;">Pre-print</div>' +  document.querySelector(".quarto-title").innerHTML
+  document.querySelector(".quarto-title").innerHTML =  /*'<div class="badge bs-warning bg-warning text-dark" style="float:right;">Pre-print</div>' + */ document.querySelector(".quarto-title").innerHTML
   var keywords = document.querySelector('meta[name="keywords"]')
   if (keywords && keywords.content) {
     document.getElementById("title-block-header").innerHTML = document.getElementById("title-block-header").innerHTML + 
@@ -1347,6 +1351,9 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       referenceNode.parentNode.insertBefore(newNode, referenceNode.nextSibling);
   }
   var authors = document.querySelectorAll('meta[name="author"]')
+  var firstpage = document.querySelector('meta[name="citation_firstpage"]').content
+  var lastpage = document.querySelector('meta[name="citation_lastpage"]').content
+  var doi = document.querySelector('meta[name="citation_doi"]').content
   if (authors) {
     var authorlist = Array.from(authors).map(e=>e.content).reduce((accum, curr) =>  accum + curr + ", ", "","").replace(/\,\s$/,"")
     var citt = `<div class="card border-primary mb-3" style=;">
@@ -1354,8 +1361,8 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       <div class="card-body small">
         <p class="card-text">${authorlist} (2024).
         <b>${document.getElementsByClassName("chapter-title")[0].innerText}</b>. 
-        In M. Saqr & S. López-Pernas (Eds.), <i>Learning analytics methods and tutorials: A practical guide using R</i> 
-        (in – press). Springer. <a href="${window.location.href}">${window.location.href}</a></p>
+        In M. Saqr & S. López-Pernas (Eds.), <i>Learning analytics methods and tutorials: A practical guide using R</i> &nbsp;
+         (pp. ${firstpage}-${lastpage}).Springer, Cham. doi: <a href="https://doi.org/${doi}">${doi}</a></p>
       </div>
     </div>`;
     insertAfter(document.getElementsByTagName("HEADER")[1],new DOMParser().parseFromString(citt, 'text/html').body.childNodes[0])

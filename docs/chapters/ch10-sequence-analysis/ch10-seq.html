@@ -197,7 +197,10 @@ cookieconsent.run({
 <meta name="citation_author" content="Matthias Studer">
 <meta name="citation_author" content="Gilbert Ritschard">
 <meta name="citation_fulltext_html_url" content="https://lamethods.github.io/ch10-seq.html">
+<meta name="citation_doi" content="10.1007/978-3-031-54464-4_10">
 <meta name="citation_language" content="en">
+<meta name="citation_firstpage" content="321">
+<meta name="citation_lastpage" content="354">
 <meta name="citation_reference" content="citation_title=Sequences of Social Events: Concepts and Methods for the Analysis of Order in Social Processes;,citation_author=Andrew Abbott;,citation_publication_date=1983-10;,citation_cover_date=1983-10;,citation_year=1983;,citation_fulltext_html_url=http://dx.doi.org/10.1080/01615440.1983.10594107;,citation_issue=4;,citation_doi=10.1080/01615440.1983.10594107;,citation_volume=16;,citation_language=en;,citation_journal_title=Historical Methods: A Journal of Quantitative and Interdisciplinary History;">
 <meta name="citation_reference" content="citation_title=Sequence analysis: Where are we, where are we going?;,citation_author=Gilbert Ritschard;,citation_author=Matthias Studer;,citation_publication_date=2018;,citation_cover_date=2018;,citation_year=2018;,citation_journal_title=Life Course Research and Social Policies;">
 <meta name="citation_reference" content="citation_title=Identifying learning behaviors by contextualizing differential sequence mining with action features and performance evolution;,citation_abstract=Our learning-by-teaching environment, Betty’s Brain, captures a wealth of data on students’ learning interactions as they teach a virtual agent. This paper extends an exploratory data mining methodology for assessing and comparing students’ learning behaviors from these interaction traces. The core algorithm employs sequence mining techniques to identify differentially frequent patterns between two predefined groups. We extend this technique by contextualizing the sequence mining with information on the student’s task performance and learning activities. Specifically, we study transformation of action sequences using action features, such as activity categorizations, relevance and timing between actions, and repetition of analogous actions. We employ a piecewise linear segmentation algorithm in concert with the action transformation and differential sequence mining techniques to identify and compare segments of students’ productive and unproductive learning behaviors. We present the results of this methodology applied to a recent middle school class study, in which students learned about climate change. Our primary focus in this analysis is the effectiveness and variation in the reading behaviors of high-versus low-performing students. These results illustrate the potential of this iterative methodology in identifying and interpreting learning behavior patterns at multiple levels of detail.;,citation_author=John S Kinnebrew;,citation_author=Gautam Biswas;,citation_publication_date=2012;,citation_cover_date=2012;,citation_year=2012;,citation_journal_title=Proceedings of the 5th International Conference on Educational Data Mining, EDM 2012;">
@@ -460,7 +463,7 @@ cookieconsent.run({
   </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../chapters/ch22-conclusion/ch22-conclusion.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">22</span>&nbsp; <span class="chapter-title">Conclusion</span></a>
+  <a href="../../chapters/ch22-conclusion/ch22-conclusion.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">22</span>&nbsp; <span class="chapter-title">Future of LA</span></a>
   </div>
 </li>
     </ul>
@@ -2463,7 +2466,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
   </div>
 </footer>
 <script>
-  document.querySelector(".quarto-title").innerHTML =  '<div class="badge bs-warning bg-warning text-dark" style="float:right;">Pre-print</div>' +  document.querySelector(".quarto-title").innerHTML
+  document.querySelector(".quarto-title").innerHTML =  /*'<div class="badge bs-warning bg-warning text-dark" style="float:right;">Pre-print</div>' + */ document.querySelector(".quarto-title").innerHTML
   var keywords = document.querySelector('meta[name="keywords"]')
   if (keywords && keywords.content) {
     document.getElementById("title-block-header").innerHTML = document.getElementById("title-block-header").innerHTML + 
@@ -2475,6 +2478,9 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       referenceNode.parentNode.insertBefore(newNode, referenceNode.nextSibling);
   }
   var authors = document.querySelectorAll('meta[name="author"]')
+  var firstpage = document.querySelector('meta[name="citation_firstpage"]').content
+  var lastpage = document.querySelector('meta[name="citation_lastpage"]').content
+  var doi = document.querySelector('meta[name="citation_doi"]').content
   if (authors) {
     var authorlist = Array.from(authors).map(e=>e.content).reduce((accum, curr) =>  accum + curr + ", ", "","").replace(/\,\s$/,"")
     var citt = `<div class="card border-primary mb-3" style=;">
@@ -2482,8 +2488,8 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       <div class="card-body small">
         <p class="card-text">${authorlist} (2024).
         <b>${document.getElementsByClassName("chapter-title")[0].innerText}</b>. 
-        In M. Saqr & S. López-Pernas (Eds.), <i>Learning analytics methods and tutorials: A practical guide using R</i> 
-        (in – press). Springer. <a href="${window.location.href}">${window.location.href}</a></p>
+        In M. Saqr & S. López-Pernas (Eds.), <i>Learning analytics methods and tutorials: A practical guide using R</i> &nbsp;
+         (pp. ${firstpage}-${lastpage}).Springer, Cham. doi: <a href="https://doi.org/${doi}">${doi}</a></p>
       </div>
     </div>`;
     insertAfter(document.getElementsByTagName("HEADER")[1],new DOMParser().parseFromString(citt, 'text/html').body.childNodes[0])

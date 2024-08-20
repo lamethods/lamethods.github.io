@@ -16,6 +16,9 @@ abstract: "This chapter introduces multi-channel sequence analysis, a novel meth
 dpi: 900
 bibliography: references.bib
 keywords: "learning analytics, multichannel sequence analysis, mixture hidden markov models, multimodal data"
+citation:
+    page: 429-465
+    doi: 10.1007/978-3-031-54464-4_13
 ---
 
 

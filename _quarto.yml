@@ -74,7 +74,7 @@ book:
           file: chapters/ch20-factor-analysis/ch20-factor.qmd
         - text: "Structured Equation Modeling"
           file: chapters/ch21-sem/ch21-sem.qmd
-    - text: "Conclusion"
+    - text: "Future of LA"
       file: chapters/ch22-conclusion/ch22-conclusion.qmd
 format:
   html:
@@ -99,7 +99,7 @@ format:
     include-after-body:
       text: |
         <script>
-          document.querySelector(".quarto-title").innerHTML =  '<div class="badge bs-warning bg-warning text-dark" style="float:right;">Pre-print</div>' +  document.querySelector(".quarto-title").innerHTML
+          document.querySelector(".quarto-title").innerHTML =  /*'<div class="badge bs-warning bg-warning text-dark" style="float:right;">Pre-print</div>' + */ document.querySelector(".quarto-title").innerHTML
           var keywords = document.querySelector('meta[name="keywords"]')
           if (keywords && keywords.content) {
             document.getElementById("title-block-header").innerHTML = document.getElementById("title-block-header").innerHTML + 
@@ -111,6 +111,9 @@ format:
               referenceNode.parentNode.insertBefore(newNode, referenceNode.nextSibling);
           }
           var authors = document.querySelectorAll('meta[name="author"]')
+          var firstpage = document.querySelector('meta[name="citation_firstpage"]').content
+          var lastpage = document.querySelector('meta[name="citation_lastpage"]').content
+          var doi = document.querySelector('meta[name="citation_doi"]').content
           if (authors) {
             var authorlist = Array.from(authors).map(e=>e.content).reduce((accum, curr) =>  accum + curr + ", ", "","").replace(/\,\s$/,"")
             var citt = `<div class="card border-primary mb-3" style=;">
@@ -118,8 +121,8 @@ format:
               <div class="card-body small">
                 <p class="card-text">${authorlist} (2024).
                 <b>${document.getElementsByClassName("chapter-title")[0].innerText}</b>. 
-                In M. Saqr & S. López-Pernas (Eds.), <i>Learning analytics methods and tutorials: A practical guide using R</i> 
-                (in – press). Springer. <a href="${window.location.href}">${window.location.href}</a></p>
+                In M. Saqr & S. López-Pernas (Eds.), <i>Learning analytics methods and tutorials: A practical guide using R</i> &nbsp;
+                 (pp. ${firstpage}-${lastpage}).Springer, Cham. doi: <a href="https://doi.org/${doi}">${doi}</a></p>
               </div>
             </div>`;
             insertAfter(document.getElementsByTagName("HEADER")[1],new DOMParser().parseFromString(citt, 'text/html').body.childNodes[0])

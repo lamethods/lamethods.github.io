@@ -191,7 +191,10 @@ cookieconsent.run({
 <meta name="citation_author" content="Mohammed Saqr">
 <meta name="citation_author" content="Leonie V.D.E. Vogelsmeier">
 <meta name="citation_fulltext_html_url" content="https://lamethods.github.io/ch21-sem.html">
+<meta name="citation_doi" content="10.1007/978-3-031-54464-4_21">
 <meta name="citation_language" content="en">
+<meta name="citation_firstpage" content="705">
+<meta name="citation_lastpage" content="721">
 <meta name="citation_reference" content="citation_title=Identifying factors affecting acceptance of virtual reality in classrooms based on technology acceptance model (TAM);,citation_author=Faizah Abd Majid;,citation_author=Nurshamshida Mohd Shamsudin;,citation_publication_date=2019-12;,citation_cover_date=2019-12;,citation_year=2019;,citation_issue=2;,citation_issn=1823-7797;,citation_volume=15;,citation_journal_title=Asian journal of university education;,citation_publisher=UiTM Press, Universiti Teknologi MARA;">
 <meta name="citation_reference" content="citation_title=Research trends in measurement and intervention tools for self-regulated learning for e-learning environments—systematic review (2008–2018);,citation_author=Eric Araka;,citation_author=Elizaphan Maina;,citation_author=Rhoda Gitonga;,citation_author=Robert Oboko;,citation_publication_date=2020-12;,citation_cover_date=2020-12;,citation_year=2020;,citation_fulltext_html_url=http://dx.doi.org/10.1186/s41039-020-00129-5;,citation_issue=1;,citation_doi=10.1186/s41039-020-00129-5;,citation_issn=1793-2068;,citation_volume=15;,citation_journal_title=Research and practice in technology enhanced learning;,citation_publisher=Springer Science; Business Media LLC;">
 <meta name="citation_reference" content="citation_title=Psychometric approaches for developing commensurate measures across independent studies: Traditional and new models;,citation_author=Daniel J. Bauer;,citation_author=Andrea M. Hussong;,citation_publication_date=2009-06;,citation_cover_date=2009-06;,citation_year=2009;,citation_issue=2;,citation_issn=1082-989X;,citation_volume=14;,citation_journal_title=Psychological methods;,citation_publisher=American Psychological Association (APA);">
@@ -430,7 +433,7 @@ cookieconsent.run({
   </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../chapters/ch22-conclusion/ch22-conclusion.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">22</span>&nbsp; <span class="chapter-title">Conclusion</span></a>
+  <a href="../../chapters/ch22-conclusion/ch22-conclusion.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">22</span>&nbsp; <span class="chapter-title">Future of LA</span></a>
   </div>
 </li>
     </ul>
@@ -642,11 +645,10 @@ cookieconsent.run({
 
 Scaled Chi-Squared Difference Test (method = "satorra.bentler.2001")
 
-lavaan NOTE:
-    The "Chisq" column contains standard test statistics, not the
-    robust test that should be reported per model. A robust difference
-    test is a function of two standard (not robust) statistics.
- 
+lavaan-&gt;unknown():  
+   lavaan NOTE: The "Chisq" column contains standard test statistics, not the 
+   robust test that should be reported per model. A robust difference test is 
+   a function of two standard (not robust) statistics.
                     Df   AIC   BIC  Chisq Chisq diff Df diff Pr(&gt;Chisq)
 Loadings_Free      320 15711 16283 648.06                              
 Loadings_Invariant 335 15693 16203 660.17     9.8747      15     0.8275
@@ -964,7 +966,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
   </div>
   <div class="nav-page nav-page-next">
       <a href="../../chapters/ch22-conclusion/ch22-conclusion.html" class="pagination-link">
-        <span class="nav-page-text"><span class="chapter-number">22</span>&nbsp; <span class="chapter-title">Conclusion</span></span> <i class="bi bi-arrow-right-short"></i>
+        <span class="nav-page-text"><span class="chapter-number">22</span>&nbsp; <span class="chapter-title">Future of LA</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>
@@ -975,7 +977,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
   </div>
 </footer>
 <script>
-  document.querySelector(".quarto-title").innerHTML =  '<div class="badge bs-warning bg-warning text-dark" style="float:right;">Pre-print</div>' +  document.querySelector(".quarto-title").innerHTML
+  document.querySelector(".quarto-title").innerHTML =  /*'<div class="badge bs-warning bg-warning text-dark" style="float:right;">Pre-print</div>' + */ document.querySelector(".quarto-title").innerHTML
   var keywords = document.querySelector('meta[name="keywords"]')
   if (keywords && keywords.content) {
     document.getElementById("title-block-header").innerHTML = document.getElementById("title-block-header").innerHTML + 
@@ -987,6 +989,9 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       referenceNode.parentNode.insertBefore(newNode, referenceNode.nextSibling);
   }
   var authors = document.querySelectorAll('meta[name="author"]')
+  var firstpage = document.querySelector('meta[name="citation_firstpage"]').content
+  var lastpage = document.querySelector('meta[name="citation_lastpage"]').content
+  var doi = document.querySelector('meta[name="citation_doi"]').content
   if (authors) {
     var authorlist = Array.from(authors).map(e=>e.content).reduce((accum, curr) =>  accum + curr + ", ", "","").replace(/\,\s$/,"")
     var citt = `<div class="card border-primary mb-3" style=;">
@@ -994,8 +999,8 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       <div class="card-body small">
         <p class="card-text">${authorlist} (2024).
         <b>${document.getElementsByClassName("chapter-title")[0].innerText}</b>. 
-        In M. Saqr & S. López-Pernas (Eds.), <i>Learning analytics methods and tutorials: A practical guide using R</i> 
-        (in – press). Springer. <a href="${window.location.href}">${window.location.href}</a></p>
+        In M. Saqr & S. López-Pernas (Eds.), <i>Learning analytics methods and tutorials: A practical guide using R</i> &nbsp;
+         (pp. ${firstpage}-${lastpage}).Springer, Cham. doi: <a href="https://doi.org/${doi}">${doi}</a></p>
       </div>
     </div>`;
     insertAfter(document.getElementsByTagName("HEADER")[1],new DOMParser().parseFromString(citt, 'text/html').body.childNodes[0])

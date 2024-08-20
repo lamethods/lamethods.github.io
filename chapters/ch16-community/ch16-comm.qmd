@@ -19,6 +19,9 @@ crossref:
   fig-title: '**Figure**'
   fig-labels: arabic
   title-delim: "**.**"
+citation:
+    page: 519-540
+    doi: 10.1007/978-3-031-54464-4_16
 ---
 
 ##  Introduction to Community Detection in Social Networks

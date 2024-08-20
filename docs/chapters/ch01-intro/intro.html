@@ -127,7 +127,10 @@ cookieconsent.run({
 <meta name="citation_author" content="Miguel Á. Conde-González">
 <meta name="citation_author" content="Mohammed Saqr">
 <meta name="citation_fulltext_html_url" content="https://lamethods.github.io/intro.html">
+<meta name="citation_doi" content="10.1007/978-3-031-54464-4_1">
 <meta name="citation_language" content="en">
+<meta name="citation_firstpage" content="1">
+<meta name="citation_lastpage" content="14">
 <meta name="citation_reference" content="citation_title=Big data and learning analytics: A big potential to improve e-learning;,citation_author=Khalid Adam;,citation_author=Noor Akma Abu Bakar;,citation_author=Mohammed Adam Ibrahim Fakhreldin;,citation_author=Mazlina Abdul Majid;,citation_publication_date=2018;,citation_cover_date=2018;,citation_year=2018;,citation_fulltext_html_url=https://www.ingentaconnect.com/content/asp/asl/2018/00000024/00000010/art00158;,citation_issue=10;,citation_doi=10.1166/asl.2018.13028;,citation_issn=1936-6612;,citation_volume=24;,citation_journal_title=Advanced science letters;">
 <meta name="citation_reference" content="citation_title=Message from the LAK 2011 general &amp;amp;amp; program chairs;,citation_author=Gráinne Conole;,citation_author=Dragan Gašević;,citation_author=Phillip Long;,citation_author=George Siemens;,citation_editor=Gráinne Conole;,citation_editor=Dragan Gašević;,citation_publication_date=2011;,citation_cover_date=2011;,citation_year=2011;,citation_conference_title=Proceedings of the 1st international conference on learning analytics and knowledge;,citation_conference=Association for Computing Machinery (ACM);">
 <meta name="citation_reference" content="citation_title=Predicting performance in chemistry;,citation_author=Jacob Cornog;,citation_author=George D. Stoddard;,citation_publication_date=1925-08;,citation_cover_date=1925-08;,citation_year=1925;,citation_fulltext_html_url=http://dx.doi.org/10.1021/ed002p701;,citation_issue=8;,citation_doi=10.1021/ed002p701;,citation_issn=0021-9584;,citation_volume=2;,citation_journal_title=Journal of chemical education;,citation_publisher=American Chemical Society (ACS);">
@@ -366,7 +369,7 @@ cookieconsent.run({
   </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../chapters/ch22-conclusion/ch22-conclusion.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">22</span>&nbsp; <span class="chapter-title">Conclusion</span></a>
+  <a href="../../chapters/ch22-conclusion/ch22-conclusion.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">22</span>&nbsp; <span class="chapter-title">Future of LA</span></a>
   </div>
 </li>
     </ul>
@@ -768,7 +771,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
   </div>
 </footer>
 <script>
-  document.querySelector(".quarto-title").innerHTML =  '<div class="badge bs-warning bg-warning text-dark" style="float:right;">Pre-print</div>' +  document.querySelector(".quarto-title").innerHTML
+  document.querySelector(".quarto-title").innerHTML =  /*'<div class="badge bs-warning bg-warning text-dark" style="float:right;">Pre-print</div>' + */ document.querySelector(".quarto-title").innerHTML
   var keywords = document.querySelector('meta[name="keywords"]')
   if (keywords && keywords.content) {
     document.getElementById("title-block-header").innerHTML = document.getElementById("title-block-header").innerHTML + 
@@ -780,6 +783,9 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       referenceNode.parentNode.insertBefore(newNode, referenceNode.nextSibling);
   }
   var authors = document.querySelectorAll('meta[name="author"]')
+  var firstpage = document.querySelector('meta[name="citation_firstpage"]').content
+  var lastpage = document.querySelector('meta[name="citation_lastpage"]').content
+  var doi = document.querySelector('meta[name="citation_doi"]').content
   if (authors) {
     var authorlist = Array.from(authors).map(e=>e.content).reduce((accum, curr) =>  accum + curr + ", ", "","").replace(/\,\s$/,"")
     var citt = `<div class="card border-primary mb-3" style=;">
@@ -787,8 +793,8 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       <div class="card-body small">
         <p class="card-text">${authorlist} (2024).
         <b>${document.getElementsByClassName("chapter-title")[0].innerText}</b>. 
-        In M. Saqr & S. López-Pernas (Eds.), <i>Learning analytics methods and tutorials: A practical guide using R</i> 
-        (in – press). Springer. <a href="${window.location.href}">${window.location.href}</a></p>
+        In M. Saqr & S. López-Pernas (Eds.), <i>Learning analytics methods and tutorials: A practical guide using R</i> &nbsp;
+         (pp. ${firstpage}-${lastpage}).Springer, Cham. doi: <a href="https://doi.org/${doi}">${doi}</a></p>
       </div>
     </div>`;
     insertAfter(document.getElementsByTagName("HEADER")[1],new DOMParser().parseFromString(citt, 'text/html').body.childNodes[0])

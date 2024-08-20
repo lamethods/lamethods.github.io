@@ -190,7 +190,10 @@ cookieconsent.run({
 <meta name="citation_author" content="Miguel Ángel Conde">
 <meta name="citation_author" content="Ángel Hernández-García">
 <meta name="citation_fulltext_html_url" content="https://lamethods.github.io/ch15-sna.html">
+<meta name="citation_doi" content="10.1007/978-3-031-54464-4_15">
 <meta name="citation_language" content="en">
+<meta name="citation_firstpage" content="491">
+<meta name="citation_lastpage" content="518">
 <meta name="citation_reference" content="citation_title=The diffusion of microfinance;,citation_author=Abhijit Banerjee;,citation_author=Arun G. Chandrasekhar;,citation_author=Esther Duflo;,citation_author=Matthew O. Jackson;,citation_publication_date=2013-07;,citation_cover_date=2013-07;,citation_year=2013;,citation_fulltext_html_url=http://dx.doi.org/10.1126/science.1236498;,citation_issue=6144;,citation_doi=10.1126/science.1236498;,citation_issn=0036-8075;,citation_volume=341;,citation_journal_title=Science;">
 <meta name="citation_reference" content="citation_title=Network science;,citation_author=Albert-László Barabási;,citation_publication_date=2013-03;,citation_cover_date=2013-03;,citation_year=2013;,citation_fulltext_html_url=http://dx.doi.org/10.1098/rsta.2012.0375;,citation_issue=1987;,citation_doi=10.1098/rsta.2012.0375;,citation_issn=1364-503X;,citation_volume=371;,citation_journal_title=Philosophical transactions. Series A, Mathematical, physical, and engineering sciences;">
 <meta name="citation_reference" content="citation_title=Reciprocity, transitivity, and the mysterious three-cycle;,citation_author=Per Block;,citation_publication_date=2015-01;,citation_cover_date=2015-01;,citation_year=2015;,citation_fulltext_html_url=https://www.sciencedirect.com/science/article/pii/S0378873314000586;,citation_doi=10.1016/j.socnet.2014.10.005;,citation_issn=0378-8733;,citation_volume=40;,citation_journal_title=Social networks;">
@@ -460,7 +463,7 @@ cookieconsent.run({
   </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../chapters/ch22-conclusion/ch22-conclusion.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">22</span>&nbsp; <span class="chapter-title">Conclusion</span></a>
+  <a href="../../chapters/ch22-conclusion/ch22-conclusion.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">22</span>&nbsp; <span class="chapter-title">Future of LA</span></a>
   </div>
 </li>
     </ul>
@@ -698,9 +701,9 @@ cookieconsent.run({
 <div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>Net <span class="ot">&lt;-</span> <span class="fu">graph_from_data_frame</span>(SNA_example1)</span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(Net)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>IGRAPH 3532db0 DN-- 6 9 -- 
+<pre><code>IGRAPH 6b3ad19 DN-- 6 9 -- 
 + attr: name (v/c)
-+ edges from 3532db0 (vertex names):
++ edges from 6b3ad19 (vertex names):
 [1] B-&gt;A C-&gt;B D-&gt;C E-&gt;D F-&gt;E B-&gt;D C-&gt;A A-&gt;C D-&gt;A</code></pre>
 </div>
 </div>
@@ -736,14 +739,14 @@ cookieconsent.run({
 <div class="cell">
 <div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(DLT1)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>IGRAPH 343d0f7 DN-- 445 2529 -- 
+<pre><code>IGRAPH 4f68816 DN-- 445 2529 -- 
 + attr: name (v/c), Facilitator (v/n), role1 (v/c), experience (v/n),
 | experience2 (v/c), grades (v/c), location (v/c), region (v/c),
 | country (v/c), group (v/c), gender (v/c), expert (v/c), connect
 | (v/c), Timestamp (e/c), Discussion Title (e/c), Discussion Category
 | (e/c), Parent Category (e/c), Category Text (e/c), Discussion
 | Identifier (e/c), Comment ID (e/n), Discussion ID (e/n)
-+ edges from 343d0f7 (vertex names):
++ edges from 4f68816 (vertex names):
  [1] 360-&gt;444 356-&gt;444 356-&gt;444 344-&gt;444 392-&gt;444 219-&gt;444 318-&gt;444 4  -&gt;444
  [9] 355-&gt;356 355-&gt;444 4  -&gt;444 310-&gt;444 248-&gt;444 150-&gt;444 19 -&gt;310 216-&gt;19 
 [17] 19 -&gt;444 19 -&gt;4   217-&gt;310 385-&gt;444 217-&gt;444 393-&gt;444 217-&gt;19  256-&gt;219
@@ -823,17 +826,21 @@ cookieconsent.run({
 <p>The code below computes the degree, in-degree and out-degree centralization. Please note that we use a simplified network to avoid the loops and repeated edges. The results of degree centralization confirm the previous results. The degree centralization is 0.38, out-degree centralization is 0.16, and in-degree centralization is 0.60. In our network, we see that the in-degree centralization is the highest index (0.60), which means that only a few students received replies.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a>Centralization_degree <span class="ot">&lt;-</span> <span class="fu">centralization.degree</span>(<span class="fu">simplify</span>(DLT1), </span>
-<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a><span class="at">mode =</span>  <span class="st">"all"</span>, <span class="at">loops =</span> <span class="cn">FALSE</span>)<span class="sc">$</span>centralization  <span class="do">## 0.3826871 </span></span>
-<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a>Centralization_in_degree <span class="ot">&lt;-</span>  <span class="fu">centralization.degree</span>(<span class="fu">simplify</span>(DLT1), </span>
-<span id="cb21-4"><a href="#cb21-4" aria-hidden="true" tabindex="-1"></a><span class="at">mode =</span> <span class="st">"in"</span>, <span class="at">loops =</span> <span class="cn">FALSE</span>)<span class="sc">$</span>centralization    <span class="do">## 0.6064291</span></span>
-<span id="cb21-5"><a href="#cb21-5" aria-hidden="true" tabindex="-1"></a>Centralization_out_degree <span class="ot">&lt;-</span> <span class="fu">centralization.degree</span>(<span class="fu">simplify</span>(DLT1), </span>
-<span id="cb21-6"><a href="#cb21-6" aria-hidden="true" tabindex="-1"></a><span class="at">mode =</span>  <span class="st">"out"</span>, <span class="at">loops =</span> <span class="cn">FALSE</span>)<span class="sc">$</span>centralization  <span class="do">## 0.1572214</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a><span class="at">mode =</span>  <span class="st">"all"</span>, <span class="at">loops =</span> <span class="cn">FALSE</span>)<span class="sc">$</span>centralization  <span class="do">## 0.3826871 </span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: `centralization.degree()` was deprecated in igraph 2.0.0.
+ℹ Please use `centr_degree()` instead.</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a>Centralization_in_degree <span class="ot">&lt;-</span>  <span class="fu">centralization.degree</span>(<span class="fu">simplify</span>(DLT1), </span>
+<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a><span class="at">mode =</span> <span class="st">"in"</span>, <span class="at">loops =</span> <span class="cn">FALSE</span>)<span class="sc">$</span>centralization    <span class="do">## 0.6064291</span></span>
+<span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a>Centralization_out_degree <span class="ot">&lt;-</span> <span class="fu">centralization.degree</span>(<span class="fu">simplify</span>(DLT1), </span>
+<span id="cb23-4"><a href="#cb23-4" aria-hidden="true" tabindex="-1"></a><span class="at">mode =</span>  <span class="st">"out"</span>, <span class="at">loops =</span> <span class="cn">FALSE</span>)<span class="sc">$</span>centralization  <span class="do">## 0.1572214</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Another way to see how the interactions are distributed is to plot the degree distribution using the hist function, as demonstrated in <a href="#fig-hist">Figure&nbsp;<span>15.8</span></a>.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow=</span><span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">2</span>))</span>
-<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a><span class="fu">hist</span>(<span class="fu">degree</span>(DLT1, <span class="at">mode =</span> <span class="st">"in"</span>), <span class="at">breaks =</span> <span class="dv">100</span>)</span>
-<span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a><span class="fu">hist</span>(<span class="fu">degree</span>(DLT1, <span class="at">mode =</span> <span class="st">"out"</span>), <span class="at">breaks =</span> <span class="dv">100</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow=</span><span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">2</span>))</span>
+<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a><span class="fu">hist</span>(<span class="fu">degree</span>(DLT1, <span class="at">mode =</span> <span class="st">"in"</span>), <span class="at">breaks =</span> <span class="dv">100</span>)</span>
+<span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a><span class="fu">hist</span>(<span class="fu">degree</span>(DLT1, <span class="at">mode =</span> <span class="st">"out"</span>), <span class="at">breaks =</span> <span class="dv">100</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div id="fig-hist" class="quarto-figure quarto-figure-center anchored">
 <figure class="figure">
@@ -848,12 +855,16 @@ cookieconsent.run({
 <h3 data-number="3.2" class="anchored" data-anchor-id="network-connectivity"><span class="header-section-number">3.2</span> Network connectivity</h3>
 <p>We can also examine how connected the whole group is; this can be performed using the function is.connected which returns <code>FALSE</code> in our case, meaning that the graph has some disconnected components or subgroups of vertices that are isolated. We can check these subgroups by the function components which tells us that there are four components:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="fu">is.connected</span>(DLT1)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="fu">is.connected</span>(DLT1)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: `is.connected()` was deprecated in igraph 2.0.0.
+ℹ Please use `is_connected()` instead.</code></pre>
+</div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] FALSE</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a>Components <span class="ot">&lt;-</span> <span class="fu">components</span>(DLT1)</span>
-<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(Components)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a>Components <span class="ot">&lt;-</span> <span class="fu">components</span>(DLT1)</span>
+<span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(Components)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>$membership
   1   2   3   4   5   6   7   8   9  10  11  12  13  14  15  16  17  18  19  20 
@@ -912,17 +923,17 @@ $no
 </div>
 <p>Using the function decompose, we can look at each of the components. The largest component has 442 vertices, and three others have one vertex. These isolated vertices are simply students who did not contribute at all and do not represent a real subgroup.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb27"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a>Decomposed <span class="ot">&lt;-</span> <span class="fu">decompose</span>(DLT1)</span>
-<span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a>Decomposed[[<span class="dv">1</span>]]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb30"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a>Decomposed <span class="ot">&lt;-</span> <span class="fu">decompose</span>(DLT1)</span>
+<span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a>Decomposed[[<span class="dv">1</span>]]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>IGRAPH ae2d90c DN-- 442 2529 -- 
+<pre><code>IGRAPH be7756b DN-- 442 2529 -- 
 + attr: name (v/c), Facilitator (v/n), role1 (v/c), experience (v/n),
 | experience2 (v/c), grades (v/c), location (v/c), region (v/c),
 | country (v/c), group (v/c), gender (v/c), expert (v/c), connect
 | (v/c), Timestamp (e/c), Discussion Title (e/c), Discussion Category
 | (e/c), Parent Category (e/c), Category Text (e/c), Discussion
 | Identifier (e/c), Comment ID (e/n), Discussion ID (e/n)
-+ edges from ae2d90c (vertex names):
++ edges from be7756b (vertex names):
  [1] 360-&gt;444 356-&gt;444 356-&gt;444 344-&gt;444 392-&gt;444 219-&gt;444 318-&gt;444 4  -&gt;444
  [9] 355-&gt;356 355-&gt;444 4  -&gt;444 310-&gt;444 248-&gt;444 150-&gt;444 19 -&gt;310 216-&gt;19 
 [17] 19 -&gt;444 19 -&gt;4   217-&gt;310 385-&gt;444 217-&gt;444 393-&gt;444 217-&gt;19  256-&gt;219
@@ -931,15 +942,15 @@ $no
 </div>
 <p>We can also look at the network diameter or largest number of steps between vertices to see how far distant vertices are (using the distance function). A more representative variable would be the average distance between vertices, which we can obtain from the <code>mean_distance</code> function. The network diameter is 8 and the mean distance is 3. Both numbers are relatively high. Global efficiency is another network-level measure that examines how effective is the network structure as a conduit for information exchange using the distances between vertices. When all vertices are <em>close</em> to each other, reachable with a few number of steps, the network is said to be efficient. The value of efficiency is high in well connected groups, and low otherwise. We can examine the efficiency using the function <code>global_efficiency.</code></p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb29"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a><span class="fu">diameter</span>(DLT1) <span class="do">## 8</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb32"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a><span class="fu">diameter</span>(DLT1) <span class="do">## 8</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 8</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb31"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mean_distance</span>(DLT1) <span class="do">## 3.030694</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb34"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mean_distance</span>(DLT1) <span class="do">## 3.030694</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 3.030694</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb33"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a><span class="fu">global_efficiency</span>(DLT1) <span class="do">## 0.1961034</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb36"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a><span class="fu">global_efficiency</span>(DLT1) <span class="do">## 0.1961034</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 0.1961034</code></pre>
 </div>
@@ -949,16 +960,16 @@ $no
 <h3 data-number="3.3" class="anchored" data-anchor-id="network-operations"><span class="header-section-number">3.3</span> Network operations</h3>
 <p>There are many functions and tools to manipulate networks in <code>igraph</code>, which makes a comprehensive discussion of all of them beyond the scope of this introductory chapter. Nonetheless, we will discuss the most important functions. Oftentimes, we need to set an attribute to the vertices —e.g., setting the gender attribute for vertices— to be used in the analysis. Setting an attribute can be performed by using the V function followed by the $ character and the attribute that we want to set. Similarly, setting edge attributes can be done using the function E. In the next example, we define an attribute called <code>weight</code> for the vertices and we do the same for the edges. Using the skills we learnt, we can use them to create a simplified weighted network. We do so by concatenating all repeated edges into a single edge with the weight as the frequency. For that, we start by first assigning weights of 1 to each node and edge. Lastly, we use the function <code>simplify</code> to remove the duplicated edges and aggregate the weights (<code>edge.attr.comb = list(weight = "sum", "ignore")</code>) while all other edge attributes will be <em>ignored</em>.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb35"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a><span class="fu">V</span>(DLT1)<span class="sc">$</span>weight <span class="ot">&lt;-</span> <span class="dv">1</span></span>
-<span id="cb35-2"><a href="#cb35-2" aria-hidden="true" tabindex="-1"></a><span class="fu">E</span>(DLT1)<span class="sc">$</span>weight <span class="ot">&lt;-</span> <span class="dv">1</span></span>
-<span id="cb35-3"><a href="#cb35-3" aria-hidden="true" tabindex="-1"></a>simple.DLT1 <span class="ot">&lt;-</span> <span class="fu">simplify</span>(DLT1, <span class="at">remove.multiple =</span> <span class="cn">TRUE</span>, <span class="at">remove.loops =</span> <span class="cn">TRUE</span>, </span>
-<span id="cb35-4"><a href="#cb35-4" aria-hidden="true" tabindex="-1"></a>                        <span class="at">edge.attr.comb =</span> <span class="fu">list</span>(<span class="at">weight =</span> <span class="st">"sum"</span>, <span class="st">"ignore"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb38"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a><span class="fu">V</span>(DLT1)<span class="sc">$</span>weight <span class="ot">&lt;-</span> <span class="dv">1</span></span>
+<span id="cb38-2"><a href="#cb38-2" aria-hidden="true" tabindex="-1"></a><span class="fu">E</span>(DLT1)<span class="sc">$</span>weight <span class="ot">&lt;-</span> <span class="dv">1</span></span>
+<span id="cb38-3"><a href="#cb38-3" aria-hidden="true" tabindex="-1"></a>simple.DLT1 <span class="ot">&lt;-</span> <span class="fu">simplify</span>(DLT1, <span class="at">remove.multiple =</span> <span class="cn">TRUE</span>, <span class="at">remove.loops =</span> <span class="cn">TRUE</span>, </span>
+<span id="cb38-4"><a href="#cb38-4" aria-hidden="true" tabindex="-1"></a>                        <span class="at">edge.attr.comb =</span> <span class="fu">list</span>(<span class="at">weight =</span> <span class="st">"sum"</span>, <span class="st">"ignore"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>There are two important functions that we may need if we want to divide or create a subnet of the network. The function <code>subgraph.edges</code> allows us to create a subset of a network based on edge characteristics. In the following example, we create a subgraph with the discussions involving <em>Curriculum &amp; Instruction</em> by using the argument <code>E(DLT1)$'Discussion Category'== 'Curriculum &amp; Instruction'</code>. In the same way, the induced_subgraph function allows us to specify a subgraph based on the vertex characteristics. In the next example, we create a network for North Carolina teachers using <code>V(DLT1)$location== "NC"</code>.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb36"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a>k <span class="ot">&lt;-</span> <span class="fu">subgraph.edges</span>(DLT1, </span>
-<span id="cb36-2"><a href="#cb36-2" aria-hidden="true" tabindex="-1"></a>    <span class="at">eids =</span> <span class="fu">which</span>(<span class="fu">E</span>(DLT1)<span class="sc">$</span><span class="st">'Discussion Category'</span> <span class="sc">==</span> <span class="st">'Curriculum &amp; Instruction'</span>))</span>
-<span id="cb36-3"><a href="#cb36-3" aria-hidden="true" tabindex="-1"></a>NC_network <span class="ot">&lt;-</span> <span class="fu">induced_subgraph</span>(DLT1, <span class="at">vids =</span> <span class="fu">which</span>(<span class="fu">V</span>(DLT1)<span class="sc">$</span>location <span class="sc">==</span> <span class="st">"NC"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb39"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a>k <span class="ot">&lt;-</span> <span class="fu">subgraph.edges</span>(DLT1, </span>
+<span id="cb39-2"><a href="#cb39-2" aria-hidden="true" tabindex="-1"></a>    <span class="at">eids =</span> <span class="fu">which</span>(<span class="fu">E</span>(DLT1)<span class="sc">$</span><span class="st">'Discussion Category'</span> <span class="sc">==</span> <span class="st">'Curriculum &amp; Instruction'</span>))</span>
+<span id="cb39-3"><a href="#cb39-3" aria-hidden="true" tabindex="-1"></a>NC_network <span class="ot">&lt;-</span> <span class="fu">induced_subgraph</span>(DLT1, <span class="at">vids =</span> <span class="fu">which</span>(<span class="fu">V</span>(DLT1)<span class="sc">$</span>location <span class="sc">==</span> <span class="st">"NC"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
 <section id="individual-vertex-measures-centrality-measures" class="level3" data-number="3.4">
@@ -966,11 +977,11 @@ $no
 <p>We have discussed the centrality measures in the introductory section and how they can be used in an educational context. Centrality measures may serve many functions, —e.g., indicators of performance in collaborative environments <span class="citation" data-cites="Saqr_Elmoazen_Tedre_López-Pernas_Hirsto_2022">[<a href="#ref-Saqr_Elmoazen_Tedre_López-Pernas_Hirsto_2022" role="doc-biblioref">49</a>]</span> or indicators for roles in collaboration <span class="citation" data-cites="Marcos-García_Martínez-Monés_Dimitriadis_2015">[<a href="#ref-Marcos-García_Martínez-Monés_Dimitriadis_2015" role="doc-biblioref">21</a>]</span>. The <code>igraph</code> package allows the calculation of several centrality measures, many of which have been used in educational research and some of which may not be relevant. Other packages, such as <code>centiserve</code>, allow an even larger number of centrality measures <span class="citation" data-cites="Jalili_Salehzadeh-Yazdi_Asgari_Arab_Yaghmaie_Ghavamzadeh_Alimoghaddam_2015">[<a href="#ref-Jalili_Salehzadeh-Yazdi_Asgari_Arab_Yaghmaie_Ghavamzadeh_Alimoghaddam_2015" role="doc-biblioref">50</a>]</span>. In this section, we will focus on the common centrality measures according to the recent meta-analysis by <span class="citation" data-cites="Saqr_Elmoazen_Tedre_López-Pernas_Hirsto_2022">[<a href="#ref-Saqr_Elmoazen_Tedre_López-Pernas_Hirsto_2022" role="doc-biblioref">49</a>]</span> and other recently used measures, such as diffusion centrality measures.</p>
 <p>Degree centrality measures can be computed using the function <em>degree</em> and the argument <em>mode</em> specifies the type of <em>degree</em> where <code>mode="in"</code> returns <em>in-degree</em>, <code>mode="out"</code> returns <em>out-degree</em>, <code>mode="total"</code> returns total <em>degree</em> centrality. In case of undirected networks, the <em>mode</em> argument is ignored and the function returns only the <em>degree</em> centrality, since there is no direction. We can combine all the centralities that we calculate together in a dataframe using the tibble function from the tibble package.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb37"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a>InDegree  <span class="ot">&lt;-</span> <span class="fu">degree</span>(DLT1, <span class="at">mode =</span> <span class="st">"in"</span>)</span>
-<span id="cb37-2"><a href="#cb37-2" aria-hidden="true" tabindex="-1"></a>OutDegree <span class="ot">&lt;-</span> <span class="fu">degree</span>(DLT1, <span class="at">mode =</span> <span class="st">"out"</span>)</span>
-<span id="cb37-3"><a href="#cb37-3" aria-hidden="true" tabindex="-1"></a>Degree    <span class="ot">&lt;-</span> <span class="fu">degree</span>(DLT1, <span class="at">mode =</span> <span class="st">"total"</span>)</span>
-<span id="cb37-4"><a href="#cb37-4" aria-hidden="true" tabindex="-1"></a>Degree_df <span class="ot">&lt;-</span> tibble<span class="sc">::</span><span class="fu">tibble</span>(<span class="at">name =</span> <span class="fu">V</span>(DLT1)<span class="sc">$</span>name, InDegree, OutDegree, Degree)</span>
-<span id="cb37-5"><a href="#cb37-5" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(Degree_df)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb40"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb40-1"><a href="#cb40-1" aria-hidden="true" tabindex="-1"></a>InDegree  <span class="ot">&lt;-</span> <span class="fu">degree</span>(DLT1, <span class="at">mode =</span> <span class="st">"in"</span>)</span>
+<span id="cb40-2"><a href="#cb40-2" aria-hidden="true" tabindex="-1"></a>OutDegree <span class="ot">&lt;-</span> <span class="fu">degree</span>(DLT1, <span class="at">mode =</span> <span class="st">"out"</span>)</span>
+<span id="cb40-3"><a href="#cb40-3" aria-hidden="true" tabindex="-1"></a>Degree    <span class="ot">&lt;-</span> <span class="fu">degree</span>(DLT1, <span class="at">mode =</span> <span class="st">"total"</span>)</span>
+<span id="cb40-4"><a href="#cb40-4" aria-hidden="true" tabindex="-1"></a>Degree_df <span class="ot">&lt;-</span> tibble<span class="sc">::</span><span class="fu">tibble</span>(<span class="at">name =</span> <span class="fu">V</span>(DLT1)<span class="sc">$</span>name, InDegree, OutDegree, Degree)</span>
+<span id="cb40-5"><a href="#cb40-5" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(Degree_df)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 445 × 4
    name  InDegree OutDegree Degree
@@ -990,11 +1001,15 @@ $no
 </div>
 <p>Note that <code>igraph</code> has another function called graph.strength that computes the <em>degree</em> centrality and takes the edge weight attribute into account. In multigraph networks —like ours— <em>degree</em> centrality and <code>graph.strength</code> should return the same result. However, in networks where the edges have a <code>weight</code> attribute both functions (<code>degree</code> and <code>graph.strength</code>) return different results. In such weighted networks —like the simplified network we created in the previous example— the <code>degree</code> function will return the unique connections of every vertex or the size of the vertex direct collaborators —known as the size of the ego network. The <code>graph.strength</code> function will return the number of interactions a vertex has made. See the next example and compare the results. For more information about the different calculation methods of degree centrality of weighted networks, readers are advised to refer to the seminal article by <span class="citation" data-cites="Opsahl_Agneessens_Skvoretz_2010">[<a href="#ref-Opsahl_Agneessens_Skvoretz_2010" role="doc-biblioref">51</a>]</span>.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb39"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a>InStrength  <span class="ot">&lt;-</span> <span class="fu">graph.strength</span>(DLT1, <span class="at">mode =</span> <span class="st">"in"</span>)</span>
-<span id="cb39-2"><a href="#cb39-2" aria-hidden="true" tabindex="-1"></a>OutStrength <span class="ot">&lt;-</span> <span class="fu">graph.strength</span>(DLT1,<span class="at">mode =</span> <span class="st">"out"</span>)</span>
-<span id="cb39-3"><a href="#cb39-3" aria-hidden="true" tabindex="-1"></a>Strength    <span class="ot">&lt;-</span> <span class="fu">graph.strength</span>(DLT1, <span class="at">mode =</span> <span class="st">"total"</span>)</span>
-<span id="cb39-4"><a href="#cb39-4" aria-hidden="true" tabindex="-1"></a>Strength_df <span class="ot">&lt;-</span> tibble<span class="sc">::</span><span class="fu">tibble</span>(<span class="at">name=</span><span class="fu">V</span>(DLT1)<span class="sc">$</span>name,InStrength,OutStrength,Strength)</span>
-<span id="cb39-5"><a href="#cb39-5" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(Strength_df)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb42"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb42-1"><a href="#cb42-1" aria-hidden="true" tabindex="-1"></a>InStrength  <span class="ot">&lt;-</span> <span class="fu">graph.strength</span>(DLT1, <span class="at">mode =</span> <span class="st">"in"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: `graph.strength()` was deprecated in igraph 2.0.0.
+ℹ Please use `strength()` instead.</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb44"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb44-1"><a href="#cb44-1" aria-hidden="true" tabindex="-1"></a>OutStrength <span class="ot">&lt;-</span> <span class="fu">graph.strength</span>(DLT1,<span class="at">mode =</span> <span class="st">"out"</span>)</span>
+<span id="cb44-2"><a href="#cb44-2" aria-hidden="true" tabindex="-1"></a>Strength    <span class="ot">&lt;-</span> <span class="fu">graph.strength</span>(DLT1, <span class="at">mode =</span> <span class="st">"total"</span>)</span>
+<span id="cb44-3"><a href="#cb44-3" aria-hidden="true" tabindex="-1"></a>Strength_df <span class="ot">&lt;-</span> tibble<span class="sc">::</span><span class="fu">tibble</span>(<span class="at">name=</span><span class="fu">V</span>(DLT1)<span class="sc">$</span>name,InStrength,OutStrength,Strength)</span>
+<span id="cb44-4"><a href="#cb44-4" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(Strength_df)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 445 × 4
    name  InStrength OutStrength Strength
@@ -1015,35 +1030,39 @@ $no
 <p><em>Closeness</em> and <em>betweenness</em> centralities are the most commonly used centrality measures according to <span class="citation" data-cites="Saqr_Elmoazen_Tedre_López-Pernas_Hirsto_2022">[<a href="#ref-Saqr_Elmoazen_Tedre_López-Pernas_Hirsto_2022" role="doc-biblioref">49</a>]</span> and both rely on the position of the vertex on the shortest paths between others. <em>Closeness</em> centrality can be calculated using the function closeness, which is directional; this means that we can compute <em>in-closeness</em>, <em>out-closeness</em> and total <em>closeness</em> centrality. <em>Betweenness</em> centrality can be computed using the function <em>betweenness</em> and the function is directional: the argument <code>directed=TRUE</code> computes the directional version, and vice versa. Another commonly used centrality measure is eigenvector centrality, which can be computed using the function <code>eigen_centrality.</code> The <code>eigen_centrality</code> function default is <code>directed=FALSE</code>, since it is less suited for directed networks <span class="citation" data-cites="Liao_Mariani_Medo_Zhang_Zhou_2017">[<a href="#ref-Liao_Mariani_Medo_Zhang_Zhou_2017" role="doc-biblioref">14</a>]</span>. <em>Pagerank</em> is another closely related centrality measure that uses a similar algorithm and is more suitable for directed networks. The <em>Pagerank</em> centrality can be calculated using the function <code>pagerank.</code> Please note that to obtain the value of the centrality, you need to use <code>$vector</code> at the end as demonstrated in the code.</p>
 <p>An important question here is whether to compute these centralities with a simplified network, weighted network or a multigraph network. The answer depends on the context, the network structure and the research question. However, evidence suggests that multigraph configuration may render the most accurate results when centralities are used as indicators for performance <span class="citation" data-cites="Saqr_Viberg_Vartiainen_2020">[<a href="#ref-Saqr_Viberg_Vartiainen_2020" role="doc-biblioref">22</a>]</span>. The code below computes the aforementioned centralities, you may need to read the help of each centrality function for more options and arguments for customization:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb41"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb41-1"><a href="#cb41-1" aria-hidden="true" tabindex="-1"></a>Closeness_In <span class="ot">&lt;-</span> <span class="fu">closeness</span>(DLT1, <span class="at">mode =</span> <span class="fu">c</span>(<span class="st">"in"</span>))</span>
-<span id="cb41-2"><a href="#cb41-2" aria-hidden="true" tabindex="-1"></a>Closeness_Out <span class="ot">&lt;-</span> <span class="fu">closeness</span>(DLT1, <span class="at">mode =</span> <span class="fu">c</span>(<span class="st">"out"</span>))</span>
-<span id="cb41-3"><a href="#cb41-3" aria-hidden="true" tabindex="-1"></a>Closeness_total <span class="ot">&lt;-</span> <span class="fu">closeness</span>(DLT1, <span class="at">mode =</span> <span class="fu">c</span>(<span class="st">"total"</span>))</span>
-<span id="cb41-4"><a href="#cb41-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb41-5"><a href="#cb41-5" aria-hidden="true" tabindex="-1"></a>Betweenness <span class="ot">&lt;-</span> <span class="fu">betweenness</span>(simple.DLT1, <span class="at">directed =</span> <span class="cn">FALSE</span>)</span>
-<span id="cb41-6"><a href="#cb41-6" aria-hidden="true" tabindex="-1"></a>Eigen <span class="ot">&lt;-</span> <span class="fu">eigen_centrality</span>(simple.DLT1, <span class="at">directed =</span> <span class="cn">FALSE</span>)<span class="sc">$</span>vector</span>
-<span id="cb41-7"><a href="#cb41-7" aria-hidden="true" tabindex="-1"></a>Pagerank <span class="ot">&lt;-</span> <span class="fu">page.rank</span>(DLT1, <span class="at">directed =</span> <span class="cn">FALSE</span>)<span class="sc">$</span>vector</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb46"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb46-1"><a href="#cb46-1" aria-hidden="true" tabindex="-1"></a>Closeness_In <span class="ot">&lt;-</span> <span class="fu">closeness</span>(DLT1, <span class="at">mode =</span> <span class="fu">c</span>(<span class="st">"in"</span>))</span>
+<span id="cb46-2"><a href="#cb46-2" aria-hidden="true" tabindex="-1"></a>Closeness_Out <span class="ot">&lt;-</span> <span class="fu">closeness</span>(DLT1, <span class="at">mode =</span> <span class="fu">c</span>(<span class="st">"out"</span>))</span>
+<span id="cb46-3"><a href="#cb46-3" aria-hidden="true" tabindex="-1"></a>Closeness_total <span class="ot">&lt;-</span> <span class="fu">closeness</span>(DLT1, <span class="at">mode =</span> <span class="fu">c</span>(<span class="st">"total"</span>))</span>
+<span id="cb46-4"><a href="#cb46-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb46-5"><a href="#cb46-5" aria-hidden="true" tabindex="-1"></a>Betweenness <span class="ot">&lt;-</span> <span class="fu">betweenness</span>(simple.DLT1, <span class="at">directed =</span> <span class="cn">FALSE</span>)</span>
+<span id="cb46-6"><a href="#cb46-6" aria-hidden="true" tabindex="-1"></a>Eigen <span class="ot">&lt;-</span> <span class="fu">eigen_centrality</span>(simple.DLT1, <span class="at">directed =</span> <span class="cn">FALSE</span>)<span class="sc">$</span>vector</span>
+<span id="cb46-7"><a href="#cb46-7" aria-hidden="true" tabindex="-1"></a>Pagerank <span class="ot">&lt;-</span> <span class="fu">page.rank</span>(DLT1, <span class="at">directed =</span> <span class="cn">FALSE</span>)<span class="sc">$</span>vector</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: `page.rank()` was deprecated in igraph 2.0.0.
+ℹ Please use `page_rank()` instead.</code></pre>
+</div>
 </div>
 <p><em>Diffusion</em> centralities have been introduced recently in several studies and seem to offer a more robust estimation of a vertex role in spreading information <span class="citation" data-cites="Saqr_López-Pernas_2021 Saqr_Viberg_2020">[<a href="#ref-Saqr_López-Pernas_2021" role="doc-biblioref">19</a>, <a href="#ref-Saqr_Viberg_2020" role="doc-biblioref">52</a>]</span>. <em>Diffusion</em> centrality can be computed in the same way as degree centrality. However, there is no function in the <code>igraph</code> package to calculate this centrality, so we rely on the <code>diffusion.degree</code> function from the <code>centiserve</code> package. The function <code>diffusion.degree</code> accepts the mode argument to compute different variants, i.e., <code>"in"</code>, <code>"out"</code> and <code>"total"</code> diffusion degrees.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb42"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb42-1"><a href="#cb42-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(centiserve)</span>
-<span id="cb42-2"><a href="#cb42-2" aria-hidden="true" tabindex="-1"></a>Diffusion.degree_in  <span class="ot">&lt;-</span> <span class="fu">diffusion.degree</span>(DLT1, <span class="at">mode =</span> <span class="fu">c</span>(<span class="st">"in"</span>))</span>
-<span id="cb42-3"><a href="#cb42-3" aria-hidden="true" tabindex="-1"></a>Diffusion.degree_out  <span class="ot">&lt;-</span> <span class="fu">diffusion.degree</span>(DLT1, <span class="at">mode =</span> <span class="fu">c</span>(<span class="st">"out"</span>))</span>
-<span id="cb42-4"><a href="#cb42-4" aria-hidden="true" tabindex="-1"></a>Diffusion.degree  <span class="ot">&lt;-</span> <span class="fu">diffusion.degree</span>(DLT1, <span class="at">mode =</span> <span class="fu">c</span>(<span class="st">"all"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb48"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb48-1"><a href="#cb48-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(centiserve)</span>
+<span id="cb48-2"><a href="#cb48-2" aria-hidden="true" tabindex="-1"></a>Diffusion.degree_in  <span class="ot">&lt;-</span> <span class="fu">diffusion.degree</span>(DLT1, <span class="at">mode =</span> <span class="fu">c</span>(<span class="st">"in"</span>))</span>
+<span id="cb48-3"><a href="#cb48-3" aria-hidden="true" tabindex="-1"></a>Diffusion.degree_out  <span class="ot">&lt;-</span> <span class="fu">diffusion.degree</span>(DLT1, <span class="at">mode =</span> <span class="fu">c</span>(<span class="st">"out"</span>))</span>
+<span id="cb48-4"><a href="#cb48-4" aria-hidden="true" tabindex="-1"></a>Diffusion.degree  <span class="ot">&lt;-</span> <span class="fu">diffusion.degree</span>(DLT1, <span class="at">mode =</span> <span class="fu">c</span>(<span class="st">"all"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p><em>Coreness</em> and <em>cross-clique connectivity</em> are related centralities that estimate the embeddedness of the vertex in the network can be calculated using the functions <code>coreness</code> and <code>crossclique.</code> Both <code>coreness</code> and <code>crossclique</code> centralities have been shown to better correlate with performance as well as with productive and reply-worthy content <span class="citation" data-cites="Saqr_López-Pernas_2021">[<a href="#ref-Saqr_López-Pernas_2021" role="doc-biblioref">19</a>]</span>.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb43"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb43-1"><a href="#cb43-1" aria-hidden="true" tabindex="-1"></a>Coreness <span class="ot">&lt;-</span> <span class="fu">coreness</span>(DLT1)</span>
-<span id="cb43-2"><a href="#cb43-2" aria-hidden="true" tabindex="-1"></a>Cross_clique_connectivity <span class="ot">&lt;-</span> <span class="fu">crossclique</span>(DLT1)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb49"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb49-1"><a href="#cb49-1" aria-hidden="true" tabindex="-1"></a>Coreness <span class="ot">&lt;-</span> <span class="fu">coreness</span>(DLT1)</span>
+<span id="cb49-2"><a href="#cb49-2" aria-hidden="true" tabindex="-1"></a>Cross_clique_connectivity <span class="ot">&lt;-</span> <span class="fu">crossclique</span>(DLT1)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stderr">
-<pre><code>Warning in cliques(graph): At core/cliques/cliquer_wrapper.c:57 : Edge
-directions are ignored for clique calculations.</code></pre>
+<pre><code>Warning in cliques(graph): At vendor/cigraph/src/cliques/cliquer_wrapper.c:42 :
+Edge directions are ignored for clique calculations.</code></pre>
 </div>
 </div>
 <p>We can also combine the rest of the centralities together in a single dataframe:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb45"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb45-1"><a href="#cb45-1" aria-hidden="true" tabindex="-1"></a>Centdf  <span class="ot">&lt;-</span> tibble<span class="sc">::</span><span class="fu">tibble</span>(<span class="at">name=</span><span class="fu">V</span>(DLT1)<span class="sc">$</span>name,Closeness_total,Betweenness,</span>
-<span id="cb45-2"><a href="#cb45-2" aria-hidden="true" tabindex="-1"></a>Eigen,Pagerank,Diffusion.degree,Coreness,Cross_clique_connectivity)</span>
-<span id="cb45-3"><a href="#cb45-3" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(Centdf)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb51"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb51-1"><a href="#cb51-1" aria-hidden="true" tabindex="-1"></a>Centdf  <span class="ot">&lt;-</span> tibble<span class="sc">::</span><span class="fu">tibble</span>(<span class="at">name=</span><span class="fu">V</span>(DLT1)<span class="sc">$</span>name,Closeness_total,Betweenness,</span>
+<span id="cb51-2"><a href="#cb51-2" aria-hidden="true" tabindex="-1"></a>Eigen,Pagerank,Diffusion.degree,Coreness,Cross_clique_connectivity)</span>
+<span id="cb51-3"><a href="#cb51-3" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(Centdf)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 445 × 8
    name  Closeness_total Betweenness   Eigen Pagerank Diffusion.degree Coreness
@@ -1421,7 +1440,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
   </div>
 </footer>
 <script>
-  document.querySelector(".quarto-title").innerHTML =  '<div class="badge bs-warning bg-warning text-dark" style="float:right;">Pre-print</div>' +  document.querySelector(".quarto-title").innerHTML
+  document.querySelector(".quarto-title").innerHTML =  /*'<div class="badge bs-warning bg-warning text-dark" style="float:right;">Pre-print</div>' + */ document.querySelector(".quarto-title").innerHTML
   var keywords = document.querySelector('meta[name="keywords"]')
   if (keywords && keywords.content) {
     document.getElementById("title-block-header").innerHTML = document.getElementById("title-block-header").innerHTML + 
@@ -1433,6 +1452,9 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       referenceNode.parentNode.insertBefore(newNode, referenceNode.nextSibling);
   }
   var authors = document.querySelectorAll('meta[name="author"]')
+  var firstpage = document.querySelector('meta[name="citation_firstpage"]').content
+  var lastpage = document.querySelector('meta[name="citation_lastpage"]').content
+  var doi = document.querySelector('meta[name="citation_doi"]').content
   if (authors) {
     var authorlist = Array.from(authors).map(e=>e.content).reduce((accum, curr) =>  accum + curr + ", ", "","").replace(/\,\s$/,"")
     var citt = `<div class="card border-primary mb-3" style=;">
@@ -1440,8 +1462,8 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       <div class="card-body small">
         <p class="card-text">${authorlist} (2024).
         <b>${document.getElementsByClassName("chapter-title")[0].innerText}</b>. 
-        In M. Saqr & S. López-Pernas (Eds.), <i>Learning analytics methods and tutorials: A practical guide using R</i> 
-        (in – press). Springer. <a href="${window.location.href}">${window.location.href}</a></p>
+        In M. Saqr & S. López-Pernas (Eds.), <i>Learning analytics methods and tutorials: A practical guide using R</i> &nbsp;
+         (pp. ${firstpage}-${lastpage}).Springer, Cham. doi: <a href="https://doi.org/${doi}">${doi}</a></p>
       </div>
     </div>`;
     insertAfter(document.getElementsByTagName("HEADER")[1],new DOMParser().parseFromString(citt, 'text/html').body.childNodes[0])

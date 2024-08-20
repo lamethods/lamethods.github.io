@@ -1,5 +1,5 @@
 ---
-author: "Mohammed Saqr & Sonsoles López-Pernas"
+author: "[Mohammed Saqr](https://saqr.me) & [Sonsoles López-Pernas](https://sonsoles.me)"
 toc: false
 margin-footer: |
     <span></span>
@@ -8,12 +8,23 @@ include-after-body:
     <script>
       document.querySelector(".quarto-title-meta-heading").innerHTML = "Editors"
     </script>
+    <style>
+      #title-block-header.quarto-title-block.default .quarto-title-meta-contents a {
+          color: #2780e3 !important;
+      }
+      #title-block-header a {
+          text-decoration: underline;
+      }
+    </style>
     
 ---
+[Learning Analytics Unit](https://sites.uef.fi/learning-analytics/), University of Eastern Finland
+
 #    {.unnumbered}
+
 <img src="1712067211600.jpeg" alt="Smiley face"  style="float:left;max-width: min(100%,17em);margin: 0px 20px 0px 0px;">
 <p>
-This is the website for the book **“Learning analytics methods and tutorials: A practical guide using R”** which will be published by Springer in 2024. 
+This is the website for the book **“Learning analytics methods and tutorials: A practical guide using R”** published by [Springer](https://doi.org/10.1007/978-3-031-54464-4) in 2024.
 </p>
 <p>
 The lack of resources and methodological guidance on learning analytics has been a problem ever since the field started, and continues to be a problem today. We thought that the arduous journey in learning analytics should not be endured by everyone and we decided to make that resource with the help of the learning analytics community as well as our collaborators.

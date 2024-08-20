@@ -19,6 +19,9 @@ crossref:
   fig-title: '**Figure**'
   fig-labels: arabic
   title-delim: "**.**"
+citation:
+    page: 197-229
+    doi: 10.1007/978-3-031-54464-4_7
 ---
 
 ## Introduction

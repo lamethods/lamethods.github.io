@@ -15,7 +15,9 @@ bibliography: references.bib
 dpi: 800
 keywords: "learning analytics, data visualization, `ggplot2`, visual analytics"
 abstract: Visualizing data is central in learning analytics research, underpins learning dashboards, and is a prime method for reporting results and insights to stakeholders. In this chapter, the reader will be guided through the process of generating meaningful and aesthetically pleasing visualizations of different types of student data using well-known R packages. The main visualization types will be demonstrated with an explanation of their usage and use cases. Furthermore, learning-related examples will be discussed in detail. For instance, readers will learn how to visualize learners' logs extracted from learning management systems to show how trace data can be used to track students’ learning activities. In addition to creating compelling plots, readers will also be able to generate professional-looking tables with summary statistics. 
-
+citation:
+    page: 151-194
+    doi: 10.1007/978-3-031-54464-4_6
 ---
 ## Introduction
 

@@ -186,7 +186,10 @@ cookieconsent.run({
 <meta name="citation_author" content="Sonsoles López-Pernas">
 <meta name="citation_author" content="Mohammed Saqr">
 <meta name="citation_fulltext_html_url" content="https://lamethods.github.io/ch11-vasstra.html">
+<meta name="citation_doi" content="10.1007/978-3-031-54464-4_11">
 <meta name="citation_language" content="en">
+<meta name="citation_firstpage" content="355">
+<meta name="citation_lastpage" content="379">
 <meta name="citation_reference" content="citation_title=The longitudinal association between engagement and achievement varies by time, students’ profiles, and achievement state: A full program study;,citation_abstract=There is a paucity of longitudinal studies in online learning across courses or throughout programs. Our study intends to add to this emerging body of research by analyzing the longitudinal trajectories of interaction between student engagement and achievement over a full four-year program. We use learning analytics and life-course methods to study how achievement and engagement are intertwined and how such relationship evolves over a full program for 106 students. Our findings have indicated that the association between engagement and achievement varies between students and progresses differently between such groups over time. Our results showed that online engagement at any single time-point is not a consistent indicator for high achievement. It takes more than a single point of time to reliably forecast high achievement throughout the program. Longitudinal high grades, or longitudinal high levels of engagement (either separately or combined) were indicators of a stable academic trajectory in which students remained engaged —at least on average— and had a higher level of achievement. On the other hand, disengagement at any time point was consistently associated with lower achievement among low-engaged students. Improving to a higher level of engagement was associated with —at least— acceptable achievement levels and rare dropouts. Lack of improvement or “catching up” may be a more ominous sign that should be proactively addressed.;,citation_author=Mohammed Saqr;,citation_author=Sonsoles López-Pernas;,citation_author=Satu Helske;,citation_author=Stefan Hrastinski;,citation_publication_date=2023-07;,citation_cover_date=2023-07;,citation_year=2023;,citation_doi=10.1016/j.compedu.2023.104787;,citation_volume=199;,citation_journal_title=Comput. Educ.;">
 <meta name="citation_reference" content="citation_title=From variables to states to trajectories (VaSSTra): A method for modelling the longitudinal dynamics of learning and behaviour;,citation_abstract=Research in learning analytics needs longitudinal studies that explore the learner’s behaviour, disposition, and learning practices across time, a gap this article aims to bridge. We present VaSSTra: an innovative method for the longitudinal analysis of educational data that can be applied at different time scales (e.g., days, weeks, or courses), and allows the study of different aspects of learning as well as the factors that explain how such aspects evolve over time. Our method combines life- events methods with sequence analysis and consists of three steps: (1) converting variables to states (where variables are grouped into homogenous states); (2) from states to sequences (where the states are used to construct sequences across time), and (3) from sequences to trajectories (where similar sequences are grouped in trajectories). VaSSTra enables us to map the longitudinal unfolding of events while taking advantage of the wealth of life-events methods to visualize, model and describe the temporal dynamics of longitudinal activities. We demonstrate the method with a practical case study example.;,citation_author=Sonsoles López-Pernas;,citation_author=Mohammed Saqr;,citation_publication_date=2023;,citation_cover_date=2023;,citation_year=2023;,citation_doi=10.1007/978-981-99-0942-1_123;,citation_conference_title=Proceedings of the tenth international conference on technological ecosystems for enhancing multiculturality (TEEM’22);,citation_conference=Springer;">
 <meta name="citation_reference" content="citation_title=Intense, turbulent, or wallowing in the mire: A longitudinal study of cross-course online tactics, strategies, and trajectories;,citation_abstract=Research has repeatedly demonstrated that students with effective learning strategies are more likely to have better academic achievement. Existing research has mostly focused on a single course or two, while longitudinal studies remain scarce. The present study examines the longitudinal sequence of students’ strategies, their succession, consistency, temporal unfolding, and whether students tend to retain or adapt strategies between courses. We use a large dataset of online traces from 135 students who completed 10 successive courses (i.e., 1350 course enrollments) in a higher education program. The methods used in this study have shown the feasibility of using trace data recorded by learning management systems to unobtrusively trace and model the longitudinal learning strategies across a program. We identified three program-level strategy trajectories: a stable and intense trajectory related to deep learning where students used diverse strategies and scored the highest grades; a fluctuating interactive trajectory, where students focused on course requirements, scored average grades, and were relatively fluctuating; and a light trajectory related to surface learning where students invested the least effort, scored the lowest grades, and had a relatively stable pathway. Students who were intensely active were more likely to transfer the intense strategies and therefore, they were expected to require less support or guidance. Students focusing on course requirements were not as effective self-regulators as they seemed and possibly required early guidance and support from teachers. Students with consistent light strategies or low effort needed proactive guidance and support.;,citation_author=Mohammed Saqr;,citation_author=Sonsoles López-Pernas;,citation_author=Jelena Jovanović;,citation_author=Dragan Gašević;,citation_publication_date=2023;,citation_cover_date=2023;,citation_year=2023;,citation_doi=10.1016/j.iheduc.2022.100902;,citation_volume=57;,citation_journal_title=internet high;">
@@ -436,7 +439,7 @@ cookieconsent.run({
   </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../chapters/ch22-conclusion/ch22-conclusion.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">22</span>&nbsp; <span class="chapter-title">Conclusion</span></a>
+  <a href="../../chapters/ch22-conclusion/ch22-conclusion.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">22</span>&nbsp; <span class="chapter-title">Future of LA</span></a>
   </div>
 </li>
     </ul>
@@ -1779,7 +1782,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
   </div>
 </footer>
 <script>
-  document.querySelector(".quarto-title").innerHTML =  '<div class="badge bs-warning bg-warning text-dark" style="float:right;">Pre-print</div>' +  document.querySelector(".quarto-title").innerHTML
+  document.querySelector(".quarto-title").innerHTML =  /*'<div class="badge bs-warning bg-warning text-dark" style="float:right;">Pre-print</div>' + */ document.querySelector(".quarto-title").innerHTML
   var keywords = document.querySelector('meta[name="keywords"]')
   if (keywords && keywords.content) {
     document.getElementById("title-block-header").innerHTML = document.getElementById("title-block-header").innerHTML + 
@@ -1791,6 +1794,9 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       referenceNode.parentNode.insertBefore(newNode, referenceNode.nextSibling);
   }
   var authors = document.querySelectorAll('meta[name="author"]')
+  var firstpage = document.querySelector('meta[name="citation_firstpage"]').content
+  var lastpage = document.querySelector('meta[name="citation_lastpage"]').content
+  var doi = document.querySelector('meta[name="citation_doi"]').content
   if (authors) {
     var authorlist = Array.from(authors).map(e=>e.content).reduce((accum, curr) =>  accum + curr + ", ", "","").replace(/\,\s$/,"")
     var citt = `<div class="card border-primary mb-3" style=;">
@@ -1798,8 +1804,8 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       <div class="card-body small">
         <p class="card-text">${authorlist} (2024).
         <b>${document.getElementsByClassName("chapter-title")[0].innerText}</b>. 
-        In M. Saqr & S. López-Pernas (Eds.), <i>Learning analytics methods and tutorials: A practical guide using R</i> 
-        (in – press). Springer. <a href="${window.location.href}">${window.location.href}</a></p>
+        In M. Saqr & S. López-Pernas (Eds.), <i>Learning analytics methods and tutorials: A practical guide using R</i> &nbsp;
+         (pp. ${firstpage}-${lastpage}).Springer, Cham. doi: <a href="https://doi.org/${doi}">${doi}</a></p>
       </div>
     </div>`;
     insertAfter(document.getElementsByTagName("HEADER")[1],new DOMParser().parseFromString(citt, 'text/html').body.childNodes[0])

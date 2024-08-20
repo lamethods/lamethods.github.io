@@ -189,7 +189,10 @@ cookieconsent.run({
 <meta name="citation_author" content="Emorie Beck">
 <meta name="citation_author" content="Sonsoles López-Pernas">
 <meta name="citation_fulltext_html_url" content="https://lamethods.github.io/ch19-psych.html">
+<meta name="citation_doi" content="10.1007/978-3-031-54464-4_19">
 <meta name="citation_language" content="en">
+<meta name="citation_firstpage" content="639">
+<meta name="citation_lastpage" content="671">
 <meta name="citation_reference" content="citation_title=Network science;,citation_author=Albert-László Barabási;,citation_publication_date=2013-03;,citation_cover_date=2013-03;,citation_year=2013;,citation_issue=1987;,citation_issn=1364-503X;,citation_volume=371;,citation_journal_title=Philosophical transactions. Series A, Mathematical, physical, and engineering sciences;">
 <meta name="citation_reference" content="citation_title=Network analysis of multivariate data in psychological science;,citation_author=Denny Borsboom;,citation_author=Marie K. Deserno;,citation_author=Mijke Rhemtulla;,citation_author=Sacha Epskamp;,citation_author=Eiko I. Fried;,citation_author=Richard J. McNally;,citation_author=Donald J. Robinaugh;,citation_author=Marco Perugini;,citation_author=Jonas Dalege;,citation_author=Giulio Costantini;,citation_author=Adela-Maria Isvoranu;,citation_author=Anna C. Wysocki;,citation_author=Claudia D. Borkulo;,citation_author=Riet Bork;,citation_author=Lourens J. Waldorp;,citation_publication_date=2021-08;,citation_cover_date=2021-08;,citation_year=2021;,citation_issue=1;,citation_issn=2662-8449;,citation_volume=1;,citation_journal_title=Nature Reviews Methods Primers;,citation_publisher=Nature Publishing Group;">
 <meta name="citation_reference" content="citation_title=On becoming a learning organization;,citation_author=Judy Sorum Brown;,citation_publication_date=1997-01;,citation_cover_date=1997-01;,citation_year=1997;,citation_issue=6;,citation_issn=1086-4822;,citation_volume=1;,citation_journal_title=About Campus;,citation_publisher=SAGE Publications Inc;">
@@ -455,7 +458,7 @@ cookieconsent.run({
   </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../chapters/ch22-conclusion/ch22-conclusion.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">22</span>&nbsp; <span class="chapter-title">Conclusion</span></a>
+  <a href="../../chapters/ch22-conclusion/ch22-conclusion.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">22</span>&nbsp; <span class="chapter-title">Future of LA</span></a>
   </div>
 </li>
     </ul>
@@ -1491,7 +1494,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
   </div>
 </footer>
 <script>
-  document.querySelector(".quarto-title").innerHTML =  '<div class="badge bs-warning bg-warning text-dark" style="float:right;">Pre-print</div>' +  document.querySelector(".quarto-title").innerHTML
+  document.querySelector(".quarto-title").innerHTML =  /*'<div class="badge bs-warning bg-warning text-dark" style="float:right;">Pre-print</div>' + */ document.querySelector(".quarto-title").innerHTML
   var keywords = document.querySelector('meta[name="keywords"]')
   if (keywords && keywords.content) {
     document.getElementById("title-block-header").innerHTML = document.getElementById("title-block-header").innerHTML + 
@@ -1503,6 +1506,9 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       referenceNode.parentNode.insertBefore(newNode, referenceNode.nextSibling);
   }
   var authors = document.querySelectorAll('meta[name="author"]')
+  var firstpage = document.querySelector('meta[name="citation_firstpage"]').content
+  var lastpage = document.querySelector('meta[name="citation_lastpage"]').content
+  var doi = document.querySelector('meta[name="citation_doi"]').content
   if (authors) {
     var authorlist = Array.from(authors).map(e=>e.content).reduce((accum, curr) =>  accum + curr + ", ", "","").replace(/\,\s$/,"")
     var citt = `<div class="card border-primary mb-3" style=;">
@@ -1510,8 +1516,8 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       <div class="card-body small">
         <p class="card-text">${authorlist} (2024).
         <b>${document.getElementsByClassName("chapter-title")[0].innerText}</b>. 
-        In M. Saqr & S. López-Pernas (Eds.), <i>Learning analytics methods and tutorials: A practical guide using R</i> 
-        (in – press). Springer. <a href="${window.location.href}">${window.location.href}</a></p>
+        In M. Saqr & S. López-Pernas (Eds.), <i>Learning analytics methods and tutorials: A practical guide using R</i> &nbsp;
+         (pp. ${firstpage}-${lastpage}).Springer, Cham. doi: <a href="https://doi.org/${doi}">${doi}</a></p>
       </div>
     </div>`;
     insertAfter(document.getElementsByTagName("HEADER")[1],new DOMParser().parseFromString(citt, 'text/html').body.childNodes[0])

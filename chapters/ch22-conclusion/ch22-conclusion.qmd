@@ -20,6 +20,9 @@ bibliography: references.bib
 csl: ../../springer.cls  
 keywords: "learning analytics, complex systems, individual differences"
 keep-tex: true
+citation:
+    page: 723-734
+    doi: 10.1007/978-3-031-54464-4_22
 ---
 
 **Keywords:** {{< meta keywords >}}
