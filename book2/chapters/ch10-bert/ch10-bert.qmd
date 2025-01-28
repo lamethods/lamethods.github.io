@@ -1,0 +1,586 @@
+---
+title: "Using BERT-like Language Models for Automated Discourse Coding: A Primer and Tutorial"
+cache: true
+eval: false
+format: html
+execute:
+  message: FALSE
+  eval: FALSE
+author: 
+   - name: "Sonsoles López-Pernas"
+   - name: "Kamila Misiejuk"
+   - name: "Mohammed Saqr"
+crossref:
+  fig-title: '**Figure**'
+  fig-labels: arabic
+  title-delim: "**.**"
+abstract-title: "Abstract"
+abstract: "Coding text data in qualitative research is a labor-intensive and error-prone process that requires meticulous attention to detail as well as consistency in the coding criteria. Large Language Models (LLMs) present a promising solution to alleviate some of these challenges by automating part of the coding process. This tutorial explores the application of LLMs for automated text classification using word embeddings through the R package `text` and different BERT-like large language models. We implement a machine learning pipeline that combines word embeddings with supervised machine learning algorithms to code text data with high accuracy. We present a case study on collaborative problem-solving in which we train a classification model on a small portion of manually coded data and then apply it to classify the remaining data. The tutorial also covers the evaluation of coding accuracy by comparing human and machine-coded data using classic machine learning performance metrics as well as Cohen's kappa, Matthews' correlation coefficient, and Gwet AC1, measures commonly used to assess interrater reliability in qualitative research. Lastly, we apply different learning analytics techniques to compare the findings obtained from human-coded data and automatically coded data."
+keywords: "automatic coding, large language models, BERT, learning analytics, natural language processing, artificial intelligence"
+dpi: 900
+bibliography: references.bib
+extract-media: "img"
+---
+
+## Introduction
+
+Coding text data is an effortful and time-consuming process and constitutes one of the major challenges faced by qualitative researchers. Coding refers to the process of "essentially indexing or mapping data, to provide an overview of disparate data that allows the researcher to make sense of them in relation to their research questions" [@elliott2018thinking, p. 2851]. Coding requires defining codes, i.e. the concepts of interest, and localizing places in text where codes occur [@shaffer2021we]. There are two main approaches of deriving at the codes: *inductive coding*, where codes emerge from the data, and *deductive coding*, which uses a set of predetermined codes to classify the data [@thomas2006general]. 
+
+The coding process requires close inspection of data before it can be analyzed. Researchers often have to scroll through large volumes of text, identify the main concepts and themes, and assign codes that best describe them. This process requires a high level of attention, as every line of text must be carefully examined. Furthermore, maintaining consistency in coding across different parts of the data is difficult, especially if more than one researcher is involved, often requiring multiple rounds of review, discussion, and revision [@elliott2018thinking]. Coding of text is vital in qualitative research; however, it is also an important  part of many quantitative or mixed-methods studies, where text data coding is often delegated as a part of data preprocessing before it can  be analyzed by other, often quantitative, methods. In terms of machine learning (ML), deriving codes inductively can be similar to text summarization tasks, where an algorithm discovers topics within a text, while localizing a presence of a specific code in text can match annotation or classification tasks, where an algorithm assigns a class label to a given data point based on its characteristics.
+
+Large Language Models (LLMs) offer a promising solution to ease some of the challenges related to coding of text data. LLMs are trained on vast amounts of text data and have the ability to process and generate human-like language [@LABOOK2_Chapter_8]. When presented with the task of coding text data, LLMs can significantly reduce the time and effort required by automating ---at least part of--- the process, as this technology can quickly scan large volumes of text, as well as identify the main underlying concepts. The introduction of the transformer architecture enabled the development of of different types of LLMS such as Google’s Bidirectional Encoder Representations from Transformers (BERT) trained using masked language modeling and open AI’s Generative Pre-trained Transformers (GPT) trained using causal language modeling (see @raiaan2024review, @bosley2023we for more details). Although both models can be adapted to a variety of tasks,  BERT models are typically recommended for text classification, while GPT models for text summarization [@amaratunga2023understanding]. 
+
+LLMs are capable of performing zero-shot classification, which means that without the need for specifically trained data for certain categories [@LABOOK2_Chapter_8;@chae2023large], the model can classify text based on its broad understanding of language and knowledge. This capability stems from the extensive and diverse textual data encountered during the pretraining phase, enabling the model to make reasonable inferences and predictions for categories it has not been explicitly trained on through contextual understanding and knowledge transfer.
+
+While zero-shot classification significantly reduces both the technical and intellectual effort required from the researchers, it often lacks the precision and reliability that might be required for domain-specific tasks. A possible middle ground solution that achieves a good trade-off between manual coding and completely automated coding, is the combination of word embeddings  ---implemented in LLMs--- with supervised ML. Word embeddings capture the semantic meaning of text in a way that is informed by the context in which words appear [@periti2024lexical] (the concept is explained more thoroughly in @sec-wordembd). Generating these embeddings allows us to use the textual information as features in a classification model (such as Random Forest or Support Vector Machine) [@saqr2025classification]. This approach requires that researchers to manually code part of the data, while the major part of the process is delegated to the LLM, achieving ---allegedly--- more accurate and more consistent classifications, as the model is explicitly trained on data that reflects the task at hand.
+
+In this tutorial, we will learn how to implement automated discourse classification using word embeddings. We will rely on the R package `text` and BERT-like models. We will train a classification ML model with a small percentage of a dataset on collaborative problem solving, and we will automatically classify the remaining text. We will evaluate the classification performance and compare the agreement of the human-coded and LLM-coded text using Cohen's kappa, Gwet's AC1 and Matthews Correlation Coefficient. We will also compare the performance of different BERT-like algorithms using traditional metrics. Lastly, we will investigate how the insights gathered from applying different learning analytics techniques to the automatically coded data differ from those obtained from human-coded data. 
+
+## Related work on using LLMs to support text coding
+
+The rise in popularity of LLMs has caught the attention of learning analytics researchers for their potential to assist researchers at all stages of the learning analytics cycle including synthetic data generation and automatic feedback generation, as well as automatic coding, which is the goal of our tutorial [@Yan2024-jw]. LLMs can be used to support developing code definitions, i.e. a codebook, and identifying said codes in the text segments. 
+
+Emerging research shows that LLMs has the potential to support developing a codebook. In the context of qualitative coding, a codebook is a structured document that outlines the codes, categories, and their definitions, serving as a guide for systematically categorizing, analyzing and interpreting qualitative data. The authors of [@barany2024chatgpt] compared three codebook development settings: 1) fully automated approach with ChatGPT, 2) hybrid ChatGPT-human approach, and 3) fully human approach. The hybrid approach resulted in best utility ratings, highest conceptual overlap and higher inter-rater reliability than other approaches. Interestingly, both hybrid and human approaches developed similar codebooks, while the fully automated approach generated a codebook less aligned with the study goals and was an outlier in terms of conceptual similarity. Similarly, the hybrid approach has yielded positive results to code a small sample of interviews in a study by [@hayes2023conversing]. The authors of  [@mathis2024inductive] reported moderate to substantial similarity of themes generated by an LLM and humans. However, there are still open questions about scalability and about whether the use of AI for that task will not lead to superficial understanding of the data [@davison2024ethics; @morgan2023exploring]. The increasing familiarity with the data is expected to lead changes in the codebook over time; the coding process is supposed to be iterative and may lead to revalidation of earlier coding [@elliott2018thinking]. Hence, implementation of LLMs at this stage of text data coding should be carefully considered.
+
+Early studies using LLMs for identifying codes in text segments showed mixed results. A recent work [@Garg2024-wi] evaluated the capability of generative artificial intelligence (AI), particularly GPT models, to automatically code discourse within a learning analytics study, employing various prompting and training strategies. Their findings indicated that fine-tuning methods (refer to [@LABOOK2_Chapter_8] to learn more about this concept) yielded the most favorable outcomes, though none of the results met the standard reliability thresholds typically expected in the field. [@Misiejuk2024-wl] investigated the reliability of automatic discourse coding by applying a range of LLMs from the GPT family, along with various prompting techniques, to an asynchronous online discussion dataset. The authors  determined that "the agreement with human coding was substantial at best", and do not recommend that AI replaces humans in coding, at least not yet in a reliable way. Another study by [@Pugh2021-bz] operationalized BERT models to create word embeddings, and used them to train a Random Forest classifier to automatically code collaborative problem-solving conversations. Although findings are not yet beyond 'substantial' accuracy, the rapid advance of LLMs suggests that these models could soon achieve higher levels of reliability and accuracy in automatic coding tasks. Also, the selection of a specific LLM may affect the performance. [@prescott2024comparing] reported that ChatGPT and Bard performed similarly across both types inductive and deductive thematic analysis. Higher performance of BERT-like models for text classification tasks than the GPT models was reported in several studies [e.g., @lefort2024small; @ganesh2024prompting]. Finally, using LLM models for text coding may require decomposing this complex task into multiple simple binary classifications (i.e., processing each code at a time and classifying each text unit regarding whether the code is included or not). Complex codes are more challenging for LLMs to codes [@van2023automating; @ganesh2024prompting; @Misiejuk2024-wl].
+
+Adjusting the temperature setting or conducting multiple iterations of coding are some of the strategies used to improve LLM’s performance in classification tasks [@tai2024examination; @Misiejuk2024-wl]. Another strategy is to improve the LLM prompt. For instance, [@xiao2023supporting] tested codebook-centered or example-centered prompts, as well as experimented with the number of examples used in a prompt. The results showed that the codebook-centered design performed better than the example-centered designs, while adding even one example of a code to a prompt increased the performance notably. Wording of a prompt is crucial. A recent work [@jang2023can] demonstrated that using negated instructions (e.g., “Generate the incorrect solution..”) instead of positive instructions (e.g., “Generate the correct solution..”) decreases the performance of all LLMs tested. Decreased performance could be also caused by changes in the LLM model itself [@ma2024my]. This is particularly important in case of proprietary models (i.e., any LLMs that cannot be downloaded, run offline and shared [@palmer2024using]). For example, the majority of BERT models are an open-source, while most GPT models are not publicly available [@bosley2023we]. Using proprietary models requires researchers to concede a degree of control to developers. Changes made to proprietary models are not transparent and may effect the text coding results and, in effect, the final analysis.
+
+As LLMs may be prone to hallucinations, it is critical to evaluate model’s performance before relying on its results for analysis. One method to do it, is to use human-coded data as a baseline to assess performance [@chang2024survey]. However, this method requires available data that was collected in a similar context, which may be unavailable in educational settings. Another approach is to manually check the LLM coding [@ziems2024can], which may be applicable for smaller dataset; however, it may as effortful as manually coding the dataset instead of using an LLM. Furthermore, there are many discussions about the best metrics that can be used to assess the performance of LLMs in text coding tasks. Metrics such as accuracy, precision or recall are typical measurements used in machine learning for classification tasks (see [@sokolova2009systematic] for an overview). At the same time, other metrics, such as Cohen’s kappa, are applied in the qualitative research to ensure the level of agreement  among multiple coders [@shaffer2021we]. Although Cohen’s kappa is often used to evaluate text classification task [@kolesnyk2022justification], it has been critiqued as not an appropriate approach to this task. Instead metrics like Matthews' correlation coefficient [@delgado2019cohen; @chicco2021matthews] or Gwet AC1 are suggested [@gwet2008computing; @blood2007disagreement].
+
+Finally, ethical issues are important to consider in case of coding education text data using LLMs. We addressed some of these issues throughout this chapter (for a comprehensive review see [@yan2024practical]). There are two ethical issues that need to be highlighted in case of using LLMs for text coding. First, educational data may include sensitive information and feeding it to a proprietary LLM can be a breach student privacy rights depending on local regulations. Second, inherent bias in the LLM from its pre-training data was proven to affect classification tasks [@liu2024confronting]. There are several techniques and recommendations that can be considered to address bias in LLMs (see [@gallegos2024bias] for more details).
+
+## A case study on collaborative problem solving
+
+### The dataset
+
+The dataset that we use in this tutorial is based on an experiment in which small groups participated in a group discussion. In this discussion, the groups aimed to solve the Wason card selection task: a logic puzzle used to study reasoning and decision-making [@karadzhov2023delidata]. The discussion data has been qualitatively coded according to the nature of participants' contributions Specifically, 500 dialogues, containing 14,000 utterances were coded using a novel annotation schema designed to capture deliberation cues. For more details about the experiment, refer to the original article [@karadzhov2023delidata].  
+
+### Automated discourse coding
+
+
+The process followed in the tutorial is depicted in @fig-flow. We will first divide our dataset in training and testing sets (I). Contrary to other ML tasks, we use only a small part of the data for training (15%), and the rest for testing. The goal is to minimize the number of pieces of text that we have to manually code. Then, we will create word embeddings from the text data (II). Word embeddings are numerical representations of words that capture their semantic meaning, enabling the model to understand and process the text in a way that reflects the relationships between words. We will try different existing LLMs to create the embeddings. We then use the word embeddings corresponding to the training data and their manual codes as an input to train our classifier ML model (III). Lastly, we use the word embeddings of the test dataset to predict their codes using the trained model and evaluate the results (IV). We compare the predicted codes with the actual ones using both traditional ML performance metrics based on the confusion matrix, as well as several measures of interrater reliability to assess the agreement between human and AI coding. We will compare the performance of the different BERT-like language models to assess which one is more suitable for the classification task. For a beginners' tutorial on ML classification tasks, refer to Chapter 4 [@LABOOK2_Chapter_4] in this book.
+
+
+![Process followed in the tutorial](process.png){#fig-flow}
+
+### Setting up the enviroment
+
+Before starting our task, we need to install and load the necessary packages, which are described below:
+
+-   `dplyr`: A powerful and popular R package used for data manipulation and transformation [@dplyr]. It provides a set of intuitive functions that make it easy to filter, select, mutate, arrange, and summarize data within a data frame. It is especially useful for cleaning and preparing data before analysis.
+
+-   `tidyr`: An essential R package for tidying data, `tidyr` helps reshape and clean data sets so they can be analyzed more effectively [@tidyr]. It provides functions to pivot data between wide and long formats, split or combine columns, and ensure that data is in a consistent, tidy format suitable for analysis.
+
+-   `tibble`: A modern take on data frames in R, `tibble` [@tibble] provides a lightweight and faster alternative to the traditional `data.frame` object.
+
+-   `reticulate`: A package that provides an interface between R and Python [@reticulate]. It allows users to run Python code within R and seamlessly exchange data between the two languages. This is particularly useful when combining the strengths of R and Python in a single analysis pipeline, taking advantage of Python's ML libraries, such as TensorFlow or Scikit-learn, while still working within an R environment.
+
+-   `caret`: A package used for building and evaluating ML models in R [@caret]. It simplifies the process of training models, performing cross-validation, and optimizing model parameters. The package supports a wide range of algorithms and provides tools for data splitting, pre-processing, feature selection, and model evaluation.
+
+-   `text`: The `text` package is designed for text analysis in R [@text]. It provides tools for processing and analyzing textual data, such as tokenization, vectorization, sentiment analysis, and topic modeling. It uses transformers, natural language processing (NLP) and ML methods to examine text and numerical variables.
+
+-   `mltools`: The `mltools` package in R [@mltools] provides a collection of machine learning tools and utilities designed to simplify common preprocessing and data transformation tasks for machine learning workflows. We will use it for some of its evaluation functions.
+
+Below is the code to load the libraries. Install them first if you do not have them already using the commented code.
+
+```{r, eval = FALSE, message = FALSE, warning = FALSE}
+library(dplyr) # install.packages("dplyr")
+library(tidyr) # install.packages("tidyr")
+library(tibble) # install.packages("tibble")
+library(reticulate) # install.packages("reticulate")
+library(text) # install.packages("text")
+library(caret) # install.packages("caret")
+library(mltools) # install.packages("mltools")
+```
+
+```{r, eval = TRUE, message = FALSE, warning = FALSE, echo=FALSE}
+library(dplyr) # install.packages("dplyr")
+library(tidyr) # install.packages("tidyr")
+library(tibble) # install.packages("tibble")
+library(caret) # install.packages("caret")
+library(mltools) # install.packages("mltools")
+```
+
+In addition to the previous libraries, since the `text` library relies on Python underneath, we need to make sure we have Python installed (preferrably together with the `conda` environment). If you do not have it and you do not wish to install the complete Python environment, you can install `miniconda` through the package `reticulate` as follows (uncomment to run):
+
+```{r}
+# reticulate::install_miniconda()
+```
+
+Once done, you need to initialize the Python session as follows. This is an interactive command so you will need to enter "yes" in the terminal to advance.
+
+```{r}
+textrpp_initialize(save_profile = TRUE)
+```
+
+Now that we have all the R packages, we will download our data. The dataset described earlier is available in Hugging Face and therefore we can download it using the `datasets` package in Python. We need to install it before using it for the first time with the commented command. After importing `datasets`, we download the dataset that we will use in the tutorial: `"gkaradzhov/DeliData"`. The `cache_dir` argument indicates where the data will be stored in your computer; feel free to change the name from `"cache"` to something else.
+
+```{r}
+# reticulate::py_install("datasets")
+
+datasets <- import("datasets") 
+
+dataset <- datasets$load_dataset("gkaradzhov/DeliData", cache_dir = "cache")
+```
+
+We can now extract the data in an R dataframe as follows:
+
+```{r}
+df_raw <- dataset$train$to_pandas()
+```
+
+```{r, include = FALSE}
+saveRDS(df_raw, "rdss/df_raw.RDS")
+```
+
+```{r, include = FALSE, eval = TRUE}
+readRDS("rdss/df_raw.RDS") -> df_raw
+report::report(df_raw)
+```
+
+If we inspect the dataframe, we see that the it contains a column to identify the team (`group_id`) and the message (`message_id`), a column containing the message original text (`original_text`), and a cleaned one (`clean_text`). It also contains the code used to annotate the message (`annotation_target`), and two other annotation fields. In addition, it contains several other columns related to the solution of the task and the team's performance. Let us focus on the column that contains the manual code (`annotation_target`). We can inspect it to see the different codes that have been used to classify the discussion utterances:
+
+```{r, eval = TRUE}
+table(df_raw$annotation_target)
+```
+
+We see that there are many rows that have not been assigned a code. They correspond to messages that do not fall under any of the deliberation codes. We can remove them from our dataset to work only with the coded text as follows:
+
+```{r, eval = TRUE}
+classification <- c("Solution", "Reasoning", "Agree", "Disagree", "Moderation")
+df <- df_raw |> filter(annotation_target %in% classification) 
+```
+
+Now we are ready to start working with the data.
+
+### Splitting the dataset
+
+As is common in most ML tasks, we split our data into a training dataset and a testing dataset. We will use the training dataset to train an ML model to classify text data into one of the five codes and we will use the test dataset to evaluate how accurately our model classifies "unseen" text. This strategy is designed to mimic a realistic coding scenario where the objective is to reduce the amount of text that needs to be manually coded. We use the function `createDataPartition` from the `caret` package to split our data into a training dataset (consisting of 15% of the data) and a testing dataset (the remaining 85% of the data). We do so in a way that the two partitions are balanced in term of proportion of codes.
+
+```{r, eval = TRUE}
+seed = 123
+set.seed(seed) # for reproducibility
+trainIndex <- createDataPartition(df[["annotation_target"]], p = 0.15, 
+                                  list = FALSE, 
+                                  times = 1)
+
+# Creating training and testing datasets
+df_train <- df[trainIndex, ]
+df_test <- df[-trainIndex, ]
+```
+
+### Word embeddings {#sec-wordembd}
+
+Our next task is to convert our text data into numeric representations (i.e., word embeddings) to be able to apply common ML techniques. Word embeddings are a type of word representation that allows words with similar meaning to have a similar representation. Word embeddings can be defined as dense vectors of real numbers that represent words in a way in which words that share similar contexts are placed closer together. Unlike traditional one-hot encoding, where each word is represented as a unique binary vector, word embeddings capture semantic relationships between words, making them powerful for various NLP tasks. In simpler terms, word embeddings are a way to represent words as numbers so that words with similar meanings end up having similar numerical patterns.
+
+In simple models like Word2Vec, word embeddings are created by training on large text corpora. These models learn to map each word to a vector in such a way that words used in similar contexts have similar vectors. For example, the vectors for "king" and "queen" might be close to each other because these words often appear in similar contexts (e.g., both might appear near words like "monarch," "crown," and "royalty"). BERT models take the concept of word embeddings one step further. BERT is a transformer-based model that understands the context of a word in a sentence by looking at both its left and right sides simultaneously (bidirectional). This is in contrast to earlier models like Word2Vec, which only considered the context in a single direction.
+
+**BERT** starts by *tokenizing* the input text. This process breaks the text into smaller units called tokens. BERT uses a technique called WordPiece tokenization, where words are broken down into subword units. This helps BERT handle out-of-vocabulary words by representing them as combinations of known subwords. BERT has an *embedding layer* that converts these tokens into dense vectors. However, unlike static word embeddings (e.g., Word2Vec, where each word has a single vector), BERT's embeddings are dynamic. The embedding for a word depends not just on the word itself but also on the entire context of the sentence. In addition to token embeddings, BERT includes *positional embeddings*, which provide the model with information about the position of each token in the sentence. This is crucial because, unlike recurrent neural networks for example, transformers do not inherently handle the order of words. BERT then passes these embeddings through multiple *layers of transformers*, where self-attention mechanisms allow the model to focus on different parts of the sentence. This enables BERT to capture complex dependencies and relationships between words in a sentence. The output from the final transformer layer provides the *contextualized word embeddings*. These embeddings are rich in context and meaning because they take into account the entire sentence. For example, the word "bank" will have different embeddings in the sentences "He sat on the river bank" and "He went to the bank to withdraw money," reflecting the different meanings of the word in these contexts.
+
+Several variations and enhancements have been created based on BERT. For instance, **RoBERTa** (A Robustly Optimized BERT Pretraining Approach) [@Liu2019-bz] builds on BERT's architecture by enhancing the pretraining process with more data, among other improvements. These modifications, along with larger batch sizes and learning rates, as well as the introduction of dynamic masking, make RoBERTa more robust and better performing than BERT on various natural language processing tasks. Another example is **XLNet** [@Yang2019-rt], which improves upon BERT by using permutation language modeling, allowing it to capture bidirectional context without the need for masking. It builds on the Transformer-XL architecture, enabling the handling of longer sequences and dependencies beyond the sentence level. XLNet's approach combines autoregressive training with a permutation-based technique, making it particularly effective for tasks requiring complex context understanding, such as question answering and language modeling.
+
+We will create word embeddings for the training and testing datasets using different variations of BERT in order to compare performance between models. For this purpose, we will use the `textEmbed` function from the `text` package. By default, this function uses the `"bert-base-uncased"` language model to create the word embeddings. We will use this model as a baseline, and compare it with two other models: `"roberta-base"` and `"xlnet-base-cased"`.  You can try other language models available in Hugging Face that support the task of creating word embeddings (text classification category). You should take into account that this process takes a considerable amount of run time. As an input to the function we provide the `"clean_text"` column of our training and testing data, which contains the text to be coded.
+
+```{r, message = FALSE, results = FALSE}
+# Creating embeddings for the training data
+## BERT
+word_embeddings_bert <- textEmbed(df_train[,"clean_text"], 
+                            model = "bert-base-uncased",
+                            aggregation_from_tokens_to_word_types = "mean",
+                            keep_token_embeddings = FALSE)
+## RoBERTa
+word_embeddings_roberta <- textEmbed(df_train[,"clean_text"], 
+                            model = "roberta-base",
+                            aggregation_from_tokens_to_word_types = "mean",
+                            keep_token_embeddings = FALSE)
+## XLNet
+word_embeddings_xlnet <- textEmbed(df_train[,"clean_text"], 
+                            model = "xlnet-base-cased",
+                            aggregation_from_tokens_to_word_types = "mean",
+                            keep_token_embeddings = FALSE)
+# Creating embeddings for the testing data
+## BERT
+word_embeddings_bert_test <- textEmbed(df_test[,"clean_text"], 
+                            model = "bert-base-uncased",
+                            aggregation_from_tokens_to_word_types = "mean",
+                            keep_token_embeddings = FALSE)
+## RoBERTa
+word_embeddings_roberta_test <- textEmbed(df_test[,"clean_text"], 
+                            model = "roberta-base",
+                            aggregation_from_tokens_to_word_types = "mean",
+                            keep_token_embeddings = FALSE)
+## XLNet
+word_embeddings_xlnet_test <- textEmbed(df_test[,"clean_text"], 
+                            model = "xlnet-base-cased",
+                            aggregation_from_tokens_to_word_types = "mean",
+                            keep_token_embeddings = FALSE)
+```
+
+```{r, include = FALSE}
+saveRDS(word_embeddings_bert, "rdss/word_embeddings_bert.RDS")
+saveRDS(word_embeddings_bert_test, "rdss/word_embeddings_bert_test.RDS")
+saveRDS(word_embeddings_roberta, "rdss/word_embeddings_roberta.RDS")
+saveRDS(word_embeddings_roberta_test, "rdss/word_embeddings_roberta_test.RDS")
+saveRDS(word_embeddings_xlnet, "rdss/word_embeddings_xlnet.RDS")
+saveRDS(word_embeddings_xlnet_test, "rdss/word_embeddings_xlnet_test.RDS")
+```
+
+```{r, include = FALSE, eval = TRUE}
+word_embeddings_bert <- readRDS("rdss/word_embeddings_bert.RDS")
+word_embeddings_bert_test <- readRDS("rdss/word_embeddings_bert_test.RDS")
+word_embeddings_roberta <- readRDS("rdss/word_embeddings_roberta.RDS")
+word_embeddings_roberta_test <- readRDS("rdss/word_embeddings_roberta_test.RDS")
+word_embeddings_xlnet <- readRDS("rdss/word_embeddings_xlnet.RDS")
+word_embeddings_xlnet_test <- readRDS("rdss/word_embeddings_xlnet_test.RDS")
+```
+
+If we inspect the generated embeddings, we see that there are 1,612 rows in the texts of the training embeddings: one per row of the training dataset. However, instead of one column with the text, we have a large number of numerical columns that represent the text. For example, in BERT, we have 768, which corresponds to the size of the BERT token embedding vector.
+
+```{r, eval = TRUE}
+as_tibble(word_embeddings_bert$texts$texts)
+```
+
+### Training the model
+
+Now that we have converted our text data into numeric variables through word embeddings, we are ready to train our ML model. Specifically, we will train a Random Forest classifier algorithm. We will rely on the `textTrainRandomForest` function from the `text` package for this purpose. As training data, we will enter the embeddings from the previous step (for each of the three BERT-like models). As an output, we will enter the column that contains the codes in the original training data: `"annotation_target"`. We will use 5-fold cross validation to train the model (`outside_folds` argument). For more information about the training function, refer to the `text` package documentation.
+
+```{r, message = FALSE, warning = FALSE, cache = TRUE}
+trained_model_bert <- textTrainRandomForest(
+  x = word_embeddings_bert$texts,
+  y = data.frame(as.factor(df_train[["annotation_target"]])),
+  outside_folds = 5,
+  simulate.p.value = TRUE,
+  append_first = TRUE,
+  multi_cores = TRUE,
+  seed = seed
+)
+
+trained_model_roberta <- textTrainRandomForest(
+  x = word_embeddings_roberta$texts,
+  y = data.frame(as.factor(df_train[["annotation_target"]])),
+  outside_folds = 5,
+  simulate.p.value = TRUE,
+  append_first = TRUE,
+  multi_cores = TRUE,
+  seed = seed
+)
+
+trained_model_xlnet <- textTrainRandomForest(
+  x = word_embeddings_xlnet$texts,
+  y = data.frame(as.factor(df_train[["annotation_target"]])),
+  outside_folds = 5,
+  simulate.p.value = TRUE,
+  append_first = TRUE,
+  multi_cores = TRUE,
+  seed = seed
+)
+```
+
+```{r, include = FALSE}
+saveRDS(trained_model_bert, "rdss/trained_model_bert.RDS")
+saveRDS(trained_model_roberta, "rdss/trained_model_roberta.RDS")
+saveRDS(trained_model_xlnet, "rdss/trained_model_xlnet.RDS")
+```
+
+```{r, include = FALSE, eval = TRUE}
+trained_model_bert <- readRDS("rdss/trained_model_bert.RDS")
+trained_model_roberta <- readRDS("rdss/trained_model_roberta.RDS")
+trained_model_xlnet <- readRDS("rdss/trained_model_xlnet.RDS")
+```
+
+### Using the model to predict
+We can now use the trained models to code the remainder of the data (i.e., the word embeddings of the test dataset).
+
+```{r, eval = FALSE, results = FALSE}
+predicted_bert <- textPredict(
+  model_info = trained_model_bert,
+  word_embeddings = word_embeddings_bert_test$texts
+)
+predicted_roberta <- textPredict(
+  model_info = trained_model_roberta,
+  word_embeddings = word_embeddings_roberta_test$texts
+)
+predicted_xlnet <- textPredict(
+  model_info = trained_model_xlnet,
+  word_embeddings = word_embeddings_xlnet_test$texts
+)
+```
+```{r, include = FALSE}
+saveRDS(predicted_bert, "rdss/predicted_bert.RDS")
+saveRDS(predicted_roberta, "rdss/predicted_roberta.RDS")
+saveRDS(predicted_xlnet, "rdss/predicted_xlnet.RDS")
+```
+
+```{r, include = FALSE, eval = TRUE}
+predicted_bert <- readRDS("rdss/predicted_bert.RDS")
+predicted_roberta <- readRDS("rdss/predicted_roberta.RDS")
+predicted_xlnet <- readRDS("rdss/predicted_xlnet.RDS")
+```
+### Evaluating the model
+
+As a first measure of the performance of our models, we can use the results of the training data. To ease the comparison, let us first combine all the results in a single dataframe (`rbind`) and adding the name of the model `mutate` to be able to identify each set of results. We then pivot our data (`pivot_wider`) to show all the metrics of each model as columns, and each model as a row.
+
+As we can see in @tbl-perff, RoBERTa consistently outperforms BERT and XLNet across most key metrics, showcasing its superior performance. For accuracy, RoBERTa achieves the highest value (0.788), followed closely by BERT (0.770), while XLNet (0.734) lags behind. This indicates RoBERTa’s ability to make correct predictions more consistently across the dataset. When considering balanced accuracy, which accounts for both sensitivity and specificity, RoBERTa (0.769) again leads, demonstrating its effectiveness at handling imbalanced classes. BERT performs respectably (0.748), while XLNet (0.717) shows the weakest balance between true positive and true negative rates. In terms of sensitivity (recall), RoBERTa (0.605) outperforms BERT (0.568) and XLNet (0.517), highlighting its ability to correctly identify positive instances. Meanwhile, for specificity, RoBERTa (0.934) slightly surpasses BERT (0.928) and XLNet (0.917), reinforcing its capacity to avoid false positives. For precision, RoBERTa (0.857) maintains its advantage over BERT (0.843) and XLNet (0.809), reflecting fewer false positives. The F1 score, which balances precision and recall, also favors RoBERTa (0.645), with BERT (0.610) trailing and XLNet (0.547) performing the weakest. Looking at kappa, a measure of agreement between predicted and actual labels beyond chance, RoBERTa (0.685) once more outperforms BERT (0.654) and XLNet (0.600), showcasing its robustness in classification consistency. Finally, ROC-AUC values indicate RoBERTa (0.910) as the strongest model, effectively balancing sensitivity and specificity, followed by BERT (0.889) and XLNet (0.843). Overall, the results strongly favor RoBERTa across all metrics, making it the most suitable model for text dataset coding in this scenario. BERT provides solid performance but falls slightly behind in several areas, while XLNet struggles particularly with sensitivity, F1 score, and class balance.
+
+```{r, eval = FALSE}
+rbind( # Combine the performance results of each model
+  trained_model_bert$results |> mutate(Model = "BERT"),
+  trained_model_roberta$results |> mutate(Model = "RoBERTa"),
+  trained_model_xlnet$results |> mutate(Model = "XLNet")) |>
+  select(-.estimator) |> 
+  pivot_wider(names_from = ".metric", values_from = ".estimate") 
+```
+
+
+
+```{r, eval = TRUE, echo = FALSE}
+#| label: tbl-perff
+#| tbl-cap: "Performance of each model"
+rbind( # Combine the performance results of each model
+  trained_model_bert$results |> mutate(Model = "BERT"),
+  trained_model_roberta$results |> mutate(Model = "RoBERTa"),
+  trained_model_xlnet$results |> mutate(Model = "XLNet")) |>
+  select(-.estimator) |> 
+  pivot_wider(names_from = ".metric", values_from = ".estimate")  |> knitr::kable(digits = 3)
+```
+
+In a real setting, if we were to choose one of the three models to code our text dataset based solely on the performance metrics obtained from the training process, we would choose RoBERTa. Since in this case we have access to the fully coded dataset, let us verify if RoBERTa is still the best choice when faced with the remainder of the dataset ---still unseen by any model. For this purpose, we will compare the manual codes with the automatic codes classified by our models. First, let us combine all codes into a single dataframe. We obtain the manually coded data from the test data (`df_test`), and the automatically coded data from the prediction results of each model (e.g., `predicted_bert`). We also need to convert the five possible codes to factors to be able to operate with them as "categories".
+
+```{r, eval = TRUE}
+results <- data.frame(
+  manual = as.factor(df_test$annotation_target),
+  bert = as.factor(predicted_bert$`texts__cv_method="validation_split"pred`),
+  roberta = as.factor(predicted_roberta$`texts__cv_method="validation_split"pred`),
+  xlnet = as.factor(predicted_xlnet$`texts__cv_method="validation_split"pred`)
+)
+```
+
+To evaluate the results, we can use the `confusionMatrix` function from the `caret` package, which takes as an input the results of the automatic coding and the manual codes. We can combine again all the results together using `rbind`.
+```{r, eval = TRUE, results = FALSE}
+cm_bert <- confusionMatrix(results$bert, results$manual)
+cm_roberta <- confusionMatrix(results$roberta, results$manual)
+cm_xlnet <- confusionMatrix(results$xlnet, results$manual)
+
+rbind(Bert = cm_bert$overall, 
+      RoBERTa = cm_roberta$overall, 
+      XLnet = cm_xlnet$overall)
+```
+
+When comparing the accuracy and Cohen's Kappa, after predicting the code of the test data, RoBERTa is still ahead of the two other models. The accuracy is quite high and the Cohen's Kappa is substantial (> 0.6). Therefore, our initial choice was correct.
+
+```{r, echo = FALSE, eval = TRUE}
+#| label: tbl-after-perf
+#| tbl-cap: "Performance of each model calculated using the test data"
+rbind(Bert = cm_bert$overall,
+      RoBERTa = cm_roberta$overall, 
+      XLnet = cm_xlnet$overall) |> 
+  data.frame() |> 
+  select(-McnemarPValue) |>
+  knitr::kable(digits = 3) 
+```
+
+
+In addition, we calculate Gwet's AC1 and Matthews Correlation Coefficient (MCC). Gwet's AC1 provides a robust measure of inter-rater agreement for multiclass settings, addressing the limitations of traditional kappa statistics. MCC, extended to handle multiclass classifications, assesses the quality of the classifier by considering the entire confusion matrix, providing a balanced evaluation of performance across all classes.
+
+```{r, eval = T, results = FALSE}
+# Gwet AC1
+calculate_gwets_ac1 <- function(table) {
+  n <- sum(table)
+  po <- sum(diag(table)) / n
+  pe <- sum(pmax(rowSums(table), colSums(table))) / n^2
+  (po - pe) / (1 - pe)
+}
+
+extra_results <- data.frame(
+  gwets_ac1 = c(calculate_gwets_ac1(cm_bert$table),
+                calculate_gwets_ac1(cm_roberta$table),
+                calculate_gwets_ac1(cm_xlnet$table)),
+  mcc = c(mcc(results$bert, results$manual),
+          mcc(results$roberta, results$manual),
+          mcc(results$xlnet, results$manual)
+  )
+)
+
+rownames(extra_results) <- c("Bert", "RoBERTa", "XLnet")
+extra_results
+```
+
+```{r, echo = FALSE, eval = TRUE}
+#| label: tbl-after-perf-extra
+#| tbl-cap: "Additional performance-metrics"
+extra_results |>
+  knitr::kable(digits = 3) 
+```
+
+All three models demonstrate substantial inter-rater reliability (@tbl-after-perf-extra) as per the benchmarks commonly used for interpreting AC1 (values above  0.70 are typically considered strong). RoBERTa is the best-performing model in this evaluation metric, followed by XLNet, with BERT slightly trailing, where the results are almost exactly matching the accuracy metric. Regarding MCC, all values here fall between 0.6 and 0.7, indicating moderate to strong correlations between the model predictions and the manual labels. Similar to Gwet's AC1 results, RoBERTa achieves the highest MCC score, indicating the best performance in terms of balanced prediction quality.
+
+
+We can also extract the results by class to gain more knowledge about the potential classification errors. Some models might be better at capturing some types of discussion contributions than others. The code below extracts the performance metrics by class and creates a long data frame containing the model name, the code (agree, disagree, etc.) the metric name (sensitivity, precision, etc.), and the value of the metric. We can combine the results for each model in a single dataframe using `rbind`.
+```{r, eval = TRUE}
+# BERT
+byclass_bert <- cm_bert$byClass |> data.frame() |> 
+  rownames_to_column() |> # Convert rowname (code) to new column
+  pivot_longer(2:12) |> # Convert to a long format where each metric is a new row
+  mutate(Model = "BERT") # Add the model name as a column
+
+# RoBERTa
+byclass_roberta <- cm_roberta$byClass |> data.frame() |> 
+  rownames_to_column() |>
+  pivot_longer(2:12) |> 
+  mutate(Model = "RoBERTa")
+
+# XLNet
+byclass_xlnet <- cm_xlnet$byClass |> data.frame() |> 
+  rownames_to_column() |>
+  pivot_longer(2:12) |> 
+  mutate(Model = "XLNet")
+
+# Combine all results together
+byclass_all <- rbind(byclass_bert, byclass_roberta, byclass_xlnet)
+```
+
+We can also plot the results using `ggplot2`. We use a bar plot (`geom_col`) to plot all the metrics grouped by model. We use `facet_wrap` to separate the plot by coding class (agree, disagree, moderation, etc.).
+
+```{r, fig.width = 8, fig.height = 8, eval = TRUE, warning = FALSE}
+#| label: fig-byclass
+#| fig-cap: Model performance comparison by class
+ggplot(byclass_all, aes(x = name, y = value, group = Model, fill = Model)) + 
+  geom_col(position = "dodge2", width = 0.9) +
+  facet_wrap("rowname", ncol = 1) + 
+  theme_minimal() +
+  scale_fill_manual(values = c("#76B7B2", "#B07AA1", "#FF9DA7")) +
+  theme(legend.position = "bottom",
+        axis.text.x = element_text(angle = 45, hjust = 1)) + 
+  labs(fill = "Model") + xlab("") + ylab("") 
+```
+
+When we visualize the different performance metrics of each model per class (@fig-byclass), we can see that RoBERTa outperforms or equals the other model in 31 of the 55 comparisons, XLNet 21, and BERT 16. These findings further confirm that RoBERTa is the most suitable model for the classification task. 
+
+
+In addition, we can also test whether the combination of all three models yields better results. First we create an option to obtain the vote from all three algorithms (i.e., the statistical mode):
+
+```{r, eval = TRUE}
+# Calculates with class is selected by most models
+getmode <- function(v) {
+   uniqv <- unique(v)
+   uniqv[which.max(tabulate(match(v, uniqv)))]
+}
+```
+Now, we iterate through our results and, for each coded, we gather the voting of all three models. We input RoBERTa in the first position so that in case all models have come up with a different code, the one created by RoBERTa is chosen:
+```{r, eval = TRUE}
+results_with_vote <- results |> 
+  rowwise() |> 
+  mutate(vote = getmode(c(roberta, xlnet, bert))) |> 
+  ungroup()
+```
+
+We can now create the confusion matrix for the voted code. We can see that the results are slightly below those achieved by RoBERTa alone, so we are not getting any advantage by voting. 
+
+```{r, eval = TRUE}
+cm_vote <- confusionMatrix(results_with_vote$vote, results_with_vote$manual)
+cm_vote$overall
+``` 
+
+
+
+### Impact on findings
+
+To complement the evaluation of our models, we assess the impact of using an automatically coded dataset on the findings derived from applying common learning analytics methods to the data. We choose RoBERTa, as it was our best performing model, to compare the results with those obtained from manually coded data.
+
+First, we need to construct the complete AI-generated dataset which contains all of the data classified by RoBERTa and the small percentage classified manually used as training. We store it in the `complete_ai` variable.
+
+```{r, eval = TRUE}
+df_test_recoded <- df_test
+df_test_recoded$annotation_target <- results$roberta
+complete_ai <- rbind(df_train, df_test_recoded)
+```
+
+We start by analyzing our data using sequence analysis, which is a method that is commonly used to study temporally-ordered data, and specifically collaborative learning (e.g., [@Saqr2023-nv]). For a full tutorial about sequence analysis consult [@Saqr2024-ug]. The first step is to order the messages in each group and to transpose the data so that is in a wide format (i.e., each column represents one message order: message 1, message 2, etc.). Then, we use `seqdef` from the `TraMineR` package [@Gabadinho2011-lm,], to construct a sequence object, where each group is represented as a sequence of all its contributions. We use `seqdplot` to plot the sequence distribution plot (@fig-seqdplot-compare). From visual inspection, we can see that the sequence profiles are similar, although the RoBERTa side has a lower presence of the minority codes.
+
+```{r, results = FALSE, message = FALSE, warning = FALSE, eval = FALSE}
+library(TraMineR)
+
+wider_human <- df |> group_by(group_id) |> 
+  mutate(order = seq_along(message_id)) |> 
+  pivot_wider(id_cols="group_id", names_from="order",values_from = "annotation_target")
+
+wider_ai <- complete_ai |> group_by(group_id) |> 
+  mutate(order = seq_along(message_id)) |> 
+  pivot_wider(id_cols="group_id", names_from="order",values_from = "annotation_target")
+
+seq_human <- seqdef(wider_human, 2:ncol(wider_human))
+seq_ai <- seqdef(wider_ai, 2:ncol(wider_ai))
+
+seqdplot(seq_human) 
+seqdplot(seq_ai)
+```
+
+```{r, fig.width=10, fig.height=7, echo = FALSE, eval = TRUE, message = FALSE}
+#| label: fig-seqdplot-compare
+#| fig-cap: Comparing the sequence distribution plots between the AI-coded and human-coded datasets
+
+library(TraMineR)
+
+wider_human <- df |> group_by(group_id) |> 
+  mutate(order = seq_along(message_id)) |> 
+  pivot_wider(id_cols="group_id", names_from="order",values_from = "annotation_target")
+
+wider_ai <- complete_ai |> group_by(group_id) |> 
+  mutate(order = seq_along(message_id)) |> 
+  pivot_wider(id_cols="group_id", names_from="order",values_from = "annotation_target")
+
+seq_human <- seqdef(wider_human, 2:ncol(wider_human))
+seq_ai <- seqdef(wider_ai, 2:ncol(wider_ai))
+layout(matrix(c(1, 2, 3, 3), ncol = 2, byrow = T), heights = c(6, 2))
+seqdplot(seq_human, use.layout = F, main = "Human", legend.prop = 0) 
+seqdplot(seq_ai, use.layout = F, main = "RoBERTa", legend.prop = 0)
+seqlegend(seq_ai, ncol = 5, cex = 1.3, position = "center", bty = "n", inset = c(0,0,0,0))
+```
+
+Next, we use transition network analysis, a novel method that implements stochastic process mining through Markov models [@Saqr2025-ku], to model the transitions between codes and assess whether there are differences between the two datasets. For a full tutorial, refer to [@LABOOK2_Chapter_15]. We use the `tna` function to generate the Markov model containing the probability of transitioning between each pair of codes. We do so for the human coded and for the data coded with the RoBERTa model. We can visualize each model using the `plot` function. We can also plot the difference between the transitions using `plot_compare`. However, this is only a visual comparison. We can run a permutation test (`permutation_test`) to statistically compare the two models and visualize only the statistically significant differences  (@fig-qgraph-compare).
+
+
+```{r, layout = c(1,1), eval = TRUE, message = FALSE, fig.width = 5, fig.height = 5}
+#| label: fig-qgraph-compare
+#| fig-cap: Comparing the transition plots between the AI-coded and human-coded datasets
+#| fig-subcap: 
+#|   - "Human-coded"
+#|   - "RoBERTa"
+#|   - "Difference network"
+#|   - "Permutation test"
+library(tna)
+# Compute transition probabilities
+transitions_ai <-  tna(seq_ai)
+transitions_human <-  tna(seq_human)
+
+# Plot human coded transition network
+plot(transitions_human)
+
+# Plot RoBERTa transition network
+plot(transitions_ai)
+
+# Plot difference network
+plot_compare(transitions_human, transitions_ai)
+
+# Run a permutation test to assess which differences are statistically significant
+permutation <- permutation_test(transitions_human, transitions_ai, it = 1000)
+
+# Plot the significant differences identified in the permutation test
+plot(permutation, minimum = 0.01)
+```
+
+
+In the transition network created from human codes, *Solution* and *Agree* are central nodes with strong self-loops and frequent transitions between them. *Moderation* shows significant connections from *Agree* and *Solution*, while *Disagree* is weakly integrated. In the RoBERTa network, *Solution* and *Agree* *remain* central, and *Disagree* still has low connections. The difference network highlights that *Reasoning* plays a stronger role in RoBERTa's coding, especially in its links from *Agree* and *Solution*. *Disagree* is less integrated, and some transitions, like from *Moderation* to *Reasoning*, are significantly reduced.
+
+We could continue with other relevant methods, like clustering participants according to their argumentation profiles or role in the discussion, but we have already demonstrated that the results somewhat differ between the two sets of codes. However, the overall takeaway for both versions is that *Reasoning* is the driver of the conversation. It is not expected that two human-coded datasets yielded more similar results.
+
+## Conclusion
+
+This tutorial examined the use of BERT-like language models for automating discourse coding in R, showcasing how these models can expedite qualitative text classification while maintaining an acceptable level of accuracy. We illustrated this with a case study on collaborative problem-solving. Among the models tested, RoBERTa demonstrated better performance compared to BERT and XLNet, making it the most effective model for the classification task. We exemplified how applying different analytical techniques from the learning analytics repertoire, including sequence analysis and transition network analysis, revealed somewhat different insights from the human coded data than from the automatically coded data. However, there was an overall alignment between both in capturing the broad patterns of discourse and the disagreement was comparable to the one expected between two humans. As large language models continue to advance, we anticipate even greater accuracy in automated discourse coding, making automated coding an increasingly reliable tool for qualitative research.
+
+Although automated coding with large language models offers promising efficiency and consistency, caution is warranted when interpreting the results. As pointed out earlier in this chapter, the reliability of automated methods can vary based on the context, dataset characteristics, and the specific model used. Differences in coding accuracy may introduce  biases or overlook human judgment, which could impact downstream analyses. We must critically evaluate the output of automated coding by comparing it against human-coded benchmarks and incorporating rigorous metrics like Gwet’s AC1 or Matthews Correlation Coefficient. Additionally, researchers should remain mindful of the iterative and reflexive nature of qualitative coding, which automated systems cannot fully replicate. Therefore, automated methods should be viewed as complementary to, rather than replacements for, human expertise in the coding process.
+
+
+::: {#refs}
+:::

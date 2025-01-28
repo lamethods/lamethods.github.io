@@ -1,0 +1,18 @@
+---
+title: "The Advanced Applications of Psychological Networks with Exploratory Graph Analysis"
+author: 
+   - name: "Tarid Wongvorachan"
+   - name: "Okan Bulut"
+format: html
+number-sections: true
+crossref:
+  fig-title: '**Figure**'
+  fig-labels: arabic
+  title-delim: "**.**"
+abstract-title: "Abstract"
+abstract: "Educational measurement plays a pivotal role in capturing evidence of students' learning as an integral part of learning analytics. The network psychometrics approach offers a novel perspective to analyze a complex system of elements that are related to learning. The first edition of Learning Analytics Methods and Tutorials offers a comprehensive introduction to the estimation of psychological networks. This chapter aims to introduce advanced applications of network psychometrics in learning analytics. Specifically, we demonstrate the application of unique variable analysis to identify variables that uniquely contribute to a complex system of variables (e.g., identifying important actions stored within a learning management system), thereby reducing redundant variables to meaningfully simplify the dataset. Furthermore, we describe and demonstrate methods to assess the integrity of such a system with exploratory graph analysis (EGA), hierarchical EGA, and dynamic EGA. The dynamic EGA method, in particular, allows researchers to assess changes in the structure of a system across multiple time points. This capability proves beneficial in scenarios involving the continuous monitoring of students' learning progress over time. Finally, we illustrate the transformation of psychological networks from EGA to the factor analytic format, highlighting how these two approaches, despite operating differently, are comparable and can complement each other in examining the complex structure of a learning system."
+keywords: "Network psychometrics, Learning analytics, Factor analysis"
+
+---
+
+Forthcoming

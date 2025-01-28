@@ -1,0 +1,1090 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.2.269">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="author" content="Sonsoles López-Pernas">
+<meta name="author" content="Eduardo Oliveira">
+<meta name="author" content="Yige Song">
+<meta name="author" content="Mohammed Saqr">
+<meta name="keywords" content="artificial intelligence, explainable AI, education, learning analytics">
+
+<title>Advanced learning analytics methods - 2&nbsp; AI, Explainable AI and Evaluative AI: Informed Data-Driven Decision-Making in Education</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1.6em;
+  vertical-align: middle;
+}
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+}
+.hanging div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}
+</style>
+
+
+<script src="../../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../../">
+<link href="../../chapters/ch03-prediction/ch03-prediction.html" rel="next">
+<link href="../../chapters/ch01-intro/ch01-intro.html" rel="prev">
+<script src="../../site_libs/cookie-consent/cookie-consent.js"></script>
+<link href="../../site_libs/cookie-consent/cookie-consent.css" rel="stylesheet">
+<script src="../../site_libs/quarto-html/quarto.js"></script>
+<script src="../../site_libs/quarto-html/popper.min.js"></script>
+<script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 20,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit"
+  }
+}</script>
+<script async="" src="https://www.googletagmanager.com/gtag/js?id=G-Y4VBV3J9WD"></script>
+
+<script type="text/plain" cookie-consent="tracking">
+
+window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+gtag('js', new Date());
+gtag('config', 'G-Y4VBV3J9WD', { 'anonymize_ip': true});
+</script>
+
+<script type="text/javascript" charset="UTF-8">
+document.addEventListener('DOMContentLoaded', function () {
+cookieconsent.run({
+  "notice_banner_type":"simple",
+  "consent_type":"implied",
+  "palette":"light",
+  "language":"en",
+  "page_load_consent_levels":["strictly-necessary","functionality","tracking","targeting"],
+  "notice_banner_reject_button_hide":false,
+  "preferences_center_close_button_hide":false,
+  "website_name":""
+  });
+});
+</script> 
+  
+
+
+<meta name="twitter:title" content="Advanced learning analytics methods - 2&nbsp; AI, Explainable AI and Evaluative AI: Informed Data-Driven Decision-Making in Education">
+<meta name="twitter:description" content="Artificial Intelligence (AI) has had an immense impact in education through its ability to facilitate personalized learning experiences.">
+<meta name="twitter:card" content="summary">
+<meta name="citation_title" content="[2]{.chapter-number}&nbsp; [AI, Explainable AI and Evaluative AI: Informed Data-Driven Decision-Making in Education]{.chapter-title}">
+<meta name="citation_abstract" content="Artificial Intelligence (AI) has had an immense impact in education through its ability to facilitate personalized learning experiences. However, the increasing adoption of AI systems in education has raised concerns regarding transparency and fairness. Explainable AI (XAI) emerges as a solution to address these issues, offering methods to make AI models interpretable and their decisions understandable to learners, educators, and other stakeholders. This chapter provides an overview of AI applications in education, including adaptive learning systems, profiling, and predictive modeling. Moreover, it provides an introduction to the main XAI concepts and techniques designed to ensure trustworthiness and equity in AI-driven educational environments. Enabling users to scrutinize and refine AI decisions is a necessary step in aligning technological advancements with the ethical and practical needs of education. The chapter aims to provide readers with an understanding of AI in education and XAI&amp;amp;#039;s potential, serving as a foundation for the tutorials presented in the book. The chapter also discusses evaluative AI as a new perspective on XAI for decision-making in which evidence is provided against and in favor of human-made hypotheses, rather than providing explanations for the single most-likely AI outcome.">
+<meta name="citation_keywords" content="artificial intelligence, explainable AI, education, learning analytics">
+<meta name="citation_author" content="Sonsoles López-Pernas">
+<meta name="citation_author" content="Eduardo Oliveira">
+<meta name="citation_author" content="Yige Song">
+<meta name="citation_author" content="Mohammed Saqr">
+<meta name="citation_fulltext_html_url" content="https://lamethods.github.io/ch02-aixai.html">
+<meta name="citation_language" content="en">
+<meta name="citation_reference" content="citation_title=Explainable AI for data-driven feedback and intelligent action recommendations to support students self-regulation;,citation_author=Muhammad Afzaal;,citation_author=Jalal Nouri;,citation_author=Aayesha Zia;,citation_author=Panagiotis Papapetrou;,citation_author=Uno Fors;,citation_author=Yongchao Wu;,citation_author=Xiu Li;,citation_author=Rebecka Weegar;,citation_publication_date=2021-11;,citation_cover_date=2021-11;,citation_year=2021;,citation_fulltext_html_url=http://dx.doi.org/10.3389/frai.2021.723447;,citation_doi=10.3389/frai.2021.723447;,citation_issn=2624-8212;,citation_volume=4;,citation_journal_title=Frontiers in artificial intelligence;">
+<meta name="citation_reference" content="citation_title=A survey of automated assessment approaches for programming assignments;,citation_author=Kirsti M. Ala-Mutka;,citation_publication_date=2005-06;,citation_cover_date=2005-06;,citation_year=2005;,citation_fulltext_html_url=https://www.tandfonline.com/doi/abs/10.1080/08993400500150747;,citation_issue=2;,citation_doi=10.1080/08993400500150747;,citation_issn=0899-3408;,citation_volume=15;,citation_journal_title=Computer science education;,citation_publisher=Informa UK Limited;">
+<meta name="citation_reference" content="citation_title=The effects of artificial intelligence applications in educational settings: Challenges and strategies;,citation_author=Omar Ali;,citation_author=Peter A. Murray;,citation_author=Mujtaba Momin;,citation_author=Yogesh K. Dwivedi;,citation_author=Tegwen Malik;,citation_publication_date=2024-02;,citation_cover_date=2024-02;,citation_year=2024;,citation_fulltext_html_url=http://dx.doi.org/10.1016/j.techfore.2023.123076;,citation_issue=123076;,citation_doi=10.1016/j.techfore.2023.123076;,citation_issn=0040-1625;,citation_volume=199;,citation_journal_title=Technological forecasting and social change;,citation_publisher=Elsevier BV;">
+<meta name="citation_reference" content="citation_title=Explainable artificial intelligence (XAI): What we know and what is left to attain trustworthy artificial intelligence;,citation_author=Sajid Ali;,citation_author=Tamer Abuhmed;,citation_author=Shaker El-Sappagh;,citation_author=Khan Muhammad;,citation_author=Jose M. Alonso-Moral;,citation_author=Roberto Confalonieri;,citation_author=Riccardo Guidotti;,citation_author=Javier Del Ser;,citation_author=Natalia Díaz-Rodríguez;,citation_author=Francisco Herrera;,citation_publication_date=2023-11;,citation_cover_date=2023-11;,citation_year=2023;,citation_fulltext_html_url=https://www.sciencedirect.com/science/article/pii/S1566253523001148;,citation_issue=101805;,citation_doi=10.1016/j.inffus.2023.101805;,citation_issn=1566-2535;,citation_volume=99;,citation_journal_title=An international journal on information fusion;,citation_publisher=Elsevier BV;">
+<meta name="citation_reference" content="citation_title=Facial recognition technology in schools: Critical questions and concerns;,citation_author=Mark Andrejevic;,citation_author=Neil Selwyn;,citation_publication_date=2020-04;,citation_cover_date=2020-04;,citation_year=2020;,citation_fulltext_html_url=https://www.tandfonline.com/doi/abs/10.1080/17439884.2020.1686014;,citation_issue=2;,citation_doi=10.1080/17439884.2020.1686014;,citation_issn=1743-9884;,citation_volume=45;,citation_journal_title=Learning, media and technology;,citation_publisher=Informa UK Limited;">
+<meta name="citation_reference" content="citation_title=Algorithmic bias in education;,citation_author=Ryan S. Baker;,citation_author=Aaron Hawn;,citation_publication_date=2022-12;,citation_cover_date=2022-12;,citation_year=2022;,citation_fulltext_html_url=https://link.springer.com/article/10.1007/s40593-021-00285-9;,citation_issue=4;,citation_doi=10.1007/s40593-021-00285-9;,citation_issn=1560-4292;,citation_volume=32;,citation_journal_title=International journal of artificial intelligence in education;,citation_publisher=Springer Science; Business Media LLC;">
+<meta name="citation_reference" content="citation_title=Developing evaluative judgement for a time of generative artificial intelligence;,citation_author=Margaret Bearman;,citation_author=Joanna Tai;,citation_author=Phillip Dawson;,citation_author=David Boud;,citation_author=Rola Ajjawi;,citation_publication_date=2024-08;,citation_cover_date=2024-08;,citation_year=2024;,citation_fulltext_html_url=https://www.tandfonline.com/doi/abs/10.1080/02602938.2024.2335321;,citation_issue=6;,citation_doi=10.1080/02602938.2024.2335321;,citation_issn=0260-2938;,citation_volume=49;,citation_journal_title=Assessment and evaluation in higher education;,citation_publisher=Informa UK Limited;">
+<meta name="citation_reference" content="citation_title=Can we trust AI? An empirical investigation of trust requirements and guide to successful AI adoption;,citation_author=Patrick Bedué;,citation_author=Albrecht Fritzsche;,citation_publication_date=2022-03;,citation_cover_date=2022-03;,citation_year=2022;,citation_fulltext_html_url=https://www.emerald.com/insight/content/doi/10.1108/JEIM-06-2020-0233/full/html;,citation_issue=2;,citation_doi=10.1108/jeim-06-2020-0233;,citation_issn=1741-0398;,citation_volume=35;,citation_journal_title=Journal of enterprise information management;,citation_publisher=Emerald;">
+<meta name="citation_reference" content="citation_title=Educating software and AI stakeholders about algorithmic fairness, accountability, transparency and ethics;,citation_author=Veronika Bogina;,citation_author=Alan Hartman;,citation_author=Tsvi Kuflik;,citation_author=Avital Shulner-Tal;,citation_publication_date=2022-09;,citation_cover_date=2022-09;,citation_year=2022;,citation_fulltext_html_url=https://link.springer.com/article/10.1007/s40593-021-00248-0;,citation_issue=3;,citation_doi=10.1007/s40593-021-00248-0;,citation_issn=1560-4292;,citation_volume=32;,citation_journal_title=International journal of artificial intelligence in education;,citation_publisher=Springer Science; Business Media LLC;">
+<meta name="citation_reference" content="citation_title=A meta systematic review of artificial intelligence in higher education: A call for increased ethics, collaboration, and rigour;,citation_author=Melissa Bond;,citation_author=Hassan Khosravi;,citation_author=Maarten De Laat;,citation_author=Nina Bergdahl;,citation_author=Violeta Negrea;,citation_author=Emily Oxley;,citation_author=Phuong Pham;,citation_author=Sin Wang Chong;,citation_author=George Siemens;,citation_publication_date=2024-01;,citation_cover_date=2024-01;,citation_year=2024;,citation_fulltext_html_url=http://dx.doi.org/10.1186/s41239-023-00436-z;,citation_issue=1;,citation_doi=10.1186/s41239-023-00436-z;,citation_issn=2365-9440;,citation_volume=21;,citation_journal_title=International journal of educational technology in higher education;,citation_publisher=Springer Science; Business Media LLC;">
+<meta name="citation_reference" content="citation_title=Artificial intelligence in education (AIEd): A high-level academic and industry note 2021;,citation_author=Muhammad Ali Chaudhry;,citation_author=Emre Kazim;,citation_publication_date=2022;,citation_cover_date=2022;,citation_year=2022;,citation_fulltext_html_url=https://pmc.ncbi.nlm.nih.gov/articles/PMC8261391/;,citation_issue=1;,citation_doi=10.1007/s43681-021-00074-z;,citation_issn=2730-5953;,citation_volume=2;,citation_journal_title=AI and ethics;,citation_publisher=Springer Science; Business Media LLC;">
+<meta name="citation_reference" content="citation_title=Unpacking help-seeking process through multimodal learning analytics: A comparative study of ChatGPT vs human expert;,citation_author=Angxuan Chen;,citation_author=Mengtong Xiang;,citation_author=Junyi Zhou;,citation_author=Jiyou Jia;,citation_author=Junjie Shang;,citation_author=Xinyu Li;,citation_author=Dragan Gašević;,citation_author=Yizhou Fan;,citation_publication_date=2025-03;,citation_cover_date=2025-03;,citation_year=2025;,citation_fulltext_html_url=http://dx.doi.org/10.1016/j.compedu.2024.105198;,citation_issue=105198;,citation_doi=10.1016/j.compedu.2024.105198;,citation_issn=0360-1315;,citation_volume=226;,citation_journal_title=Computers &amp;amp;amp; education;,citation_publisher=Elsevier BV;">
+<meta name="citation_reference" content="citation_title=A little history of e-learning: Finding new ways to learn in the PLATO computer education system, 1959–1976;,citation_author=Bill Cope;,citation_author=Mary Kalantzis;,citation_publication_date=2023-01;,citation_cover_date=2023-01;,citation_year=2023;,citation_fulltext_html_url=https://www.tandfonline.com/doi/abs/10.1080/0046760X.2022.2141353;,citation_doi=10.1080/0046760x.2022.2141353;,citation_issn=0046-760X;,citation_journal_title=History of education;,citation_publisher=Informa UK Limited;">
+<meta name="citation_reference" content="citation_title=Intelligent tutoring systems for programming education: A systematic review;,citation_author=Tyne Crow;,citation_author=Andrew Luxton-Reilly;,citation_author=Burkhard Wuensche;,citation_publication_date=2018-01;,citation_cover_date=2018-01;,citation_year=2018;,citation_fulltext_html_url=https://doi.org/10.1145/3160489.3160492;,citation_doi=10.1145/3160489.3160492;,citation_isbn=9781450363402;,citation_conference_title=Proceedings of the 20th australasian computing education conference;,citation_conference=Association for Computing Machinery;,citation_series_title=ACE ’18;">
+<meta name="citation_reference" content="citation_title=The interplay of learning, analytics and artificial intelligence in education: A vision for hybrid intelligence;,citation_author=Mutlu Cukurova;,citation_publication_date=2024-08;,citation_cover_date=2024-08;,citation_year=2024;,citation_fulltext_html_url=http://dx.doi.org/10.1111/bjet.13514;,citation_doi=10.1111/bjet.13514;,citation_issn=0007-1013;,citation_journal_title=British journal of educational technology: journal of the Council for Educational Technology;,citation_publisher=Wiley;">
+<meta name="citation_reference" content="citation_title=Self-regulated learning profiles in college students: Their relationship to achievement, personality, and the effectiveness of an intervention to foster self-regulated learning;,citation_author=Laura Dörrenbächer;,citation_author=Franziska Perels;,citation_publication_date=2016-10;,citation_cover_date=2016-10;,citation_year=2016;,citation_fulltext_html_url=http://dx.doi.org/10.1016/j.lindif.2016.09.015;,citation_doi=10.1016/j.lindif.2016.09.015;,citation_issn=1041-6080;,citation_volume=51;,citation_journal_title=Learning and individual differences;,citation_publisher=Elsevier BV;">
+<meta name="citation_reference" content="citation_title=State of the research on artificial intelligence based apps for post-secondary students with disabilities;,citation_author=Catherine Fichten;,citation_author=David Pickup;,citation_author=Jennison Asunsion;,citation_author=Mary Jorgensen;,citation_author=Christine Vo;,citation_author=Anick Legault;,citation_author=Eva Libman;,citation_publication_date=2022-01;,citation_cover_date=2022-01;,citation_year=2022;,citation_fulltext_html_url=http://dx.doi.org/10.5206/eei.v31i1.14089;,citation_issue=1;,citation_doi=10.5206/eei.v31i1.14089;,citation_issn=1918-5227;,citation_volume=31;,citation_journal_title=Exceptionality education international;,citation_publisher=University of Western Ontario, Western Libraries;">
+<meta name="citation_reference" content="citation_title=Learning analytics should not promote one size fits all: The effects of instructional conditions in predicting academic success;,citation_author=Dragan Gašević;,citation_author=Shane Dawson;,citation_author=Tim Rogers;,citation_author=Danijela Gasevic;,citation_publication_date=2016-01;,citation_cover_date=2016-01;,citation_year=2016;,citation_fulltext_html_url=http://dx.doi.org/10.1016/j.iheduc.2015.10.002;,citation_doi=10.1016/j.iheduc.2015.10.002;,citation_issn=1096-7516;,citation_volume=28;,citation_journal_title=The internet and higher education;,citation_publisher=Elsevier BV;">
+<meta name="citation_reference" content="citation_title=Unpacking the “black box” of AI in education;,citation_author=Nabeel Gillani;,citation_author=Rebecca Eynon;,citation_author=Catherine Chiabaut;,citation_author=Kelsey Finkel;,citation_publication_date=2023;,citation_cover_date=2023;,citation_year=2023;,citation_fulltext_html_url=https://www.jstor.org/stable/48707970;,citation_issue=1;,citation_issn=1176-3647;,citation_volume=26;,citation_journal_title=Journal of educational technology &amp;amp;amp; society;,citation_publisher=International Forum of Educational Technology &amp;amp; Society, National Taiwan Normal University, Taiwan;">
+<meta name="citation_reference" content="citation_title=Artificial intelligence innovation in education: A twenty-year data-driven historical analysis;,citation_author=Chong Guan;,citation_author=Jian Mou;,citation_author=Zhiying Jiang;,citation_publication_date=2020-12;,citation_cover_date=2020-12;,citation_year=2020;,citation_fulltext_html_url=https://www.sciencedirect.com/science/article/pii/S2096248720300369;,citation_issue=4;,citation_doi=10.1016/j.ijis.2020.09.001;,citation_issn=2096-2487;,citation_volume=4;,citation_journal_title=International journal of innovation studies;,citation_publisher=Elsevier BV;">
+<meta name="citation_reference" content="citation_title=Counterfactual explanations and how to find them: Literature review and benchmarking;,citation_author=Riccardo Guidotti;,citation_publication_date=2024-09;,citation_cover_date=2024-09;,citation_year=2024;,citation_fulltext_html_url=https://link.springer.com/article/10.1007/s10618-022-00831-6;,citation_issue=5;,citation_doi=10.1007/s10618-022-00831-6;,citation_issn=1384-5810;,citation_volume=38;,citation_journal_title=Data mining and knowledge discovery;,citation_publisher=Springer Science; Business Media LLC;">
+<meta name="citation_reference" content="citation_title=Predicting academic performance: A systematic literature review;,citation_author=Arto Hellas;,citation_author=Petri Ihantola;,citation_author=Andrew Petersen;,citation_author=Vangel V. Ajanovski;,citation_author=Mirela Gutica;,citation_author=Timo Hynninen;,citation_author=Antti Knutas;,citation_author=Juho Leinonen;,citation_author=Chris Messom;,citation_author=Soohyun Nam Liao;,citation_publication_date=2018-07;,citation_cover_date=2018-07;,citation_year=2018;,citation_fulltext_html_url=http://dx.doi.org/10.1145/3293881.3295783;,citation_doi=10.1145/3293881.3295783;,citation_isbn=9781450362238;,citation_conference_title=Proceedings companion of the 23rd annual ACM conference on innovation and technology in computer science education;,citation_conference=ACM;">
+<meta name="citation_reference" content="citation_title=A survey of emotion recognition methods with emphasis on e-learning environments;,citation_author=Maryam Imani;,citation_author=Gholam Ali Montazer;,citation_publication_date=2019-12;,citation_cover_date=2019-12;,citation_year=2019;,citation_fulltext_html_url=https://www.sciencedirect.com/science/article/pii/S1084804519302759?casa_token=UdaZRpauvNQAAAAA:1r23_2mmwBGv59sJ7HcN3v4EqSPsLekv-xNEvaiM5E4Jdz88UvLrfyI28u5eFC1_SHdGbkBpCw;,citation_issue=102423;,citation_doi=10.1016/j.jnca.2019.102423;,citation_issn=1084-8045;,citation_volume=147;,citation_journal_title=Journal of network and computer applications;,citation_publisher=Elsevier BV;">
+<meta name="citation_reference" content="citation_title=Contrastive explanations for model interpretability;,citation_author=Alon Jacovi;,citation_author=Swabha Swayamdipta;,citation_author=Shauli Ravfogel;,citation_author=Yanai Elazar;,citation_author=Yejin Choi;,citation_author=Yoav Goldberg;,citation_publication_date=2021-03;,citation_cover_date=2021-03;,citation_year=2021;,citation_fulltext_html_url=http://arxiv.org/abs/2103.01378;">
+<meta name="citation_reference" content="citation_title=The future of grading programming assignments in education: The role of ChatGPT in automating the assessment and feedback process;,citation_author=Marcin Jukiewicz;,citation_publication_date=2024-06;,citation_cover_date=2024-06;,citation_year=2024;,citation_fulltext_html_url=http://dx.doi.org/10.1016/j.tsc.2024.101522;,citation_issue=101522;,citation_doi=10.1016/j.tsc.2024.101522;,citation_issn=1871-1871;,citation_volume=52;,citation_journal_title=Thinking skills and creativity;,citation_publisher=Elsevier BV;">
+<meta name="citation_reference" content="citation_title=Fairness, trust, transparency, equity, and responsibility in learning analytics;,citation_author=Mohammad Khalil;,citation_author=Paul Prinsloo;,citation_author=Sharon Slade;,citation_publication_date=2023-03;,citation_cover_date=2023-03;,citation_year=2023;,citation_fulltext_html_url=http://dx.doi.org/10.18608/jla.2023.7983;,citation_issue=1;,citation_doi=10.18608/jla.2023.7983;,citation_issn=1929-7750;,citation_volume=10;,citation_journal_title=Journal of learning analytics;,citation_publisher=Society for Learning Analytics Research;">
+<meta name="citation_reference" content="citation_title=Explainable artificial intelligence in education;,citation_author=Hassan Khosravi;,citation_author=Simon Buckingham Shum;,citation_author=Guanliang Chen;,citation_author=Cristina Conati;,citation_author=Yi-Shan Tsai;,citation_author=Judy Kay;,citation_author=Simon Knight;,citation_author=Roberto Martinez-Maldonado;,citation_author=Shazia Sadiq;,citation_author=Dragan Gašević;,citation_publication_date=2022;,citation_cover_date=2022;,citation_year=2022;,citation_fulltext_html_url=http://dx.doi.org/10.1016/j.caeai.2022.100074;,citation_issue=100074;,citation_doi=10.1016/j.caeai.2022.100074;,citation_issn=2666-920X;,citation_volume=3;,citation_journal_title=Computers and Education: Artificial Intelligence;,citation_publisher=Elsevier BV;">
+<meta name="citation_reference" content="citation_title=Explainable automated essay scoring: Deep learning really has pedagogical value;,citation_author=Vivekanandan Kumar;,citation_author=David Boulanger;,citation_publication_date=2020-10;,citation_cover_date=2020-10;,citation_year=2020;,citation_fulltext_html_url=https://www.frontiersin.org/journals/education/articles/10.3389/feduc.2020.572367/pdf;,citation_doi=10.3389/feduc.2020.572367;,citation_issn=2504-284X;,citation_volume=5;,citation_journal_title=Frontiers in education;,citation_publisher=Frontiers Media SA;">
+<meta name="citation_reference" content="citation_title=Role of AI chatbots in education: Systematic literature review;,citation_author=Lasha Labadze;,citation_author=Maya Grigolia;,citation_author=Lela Machaidze;,citation_publication_date=2023-10;,citation_cover_date=2023-10;,citation_year=2023;,citation_fulltext_html_url=http://dx.doi.org/10.1186/s41239-023-00426-1;,citation_issue=1;,citation_doi=10.1186/s41239-023-00426-1;,citation_issn=2365-9440;,citation_volume=20;,citation_journal_title=International journal of educational technology in higher education;,citation_publisher=Springer Science; Business Media LLC;">
+<meta name="citation_reference" content="citation_title=Intelligent tutoring system for medical students: Opportunities and challenges;,citation_author=Sanae Lamti;,citation_author=Marouane El Malhi;,citation_author=Rachid Sekhsoukh;,citation_author=Noureddine Kerzazi;,citation_publication_date=2024;,citation_cover_date=2024;,citation_year=2024;,citation_fulltext_html_url=https://link.springer.com/chapter/10.1007/978-3-031-66850-0_27;,citation_doi=10.1007/978-3-031-66850-0_27;,citation_isbn=9783031668494;,citation_issn=3004-958X;,citation_inbook_title=Information systems engineering and management;">
+<meta name="citation_reference" content="citation_title=Effects of explainable artificial intelligence on trust and human behavior in a high-risk decision task;,citation_author=Benedikt Leichtmann;,citation_author=Christina Humer;,citation_author=Andreas Hinterreiter;,citation_author=Marc Streit;,citation_author=Martina Mara;,citation_publication_date=2023-02;,citation_cover_date=2023-02;,citation_year=2023;,citation_fulltext_html_url=http://dx.doi.org/10.1016/j.chb.2022.107539;,citation_issue=107539;,citation_doi=10.1016/j.chb.2022.107539;,citation_issn=0747-5632;,citation_volume=139;,citation_journal_title=Computers in human behavior;,citation_publisher=Elsevier BV;">
+<meta name="citation_reference" content="citation_title=Artificial intelligence in intelligent tutoring systems toward sustainable education: A systematic review;,citation_author=Chien-Chang Lin;,citation_author=Anna Y. Q. Huang;,citation_author=Owen H. T. Lu;,citation_publication_date=2023-08;,citation_cover_date=2023-08;,citation_year=2023;,citation_fulltext_html_url=https://slejournal.springeropen.com/articles/10.1186/s40561-023-00260-y;,citation_issue=1;,citation_doi=10.1186/s40561-023-00260-y;,citation_issn=2196-7091;,citation_volume=10;,citation_journal_title=Smart learning environments;,citation_publisher=Springer Science; Business Media LLC;">
+<meta name="citation_reference" content="citation_title=Systematic literature review of predictive analysis tools in higher education;,citation_author=Martín Liz-Domínguez;,citation_author=Manuel Caeiro-Rodríguez;,citation_author=Martín Llamas-Nistal;,citation_author=Fernando A. Mikic-Fonte;,citation_publication_date=2019-12;,citation_cover_date=2019-12;,citation_year=2019;,citation_fulltext_html_url=http://dx.doi.org/10.3390/app9245569;,citation_issue=24;,citation_doi=10.3390/app9245569;,citation_issn=2076-3417;,citation_volume=9;,citation_journal_title=Applied sciences (Basel, Switzerland);,citation_publisher=MDPI AG;">
+<meta name="citation_reference" content="citation_title=How the dynamics of engagement explain the momentum of achievement and the inertia of disengagement: A complex systems theory approach;,citation_author=Sonsoles López-Pernas;,citation_author=Mohammed Saqr;,citation_publication_date=2024-04;,citation_cover_date=2024-04;,citation_year=2024;,citation_fulltext_html_url=https://www.sciencedirect.com/science/article/pii/S0747563223004776;,citation_doi=10.1016/j.chb.2023.108126;,citation_issn=0747-5632;,citation_volume=153;,citation_journal_title=Computers in human behavior;">
+<meta name="citation_reference" content="citation_title=A unified approach to interpreting model predictions;,citation_author=Scott M. Lundberg;,citation_author=Su-In Lee;,citation_editor=I. Guyon;,citation_editor=U. V. Luxburg;,citation_editor=S. Bengio;,citation_editor=H. Wallach;,citation_editor=R. Fergus;,citation_editor=S. Vishwanathan;,citation_editor=R. Garnett;,citation_publication_date=2017;,citation_cover_date=2017;,citation_year=2017;,citation_fulltext_html_url=http://papers.nips.cc/paper/7062-a-unified-approach-to-interpreting-model-predictions.pdf;,citation_inbook_title=Advances in neural information processing systems 30;">
+<meta name="citation_reference" content="citation_title=AI hiring tools may be filtering out the best job applicants;,citation_author=Charlotte Lytton;,citation_publication_date=2024-02;,citation_cover_date=2024-02;,citation_year=2024;,citation_fulltext_html_url=https://www.bbc.com/worklife/article/20240214-ai-recruiting-hiring-software-bias-discrimination;,citation_journal_title=BBC;">
+<meta name="citation_reference" content="citation_title=Beyond “fairness”;,citation_author=Michael Madaio;,citation_author=Su Lin Blodgett;,citation_author=Elijah Mayfield;,citation_author=Ezekiel Dixon-Román;,citation_publication_date=2022-08;,citation_cover_date=2022-08;,citation_year=2022;,citation_fulltext_html_url=https://api.taylorfrancis.com/content/chapters/edit/download?identifierName=doi&amp;amp;amp;identifierValue=10.4324/9780429329067-11&amp;type=chapterpdf;,citation_doi=10.4324/9780429329067-11;,citation_isbn=9780429329067;,citation_inbook_title=The ethics of artificial intelligence in education;">
+<meta name="citation_reference" content="citation_title=Payout for uber eats driver over face scan bias case;,citation_author=Shiona McCallum;,citation_publication_date=2024-03;,citation_cover_date=2024-03;,citation_year=2024;,citation_fulltext_html_url=https://www.bbc.com/news/technology-68655429;,citation_journal_title=BBC News;,citation_publisher=BBC News;">
+<meta name="citation_reference" content="citation_title=Explanation in artificial intelligence: Insights from the social sciences;,citation_author=Tim Miller;,citation_publication_date=2019-02;,citation_cover_date=2019-02;,citation_year=2019;,citation_fulltext_html_url=https://www.sciencedirect.com/science/article/pii/S0004370218305988;,citation_doi=10.1016/j.artint.2018.07.007;,citation_issn=0004-3702;,citation_volume=267;,citation_journal_title=Artificial intelligence;,citation_publisher=Elsevier BV;">
+<meta name="citation_reference" content="citation_title=Explainable AI is dead, long live explainable AI!: Hypothesis-driven decision support using evaluative AI;,citation_author=Tim Miller;,citation_publication_date=2023-06;,citation_cover_date=2023-06;,citation_year=2023;,citation_fulltext_html_url=https://dl.acm.org/doi/10.1145/3593013.3594001;,citation_doi=10.1145/3593013.3594001;,citation_conference_title=2023 ACM conference on fairness, accountability, and transparency;,citation_conference=ACM;">
+<meta name="citation_reference" content="citation_title=Getting clarity by defining artificial intelligence—a survey;,citation_author=Dagmar Monett;,citation_author=Colin W. P. Lewis;,citation_publication_date=2018;,citation_cover_date=2018;,citation_year=2018;,citation_fulltext_html_url=http://dx.doi.org/10.1007/978-3-319-96448-5_21;,citation_doi=10.1007/978-3-319-96448-5_21;,citation_isbn=9783319964478;,citation_issn=2192-6255;,citation_inbook_title=Studies in applied philosophy, epistemology and rational ethics;,citation_series_title=Studies in applied philosophy, epistemology and rational ethics;">
+<meta name="citation_reference" content="citation_title=A systematic review of literature reviews on artificial intelligence in education (AIED): A roadmap to a future research agenda;,citation_author=Muhammad Yasir Mustafa;,citation_author=Ahmed Tlili;,citation_author=Georgios Lampropoulos;,citation_author=Ronghuai Huang;,citation_author=Petar Jandrić;,citation_author=Jialu Zhao;,citation_author=Soheil Salha;,citation_author=Lin Xu;,citation_author=Santosh Panda;,citation_author=undefined Kinshuk;,citation_author=Sonsoles López-Pernas;,citation_author=Mohammed Saqr;,citation_publication_date=2024-12;,citation_cover_date=2024-12;,citation_year=2024;,citation_fulltext_html_url=https://scholar.google.com/citations?view_op=view_citation&amp;amp;amp;hl=en&amp;citation_for_view=67eUI4gAAAAJ:BUYA1_V_uYcC;,citation_issue=1;,citation_doi=10.1186/s40561-024-00350-5;,citation_issn=2196-7091;,citation_volume=11;,citation_journal_title=Smart learning environments;,citation_publisher=Springer Science; Business Media LLC;">
+<meta name="citation_reference" content="citation_title=How machine learning (ML) is transforming higher education: A systematic literature review;,citation_author=Agostinho Sousa Pinto;,citation_author=António Abreu;,citation_author=Eusébio Costa;,citation_author=Jerónimo Paiva;,citation_publication_date=2023-04;,citation_cover_date=2023-04;,citation_year=2023;,citation_fulltext_html_url=http://dx.doi.org/10.55267/iadt.07.13227;,citation_issue=2;,citation_doi=10.55267/iadt.07.13227;,citation_issn=2468-2071;,citation_volume=8;,citation_journal_title=Journal of information systems engineering &amp;amp;amp; management;,citation_publisher=International Association for Digital Transformation; Technological Innovation;">
+<meta name="citation_reference" content="citation_title=An automated essay scoring systems: A systematic literature review;,citation_author=Dadi Ramesh;,citation_author=Suresh Kumar Sanampudi;,citation_publication_date=2022;,citation_cover_date=2022;,citation_year=2022;,citation_fulltext_html_url=http://dx.doi.org/10.1007/s10462-021-10068-2;,citation_issue=3;,citation_doi=10.1007/s10462-021-10068-2;,citation_issn=0269-2821;,citation_volume=55;,citation_journal_title=Artificial intelligence review;,citation_publisher=Springer Science; Business Media LLC;">
+<meta name="citation_reference" content="citation_title=Why should i trust you?: Explaining the predictions of any classifier;,citation_author=Marco Tulio Ribeiro;,citation_author=Sameer Singh;,citation_author=Carlos Guestrin;,citation_publication_date=2016-08;,citation_cover_date=2016-08;,citation_year=2016;,citation_fulltext_html_url=https://dl.acm.org/doi/10.1145/2939672.2939778;,citation_doi=10.1145/2939672.2939778;,citation_isbn=9781450342322;,citation_conference_title=Proceedings of the 22nd ACM SIGKDD international conference on knowledge discovery and data mining;,citation_conference=ACM;">
+<meta name="citation_reference" content="citation_title=Using kernel SHAP XAI method to optimize the network anomaly detection model;,citation_author=Khushnaseeb Roshan;,citation_author=Aasim Zafar;,citation_publication_date=2023-07;,citation_cover_date=2023-07;,citation_year=2023;,citation_fulltext_html_url=https://ieeexplore.ieee.org/abstract/document/9763241/;">
+<meta name="citation_reference" content="citation_title=Explainable AI (XAI): A systematic meta-survey of current challenges and future opportunities;,citation_author=Waddah Saeed;,citation_author=Christian Omlin;,citation_publication_date=2023-03;,citation_cover_date=2023-03;,citation_year=2023;,citation_fulltext_html_url=http://dx.doi.org/10.1016/j.knosys.2023.110273;,citation_issue=110273;,citation_doi=10.1016/j.knosys.2023.110273;,citation_issn=0950-7051;,citation_volume=263;,citation_journal_title=Knowledge-based systems;,citation_publisher=Elsevier BV;">
+<meta name="citation_reference" content="citation_title=Idiographic artificial intelligence to explain students’ self-regulation: Toward precision education;,citation_author=Mohammed Saqr;,citation_author=Rongxin Cheng;,citation_author=Sonsoles López-Pernas;,citation_author=Emorie D. Beck;,citation_publication_date=2024-08;,citation_cover_date=2024-08;,citation_year=2024;,citation_fulltext_html_url=http://dx.doi.org/10.1016/j.lindif.2024.102499;,citation_issue=102499;,citation_doi=10.1016/j.lindif.2024.102499;,citation_issn=1041-6080;,citation_volume=114;,citation_journal_title=Learning and individual differences;,citation_publisher=Elsevier BV;">
+<meta name="citation_reference" content="citation_title=Is there order in the mess? A single paper meta-analysis approach to identification of predictors of success in learning analytics;,citation_author=Mohammed Saqr;,citation_author=Jelena Jovanović;,citation_author=Olga Viberg;,citation_author=Dragan Gašević;,citation_publication_date=2022-12;,citation_cover_date=2022-12;,citation_year=2022;,citation_fulltext_html_url=https://doi.org/10.1080/03075079.2022.2061450;,citation_issue=12;,citation_doi=10.1080/03075079.2022.2061450;,citation_issn=0307-5079;,citation_volume=47;,citation_journal_title=Studies in Higher Education;,citation_publisher=Routledge;">
+<meta name="citation_reference" content="citation_title=How CSCL roles emerge, persist, transition, and evolve over time: A four-year longitudinal study;,citation_author=Mohammed Saqr;,citation_author=Sonsoles López-Pernas;,citation_publication_date=2022;,citation_cover_date=2022;,citation_year=2022;,citation_fulltext_html_url=http://dx.doi.org/10.1016/j.compedu.2022.104581;,citation_doi=10.1016/j.compedu.2022.104581;,citation_issn=0360-1315;,citation_journal_title=Computers &amp;amp;amp; education;">
+<meta name="citation_reference" content="citation_title=Why explainable AI may not be enough: Predictions and mispredictions in decision making in education;,citation_author=Mohammed Saqr;,citation_author=Sonsoles López-Pernas;,citation_publication_date=2024;,citation_cover_date=2024;,citation_year=2024;,citation_fulltext_html_url=http://dx.doi.org/10.1186/s40561-024-00343-4;,citation_issue=in–press;,citation_doi=10.1186/s40561-024-00343-4;,citation_issn=2196-7091;,citation_journal_title=Smart learning environments;">
+<meta name="citation_reference" content="citation_title=Explainable artificial intelligence in education: A tutorial for identifying the variables that matter;,citation_author=Mohammed Saqr;,citation_author=Sonsoles López-Pernas;,citation_publication_date=2025;,citation_cover_date=2025;,citation_year=2025;,citation_inbook_title=Advanced learning analytics methods: AI, precision and complexity;">
+<meta name="citation_reference" content="citation_title=Explainable artificial intelligence: Evaluating individual and local machine learning predictions in r;,citation_author=Mohammed Saqr;,citation_author=Sonsoles López-Pernas;,citation_publication_date=2025;,citation_cover_date=2025;,citation_year=2025;,citation_inbook_title=Advanced learning analytics methods: AI, precision and complexity;">
+<meta name="citation_reference" content="citation_title=Intense, turbulent, or wallowing in the mire: A longitudinal study of cross-course online tactics, strategies, and trajectories;,citation_author=Mohammed Saqr;,citation_author=Sonsoles López-Pernas;,citation_author=Jelena Jovanović;,citation_author=Dragan Gašević;,citation_publication_date=2023;,citation_cover_date=2023;,citation_year=2023;,citation_fulltext_html_url=https://www.sciencedirect.com/science/article/pii/S1096751622000586;,citation_doi=10.1016/j.iheduc.2022.100902;,citation_issn=1096-7516;,citation_volume=57;,citation_journal_title=The Internet and Higher Education;">
+<meta name="citation_reference" content="citation_title=Capturing where the learning process takes place: A person-specific and person-centered primer;,citation_author=Mohammed Saqr;,citation_author=Leonie V. D. E. Vogelsmeier;,citation_author=Sonsoles López-Pernas;,citation_publication_date=2024-07;,citation_cover_date=2024-07;,citation_year=2024;,citation_fulltext_html_url=http://dx.doi.org/10.1016/j.lindif.2024.102492;,citation_issue=102492;,citation_doi=10.1016/j.lindif.2024.102492;,citation_issn=1041-6080;,citation_volume=113;,citation_journal_title=Learning and individual differences;,citation_publisher=Elsevier BV;">
+<meta name="citation_reference" content="citation_title=Grad-CAM: Visual explanations from deep networks via gradient-based localization;,citation_author=Ramprasaath R. Selvaraju;,citation_author=Michael Cogswell;,citation_author=Abhishek Das;,citation_author=Ramakrishna Vedantam;,citation_author=Devi Parikh;,citation_author=Dhruv Batra;,citation_publication_date=2017;,citation_cover_date=2017;,citation_year=2017;,citation_fulltext_html_url=http://openaccess.thecvf.com/content_ICCV_2017/papers/Selvaraju_Grad-CAM_Visual_Explanations_ICCV_2017_paper.pdf;,citation_conference_title=Proceedings of the IEEE international conference on computer vision;">
+<meta name="citation_reference" content="citation_title=Student retention using educational data mining and predictive analytics: A systematic literature review;,citation_author=Dalia Abdulkareem Shafiq;,citation_author=Mohsen Marjani;,citation_author=Riyaz Ahamed Ariyaluran Habeeb;,citation_author=David Asirvatham;,citation_publication_date=2022;,citation_cover_date=2022;,citation_year=2022;,citation_fulltext_html_url=http://dx.doi.org/10.1109/ACCESS.2022.3188767;,citation_doi=10.1109/ACCESS.2022.3188767;,citation_issn=2169-3536;,citation_volume=10;,citation_journal_title=IEEE Access;">
+<meta name="citation_reference" content="citation_title=Opportunities and challenges for AI-assisted qualitative data analysis: An example from collaborative problem-solving discourse data;,citation_author=Leo A. Siiman;,citation_author=Meeli Rannastu-Avalos;,citation_author=Johanna Pöysä-Tarhonen;,citation_author=Päivi Häkkinen;,citation_author=Margus Pedaste;,citation_publication_date=2023;,citation_cover_date=2023;,citation_year=2023;,citation_fulltext_html_url=https://link.springer.com/chapter/10.1007/978-3-031-40113-8_9;,citation_doi=10.1007/978-3-031-40113-8_9;,citation_isbn=9783031401121;,citation_issn=0302-9743;,citation_inbook_title=Lecture notes in computer science;,citation_series_title=Lecture notes in computer science;">
+<meta name="citation_reference" content="citation_title=Beyond predictive learning analytics modelling and onto eXplainable artificial intelligence with prescriptive analytics and ChatGPT;,citation_author=Teo Susnjak;,citation_publication_date=2024-06;,citation_cover_date=2024-06;,citation_year=2024;,citation_fulltext_html_url=https://link.springer.com/article/10.1007/s40593-023-00336-3;,citation_issue=2;,citation_doi=10.1007/s40593-023-00336-3;,citation_issn=1560-4292;,citation_volume=34;,citation_journal_title=International journal of artificial intelligence in education;,citation_publisher=Springer Science; Business Media LLC;">
+<meta name="citation_reference" content="citation_title=Personalized and adaptive learning;,citation_author=Deborah L. Taylor;,citation_author=Michelle Yeung;,citation_author=A. Z. Bashet;,citation_publication_date=2021;,citation_cover_date=2021;,citation_year=2021;,citation_fulltext_html_url=http://dx.doi.org/10.1007/978-3-030-58948-6_2;,citation_doi=10.1007/978-3-030-58948-6_2;,citation_isbn=9783030589479;,citation_issn=2191-544X;,citation_inbook_title=Innovative learning environments in STEM higher education;,citation_series_title=SpringerBriefs in statistics;">
+<meta name="citation_reference" content="citation_title=Discovering unusual study patterns using anomaly detection and XAI;,citation_author=Elena Tiukhova;,citation_author=Pavani Vemuri;,citation_author=María Óskarsdóttir;,citation_author=Stephan Poelmans;,citation_author=Bart Baesens;,citation_author=Monique Snoeck;,citation_publication_date=2024;,citation_cover_date=2024;,citation_year=2024;,citation_fulltext_html_url=https://aisel.aisnet.org/hicss-57/da/learning_analytics/3;,citation_conference_title=Hawaii international conference on system sciences 2024 (HICSS-57);">
+<meta name="citation_reference" content="citation_title=Recommendation systems for education: Systematic review;,citation_author=María Cora Urdaneta-Ponte;,citation_author=Amaia Mendez-Zorrilla;,citation_author=Ibon Oleagordia-Ruiz;,citation_publication_date=2021-07;,citation_cover_date=2021-07;,citation_year=2021;,citation_fulltext_html_url=http://dx.doi.org/10.3390/electronics10141611;,citation_issue=14;,citation_doi=10.3390/electronics10141611;,citation_issn=2079-9292;,citation_volume=10;,citation_journal_title=Electronics;,citation_publisher=MDPI AG;">
+<meta name="citation_reference" content="citation_title=Artificial intelligence in education: A systematic literature review;,citation_author=Shan Wang;,citation_author=Fang Wang;,citation_author=Zhen Zhu;,citation_author=Jingxuan Wang;,citation_author=Tam Tran;,citation_author=Zhao Du;,citation_publication_date=2024-10;,citation_cover_date=2024-10;,citation_year=2024;,citation_fulltext_html_url=http://dx.doi.org/10.1016/j.eswa.2024.124167;,citation_issue=124167;,citation_doi=10.1016/j.eswa.2024.124167;,citation_issn=0957-4174;,citation_volume=252;,citation_journal_title=Expert systems with applications;,citation_publisher=Elsevier BV;">
+<meta name="citation_reference" content="citation_title=Variable importance analysis: A comprehensive review;,citation_author=Pengfei Wei;,citation_author=Zhenzhou Lu;,citation_author=Jingwen Song;,citation_publication_date=2015-10;,citation_cover_date=2015-10;,citation_year=2015;,citation_fulltext_html_url=http://dx.doi.org/10.1016/j.ress.2015.05.018;,citation_doi=10.1016/j.ress.2015.05.018;,citation_issn=0951-8320;,citation_volume=142;,citation_journal_title=Reliability Engineering &amp;amp;amp; System Safety;,citation_publisher=Elsevier BV;">
+<meta name="citation_reference" content="citation_title=AI, analytics and a new assessment model for universities;,citation_author=Peter Williams;,citation_publication_date=2023-10;,citation_cover_date=2023-10;,citation_year=2023;,citation_fulltext_html_url=http://dx.doi.org/10.3390/educsci13101040;,citation_issue=10;,citation_doi=10.3390/educsci13101040;,citation_issn=2227-7102;,citation_volume=13;,citation_journal_title=Education sciences;,citation_publisher=MDPI AG;">
+<meta name="citation_reference" content="citation_title=Generative artificial intelligence in learning analytics: Contextualising opportunities and challenges through the learning analytics cycle;,citation_author=Lixiang Yan;,citation_author=Roberto Martinez-Maldonado;,citation_author=Dragan Gasevic;,citation_publication_date=2024-03;,citation_cover_date=2024-03;,citation_year=2024;,citation_fulltext_html_url=https://dl.acm.org/doi/10.1145/3636555.3636856;,citation_doi=10.1145/3636555.3636856;,citation_conference_title=Proceedings of the 14th learning analytics and knowledge conference;,citation_conference=ACM;">
+<meta name="citation_reference" content="citation_title=Unbox the black-box for the medical explainable AI via multi-modal and multi-centre data fusion: A mini-review, two showcases and beyond;,citation_author=Guang Yang;,citation_author=Qinghao Ye;,citation_author=Jun Xia;,citation_publication_date=2022-01;,citation_cover_date=2022-01;,citation_year=2022;,citation_fulltext_html_url=http://dx.doi.org/10.1016/j.inffus.2021.07.016;,citation_doi=10.1016/j.inffus.2021.07.016;,citation_issn=1566-2535;,citation_volume=77;,citation_journal_title=An international journal on information fusion;,citation_publisher=Elsevier BV;">
+<meta name="citation_reference" content="citation_title=Systematic review of research on artificial intelligence applications in higher education – where are the educators?;,citation_author=Olaf Zawacki-Richter;,citation_author=Victoria I. Marín;,citation_author=Melissa Bond;,citation_author=Franziska Gouverneur;,citation_publication_date=2019-12;,citation_cover_date=2019-12;,citation_year=2019;,citation_fulltext_html_url=http://dx.doi.org/10.1186/s41239-019-0171-0;,citation_issue=1;,citation_doi=10.1186/s41239-019-0171-0;,citation_issn=2365-9440;,citation_volume=16;,citation_journal_title=International journal of educational technology in higher education;,citation_publisher=Springer Science; Business Media LLC;">
+<meta name="citation_reference" content="citation_title=A review of artificial intelligence (AI) in education from 2010 to 2020;,citation_author=Xuesong Zhai;,citation_author=Xiaoyan Chu;,citation_author=Ching Sing Chai;,citation_author=Morris Siu Yung Jong;,citation_author=Andreja Istenic;,citation_author=Michael Spector;,citation_author=Jia-Bao Liu;,citation_author=Jing Yuan;,citation_author=Yan Li;,citation_publication_date=2021-01;,citation_cover_date=2021-01;,citation_year=2021;,citation_fulltext_html_url=https://onlinelibrary.wiley.com/doi/abs/10.1155/2021/8812542;,citation_issue=1;,citation_doi=10.1155/2021/8812542;,citation_issn=1076-2787;,citation_volume=2021;,citation_journal_title=Complexity;,citation_publisher=Wiley;">
+<meta name="citation_reference" content="citation_title=A systematic review of personalized learning in higher education: Learning content structure, learning materials sequence, and learning readiness support;,citation_author=Lin Zhong;,citation_publication_date=2023-12;,citation_cover_date=2023-12;,citation_year=2023;,citation_fulltext_html_url=http://dx.doi.org/10.1080/10494820.2022.2061006;,citation_issue=10;,citation_doi=10.1080/10494820.2022.2061006;,citation_issn=1049-4820;,citation_volume=31;,citation_journal_title=Interactive learning environments;,citation_publisher=Informa UK Limited;">
+</head>
+
+<body class="nav-sidebar floating nav-fixed">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg navbar-dark ">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container">
+    <a class="navbar-brand" href="../../index.html">
+    <span class="navbar-title">LA Methods</span>
+    </a>
+  </div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll ms-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="../../../index.html">
+ <span class="menu-text">Home</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../../../book1/index.html">
+ <span class="menu-text">Learning Analytics Methods and Tutorials</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../../../book2/index.html">
+ <span class="menu-text">Advanced Learning Analytics Methods</span></a>
+  </li>  
+  <li class="nav-item compact">
+    <a class="nav-link" href="https://github.com/lamethods/code2/"><i class="bi bi-github" role="img" aria-label="Source Code">
+</i> 
+ <span class="menu-text"></span></a>
+  </li>  
+</ul>
+              <div id="quarto-search" class="" title="Search"></div>
+          </div> <!-- /navcollapse -->
+      </div> <!-- /container-fluid -->
+    </nav>
+  <nav class="quarto-secondary-nav" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+    <div class="container-fluid d-flex justify-content-between">
+      <h1 class="quarto-secondary-nav-title"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">AI, Explainable AI and Evaluative AI: Informed Data-Driven Decision-Making in Education</span></h1>
+      <button type="button" class="quarto-btn-toggle btn" aria-label="Show secondary navigation">
+        <i class="bi bi-chevron-right"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse sidebar-navigation floating overflow-auto">
+      <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Search"></div>
+        </div>
+      </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../index.html" class="sidebar-item-text sidebar-link">Welcome</a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../contributors.html" class="sidebar-item-text sidebar-link">Contributors</a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../chapters/ch01-intro/ch01-intro.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Introduction</span></a>
+  </div>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true">Artificial Intelligence</a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../chapters/ch02-AIxAI/ch02-aixai.html" class="sidebar-item-text sidebar-link active"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">AI and XAI</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../chapters/ch03-prediction/ch03-prediction.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Prediction</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../chapters/ch04-classification/ch04-classification.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Classification</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../chapters/ch05-regularization/ch05-regularization.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Regularization</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../chapters/ch06-xai-global/ch06-xai-global.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Global XAI</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../chapters/ch07-xai-local/ch07-xai-local.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Local XAI</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="true">Large Language Models</a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="true">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../chapters/ch08-llms/ch08-llms.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Large Language Models</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../chapters/ch09-nlp/ch09-nlp.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Natural Language Processing</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../chapters/ch10-bert/ch10-bert.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Classification with BERT</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../chapters/ch11-llmsxai/ch11-llmsxai.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Automated feedback with XAI and LLMs</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" aria-expanded="true">Complex Systems</a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" aria-expanded="true">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../chapters/ch12-cds/ch12-cds.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Complex Systems</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../chapters/ch13-ega/ch13-ega.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Exploratory Graph Analysis</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../chapters/ch14-rqa/ch14-rqa.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">Recurrent Quantification Analysis</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../chapters/ch15-tna/ch15-tna.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">15</span>&nbsp; <span class="chapter-title">Transition Network Analysis</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../chapters/ch16-ftna/ch16-ftna.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">16</span>&nbsp; <span class="chapter-title">Frequency-based Transition Network Analysis</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../chapters/ch17-tna-clusters/ch17-tna-clusters.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">17</span>&nbsp; <span class="chapter-title">Transition Network Analysis Clusters</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" aria-expanded="true">Idiographic</a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" aria-expanded="true">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../chapters/ch18-idio/ch18-idio.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">18</span>&nbsp; <span class="chapter-title">Within-person analysis</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../chapters/ch19-three-levels/ch19-three-levels.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">19</span>&nbsp; <span class="chapter-title">Heterogeneity</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../chapters/ch20-var/ch20-var.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">20</span>&nbsp; <span class="chapter-title">Vector Autoregression and uSEM</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../chapters/ch21-mle/ch21-mle.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">21</span>&nbsp; <span class="chapter-title">Maximum Likelihood Estimator</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../chapters/ch22-automl/ch22-automl.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">22</span>&nbsp; <span class="chapter-title">Automated Machine Learning</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+    </ul>
+    </div>
+</nav>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Table of contents</h2>
+   
+  <ul>
+  <li><a href="#introduction" id="toc-introduction" class="nav-link active" data-scroll-target="#introduction"><span class="toc-section-number">1</span>  <strong>Introduction</strong></a></li>
+  <li><a href="#an-overview-of-ai-applications-in-education" id="toc-an-overview-of-ai-applications-in-education" class="nav-link" data-scroll-target="#an-overview-of-ai-applications-in-education"><span class="toc-section-number">2</span>  <strong>An overview of AI applications in education</strong></a>
+  <ul class="collapse">
+  <li><a href="#adaptive-systems-and-personalization" id="toc-adaptive-systems-and-personalization" class="nav-link" data-scroll-target="#adaptive-systems-and-personalization"><span class="toc-section-number">2.1</span>  Adaptive systems and personalization</a></li>
+  <li><a href="#intelligent-tutoring-systems-its" id="toc-intelligent-tutoring-systems-its" class="nav-link" data-scroll-target="#intelligent-tutoring-systems-its"><span class="toc-section-number">2.2</span>  Intelligent tutoring systems ITS)</a></li>
+  <li><a href="#profiling-and-prediction" id="toc-profiling-and-prediction" class="nav-link" data-scroll-target="#profiling-and-prediction"><span class="toc-section-number">2.3</span>  Profiling and prediction</a></li>
+  <li><a href="#assessment-and-evaluation" id="toc-assessment-and-evaluation" class="nav-link" data-scroll-target="#assessment-and-evaluation"><span class="toc-section-number">2.4</span>  Assessment and evaluation</a></li>
+  <li><a href="#ai-in-education-research-and-learning-analytics" id="toc-ai-in-education-research-and-learning-analytics" class="nav-link" data-scroll-target="#ai-in-education-research-and-learning-analytics"><span class="toc-section-number">2.5</span>  AI in Education Research and Learning Analytics</a></li>
+  </ul></li>
+  <li><a href="#explainable-ai" id="toc-explainable-ai" class="nav-link" data-scroll-target="#explainable-ai"><span class="toc-section-number">3</span>  Explainable AI</a>
+  <ul class="collapse">
+  <li><a href="#the-trade-off-between-explainability-and-performance" id="toc-the-trade-off-between-explainability-and-performance" class="nav-link" data-scroll-target="#the-trade-off-between-explainability-and-performance"><span class="toc-section-number">3.1</span>  The trade-off between explainability and performance</a></li>
+  <li><a href="#global-vs.-local-explainability-xai-tools" id="toc-global-vs.-local-explainability-xai-tools" class="nav-link" data-scroll-target="#global-vs.-local-explainability-xai-tools"><span class="toc-section-number">3.2</span>  Global vs.&nbsp;Local Explainability: XAI tools</a></li>
+  </ul></li>
+  <li><a href="#why-xai-may-not-be-enough" id="toc-why-xai-may-not-be-enough" class="nav-link" data-scroll-target="#why-xai-may-not-be-enough"><span class="toc-section-number">4</span>  Why XAI may not be enough</a>
+  <ul class="collapse">
+  <li><a href="#evaluative-ai-a-new-perspective-on-xai" id="toc-evaluative-ai-a-new-perspective-on-xai" class="nav-link" data-scroll-target="#evaluative-ai-a-new-perspective-on-xai"><span class="toc-section-number">4.1</span>  Evaluative AI: A New Perspective on XAI</a></li>
+  </ul></li>
+  <li><a href="#conclusion" id="toc-conclusion" class="nav-link" data-scroll-target="#conclusion"><span class="toc-section-number">5</span>  Conclusion</a></li>
+  <li><a href="#bibliography" id="toc-bibliography" class="nav-link" data-scroll-target="#bibliography">References</a></li>
+  </ul>
+</nav>
+    <div class="quarto-margin-footer"><div class="margin-footer-item">
+<a href="https://github.com/lamethods/code2" target="_blank"> <button class="btn btn-outline-dark"> <svg xmlns="http://www.w3.org/2000/svg" viewbox="0 0 496 512" style="width: 22px;vertical-align: text-top;margin-right: 9px;"> <path d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3 .3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5 .3-6.2 2.3zm44.2-1.7c-2.9 .7-4.9 2.6-4.6 4.9 .3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3 .7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3 .3 2.9 2.3 3.9 1.6 1 3.6 .7 4.3-.7 .7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3 .7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3 .7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z" style="width: 24px;"> </path> </svg>Download code </button> </a>
+<div style="padding: 10px;">
+Check out our previous book! <br> <a href="../../../book1/index.html"><img src="../../../book1/1712067211600.jpeg" style="
+     width: 70%;
+ "></a>
+</div>
+<p><br> <small>© 2025 The authors</small></p>
+</div></div></div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title d-none d-lg-block"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">AI, Explainable AI and Evaluative AI: Informed Data-Driven Decision-Making in Education</span></h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    <div>
+    <div class="quarto-title-meta-heading">Authors</div>
+    <div class="quarto-title-meta-contents">
+             <p>Sonsoles López-Pernas </p>
+             <p>Eduardo Oliveira </p>
+             <p>Yige Song </p>
+             <p>Mohammed Saqr </p>
+          </div>
+  </div>
+    
+  
+    
+  </div>
+  
+<div>
+  <div class="abstract">
+    <div class="abstract-title">Abstract</div>
+    Artificial Intelligence (AI) has had an immense impact in education through its ability to facilitate personalized learning experiences. However, the increasing adoption of AI systems in education has raised concerns regarding transparency and fairness. Explainable AI (XAI) emerges as a solution to address these issues, offering methods to make AI models interpretable and their decisions understandable to learners, educators, and other stakeholders. This chapter provides an overview of AI applications in education, including adaptive learning systems, profiling, and predictive modeling. Moreover, it provides an introduction to the main XAI concepts and techniques designed to ensure trustworthiness and equity in AI-driven educational environments. Enabling users to scrutinize and refine AI decisions is a necessary step in aligning technological advancements with the ethical and practical needs of education. The chapter aims to provide readers with an understanding of AI in education and XAI’s potential, serving as a foundation for the tutorials presented in the book. The chapter also discusses evaluative AI as a new perspective on XAI for decision-making in which evidence is provided against and in favor of human-made hypotheses, rather than providing explanations for the single most-likely AI outcome.
+  </div>
+</div>
+
+</header>
+
+<section id="introduction" class="level2" data-number="1">
+<h2 data-number="1" class="anchored" data-anchor-id="introduction"><span class="header-section-number">1</span> <strong>Introduction</strong></h2>
+<p>AI has a long and rich history in education. In fact, artificial intelligence in education predates several other technologies and disciplines e.g., online learning. Among the first examples of artificial intelligence applications in education is the creation of the PLATO system at the University of Illinois around the 1960s which allowed for interactive learning and automated feedback <span class="citation" data-cites="Cope_Kalantzis_2023">[<a href="#ref-Cope_Kalantzis_2023" role="doc-biblioref">1</a>]</span>. While PLATO was limited in scope, it laid the foundation for future developments to follow and encouraged other researchers to explore the nascent technology in education. Most importantly, interest started to grow in developing intelligent tutoring systems (ITS) and AI powered educational solutions <span class="citation" data-cites="Cope_Kalantzis_2023">[<a href="#ref-Cope_Kalantzis_2023" role="doc-biblioref">1</a>]</span>.</p>
+<p>However, it was not until the early 1980s when the field of artificial intelligence in education saw its major milestone with the launch of the first International Conference on Artificial Intelligence in Education (AIED) which was held in Montreal <span class="citation" data-cites="Chaudhry_Kazim_2022">[<a href="#ref-Chaudhry_Kazim_2022" role="doc-biblioref">2</a>]</span>. AIED conference brought together researchers from both AI and educational psychology, marking the formal recognition of AI as a significant discipline. Furthermore, AIED set the stage for collaboration between the fields of AI and education, which led to several significant developments in intelligent tutoring systems, adaptive learning technologies, and educational software <span class="citation" data-cites="Guan_Mou_Jiang_2020">[<a href="#ref-Guan_Mou_Jiang_2020" role="doc-biblioref">3</a>]</span>.</p>
+<p>The last two decades have witnessed several remarkable and fast paced developments in the field of AIED fueled by the rapid adoption of the internet, the increase in computation power and advances in methodology <span class="citation" data-cites="Mustafa_Tlili_Lampropoulos_Huang_Jandrić_Zhao_Salha_Xu_Panda_Kinshuk_et_al_2024">[<a href="#ref-Mustafa_Tlili_Lampropoulos_Huang_Jandrić_Zhao_Salha_Xu_Panda_Kinshuk_et_al_2024" role="doc-biblioref">4</a>]</span>. Such advances led to the birth of learning analytics as a field —along with educational data mining— which all contributed to wide use of machine learning and data analytics, alongside other uses of AIED that extends to almost all fields of research and practice <span class="citation" data-cites="Wang_Wang_Zhu_Wang_Tran_Du_2024">[<a href="#ref-Wang_Wang_Zhu_Wang_Tran_Du_2024" role="doc-biblioref">5</a>]</span>.</p>
+<p>As AI continues to play an increasingly central role in education, concerns around transparency, and fairness have become more prominent <span class="citation" data-cites="Ali_Murray_Momin_Dwivedi_Malik_2024">[<a href="#ref-Ali_Murray_Momin_Dwivedi_Malik_2024" role="doc-biblioref">6</a>]</span>. These issues stem from the inherently complex and often opaque nature of AI systems, particularly those powered by machine learning and deep learning <span class="citation" data-cites="Gillani_Eynon_Chiabaut_Finkel_2023">[<a href="#ref-Gillani_Eynon_Chiabaut_Finkel_2023" role="doc-biblioref">7</a>]</span>. For instance, while AI-driven systems can offer personalized recommendations and adaptive learning experiences, their underlying decision-making processes are not always clear to educators or learners. This lack of transparency can prevent users from trusting AI systems and hinder their adoption in educational contexts <span class="citation" data-cites="Bedué_Fritzsche_2022">[<a href="#ref-Bedué_Fritzsche_2022" role="doc-biblioref">8</a>]</span>. Worse even, they might follow AI decisions without knowing if they are wrong or right <span class="citation" data-cites="Miller_2019">[<a href="#ref-Miller_2019" role="doc-biblioref">9</a>]</span>.</p>
+<p>One of the reasons for the mistrust in AI is that its performance is commonly affected by bias, as AI models are only as unbiased as the data they are trained on <span class="citation" data-cites="Ali_Murray_Momin_Dwivedi_Malik_2024">[<a href="#ref-Ali_Murray_Momin_Dwivedi_Malik_2024" role="doc-biblioref">6</a>]</span>. Historical inequities or imbalances in training datasets can perpetuate and even amplify existing disparities, leading to outcomes that disproportionately disadvantage certain groups of students <span class="citation" data-cites="Bogina_Hartman_Kuflik_Shulner-Tal_2022">[<a href="#ref-Bogina_Hartman_Kuflik_Shulner-Tal_2022" role="doc-biblioref">10</a>]</span>. For example, adaptive systems might inadvertently favor learners whose behavior aligns with the dominant patterns in the training data, leaving those with less conventional learning trajectories underserved. Such risks highlight the importance of rigorous evaluation, diverse datasets, and ethical oversight in the design and deployment of AI systems in education.</p>
+<p>Addressing these challenges requires the integration of explainable AI (XAI) techniques, which aim to make AI outputs interpretable and accountable to users. XAI tools can provide insights into how AI systems reach their conclusions, enabling educators to critically evaluate and trust these technologies <span class="citation" data-cites="Khosravi_Shum_Chen_Conati_Tsai_Kay_Knight_Martinez-Maldonado_Sadiq_Gašević_2022">[<a href="#ref-Khosravi_Shum_Chen_Conati_Tsai_Kay_Knight_Martinez-Maldonado_Sadiq_Gašević_2022" role="doc-biblioref">11</a>]</span>. Moreover, the adoption of fairness-aware machine learning practices and inclusive design principles can help mitigate biases, ensuring that AI-driven solutions support equitable outcomes for all learners. These considerations are particularly relevant when it comes to personalized education, where the promise of tailored interventions must be balanced with a commitment to fairness and transparency.</p>
+<p>This chapter explores the current state of artificial intelligence in education, as well as explainable AI (XAI). AI and XAI techniques and tools are illustrated in the subsequent tutorials in the book and this chapter provides an introduction for the reader to have an overarching view on their main characteristics and potential. We further introduce the concept of evaluative AI <span class="citation" data-cites="Miller_2023">[<a href="#ref-Miller_2023" role="doc-biblioref">12</a>]</span>, which aims to address some of the limitations of XAI.</p>
+</section>
+<section id="an-overview-of-ai-applications-in-education" class="level2" data-number="2">
+<h2 data-number="2" class="anchored" data-anchor-id="an-overview-of-ai-applications-in-education"><span class="header-section-number">2</span> <strong>An overview of AI applications in education</strong></h2>
+<p>AI is an extremely broad field that permeates many disciplines, encompassing a wide range of techniques and applications that aim to replicate or enhance human intelligence. In spite of —or maybe because of— its widespread influence across fields such as healthcare, finance and, of course, education, there is no universally agreed-upon definition of AI <span class="citation" data-cites="Monett_Lewis_2018">[<a href="#ref-Monett_Lewis_2018" role="doc-biblioref">13</a>]</span>, nor a standardized taxonomy to categorize its many methods and applications. In the context of education, this lack of clarity is furthered by the diverse range of technologies that fall —sometimes wrongly— under the label of AI —from rule-based systems to complex neural networks— each serving diverse purposes such as personalization, prediction, and automation. In this section, we aim to provide an overview of the key AI applications that have influenced education, presenting relevant use cases in the field. We follow the structure of the recent meta-review by Bond et al. <span class="citation" data-cites="Bond_Khosravi_De_Laat_Bergdahl_Negrea_Oxley_Pham_Chong_Siemens_2024">[<a href="#ref-Bond_Khosravi_De_Laat_Bergdahl_Negrea_Oxley_Pham_Chong_Siemens_2024" role="doc-biblioref">14</a>]</span>, which is based on the original typology by <span class="citation" data-cites="Zawacki-Richter_Marín_Bond_Gouverneur_2019">[<a href="#ref-Zawacki-Richter_Marín_Bond_Gouverneur_2019" role="doc-biblioref">15</a>]</span>, and add an additional section on AI in education research.</p>
+<section id="adaptive-systems-and-personalization" class="level3" data-number="2.1">
+<h3 data-number="2.1" class="anchored" data-anchor-id="adaptive-systems-and-personalization"><span class="header-section-number">2.1</span> Adaptive systems and personalization</h3>
+<p>One of the main promises of AI in education is personalization. Personalized learning focuses on tailoring educational experiences to individual learners’ needs, preferences, and readiness, and it can be implemented through various methods and technologies <span class="citation" data-cites="Taylor_Yeung_Bashet_2021">[<a href="#ref-Taylor_Yeung_Bashet_2021" role="doc-biblioref">16</a>]</span>. For example, adaptive systems implement personalized learning by constructing a model of each learner using artificial intelligence and machine learning as well as continuous data collection of students’ activities and performance <span class="citation" data-cites="Taylor_Yeung_Bashet_2021">[<a href="#ref-Taylor_Yeung_Bashet_2021" role="doc-biblioref">16</a>]</span>. According to Zhong <span class="citation" data-cites="Zhong_2023">[<a href="#ref-Zhong_2023" role="doc-biblioref">17</a>]</span>, personalized learning has been mainly implemented through learning content structuring and sequencing (organizing and ordering learning materials according to individual needs) as well as readiness support (adapting to students’ performance).</p>
+<p>Another form of personalization —closely related to adaptive systems— is the use of recommender systems. Recommender systems are algorithms designed to suggest learning resources, activities, or courses to students based on their individual profiles, past performance, and expressed preferences. According to the review by Urdaneta-Ponte et al. <span class="citation" data-cites="Urdaneta-Ponte_Mendez-Zorrilla_Oleagordia-Ruiz_2021">[<a href="#ref-Urdaneta-Ponte_Mendez-Zorrilla_Oleagordia-Ruiz_2021" role="doc-biblioref">18</a>]</span>, most recommender systems in the education literature use collaborative filtering, which entails recommending resources based on similarity to other students.</p>
+<p>In recent years, personalization has expanded beyond adaptivity and recommendation through the provision of truly personalized learning experiences, made possible thanks to the latest AI breakthroughs. Chatbots and virtual assistants currently represent one of the most prominent applications of personalization of education using AI. These tools take advantage of the advances in natural language processing —and most recently Large language Models (LLMs)— to interact with students in a conversational manner. A recent review by Labadze et al. <span class="citation" data-cites="Labadze_Grigolia_Machaidze_2023">[<a href="#ref-Labadze_Grigolia_Machaidze_2023" role="doc-biblioref">19</a>]</span> discovered that students benefit most from AI-powered chatbots in three main areas: support with homework and studying, personalized learning experiences, and skill development <span class="citation" data-cites="Fichten_Pickup_Asunsion_Jorgensen_Vo_Legault_Libman_2022">[<a href="#ref-Fichten_Pickup_Asunsion_Jorgensen_Vo_Legault_Libman_2022" role="doc-biblioref">20</a>]</span>.</p>
+<p>Other AI-powered technologies like facial recognition or mood detection are emerging as relevant tools for tailoring educational experiences <span class="citation" data-cites="Imani_Montazer_2019">[<a href="#ref-Imani_Montazer_2019" role="doc-biblioref">21</a>]</span>. These technologies can complement traditional adaptive systems through the incorporation of real-time emotional and behavioral information on students’ facial expressions, tone of voice, and body language. Despite their potential, these technologies raise concerns regarding privacy, consent, and data security <span class="citation" data-cites="Andrejevic_Selwyn_2020">[<a href="#ref-Andrejevic_Selwyn_2020" role="doc-biblioref">22</a>]</span>. Furthermore, the accuracy of emotion recognition algorithms and the potential for cultural or individual biases remain critical challenges to address.</p>
+</section>
+<section id="intelligent-tutoring-systems-its" class="level3" data-number="2.2">
+<h3 data-number="2.2" class="anchored" data-anchor-id="intelligent-tutoring-systems-its"><span class="header-section-number">2.2</span> Intelligent tutoring systems ITS)</h3>
+<p>Closely related to adaptive systems are Intelligent Tutoring Systems (ITSs). ITSs use AI techniques to provide personalized tutoring based on a model of the learner’s knowledge, behavior, and learning progress <span class="citation" data-cites="Lin_Huang_Lu_2023">[<a href="#ref-Lin_Huang_Lu_2023" role="doc-biblioref">23</a>]</span>. ITSs aim to emulate one-on-one human tutoring through the adaptation of instructional strategies, delivering tailored feedback, and offering customized learning experiences to help students achieve specific educational goals. ITSs often include features such as error diagnosis, hint generation, and real-time adaptation to individual learner needs, typically in well-defined domains. For example, virtual patients are a form of ITS used in healthcare to practice clinical reasoning <span class="citation" data-cites="Lamti_El_Malhi_Sekhsoukh_Kerzazi_2024">[<a href="#ref-Lamti_El_Malhi_Sekhsoukh_Kerzazi_2024" role="doc-biblioref">24</a>]</span>. ITSs are also extensively used in programming education as a step-by-step tutor to master a programming language <span class="citation" data-cites="Crow_Luxton-Reilly_Wuensche_2018">[<a href="#ref-Crow_Luxton-Reilly_Wuensche_2018" role="doc-biblioref">25</a>]</span>.</p>
+</section>
+<section id="profiling-and-prediction" class="level3" data-number="2.3">
+<h3 data-number="2.3" class="anchored" data-anchor-id="profiling-and-prediction"><span class="header-section-number">2.3</span> Profiling and prediction</h3>
+<p>Predictive modeling has been a primary focus of AI in education. Early attempts dealt with the use of demographic and administrative data from learners to predict performance and dropouts <span class="citation" data-cites="Shafiq_Marjani_Habeeb_Asirvatham_2022">[<a href="#ref-Shafiq_Marjani_Habeeb_Asirvatham_2022" role="doc-biblioref">26</a>]</span>. With the birth of the educational data mining and learning analytics fields, utilizing intensive log data about learners’ online activities became the norm in the field, which came accompanied to increased predictive accuracy thanks to advances in ML algorithms <span class="citation" data-cites="Hellas_Ihantola_Petersen_Ajanovski_Gutica_Hynninen_Knutas_Leinonen_Messom_Liao_2018">[<a href="#ref-Hellas_Ihantola_Petersen_Ajanovski_Gutica_Hynninen_Knutas_Leinonen_Messom_Liao_2018" role="doc-biblioref">27</a>]</span>.</p>
+<p>The goals of performing predictive modeling have been diverse. A central goal has been the early identification of students who may be at risk of failing or dropping out <span class="citation" data-cites="Liz-Domínguez_Caeiro-Rodríguez_Llamas-Nistal_Mikic-Fonte_2019">[<a href="#ref-Liz-Domínguez_Caeiro-Rodríguez_Llamas-Nistal_Mikic-Fonte_2019" role="doc-biblioref">28</a>]</span>. Based on data from previous iterations of a course, researchers attempt to predict students’ performance early on in the current course to be able to conduct remedial interventions. Other less frequent goals of predictive modeling are related to career placement <span class="citation" data-cites="Pinto_Abreu_Costa_Paiva_2023">[<a href="#ref-Pinto_Abreu_Costa_Paiva_2023" role="doc-biblioref">29</a>]</span>, admission <span class="citation" data-cites="Zawacki-Richter_Marín_Bond_Gouverneur_2019">[<a href="#ref-Zawacki-Richter_Marín_Bond_Gouverneur_2019" role="doc-biblioref">15</a>]</span>, or student satisfaction <span class="citation" data-cites="Hellas_Ihantola_Petersen_Ajanovski_Gutica_Hynninen_Knutas_Leinonen_Messom_Liao_2018">[<a href="#ref-Hellas_Ihantola_Petersen_Ajanovski_Gutica_Hynninen_Knutas_Leinonen_Messom_Liao_2018" role="doc-biblioref">27</a>]</span>.</p>
+<p>Research suggests that predictive modeling is hardly generalizable and lacks portability between courses <span class="citation" data-cites="Gašević_Dawson_Rogers_Gasevic_2016">[<a href="#ref-Gašević_Dawson_Rogers_Gasevic_2016" role="doc-biblioref">30</a>]</span>, or even between course iterations <span class="citation" data-cites="Saqr_Jovanović_Viberg_Gašević_2022">[<a href="#ref-Saqr_Jovanović_Viberg_Gašević_2022" role="doc-biblioref">31</a>]</span>. Thus, recent research has shifted the focus from predicting performance to understanding learners based on their behavioral data. Clustering algorithms have been operationalized to detect distinct patterns or profiles of engagement <span class="citation" data-cites="López-Pernas_Saqr_2024">[<a href="#ref-López-Pernas_Saqr_2024" role="doc-biblioref">32</a>]</span>, collaboration roles <span class="citation" data-cites="Saqr_López-Pernas_2022">[<a href="#ref-Saqr_López-Pernas_2022" role="doc-biblioref">33</a>]</span>, self-regulated learning <span class="citation" data-cites="Dörrenbächer_Perels_2016">[<a href="#ref-Dörrenbächer_Perels_2016" role="doc-biblioref">34</a>]</span>, or learning strategies <span class="citation" data-cites="Saqr_López-Pernas_Jovanović_Gašević_2023">[<a href="#ref-Saqr_López-Pernas_Jovanović_Gašević_2023" role="doc-biblioref">35</a>]</span>.</p>
+<p>Lastly, recent research strands that are gathering increased attention focus on identifying and mitigating biases in AI algorithms <span class="citation" data-cites="Baker_Hawn_2022">[<a href="#ref-Baker_Hawn_2022" role="doc-biblioref">36</a>]</span>, ensuring equitable treatment of all learners, and enhancing the interpretability of AI systems through eXplainable Artificial Intelligence (XAI) <span class="citation" data-cites="Khosravi_Shum_Chen_Conati_Tsai_Kay_Knight_Martinez-Maldonado_Sadiq_Gašević_2022">[<a href="#ref-Khosravi_Shum_Chen_Conati_Tsai_Kay_Knight_Martinez-Maldonado_Sadiq_Gašević_2022" role="doc-biblioref">11</a>]</span>.</p>
+</section>
+<section id="assessment-and-evaluation" class="level3" data-number="2.4">
+<h3 data-number="2.4" class="anchored" data-anchor-id="assessment-and-evaluation"><span class="header-section-number">2.4</span> Assessment and evaluation</h3>
+<p>Students often long for formative feedback that offers actionable points to improve their learning and performance. This has traditionally come at the expense of overburdening teachers with a higher workload. AI offers a lot of promise to alleviate this challenge by providing automated, personalized feedback to students <span class="citation" data-cites="Zhai_Chu_Chai_Jong_Istenic_Spector_Liu_Yuan_Li_2021">[<a href="#ref-Zhai_Chu_Chai_Jong_Istenic_Spector_Liu_Yuan_Li_2021" role="doc-biblioref">37</a>]</span>. Although automated assessment has been present for decades, e.g., through multiple-choice questionnaires that can be automatically graded or autograders for programming assignments, advancements in artificial intelligence, particularly in NLP, have led to the development of systems capable of analyzing student work and generating constructive feedback.</p>
+<p>AI assessment and feedback have been especially relevant in the evaluation of artifacts that do not have a deterministic correct solution. In fact, the most widely used application of AI-powered feedback in education is automated essay scoring <span class="citation" data-cites="Ramesh_Sanampudi_2022">[<a href="#ref-Ramesh_Sanampudi_2022" role="doc-biblioref">38</a>]</span>. Another important focus has been the evaluation of programming code. Although non-AI automated assessment tools have existed for decades <span class="citation" data-cites="Ala-Mutka_2005">[<a href="#ref-Ala-Mutka_2005" role="doc-biblioref">39</a>]</span>, the recent advances in AI have allowed the provision of more relevant and detailed feedback to students <span class="citation" data-cites="Jukiewicz_2024">[<a href="#ref-Jukiewicz_2024" role="doc-biblioref">40</a>]</span>. The main advantage of AI-powered assessment systems is that they can provide immediate feedback, allowing students to understand their mistakes and learn from them in real-time. In addition, such systems enable educators to support a larger number of students without a proportional increase in workload, making personalized education more accessible.</p>
+<p>Beyond evaluating students’ assignments and artifacts, AI has also opened new avenues for evaluating students’ learning process. For instance, automated discourse coding allows educators and researchers to analyze conversations or discussion forums in order to identify patterns of collaboration, critical thinking, and engagement <span class="citation" data-cites="Siiman_Rannastu-Avalos_Pöysä-Tarhonen_Häkkinen_Pedaste_2023">[<a href="#ref-Siiman_Rannastu-Avalos_Pöysä-Tarhonen_Häkkinen_Pedaste_2023" role="doc-biblioref">41</a>]</span>.</p>
+</section>
+<section id="ai-in-education-research-and-learning-analytics" class="level3" data-number="2.5">
+<h3 data-number="2.5" class="anchored" data-anchor-id="ai-in-education-research-and-learning-analytics"><span class="header-section-number">2.5</span> AI in Education Research and Learning Analytics</h3>
+<p>Lastly, AI has not only brought opportunities to education practice but also to education research and learning analytics. Advances in AI, such as deep learning, natural language processing (NLP), and more recently, LLMs, have significantly expanded the possibilities for analyzing unstructured data such as text, speech, and video, and facilitating new approaches to personalization and feedback in education <span class="citation" data-cites="Cukurova_2024 Williams_2023">[<a href="#ref-Cukurova_2024" role="doc-biblioref">42</a>, <a href="#ref-Williams_2023" role="doc-biblioref">43</a>]</span>.</p>
+<p>Moreover, the increasing role of AI as an educational tool has further expanded the possibilities of education and learning analytics researchers for understanding learners’ behaviors in the presence of these new learning technologies <span class="citation" data-cites="Yan_Martinez-Maldonado_Gasevic_2024">[<a href="#ref-Yan_Martinez-Maldonado_Gasevic_2024" role="doc-biblioref">44</a>]</span>. For example, researchers can examine the types of prompts students pose to AI systems, providing fine-grained information about common misconceptions, knowledge gaps, or areas where additional support may be needed. These analyses can also showcase how students respond to feedback or recommendations generated by AI, and hence whether AI’s guidance promotes better learning outcomes or contributes to over-reliance on AI-generated solutions <span class="citation" data-cites="Chen_Xiang_Zhou_Jia_Shang_Li_Gašević_Fan_2025">[<a href="#ref-Chen_Xiang_Zhou_Jia_Shang_Li_Gašević_Fan_2025" role="doc-biblioref">45</a>]</span>.</p>
+</section>
+</section>
+<section id="explainable-ai" class="level2" data-number="3">
+<h2 data-number="3" class="anchored" data-anchor-id="explainable-ai"><span class="header-section-number">3</span> Explainable AI</h2>
+<p>Headlines around the globe are increasingly spotlighting instances of AI bias, from skewed hiring algorithms <span class="citation" data-cites="Lytton_2024">[<a href="#ref-Lytton_2024" role="doc-biblioref">46</a>]</span> to discriminatory facial recognition systems <span class="citation" data-cites="McCallum_2024">[<a href="#ref-McCallum_2024" role="doc-biblioref">47</a>]</span>, exposing the urgent need to address the unintended consequences of AI in our daily lives. These incidents highlight not only the limitations of AI but also the opaque nature of many of these systems, which makes identifying and mitigating bias a significant challenge. Explainable AI (XAI) emerges as a promising solution to shed light on the ‘black box’ of AI decision-making. In a nutshell, XAI can be defined as a set of methods and tools that enables humans to understand the outcomes of AI models <span class="citation" data-cites="Ali_Abuhmed_El-Sappagh_Muhammad_Alonso-Moral_Confalonieri_Guidotti_Del_Ser_Díaz-Rodríguez_Herrera_2023">[<a href="#ref-Ali_Abuhmed_El-Sappagh_Muhammad_Alonso-Moral_Confalonieri_Guidotti_Del_Ser_Díaz-Rodríguez_Herrera_2023" role="doc-biblioref">48</a>]</span>. Making the processes behind AI decisions transparent and interpretable through XAI allows all involved stakeholders—developers, users, and policymakers —to detect bias and assess fairness, and hence build trust in AI systems <span class="citation" data-cites="Leichtmann_Humer_Hinterreiter_Streit_Mara_2023">[<a href="#ref-Leichtmann_Humer_Hinterreiter_Streit_Mara_2023" role="doc-biblioref">49</a>]</span>. XAI aims to answer questions such as: <em>why</em> did the AI make this particular decision?; <em>how</em> would changes in the input data influence the decision?, and in <em>what</em> changes are needed in AI’s behavior to align with ethical and societal values? This is achieved through techniques such as feature importance rankings, model-agnostic interpretability methods, and visualization tools that reveal the relationships between inputs and outputs <span class="citation" data-cites="Saeed_Omlin_2023">[<a href="#ref-Saeed_Omlin_2023" role="doc-biblioref">50</a>]</span>.</p>
+<p>As we have seen in the previous section, the adoption of AI tools and systems in the field of education has opened new opportunities for personalized learning, automated assessments, and early intervention for at-risk students <span class="citation" data-cites="Mustafa_Tlili_Lampropoulos_Huang_Jandrić_Zhao_Salha_Xu_Panda_Kinshuk_et_al_2024">[<a href="#ref-Mustafa_Tlili_Lampropoulos_Huang_Jandrić_Zhao_Salha_Xu_Panda_Kinshuk_et_al_2024" role="doc-biblioref">4</a>]</span>. However, as these systems increasingly influence critical decisions—such as grading, admissions, and resource allocation—they also bring the risk of embedding and perpetuating biases present in training data or algorithms. As such, XAI is of particular relevance in education, where fairness, transparency, and trust should be the basis of an equitable learning environment <span class="citation" data-cites="Khosravi_Shum_Chen_Conati_Tsai_Kay_Knight_Martinez-Maldonado_Sadiq_Gašević_2022">[<a href="#ref-Khosravi_Shum_Chen_Conati_Tsai_Kay_Knight_Martinez-Maldonado_Sadiq_Gašević_2022" role="doc-biblioref">11</a>]</span>. For instance, XAI techniques can reveal which factors are most influential in predicting a student’s performance <span class="citation" data-cites="Saqr_López-Pernas_2024">[<a href="#ref-Saqr_López-Pernas_2024" role="doc-biblioref">51</a>]</span>, enabling interventions that are data-informed yet account for individual differences. Similarly, transparency in automated grading systems ensures that assessments are objective <span class="citation" data-cites="Kumar_Boulanger_2020">[<a href="#ref-Kumar_Boulanger_2020" role="doc-biblioref">52</a>]</span>, and therefore they can be trusted by students and educators. Moreover, XAI can provide students with actionable feedback that is both personalized and understandable <span class="citation" data-cites="Afzaal_Nouri_Zia_Papapetrou_Fors_Wu_Li_Weegar_2021">[<a href="#ref-Afzaal_Nouri_Zia_Papapetrou_Fors_Wu_Li_Weegar_2021" role="doc-biblioref">53</a>]</span>, helping them detect areas for improvement.</p>
+<p>In the remainder of this section, we provide an overview of the main concepts, techniques, and tools associated with XAI. We describe the main AI methodologies, including model-agnostic interpretability, feature importance analysis, and counterfactual reasoning, with an emphasis on how they enable transparency and accountability in AI systems.</p>
+<section id="the-trade-off-between-explainability-and-performance" class="level3" data-number="3.1">
+<h3 data-number="3.1" class="anchored" data-anchor-id="the-trade-off-between-explainability-and-performance"><span class="header-section-number">3.1</span> The trade-off between explainability and performance</h3>
+<p>We start our journey into XAI by talking about explainability. We must differentiate between two broad categories of AI models: intrinsically explainable algorithms and black-box models. This distinction is critical for contextualizing the need for explainability tools and techniques discussed in later sections.</p>
+<section id="intrinsically-explainable-algorithms" class="level4" data-number="3.1.1">
+<h4 data-number="3.1.1" class="anchored" data-anchor-id="intrinsically-explainable-algorithms"><span class="header-section-number">3.1.1</span> Intrinsically Explainable Algorithms</h4>
+<p>Intrinsically explainable (or white-box) algorithms are designed to be interpretable by their very nature <span class="citation" data-cites="Leichtmann_Humer_Hinterreiter_Streit_Mara_2023">[<a href="#ref-Leichtmann_Humer_Hinterreiter_Streit_Mara_2023" role="doc-biblioref">49</a>]</span>. These algorithms have transparent structures and straightforward mechanisms for decision-making, making it easy to understand how input features contribute to output predictions. Examples include linear regression, logistic regression, decision trees, and rule-based systems <span class="citation" data-cites="Yang_Ye_Xia_2022">[<a href="#ref-Yang_Ye_Xia_2022" role="doc-biblioref">54</a>]</span>. Stakeholders can directly observe relationships, such as the weight of a variable in a regression model (<a href="#fig-dt">Figure&nbsp;<span>2.1 (a)</span></a>) or the sequence of decisions in a tree structure (<a href="#fig-reg">Figure&nbsp;<span>2.1 (b)</span></a>).</p>
+<div id="fig-grades" class="quarto-layout-panel">
+<figure class="figure">
+<div class="quarto-layout-row quarto-layout-valign-top">
+<div class="quarto-layout-cell quarto-layout-cell-subref" style="flex-basis: 49.5%;justify-content: center;">
+<div id="fig-dt" class="quarto-figure quarto-figure-center anchored">
+<figure class="figure">
+<p><img src="img/images/image1.png" class="img-fluid figure-img" style="width:2.99366in" data-ref-parent="fig-grades"></p>
+<p></p><figcaption class="figure-caption">(a) Explanation of a Linear Regression model.</figcaption><p></p>
+</figure>
+</div>
+</div>
+<div class="quarto-layout-cell quarto-layout-cell-subref" style="flex-basis: 50.5%;justify-content: center;">
+<div id="fig-reg" class="quarto-figure quarto-figure-center anchored">
+<figure class="figure">
+<p><img src="img/images/image2.png" class="img-fluid figure-img" style="width:3.05083in" data-ref-parent="fig-grades"></p>
+<p></p><figcaption class="figure-caption">(b) Explanation of a Decision Tree model</figcaption><p></p>
+</figure>
+</div>
+</div>
+</div>
+<p></p><figcaption class="figure-caption"><strong>Figure</strong>&nbsp;1<strong>.</strong> Example of using intrinsically explainable algorithms to predict students’ grades.</figcaption><p></p>
+</figure>
+</div>
+<p>In education, intrinsically explainable algorithms are particularly valuable when transparency is a priority. For instance, a linear or logistic regression model predicting a student’s grade based on attendance and participation provides a clear and intuitive explanation for its outcomes. Educators and other stakeholders can readily interpret the model and take actionable steps, such as encouraging students to engage in self-assessment activities.</p>
+<p>However, intrinsically explainable models often come with limitations. Their simplicity can result in lower predictive accuracy when dealing with complex, non-linear relationships or high-dimensional data <span class="citation" data-cites="Yang_Ye_Xia_2022">[<a href="#ref-Yang_Ye_Xia_2022" role="doc-biblioref">54</a>]</span>, which are common in educational contexts and a common problem in learning analytics research and practice. As a result, their applicability is sometimes constrained when achieving high accuracy is critical.</p>
+</section>
+<section id="black-box-models" class="level4" data-number="3.1.2">
+<h4 data-number="3.1.2" class="anchored" data-anchor-id="black-box-models"><span class="header-section-number">3.1.2</span> Black-Box Models</h4>
+<p>Black-box models, such as deep neural networks, gradient boosting machines, and ensemble methods <span class="citation" data-cites="Yang_Ye_Xia_2022">[<a href="#ref-Yang_Ye_Xia_2022" role="doc-biblioref">54</a>]</span>, are characterized by their complex internal structures, which are not inherently interpretable. These models are often chosen for their ability to capture highly complex patterns and relationships in data, hence yielding higher predictive performance in many applications <span class="citation" data-cites="Leichtmann_Humer_Hinterreiter_Streit_Mara_2023">[<a href="#ref-Leichtmann_Humer_Hinterreiter_Streit_Mara_2023" role="doc-biblioref">49</a>]</span>. However, their complexity creates a significant barrier to understanding how decisions are made.</p>
+<p>In education, black-box models might be needed when dealing with more complex unstructured data such as students’ free-form text or images <span class="citation" data-cites="Shafiq_Marjani_Habeeb_Asirvatham_2022">[<a href="#ref-Shafiq_Marjani_Habeeb_Asirvatham_2022" role="doc-biblioref">26</a>]</span>. Although these models may achieve higher accuracy than intrinsically explainable algorithms, their opacity raises concerns. Without insights into how predictions are generated, educators and administrators may struggle to trust or act on these outputs, especially when high-stakes decisions that could be consequential for students are involved.</p>
+</section>
+<section id="balancing-explainability-and-predictive-power" class="level4" data-number="3.1.3">
+<h4 data-number="3.1.3" class="anchored" data-anchor-id="balancing-explainability-and-predictive-power"><span class="header-section-number">3.1.3</span> Balancing Explainability and Predictive Power</h4>
+<p>The choice between intrinsically explainable algorithms and black-box models often involves a trade-off between interpretability and performance <span class="citation" data-cites="Yang_Ye_Xia_2022">[<a href="#ref-Yang_Ye_Xia_2022" role="doc-biblioref">54</a>]</span>. Simpler models provide clarity and ease of use, at the expense of failing to capture the complexity of educational data. On the other hand, black-box models excel in handling such complexity but require additional methods to make their decisions interpretable <span class="citation" data-cites="Saeed_Omlin_2023">[<a href="#ref-Saeed_Omlin_2023" role="doc-biblioref">50</a>]</span>. XAI aims to bridge this gap by providing explainability techniques for black-box models. These tools enable stakeholders to take advantage of the high performance of black box models while maintaining transparency and accountability such as in the case of white-box models. For example, black-box models predicting student dropout can be paired with interpretability methods to reveal the main factors driving each prediction, hence allowing educators to make informed, data-driven decisions.</p>
+</section>
+</section>
+<section id="global-vs.-local-explainability-xai-tools" class="level3" data-number="3.2">
+<h3 data-number="3.2" class="anchored" data-anchor-id="global-vs.-local-explainability-xai-tools"><span class="header-section-number">3.2</span> Global vs.&nbsp;Local Explainability: XAI tools</h3>
+<p>As we have seen in the previous section, we need XAI tools to be able to explain the outcomes of black-box AI models. We can approach explainability from two complementary perspectives: global and local. Both play a crucial role in understanding and effectively applying AI systems, since both macro-level patterns and individual-level insights are essential for achieving trust and fairness. In this section, we describe each of these perspectives and the XAI tools used in each of them.</p>
+<section id="global-explainability" class="level4" data-number="3.2.1">
+<h4 data-number="3.2.1" class="anchored" data-anchor-id="global-explainability"><span class="header-section-number">3.2.1</span> Global Explainability</h4>
+<p>Global explainability focuses on understanding the overall behavior of a model. It provides insights into how the model makes decisions across the entire dataset, pointing to the features that are most influential and the patterns that drive predictions. For instance, in a model designed to predict student performance (such as the ones shown in Figure 1) global explainability might reveal that the average quiz score, attendance, and assignment submission are consistently the most important factors that predict performance. This “big picture” explanation enables educators and administrators to evaluate the model’s logic and ensure it aligns with their expectations. Moreover, global explainability is instrumental in assessing whether the model behaves fairly across different demographic groups, helping to identify and address potential biases. However, its high-level nature means that it cannot explain why specific predictions are made, which limits its usefulness in scenarios requiring personalized action. It is, though, useful to take general actions that would benefit “the majority”, for example changing the course design or learning materials. Chapter 6 <span class="citation" data-cites="Saqr_López-Pernas_2025a">[<a href="#ref-Saqr_López-Pernas_2025a" role="doc-biblioref">55</a>]</span> in this book offers a tutorial on global explainability using the R programming language. Below, we overview the main techniques for global explainability</p>
+<section id="variablefeature-importance" class="level5" data-number="3.2.1.1">
+<h5 data-number="3.2.1.1" class="anchored" data-anchor-id="variablefeature-importance"><span class="header-section-number">3.2.1.1</span> Variable/Feature Importance</h5>
+<p>Feature importance measures how much each input variable contributes to a model’s predictions, helping to identify the most influential factors driving its decisions <span class="citation" data-cites="Wei_Lu_Song_2015">[<a href="#ref-Wei_Lu_Song_2015" role="doc-biblioref">56</a>]</span>. In educational applications, feature importance provides actionable insights into what matters most for student outcomes. For example, a model predicting grades (see <a href="../ch04-classification/ch04-classification.html#fig-varimp">Figure&nbsp;<span>4.4</span></a>) might show that the frequency of forum contributions is the most important factor. This insight helps educators prioritize interventions where they are most needed, such as encouraging participation .</p>
+<div id="fig-varimp" class="quarto-figure quarto-figure-center anchored">
+<figure class="figure">
+<p><img src="img/images/image3.png" class="img-fluid figure-img" style="width:4.26042in"></p>
+<p></p><figcaption class="figure-caption"><strong>Figure</strong>&nbsp;2<strong>.</strong> Variable importance plot when predicting students’ grades</figcaption><p></p>
+</figure>
+</div>
+<p>In models like decision trees or random forests, feature importance is calculated based on how often a variable is used in splits and how much it reduces prediction error (e.g., impurity). In linear regression, the magnitude of coefficients represents the relative weight of each variable, directly showing how much they influence the target outcome. These metrics are intrinsic to these models, making them straightforward to compute and interpret.</p>
+<p>For black-box models, such as neural networks, gradient boosting, or ensemble methods, feature importance is not inherently available and must be derived through additional techniques. Unlike intrinsically interpretable models, black-box models process data in ways that obscure the direct contribution of individual features. To estimate feature importance, methods like permutation importance are often used <span class="citation" data-cites="Wei_Lu_Song_2015">[<a href="#ref-Wei_Lu_Song_2015" role="doc-biblioref">56</a>]</span>. This technique evaluates how model performance changes when the values of a feature are randomly shuffled, effectively breaking its relationship with the target variable. Features that cause a significant drop in performance when permuted are deemed more important. The derived feature importance remains an approximation, as black-box models can capture nonlinear interactions that are difficult to fully interpret without additional tools like SHAP or LIME. Thus, while feature importance provides valuable insights into black-box models, it often requires advanced methods to ensure reliability and transparency.</p>
+<p>It is important to bear in mind that, while feature importance highlights <em>what</em> influences predictions, it does not fully explain <em>how</em> features influence prediction and how features interact with one another, underlining its value as a foundational but limited interpretability tool.</p>
+</section>
+<section id="partial-dependence-plots" class="level5" data-number="3.2.1.2">
+<h5 data-number="3.2.1.2" class="anchored" data-anchor-id="partial-dependence-plots"><span class="header-section-number">3.2.1.2</span> Partial Dependence Plots</h5>
+<p>Partial Dependence Plots (PDPs) depict how changes in a feature influence predictions while accounting for the average behavior of all other features. They isolate the effect of one feature at a time, making it easier to understand the relationship between input variables and model outcomes. For instance, Figure <a href="#fig-pdp">Figure&nbsp;<span>2.3</span></a> shows how increasing the number of reads of the forum —while the rest of the features remain the same— has barely any effect in the prediction of students’ grades, while increasing the number of contributions results in a higher grade prediction. This insight allows educators to focus interventions in the variables that are most effective.</p>
+<div id="fig-pdp" class="quarto-figure quarto-figure-center anchored">
+<figure class="figure">
+<p><img src="img/images/image4.png" class="img-fluid figure-img" style="width:6.26772in"></p>
+<p></p><figcaption class="figure-caption"><strong>Figure</strong>&nbsp;3<strong>.</strong> PDP of frequency of forum consume and contribute</figcaption><p></p>
+</figure>
+</div>
+<p>Although PDPs are useful for understanding non-linear relationships and interactions, they rely on the assumption that features are independent. In reality features like reading and writing forum contributions may be correlated, so this assumption can lead to misleading interpretations. Additionally, PDPs represent average effects, which may not fully capture individual variations in how a feature influences predictions. Despite these limitations, PDPs remain a valuable tool for interpreting complex models, especially in contexts like education where understanding feature contributions can inform better decisions.</p>
+</section>
+<section id="shap-summary-plots" class="level5" data-number="3.2.1.3">
+<h5 data-number="3.2.1.3" class="anchored" data-anchor-id="shap-summary-plots"><span class="header-section-number">3.2.1.3</span> SHAP Summary Plots</h5>
+<p>A SHAP summary plot combines two critical aspects of global feature importance: the magnitude of a feature’s impact (ordered from top to bottom in the figure) on the predictions and the range of each feature’s effects (the horizontal axis). For each feature, the plot shows the SHAP values across all instances in the dataset, where each SHAP value represents the contribution of the feature to a single prediction (i.e. individual dots) <span class="citation" data-cites="Lundberg_Lee_2017">[<a href="#ref-Lundberg_Lee_2017" role="doc-biblioref">57</a>]</span>. In the figure, top features such as the frequency of forum contributions have greater importance, its wide horizontal dispersion shows that the feature’s contribution varies greatly across instances. Additionally, the color of each point typically reflects the feature value (e.g., high values in red and low values in blue), which helps identify whether higher or lower feature values drive predictions.</p>
+<p>In educational contexts, SHAP summary plots can provide insights not only into which factors are most critical in predicting outcomes like grades, engagement, or dropout risk, but also about the direction towards which each feature pushes the prediction. For instance, a summary plot (<a href="#fig-shap-sum">Figure&nbsp;<span>2.4</span></a>) might reveal that frequency of forum contributions has the highest average SHAP values, indicating it is the most influential feature. The plot might also show that a higher number of active days consistently contributes to lower predictions, while regularity in viewing lectures has a more variable effect depending on other factors. This level of detail helps educators and administrators not only understand which features matter most but also how their impact differs across students.</p>
+<div id="fig-shap-sum" class="quarto-figure quarto-figure-center anchored">
+<figure class="figure">
+<p><img src="img/images/image5.png" class="img-fluid figure-img" style="width:6.26772in"></p>
+<p></p><figcaption class="figure-caption"><strong>Figure</strong>&nbsp;4<strong>.</strong> SHAP summary plot</figcaption><p></p>
+</figure>
+</div>
+<p>It is worth mentioning that SHAP plots can also be used for explainability in other ML tasks such as unsupervised learning (e.g., clustering). For instance, <span class="citation" data-cites="Tiukhova_Vemuri_Óskarsdóttir_Poelmans_Baesens_Snoeck_2024">[<a href="#ref-Tiukhova_Vemuri_Óskarsdóttir_Poelmans_Baesens_Snoeck_2024" role="doc-biblioref">58</a>]</span> used clustering to detect study patterns, and leveraged XAI to discover unexpected patterns that are not apparent from the clustering alone.</p>
+<p>Lastly, other variants of SHAP exist, such as Kernel SHAP <span class="citation" data-cites="Roshan_Zafar_2023">[<a href="#ref-Roshan_Zafar_2023" role="doc-biblioref">59</a>]</span>, which extends SHAP by using kernel methods to efficiently approximate feature attributions, making it suitable for complex models. Permutation SHAP, another variant, evaluates the importance of features by analyzing the change in model performance when feature values are randomly permuted, providing an intuitive measure of feature impact.</p>
+</section>
+</section>
+<section id="local-explainability" class="level4" data-number="3.2.2">
+<h4 data-number="3.2.2" class="anchored" data-anchor-id="local-explainability"><span class="header-section-number">3.2.2</span> Local Explainability</h4>
+<p>Contrary to global explainability, local explainability provides a detailed understanding of individual predictions, explaining why the model arrived at a specific outcome for a single student or instance. For example, if a student is flagged as being at risk of failing or dropping out, local explainability can identify that the prediction was driven by a drop in attendance and low quiz scores, for example. This level of granularity is of the utmost importance in education, where interventions are often targeted at individuals. Teachers, parents, counselors, and administrators can use these explanations to issue tailored interventions, such as reaching out to the student about attendance or offering extra tutoring for quizzes. Furthermore, local explainability builds trust in AI systems by making their decisions transparent and actionable, particularly in high-stakes contexts like grading or admission. Chapter 7 in this book <span class="citation" data-cites="Saqr_López-Pernas_2025b">[<a href="#ref-Saqr_López-Pernas_2025b" role="doc-biblioref">60</a>]</span> offers a tutorial on local explainability using the R programming language.</p>
+<section id="shap-values-for-individual-predictions" class="level5" data-number="3.2.2.1">
+<h5 data-number="3.2.2.1" class="anchored" data-anchor-id="shap-values-for-individual-predictions"><span class="header-section-number">3.2.2.1</span> SHAP Values for Individual Predictions</h5>
+<p>SHAP values for individual predictions provide a breakdown of how each feature contributes to a specific prediction made by a machine learning model. Unlike SHAP summary plots, which summarize the overall behavior of the model across all predictions, individual SHAP values focus on explaining why the model made a particular prediction for a single instance. These explanations highlight the direction and magnitude of each feature’s impact on the prediction, making them invaluable for personalized decision-making.</p>
+<p>For an individual prediction, SHAP values calculate the contribution of each feature by comparing the model’s output when the feature is included versus when it is excluded, averaged across all possible subsets of features. The SHAP values sum up to the difference between the model’s baseline prediction (the average prediction for all instances) and the specific prediction for the instance. For example, in a model predicting a student’s grade (see <a href="#fig-shap">Figure&nbsp;<span>2.5</span></a>), if the baseline prediction is 68.35 and the model predicts 55.22 for the particular student under examination, the SHAP values will explain the 13-point difference by assigning contributions to features such as frequency and regularity of forum contribute, lecture view, etc. In the plot, we can see that almost all features have a negative value, thus contributing to a lower grade, except for frequency of viewing lectures.</p>
+<div id="fig-shap" class="quarto-figure quarto-figure-center anchored">
+<figure class="figure">
+<p><img src="img/images/image6.png" class="img-fluid figure-img" style="width:6.26772in"></p>
+<p></p><figcaption class="figure-caption"><strong>Figure</strong>&nbsp;5<strong>.</strong> SHAP instance explanations</figcaption><p></p>
+</figure>
+</div>
+</section>
+<section id="local-interpretable-model-agnostic-explanations" class="level5" data-number="3.2.2.2">
+<h5 data-number="3.2.2.2" class="anchored" data-anchor-id="local-interpretable-model-agnostic-explanations"><span class="header-section-number">3.2.2.2</span> Local Interpretable Model-Agnostic Explanations</h5>
+<p>LIME (Local Interpretable Model-Agnostic Explanations) is a method used to explain individual predictions by approximating the behavior of a complex machine learning model with a simpler, interpretable model within a localized region around the specific instance being explained <span class="citation" data-cites="Ribeiro_Singh_Guestrin_2016">[<a href="#ref-Ribeiro_Singh_Guestrin_2016" role="doc-biblioref">61</a>]</span>. Unlike SHAP, which relies on theoretical foundations from cooperative game theory, LIME focuses on practical, local interpretability by creating a surrogate model, such as linear regression, to approximate the original model’s decisions in the vicinity of a single instance.</p>
+<p>LIME works by perturbing the input data around the instance to generate a synthetic dataset. The model’s predictions for these perturbed data points are then used to train a simple, interpretable model that mimics the original model locally. For instance, in a model predicting a student’s grade, LIME might generate slightly varied versions of the student’s features (e.g., tweaking the frequency of forum contributions and session count) and observe how the predictions change (see <a href="#fig-lime">Figure&nbsp;<span>2.6</span></a>). The surrogate model identifies the main features driving the prediction, providing an interpretable explanation of the outcome.</p>
+<div id="fig-lime" class="quarto-figure quarto-figure-center anchored">
+<figure class="figure">
+<p><img src="img/images/image7.png" class="img-fluid figure-img" style="width:6.16772in"></p>
+<p></p><figcaption class="figure-caption"><strong>Figure</strong>&nbsp;6<strong>.</strong> LIME explanations</figcaption><p></p>
+</figure>
+</div>
+</section>
+<section id="counterfactual-explanations" class="level5" data-number="3.2.2.3">
+<h5 data-number="3.2.2.3" class="anchored" data-anchor-id="counterfactual-explanations"><span class="header-section-number">3.2.2.3</span> Counterfactual Explanations</h5>
+<p>Counterfactual explanations offer a way to understand model predictions by identifying the minimal changes in input features needed to achieve a different outcome <span class="citation" data-cites="Guidotti_2024">[<a href="#ref-Guidotti_2024" role="doc-biblioref">62</a>]</span>. Instead of explaining why a particular prediction was made, counterfactual explanations answer the question: <em>What could have been different to achieve the desired result?</em> This makes them distinctly actionable, as they focus on what is required to alter the prediction. In other words, they offer “prescriptive analytics” in which a specific course of action is recommended <span class="citation" data-cites="Susnjak_2024">[<a href="#ref-Susnjak_2024" role="doc-biblioref">63</a>]</span>.</p>
+<p>A counterfactual explanation involves generating a hypothetical instance similar to the original input but modified to produce the desired prediction. For example, in an educational context, if a student is predicted to score below a passing grade, a counterfactual explanation might suggest that increasing forum participation by 20% and improving the regularity of viewing the lectures by 10% would lead to a passing grade. These explanations are of particular value when the focus is often on understanding how to improve outcomes for individual students. Counterfactual explanations are generated using optimization techniques that find the smallest or most plausible changes to input features to alter the prediction.</p>
+<p>LLMs can play a significant role in enhancing the usability and accessibility of counterfactual explanations <span class="citation" data-cites="Susnjak_2024">[<a href="#ref-Susnjak_2024" role="doc-biblioref">63</a>]</span>, particularly in education. Although counterfactual explanations are inherently actionable, their technical nature can make them difficult for educators or learners to interpret and apply without additional support. LLMs, with their natural language generation capabilities, can translate counterfactual outputs into easily understandable, context-specific recommendations. For instance, rather than presenting raw numerical changes in input features, an LLM can reframe the explanation as a conversational suggestion: “To improve your chances of passing, consider increasing your forum participation by 20% and attending lectures more regularly by 10%.”</p>
+<p>A related alternative to counterfactual explanations is the Contrastive Explanation Method (CEM) <span class="citation" data-cites="Jacovi_Swayamdipta_Ravfogel_Elazar_Choi_Goldberg_2021">[<a href="#ref-Jacovi_Swayamdipta_Ravfogel_Elazar_Choi_Goldberg_2021" role="doc-biblioref">64</a>]</span>, which complements counterfactual explanations by focusing on contrastive reasoning. Rather than identifying minimal changes to alter a prediction, CEM emphasizes what features must be present (<em>pertinent positives</em>) and what features must be absent (<em>pertinent negatives</em>) for the current prediction to occur. For instance, in an educational setting, if a student is predicted to excel in a course, CEM might highlight pertinent positives such as consistent lecture engagement and forum participation, while pertinent negatives could include the absence of frequent late submissions. A question CEM aims to answer is: “Why this prediction instead of another?”. Thus, CEM provides a broader understanding of model behavior, offering both prescriptive insights and a deeper contextual explanation.</p>
+</section>
+<section id="saliency-maps-and-grad-cam" class="level5" data-number="3.2.2.4">
+<h5 data-number="3.2.2.4" class="anchored" data-anchor-id="saliency-maps-and-grad-cam"><span class="header-section-number">3.2.2.4</span> Saliency Maps and Grad-CAM</h5>
+<p>Saliency maps and Grad-CAM (Gradient-weighted Class Activation Mapping) are visualization techniques primarily used to explain predictions made by deep learning models <span class="citation" data-cites="Selvaraju_Cogswell_Das_Vedantam_Parikh_Batra_2017">[<a href="#ref-Selvaraju_Cogswell_Das_Vedantam_Parikh_Batra_2017" role="doc-biblioref">65</a>]</span>. These methods highlight the parts of the input data (e.g., pixels in an image or words in a text) that are most influential in the model’s decision-making process, providing localized and intuitive explanations of how the model interprets its inputs.</p>
+<p>Saliency maps visualize how sensitive a model’s prediction is to small changes in the input features. They compute the gradient of the model’s output with respect to the input, capturing how each input feature contributes to the prediction. The resulting visualization highlights areas of the input data that, if altered, would most significantly change the prediction. In text data, a saliency map might underline specific words or phrases in a reflective essay that contributed most to predicting a student’s understanding of a concept. Grad-CAM extends saliency maps by providing class-specific explanations. It focuses on the deeper convolutional layers of a neural network, computing gradients with respect to specific target classes. Grad-CAM generates a heatmap that overlays the input data, indicating regions that contributed most strongly to the prediction for a given class <span class="citation" data-cites="Selvaraju_Cogswell_Das_Vedantam_Parikh_Batra_2017">[<a href="#ref-Selvaraju_Cogswell_Das_Vedantam_Parikh_Batra_2017" role="doc-biblioref">65</a>]</span>. For instance, in an image classification model predicting whether a student is engaged in a video lecture, Grad-CAM might highlight that the model focused on the student’s face and eyes when assessing engagement. This is extremely relevant to assess bias in AI models. For example, in the automated engagement detection system depicted in Figure 7, it is clear that the fact that the student is wearing an eye patch is affecting the AI decision-making.</p>
+<div id="fig-1" class="quarto-figure quarto-figure-center anchored">
+<figure class="figure">
+<p><img src="img/images/image8.png" class="img-fluid figure-img" style="width:6.27083in"></p>
+<p></p><figcaption class="figure-caption"><strong>Figure</strong>&nbsp;7<strong>.</strong> Illustration of how a saliency map can assist in explaining an image classification model for student lecture engagement. The student image has been AI-generated.</figcaption><p></p>
+</figure>
+</div>
+</section>
+</section>
+</section>
+</section>
+<section id="why-xai-may-not-be-enough" class="level2" data-number="4">
+<h2 data-number="4" class="anchored" data-anchor-id="why-xai-may-not-be-enough"><span class="header-section-number">4</span> Why XAI may not be enough</h2>
+<p>Recent research on AI in education has shown that algorithms alone cannot fully capture the full gamut of complexity of learners, learning and the way they learn. While AI can identify important variables that might affect a student’s performance, it may —and often does— miss the meaningful connections to educational theories. For instance, recent work has shown that while XAI may offer insights into the factors that predict student performance, it failed to account for the heterogeneity of learners and their learning approaches. Such limitation is rather consequential given that educational interventions are often effective on average but may not be suitable for every student and such, may harm some <span class="citation" data-cites="Saqr_Cheng_López-Pernas_Beck_2024 Saqr_López-Pernas_2024">[<a href="#ref-Saqr_López-Pernas_2024" role="doc-biblioref">51</a>, <a href="#ref-Saqr_Cheng_López-Pernas_Beck_2024" role="doc-biblioref">66</a>]</span>. The researchers also demonstrated that when instance-level explainability was considered, it showed that AI made decisions based on incorrect predictors, leading to mis-predictions. These incorrect predictions show the inherent risk in a fully data-driven approach and the necessity for human oversight or judgment <span class="citation" data-cites="Saqr_López-Pernas_2024">[<a href="#ref-Saqr_López-Pernas_2024" role="doc-biblioref">51</a>]</span>. As such, a hybrid human-AI collaboration, where the expertise of educators complements —and critically evaluates— the explainability of AI might be needed. In doing so, hybrid human-AI collaboration could lead to more effective educational strategies that are responsive to the diverse needs of each learner and less prone to problematic conclusions. Such an approach would improve the reliability of AI predictions and also ensure that AI serves as an aid rather than a substitute for human expertise. It also further emphasizes the central role of critical AI literacy where AI decisions are understood and cortically evaluated.</p>
+<section id="evaluative-ai-a-new-perspective-on-xai" class="level3" data-number="4.1">
+<h3 data-number="4.1" class="anchored" data-anchor-id="evaluative-ai-a-new-perspective-on-xai"><span class="header-section-number">4.1</span> Evaluative AI: A New Perspective on XAI</h3>
+<p>Traditional XAI techniques, such as SHAP and LIME, provide explanations for the single most likely prediction or recommendation done by a system. For example, if an AI system predicts that a student is likely to drop out of a course, the XAI techniques that we have reviewed before can help understand which engagement indicators caused the AI to make that prediction. This can lead to overtrust or misinterpretation by users, especially in complex decision-making environments, since alternative hypotheses are not inspected. A recent approach by Miller <span class="citation" data-cites="Miller_2023">[<a href="#ref-Miller_2023" role="doc-biblioref">12</a>]</span> highlights the limitations of single outputs and introduces the concept of <em>evaluative AI</em>.</p>
+<p>Instead of providing definitive explanations, evaluative AI presents evidence for and against multiple hypotheses, allowing users to critically assess plausible outcomes. This approach could address trust issues by ensuring that AI-driven insights, such as student performance predictions, do not dictate decisions but inform them. For example, the same AI system described earlier could present arguments supporting and refuting the influence of forum participation, encouraging educators and learners to engage in critical analysis rather than passively accepting the AI’s output. This also aligns with Bearman et al. <span class="citation" data-cites="Bearman_Tai_Dawson_Boud_Ajjawi_2024">[<a href="#ref-Bearman_Tai_Dawson_Boud_Ajjawi_2024" role="doc-biblioref">67</a>]</span>, who highlight the importance of developing students’ evaluative judgment —the ability to appraise AI outputs and processes critically. Evaluative AI can not only enhance transparency but also support the critical engagement required for students and educators to maintain autonomy over AI-augmented decisions.Advocates for evaluative AI recognize, however, that this novel paradigm poses an additional cognitive load on the decision-makers compared with usual XAI recommendation-driven outputs, although not as much as having no explanations whatsoever <span class="citation" data-cites="Miller_2023">[<a href="#ref-Miller_2023" role="doc-biblioref">12</a>]</span>.</p>
+<p>Lastly, it should be noted that evaluative AI does not compete with but rather builds on XAI methods <span class="citation" data-cites="Miller_2023">[<a href="#ref-Miller_2023" role="doc-biblioref">12</a>]</span> and techniques such as feature importance, SHAP, and LIME. Nonetheless, new tools are needed to apply these tools in the framework of evaluative AI. Most likely, these will be more interactive tools that enable testing specific hypotheses in a similar way as local explainability is assessed. Though a system that supports inquiry-based decision-making based on evaluative AI is easy to envision for classic regression or classification models in which the outcome is heavily constrained, it is not as straightforward to picture in the context of generative AI where the possibilities are endless and therefore the need for users’ evaluative judgmentis greater <span class="citation" data-cites="Bearman_Tai_Dawson_Boud_Ajjawi_2024">[<a href="#ref-Bearman_Tai_Dawson_Boud_Ajjawi_2024" role="doc-biblioref">67</a>]</span>.</p>
+</section>
+</section>
+<section id="conclusion" class="level2" data-number="5">
+<h2 data-number="5" class="anchored" data-anchor-id="conclusion"><span class="header-section-number">5</span> Conclusion</h2>
+<p>This chapter has provided an overview of the main applications of AI in education as well as an introduction to XAI as a set of tools and methods for providing transparency and interpretability to otherwise opaque AI-driven systems, which are critical requirements for enabling trust, mitigating bias, and ensuring an ethical use of AI in educational contexts.</p>
+<p>The recent criticism about AI with regard to bias, fairness and transparency has also raised concerns in the education field <span class="citation" data-cites="Khalil_Prinsloo_Slade_2023">[<a href="#ref-Khalil_Prinsloo_Slade_2023" role="doc-biblioref">68</a>]</span>. Data used in AI models often reflects existing societal inequities, such as socioeconomic, racial, or gender disparities, which can inadvertently lead to models amplifying these biases. For example, patterns in historical educational data may disadvantage underrepresented groups, further perpetuating systemic inequities in learning environments <span class="citation" data-cites="Madaio_Blodgett_Mayfield_Dixon-Román_2022">[<a href="#ref-Madaio_Blodgett_Mayfield_Dixon-Román_2022" role="doc-biblioref">69</a>]</span>. Additionally, the aggregation of data across diverse populations can obscure the unique needs of specific learner subgroups, resulting in interventions that lack contextual relevance or efficacy <span class="citation" data-cites="Saqr_Vogelsmeier_López-Pernas_2024">[<a href="#ref-Saqr_Vogelsmeier_López-Pernas_2024" role="doc-biblioref">70</a>]</span>. A further challenge lies in the opacity of data processing and decision-making pipelines, which often leave educators and learners unaware of how their data influences predictions and recommendations.</p>
+<p>The interplay between XAI and LLMs offers a promising synergy that enhances the transparency, usability, and adaptability of AI systems in education. On the one hand, LLMs can improve the accessibility of XAI outputs by converting abstract visualizations, such as feature importance plots or decision attribution maps, into clear textual explanations. This ability ensures that the rationale behind AI-driven decisions is not only available but also comprehensible to non-technical stakeholders. In this way, LLMs serve as an interface that bridges the gap between the technical workings of XAI tools and their practical applications in educational contexts. On the other hand, XAI enhances the application of LLMs by addressing challenges related to their opacity and potential biases. It can clarify why a specific response or recommendation was generated, identify patterns of bias or unfairness in outputs, and explain the logic behind personalization or content adaptations. As these technologies continue to evolve, their integration into education, research, and other fields will further redefine workflows and learning experiences, opening new opportunities for innovation and personalization.</p>
+<p>As AI systems increasingly influence decision-making in education, it is critical to ensure that XAI tools promote autonomy rather than replace human judgment <span class="citation" data-cites="Saqr_López-Pernas_2024">[<a href="#ref-Saqr_López-Pernas_2024" role="doc-biblioref">51</a>]</span>. Developing evaluative judgment, as Bearman et al. <span class="citation" data-cites="Bearman_Tai_Dawson_Boud_Ajjawi_2024">[<a href="#ref-Bearman_Tai_Dawson_Boud_Ajjawi_2024" role="doc-biblioref">67</a>]</span> argue, is essential for enabling students and educators to critically engage with AI outputs. Emerging approaches, such as evaluative AI, suggest a shift from single-point explanations to evidence-based decision support, fostering critical thinking among educators and learners. Additionally, tools like LLMs can act as interpreters of XAI outputs, bridging data literacy gaps and encouraging users to challenge AI-driven recommendations. Fostering a culture of inquiry —where explanations are evaluated, not merely accepted— is necessary for XAI to truly empower stakeholders to make informed, ethical decisions in education.</p>
+
+
+</section>
+<section id="bibliography" class="level1 unnumbered">
+<h1 class="unnumbered">References</h1>
+<div id="refs" class="references csl-bib-body" role="doc-bibliography">
+<div id="ref-Cope_Kalantzis_2023" class="csl-entry" role="doc-biblioentry">
+<div class="csl-left-margin">1. </div><div class="csl-right-inline">Cope B, Kalantzis M (2023) A little history of e-learning: Finding new ways to learn in the PLATO computer education system, 1959–1976. History of education 1–32. https://doi.org/<a href="https://doi.org/10.1080/0046760x.2022.2141353">10.1080/0046760x.2022.2141353</a></div>
+</div>
+<div id="ref-Chaudhry_Kazim_2022" class="csl-entry" role="doc-biblioentry">
+<div class="csl-left-margin">2. </div><div class="csl-right-inline">Chaudhry MA, Kazim E (2022) Artificial intelligence in education (AIEd): A high-level academic and industry note 2021. AI and ethics 2:157–165. https://doi.org/<a href="https://doi.org/10.1007/s43681-021-00074-z">10.1007/s43681-021-00074-z</a></div>
+</div>
+<div id="ref-Guan_Mou_Jiang_2020" class="csl-entry" role="doc-biblioentry">
+<div class="csl-left-margin">3. </div><div class="csl-right-inline">Guan C, Mou J, Jiang Z (2020) Artificial intelligence innovation in education: A twenty-year data-driven historical analysis. International journal of innovation studies 4:134–147. https://doi.org/<a href="https://doi.org/10.1016/j.ijis.2020.09.001">10.1016/j.ijis.2020.09.001</a></div>
+</div>
+<div id="ref-Mustafa_Tlili_Lampropoulos_Huang_Jandrić_Zhao_Salha_Xu_Panda_Kinshuk_et_al_2024" class="csl-entry" role="doc-biblioentry">
+<div class="csl-left-margin">4. </div><div class="csl-right-inline">Mustafa MY, Tlili A, Lampropoulos G, Huang R, Jandrić P, Zhao J, Salha S, Xu L, Panda S, Kinshuk, López-Pernas S, Saqr M (2024) A systematic review of literature reviews on artificial intelligence in education (AIED): A roadmap to a future research agenda. Smart learning environments 11:1–33. https://doi.org/<a href="https://doi.org/10.1186/s40561-024-00350-5">10.1186/s40561-024-00350-5</a></div>
+</div>
+<div id="ref-Wang_Wang_Zhu_Wang_Tran_Du_2024" class="csl-entry" role="doc-biblioentry">
+<div class="csl-left-margin">5. </div><div class="csl-right-inline">Wang S, Wang F, Zhu Z, Wang J, Tran T, Du Z (2024) Artificial intelligence in education: A systematic literature review. Expert systems with applications 252:124167. https://doi.org/<a href="https://doi.org/10.1016/j.eswa.2024.124167">10.1016/j.eswa.2024.124167</a></div>
+</div>
+<div id="ref-Ali_Murray_Momin_Dwivedi_Malik_2024" class="csl-entry" role="doc-biblioentry">
+<div class="csl-left-margin">6. </div><div class="csl-right-inline">Ali O, Murray PA, Momin M, Dwivedi YK, Malik T (2024) The effects of artificial intelligence applications in educational settings: Challenges and strategies. Technological forecasting and social change 199:123076. https://doi.org/<a href="https://doi.org/10.1016/j.techfore.2023.123076">10.1016/j.techfore.2023.123076</a></div>
+</div>
+<div id="ref-Gillani_Eynon_Chiabaut_Finkel_2023" class="csl-entry" role="doc-biblioentry">
+<div class="csl-left-margin">7. </div><div class="csl-right-inline">Gillani N, Eynon R, Chiabaut C, Finkel K (2023) <a href="https://www.jstor.org/stable/48707970">Unpacking the <span>“black box”</span> of AI in education</a>. Journal of educational technology &amp; society 26:99–111</div>
+</div>
+<div id="ref-Bedué_Fritzsche_2022" class="csl-entry" role="doc-biblioentry">
+<div class="csl-left-margin">8. </div><div class="csl-right-inline">Bedué P, Fritzsche A (2022) Can we trust AI? An empirical investigation of trust requirements and guide to successful AI adoption. Journal of enterprise information management 35:530–549. https://doi.org/<a href="https://doi.org/10.1108/jeim-06-2020-0233">10.1108/jeim-06-2020-0233</a></div>
+</div>
+<div id="ref-Miller_2019" class="csl-entry" role="doc-biblioentry">
+<div class="csl-left-margin">9. </div><div class="csl-right-inline">Miller T (2019) Explanation in artificial intelligence: Insights from the social sciences. Artificial intelligence 267:1–38. https://doi.org/<a href="https://doi.org/10.1016/j.artint.2018.07.007">10.1016/j.artint.2018.07.007</a></div>
+</div>
+<div id="ref-Bogina_Hartman_Kuflik_Shulner-Tal_2022" class="csl-entry" role="doc-biblioentry">
+<div class="csl-left-margin">10. </div><div class="csl-right-inline">Bogina V, Hartman A, Kuflik T, Shulner-Tal A (2022) Educating software and AI stakeholders about algorithmic fairness, accountability, transparency and ethics. International journal of artificial intelligence in education 32:808–833. https://doi.org/<a href="https://doi.org/10.1007/s40593-021-00248-0">10.1007/s40593-021-00248-0</a></div>
+</div>
+<div id="ref-Khosravi_Shum_Chen_Conati_Tsai_Kay_Knight_Martinez-Maldonado_Sadiq_Gašević_2022" class="csl-entry" role="doc-biblioentry">
+<div class="csl-left-margin">11. </div><div class="csl-right-inline">Khosravi H, Shum SB, Chen G, Conati C, Tsai Y-S, Kay J, Knight S, Martinez-Maldonado R, Sadiq S, Gašević D (2022) Explainable artificial intelligence in education. Computers and Education: Artificial Intelligence 3:100074. https://doi.org/<a href="https://doi.org/10.1016/j.caeai.2022.100074">10.1016/j.caeai.2022.100074</a></div>
+</div>
+<div id="ref-Miller_2023" class="csl-entry" role="doc-biblioentry">
+<div class="csl-left-margin">12. </div><div class="csl-right-inline">Miller T (2023) <a href="https://doi.org/10.1145/3593013.3594001">Explainable AI is dead, long live explainable AI!: Hypothesis-driven decision support using evaluative AI</a>. In: 2023 ACM conference on fairness, accountability, and transparency. ACM, New York, NY, USA, pp 333–342</div>
+</div>
+<div id="ref-Monett_Lewis_2018" class="csl-entry" role="doc-biblioentry">
+<div class="csl-left-margin">13. </div><div class="csl-right-inline">Monett D, Lewis CWP (2018) <a href="https://doi.org/10.1007/978-3-319-96448-5_21">Getting clarity by defining artificial intelligence—a survey</a>. In: Studies in applied philosophy, epistemology and rational ethics. Springer International Publishing, Cham, pp 212–214</div>
+</div>
+<div id="ref-Bond_Khosravi_De_Laat_Bergdahl_Negrea_Oxley_Pham_Chong_Siemens_2024" class="csl-entry" role="doc-biblioentry">
+<div class="csl-left-margin">14. </div><div class="csl-right-inline">Bond M, Khosravi H, De Laat M, Bergdahl N, Negrea V, Oxley E, Pham P, Chong SW, Siemens G (2024) A meta systematic review of artificial intelligence in higher education: A call for increased ethics, collaboration, and rigour. International journal of educational technology in higher education 21: https://doi.org/<a href="https://doi.org/10.1186/s41239-023-00436-z">10.1186/s41239-023-00436-z</a></div>
+</div>
+<div id="ref-Zawacki-Richter_Marín_Bond_Gouverneur_2019" class="csl-entry" role="doc-biblioentry">
+<div class="csl-left-margin">15. </div><div class="csl-right-inline">Zawacki-Richter O, Marín VI, Bond M, Gouverneur F (2019) Systematic review of research on artificial intelligence applications in higher education – where are the educators? International journal of educational technology in higher education 16: https://doi.org/<a href="https://doi.org/10.1186/s41239-019-0171-0">10.1186/s41239-019-0171-0</a></div>
+</div>
+<div id="ref-Taylor_Yeung_Bashet_2021" class="csl-entry" role="doc-biblioentry">
+<div class="csl-left-margin">16. </div><div class="csl-right-inline">Taylor DL, Yeung M, Bashet AZ (2021) <a href="https://doi.org/10.1007/978-3-030-58948-6_2">Personalized and adaptive learning</a>. In: Innovative learning environments in STEM higher education. Springer International Publishing, Cham, pp 17–34</div>
+</div>
+<div id="ref-Zhong_2023" class="csl-entry" role="doc-biblioentry">
+<div class="csl-left-margin">17. </div><div class="csl-right-inline">Zhong L (2023) A systematic review of personalized learning in higher education: Learning content structure, learning materials sequence, and learning readiness support. Interactive learning environments 31:7053–7073. https://doi.org/<a href="https://doi.org/10.1080/10494820.2022.2061006">10.1080/10494820.2022.2061006</a></div>
+</div>
+<div id="ref-Urdaneta-Ponte_Mendez-Zorrilla_Oleagordia-Ruiz_2021" class="csl-entry" role="doc-biblioentry">
+<div class="csl-left-margin">18. </div><div class="csl-right-inline">Urdaneta-Ponte MC, Mendez-Zorrilla A, Oleagordia-Ruiz I (2021) Recommendation systems for education: Systematic review. Electronics 10:1611. https://doi.org/<a href="https://doi.org/10.3390/electronics10141611">10.3390/electronics10141611</a></div>
+</div>
+<div id="ref-Labadze_Grigolia_Machaidze_2023" class="csl-entry" role="doc-biblioentry">
+<div class="csl-left-margin">19. </div><div class="csl-right-inline">Labadze L, Grigolia M, Machaidze L (2023) Role of AI chatbots in education: Systematic literature review. International journal of educational technology in higher education 20: https://doi.org/<a href="https://doi.org/10.1186/s41239-023-00426-1">10.1186/s41239-023-00426-1</a></div>
+</div>
+<div id="ref-Fichten_Pickup_Asunsion_Jorgensen_Vo_Legault_Libman_2022" class="csl-entry" role="doc-biblioentry">
+<div class="csl-left-margin">20. </div><div class="csl-right-inline">Fichten C, Pickup D, Asunsion J, Jorgensen M, Vo C, Legault A, Libman E (2022) State of the research on artificial intelligence based apps for post-secondary students with disabilities. Exceptionality education international 31:62–76. https://doi.org/<a href="https://doi.org/10.5206/eei.v31i1.14089">10.5206/eei.v31i1.14089</a></div>
+</div>
+<div id="ref-Imani_Montazer_2019" class="csl-entry" role="doc-biblioentry">
+<div class="csl-left-margin">21. </div><div class="csl-right-inline">Imani M, Montazer GA (2019) A survey of emotion recognition methods with emphasis on e-learning environments. Journal of network and computer applications 147:102423. https://doi.org/<a href="https://doi.org/10.1016/j.jnca.2019.102423">10.1016/j.jnca.2019.102423</a></div>
+</div>
+<div id="ref-Andrejevic_Selwyn_2020" class="csl-entry" role="doc-biblioentry">
+<div class="csl-left-margin">22. </div><div class="csl-right-inline">Andrejevic M, Selwyn N (2020) Facial recognition technology in schools: Critical questions and concerns. Learning, media and technology 45:115–128. https://doi.org/<a href="https://doi.org/10.1080/17439884.2020.1686014">10.1080/17439884.2020.1686014</a></div>
+</div>
+<div id="ref-Lin_Huang_Lu_2023" class="csl-entry" role="doc-biblioentry">
+<div class="csl-left-margin">23. </div><div class="csl-right-inline">Lin C-C, Huang AYQ, Lu OHT (2023) Artificial intelligence in intelligent tutoring systems toward sustainable education: A systematic review. Smart learning environments 10:1–22. https://doi.org/<a href="https://doi.org/10.1186/s40561-023-00260-y">10.1186/s40561-023-00260-y</a></div>
+</div>
+<div id="ref-Lamti_El_Malhi_Sekhsoukh_Kerzazi_2024" class="csl-entry" role="doc-biblioentry">
+<div class="csl-left-margin">24. </div><div class="csl-right-inline">Lamti S, El Malhi M, Sekhsoukh R, Kerzazi N (2024) <a href="https://doi.org/10.1007/978-3-031-66850-0_27">Intelligent tutoring system for medical students: Opportunities and challenges</a>. In: Information systems engineering and management. Springer Nature Switzerland, Cham, pp 242–251</div>
+</div>
+<div id="ref-Crow_Luxton-Reilly_Wuensche_2018" class="csl-entry" role="doc-biblioentry">
+<div class="csl-left-margin">25. </div><div class="csl-right-inline">Crow T, Luxton-Reilly A, Wuensche B (2018) <a href="https://doi.org/10.1145/3160489.3160492">Intelligent tutoring systems for programming education: A systematic review</a>. In: Proceedings of the 20th australasian computing education conference. Association for Computing Machinery, New York, NY, USA, pp 53–62</div>
+</div>
+<div id="ref-Shafiq_Marjani_Habeeb_Asirvatham_2022" class="csl-entry" role="doc-biblioentry">
+<div class="csl-left-margin">26. </div><div class="csl-right-inline">Shafiq DA, Marjani M, Habeeb RAA, Asirvatham D (2022) Student retention using educational data mining and predictive analytics: A systematic literature review. IEEE Access 10:72480–72503. https://doi.org/<a href="https://doi.org/10.1109/ACCESS.2022.3188767">10.1109/ACCESS.2022.3188767</a></div>
+</div>
+<div id="ref-Hellas_Ihantola_Petersen_Ajanovski_Gutica_Hynninen_Knutas_Leinonen_Messom_Liao_2018" class="csl-entry" role="doc-biblioentry">
+<div class="csl-left-margin">27. </div><div class="csl-right-inline">Hellas A, Ihantola P, Petersen A, Ajanovski VV, Gutica M, Hynninen T, Knutas A, Leinonen J, Messom C, Liao SN (2018) <a href="https://doi.org/10.1145/3293881.3295783">Predicting academic performance: A systematic literature review</a>. In: Proceedings companion of the 23rd annual ACM conference on innovation and technology in computer science education. ACM, New York, NY, USA</div>
+</div>
+<div id="ref-Liz-Domínguez_Caeiro-Rodríguez_Llamas-Nistal_Mikic-Fonte_2019" class="csl-entry" role="doc-biblioentry">
+<div class="csl-left-margin">28. </div><div class="csl-right-inline">Liz-Domínguez M, Caeiro-Rodríguez M, Llamas-Nistal M, Mikic-Fonte FA (2019) Systematic literature review of predictive analysis tools in higher education. Applied sciences (Basel, Switzerland) 9:5569. https://doi.org/<a href="https://doi.org/10.3390/app9245569">10.3390/app9245569</a></div>
+</div>
+<div id="ref-Pinto_Abreu_Costa_Paiva_2023" class="csl-entry" role="doc-biblioentry">
+<div class="csl-left-margin">29. </div><div class="csl-right-inline">Pinto AS, Abreu A, Costa E, Paiva J (2023) How machine learning (ML) is transforming higher education: A systematic literature review. Journal of information systems engineering &amp; management 8:21168. https://doi.org/<a href="https://doi.org/10.55267/iadt.07.13227">10.55267/iadt.07.13227</a></div>
+</div>
+<div id="ref-Gašević_Dawson_Rogers_Gasevic_2016" class="csl-entry" role="doc-biblioentry">
+<div class="csl-left-margin">30. </div><div class="csl-right-inline">Gašević D, Dawson S, Rogers T, Gasevic D (2016) Learning analytics should not promote one size fits all: The effects of instructional conditions in predicting academic success. The internet and higher education 28:68–84. https://doi.org/<a href="https://doi.org/10.1016/j.iheduc.2015.10.002">10.1016/j.iheduc.2015.10.002</a></div>
+</div>
+<div id="ref-Saqr_Jovanović_Viberg_Gašević_2022" class="csl-entry" role="doc-biblioentry">
+<div class="csl-left-margin">31. </div><div class="csl-right-inline">Saqr M, Jovanović J, Viberg O, Gašević D (2022) Is there order in the mess? A single paper meta-analysis approach to identification of predictors of success in learning analytics. Studies in Higher Education 47:2370–2391. https://doi.org/<a href="https://doi.org/10.1080/03075079.2022.2061450">10.1080/03075079.2022.2061450</a></div>
+</div>
+<div id="ref-López-Pernas_Saqr_2024" class="csl-entry" role="doc-biblioentry">
+<div class="csl-left-margin">32. </div><div class="csl-right-inline">López-Pernas S, Saqr M (2024) How the dynamics of engagement explain the momentum of achievement and the inertia of disengagement: A complex systems theory approach. Computers in human behavior 153:108126. https://doi.org/<a href="https://doi.org/10.1016/j.chb.2023.108126">10.1016/j.chb.2023.108126</a></div>
+</div>
+<div id="ref-Saqr_López-Pernas_2022" class="csl-entry" role="doc-biblioentry">
+<div class="csl-left-margin">33. </div><div class="csl-right-inline">Saqr M, López-Pernas S (2022) How CSCL roles emerge, persist, transition, and evolve over time: A four-year longitudinal study. Computers &amp; education 104581. https://doi.org/<a href="https://doi.org/10.1016/j.compedu.2022.104581">10.1016/j.compedu.2022.104581</a></div>
+</div>
+<div id="ref-Dörrenbächer_Perels_2016" class="csl-entry" role="doc-biblioentry">
+<div class="csl-left-margin">34. </div><div class="csl-right-inline">Dörrenbächer L, Perels F (2016) Self-regulated learning profiles in college students: Their relationship to achievement, personality, and the effectiveness of an intervention to foster self-regulated learning. Learning and individual differences 51:229–241. https://doi.org/<a href="https://doi.org/10.1016/j.lindif.2016.09.015">10.1016/j.lindif.2016.09.015</a></div>
+</div>
+<div id="ref-Saqr_López-Pernas_Jovanović_Gašević_2023" class="csl-entry" role="doc-biblioentry">
+<div class="csl-left-margin">35. </div><div class="csl-right-inline">Saqr M, López-Pernas S, Jovanović J, Gašević D (2023) Intense, turbulent, or wallowing in the mire: A longitudinal study of cross-course online tactics, strategies, and trajectories. The Internet and Higher Education 57:100902. https://doi.org/<a href="https://doi.org/10.1016/j.iheduc.2022.100902">10.1016/j.iheduc.2022.100902</a></div>
+</div>
+<div id="ref-Baker_Hawn_2022" class="csl-entry" role="doc-biblioentry">
+<div class="csl-left-margin">36. </div><div class="csl-right-inline">Baker RS, Hawn A (2022) Algorithmic bias in education. International journal of artificial intelligence in education 32:1052–1092. https://doi.org/<a href="https://doi.org/10.1007/s40593-021-00285-9">10.1007/s40593-021-00285-9</a></div>
+</div>
+<div id="ref-Zhai_Chu_Chai_Jong_Istenic_Spector_Liu_Yuan_Li_2021" class="csl-entry" role="doc-biblioentry">
+<div class="csl-left-margin">37. </div><div class="csl-right-inline">Zhai X, Chu X, Chai CS, Jong MSY, Istenic A, Spector M, Liu J-B, Yuan J, Li Y (2021) A review of artificial intelligence (AI) in education from 2010 to 2020. Complexity 2021:1–18. https://doi.org/<a href="https://doi.org/10.1155/2021/8812542">10.1155/2021/8812542</a></div>
+</div>
+<div id="ref-Ramesh_Sanampudi_2022" class="csl-entry" role="doc-biblioentry">
+<div class="csl-left-margin">38. </div><div class="csl-right-inline">Ramesh D, Sanampudi SK (2022) An automated essay scoring systems: A systematic literature review. Artificial intelligence review 55:2495–2527. https://doi.org/<a href="https://doi.org/10.1007/s10462-021-10068-2">10.1007/s10462-021-10068-2</a></div>
+</div>
+<div id="ref-Ala-Mutka_2005" class="csl-entry" role="doc-biblioentry">
+<div class="csl-left-margin">39. </div><div class="csl-right-inline">Ala-Mutka KM (2005) A survey of automated assessment approaches for programming assignments. Computer science education 15:83–102. https://doi.org/<a href="https://doi.org/10.1080/08993400500150747">10.1080/08993400500150747</a></div>
+</div>
+<div id="ref-Jukiewicz_2024" class="csl-entry" role="doc-biblioentry">
+<div class="csl-left-margin">40. </div><div class="csl-right-inline">Jukiewicz M (2024) The future of grading programming assignments in education: The role of ChatGPT in automating the assessment and feedback process. Thinking skills and creativity 52:101522. https://doi.org/<a href="https://doi.org/10.1016/j.tsc.2024.101522">10.1016/j.tsc.2024.101522</a></div>
+</div>
+<div id="ref-Siiman_Rannastu-Avalos_Pöysä-Tarhonen_Häkkinen_Pedaste_2023" class="csl-entry" role="doc-biblioentry">
+<div class="csl-left-margin">41. </div><div class="csl-right-inline">Siiman LA, Rannastu-Avalos M, Pöysä-Tarhonen J, Häkkinen P, Pedaste M (2023) <a href="https://doi.org/10.1007/978-3-031-40113-8_9">Opportunities and challenges for AI-assisted qualitative data analysis: An example from collaborative problem-solving discourse data</a>. In: Lecture notes in computer science. Springer Nature Switzerland, Cham, pp 87–96</div>
+</div>
+<div id="ref-Cukurova_2024" class="csl-entry" role="doc-biblioentry">
+<div class="csl-left-margin">42. </div><div class="csl-right-inline">Cukurova M (2024) The interplay of learning, analytics and artificial intelligence in education: A vision for hybrid intelligence. British journal of educational technology: journal of the Council for Educational Technology. <a href="https://doi.org/10.1111/bjet.13514">https://doi.org/10.1111/bjet.13514</a></div>
+</div>
+<div id="ref-Williams_2023" class="csl-entry" role="doc-biblioentry">
+<div class="csl-left-margin">43. </div><div class="csl-right-inline">Williams P (2023) AI, analytics and a new assessment model for universities. Education sciences 13:1040. https://doi.org/<a href="https://doi.org/10.3390/educsci13101040">10.3390/educsci13101040</a></div>
+</div>
+<div id="ref-Yan_Martinez-Maldonado_Gasevic_2024" class="csl-entry" role="doc-biblioentry">
+<div class="csl-left-margin">44. </div><div class="csl-right-inline">Yan L, Martinez-Maldonado R, Gasevic D (2024) <a href="https://doi.org/10.1145/3636555.3636856">Generative artificial intelligence in learning analytics: Contextualising opportunities and challenges through the learning analytics cycle</a>. In: Proceedings of the 14th learning analytics and knowledge conference. ACM, New York, NY, USA</div>
+</div>
+<div id="ref-Chen_Xiang_Zhou_Jia_Shang_Li_Gašević_Fan_2025" class="csl-entry" role="doc-biblioentry">
+<div class="csl-left-margin">45. </div><div class="csl-right-inline">Chen A, Xiang M, Zhou J, Jia J, Shang J, Li X, Gašević D, Fan Y (2025) Unpacking help-seeking process through multimodal learning analytics: A comparative study of ChatGPT vs human expert. Computers &amp; education 226:105198. https://doi.org/<a href="https://doi.org/10.1016/j.compedu.2024.105198">10.1016/j.compedu.2024.105198</a></div>
+</div>
+<div id="ref-Lytton_2024" class="csl-entry" role="doc-biblioentry">
+<div class="csl-left-margin">46. </div><div class="csl-right-inline">Lytton C (2024) <a href="https://www.bbc.com/worklife/article/20240214-ai-recruiting-hiring-software-bias-discrimination">AI hiring tools may be filtering out the best job applicants</a>. BBC</div>
+</div>
+<div id="ref-McCallum_2024" class="csl-entry" role="doc-biblioentry">
+<div class="csl-left-margin">47. </div><div class="csl-right-inline">McCallum S (2024) <a href="https://www.bbc.com/news/technology-68655429">Payout for uber eats driver over face scan bias case</a>. BBC News</div>
+</div>
+<div id="ref-Ali_Abuhmed_El-Sappagh_Muhammad_Alonso-Moral_Confalonieri_Guidotti_Del_Ser_Díaz-Rodríguez_Herrera_2023" class="csl-entry" role="doc-biblioentry">
+<div class="csl-left-margin">48. </div><div class="csl-right-inline">Ali S, Abuhmed T, El-Sappagh S, Muhammad K, Alonso-Moral JM, Confalonieri R, Guidotti R, Del Ser J, Díaz-Rodríguez N, Herrera F (2023) Explainable artificial intelligence (XAI): What we know and what is left to attain trustworthy artificial intelligence. An international journal on information fusion 99:101805. https://doi.org/<a href="https://doi.org/10.1016/j.inffus.2023.101805">10.1016/j.inffus.2023.101805</a></div>
+</div>
+<div id="ref-Leichtmann_Humer_Hinterreiter_Streit_Mara_2023" class="csl-entry" role="doc-biblioentry">
+<div class="csl-left-margin">49. </div><div class="csl-right-inline">Leichtmann B, Humer C, Hinterreiter A, Streit M, Mara M (2023) Effects of explainable artificial intelligence on trust and human behavior in a high-risk decision task. Computers in human behavior 139:107539. https://doi.org/<a href="https://doi.org/10.1016/j.chb.2022.107539">10.1016/j.chb.2022.107539</a></div>
+</div>
+<div id="ref-Saeed_Omlin_2023" class="csl-entry" role="doc-biblioentry">
+<div class="csl-left-margin">50. </div><div class="csl-right-inline">Saeed W, Omlin C (2023) Explainable AI (XAI): A systematic meta-survey of current challenges and future opportunities. Knowledge-based systems 263:110273. https://doi.org/<a href="https://doi.org/10.1016/j.knosys.2023.110273">10.1016/j.knosys.2023.110273</a></div>
+</div>
+<div id="ref-Saqr_López-Pernas_2024" class="csl-entry" role="doc-biblioentry">
+<div class="csl-left-margin">51. </div><div class="csl-right-inline">Saqr M, López-Pernas S (2024) Why explainable AI may not be enough: Predictions and mispredictions in decision making in education. Smart learning environments. <a href="https://doi.org/10.1186/s40561-024-00343-4">https://doi.org/10.1186/s40561-024-00343-4</a></div>
+</div>
+<div id="ref-Kumar_Boulanger_2020" class="csl-entry" role="doc-biblioentry">
+<div class="csl-left-margin">52. </div><div class="csl-right-inline">Kumar V, Boulanger D (2020) Explainable automated essay scoring: Deep learning really has pedagogical value. Frontiers in education 5:572367. https://doi.org/<a href="https://doi.org/10.3389/feduc.2020.572367">10.3389/feduc.2020.572367</a></div>
+</div>
+<div id="ref-Afzaal_Nouri_Zia_Papapetrou_Fors_Wu_Li_Weegar_2021" class="csl-entry" role="doc-biblioentry">
+<div class="csl-left-margin">53. </div><div class="csl-right-inline">Afzaal M, Nouri J, Zia A, Papapetrou P, Fors U, Wu Y, Li X, Weegar R (2021) Explainable AI for data-driven feedback and intelligent action recommendations to support students self-regulation. Frontiers in artificial intelligence 4:723447. https://doi.org/<a href="https://doi.org/10.3389/frai.2021.723447">10.3389/frai.2021.723447</a></div>
+</div>
+<div id="ref-Yang_Ye_Xia_2022" class="csl-entry" role="doc-biblioentry">
+<div class="csl-left-margin">54. </div><div class="csl-right-inline">Yang G, Ye Q, Xia J (2022) Unbox the black-box for the medical explainable AI via multi-modal and multi-centre data fusion: A mini-review, two showcases and beyond. An international journal on information fusion 77:29–52. https://doi.org/<a href="https://doi.org/10.1016/j.inffus.2021.07.016">10.1016/j.inffus.2021.07.016</a></div>
+</div>
+<div id="ref-Saqr_López-Pernas_2025a" class="csl-entry" role="doc-biblioentry">
+<div class="csl-left-margin">55. </div><div class="csl-right-inline">Saqr M, López-Pernas S (2025) Explainable artificial intelligence in education: A tutorial for identifying the variables that matter. In: Advanced learning analytics methods: AI, precision and complexity. Springer</div>
+</div>
+<div id="ref-Wei_Lu_Song_2015" class="csl-entry" role="doc-biblioentry">
+<div class="csl-left-margin">56. </div><div class="csl-right-inline">Wei P, Lu Z, Song J (2015) Variable importance analysis: A comprehensive review. Reliability Engineering &amp; System Safety 142:399–432. https://doi.org/<a href="https://doi.org/10.1016/j.ress.2015.05.018">10.1016/j.ress.2015.05.018</a></div>
+</div>
+<div id="ref-Lundberg_Lee_2017" class="csl-entry" role="doc-biblioentry">
+<div class="csl-left-margin">57. </div><div class="csl-right-inline">Lundberg SM, Lee S-I (2017) <a href="http://papers.nips.cc/paper/7062-a-unified-approach-to-interpreting-model-predictions.pdf">A unified approach to interpreting model predictions</a>. In: Guyon I, Luxburg UV, Bengio S, Wallach H, Fergus R, Vishwanathan S, Garnett R (eds) Advances in neural information processing systems 30. Curran Associates, Inc., pp 4765–4774</div>
+</div>
+<div id="ref-Tiukhova_Vemuri_Óskarsdóttir_Poelmans_Baesens_Snoeck_2024" class="csl-entry" role="doc-biblioentry">
+<div class="csl-left-margin">58. </div><div class="csl-right-inline">Tiukhova E, Vemuri P, Óskarsdóttir M, Poelmans S, Baesens B, Snoeck M (2024) <a href="https://aisel.aisnet.org/hicss-57/da/learning_analytics/3">Discovering unusual study patterns using anomaly detection and XAI</a>. In: Hawaii international conference on system sciences 2024 (HICSS-57)</div>
+</div>
+<div id="ref-Roshan_Zafar_2023" class="csl-entry" role="doc-biblioentry">
+<div class="csl-left-margin">59. </div><div class="csl-right-inline">Roshan K, Zafar A (2023) <a href="https://ieeexplore.ieee.org/abstract/document/9763241/">Using kernel SHAP XAI method to optimize the network anomaly detection model</a></div>
+</div>
+<div id="ref-Saqr_López-Pernas_2025b" class="csl-entry" role="doc-biblioentry">
+<div class="csl-left-margin">60. </div><div class="csl-right-inline">Saqr M, López-Pernas S (2025) Explainable artificial intelligence: Evaluating individual and local machine learning predictions in r. In: Advanced learning analytics methods: AI, precision and complexity. Springer</div>
+</div>
+<div id="ref-Ribeiro_Singh_Guestrin_2016" class="csl-entry" role="doc-biblioentry">
+<div class="csl-left-margin">61. </div><div class="csl-right-inline">Ribeiro MT, Singh S, Guestrin C (2016) <a href="https://doi.org/10.1145/2939672.2939778">Why should i trust you?: Explaining the predictions of any classifier</a>. In: Proceedings of the 22nd ACM SIGKDD international conference on knowledge discovery and data mining. ACM, New York, NY, USA</div>
+</div>
+<div id="ref-Guidotti_2024" class="csl-entry" role="doc-biblioentry">
+<div class="csl-left-margin">62. </div><div class="csl-right-inline">Guidotti R (2024) Counterfactual explanations and how to find them: Literature review and benchmarking. Data mining and knowledge discovery 38:2770–2824. https://doi.org/<a href="https://doi.org/10.1007/s10618-022-00831-6">10.1007/s10618-022-00831-6</a></div>
+</div>
+<div id="ref-Susnjak_2024" class="csl-entry" role="doc-biblioentry">
+<div class="csl-left-margin">63. </div><div class="csl-right-inline">Susnjak T (2024) Beyond predictive learning analytics modelling and onto eXplainable artificial intelligence with prescriptive analytics and ChatGPT. International journal of artificial intelligence in education 34:452–482. https://doi.org/<a href="https://doi.org/10.1007/s40593-023-00336-3">10.1007/s40593-023-00336-3</a></div>
+</div>
+<div id="ref-Jacovi_Swayamdipta_Ravfogel_Elazar_Choi_Goldberg_2021" class="csl-entry" role="doc-biblioentry">
+<div class="csl-left-margin">64. </div><div class="csl-right-inline">Jacovi A, Swayamdipta S, Ravfogel S, Elazar Y, Choi Y, Goldberg Y (2021) <a href="http://arxiv.org/abs/2103.01378">Contrastive explanations for model interpretability</a></div>
+</div>
+<div id="ref-Selvaraju_Cogswell_Das_Vedantam_Parikh_Batra_2017" class="csl-entry" role="doc-biblioentry">
+<div class="csl-left-margin">65. </div><div class="csl-right-inline">Selvaraju RR, Cogswell M, Das A, Vedantam R, Parikh D, Batra D (2017) <a href="http://openaccess.thecvf.com/content_ICCV_2017/papers/Selvaraju_Grad-CAM_Visual_Explanations_ICCV_2017_paper.pdf">Grad-CAM: Visual explanations from deep networks via gradient-based localization</a>. In: Proceedings of the IEEE international conference on computer vision. pp 618–626</div>
+</div>
+<div id="ref-Saqr_Cheng_López-Pernas_Beck_2024" class="csl-entry" role="doc-biblioentry">
+<div class="csl-left-margin">66. </div><div class="csl-right-inline">Saqr M, Cheng R, López-Pernas S, Beck ED (2024) Idiographic artificial intelligence to explain students’ self-regulation: Toward precision education. Learning and individual differences 114:102499. https://doi.org/<a href="https://doi.org/10.1016/j.lindif.2024.102499">10.1016/j.lindif.2024.102499</a></div>
+</div>
+<div id="ref-Bearman_Tai_Dawson_Boud_Ajjawi_2024" class="csl-entry" role="doc-biblioentry">
+<div class="csl-left-margin">67. </div><div class="csl-right-inline">Bearman M, Tai J, Dawson P, Boud D, Ajjawi R (2024) Developing evaluative judgement for a time of generative artificial intelligence. Assessment and evaluation in higher education 49:893–905. https://doi.org/<a href="https://doi.org/10.1080/02602938.2024.2335321">10.1080/02602938.2024.2335321</a></div>
+</div>
+<div id="ref-Khalil_Prinsloo_Slade_2023" class="csl-entry" role="doc-biblioentry">
+<div class="csl-left-margin">68. </div><div class="csl-right-inline">Khalil M, Prinsloo P, Slade S (2023) Fairness, trust, transparency, equity, and responsibility in learning analytics. Journal of learning analytics 10:1–7. https://doi.org/<a href="https://doi.org/10.18608/jla.2023.7983">10.18608/jla.2023.7983</a></div>
+</div>
+<div id="ref-Madaio_Blodgett_Mayfield_Dixon-Román_2022" class="csl-entry" role="doc-biblioentry">
+<div class="csl-left-margin">69. </div><div class="csl-right-inline">Madaio M, Blodgett SL, Mayfield E, Dixon-Román E (2022) <a href="https://doi.org/10.4324/9780429329067-11">Beyond <span>“fairness”</span></a>. In: The ethics of artificial intelligence in education, 1st Edition. Routledge, New York, pp 203–239</div>
+</div>
+<div id="ref-Saqr_Vogelsmeier_López-Pernas_2024" class="csl-entry" role="doc-biblioentry">
+<div class="csl-left-margin">70. </div><div class="csl-right-inline">Saqr M, Vogelsmeier LVDE, López-Pernas S (2024) Capturing where the learning process takes place: A person-specific and person-centered primer. Learning and individual differences 113:102492. https://doi.org/<a href="https://doi.org/10.1016/j.lindif.2024.102492">10.1016/j.lindif.2024.102492</a></div>
+</div>
+</div>
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    target: function(trigger) {
+      return trigger.previousElementSibling;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+  function tippyHover(el, contentFn) {
+    const config = {
+      allowHTML: true,
+      content: contentFn,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start'
+    };
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      return note.innerHTML;
+    });
+  }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+<nav class="page-navigation">
+  <div class="nav-page nav-page-previous">
+      <a href="../../chapters/ch01-intro/ch01-intro.html" class="pagination-link">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Introduction</span></span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+      <a href="../../chapters/ch03-prediction/ch03-prediction.html" class="pagination-link">
+        <span class="nav-page-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Prediction</span></span> <i class="bi bi-arrow-right-short"></i>
+      </a>
+  </div>
+</nav>
+</div> <!-- /content -->
+<footer class="footer">
+  <div class="nav-footer">
+      <div class="nav-footer-center"><div class="cookie-consent-footer"><a href="#" id="open_preferences_center">Cookie Preferences</a></div></div>
+  </div>
+</footer>
+<script>
+  document.querySelector(".quarto-title").innerHTML =  '<div class="badge bs-warning bg-warning text-dark" style="float:right;">Pre-print</div>' +  document.querySelector(".quarto-title").innerHTML
+  var keywords = document.querySelector('meta[name="keywords"]')
+  if (keywords && keywords.content) {
+    document.getElementById("title-block-header").innerHTML = document.getElementById("title-block-header").innerHTML + 
+      '<div class="abstract"><div class="abstract-title">Keywords</div><div class="quarto-title-meta-contents"><p>'+
+      keywords.content +
+      '</p></div></div>'
+  }
+  function insertAfter(referenceNode, newNode) {
+      referenceNode.parentNode.insertBefore(newNode, referenceNode.nextSibling);
+  }
+  var authors = document.querySelectorAll('meta[name="author"]')
+  if (authors) {
+    var authorlist = Array.from(authors).map(e=>e.content).reduce((accum, curr) =>  accum + curr + ", ", "","").replace(/\,\s$/,"")
+    var citt = `<div class="card border-primary mb-3" style=;">
+      <div class="card-header bg-primary">To cite this chapter</div>
+      <div class="card-body small">
+        <p class="card-text">${authorlist} (2025).
+        <b>${document.getElementsByClassName("chapter-title")[0].innerText}</b>. 
+        In M. Saqr & S. López-Pernas (Eds.), <i>Advanced Learning Analytics Methods: AI, Precision and Complexity</i> 
+        (in – press). Springer. <a href="${window.location.href}">${window.location.href}</a></p>
+      </div>
+    </div>`;
+    insertAfter(document.getElementsByTagName("HEADER")[1],new DOMParser().parseFromString(citt, 'text/html').body.childNodes[0])
+  }
+</script>
+
+
+
+</body></html>

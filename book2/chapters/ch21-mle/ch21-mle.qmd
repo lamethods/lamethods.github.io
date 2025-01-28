@@ -1,0 +1,306 @@
+---
+title: "Detecting Long-Memory Psychological Processes in Academic Settings Using Whittle’s Maximum Likelihood Estimator: An Application with R"
+format: html
+bibliography: references.bib
+number-sections: true
+abstract: "Person-specific approaches are best suited to account for the complex, dynamic, and idiosyncratic processes from which cognitive, emotional, motivational, relational, and behavioral patterns emerge. Among these approaches, Whittle's approximation of the Maximum Likelihood Estimator (MLE) enables the detection of long-term memory processes in relatively short time series of data. In this chapter, we outline the principles of Whittle's MLE, illustrate its application—using R—to the motivational dynamics of approach and avoidance in an academic context, and then discuss the theoretical and practical implications of detecting long-memory processes in the field of education and learning."
+keywords: "achievement motivation, approach, avoidance, complex dynamical systems, fractals, learning analytics, long-memory processes, person-specific methods, time series analysis"
+---
+
+```{=html}
+<!--
+```
+
+## Introduction
+
+People's cognitive, emotional, motivational, relational, and behavioral patterns emerge from complex, dynamic, and idiosyncratic processes [@gernigon_2024b]. Thus, these processes operate in an original way, at an individual level which is the most relevant scale for examining them [@van_geert_2022]. This requires person-specific methods, particularly those based on the analysis of time series of idiographic data [@saqr_2024]. Some of these analysis techniques, such as the popular *Detrended Fluctuation Analysis* (DFA; [@peng_1993]), can be used to detect whether a variable of interest is randomly fluctuating (white noise[^1]), or follows a movement deviating from its trajectory under the influence of random shocks (Brownian motion[^2]), or obey particular auto-correlation structures that are redundant across different time scales and that reveal a kind of memory process in the form of a long-term dependency (1/$f$ noise or pink noise[^3]).
+
+[^1]: White noise is a stochastic process, that is, which is reflected by a signal that unfolds randomly over time and thus has a null autocorrelation.
+
+[^2]: Originally, Brownian motion is the random movement of a particle in a liquid or gas due to successive shocks from surrounding molecules.
+
+[^3]: 1/$f$ noise or pink noise features distributions of temporal fluctuations of a phenomenon displaying the following properties: The frequencies of fluctuations remain invariant across time scales; the frequency of a particular magnitude of fluctuation is inversely proportional to that magnitude; lagged autocorrelations decay slowly, as an inverse power of lag (i.e., long-range temporal correlations).
+
+In addition to its ease of implementation, DFA has the advantage of being applicable to either stationary (e.g., white noise, pink noise) or non-stationary signals (Brownian motion). This method is based on a statistical property of fractional Brownian motion [@mandelbrot_1968] whereby the size of the variance to the power $𝛼$ is proportional to the sample size. The power value $𝛼$ is the fractal exponent which provides information about the fluctuation structure of the variable of interest. When $𝛼$ is between 0 and 1, the time series is stationary and can be qualified as noise. From 0 to 0.5, the time series is anti-correlated to itself, which means that an increase in the value of the variable is followed by a decrease and vice versa. At 0.5 the series corresponds to white Gaussian noise. From 0.5 to 1 the time series is autocorrelated and displays long-term memory properties. For a $𝛼$ between 1 and 2, the series is non-stationary and is referred to as motion. A value of 1.5 corresponds to ordinary Brownian motion [@delignieres_2013].
+
+Despite its great popularity, DFA suffers from reliability issues when confronted with certain empirical data, particularly when the length of the time series to be analyzed is less than 500 data points. Depending on the size and target population of the studies for which this method is to be applied, it may prove very difficult to obtain such series lengths. For example, if we want to analyze walking, 500 steps represent between 10 and 12 minutes of walking, which is difficult to achieve for elderly adults with a loss of autonomy [@phinyomark_2020].
+
+Some methods make it possible to estimate the fractal exponent of shorter time series without being affected by the estimation biases that DFA presents for such series [@likens_2023; @mangalam_2023; @phinyomark_2020; @roume_2023]. This chapter presents one of these methods: Whittle's approximation of the Maximum Likelihood Estimator (MLE). Whereas the DFA output is estimated via linear regression, Whittle’s estimator is a more sophisticated method that consists of solving an optimization problem [@beran_2013]. As a comparison, with only 128 data points, Whittle's MLE gives results twice as accurate as the DFA on 512 data points [@roume_2023], the latter offering results that were however already considered satisfactory [@almurad_2016].
+
+The first part of the chapter is devoted to the presentation of the principles of Whittle's MLE, as well as their formal implementation. Next, a concrete application of Whittle's MLE to the study of the dynamics of approach and avoidance motivation in an academic context is offered as an illustration of these principles. This illustration begins with a presentation of the motivational model referred to, continues with the application of Whittle's MLE to a time series of individual data relating to this model, and ends with a discussion of the result obtained. The chapter concludes with an attempt to reconcile variable-centered nomothetic approaches with person-specific approaches. This reconciliation, potentially capable of resolving the ergodicity issue in psychological science, requires the primacy of person-specific approaches.
+
+## Principles of Whittle’s Maximum Likelihood Estimator (MLE)
+
+The general principle of Whittle's estimator is to find the value of $𝛼$ in the interval \[0,1\] that maximizes the Whittle's log-likelihood function accounted for by Equation 1:
+
+$$
+l_w(\alpha) = -\frac{2}{N} \sum_{j=1}^{m} \left( \ln cT'(\omega_j; \alpha) + \frac{P(\omega_j)}{cT'(\omega_j; \alpha)} \right),\tag{1}
+$$
+
+where $P(\omega_j)$ is the periodogram of the time series $x(j)$ of length $N$; $\omega_j$ are Fourier’s frequencies defined as $\omega = 2\pi j/N$; $m$ is the integer part of $(N-1)/2$; $T'(\omega_j; \alpha)$ is the theoretical spectral density; and $c$ is a constant used to adjust the powers of the theoretical spectrum.
+
+In this chapter, we will use the theoretical power spectral density of an ARFIMA (Autoregressive Fractionally Integrated Moving Average[^4]) model, which enables the modeling of time series with long memory. ARFIMA models are denoted ARFIMA($p$,$d$,$q$) with $p$ as the order indicating the number of time lags of the autoregressive model, $q$ as the order of the moving-average model, and $d$ as the fractional integration parameter ranging from -0.5 to 0.5. It corresponds to the exponent $𝛼$ via the conversion: $𝛼$ = $d$ + ½ with $𝛼$ belonging to the interval \[0, 1\]. The theoretical power spectral density that is used here is that of the ARFIMA(0,$d$,0) model, which reads as follow:
+
+[^4]: ARFIMA (Autoregressive Fractionally Integrated Moving Average) models are statistical tools that model time series with long memory. By allowing the differencing parameter $d$ to take fractional values, they generalize ARIMA (Autoregressive Integrated Moving Average) models, which themselves generalize ARMA (Autoregressive Moving Average) models to non-stationary series.
+
+$$
+T'(\omega_j; \alpha) = \frac{1}{2\pi} \left( 2 \sin \frac{\omega_j}{2} \right)^{1-2\alpha}. \tag{2}
+$$
+
+An algorithm based on Whittle's estimator can be developed in three steps. The first one combines data pre-processing, via normalization of the time series and then estimation of the periodogram of this series. The second step is the estimation of $α$. An optimization algorithm is used to find the $α$ value for which the Whittle’s log-likelihood function, $l_w(\alpha)$, reaches its maximum value. The third step is optional and is carried out only if the $α$ value obtained from the algorithm is that of the upper bound. In this case, the maximum of the $l_w(\alpha)$ function can be considered to belong to the interval \[1,2\], which means that the time series is probably non-stationary. Indeed, the $l_w(\alpha)$ function is only applicable for stationary signals, with an $𝛼$ value within the interval \[0,1\]. Nevertheless, non-stationary series can be analyzed by using a differentiated (derivative) version of the original series and then adding 1 to the $𝛼$ value provided by the algorithm [@diebolt_2005]. In summary, the third step consists of differentiating the time series, then applying the first two steps and finally adding 1 to the $𝛼$ value obtained from the algorithm.
+
+## Application of Whittle's MLE to motivational dynamics in an academic context
+
+### The dynamical model of approach and avoidance motivation in achievement contexts
+
+Motivational states regarding a goal to be achieved are properties emerging from complex dynamical systems. As such, motivational states fluctuate non-linearly, thus exhibiting various patterns such as persistence of effort or its absence, as well as oscillations and even abrupt shifts between motivated and unmotivated states [@gernigon_2024a; @gernigon_2015; @lopez-pernas_2024b]. We will illustrate how Whittle's MLE can help characterize the dynamics and the complexity of approach and avoidance motivations in an academic context, more specifically with respect to a Ph.D. student's pursuit of the goal of reaching the defense of their doctoral thesis.
+
+Based on the complex dynamical system perspective, approach and avoidance motivational states can be conceptualized as being constrained by two competing attractors [@gernigon_2015]. Attractors are sets of states of a system that are more or less strongly attracted and stabilized within a limited number of values, as if—metaphorically—the trajectories of these states (here, the motivational states) were constrained by the valleys of a hilly landscape. According to Tuller et al. [@tuller_1994], the shape of a landscape that may include one or two attractors can be accounted for by the following equation:
+
+$$
+V(x) = kx - \frac{1}{2} x^2 + \frac{1}{4} x^4, \tag{3}
+$$
+
+where $V(x)$ is the potential function that constrains the different motivational states $x$; $k$ is the control parameter that specifies the direction and degree of tilt of the graph of $V(x)$ towards approach (when $k$ tends towards +1) and avoidance (when $k$ tends towards –1) motivations (see Figure 1).
+
+![Approach (Appr.) and avoidance (Avoid.) attractor landscapes as defined by Equation 3 with different values of the control parameter $k$ (from +1 to –1).](attractor_landscapes.png){width="600"}
+
+The value of the parameter $k$ is itself conceived as resulting from the combination of three social cognitive variables considered to be necessary and sufficient for achievement motivation: Competence expectancies with regard to a goal (e.g., [@bandura_1997]), as well as the benefit to the self that the prospect of achieving a goal conveys and the threat to the self associated with the prospect of failure (e.g., [@crocker_2001]). These three variables contribute to determining $k$ according to Equation 4:
+
+$$
+k = (Ce \times Bs) - [Ts \times (1 - Ce)], \tag{4}
+$$
+
+where $Ce$ is the level of competence expectancies, $Bs$ is the potential benefit to the self, and $Ts$ is the potential threat to the self, with $Ce$, $Bs$, and $Ts$ $\in$ \]0;1\].
+
+The analysis of the time series of $k$ values using Whittle's MLE will make it possible to test whether the motivational states of approach and avoidance do emerge from a system of elements (i.e., the internal and environmental antecedents of motivation identified in the literature) interweaving complex interactions. The time series under study comes from data collected from a Ph.D. student who responded every week—over 111 consecutive weeks—to three items related to her goal of completing her doctoral dissertation, a goal she eventually achieved. Each week, each of these three items was drawn at random from the items of each of the three dimensions $Ce$, $Bs$, and $Ts$ of Teboul et al.'s [@teboul_2019] Approach-Avoidance System Questionnaire. This weekly measurement of $Ce$, $Bs$, and $Ts$ enabled $k$ to be calculated for each week.
+
+### Analysis of the time series of $k$ using R
+
+#### Libraries used
+
+Whittle's MLE was originally coded using MATLAB language (see [@roume_2023]). However, the MATLAB algorithm can be translated into R code using only the `stats` package, which is a basic package—automatically installed—on R. This package contains a set of useful functions for many statistical calculations. We will use `rio` to import and load data into R. We will use `dplyr`, `gt` and `ggplot2` packages to easily manipulate and visualize our data (to learn how to use these three packages, readers can refer to the previous edition of the book, see [@kopra_2024; @lopez-pernas_2024a]. These five packages can be installed using the `install.packages()` function.
+
+```{r, message = FALSE, error = FALSE, warning = FALSE, include=FALSE}
+if (!require("stats")) install.packages("stats")
+if (!require("rio")) install.packages("rio")
+if (!require("dplyr")) install.packages("dplyr")
+if (!require("gt")) install.packages("gt")
+if (!require("ggplot2")) install.packages("ggplot2")
+```
+
+```{r, message = FALSE, error = FALSE, warning = FALSE, results = FALSE, eval = FALSE}
+install.packages("stats")
+install.packages("rio")
+install.packages("dplyr")
+install.packages("gt")
+install.packages("ggplot2")
+```
+
+These packages can then be loaded with the `library()` function.
+
+```{r, message = FALSE, error = FALSE, warning = FALSE}
+library(stats)
+library(rio)
+library(dplyr)
+library(gt)
+library(ggplot2)
+```
+
+#### Data visualization
+
+First, we load the data with `import()` function from `rio` and visualize an extract of them (@fig-motivation-data) with the function `gt_preview()`.
+
+```{r,message = FALSE, error = FALSE, warning = FALSE}
+#| label: fig-motivation-data
+#| fig-cap: "Preview of motivation data"
+#| out-width: 70%
+MotivationData <- import(paste0(
+  "https://github.com/lamethods/data2/raw/main/",
+  "motivation/Motivation.xlsx"
+))
+gt_preview(MotivationData, top_n = 8, bottom_n = 1)
+```
+
+The dataset comprises four columns of length 111: the first column is the number of weeks ('Week'), the second column is the values of competence expectancies for each week ('Ce'), the third is the values of potential benefit to the self ('Bs') and the last column the values of potential threat to the self ('Ts'). To calculate the $k$ values according to Equation 4, we use `mutate` from the `dplyr` package to create a fifth column and apply the equation for each week (@fig-motivation-data-col).
+
+```{r, message = FALSE, error = FALSE, warning = FALSE}
+#| label: fig-motivation-data-col
+#| fig-cap: "Preview of motivation data with additional column"
+MotivationData <- MotivationData %>%
+  mutate(K = (Ce * Bs) - (Ts * (1 - Ce))) 
+k_values <- (MotivationData$K) # store K values in a vector
+gt_preview(MotivationData, top_n = 8, bottom_n = 1)
+```
+
+To visualize the temporal dynamics of $k$, we use `ggplot2` to create a line plot (see Figure 2).
+
+```{r, fig.align='center', fig.cap = "Line plot of the evolution of the control parameter of approach and avoidance motivations $k$.", fig.width = 10, fig.height = 5}
+ggplot(MotivationData, aes(x = Week, y = K)) +
+  geom_line(colour = "turquoise4", linewidth = 0.8) +
+  geom_point(colour = "magenta", size = 1) +
+  labs(x = "Week", y = "k") +
+  scale_x_continuous(breaks = seq(0, 110, by = 10)) +
+  scale_y_continuous(breaks = seq(-1, 1, by = 0.5)) +
+  theme(
+    panel.background = element_rect(fill = "gray95")
+  )
+```
+
+The plot in Figure 2 shows the variations in the student's motivational state with respect to her goal of defending her Ph.D. thesis. This motivational state is reflected by the value of the parameter $k$ (vertical axis), which determines the inclination of the attractor landscape towards approach (when $k$ tends towards +1) or avoidance (when $k$ tends towards –1). The values of $k$ are characterized by varied non-linear changes over the weeks (horizontal axis). At certain periods, fluctuations in motivational state remain confined within the avoidance attractor (e.g., from week 12 to week 30). At other times, these fluctuations tend to stay within the approach attractor (e.g., from week 93 to week 102). But overall, motivation seems rather unstable, most often oscillating between the two attractors by crossing the value of $k$ = 0. At first glance, motivational variability may look erratic, with no consistent trend over time. Although visual analysis of the data is essential, it is Whittle's MLE that enables the temporal structure of the variability of this signal to be detected statistically.
+
+#### Application of Whittle’s MLE algorithm
+
+The first step in Whittle's MLE algorithm is to estimate the power spectral density (or periodogram) of the vector containing the values of $k$.
+
+```{r, message = FALSE, error = FALSE, warning = FALSE, results = FALSE, eval = FALSE}
+# Power spectral density estimation of vector x
+x <- (k_values)
+X <- scale(x)
+N <- length(X)
+m <- floor((N - 1) / 2)
+Y <- fft(X) # Fast Discrete Fourier Transform
+P <- (1 / (pi * N)) * abs(Y[2:(m + 1)])^2 # Power spectral density estimation
+w <- (2 * pi * (1:m)) / N # Fourier frequencies
+```
+
+Firstly, we give the name `x` to the `k_values` vector. Then, as a necessary step for the algorithm to work properly, the `scale()` function standardizes the vector `x` by setting its mean to 0 and its standard deviation to 1. The value `N` represents the length of the standardized vector `X` (here 111). The value `m` is half the total length of the vector `N`, minus 1 and rounded down to the nearest integer using the `floor()` function. The number `m` represents the number of frequencies used to estimate the power spectral density. The `fft()` function is an algorithm that calculates the discrete Fourier transform of the standardized vector `X`, thus adapting the signal `X` from the time domain to the frequency domain. The calculation of the vector `P` is used to estimate the periodogram (i.e., power per frequency unit) from the Fourier transform. The vector `w` represents the Fourier frequencies for `m` values.
+
+The next step is to define the Whittle's likelihood function. To estimate the $α$ value of the signal, Whittle's MLE compares the empirical periodogram with a theoretical spectral density, here derived from an ARFIMA(0,$d$,0) model which is a class of models capturing long-term memory processes in time series. The function evaluates how well an ARFIMA(0,$d$,0) model with a given parameter $α$ matches the observed time series, by comparing their spectral density. This comparison is carried out via a likelihood measure. The aim is to find the $α$ value for which the Whittle's likelihood function reaches its maximum, thus denoting the best possible fit between the theoretical model and the empirical data.
+
+To build this function, we first set its arguments.
+
+```{r, message = FALSE, error = FALSE, warning = FALSE, results = FALSE, eval = FALSE}
+# Whittle’s log-likelihood function with ARFIMA(0,d,0) theoretical PSD
+WLLF <- function(a, w, P, N) {
+```
+
+The `a` parameter is the $α$ parameter to be estimated, which controls the type of fluctuation (i.e., anti-correlated, random, long-term autocorrelated) in the ARFIMA model. The other three parameters relate to the empirical signal detailed above. The function processing aims to (a) calculate the theoretical spectral density, (b) adjust it to the empirical data, and (c) calculate Whittle's log-likelihood function between the adjusted theoretical spectral density and the empirical spectral density. The resulting value will be used to assess how well a certain parameter $α$ fits the time series.
+
+```{r, message = FALSE, error = FALSE, warning = FALSE, results = FALSE, eval = FALSE}
+  Tp <- (1 / (2 * pi)) * (2 * sin(w / 2))^(1 - 2 * a) # ARFIMA theoretical PSD
+  c <- sum(P) / sum(Tp)
+  T <- c * Tp # Theoretical PSD adjusted 
+  lw <- -(2 / N) * sum(log(T) + (P / T)) # Whittle’s log-likelihood
+  return(lw)
+}
+```
+
+The `Tp` vector is the theoretical spectral density for an ARFIMA(0,$d$,0) model. The calculation of `c` normalizes the theoretical spectral density `Tp` so that it matches the scale of the empirical spectral density `P`. The adjusted theoretical spectral density `T` is obtained by multiplying the normalization factor `c` by the theoretical spectral density `Tp`. This adjusted theoretical spectral density is the density to be compared with the empirical spectral density. Next, Whittle's log-likelihood `lw`—which measures the likelihood between the adjusted theoretical spectral density and the empirical spectral density—is calculated. The larger the resulting `lw` value, the larger is the likelihood between the theoretical spectral density and the empirical periodogram. The aim is therefore to find the value of $α$ that maximizes this function.
+
+The final step is to optimize Whittle's log-likelihood function to find this $α$ value.
+
+```{r, message = FALSE, error = FALSE, warning = FALSE, results = FALSE, eval = FALSE}
+A <- optimize(function(a) WLLF(a, w, P, N), lower = 0, upper = 1, maximum = TRUE, 
+              tol = 0.0001)
+A <- A$maximum
+```
+
+The `optimize()` function is used to find the maximum of a function over a specified interval. Here, `a` is the parameter $α$ to be estimated and, as detailed above, the function `WLLF(a, w, P, N)` calculates Whittle's log-likelihood for a given $α$. If the series is considered stationary, the value $α$ must lie within the interval \[0,1\]. Consequently, the lower bound of the interval in which $α$ is to be sought is `lower = 0` and the upper bound is `upper = 1`. The argument `maximum = TRUE` is used to maximize the function. Finally, we specify a tolerance of 0.0001 for the convergence of the optimization algorithm, which controls the precision of the maximum search. Once `optimize()` has found the maximum of the specified function in the interval, this value is extracted and assigned to `A`.
+
+At this stage, a resulting $α$ value very close to 1 (i.e., $α$ $\geq$ 0.9999) may suggest that the time series is non-stationary (i.e., that its mean and variance change over time). As ARFIMA(0,$d$,0) models are designed for stationary series, an estimate of $α$ very close to 1 could indicate that the initial theoretical model does not represent the time series well. In this specific case, it is possible to work on a differentiated version of the original series and then add 1 to the $α$ value yielded by the algorithm.
+
+```{r, message = FALSE, error = FALSE, warning = FALSE, results = FALSE, eval = FALSE}
+# If the time series is non-stationary
+if (A >= 0.9999) {
+  XDiff <- diff(X)
+  YDiff <- fft(XDiff)
+  mdiff <- floor((N - 2) / 2)
+  Pdiff <- (1 / (pi * N)) * abs(YDiff[2:(mdiff + 1)])^2
+  wdiff <- (2 * pi * (1:mdiff)) / N
+  A <- optimize(function(a) WLLF(a, wdiff, Pdiff, N - 1), lower = 0, upper = 1, 
+                maximum = TRUE, tol = 0.0001)
+  A <- A$maximum
+  A <- A + 1
+}
+```
+
+The `if()` condition only applies when `A` is greater than or equal to 0.9999. In this case, we apply a differentiation to the standardized vector `X` to make it stationary. Next, the remaining steps are similar to those in the previous algorithm, where the aim is to estimate an $α$ value by maximizing Whittle's log-likelihood function, but this time on the differentiated series. The differentiation of the time series has reduced the order of integration by one degree. Therefore, after estimating $α$ for the differentiated series, 1 is added to compensate for this differentiation.
+
+With both algorithms implemented, we can now display the $α$ value maximized from Whittle's log-likelihood function.
+
+```{r, include=FALSE}
+# Full algorithm 
+# Power spectral density estimation of vector x
+x <- (k_values)
+X <- scale(x)
+N <- length(X)
+m <- floor((N - 1) / 2)
+Y <- fft(X) # Fast Discrete Fourier Transform
+P <- (1 / (pi * N)) * abs(Y[2:(m + 1)])^2 # Power spectral density estimation
+w <- (2 * pi * (1:m)) / N # Fourier frequencies
+
+# Whittle’s log-likelihood function with ARFIMA(0,d,0) theoretical PSD
+WLLF <- function(a, w, P, N) {
+    Tp <- (1 / (2 * pi)) * (2 * sin(w / 2))^(1 - 2 * a) # ARFIMA theoretical PSD
+  c <- sum(P) / sum(Tp)
+  T <- c * Tp # Theoretical PSD adjusted 
+  lw <- -(2 / N) * sum(log(T) + (P / T)) # Whittle’s log-likelihood
+  return(lw)
+}
+
+A <- optimize(function(a) WLLF(a, w, P, N), lower = 0, upper = 1, maximum = TRUE, tol = 0.0001)
+A <- A$maximum
+
+# If the time series is non-stationary
+if (A >= 0.9999) {
+  XDiff <- diff(X)
+  YDiff <- fft(XDiff)
+  mdiff <- floor((N - 2) / 2)
+  Pdiff <- (1 / (pi * N)) * abs(YDiff[2:(mdiff + 1)])^2
+  wdiff <- (2 * pi * (1:mdiff)) / N
+  A <- optimize(function(a) WLLF(a, wdiff, Pdiff, N - 1), lower = 0, upper = 1, maximum = TRUE, tol = 0.0001)
+  A <- A$maximum
+  A <- A + 1
+}
+```
+
+#### Result
+
+```{r, message = FALSE, error = FALSE, warning = FALSE}
+A
+```
+
+As for the time series of the control parameter $k$ of the approach and avoidance motivations, the estimated value of $α$ is about 1. Thus, it is the third step of the algorithm for non-stationary series that worked, after a value of $α$ $\geq$ 0.9999 was delivered by the first two steps of the algorithm. The value close to 1, diverging on the lower bound, suggests that this time series may be related to 1/$f$ noise. Although the length of the series analyzed is quite short and the estimated $α$ value can therefore be considered only acceptable but not optimal, this indicative result gives us important information about the structure of the variability of the time series of $k$. More precisely, the variability of the series of $k$ is neither totally random (i.e., white noise) nor rigid by its short-term deviations alone (i.e., Brownian motion), but lies between these two extremes, organizing itself between disorder and order. This type of variability is expressed by a 1/$f$ noise trajectory that reflects the long-term memory of goal-directed motivation, in other words, a motivational dynamics that relies on the traces of its past history.
+
+## Discussion
+
+1/$f$ noise, as an optimal compromise between the uncontrollable disorder of random series and the overly strict order of excessively predictable series, is an intrinsic signature of the dynamics of phenomena emerging from complex interactions [@delignieres_2012; @gilden_2001; @west_1990]. Using idiographic methods, researchers have been able to find this dynamic signature in a variety of psychological phenomena or human behaviors that may result from education or training procedures, such as self-esteem [@delignieres_2004; @de_ruiter_2015; @wong_2014], cognitive performance [@holden_2009; @kello_2007; @van_orden_2003], language learning [@lowie_2014], motor learning [@nourrit-lucas_2015], and motor performance [@den_hartigh_2015; @den_hartigh_2021; @delignieres_2009]. By employing a person-specific method such as Whittle's MLE, the present case study offers an empirical validation of the grounding of approach and avoidance motivation as a dynamic and complex phenomenon.
+
+As an optimal compromise between order and disorder, 1/$f$ noise helps maintain the system's stability, while endowing it with the flexibility to respond to its environment. This cooperative organization between the preservation of a coherent state and adaptation to environmental influences promotes efficient operation of a system then considered healthy. For example, variability of 1/$f$ noise has been found in young, healthy subjects in their walking rhythm or heart rate, while more predictable or random fluctuations in these variables have been detected in patients and the elderly [@goldberger_2002; @hausdorff_1997]. Similarly, mood variation has been found to show 1/$f$ noise fluctuations in healthy individuals, whereas it was more organized and predictable in patients with bipolar disorder [@gottschalk_1995]. Among dyslexic children, greater trial-to-trial random variability was found in a word-naming task, thus revealing less clear examples of 1/$f$ noise in their response times, compared with non-dyslexic children [@wijnants_2012].
+
+In the educational realm, and more specifically as regards learning, the development of new competencies has been shown to be associated with 1/$f$ noise variability in performance. For example, in multilingual learning, Lowie et al. [@lowie_2014] conducted a repeated word-naming experiment with one participant over a period of six years. During each test session of a total of 26, the participant was asked to name 200 words in his native language (Dutch) and his second language (English). Over the course of the sessions, the improvement of skills in the second language—resulting from repeated practice—led to a series of response times in this second language that was increasingly characterized by 1/$f$ distributions. In addition, 4 test sessions were conducted after a 7-day period of exclusive use of either the native language or the second language. On the one hand, this single-language immersion strengthened the 1/$f$ structure of the response time distributions in the language concerned, particularly when this was the second language. On the other hand, this immersion led to whiter the time series in the language that had not been used. These findings support 1/$f$ noise as an indicator of optimal coordination of a person’s language subsystems.
+
+In the domain of motor learning—in rowing [@den_hartigh_2015] and skiing [@nourrit-lucas_2015]—experts' performances have been found to follow 1/$f$ dynamics, whereas more random patterns of performance variation, approaching white noise, have been evidenced among novices. Moreover, Den Hartigh et al. [@den_hartigh_2021] found that higher levels of complexity, as reflected by an $α$ value approaching 1 in the 1/$f^α$ noise expression, were related to more perturbation-resistant motor performance. In sum, learning and expertise development seem to be corollaries of a progressive installation of complexity—as reflected by 1/$f$ noise distributions—within systems governing behaviors [@wijnants_2009].
+
+In motivational research, time series analyses designed to detect typical signatures of the complexity of motivational processes are still lacking. Yet, in the workplace context, it has been shown that medium or high levels of different motivational variables are associated with patterns of chaotic variability in these variables, while lowest levels are associated with patterns of variation in between linear and random [@arrieta_2008; @navarro_2015]. Although only one case was examined in the present chapter, the 1/$f$ variation pattern that was found could reflect the typical dynamics of adaptive achievement motivation in students pursuing important goals. Thus, rather than exhibiting motivational variability that is totally random or strictly influenced by short-term events (e.g., exams, oral performances), achievement motivation in students would keep a stable and consistent state over time, while remaining capable of adapting to the constraints of the academic environment. However, the possibility of more random or rigid motivational dynamics in students who, unlike the present example, are likely to abandon their goal remains to be explored.
+
+Although this research paradigm is still nascent in the academic literature, the analysis of long-term memory in psychological processes in students offers attractive theoretical and applied perspectives. From a theoretical point of view, the finding of signatures typical of complex dynamical systems within the time series analyzed informs about the nature of the processes governing approach and avoidance motivation. Unlike mainstream research in psychology, which views processes as structures of relationships between components [@den_hartigh_2017; @van_orden_2003; @wallot_2018], the present result supports the conceptualization of achievement motivation as a phenomenon emerging from the self-organizing complexity of interactions and nonlinear attractor dynamics [@gernigon_2024a; @gernigon_2015]. Indeed, whereas the component-dominant approach is currently criticized for its inability to account for the complexity, the dynamics, and the idiosyncratic character of psychological processes [@gernigon_2024b], the interaction-dominant approach inherent in the complex dynamical systems paradigm is specifically designed to account for these characteristics. Thus, this approach enables researchers to access a *process causality* of psychological phenomena [@van_geert_2022]. Like many other psychological phenomena involved in academic achievement as well as in the harmonious development of individuals, achievement motivation will be best understood when examined through the lens of the complex dynamical systems approach [@gernigon_2024a].
+
+In terms of practical application, the value of analyzing relatively short time series, such as that offered by Whittle's MLE, lies in the possibility of tracking the individual trajectories of psychological phenomena important to academic achievement. Today, the development of online course materials makes it possible to collect a large amount of data relating to students' logins, which can serve as behavioral indicators of their engagement in learning throughout an academic year. This is what López-Pernas and Saqr [@lopez-pernas_2024b] did on a series of only 18 consecutive courses. Extending this monitoring on more courses would enable the collection of a number of data sufficient to implement Whittle's MLE. Then, the detection of drifts in the distribution of motivational measures towards white noise or Brownian motion could serve as a warning signal of the risk of academic failure and dropping out, and of the imminent need to deploy individualized support strategies. The implementation of such an individualized monitoring and intervention strategy would be greatly facilitated by the development of algorithms capable of automatically analyzing the time series of data relating to the successive logins and proposing exercises tailored to the needs of each student.
+
+Like any method, Whittle's MLE has its own limitations. Although it can be used to analyze shorter series than DFA, Roume [@roume_2023] has shown, for example, that with 128 data points, errors in classifying the signal as stationary or non-stationary can occur for $α$ values close to 1, and more particularly just above 1. This is why we have considered the $α$ value resulting from the case study—based on 111 data points—presented in this chapter as only acceptable, but not optimal. Consequently, Whittle’s MLE users are encouraged, wherever possible, to analyze longer series. Otherwise, the estimated values can only be used for descriptive purposes, but hardly for statistical inference.
+
+## Conclusion
+
+While variable-centered nomothetic approaches enable the finding of statistical laws concerning large populations or groups, person-specific approaches, such as the present application of Whittle's MLE, offer access to processes that are by definition intra-individual. In psychology, the laws discovered by variable-centered approaches are rarely ergodic, that is, they are hardly applicable to the person level [@fisher_2018; @hamaker_2023; @molenaar_2009; @saqr_2024]. However, in some ways, person-specific and variable-centered approaches can go hand in hand. While typical dynamics reflecting process causality can be detected by specific time series analyses conducted at the person level, the accumulation of these individual dynamics should enable, at population level, inferential statistics that are comparable to those observed in nomothetic research. As a result, using individual cases as a starting point for generalization may lead to replicating the trends observed by variable-centered approaches, while at the same time accounting for particularities that may even contradict these trends. This way of restoring convergence between person-specific and variable-centered approaches is one promising strategy for solving the ergodicity issue in psychological science [@gernigon_2024b].
+
+## Suggested readings and example papers
+
+In this chapter, you have seen an introduction and tutorial on how to apply Whittle’s MLE in educational research. In particular, this technique allows the use of shorter series than other more popular techniques, which is an advantage for its use in the educational field as it can be difficult to collect more than 500 data points per series. This technique has not yet been applied to the learning context, but for example to the biomedical field [@harrar_2013].
+
+Readers interested in time series analysis in the field of learning may refer to the work of Lowie et al. in language learning [@lowie_2014] and Nourrit-Lucas et al. in motor learning [@nourrit-lucas_2015]. In the educational field, the work of Koopmans [@koopmans_2015; @koopmans_2018] also illustrates how school attendance shows dynamics in 1/$f$ noise.
+
+Finally, more broadly, the articles by Hilpert and Marchand [@hilpert_2018] and Koopmans [@koopmans_2020] offer a rich overview of the complex dynamical systems paradigm, its key concepts and the methodologies that can be employed for education.
+
+::: {#refs}
+:::
+```{=html}
+-->
+Forthcoming
+<style>
+#bibliography, #footnotes {
+display: none;
+}
+</style>
+```

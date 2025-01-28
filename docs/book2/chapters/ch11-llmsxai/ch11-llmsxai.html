@@ -1,0 +1,1530 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.2.269">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="author" content="Sonsoles López-Pernas">
+<meta name="author" content="Yige Song">
+<meta name="author" content="Eduardo Oliveira">
+<meta name="author" content="Mohammed Saqr">
+<meta name="keywords" content="learning analytics, explainable artificial intelligence, LM studio, generative AI, automated feedback, large language models">
+
+<title>Advanced learning analytics methods - 11&nbsp; LLMs for Explainable Artificial Intelligence: Automating Natural Language Explanations of Predictive Analytics Models</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1.6em;
+  vertical-align: middle;
+}
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { color: #008000; } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { color: #008000; font-weight: bold; } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+}
+.hanging div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}
+</style>
+
+
+<script src="../../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../../">
+<link href="../../chapters/ch12-cds/ch12-cds.html" rel="next">
+<link href="../../chapters/ch10-bert/ch10-bert.html" rel="prev">
+<script src="../../site_libs/cookie-consent/cookie-consent.js"></script>
+<link href="../../site_libs/cookie-consent/cookie-consent.css" rel="stylesheet">
+<script src="../../site_libs/quarto-html/quarto.js"></script>
+<script src="../../site_libs/quarto-html/popper.min.js"></script>
+<script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 20,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit"
+  }
+}</script>
+<script async="" src="https://www.googletagmanager.com/gtag/js?id=G-Y4VBV3J9WD"></script>
+
+<script type="text/plain" cookie-consent="tracking">
+
+window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+gtag('js', new Date());
+gtag('config', 'G-Y4VBV3J9WD', { 'anonymize_ip': true});
+</script>
+
+<script type="text/javascript" charset="UTF-8">
+document.addEventListener('DOMContentLoaded', function () {
+cookieconsent.run({
+  "notice_banner_type":"simple",
+  "consent_type":"implied",
+  "palette":"light",
+  "language":"en",
+  "page_load_consent_levels":["strictly-necessary","functionality","tracking","targeting"],
+  "notice_banner_reject_button_hide":false,
+  "preferences_center_close_button_hide":false,
+  "website_name":""
+  });
+});
+</script> 
+  
+
+<link href="../../site_libs/pagedtable-1.1/css/pagedtable.css" rel="stylesheet">
+<script src="../../site_libs/pagedtable-1.1/js/pagedtable.js"></script>
+
+
+<meta name="twitter:title" content="Advanced learning analytics methods - 11&nbsp; LLMs for Explainable Artificial Intelligence: Automating Natural Language Explanations of Predictive Analytics Models">
+<meta name="twitter:description" content="This chapter explores the integration of LLMs into the Explainable AI (XAI) pipeline within the field of Learning Analytics (LA).">
+<meta name="twitter:card" content="summary">
+<meta name="citation_title" content="[11]{.chapter-number}&nbsp; [LLMs for Explainable Artificial Intelligence: Automating Natural Language Explanations of Predictive Analytics Models]{.chapter-title}">
+<meta name="citation_abstract" content="This chapter explores the integration of LLMs into the Explainable AI (XAI) pipeline within the field of Learning Analytics (LA). The focus of the chapter is on how to automate the transformation of XAI outputs into accessible, natural language explanations using LLMs. Namely, we demonstrate how LLMs can contextualize feature importance, partial dependence profiles, and local explanations, making predictive model outputs more interpretable and actionable for non-technical stakeholders. We illustrate this process making use of an open source language model through the LM studio software. However, the model used shares the API definition with some widely used commercial models, such as those implemented by OpenAI, making the portability almost immediate. This work contributes to advancing the intersection of generative AI, XAI, and learning analytics to promote transparency, inclusivity, and fairness.">
+<meta name="citation_keywords" content="learning analytics, explainable artificial intelligence, LM studio, generative AI, automated feedback, large language models">
+<meta name="citation_author" content="Sonsoles López-Pernas">
+<meta name="citation_author" content="Yige Song">
+<meta name="citation_author" content="Eduardo Oliveira">
+<meta name="citation_author" content="Mohammed Saqr">
+<meta name="citation_fulltext_html_url" content="https://lamethods.github.io/ch11-llmsxai.html">
+<meta name="citation_language" content="en">
+<meta name="citation_reference" content="citation_title=LLMs for XAI: Future directions for explaining explanations;,citation_abstract=In response to the demand for Explainable Artificial Intelligence (XAI), we investigate the use of Large Language Models (LLMs) to transform ML explanations into natural, human-readable narratives. Rather than directly explaining ML models using LLMs, we focus on refining explanations computed using existing XAI algorithms. We outline several research directions, including defining evaluation metrics, prompt design, comparing LLM models, exploring further training methods, and integrating external data. Initial experiments and user study suggest that LLMs offer a promising way to enhance the interpretability and usability of XAI.;,citation_author=Alexandra Zytek;,citation_author=Sara Pidò;,citation_author=Kalyan Veeramachaneni;,citation_publication_date=2024-05;,citation_cover_date=2024-05;,citation_year=2024;,citation_doi=10.48550/arXiv.2405.06064;">
+<meta name="citation_reference" content="citation_title=Elements of a prompt;,citation_abstract=A Comprehensive Overview of Prompt Engineering;,citation_author=DAIR.AI;,citation_publication_date=2024;,citation_cover_date=2024;,citation_year=2024;,citation_publisher=https://www.promptingguide.ai/introduction/elements;">
+<meta name="citation_reference" content="citation_title=“It’s really enjoyable to see me solve the problem like a hero”: GenAI-enhanced data comics as a learning analytics tool;,citation_author=Mikaela E Milesi;,citation_author=Riordan Alfredo;,citation_author=Vanessa Echeverria;,citation_author=Lixiang Yan;,citation_author=Linxuan Zhao;,citation_author=Yi-Shan Tsai;,citation_author=Roberto Martinez-Maldonado;,citation_publication_date=2024-05;,citation_cover_date=2024-05;,citation_year=2024;,citation_fulltext_html_url=https://dl.acm.org/doi/10.1145/3613905.3651111;,citation_doi=10.1145/3613905.3651111;,citation_conference_title=Extended abstracts of the CHI conference on human factors in computing systems;,citation_conference=ACM;">
+<meta name="citation_reference" content="citation_title=Beyond predictive learning analytics modelling and onto eXplainable artificial intelligence with prescriptive analytics and ChatGPT;,citation_author=Teo Susnjak;,citation_publication_date=2024;,citation_cover_date=2024;,citation_year=2024;,citation_fulltext_html_url=https://link.springer.com/article/10.1007/s40593-023-00336-3;,citation_issue=2;,citation_doi=10.1007/s40593-023-00336-3;,citation_issn=1560-4292,1560-4306;,citation_volume=34;,citation_journal_title=Int. J. Artif. Intell. Educ.;,citation_publisher=Springer Science; Business Media LLC;">
+<meta name="citation_reference" content="citation_title=Integrating generative artificial intelligence in the learning analytics pipeline: A systematic review;,citation_author=Kamila Misiejuk;,citation_author=Sonsoles López-Pernas;,citation_author=Rogers Kaliisa;,citation_author=Mohammed Saqr;,citation_publication_date=2025;,citation_cover_date=2025;,citation_year=2025;,citation_issue=in-press;,citation_issn=1929-7750;,citation_journal_title=J. learn. anal.;">
+<meta name="citation_reference" content="citation_title=What constitutes an “actionable insight” in learning analytics?;,citation_abstract=The possibilities of Learning Analytics as a tool for empowering teachers and educators have created a steep interest in how to provide so-called actionable insights. However, the literature offers little in the way of defining or discussing what the term “actionable insight” means. This selective literature review provides a look into the use of the term in current literature. The review points to a dominant perspective in the literature that assumes the perspective of a rational actor, where actionable insights are treated as insights mined from data and subsequently acted upon. It also finds evidence of other perspectives and discusses the need for clarification of the term in order to establish a more precise and fruitful use of the term.;,citation_author=Rasmus Leth Jørnø;,citation_author=Karsten Gynther;,citation_publication_date=2018-12;,citation_cover_date=2018-12;,citation_year=2018;,citation_fulltext_html_url=https://learning-analytics.info/index.php/JLA/article/view/5897;,citation_issue=3;,citation_doi=10.18608/jla.2018.53.13;,citation_issn=1929-7750,1929-7750;,citation_volume=5;,citation_journal_title=J. Learn. Anal.;,citation_publisher=Society for Learning Analytics Research;">
+<meta name="citation_reference" content="citation_title=Explainable student performance prediction models: A systematic review;,citation_abstract=Successful prediction of student performance has significant impact to many stakeholders, including students, teachers and educational institutes. In this domain, it is equally important to have accurate and explainable predictions, where accuracy refers to the correctness of the predicted value, and explainability refers to the understandability of the prediction made. In this systematic review, we investigate explainable models of student performance prediction from 2015 to 2020. We analyze and synthesize primary studies, and group them based on nine dimensions. Our analysis revealed the need for more studies on explainable student performance prediction models, where both accuracy and explainability are properly quantified and evaluated.;,citation_author=Rahaf Alamri;,citation_author=Basma Alharbi;,citation_publication_date=2021;,citation_cover_date=2021;,citation_year=2021;,citation_fulltext_html_url=https://ieeexplore.ieee.org/document/9360749;,citation_doi=10.1109/access.2021.3061368;,citation_issn=2169-3536;,citation_volume=9;,citation_journal_title=IEEE Access;,citation_publisher=Institute of Electrical; Electronics Engineers (IEEE);">
+<meta name="citation_reference" content="citation_title=Enhancing machine learning model interpretability in intrusion detection systems through SHAP explanations and LLM-generated descriptions;,citation_abstract=Intrusion Detection Systems (IDS) are critical for detecting and mitigating cyber threats, yet the opaqueness of machine learning models used within these systems poses challenges for understanding their decisions. This paper proposes a novel approach to address this issue by integrating SHAP (SHapley Additive exPlanations) values with Large Language Models (LLMs). With the aim of enhancing transparency and trust in IDS, this approach demonstrates how the combination facilitates the generation of human-understandable explanations for detected anomalies, drawing upon the CICIDS2017 dataset. The LLM effectively articulates significant features identified by SHAP values, offering coherent responses regarding influential predictors of model outcomes.;,citation_author=Abderrazak Khediri;,citation_author=Hamda Slimi;,citation_author=Ayoub Yahiaoui;,citation_author=Makhlouf Derdour;,citation_author=Hakim Bendjenna;,citation_author=Charaf Eddine Ghenai;,citation_publication_date=2024-04;,citation_cover_date=2024-04;,citation_year=2024;,citation_fulltext_html_url=https://ieeexplore.ieee.org/document/10541168;,citation_doi=10.1109/pais62114.2024.10541168;,citation_conference_title=2024 6th international conference on pattern analysis and intelligent systems (PAIS);,citation_conference=IEEE;">
+<meta name="citation_reference" content="citation_title=On combining XAI and LLMs for trustworthy zero-touch network and service management in 6G;,citation_author=Abdelkader Mekrache;,citation_author=Mohamed Mekki;,citation_author=Adlen Ksentini;,citation_author=Bouziane Brik;,citation_author=Christos Verikoukis;,citation_publication_date=2024;,citation_cover_date=2024;,citation_year=2024;,citation_doi=10.1109/MCOM.002.2400276;,citation_journal_title=IEEE Communications Magazine;">
+<meta name="citation_reference" content="citation_title=Explanation in artificial intelligence: Insights from the social sciences;,citation_author=Tim Miller;,citation_publication_date=2019-02;,citation_cover_date=2019-02;,citation_year=2019;,citation_fulltext_html_url=https://www.sciencedirect.com/science/article/pii/S0004370218305988;,citation_doi=10.1016/j.artint.2018.07.007;,citation_issn=0004-3702,1872-7921;,citation_volume=267;,citation_journal_title=Artif. Intell.;,citation_publisher=Elsevier BV;">
+<meta name="citation_reference" content="citation_title=Explainable AI is dead, long live explainable AI!: Hypothesis-driven decision support using evaluative AI;,citation_author=Tim Miller;,citation_publication_date=2023-06;,citation_cover_date=2023-06;,citation_year=2023;,citation_fulltext_html_url=https://dl.acm.org/doi/10.1145/3593013.3594001;,citation_doi=10.1145/3593013.3594001;,citation_conference_title=2023 ACM conference on fairness, accountability, and transparency;,citation_conference=ACM;">
+<meta name="citation_reference" content="citation_title=Towards explainable authorship verification: An approach to minimise academic misconduct in higher education;,citation_abstract=Academic misconduct poses a growing challenge for higher education institutions worldwide. While AI presents valuable opportunities for learning enhancement, Unauthorized Content Generation (UCG) poses a significant threat to academic integrity. This paper addresses the challenges posed by UCG and explores innovative approaches to detection, focusing on the underutilised concept of authorship verification (AV). Despite the recognition of AV’s potential, its application in education has been limited. This study investigates the feasibility of utilising students’ academic writing profiles for AV to detect contract cheating and unacknowledged AI usage in academic contexts. Building upon previous research, this study enhances the existing Feature Vector Difference (FVD) AV method by introducing improvements to support better analysis, explainability, and interpretability of the classification process in an educational context. The refined classifier provides probability-based outputs, offering a transparent alternative to traditional “black box” binary outputs, and is able to identify stylometric features suitable for differentiating student’s writing profiles. Through this research, we contribute to the advancement of AV technology in education towards explainability, providing educators with a valuable tool to uphold academic integrity and combat the proliferation of UCG in educational environments.;,citation_author=Eduardo Oliveira;,citation_author=Madhavi Mohoni;,citation_author=Shannon Rios;,citation_publication_date=2024;,citation_cover_date=2024;,citation_year=2024;,citation_fulltext_html_url=https://link.springer.com/chapter/10.1007/978-3-031-64315-6_7;,citation_doi=10.1007/978-3-031-64315-6\_7;,citation_isbn=9783031643149,9783031643156;,citation_issn=1865-0937,1865-0929;,citation_inbook_title=Artificial intelligence in education. Posters and late breaking results, workshops and tutorials, industry and innovation tracks, practitioners, doctoral consortium and blue sky;,citation_series_title=Communications in computer and information science;">
+<meta name="citation_reference" content="citation_title=Automating data narratives in learning analytics dashboards using GenAI;,citation_author=Adriano Pinargote;,citation_author=Eddy Calderón;,citation_author=Kevin Cevallos;,citation_author=Gladys Carrillo;,citation_author=Katherine Chiluiza;,citation_author=Vanessa Echeverria;,citation_publication_date=2024;,citation_cover_date=2024;,citation_year=2024;,citation_fulltext_html_url=https://research.monash.edu/files/606148660/593895957_oa.pdf;,citation_conference_title=2024 joint of international conference on learning analytics and knowledge workshops;,citation_conference=CEUR-WS;">
+<meta name="citation_reference" content="citation_title=From explanations to action: A zero-shot, theory-driven LLM framework for student performance feedback;,citation_abstract=Recent advances in eXplainable AI (XAI) for education have highlighted a critical challenge: ensuring that explanations for state-of-the-art AI models are understandable for non-technical users such as educators and students. In response, we introduce iLLuMinaTE, a zero-shot, chain-of-prompts LLM-XAI pipeline inspired by Miller’s cognitive model of explanation. iLLuMinaTE is designed to deliver theory-driven, actionable feedback to students in online courses. iLLuMinaTE navigates three main stages - causal connection, explanation selection, and explanation presentation - with variations drawing from eight social science theories (e.g. Abnormal Conditions, Pearl’s Model of Explanation, Necessity and Robustness Selection, Contrastive Explanation). We extensively evaluate 21,915 natural language explanations of iLLuMinaTE extracted from three LLMs (GPT-4o, Gemma2-9B, Llama3-70B), with three different underlying XAI methods (LIME, Counterfactuals, MC-LIME), across students from three diverse online courses. Our evaluation involves analyses of explanation alignment to the social science theory, understandability of the explanation, and a real-world user preference study with 114 university students containing a novel actionability simulation. We find that students prefer iLLuMinaTE explanations over traditional explainers 89.52% of the time. Our work provides a robust, ready-to-use framework for effectively communicating hybrid XAI-driven insights in education, with significant generalization potential for other human-centric fields.;,citation_author=Vinitra Swamy;,citation_author=Davide Romano;,citation_author=Bhargav Srinivasa Desikan;,citation_author=Oana-Maria Camburu;,citation_author=Tanja Käser;,citation_publication_date=2024-09;,citation_cover_date=2024-09;,citation_year=2024;,citation_fulltext_html_url=http://arxiv.org/abs/2409.08027;,citation_journal_title=arXiv [cs.CY];">
+<meta name="citation_reference" content="citation_title=Unpacking learning in the age of AI: Bridging AI, complexity, and precision education;,citation_author=Sonsoles López-Pernas;,citation_author=Ahmed Tlili;,citation_author=Rwitajit Majumdar;,citation_author=Sami Heikkinen;,citation_author=Mohammed Saqr;,citation_editor=Mohammed Saqr;,citation_editor=Sonsoles López-Pernas;,citation_publication_date=2025;,citation_cover_date=2025;,citation_year=2025;,citation_inbook_title=Advanced learning analytics methods: AI, precision and complexity;">
+<meta name="citation_reference" content="citation_title=AI, explainable AI and evaluative AI: An introduction to informed data-driven decision-making in education;,citation_author=Sonsoles López-Pernas;,citation_author=Eduardo Oliveira;,citation_author=Yige Song;,citation_author=Mohammed Saqr;,citation_editor=Mohammed Saqr;,citation_editor=Sonsoles López-Pernas;,citation_publication_date=2025;,citation_cover_date=2025;,citation_year=2025;,citation_inbook_title=Advanced learning analytics methods: AI, precision and complexity;">
+<meta name="citation_reference" content="citation_title=Artificial intelligence: Using machine learning to predict students’ performance;,citation_author=Mohammed Saqr;,citation_author=Kamila Misiejuk;,citation_author=Santtu Tikka;,citation_author=Sonsoles López-Pernas;,citation_editor=Mohammed Saqr;,citation_editor=Sonsoles López-Pernas;,citation_publication_date=2025;,citation_cover_date=2025;,citation_year=2025;,citation_inbook_title=Advanced learning analytics methods: AI, precision and complexity;">
+<meta name="citation_reference" content="citation_title=Artificial intelligence: Using machine learning to classify students and predict low achievers;,citation_author=Mohammed Saqr;,citation_author=Kamila Misiejuk;,citation_author=Santtu Tikka;,citation_author=Sonsoles López-Pernas;,citation_editor=Mohammed Saqr;,citation_editor=Sonsoles López-Pernas;,citation_publication_date=2025;,citation_cover_date=2025;,citation_year=2025;,citation_inbook_title=Advanced learning analytics methods: AI, precision and complexity;">
+<meta name="citation_reference" content="citation_title=Comparative analysis of regularization methods for predicting student certification in online courses;,citation_author=Tian Li;,citation_author=Feifei Han;,citation_author=Jiesi Guo;,citation_author=Jinran Wu;,citation_editor=Mohammed Saqr;,citation_editor=Sonsoles López-Pernas;,citation_publication_date=2025;,citation_cover_date=2025;,citation_year=2025;,citation_inbook_title=Advanced learning analytics methods: AI, precision and complexity;">
+<meta name="citation_reference" content="citation_title=Explainable artificial intelligence in education: A tutorial for identifying the variables that matter;,citation_author=Mohammed Saqr;,citation_author=Sonsoles López-Pernas;,citation_editor=Mohammed Saqr;,citation_editor=Sonsoles López-Pernas;,citation_publication_date=2025;,citation_cover_date=2025;,citation_year=2025;,citation_inbook_title=Advanced learning analytics methods: AI, precision and complexity;">
+<meta name="citation_reference" content="citation_title=Individualized explainable artificial intelligence: A tutorial for identifying local and individual predictions;,citation_author=Mohammed Saqr;,citation_author=Sonsoles López-Pernas;,citation_editor=Mohammed Saqr;,citation_editor=Sonsoles López-Pernas;,citation_publication_date=2025;,citation_cover_date=2025;,citation_year=2025;,citation_inbook_title=Advanced learning analytics methods: AI, precision and complexity;">
+<meta name="citation_reference" content="citation_title=An introduction to large language models in education;,citation_author=Eduardo Oliveira;,citation_author=Yige Song;,citation_author=Mohammed Saqr;,citation_author=Sonsoles López-Pernas;,citation_editor=Mohammed Saqr;,citation_editor=Sonsoles López-Pernas;,citation_publication_date=2025;,citation_cover_date=2025;,citation_year=2025;,citation_inbook_title=Advanced learning analytics methods: AI, precision and complexity;">
+<meta name="citation_reference" content="citation_title=The use of natural language processing in learning analytics;,citation_author=Tarid Wongvorachan;,citation_author=Okan Bulut;,citation_editor=Mohammed Saqr;,citation_editor=Sonsoles López-Pernas;,citation_publication_date=2025;,citation_cover_date=2025;,citation_year=2025;,citation_inbook_title=Advanced learning analytics methods: AI, precision and complexity;">
+<meta name="citation_reference" content="citation_title=Using language models for automated discourse coding: A primer and tutorial;,citation_author=Sonsoles López-Pernas;,citation_author=Kamila Misiejuk;,citation_author=Mohammed Saqr;,citation_editor=Mohammed Saqr;,citation_editor=Sonsoles López-Pernas;,citation_publication_date=2025;,citation_cover_date=2025;,citation_year=2025;,citation_inbook_title=Advanced learning analytics methods: AI, precision and complexity;">
+<meta name="citation_reference" content="citation_title=LLMs for explainable artificial intelligence: Automating natural language explanations of predictive analytics models;,citation_author=Sonsoles López-Pernas;,citation_author=Yige Song;,citation_author=Eduardo Oliveira;,citation_author=Mohammed Saqr;,citation_editor=Mohammed Saqr;,citation_editor=Sonsoles López-Pernas;,citation_publication_date=2025;,citation_cover_date=2025;,citation_year=2025;,citation_inbook_title=Advanced learning analytics methods: AI, precision and complexity;">
+<meta name="citation_reference" content="citation_title=Complex dynamic systems in education: Beyond the static, the linear and the causal reductionism;,citation_author=Mohammed Saqr;,citation_author=Daryn Dever;,citation_author=Sonsoles López-Pernas;,citation_author=Christophe Gernigon;,citation_author=Gwen Marchand;,citation_author=Avi Kaplan;,citation_editor=Mohammed Saqr;,citation_editor=Sonsoles López-Pernas;,citation_publication_date=2025;,citation_cover_date=2025;,citation_year=2025;,citation_inbook_title=Advanced learning analytics methods: AI, precision and complexity;">
+<meta name="citation_reference" content="citation_title=The advanced applications of psychological networks with EGA;,citation_author=Tarid Wongvorachan;,citation_author=Okan Bulut;,citation_editor=Mohammed Saqr;,citation_editor=Sonsoles López-Pernas;,citation_publication_date=2025;,citation_cover_date=2025;,citation_year=2025;,citation_inbook_title=Advanced learning analytics methods: AI, precision and complexity;">
+<meta name="citation_reference" content="citation_title=Detecting nonlinear patterns in education research: A tutorial on recurrence quantification analysis;,citation_author=Daryn Dever;,citation_editor=Mohammed Saqr;,citation_editor=Sonsoles López-Pernas;,citation_publication_date=2025;,citation_cover_date=2025;,citation_year=2025;,citation_inbook_title=Advanced learning analytics methods: AI, precision and complexity;">
+<meta name="citation_reference" content="citation_title=Mapping relational dynamics with transition network analysis: A primer and tutorial;,citation_author=Mohammed Saqr;,citation_author=Sonsoles López-Pernas;,citation_author=Santtu Tikka;,citation_editor=Mohammed Saqr;,citation_editor=Sonsoles López-Pernas;,citation_publication_date=2025;,citation_cover_date=2025;,citation_year=2025;,citation_inbook_title=Advanced learning analytics methods: AI, precision and complexity;">
+<meta name="citation_reference" content="citation_title=Capturing the breadth and dynamics of the temporal processes with frequency transition network analysis: A primer and tutorial;,citation_author=Mohammed Saqr;,citation_author=Sonsoles López-Pernas;,citation_author=Santtu Tikka;,citation_editor=Mohammed Saqr;,citation_editor=Sonsoles López-Pernas;,citation_publication_date=2025;,citation_cover_date=2025;,citation_year=2025;,citation_inbook_title=Advanced learning analytics methods: AI, precision and complexity;">
+<meta name="citation_reference" content="citation_title=Mining patterns and clusters with transition network analysis: A heterogeneity approach;,citation_author=Sonsoles López-Pernas;,citation_author=Santtu Tikka;,citation_author=Mohammed Saqr;,citation_editor=Mohammed Saqr;,citation_editor=Sonsoles López-Pernas;,citation_publication_date=2025;,citation_cover_date=2025;,citation_year=2025;,citation_inbook_title=Advanced learning analytics methods: AI, precision and complexity;">
+<meta name="citation_reference" content="citation_title=A comprehensive introduction to idiographic and within-person analytics;,citation_author=Mohammed Saqr;,citation_author=Hibiki Ito;,citation_author=Sonsoles López-Pernas;,citation_editor=Mohammed Saqr;,citation_editor=Sonsoles López-Pernas;,citation_publication_date=2025;,citation_cover_date=2025;,citation_year=2025;,citation_inbook_title=Advanced learning analytics methods: AI, precision and complexity;">
+<meta name="citation_reference" content="citation_title=The three levels of analysis: Variable-centered, person-centered and person-specific analysis in education;,citation_author=Sonsoles López-Pernas;,citation_author=Halil Kayaduman;,citation_author=Saqr Leonie V. D.Vogelsmeier;,citation_editor=Mohammed Saqr;,citation_editor=Sonsoles López-Pernas;,citation_publication_date=2025;,citation_cover_date=2025;,citation_year=2025;,citation_inbook_title=Advanced learning analytics methods: AI, precision and complexity;">
+<meta name="citation_reference" content="citation_title=Idiographic networks: A tutorial on graphical vector autoregression and unified structural equation modeling;,citation_author=Mohammed Saqr;,citation_author=Daryn Dever;,citation_author=Sonsoles López-Pernas;,citation_editor=Mohammed Saqr;,citation_editor=Sonsoles López-Pernas;,citation_publication_date=2025;,citation_cover_date=2025;,citation_year=2025;,citation_inbook_title=Advanced learning analytics methods: AI, precision and complexity;">
+<meta name="citation_reference" content="citation_title=Detecting long-memory psychological processes in academic settings using whittle’s maximum likelihood estimator: An application with r;,citation_author=Rémi Altamore;,citation_author=Clément Roume;,citation_author=Anne Teboul;,citation_author=Christophe Gernigon;,citation_editor=Mohammed Saqr;,citation_editor=Sonsoles López-Pernas;,citation_publication_date=2025;,citation_cover_date=2025;,citation_year=2025;,citation_inbook_title=Advanced learning analytics methods: AI, precision and complexity;">
+<meta name="citation_reference" content="citation_title=Automating individualized machine learning and AI prediction using AutoML: The case of idiographic predictions;,citation_author=Mohammed Saqr;,citation_author=Ahmed Tlili;,citation_author=Sonsoles López-Pernas;,citation_editor=Mohammed Saqr;,citation_editor=Sonsoles López-Pernas;,citation_publication_date=2025;,citation_cover_date=2025;,citation_year=2025;,citation_inbook_title=Advanced learning analytics methods: AI, precision and complexity;">
+<meta name="citation_reference" content="citation_title=Rio: A swiss-army knife for data file i/o;,citation_author=Chung-hong Chan;,citation_author=Thomas J. Leeper;,citation_author=Jason Becker;,citation_author=David Schoch;,citation_publication_date=2023;,citation_cover_date=2023;,citation_year=2023;,citation_fulltext_html_url=https://cran.r-project.org/package=rio;">
+<meta name="citation_reference" content="citation_title=Welcome to the tidyverse;,citation_author=Hadley Wickham;,citation_author=Mara Averick;,citation_author=Jennifer Bryan;,citation_author=Winston Chang;,citation_author=Lucy D’Agostino McGowan;,citation_author=Romain François;,citation_author=Garrett Grolemund;,citation_author=Alex Hayes;,citation_author=Lionel Henry;,citation_author=Jim Hester;,citation_author=Max Kuhn;,citation_author=Thomas Lin Pedersen;,citation_author=Evan Miller;,citation_author=Stephan Milton Bache;,citation_author=Kirill Müller;,citation_author=Jeroen Ooms;,citation_author=David Robinson;,citation_author=Dana Paige Seidel;,citation_author=Vitalie Spinu;,citation_author=Kohske Takahashi;,citation_author=Davis Vaughan;,citation_author=Claus Wilke;,citation_author=Kara Woo;,citation_author=Hiroaki Yutani;,citation_publication_date=2019;,citation_cover_date=2019;,citation_year=2019;,citation_issue=43;,citation_doi=10.21105/joss.01686;,citation_volume=4;,citation_journal_title=Journal of Open Source Software;">
+<meta name="citation_reference" content="citation_title=Rsample: General resampling infrastructure;,citation_author=Hannah Frick;,citation_author=Fanny Chow;,citation_author=Max Kuhn;,citation_author=Michael Mahoney;,citation_author=Julia Silge;,citation_author=Hadley Wickham;,citation_publication_date=2024;,citation_cover_date=2024;,citation_year=2024;,citation_fulltext_html_url=https://CRAN.R-project.org/package=rsample;">
+<meta name="citation_reference" content="citation_title=e1071: Misc functions of the department of statistics, probability theory group (formerly: E1071), TU wien;,citation_author=David Meyer;,citation_author=Evgenia Dimitriadou;,citation_author=Kurt Hornik;,citation_author=Andreas Weingessel;,citation_author=Friedrich Leisch;,citation_publication_date=2024;,citation_cover_date=2024;,citation_year=2024;,citation_fulltext_html_url=https://CRAN.R-project.org/package=e1071;">
+<meta name="citation_reference" content="citation_title=DALEX: Explainers for complex predictive models in r;,citation_author=Przemyslaw Biecek;,citation_publication_date=2018;,citation_cover_date=2018;,citation_year=2018;,citation_fulltext_html_url=https://jmlr.org/papers/v19/18-416.html;,citation_issue=84;,citation_volume=19;,citation_journal_title=Journal of Machine Learning Research;">
+<meta name="citation_reference" content="citation_title=System prompts in large language models;,citation_abstract=Discover the power of system prompts - the secret sauce that enables developers to customize AI behavior and enhance performance. Learn how to craft effective prompts for role-playing, rule adherence, context understanding, and more.;,citation_author=Sunil Ramlochan-Enterpise A I Strategist;,citation_publication_date=2024-03;,citation_cover_date=2024-03;,citation_year=2024;,citation_publisher=https://promptengineering.org/system-prompts-in-large-language-models/;">
+<meta name="citation_reference" content="citation_title=A systematic review of literature reviews on artificial intelligence in education (AIED): A roadmap to a future research agenda;,citation_abstract=Despite the increased adoption of Artificial Intelligence in Education (AIED), several concerns are still associated with it. This has motivated researchers to conduct (systematic) reviews aiming at synthesizing the AIED findings in the literature. However, these AIED reviews are diversified in terms of focus, stakeholders, educational level and region, and so on. This has made the understanding of the overall landscape of AIED challenging. To address this research gap, this study proceeds one step forward by systematically meta-synthesizing the AIED literature reviews. Specifically, 143 literature reviews were included and analyzed according to the technology-based learning model. It is worth noting that most of the AIED research has been from China and the U.S. Additionally, when discussing AIED, strong focus was on higher education, where less attention is paid to special education. The results also reveal that AI is used mostly to support teachers and students in education with less focus on other educational stakeholders (e.g. school leaders or administrators). The study provides a possible roadmap for future research agenda on AIED, facilitating the implementation of effective and safe AIED.;,citation_author=Muhammad Yasir Mustafa;,citation_author=Ahmed Tlili;,citation_author=Georgios Lampropoulos;,citation_author=Ronghuai Huang;,citation_author=Petar Jandrić;,citation_author=Jialu Zhao;,citation_author=Soheil Salha;,citation_author=Lin Xu;,citation_author=Santosh Panda;,citation_author=Kinshuk;,citation_author=Sonsoles López-Pernas;,citation_author=Mohammed Saqr;,citation_publication_date=2024-12;,citation_cover_date=2024-12;,citation_year=2024;,citation_fulltext_html_url=https://scholar.google.com/citations?view_op=view_citation&amp;amp;amp;hl=en&amp;citation_for_view=67eUI4gAAAAJ:BUYA1_V_uYcC;,citation_issue=1;,citation_doi=10.1186/s40561-024-00350-5;,citation_issn=2196-7091;,citation_volume=11;,citation_journal_title=Smart Learn. Environ.;,citation_publisher=Springer Science; Business Media LLC;">
+<meta name="citation_reference" content="citation_title=Ellmer: Chat with large language models;,citation_author=Hadley Wickham;,citation_author=Joe Cheng;,citation_publication_date=2025;,citation_cover_date=2025;,citation_year=2025;,citation_fulltext_html_url=https://CRAN.R-project.org/package=ellmer;">
+<meta name="citation_reference" content="citation_title=Students matter the most in learning analytics: The effects of internal and instructional conditions in predicting academic success;,citation_abstract=Predictive modelling of academic success and retention has been a key research theme in Learning Analytics. While the initial work on predictive model…;,citation_author=Jelena Jovanović;,citation_author=Mohammed Saqr;,citation_author=Srećko Joksimović;,citation_author=Dragan Gašević;,citation_publication_date=2021-10;,citation_cover_date=2021-10;,citation_year=2021;,citation_fulltext_html_url=https://www.sciencedirect.com/science/article/pii/S0360131521001287;,citation_doi=10.1016/j.compedu.2021.104251;,citation_issn=0360-1315,1873-782X;,citation_volume=172;,citation_journal_title=Comput. Educ.;,citation_publisher=Elsevier BV;">
+</head>
+
+<body class="nav-sidebar floating nav-fixed">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg navbar-dark ">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container">
+    <a class="navbar-brand" href="../../index.html">
+    <span class="navbar-title">LA Methods</span>
+    </a>
+  </div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll ms-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="../../../index.html">
+ <span class="menu-text">Home</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../../../book1/index.html">
+ <span class="menu-text">Learning Analytics Methods and Tutorials</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../../../book2/index.html">
+ <span class="menu-text">Advanced Learning Analytics Methods</span></a>
+  </li>  
+  <li class="nav-item compact">
+    <a class="nav-link" href="https://github.com/lamethods/code2/"><i class="bi bi-github" role="img" aria-label="Source Code">
+</i> 
+ <span class="menu-text"></span></a>
+  </li>  
+</ul>
+              <div id="quarto-search" class="" title="Search"></div>
+          </div> <!-- /navcollapse -->
+      </div> <!-- /container-fluid -->
+    </nav>
+  <nav class="quarto-secondary-nav" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+    <div class="container-fluid d-flex justify-content-between">
+      <h1 class="quarto-secondary-nav-title"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">LLMs for Explainable Artificial Intelligence: Automating Natural Language Explanations of Predictive Analytics Models</span></h1>
+      <button type="button" class="quarto-btn-toggle btn" aria-label="Show secondary navigation">
+        <i class="bi bi-chevron-right"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse sidebar-navigation floating overflow-auto">
+      <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Search"></div>
+        </div>
+      </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../index.html" class="sidebar-item-text sidebar-link">Welcome</a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../contributors.html" class="sidebar-item-text sidebar-link">Contributors</a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../chapters/ch01-intro/ch01-intro.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Introduction</span></a>
+  </div>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true">Artificial Intelligence</a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../chapters/ch02-AIxAI/ch02-aixai.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">AI and XAI</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../chapters/ch03-prediction/ch03-prediction.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Prediction</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../chapters/ch04-classification/ch04-classification.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Classification</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../chapters/ch05-regularization/ch05-regularization.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Regularization</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../chapters/ch06-xai-global/ch06-xai-global.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Global XAI</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../chapters/ch07-xai-local/ch07-xai-local.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Local XAI</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="true">Large Language Models</a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="true">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../chapters/ch08-llms/ch08-llms.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Large Language Models</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../chapters/ch09-nlp/ch09-nlp.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Natural Language Processing</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../chapters/ch10-bert/ch10-bert.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Classification with BERT</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../chapters/ch11-llmsxai/ch11-llmsxai.html" class="sidebar-item-text sidebar-link active"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Automated feedback with XAI and LLMs</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" aria-expanded="true">Complex Systems</a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" aria-expanded="true">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../chapters/ch12-cds/ch12-cds.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Complex Systems</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../chapters/ch13-ega/ch13-ega.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Exploratory Graph Analysis</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../chapters/ch14-rqa/ch14-rqa.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">Recurrent Quantification Analysis</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../chapters/ch15-tna/ch15-tna.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">15</span>&nbsp; <span class="chapter-title">Transition Network Analysis</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../chapters/ch16-ftna/ch16-ftna.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">16</span>&nbsp; <span class="chapter-title">Frequency-based Transition Network Analysis</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../chapters/ch17-tna-clusters/ch17-tna-clusters.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">17</span>&nbsp; <span class="chapter-title">Transition Network Analysis Clusters</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" aria-expanded="true">Idiographic</a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" aria-expanded="true">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../chapters/ch18-idio/ch18-idio.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">18</span>&nbsp; <span class="chapter-title">Within-person analysis</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../chapters/ch19-three-levels/ch19-three-levels.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">19</span>&nbsp; <span class="chapter-title">Heterogeneity</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../chapters/ch20-var/ch20-var.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">20</span>&nbsp; <span class="chapter-title">Vector Autoregression and uSEM</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../chapters/ch21-mle/ch21-mle.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">21</span>&nbsp; <span class="chapter-title">Maximum Likelihood Estimator</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../chapters/ch22-automl/ch22-automl.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">22</span>&nbsp; <span class="chapter-title">Automated Machine Learning</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+    </ul>
+    </div>
+</nav>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Table of contents</h2>
+   
+  <ul>
+  <li><a href="#introduction" id="toc-introduction" class="nav-link active" data-scroll-target="#introduction"><span class="toc-section-number">1</span>  Introduction</a></li>
+  <li><a href="#motivation-and-relevant-work-for-using-llms-on-xai-output-in-learning-analytics-research" id="toc-motivation-and-relevant-work-for-using-llms-on-xai-output-in-learning-analytics-research" class="nav-link" data-scroll-target="#motivation-and-relevant-work-for-using-llms-on-xai-output-in-learning-analytics-research"><span class="toc-section-number">2</span>  Motivation and Relevant Work for using LLMs on XAI Output in Learning Analytics Research</a>
+  <ul class="collapse">
+  <li><a href="#addressing-the-challenge-with-llms" id="toc-addressing-the-challenge-with-llms" class="nav-link" data-scroll-target="#addressing-the-challenge-with-llms"><span class="toc-section-number">2.1</span>  Addressing the Challenge with LLMs</a></li>
+  </ul></li>
+  <li><a href="#choosing-an-llm-and-interacting-with-it-via-api" id="toc-choosing-an-llm-and-interacting-with-it-via-api" class="nav-link" data-scroll-target="#choosing-an-llm-and-interacting-with-it-via-api"><span class="toc-section-number">3</span>  Choosing an LLM and interacting with it via API</a></li>
+  <li><a href="#a-case-study-about-predictive-modeling" id="toc-a-case-study-about-predictive-modeling" class="nav-link" data-scroll-target="#a-case-study-about-predictive-modeling"><span class="toc-section-number">4</span>  A case study about predictive modeling</a>
+  <ul class="collapse">
+  <li><a href="#introduction-1" id="toc-introduction-1" class="nav-link" data-scroll-target="#introduction-1"><span class="toc-section-number">4.1</span>  Introduction</a></li>
+  <li><a href="#model-fitting" id="toc-model-fitting" class="nav-link" data-scroll-target="#model-fitting"><span class="toc-section-number">4.2</span>  Model fitting</a></li>
+  <li><a href="#model-performance" id="toc-model-performance" class="nav-link" data-scroll-target="#model-performance"><span class="toc-section-number">4.3</span>  Model performance</a></li>
+  <li><a href="#feature-importance" id="toc-feature-importance" class="nav-link" data-scroll-target="#feature-importance"><span class="toc-section-number">4.4</span>  Feature importance</a></li>
+  <li><a href="#partial-dependence-profile" id="toc-partial-dependence-profile" class="nav-link" data-scroll-target="#partial-dependence-profile"><span class="toc-section-number">4.5</span>  Partial Dependence Profile</a></li>
+  <li><a href="#local-explanations" id="toc-local-explanations" class="nav-link" data-scroll-target="#local-explanations"><span class="toc-section-number">4.6</span>  Local explanations</a></li>
+  </ul></li>
+  <li><a href="#conclusion" id="toc-conclusion" class="nav-link" data-scroll-target="#conclusion"><span class="toc-section-number">5</span>  Conclusion</a></li>
+  <li><a href="#bibliography" id="toc-bibliography" class="nav-link" data-scroll-target="#bibliography">References</a></li>
+  </ul>
+</nav>
+    <div class="quarto-margin-footer"><div class="margin-footer-item">
+<a href="https://github.com/lamethods/code2" target="_blank"> <button class="btn btn-outline-dark"> <svg xmlns="http://www.w3.org/2000/svg" viewbox="0 0 496 512" style="width: 22px;vertical-align: text-top;margin-right: 9px;"> <path d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3 .3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5 .3-6.2 2.3zm44.2-1.7c-2.9 .7-4.9 2.6-4.6 4.9 .3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3 .7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3 .3 2.9 2.3 3.9 1.6 1 3.6 .7 4.3-.7 .7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3 .7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3 .7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z" style="width: 24px;"> </path> </svg>Download code </button> </a>
+<div style="padding: 10px;">
+Check out our previous book! <br> <a href="../../../book1/index.html"><img src="../../../book1/1712067211600.jpeg" style="
+     width: 70%;
+ "></a>
+</div>
+<p><br> <small>© 2025 The authors</small></p>
+</div></div></div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title d-none d-lg-block"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">LLMs for Explainable Artificial Intelligence: Automating Natural Language Explanations of Predictive Analytics Models</span></h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    <div>
+    <div class="quarto-title-meta-heading">Authors</div>
+    <div class="quarto-title-meta-contents">
+             <p>Sonsoles López-Pernas </p>
+             <p>Yige Song </p>
+             <p>Eduardo Oliveira </p>
+             <p>Mohammed Saqr </p>
+          </div>
+  </div>
+    
+  
+    
+  </div>
+  
+<div>
+  <div class="abstract">
+    <div class="abstract-title">Abstract</div>
+    This chapter explores the integration of LLMs into the Explainable AI (XAI) pipeline within the field of Learning Analytics (LA). The focus of the chapter is on how to automate the transformation of XAI outputs into accessible, natural language explanations using LLMs. Namely, we demonstrate how LLMs can contextualize feature importance, partial dependence profiles, and local explanations, making predictive model outputs more interpretable and actionable for non-technical stakeholders. We illustrate this process making use of an open source language model through the LM studio software. However, the model used shares the API definition with some widely used commercial models, such as those implemented by OpenAI, making the portability almost immediate. This work contributes to advancing the intersection of generative AI, XAI, and learning analytics to promote transparency, inclusivity, and fairness.
+  </div>
+</div>
+
+</header>
+
+<section id="introduction" class="level2" data-number="1">
+<h2 data-number="1" class="anchored" data-anchor-id="introduction"><span class="header-section-number">1</span> Introduction</h2>
+<p>Large language models (LLMs) have recently become a transformative technology thanks to their ability to process natural language and generate close-to-human quality text <span class="citation" data-cites="LABOOK2_Chapter_8">[<a href="#ref-LABOOK2_Chapter_8" role="doc-biblioref">1</a>]</span>. Before LLMs, generating human-like text automatically was often a slow and manual process, requiring a lot of time and expertise. Since LLMs have been trained on vast amounts of data, they enable the automation of text generation, with little to no human intervention. Recently, the field of learning analytics has recognized the potential of generative artificial intelligence (AI) as a whole, and LLMs in particular, in various stages of the learning analytics cycle such as generating synthetic data, automated scoring and coding or feedback generation <span class="citation" data-cites="Misiejuk2025-aq">[<a href="#ref-Misiejuk2025-aq" role="doc-biblioref">2</a>]</span>.</p>
+<p>In this tutorial, we focus on the last phase of the learning analytics cycle: reporting the results of learning analytics applications and turning them into actionable insights <span class="citation" data-cites="Jorno2018-sn">[<a href="#ref-Jorno2018-sn" role="doc-biblioref">3</a>]</span>. Specifically, we will focus on making the results of predictive models understandable for teachers and students to aid decision making. LLMs have emerged as a powerful tool in this domain, particularly in enhancing the explainability of AI models, also known as Explainable AI (XAI). XAI refers to techniques and methods that enable humans to understand, trust, and make the right decisions based on the outputs generated by AI systems <span class="citation" data-cites="LABOOK2_Chapter_2">[<a href="#ref-LABOOK2_Chapter_2" role="doc-biblioref">4</a>]</span>. In learning analytics, XAI has the potential to become an extremely central tool because it allows teachers, students, parents and administrators to understand the rationale behind the predictions made by AI models.</p>
+<p>Traditionally, explaining the results of complex predictive models required specialized knowledge in AI. However, LLMs have the potential to bridge this gap by generating natural language explanations that are both accurate and accessible to non-experts. For instance, when a predictive model identifies that a student is at risk of not completing a course, an LLM can be used to generate a human-readable explanation of why the model reached that conclusion. This explanation might include an overview of the key factors that influenced the prediction, such as the student’s engagement with course materials, performance on assessments, and participation in class discussions. The LLM can then articulate this information in a way that is tailored to the teacher’s or student’s specific context, providing clear guidance on potential interventions or areas for improvement rather than an endless list of numbers, tables and graphs.</p>
+<p>The application of generative AI in general, and LLMs in particular, to learning analytics and education research and practice is still in its early stages <span class="citation" data-cites="Mustafa2024-yn">[<a href="#ref-Mustafa2024-yn" role="doc-biblioref">5</a>]</span>. One could say that the potential of LLMs to make learning analytics insights more accessible has been barely explored. Still, a few studies demonstrating LLMs’ ability to simplify very technical information and generate personalized, human-readable feedback for learners, teachers and other stakeholders can be mentioned here. One of the few existing examples is the study by Pinargote et al. <span class="citation" data-cites="Pinargote2024-kb">[<a href="#ref-Pinargote2024-kb" role="doc-biblioref">6</a>]</span>, in which an LLM was used to transform insights shown in a learning analytics dashboard into textual explanations. While students appreciated the metrics and feedback for understanding group contributions, opinions varied on the fairness and necessity of detailed feedback. The study by Susnjak <span class="citation" data-cites="Susnjak2024">[<a href="#ref-Susnjak2024" role="doc-biblioref">7</a>]</span> proposed a framework that combines XAI with LLMs —similar to what we are doing in this tutorial— to offer prescriptive analytics to students at risk. A formal evaluation of the framework is still needed to validate it empirically.</p>
+<p>In this tutorial, we will explore how to use LLMs to enhance the explainability of predictive models. Specifically, we will demonstrate how to generate natural language explanations of XAI results using LLMs. The reader will understand how to embed LLMs in the XAI pipeline to create personalized and contextualized explanations that make predictive model outputs understandable, helping teachers and students make informed decisions based on AI-generated insights.</p>
+</section>
+<section id="motivation-and-relevant-work-for-using-llms-on-xai-output-in-learning-analytics-research" class="level2" data-number="2">
+<h2 data-number="2" class="anchored" data-anchor-id="motivation-and-relevant-work-for-using-llms-on-xai-output-in-learning-analytics-research"><span class="header-section-number">2</span> Motivation and Relevant Work for using LLMs on XAI Output in Learning Analytics Research</h2>
+<p>Previous chapters of this book have introduced and discussed XAI in detail <span class="citation" data-cites="LABOOK2_Chapter_2 LABOOK2_Chapter_6 LABOOK2_Chapter_7">[<a href="#ref-LABOOK2_Chapter_2" role="doc-biblioref">4</a>, <a href="#ref-LABOOK2_Chapter_6" role="doc-biblioref">8</a>, <a href="#ref-LABOOK2_Chapter_7" role="doc-biblioref">9</a>]</span>. To summarise, XAI techniques, such as feature importance, help explain the outputs of black-box machine learning models. For example, in authorship detection <span class="citation" data-cites="Oliveira2024-ci">[<a href="#ref-Oliveira2024-ci" role="doc-biblioref">10</a>]</span>, XAI algorithms identify and quantify key features in text that distinguish students’ writing profiles. Similarly, in predicting student outcomes <span class="citation" data-cites="Alamri2021-zf">[<a href="#ref-Alamri2021-zf" role="doc-biblioref">11</a>]</span>, XAI highlights how different aspects of students’ online learning activities contribute to the model’s prediction of their results. For instance, an XAI result might show a feature importance rating of 0.8 for starting assessments early and 0.6 for forum participation when predicting a “distinction” grade. This indicates that starting assessments early has a greater influence on the prediction than forum participation. In such cases, XAI provides actionable feedback by not only identifying “who is at risk” but also implying “how to improve”.</p>
+<p>However, despite their utility, XAI outputs can be challenging for students and educators to interpret due to two key reasons. First, XAI results are typically numerical or visual representations (e.g., feature importance graphs) that may not intuitively convey actionable insights. For example, understanding that a “0.8 feature importance” correlates with a behaviour requires familiarity with both the AI model’s purpose and the assumptions underlying its predictions. Expecting students and educators to possess such domain knowledge in XAI and data literacy is often unrealistic.</p>
+<p>Second, even when XAI outputs are understood, human biases can influence interpretation and decision-making. For instance, over-reliance on XAI outputs may lead to uncritical trust in predictions, while under-reliance due to distrust or skepticism may result in the outputs being ignored <span class="citation" data-cites="Miller2019-tj Miller2023-zx">[<a href="#ref-Miller2019-tj" role="doc-biblioref">12</a>, <a href="#ref-Miller2023-zx" role="doc-biblioref">13</a>]</span>. This highlights the need for additional support mechanisms to help interpret and act on XAI results effectively.</p>
+<section id="addressing-the-challenge-with-llms" class="level3" data-number="2.1">
+<h3 data-number="2.1" class="anchored" data-anchor-id="addressing-the-challenge-with-llms"><span class="header-section-number">2.1</span> Addressing the Challenge with LLMs</h3>
+<p>LLMs, with their inherent ability to process and present information in natural language, can bridge the gap between XAI outputs and human understanding. Thanks to their ability to translating complex, technical insights into accessible, human-readable language, LLMs have the potential to enhance the interpretability and actionable value of XAI systems. For instance, instead of presenting raw feature importance values, an LLM can generate contextualised feedback such as: <em>“The prediction is largely influenced by your consistent forum participation and early completion of assessments, which have shown a strong correlation with achieving higher grades in this course.”</em></p>
+<p>This capability aligns with research exploring the use of LLMs in combination with XAI across diverse domains. For example, Khediri et al. <span class="citation" data-cites="Khediri2024-dl">[<a href="#ref-Khediri2024-dl" role="doc-biblioref">14</a>]</span> used XAI to identify critical network features that contributed to intrusion detection and employed LLMs to generate user-friendly explanations. These explanations improved decision-making by helping users understand the nature of detected anomalies. Mekrache et al. <span class="citation" data-cites="10742571">[<a href="#ref-10742571" role="doc-biblioref">15</a>]</span> applied XAI to anomaly detection in network operations and used LLMs to transform technical results into actionable insights for operators, enhancing both trust and operational efficiency. In the field of learning analytics, Swamy et al. <span class="citation" data-cites="Swamy2024-wz">[<a href="#ref-Swamy2024-wz" role="doc-biblioref">16</a>]</span> introduced the iLLuMinaTE framework, which combines XAI and LLMs to extract and interpret feature importance from students’ online behaviours. Tested on three MOOCs, this framework provided explanations that 89.52% of students found more actionable and trustworthy than traditional XAI tools. However, it struggled in contexts requiring deeper contextual understanding, highlighting an area for improvement.</p>
+<p>Building on these efforts, Susnjak <span class="citation" data-cites="Susnjak2024">[<a href="#ref-Susnjak2024" role="doc-biblioref">7</a>]</span> developed a comprehensive framework that integrates predictive analytics (identifying at-risk students) with prescriptive analytics (recommending actionable interventions). This framework operates in three stages. First, ML models (e.g., Random Forest) predict student success and use XAI techniques like SHAP to identify key behavioural features influencing these predictions. Then, using counterfactual modeling, the framework generates “what-if” scenarios to determine the minimal changes needed for a positive outcome. In the last phase, LLMs translate predictive and counterfactual insights into personalised, actionable messages. For example, a message generated by Susnjak’s <span class="citation" data-cites="Susnjak2024">[<a href="#ref-Susnjak2024" role="doc-biblioref">7</a>]</span> framework might read: <em>“You’re currently a full-time student studying towards a 200-credit degree with an average grade of 53%. To maximise your success, consider engaging more with online materials and quizzes.”</em> In this framework, the integration of XAI and LLMs ensures that XAI identifies the “why” behind predictions. LLMs convey the “what next” in terms of practical guidance.</p>
+<p>In addition to frameworks like Susnjak’s, researchers are exploring alternative applications of LLMs in learning analytics that bypass traditional XAI techniques. For instance, Pinargote et al. <span class="citation" data-cites="Pinargote2024-kb">[<a href="#ref-Pinargote2024-kb" role="doc-biblioref">6</a>]</span> investigated the potential of LLMs to directly process contextual information about students’ learning environments and behavioral data. After embedding these details into carefully designed prompts, LLMs were tasked with generating comprehensive summaries of learning analytics dashboards. These dashboards were not only data-rich but also included natural language narratives that translated raw data into actionable insights for educators and students.</p>
+<p>Unlike traditional XAI approaches, which rely on detailed feature importance metrics to explain predictions, Pinargote’s approach makes use of LLMs to combine data interpretation with contextual knowledge. This approach highlights the capability of LLMs to humanize data insights, making them more accessible to non-technical users. Additionally, the incorporation of contextual cues (e.g., the type of course, common behaviours of top-performing students, or seasonal trends in engagement) allows LLMs tp generate recommendations that are relevant to specific learning environments. This customization enhances the relevance and usability of the feedback, addressing one of the primary challenges in learning analytics: translating technical results into actionable strategies for improvement.</p>
+<p>While promising, these alternative approaches also raise critical questions about accuracy and generalisability. For instance, relying solely on LLMs to interpret behavioral data may introduce biases or hallucinations in the generated insights. Moreover, the extent to which these narratives align with actual student needs and institutional goals requires further investigation. Despite these challenges, the potential of LLMs to complement traditional XAI methods in specific contexts demonstrates their versatility in advancing learning analytics research.</p>
+<p>As we explore these innovative uses of LLMs, it becomes clear that their integration into learning analytics frameworks is not merely a tool for explanation but a transformative step towards making learning analytics truly human-centered. LLMs’ ability to simplify complex data and align insights with users’ contexts opens new pathways for actionable, personalized, and impactful feedback in education.</p>
+</section>
+</section>
+<section id="choosing-an-llm-and-interacting-with-it-via-api" class="level2" data-number="3">
+<h2 data-number="3" class="anchored" data-anchor-id="choosing-an-llm-and-interacting-with-it-via-api"><span class="header-section-number">3</span> Choosing an LLM and interacting with it via API</h2>
+<p>Many commercial LLMs offer both web-based and programmatic interfaces to interact with their models. These are undoubtedly an easy solution to access AI in its advanced form. However, there are two major drawbacks of relying on commercial LLMs. The first one is that commercial solutions often require a paid subscription which may not be a possibility for all researchers. The second and most important one is that relying on commercial products raises concerns about the privacy of students’ data, especially if they are used to train future models.</p>
+<p>Open-source LLMs are a viable alternative that can be deployed locally in a way that students’ personal or sensitive data is kept to the organization. Furthermore, open-source LLMs are becoming increasingly capable. Although open-source alternatives often require more technical knowledge than commercial ones to be deployed and secured, there is an increasing number of off-the-shelf solutions that address this difficulty and make installing and using local LLMs far much easier. For instance, an application that is becoming increasingly popular is LM Studio, a desktop platform that allows users to run almost any LLM available in Hugging Face<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a> that has been converted to <em>gguf</em>, including Llama 3, Phi 3, Falcon, Mistral, StarCoder and Gemma. LM Studio deploys a local server that can be interfaced through a programmable application interface (API), more specifically a REST API, and therefore be used from any program (e.g., an R script). Moreover, many existing applications use OpenAI API standards which makes them compatible with most existing libraries that implement OpenAI clients.</p>
+<p>For our tutorial, we are going to use LM Studio as our backend. To install it, follow the instructions on their website<a href="#fn2" class="footnote-ref" id="fnref2" role="doc-noteref"><sup>2</sup></a> for your operating system and run the app (<a href="#fig-1">Figure&nbsp;<span>11.1</span></a>).</p>
+<div id="fig-1" class="quarto-figure quarto-figure-center anchored">
+<figure class="figure">
+<p><img src="img/img/fig1.png" class="img-fluid figure-img"></p>
+<p></p><figcaption class="figure-caption"><strong>Figure</strong>&nbsp;1<strong>.</strong> LM Studio interface</figcaption><p></p>
+</figure>
+</div>
+<p>The next step would be to download one of the existing models. For the sake of this tutorial we are going to use a Gemma model (<code>lmstudio-ai/gemma-2b-it-GGUF</code>)<a href="#fn3" class="footnote-ref" id="fnref3" role="doc-noteref"><sup>3</sup></a>. Gemma has been developed based on the principles of Gemini (Google’s frontier model) and publicly and freely available at Hugging Face. This LLM is quite small (1.50GB on disk) but still achieves good performance. Feel free to choose a different model, depending on your device’s capabilities and the availability of more recent releases at the time you are reading this chapter. Search for the chosen model in the LM Studio app and download it by clicking on the “Download” button next to its name (<a href="#fig-2">Figure&nbsp;<span>11.2</span></a>).</p>
+<div id="fig-2" class="quarto-figure quarto-figure-center anchored">
+<figure class="figure">
+<p><img src="img/img/fig2.png" class="img-fluid figure-img"></p>
+<p></p><figcaption class="figure-caption"><strong>Figure</strong>&nbsp;2<strong>.</strong> Downloading a model in LM studio</figcaption><p></p>
+</figure>
+</div>
+<p>Once you have downloaded the model, you need to initialize the server<a href="#fn4" class="footnote-ref" id="fnref4" role="doc-noteref"><sup>4</sup></a>. First, click on the Local Server tab (the &lt;-&gt; icon on the left sidebar). On the top bar, select the LLM you have downloaded from the dropdown list and then start the server by clicking on the “Start Server” button. By default, your server will run on the port 1234 and will have the default API key “lm-studio”, but you can change this configuration if you so wish. Once the server has started, it will be ready to receive and reply to API requests (<a href="#fig-3">Figure&nbsp;<span>11.3</span></a>).</p>
+<div id="fig-3" class="quarto-figure quarto-figure-center anchored">
+<figure class="figure">
+<p><img src="img/img/fig3.png" class="img-fluid figure-img"></p>
+<p></p><figcaption class="figure-caption"><strong>Figure</strong>&nbsp;3<strong>.</strong> Downloading a model in LM studio</figcaption><p></p>
+</figure>
+</div>
+<p>To interact with the API from an R script, we will use the <code>ellmer</code> R package <span class="citation" data-cites="ellmer">[<a href="#ref-ellmer" role="doc-biblioref">17</a>]</span>. This R package offers a wrapper function for interacting with many well-known LLM platforms. The package enables users to send prompts, retrieve the generated responses, and customize API interactions directly within R. It is created and maintained by the <code>tidyverse</code> <span class="citation" data-cites="tidyverse">[<a href="#ref-tidyverse" role="doc-biblioref">18</a>]</span> community, which is one of the most active in R. Below we import the library:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ellmer) <span class="co"># install.packages("ellmer")</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>The next step after installing the library is creating a client to interact with the LLM API. The <code>ellmer</code> package offers a variety of clients including Anthropic’s Claude, AWS Bedrock, Azure OpenAI, Databricks, GitHub model marketplace, Google Gemini, Groq, Ollama, OpenAI, perplexity.ai, Snowflake Cortex, and VLLM. In our case, we are going to choose the OpenAI client which is compatible with our “lmstudio-ai/gemma-2b-it-GGUF” model in LM studio.</p>
+<p>The client will include the connection information to access LM studio. Change the code accordingly if you have configured a different port and API key in LM Studio. If instead of using LM studio you prefer to use OpenAI, simply omit the <code>base_url</code> argument and provide the right OpenAI API key in the <code>api_key</code> argument. If you are using another LLM backend, check the <code>ellmer</code> documentation to choose the right client instead of <code>chat_openai</code>. Specify the model name according to the model you have downloaded in LM studio (“lmstudio-ai/gemma-2b-it-GGUF” in our case), or the model of your choice within OpenAI (e.g., <code>gpt-3.5-turbo</code>) if you chose that option. We can also specify a system prompt (<code>system_prompt</code>) if we so wish <span class="citation" data-cites="Strategist2024-pu">[<a href="#ref-Strategist2024-pu" role="doc-biblioref">19</a>]</span>.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>client <span class="ot">&lt;-</span> <span class="fu">chat_openai</span>(</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>    <span class="at">base_url =</span> <span class="st">"http://localhost:1234/v1"</span>,</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">model =</span> <span class="st">"lmstudio-ai/gemma-2b-it-GGUF"</span>,</span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">api_key =</span> <span class="st">'lm-studio'</span>,</span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">system_prompt =</span> <span class="st">"You are an assistant that is expert in explainable AI for</span></span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a><span class="st">    providing learning analytics recommendations."</span>,</span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>You can check whether you are able to connect to your local LM studio by sending a simple prompt. We will use the client that we have just created and enter the content of our prompt as an argument to the <code>chat</code> function. For example:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>client<span class="sc">$</span><span class="fu">chat</span>(<span class="st">"Who are you?"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="callout-tip callout callout-style-simple">
+<div class="callout-body d-flex">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-body-container" title="Response">
+<pre><code>I am a language model designed to assist with learning analytics and explainable 
+AI (XAI) tasks. I have been trained on a massive  dataset of text and code and 
+am able to provide insights and recommendations related to XAI.
+
+**Here are some of the specific ways I can assist you with learning analytics 
+and XAI:**
+
+* **Identifying patterns and relationships in data:** I can analyze data to 
+identify patterns, trends, and outliers that could be  indicative of important 
+insights or anomalies.
+* **Ranking and filtering data points:** I can rank data points based on their 
+relevance to a specific query or hypothesis,allowing you to focus on the most 
+important information.
+* **Visualizing data and insights:** I can generate visualizations, charts, and 
+other representations of data and insights to help  you understand them more 
+easily.
+* **Providing explanations for AI models:** I can explain the decisions made by 
+AI models, including the data they consider, the  algorithms used, and the 
+weightings assigned to different features.
+* **Recommending learning algorithms and techniques:** Based on the data and 
+insights I identify, I can recommend appropriate 
+learning algorithms and techniques for further analysis.
+
+**I am here to assist you in any way that I can, so please do not hesitate to 
+ask me any questions you may have.**</code></pre>
+</div>
+</div>
+</div>
+<p>If you get an error, there could be several causes: that your server is not running, that you are running it on a different port than the default (1234), or that you provided the wrong model name, among other possibilities. If everything is in order, you will see the output of the prompt as shown above.</p>
+<p>Now that we have our infrastructure working, we can learn how to use it to enhance our learning analytics pipeline. In the next section, we present a case study about explaining and providing recommendations based on the results of an XAI predictive model. We will use the Gemma LLM through the LM studio API using the <code>ellmer</code> package just like we have learned in the previous steps.</p>
+</section>
+<section id="a-case-study-about-predictive-modeling" class="level2" data-number="4">
+<h2 data-number="4" class="anchored" data-anchor-id="a-case-study-about-predictive-modeling"><span class="header-section-number">4</span> A case study about predictive modeling</h2>
+<section id="introduction-1" class="level3" data-number="4.1">
+<h3 data-number="4.1" class="anchored" data-anchor-id="introduction-1"><span class="header-section-number">4.1</span> Introduction</h3>
+<p>In previous chapters of this book, we learned about XAI <span class="citation" data-cites="LABOOK2_Chapter_2 LABOOK2_Chapter_5 LABOOK2_Chapter_6">[<a href="#ref-LABOOK2_Chapter_2" role="doc-biblioref">4</a>, <a href="#ref-LABOOK2_Chapter_6" role="doc-biblioref">8</a>, <a href="#ref-LABOOK2_Chapter_5" role="doc-biblioref">20</a>]</span> and how to implement a pipeline for predicting students’ performance based on their online engagement <span class="citation" data-cites="LABOOK2_Chapter_3 LABOOK2_Chapter_4">[<a href="#ref-LABOOK2_Chapter_3" role="doc-biblioref">21</a>, <a href="#ref-LABOOK2_Chapter_4" role="doc-biblioref">22</a>]</span>, which has been an established goal of learning analytics and AI in education <span class="citation" data-cites="Mustafa2024-yn">[<a href="#ref-Mustafa2024-yn" role="doc-biblioref">5</a>]</span>. The overall workflow is depicted in <a href="#fig-workflow">Figure&nbsp;<span>11.4</span></a>. It is common to start with an exploratory data analysis (EDA) (A), as depicted in <span class="citation" data-cites="LABOOK2_Chapter_3">[<a href="#ref-LABOOK2_Chapter_3" role="doc-biblioref">21</a>]</span> followed by data preparation (B). Then we split the data into a training set and a testing set (C) and we use the training set to train an ML model (D) and evaluate its performance (E). We then use XAI techniques (F) to understand the model in general (i.e., global explainability, <span class="citation" data-cites="LABOOK2_Chapter_5">[<a href="#ref-LABOOK2_Chapter_5" role="doc-biblioref">20</a>]</span>) or specific predictions (i.e., local explainability, <span class="citation" data-cites="LABOOK2_Chapter_6">[<a href="#ref-LABOOK2_Chapter_6" role="doc-biblioref">8</a>]</span>). In this chapter, we go one step further and use LLMs (G) to explain the XAI outcomes using natural language, honoring one of the main uses of LLMs, which is to provide automated personalized feedback <span class="citation" data-cites="LABOOK2_Chapter_8">[<a href="#ref-LABOOK2_Chapter_8" role="doc-biblioref">1</a>]</span>. Please, consult the previous chapters to learn more about XAI and LLMs.</p>
+<div id="fig-workflow" class="quarto-figure quarto-figure-center anchored">
+<figure class="figure">
+<p><img src="img/img/WORKFLOW.png" class="img-fluid figure-img"></p>
+<p></p><figcaption class="figure-caption"><strong>Figure</strong>&nbsp;4<strong>.</strong> XAI + LLM workflow implemented in the tutorial</figcaption><p></p>
+</figure>
+</div>
+</section>
+<section id="model-fitting" class="level3" data-number="4.2">
+<h3 data-number="4.2" class="anchored" data-anchor-id="model-fitting"><span class="header-section-number">4.2</span> Model fitting</h3>
+<p>First, we are going to load all the necessary libraries, in addition to <strong><code>ellmer</code></strong> <span class="citation" data-cites="ellmer">[<a href="#ref-ellmer" role="doc-biblioref">17</a>]</span>, which we have already described in the previous section:</p>
+<ul>
+<li><p><code>rio</code>: <code>rio</code> stands for “R Input/Output” and is a package used for importing and exporting data files <span class="citation" data-cites="rio">[<a href="#ref-rio" role="doc-biblioref">23</a>]</span>. It supports a wide variety of file formats like CSV, Excel, JSON, and more. We will use it to load our dataset from an external file.</p></li>
+<li><p><code>tidyverse</code>: <code>tidyverse</code> is a collection of R packages designed for data science <span class="citation" data-cites="tidyverse">[<a href="#ref-tidyverse" role="doc-biblioref">18</a>]</span>. It includes packages like <code>dplyr</code> for data manipulation, <code>tidyr</code> for tidying data, and several others. In the tutorial, we will use it to manipulate and explore our data by filtering, selecting, or transforming data.</p></li>
+<li><p><code>rsample</code>: The <code>rsample</code> package provides functions to create resampling objects that can be used to evaluate and tune models <span class="citation" data-cites="rsample">[<a href="#ref-rsample" role="doc-biblioref">24</a>]</span>. It includes methods like bootstrapping, cross-validation, and splitting data into training and test sets. In this tutorial, it is used to split the dataset into training and testing sets. This is a crucial step in building and evaluating machine learning models.</p></li>
+<li><p><code>e1071</code>: The <code>e1071</code> package includes functions for various machine learning algorithms <span class="citation" data-cites="e1071">[<a href="#ref-e1071" role="doc-biblioref">25</a>]</span>, especially support vector machines (SVMs), which is the family of models that we are using in this tutorial.</p></li>
+<li><p><code>DALEX</code>: The package <code>DALEX</code> (Descriptive mAchine Learning EXplanations) is used for model interpretation <span class="citation" data-cites="DALEX">[<a href="#ref-DALEX" role="doc-biblioref">26</a>]</span>. It provides tools to explain and visualize how machine learning models make predictions, making them more transparent and understandable. In the tutorial, <code>DALEX</code> is the engine that performs XAI.</p></li>
+</ul>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">50</span>)</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="co"># Load necessary libraries</span></span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(rio)</span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(rsample)</span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(e1071) </span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(DALEX)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+
+</div>
+<p>The next step is importing our data, which is available on a Github repository along with most of the datasets used in the book, and assign it to the <code>student_data</code> variable. The dataset we are using is a synthetic dataset based on the study by Jovanović et al <span class="citation" data-cites="Jovanovic2021-et">[<a href="#ref-Jovanovic2021-et" role="doc-biblioref">27</a>]</span> and consists mostly of behavioral engagement indicators that can be obtained from the logs captured by the learning management system (LMS). Refer to Chapter 3 for a more detailed descritpion and EDA.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Import the data</span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>student_data <span class="ot">&lt;-</span> </span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>      <span class="fu">import</span>(<span class="st">"https://raw.githubusercontent.com/lamethods/data2/main/lms/lms.csv"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Then, we follow the typical machine learning pipeline (<a href="#fig-workflow">Figure&nbsp;<span>11.4</span></a>). The EDA of this dataset is presented in Chapter 3 so we omit it here for brevity. We prepare the data by standardizing all numeric columns in (i.e., transforming them to have a mean of 0 and a standard deviation of 1) (<a href="#fig-workflow">Figure&nbsp;<span>11.4</span></a>–B). This is important for many machine learning models that are sensitive to the scale of features. Then, we split our data into training (80%) and testing (20%) using the <code>rsample</code> package functions (<a href="#fig-workflow">Figure&nbsp;<span>11.4</span></a>–C). The training set will be used to fit the model (<a href="#fig-workflow">Figure&nbsp;<span>11.4</span></a>–D), while the test set is used to evaluate its performance (<a href="#fig-workflow">Figure&nbsp;<span>11.4</span></a>–E). Please, bear in mind that in a real setting more data cleaning and pre-processing operations are likely to be needed before being able to utilize the data.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Standardize the numeric columns</span></span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>student_data_standardized <span class="ot">&lt;-</span> student_data <span class="sc">|&gt;</span></span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="fu">across</span>(<span class="fu">where</span>(is.numeric), <span class="sc">~</span><span class="fu">scale</span>(.) <span class="sc">|&gt;</span> <span class="fu">as.vector</span>()))</span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Split the data into training and testing sets</span></span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a>data_split <span class="ot">&lt;-</span> <span class="fu">initial_split</span>(student_data_standardized, <span class="at">prop =</span> <span class="fl">0.8</span>)</span>
+<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a>train_data <span class="ot">&lt;-</span> <span class="fu">training</span>(data_split)</span>
+<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a>test_data <span class="ot">&lt;-</span> <span class="fu">testing</span>(data_split)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>We then specify the formula of our model. The formula defines the relationship between the target variable (<code>Final_Grade</code>) and the predictor variables (engagement indicators like course views, forum contributions, etc.). We use the formula and the training data to fit an SVM model (<a href="#fig-workflow">Figure&nbsp;<span>11.4</span></a>–D).</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Define the formula to specify the relationship between the target variable </span></span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a><span class="co"># and the predictor variables</span></span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>formula <span class="ot">&lt;-</span> Final_Grade <span class="sc">~</span> Freq_Course_View <span class="sc">+</span> Freq_Lecture_View <span class="sc">+</span> </span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>  Freq_Forum_Consume <span class="sc">+</span> Freq_Forum_Contribute <span class="sc">+</span> Regularity_Course_View <span class="sc">+</span></span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a>  Regularity_Lecture_View <span class="sc">+</span> Regularity_Forum_Consume <span class="sc">+</span> </span>
+<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a>  Regularity_Forum_Contribute <span class="sc">+</span> Session_Count <span class="sc">+</span> Total_Duration <span class="sc">+</span> Active_Days</span>
+<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a><span class="co"># Fit the SVM model</span></span>
+<span id="cb8-9"><a href="#cb8-9" aria-hidden="true" tabindex="-1"></a>svm_fit <span class="ot">&lt;-</span> <span class="fu">svm</span>(formula, <span class="at">data =</span> train_data, <span class="at">kernel =</span> <span class="st">"radial"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="model-performance" class="level3" data-number="4.3">
+<h3 data-number="4.3" class="anchored" data-anchor-id="model-performance"><span class="header-section-number">4.3</span> Model performance</h3>
+<p>Now that we have created and fitted our ML model, we can evaluate how well the model performed (<a href="#fig-workflow">Figure&nbsp;<span>11.4</span></a>–E) and use XAI to understand how it made decisions. The <code>explain()</code> function from <code>DALEX</code> creates an explainer object for the SVM model. This explainer is used to assess and visualize the model’s performance.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">50</span>)</span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Create an explainer with DALEX</span></span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>explainer_svm <span class="ot">&lt;-</span> <span class="fu">explain</span>(</span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a>  svm_fit,</span>
+<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">data =</span> dplyr<span class="sc">::</span><span class="fu">select</span>(test_data, <span class="sc">-</span>Final_Grade),</span>
+<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a>  <span class="at">y =</span> test_data<span class="sc">$</span>Final_Grade,</span>
+<span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a>  <span class="at">label =</span> <span class="st">"SVM"</span>,</span>
+<span id="cb9-9"><a href="#cb9-9" aria-hidden="true" tabindex="-1"></a>  <span class="at">verbose =</span> <span class="cn">FALSE</span></span>
+<span id="cb9-10"><a href="#cb9-10" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>For instance, the <code>model_performance</code> function calculates various performance metrics for the model using the test data. It return a performance object (<code>mp_svm</code>) that contains statistics and diagnostic information about the model’s predictive accuracy. Some of the common metrics provided are:</p>
+<ul>
+<li><strong>RMSE (Root Mean Square Error)</strong>: Measures the average error between the predicted values and the actual values. Lower RMSE values indicate better model performance.</li>
+<li><strong>MAE (Mean Absolute Error)</strong>: Another measure of the average magnitude of prediction errors, which is less sensitive to outliers compared to RMSE.</li>
+<li><strong>R-squared</strong>: The proportion of the variance in the dependent variable that is predictable from the independent variables.</li>
+<li><strong>Residuals</strong>: The difference between the observed target values and the predicted values for each test observation.</li>
+</ul>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>mp_svm <span class="ot">&lt;-</span> <span class="fu">model_performance</span>(explainer_svm)</span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>mp_svm</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Measures for:  regression
+mse        : 0.5556946 
+rmse       : 0.7454493 
+r2         : 0.4063128 
+mad        : 0.4442718
+
+Residuals:
+         0%         10%         20%         30%         40%         50% 
+-1.64093297 -0.58085583 -0.41026001 -0.07698939  0.07855870  0.28133263 
+        60%         70%         80%         90%        100% 
+ 0.34303022  0.51622444  0.76114088  1.06787159  1.81745294 </code></pre>
+</div>
+</div>
+<pre><code>Measures for:  regression
+mse        : 0.56 
+rmse       : 0.75
+r2         : 0.41
+mad        : 0.44
+
+Residuals:
+0%    10%   20%   30%    40%   50%   60%   70%   80%   90%   100% 
+-1.64 -0.58 -0.41 -0.08  0.08  0.28  0.34  0.52  0.76  1.07  1.82 </code></pre>
+<p>Let us now see how an LLM can be used to explain the performance results to a practitioner (<a href="#fig-workflow">Figure&nbsp;<span>11.4</span></a>–G). For that purpose, we use the <code>client$chat</code> function and we create an appropriate prompt. According to the DAIR.AI’s Prompt Engineering Guide <span class="citation" data-cites="Dairai2024-zv">[<a href="#ref-Dairai2024-zv" role="doc-biblioref">28</a>]</span>, the main elements of a prompt are: instruction, input data, output format, and context information. We follow these guidelines and the work by Zytek et al. <span class="citation" data-cites="Zytek2024-fn">[<a href="#ref-Zytek2024-fn" role="doc-biblioref">29</a>]</span> to draft the instruction, context, and desired output format of our prompt, and we add the input data from the model performance object. To make sure we pass the text version of the results rather than the R object itself, we use the <code>capture.output</code> function to capture the output of calling the command <code>print</code> on the object and we assign it to a variable named <code>mp_svm_output</code>. The output is collected as a vector of lines of text, so we need to combine all the lines together into a single textual variable using <code>paste(mp_svm_output, collapse = "\n")</code>. We then combine the prompt with the results using the same technique. Lastly, we use the <code>client$chat</code> function to send the prompt to the LLM.</p>
+<!-- explain functions in detail-->
+<div class="cell">
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Capture print output of the model performance</span></span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>mp_svm_output <span class="ot">&lt;-</span> <span class="fu">capture.output</span>(mp_svm) </span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Put it together into a single string of text</span></span>
+<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a>mp_svm_print <span class="ot">&lt;-</span> <span class="fu">paste</span>(mp_svm_output, <span class="at">collapse =</span> <span class="st">"</span><span class="sc">\n</span><span class="st">"</span>)</span>
+<span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-7"><a href="#cb13-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Combine generic prompt with our model performance</span></span>
+<span id="cb13-8"><a href="#cb13-8" aria-hidden="true" tabindex="-1"></a>mv_svm_prompt <span class="ot">&lt;-</span> <span class="fu">paste</span>(<span class="st">"You are helping teachers understand an ML model’s </span></span>
+<span id="cb13-9"><a href="#cb13-9" aria-hidden="true" tabindex="-1"></a><span class="st">prediction. The model predicts students' performance based on engagement measures. </span></span>
+<span id="cb13-10"><a href="#cb13-10" aria-hidden="true" tabindex="-1"></a><span class="st">I will give you the model performance evaluation. Come up  with a textual </span></span>
+<span id="cb13-11"><a href="#cb13-11" aria-hidden="true" tabindex="-1"></a><span class="st">non-technical explanation  of how well the model performs that I could include in </span></span>
+<span id="cb13-12"><a href="#cb13-12" aria-hidden="true" tabindex="-1"></a><span class="st">a dashboard. Take into account that the data has been standardized:"</span>,</span>
+<span id="cb13-13"><a href="#cb13-13" aria-hidden="true" tabindex="-1"></a>mp_svm_print,  <span class="at">collapse =</span> <span class="st">"</span><span class="sc">\n</span><span class="st">"</span>)</span>
+<span id="cb13-14"><a href="#cb13-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-15"><a href="#cb13-15" aria-hidden="true" tabindex="-1"></a><span class="co"># Send the prompt to the LLM and print the results</span></span>
+<span id="cb13-16"><a href="#cb13-16" aria-hidden="true" tabindex="-1"></a>client<span class="sc">$</span><span class="fu">chat</span>(mv_svm_prompt)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="callout-tip callout callout-style-simple">
+<div class="callout-body d-flex">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-body-container" title="Response">
+<pre><code>The model successfully predicts students' performance based on engagement 
+measures, achieving a mean squared error (MSE) of 0.4504274, a root mean 
+square error (RMSE) of 0.6711389, and an r² value of 0.4785088. These indicate 
+that the model is performing well in predicting performance based on engagement 
+measures.
+
+The model also achieves a median Absolute Deviation (MAD) of 0.4217903, which 
+suggests that the model can effectively capture the typical difference between 
+individual student scores on the engagement measures. The model also has a high 
+percentage of residuals within the range of -0.1 to 0.1, indicating that the 
+model is able to make accurate predictions while considering the effect of 
+engagement  measures on student performance.</code></pre>
+</div>
+</div>
+</div>
+</section>
+<section id="feature-importance" class="level3" data-number="4.4">
+<h3 data-number="4.4" class="anchored" data-anchor-id="feature-importance"><span class="header-section-number">4.4</span> Feature importance</h3>
+<p>The LLM has offered an explanation for the overall performance results, but still we would need to know what are the variables that are influencing the model’s decisions. A common explainable XAI technique that we can use for this purpose is feature importance (<a href="#fig-workflow">Figure&nbsp;<span>11.4</span></a>–F). We can use this technique (implemented in the <code>feature_importance</code> function of <code>DALEX</code>) to calculate how much each feature contributes to the prediction. Features with high importance have a bigger influence on the final grade predictions. From the results we can see that the number of contributions to the forum is the most predictive feature, followed by the regularity thereof (<a href="#fig-feat-imp">Figure&nbsp;<span>11.5</span></a>). Next were the session count, the total time spent online and the regularity of visiting the course main page.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>vi_svm <span class="ot">&lt;-</span> <span class="fu">feature_importance</span>(explainer_svm)</span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>vi_plot <span class="ot">&lt;-</span> <span class="fu">plot</span>(vi_svm)</span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>vi_plot </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div id="fig-feat-imp" class="quarto-figure quarto-figure-center anchored">
+<figure class="figure">
+<p><img src="img/ch11-llmsxai_files/figure-html/fig-feat-imp-1.png" class="img-fluid figure-img" width="672"></p>
+<p></p><figcaption class="figure-caption"><strong>Figure</strong>&nbsp;5<strong>.</strong> Feature importance</figcaption><p></p>
+</figure>
+</div>
+</div>
+</div>
+<p>We can ask the LLM to come up with an explanation of these results (<a href="#fig-workflow">Figure&nbsp;<span>11.4</span></a>–G). First, we extract the statistics from the feature importance. The results of the <code>feature imporatance</code> function returns the raw data after each permutation. If we want to get the final results, the easiest way is to obtain them from the plot (<code>vi_plot$data</code>). We order the results from most important to least important, and we display them as pairs (Variable, loss), as suggested by <span class="citation" data-cites="Zytek2024-fn">[<a href="#ref-Zytek2024-fn" role="doc-biblioref">29</a>]</span>.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>vi_svm_text <span class="ot">&lt;-</span> vi_plot<span class="sc">$</span>data <span class="sc">|&gt;</span> <span class="co"># Extract data from the plot</span></span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(<span class="fu">desc</span>(median)) <span class="sc">|&gt;</span> <span class="co"># Order by median value</span></span>
+<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">Features =</span> <span class="co"># Create pairs (feature, median feature value)</span></span>
+<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a>           <span class="fu">paste0</span>(<span class="st">"("</span>,variable,<span class="st">", "</span>, <span class="fu">round</span>(median, <span class="dv">2</span>), <span class="st">")"</span>)) <span class="sc">|&gt;</span> </span>
+<span id="cb16-5"><a href="#cb16-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pull</span>(Features) <span class="sc">|&gt;</span> <span class="co"># Extract the column that contains the pairs</span></span>
+<span id="cb16-6"><a href="#cb16-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">paste</span>(<span class="at">collapse =</span> <span class="st">"</span><span class="sc">\n</span><span class="st">"</span>) <span class="co"># Create a single text variable that contains all pairs</span></span>
+<span id="cb16-7"><a href="#cb16-7" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(vi_svm_text) <span class="co"># Print output</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>(Freq_Forum_Contribute, 0.91)
+(Regularity_Forum_Contribute, 0.8)
+(Session_Count, 0.79)
+(Regularity_Course_View, 0.78)
+(Active_Days, 0.78)
+(Total_Duration, 0.77)
+(Freq_Course_View, 0.77)
+(Regularity_Lecture_View, 0.76)
+(Freq_Lecture_View, 0.75)
+(Freq_Forum_Consume, 0.75)
+(Regularity_Forum_Consume, 0.75)</code></pre>
+</div>
+</div>
+<p>We now follow the same prompt guidelines as before <span class="citation" data-cites="Zytek2024-fn Dairai2024-zv">[<a href="#ref-Dairai2024-zv" role="doc-biblioref">28</a>, <a href="#ref-Zytek2024-fn" role="doc-biblioref">29</a>]</span> to construct our prompt. We combine it with the feature importance output using <code>paste</code> and we send it to the LLM with <code>client$chat</code>.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>client<span class="sc">$</span><span class="fu">chat</span>(<span class="fu">paste</span>(<span class="st">"I will give you the results of permutation based </span></span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a><span class="st">feature importance of a model computed with DALEX in the form </span></span>
+<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a><span class="st">(feature, median_dropout_loss). Please provide a clear, concise and understandable </span></span>
+<span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a><span class="st">narrative  for teachers that explains how these contributions influence students' </span></span>
+<span id="cb18-5"><a href="#cb18-5" aria-hidden="true" tabindex="-1"></a><span class="st">predicted grades. Ensure the explanation highlights the significance of each </span></span>
+<span id="cb18-6"><a href="#cb18-6" aria-hidden="true" tabindex="-1"></a><span class="st">feature's contribution to the overall prediction in order"</span>,</span>
+<span id="cb18-7"><a href="#cb18-7" aria-hidden="true" tabindex="-1"></a>vi_svm_text, <span class="at">collapse =</span> <span class="st">"</span><span class="sc">\n</span><span class="st">"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="callout-tip callout callout-style-simple">
+<div class="callout-body d-flex">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-body-container" title="Response">
+<pre><code>The results of the permutation-based feature importance computed with DALEX 
+provide a clear view of how various factors influence students' predicted 
+grades. Here’s a  concise explanation of each feature's contribution to the 
+model’s predictions:
+
+    *Frequent Forum Contributions* (0.91): The most important factor. Active 
+    participation in forums signals higher engagement with the material and 
+    likely leads to better understanding and academic performance.
+    
+    *Session Count* (0.73): The number of sessions reflects how often students 
+    interact with the platform. More sessions indicate consistent effort, which 
+    improves learning outcomes.
+    
+    *Regular Forum Contributions* (0.71): Consistent engagement in forums over 
+    time  is crucial. Regular interaction helps students stay engaged, 
+    enhancing  their grasp of the subject.
+    
+    *Regular Course Views* (0.71): Regularly viewing course materials helps 
+    students keep up with the content, reinforcing their knowledge and boosting 
+    their grades.
+    
+    *Total Engagement Duration* (0.71): The total time spent engaging with 
+    coursecontent reflects dedication. More time on task generally correlates 
+    with better academic outcomes.
+    
+    *Regular Forum Consumption* (0.7): Regularly reading forum posts without 
+    contributing also has a significant impact. This allows students to learn 
+    from others’ insights and discussions.
+    
+    *Active Days* (0.7): The number of days a student actively participates in 
+    the course is another key indicator of consistent engagement, which is 
+    closely tied to higher performance.
+    
+    *Frequent Forum Consumption* (0.69): Reading forums frequently helps 
+    students  stay informed about discussions, reinforcing their learning.
+    
+    *Regular Lecture Views* (0.69): Watching lectures on a regular basis is 
+    important for knowledge retention and consistent progress through the course.
+    
+    *Frequent Course Views* (0.68): Students who frequently revisit course 
+    materials are more likely to master the content, contributing to better 
+    academic results.
+    
+    *Frequent Lecture Views* (0.66): Watching lectures often helps students 
+    review  and understand complex concepts, leading to improved performance.
+
+In conclusion, the most influential factors driving student performance are 
+active and regular engagement, particularly through forums and course 
+interactions. These behaviors reflect deeper learning and a steady approach to 
+studying, leading to higher predicted grades.</code></pre>
+</div>
+</div>
+</div>
+<p>The LLM correctly identifies the important features and how important they are in the final decision. However, the LLM seems to be making some inferences about whether the variables positively or negatively predict the final grade, which is not something that we can obtain from the feature importance solely. It also makes some strange interpretations, like reading posts without contributing has a significant impact inference, which is not very plausible.</p>
+</section>
+<section id="partial-dependence-profile" class="level3" data-number="4.5">
+<h3 data-number="4.5" class="anchored" data-anchor-id="partial-dependence-profile"><span class="header-section-number">4.5</span> Partial Dependence Profile</h3>
+<p>The Partial Dependence Profile (PDP) is another XAI technique, which used to explain the relationship between a specific feature and the predicted outcome of a machine learning model. It helps visualize and understand how changes in a feature affect the model’s predictions, while keeping all other features constant. Contrary to feature importance which calculates to which extent a feature affects the prediction accuracy, the PDP helps us understand how increasing or decreasing the value of a certain feature affects the final outcome. For example, if a student increases the number of forum contributions, will they be predicted as having a higher or lower final grade? To obtain this information we use the <code>model_profile</code> function from <code>DALEX</code> and plot the results (<a href="#fig-pdp-forum">Figure&nbsp;<span>11.6</span></a>).</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a>pdp_svm_fcontrib <span class="ot">&lt;-</span> <span class="fu">model_profile</span>(explainer_svm, <span class="at">variables =</span> <span class="st">"Freq_Forum_Contribute"</span>)</span>
+<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(pdp_svm_fcontrib) <span class="sc">+</span> <span class="fu">theme</span>(<span class="at">plot.subtitle =</span> <span class="fu">element_blank</span>())</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div id="fig-pdp-forum" class="quarto-figure quarto-figure-center anchored">
+<figure class="figure">
+<p><img src="img/ch11-llmsxai_files/figure-html/fig-pdp-forum-1.png" class="img-fluid figure-img" width="384"></p>
+<p></p><figcaption class="figure-caption"><strong>Figure</strong>&nbsp;6<strong>.</strong> PDP of <code>Freq_Forum_Contribute</code></figcaption><p></p>
+</figure>
+</div>
+</div>
+</div>
+<p>According to the PDP, an increase in forum contributions is expected to result in a higher grade prediction. Let’s see if the LLM can obtain a similar interpretation. Since the number of data points used to create the previous graph is too high to pass to the LLM, we can provide only a few values of the curve (i.e., a few x-y pairs) and try to recreate the same profile. For example, we can only estimate the profile for all integer values of x (from -3 to 3). The plot generated is very similar to the previous one (<a href="#fig-pdp-forum-limited">Figure&nbsp;<span>11.7</span></a>):</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a>pdp_svm_fcontrib3 <span class="ot">&lt;-</span> <span class="fu">model_profile</span>(explainer_svm, <span class="at">variables =</span> <span class="st">"Freq_Forum_Contribute"</span>, </span>
+<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a>              <span class="at">variable_splits =</span> <span class="fu">list</span>(<span class="at">Freq_Forum_Contribute =</span> <span class="sc">-</span><span class="dv">3</span><span class="sc">:</span><span class="dv">3</span>)) </span>
+<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(pdp_svm_fcontrib3) <span class="sc">+</span> <span class="fu">theme</span>(<span class="at">plot.subtitle =</span> <span class="fu">element_blank</span>())</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div id="fig-pdp-forum-limited" class="quarto-figure quarto-figure-center anchored">
+<figure class="figure">
+<p><img src="img/ch11-llmsxai_files/figure-html/fig-pdp-forum-limited-1.png" class="img-fluid figure-img" width="384"></p>
+<p></p><figcaption class="figure-caption"><strong>Figure</strong>&nbsp;7<strong>.</strong> PDP of <code>Freq_Forum_Contribute</code> with limited x-axis values</figcaption><p></p>
+</figure>
+</div>
+</div>
+</div>
+<p>We can now extract the x-y pairs from the results as follows:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a>pdp_svm_fcontrib3xy <span class="ot">&lt;-</span> pdp_svm_fcontrib3<span class="sc">$</span>agr_profiles <span class="sc">|&gt;</span> <span class="co"># Extract the data</span></span>
+<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a>   <span class="fu">mutate</span>(<span class="at">Pair =</span> <span class="co"># Create (x,y) pairs</span></span>
+<span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a>            <span class="fu">paste0</span>(<span class="st">"(x = "</span>, <span class="st">`</span><span class="at">_x_</span><span class="st">`</span>, <span class="st">", y = "</span>, <span class="fu">round</span>(<span class="st">`</span><span class="at">_yhat_</span><span class="st">`</span>, <span class="dv">2</span>), <span class="st">")"</span>)) <span class="sc">|&gt;</span> </span>
+<span id="cb22-4"><a href="#cb22-4" aria-hidden="true" tabindex="-1"></a>   <span class="fu">pull</span>(Pair) <span class="sc">|&gt;</span> <span class="co"># Extract the x,y pairs</span></span>
+<span id="cb22-5"><a href="#cb22-5" aria-hidden="true" tabindex="-1"></a>   <span class="fu">paste</span>(<span class="at">collapse =</span> <span class="st">"</span><span class="sc">\n</span><span class="st">"</span>) <span class="co"># Join the pairs together in a single text variable</span></span>
+<span id="cb22-6"><a href="#cb22-6" aria-hidden="true" tabindex="-1"></a>   </span>
+<span id="cb22-7"><a href="#cb22-7" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(pdp_svm_fcontrib3xy) <span class="co"># Print the (x,y) pairs</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>(x = -3, y = -0.9)
+(x = -2, y = -0.82)
+(x = -1, y = -0.52)
+(x = 0, y = -0.05)
+(x = 1, y = 0.37)
+(x = 2, y = 0.57)
+(x = 3, y = 0.48)</code></pre>
+</div>
+</div>
+<p>We create the prompt following the guidelines by <span class="citation" data-cites="Zytek2024-fn">[<a href="#ref-Zytek2024-fn" role="doc-biblioref">29</a>]</span> and send it to the LLM to obtain the explanation in natural language using <code>client$chat</code>:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a>client<span class="sc">$</span><span class="fu">chat</span>(<span class="fu">paste</span>(<span class="st">"I will give you the PDP x-y pairs of </span></span>
+<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a><span class="st">the feature Freq_Forum_Contribute. Please provide a concise one-sentence</span></span>
+<span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a><span class="st">explanation for teachers about how this feature influences students' predicted </span></span>
+<span id="cb24-4"><a href="#cb24-4" aria-hidden="true" tabindex="-1"></a><span class="st">grades Ensure the explanation highlights how changes in the feature affect the </span></span>
+<span id="cb24-5"><a href="#cb24-5" aria-hidden="true" tabindex="-1"></a><span class="st">grade prediction."</span>, pdp_svm_fcontrib3xy, <span class="at">collapse =</span><span class="st">"</span><span class="sc">\n</span><span class="st">"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="callout-tip callout callout-style-simple">
+<div class="callout-body d-flex">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-body-container" title="Response">
+<pre><code>As students increase their forum contributions, their predicted grades improve 
+significantly, peaking with moderate to high contributions, though excessive 
+participation shows slightly diminishing returns.</code></pre>
+</div>
+</div>
+</div>
+<p>It seems that the LLM can accurately capture the direction of the effect of this feature. We can also automate this process for all the features iterating through all the features and storing the response of the LLMs in a list. To avoid printing the LLM response every time, we can add the argument <code>echo = FALSE</code> to the <code>client$chat</code> function call.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Get the feature names from the model</span></span>
+<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a>features <span class="ot">&lt;-</span> <span class="fu">names</span>(explainer_svm<span class="sc">$</span>data)</span>
+<span id="cb26-3"><a href="#cb26-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-4"><a href="#cb26-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Initialize an empty list to store the results</span></span>
+<span id="cb26-5"><a href="#cb26-5" aria-hidden="true" tabindex="-1"></a>all_pdp_results <span class="ot">&lt;-</span> <span class="fu">list</span>()</span>
+<span id="cb26-6"><a href="#cb26-6" aria-hidden="true" tabindex="-1"></a><span class="co"># Loop through each feature in the model</span></span>
+<span id="cb26-7"><a href="#cb26-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-8"><a href="#cb26-8" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> (feature <span class="cf">in</span> features) {</span>
+<span id="cb26-9"><a href="#cb26-9" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Create PDP for the current feature</span></span>
+<span id="cb26-10"><a href="#cb26-10" aria-hidden="true" tabindex="-1"></a>  variable_splits <span class="ot">&lt;-</span> <span class="fu">list</span>()</span>
+<span id="cb26-11"><a href="#cb26-11" aria-hidden="true" tabindex="-1"></a>  variable_splits[[feature]] <span class="ot">&lt;-</span> <span class="sc">-</span><span class="dv">3</span><span class="sc">:</span><span class="dv">3</span></span>
+<span id="cb26-12"><a href="#cb26-12" aria-hidden="true" tabindex="-1"></a>  pdp_svm <span class="ot">&lt;-</span> <span class="fu">model_profile</span>(explainer_svm, <span class="at">variables =</span> feature, </span>
+<span id="cb26-13"><a href="#cb26-13" aria-hidden="true" tabindex="-1"></a>                           <span class="at">variable_splits =</span> variable_splits)</span>
+<span id="cb26-14"><a href="#cb26-14" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb26-15"><a href="#cb26-15" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Extract x-y pairs from the PDP</span></span>
+<span id="cb26-16"><a href="#cb26-16" aria-hidden="true" tabindex="-1"></a>  pdp_svm_xy <span class="ot">&lt;-</span> pdp_svm<span class="sc">$</span>agr_profiles <span class="sc">|&gt;</span></span>
+<span id="cb26-17"><a href="#cb26-17" aria-hidden="true" tabindex="-1"></a>    <span class="fu">mutate</span>(<span class="at">Pair  =</span> <span class="fu">paste0</span>(<span class="st">"(x = "</span>, <span class="st">`</span><span class="at">_x_</span><span class="st">`</span>, <span class="st">", y = "</span>, <span class="fu">round</span>(<span class="st">`</span><span class="at">_yhat_</span><span class="st">`</span>, <span class="dv">2</span>), <span class="st">")"</span>)) <span class="sc">|&gt;</span> </span>
+<span id="cb26-18"><a href="#cb26-18" aria-hidden="true" tabindex="-1"></a>    <span class="fu">pull</span>(Pair) <span class="sc">|&gt;</span> </span>
+<span id="cb26-19"><a href="#cb26-19" aria-hidden="true" tabindex="-1"></a>    <span class="fu">paste</span>(<span class="at">collapse =</span> <span class="st">"</span><span class="sc">\n</span><span class="st">"</span>)</span>
+<span id="cb26-20"><a href="#cb26-20" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb26-21"><a href="#cb26-21" aria-hidden="true" tabindex="-1"></a>  prompt <span class="ot">&lt;-</span> <span class="fu">paste</span>(<span class="st">"I will give you the PDP x-y pairs of the feature"</span>, </span>
+<span id="cb26-22"><a href="#cb26-22" aria-hidden="true" tabindex="-1"></a>  feature, <span class="st">"."</span>, <span class="st">"Please provide a concise, non-technical one-sentence explanation </span></span>
+<span id="cb26-23"><a href="#cb26-23" aria-hidden="true" tabindex="-1"></a><span class="st">  for teachers about how this feature influences students' predicted grades. "</span>,</span>
+<span id="cb26-24"><a href="#cb26-24" aria-hidden="true" tabindex="-1"></a>  <span class="st">"Ensure the explanation highlights how changes in the feature affect the grade </span></span>
+<span id="cb26-25"><a href="#cb26-25" aria-hidden="true" tabindex="-1"></a><span class="st">  prediction."</span>, pdp_svm_xy, <span class="at">collapse =</span> <span class="st">"</span><span class="sc">\n</span><span class="st">"</span>)</span>
+<span id="cb26-26"><a href="#cb26-26" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Generate the response for the current feature</span></span>
+<span id="cb26-27"><a href="#cb26-27" aria-hidden="true" tabindex="-1"></a>  pdp_svm_res <span class="ot">&lt;-</span> client<span class="sc">$</span><span class="fu">chat</span>(prompt, <span class="at">echo =</span> <span class="cn">FALSE</span>)</span>
+<span id="cb26-28"><a href="#cb26-28" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb26-29"><a href="#cb26-29" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Store the result in the list</span></span>
+<span id="cb26-30"><a href="#cb26-30" aria-hidden="true" tabindex="-1"></a>  all_pdp_results[[feature]] <span class="ot">&lt;-</span> pdp_svm_res</span>
+<span id="cb26-31"><a href="#cb26-31" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb26-32"><a href="#cb26-32" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Print result</span></span>
+<span id="cb26-33"><a href="#cb26-33" aria-hidden="true" tabindex="-1"></a>  <span class="fu">cat</span>(<span class="st">"</span><span class="sc">\n\n</span><span class="st">"</span>, feature, <span class="st">"</span><span class="sc">\n</span><span class="st">"</span>, <span class="at">sep =</span> <span class="st">""</span>)</span>
+<span id="cb26-34"><a href="#cb26-34" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb26-35"><a href="#cb26-35" aria-hidden="true" tabindex="-1"></a>  <span class="fu">cat</span>(all_pdp_results[[feature]]) </span>
+<span id="cb26-36"><a href="#cb26-36" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="callout-tip callout callout-style-simple">
+<div class="callout-body d-flex">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-body-container" title="Response">
+<pre><code>Freq_Course_View
+As students increase their course views from very low to moderate, their 
+predicted grades improve slightly, but viewing too much beyond that point can 
+result in lower predicted grades.
+
+Freq_Forum_Consume
+As students increase their frequency of consuming forum content from very low 
+to moderate levels, their predicted grades improve slightly, but consuming too 
+much forum content beyond that point may result in lower predicted grades.
+
+Freq_Forum_Contribute
+As students increase their forum contributions, their predicted grades rise 
+significantly, peaking at moderate levels, but very high contributions show a 
+slight decline in impact.
+
+Freq_Lecture_View
+Watching lectures more frequently improves predicted grades up to a point, 
+but excessive viewing results in a slight decrease in the benefit.
+
+Regularity_Course_View
+Consistently viewing course content improves predicted grades, with the benefit 
+leveling off at higher regularity.
+
+Regularity_Lecture_View
+Regular lecture viewing has a small positive impact on predicted grades, 
+especially as students maintain a steady viewing habit.
+
+Regularity_Forum_Consume
+Regularly reading forum content gradually improves predicted grades, showing a 
+steady increase with more consistent engagement.
+
+Regularity_Forum_Contribute
+Regular forum contributions improve predicted grades, but excessive regularity 
+can slightly lower the benefit.
+
+Session_Count
+More sessions improve predicted grades steadily, with the largest gains seen at 
+moderate session counts.
+
+Total_Duration
+The longer students engage with the course, the better their predicted grades, 
+though the impact flattens with very high durations</code></pre>
+</div>
+</div>
+</div>
+<p>We can check if the generated explanations are correct by looking at the PDP plots of all the features (<a href="#fig-all-pdf">Figure&nbsp;<span>11.8</span></a>):</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a>pdp_svm <span class="ot">&lt;-</span> <span class="fu">model_profile</span>(explainer_svm)</span>
+<span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(pdp_svm) <span class="sc">+</span> <span class="fu">theme</span>(<span class="at">plot.subtitle =</span> <span class="fu">element_blank</span>(), <span class="at">text =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">6</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div id="fig-all-pdf" class="quarto-figure quarto-figure-center anchored">
+<figure class="figure">
+<p><img src="img/ch11-llmsxai_files/figure-html/fig-all-pdf-1.png" class="img-fluid figure-img" width="864"></p>
+<p></p><figcaption class="figure-caption"><strong>Figure</strong>&nbsp;8<strong>.</strong> PDP plots of all features</figcaption><p></p>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section id="local-explanations" class="level3" data-number="4.6">
+<h3 data-number="4.6" class="anchored" data-anchor-id="local-explanations"><span class="header-section-number">4.6</span> Local explanations</h3>
+<p>The previous XAI techniques are useful to understand the model’s performance and overall decision-making process. However, they do not help us understand how specific decisions have been made for specific students. For that, we need local explanations. We can explain a specific student’s prediction (e.g., number 2) using the <code>predict_parts</code> function from <code>DALEX</code>. In <a href="#fig-shap-student2">Figure&nbsp;<span>11.9</span></a>, we see that this student has been predicted to have a grade of 0.979 (almost one SD above the mean), and therefore they are a very high achieving student. We see how the most contributing factor has been the frequency of contribution to the forum, followed by the duration of their online time.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb29"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Row 2 is student 2. </span></span>
+<span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a><span class="co"># We remove column 12 since it contains the grade that we want to predict</span></span>
+<span id="cb29-3"><a href="#cb29-3" aria-hidden="true" tabindex="-1"></a>student2 <span class="ot">&lt;-</span> test_data[<span class="dv">2</span>, <span class="sc">-</span><span class="dv">12</span>] </span>
+<span id="cb29-4"><a href="#cb29-4" aria-hidden="true" tabindex="-1"></a>explanation2 <span class="ot">&lt;-</span> <span class="fu">predict_parts</span>(explainer_svm, <span class="at">new_observation =</span> student2)</span>
+<span id="cb29-5"><a href="#cb29-5" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(explanation2)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div id="fig-shap-student2" class="quarto-figure quarto-figure-center anchored">
+<figure class="figure">
+<p><img src="img/ch11-llmsxai_files/figure-html/fig-shap-student2-1.png" class="img-fluid figure-img" width="576"></p>
+<p></p><figcaption class="figure-caption"><strong>Figure</strong>&nbsp;9<strong>.</strong> SHAP explanations for student 2</figcaption><p></p>
+</figure>
+</div>
+</div>
+</div>
+<p>We can try to see if the LLM can come up with a similar description. Let us extract the variable values and contributions from the results in the format (Feature name, Feature value, Feature contribution).</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb30"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a>local2 <span class="ot">&lt;-</span> explanation2 <span class="sc">|&gt;</span> <span class="fu">data.frame</span>() <span class="sc">|&gt;</span> <span class="fu">head</span>(<span class="sc">-</span><span class="dv">1</span>) <span class="sc">|&gt;</span> <span class="co"># Extract explanation data</span></span>
+<span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">Tuple =</span> <span class="co"># Create tuples (Feature name, Feature value, Feature contribution)</span></span>
+<span id="cb30-3"><a href="#cb30-3" aria-hidden="true" tabindex="-1"></a>           <span class="fu">paste0</span>(<span class="st">"("</span>,variable_name,<span class="st">", "</span>, </span>
+<span id="cb30-4"><a href="#cb30-4" aria-hidden="true" tabindex="-1"></a>                  <span class="fu">round</span>(<span class="fu">as.numeric</span>(variable_value), <span class="dv">2</span>), <span class="st">", "</span>, </span>
+<span id="cb30-5"><a href="#cb30-5" aria-hidden="true" tabindex="-1"></a>                  <span class="fu">round</span>(contribution, <span class="dv">2</span>), <span class="st">")"</span>)) <span class="sc">|&gt;</span> </span>
+<span id="cb30-6"><a href="#cb30-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pull</span>(Tuple) <span class="sc">|&gt;</span> <span class="co"># Extract tuples</span></span>
+<span id="cb30-7"><a href="#cb30-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">paste</span>(<span class="at">collapse =</span> <span class="st">"</span><span class="sc">\n</span><span class="st">"</span>) <span class="co"># Join tuples together in a single numeric variable</span></span>
+<span id="cb30-8"><a href="#cb30-8" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(local2)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>(intercept, 1, -0.01)
+(Freq_Forum_Contribute, 2.28, 0.58)
+(Regularity_Lecture_View, -0.25, -0.02)
+(Regularity_Forum_Contribute, 0.73, 0.08)
+(Regularity_Forum_Consume, 0.84, -0.02)
+(Session_Count, 0.71, 0.03)
+(Freq_Course_View, 0.32, -0.02)
+(Freq_Lecture_View, 0.94, 0.06)
+(Regularity_Course_View, 0.09, -0.01)
+(Active_Days, 0.23, 0.04)
+(Total_Duration, 0.86, 0.19)
+(Freq_Forum_Consume, 0.97, 0.06)</code></pre>
+</div>
+</div>
+<p>Now let us create the prompt following the guidelines by <span class="citation" data-cites="Zytek2024-fn">[<a href="#ref-Zytek2024-fn" role="doc-biblioref">29</a>]</span>, and send it to the LLM to obtain the explanations using <code>send_prompt</code>.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb32"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a>local_prompt <span class="ot">&lt;-</span> <span class="fu">paste</span>(<span class="st">"I will give a SHAP feature contribution explanation in the </span></span>
+<span id="cb32-2"><a href="#cb32-2" aria-hidden="true" tabindex="-1"></a><span class="st">format (feature_name, feature_value, contribution). Please provide a concise, </span></span>
+<span id="cb32-3"><a href="#cb32-3" aria-hidden="true" tabindex="-1"></a><span class="st">clear and understandable narrative for a teacher that explains how these </span></span>
+<span id="cb32-4"><a href="#cb32-4" aria-hidden="true" tabindex="-1"></a><span class="st">contributions influence students' predicted grades (standardized). Ensure the </span></span>
+<span id="cb32-5"><a href="#cb32-5" aria-hidden="true" tabindex="-1"></a><span class="st">explanation highlights the significance of each feature's contribution to the </span></span>
+<span id="cb32-6"><a href="#cb32-6" aria-hidden="true" tabindex="-1"></a><span class="st">overall prediction.</span><span class="sc">\n</span><span class="st">"</span>, local2, <span class="at">collapse =</span> <span class="st">"</span><span class="sc">\n</span><span class="st">"</span>)</span>
+<span id="cb32-7"><a href="#cb32-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb32-8"><a href="#cb32-8" aria-hidden="true" tabindex="-1"></a>client<span class="sc">$</span><span class="fu">chat</span>(local_prompt)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="callout-tip callout callout-style-simple">
+<div class="callout-body d-flex">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-body-container" title="Response">
+<pre><code>Based on the SHAP feature contributions, here's a clear and concise explanation for 
+teachers about how each feature influences the predicted grade (standardized):
+
+Intercept (1, -0.01): The baseline predicted grade is slightly adjusted downward by the 
+intercept, but the overall impact is minimal.
+
+Freq_Forum_Contribute (2.28, 0.58): This is the most significant positive contributor to 
+the predicted grade. Frequent forum contributions strongly boost the predicted grade, 
+highlighting the importance of active student engagement in discussions.
+
+Regularity_Lecture_View (-0.25, -0.02): Inconsistent lecture viewing has a small negative 
+impact on the predicted grade, suggesting that irregular engagement can slightly lower 
+student performance.
+
+Regularity_Forum_Contribute (0.73, 0.08): Regular contributions to forum discussions 
+positively influence the predicted grade, though not as strongly as frequency, 
+reinforcing  the value of steady participation.
+
+Regularity_Forum_Consume (0.84, -0.02): Regularly reading forums without contributing 
+has a slight negative effect, implying that passive consumption of forum content alone 
+may not benefit grades as much as active participation.
+
+Session_Count (0.71, 0.03): Engaging in more sessions slightly raises the predicted 
+grade, reflecting the importance of consistent interaction with the course platform.
+
+Freq_Course_View (0.32, -0.02): Viewing course materials frequently has a small negative
+contribution, suggesting that excessive course views may not significantly boost 
+performance.
+
+Freq_Lecture_View (0.94, 0.06): Frequent lecture viewing positively influences the 
+predicted grade, showing that regularly revisiting lectures helps students perform better.
+
+Regularity_Course_View (0.09, -0.01): Regular course viewing has a minor negative 
+contribution, indicating that irregular viewing habits may slightly hinder grade outcomes.
+
+Active_Days (0.23, 0.04): Engaging on more active days has a modest positive effect on 
+the predicted grade, emphasizing the value of consistency in student engagement.
+
+Total_Duration (0.86, 0.19): Spending more time engaging with the course content 
+significantly boosts the predicted grade, reflecting the importance of overall study time.
+
+Freq_Forum_Consume (0.97, 0.06): Frequently reading forum discussions without 
+contributing  provides a small positive contribution, showing that staying informed 
+through forum activity still benefits performance, though less than active participation.
+
+Summary:
+Active participation in forums and time spent engaging with course content are the 
+strongest drivers of predicted grades, while passive or inconsistent behaviors tend to 
+have smaller or negative impacts. This highlights the importance of both frequency and 
+regularity of engagement across different types of activities.</code></pre>
+</div>
+</div>
+</div>
+<p>We can try different versions of our prompt until we obtain satisfactory results. Now, following our initial goal, we need to automate the automated feedback generation for all students. We can create a function to get the explanation for any student as follows.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb34"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a>local_explanation <span class="ot">&lt;-</span> <span class="cf">function</span>(student) {</span>
+<span id="cb34-2"><a href="#cb34-2" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Select a student to explain</span></span>
+<span id="cb34-3"><a href="#cb34-3" aria-hidden="true" tabindex="-1"></a>  instance <span class="ot">&lt;-</span> test_data[student, <span class="sc">-</span><span class="dv">12</span>]</span>
+<span id="cb34-4"><a href="#cb34-4" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Get local explanations</span></span>
+<span id="cb34-5"><a href="#cb34-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">predict_parts</span>(explainer_svm, <span class="at">new_observation =</span> instance)</span>
+<span id="cb34-6"><a href="#cb34-6" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>We do the same to generate the prompt based on each individual students’ results:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb35"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a>explanation_to_text <span class="ot">&lt;-</span> <span class="cf">function</span>(<span class="at">student =</span> <span class="dv">1</span>) {</span>
+<span id="cb35-2"><a href="#cb35-2" aria-hidden="true" tabindex="-1"></a>  current <span class="ot">&lt;-</span> <span class="fu">local_explanation</span>(student) </span>
+<span id="cb35-3"><a href="#cb35-3" aria-hidden="true" tabindex="-1"></a>  current_numbers <span class="ot">&lt;-</span> current <span class="sc">|&gt;</span> <span class="fu">data.frame</span>() <span class="sc">|&gt;</span> <span class="fu">head</span>(<span class="sc">-</span><span class="dv">1</span>) <span class="sc">|&gt;</span></span>
+<span id="cb35-4"><a href="#cb35-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">Tuple =</span> <span class="fu">paste0</span>(<span class="st">"("</span>,variable_name,<span class="st">", "</span>, </span>
+<span id="cb35-5"><a href="#cb35-5" aria-hidden="true" tabindex="-1"></a>                        <span class="fu">round</span>(<span class="fu">as.numeric</span>(variable_value), <span class="dv">2</span>), <span class="st">", "</span>, </span>
+<span id="cb35-6"><a href="#cb35-6" aria-hidden="true" tabindex="-1"></a>                        <span class="fu">round</span>(contribution, <span class="dv">2</span>), <span class="st">")"</span>)) <span class="sc">|&gt;</span> </span>
+<span id="cb35-7"><a href="#cb35-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pull</span>(Tuple) <span class="sc">|&gt;</span> <span class="fu">paste</span>(<span class="at">collapse =</span> <span class="st">"</span><span class="sc">\n</span><span class="st">"</span>) </span>
+<span id="cb35-8"><a href="#cb35-8" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb35-9"><a href="#cb35-9" aria-hidden="true" tabindex="-1"></a>  prompt <span class="ot">&lt;-</span> <span class="fu">paste</span>(<span class="st">"I will give a SHAP feature contribution explanation in the </span></span>
+<span id="cb35-10"><a href="#cb35-10" aria-hidden="true" tabindex="-1"></a><span class="st">  format (feature_name, feature_value, contribution). Please provide a concise, </span></span>
+<span id="cb35-11"><a href="#cb35-11" aria-hidden="true" tabindex="-1"></a><span class="st">  clear and understandable narrative for a teacher that explains how these </span></span>
+<span id="cb35-12"><a href="#cb35-12" aria-hidden="true" tabindex="-1"></a><span class="st">  contributions  influence the predicted price of the grade (standardized). </span></span>
+<span id="cb35-13"><a href="#cb35-13" aria-hidden="true" tabindex="-1"></a><span class="st">  Ensure the explanation highlights the significance of each feature's </span></span>
+<span id="cb35-14"><a href="#cb35-14" aria-hidden="true" tabindex="-1"></a><span class="st">  contribution to the overall prediction.</span><span class="sc">\n</span><span class="st">"</span>, current_numbers, <span class="at">collapse =</span> <span class="st">"</span><span class="sc">\n</span><span class="st">"</span>)</span>
+<span id="cb35-15"><a href="#cb35-15" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb35-16"><a href="#cb35-16" aria-hidden="true" tabindex="-1"></a>  <span class="fu">return</span> (prompt)</span>
+<span id="cb35-17"><a href="#cb35-17" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Now we can iterate through our complete dataset and generate a customized prompt per student, and get the personalized feedback from the LLM. The <code>res</code> dataframe will contain the student’s prompt (in the column named <code>prompt</code>) and the response from the LLM (in the <code>explanation</code> column).</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb36"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a>res <span class="ot">&lt;-</span> test_data <span class="sc">|&gt;</span> </span>
+<span id="cb36-2"><a href="#cb36-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">order =</span> <span class="fu">row_number</span>()) <span class="sc">|&gt;</span> <span class="co"># Get each student number</span></span>
+<span id="cb36-3"><a href="#cb36-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">rowwise</span>() <span class="sc">|&gt;</span>  </span>
+<span id="cb36-4"><a href="#cb36-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">prompt =</span> <span class="fu">explanation_to_text</span>(order), <span class="co"># Generate each student's prompt</span></span>
+<span id="cb36-5"><a href="#cb36-5" aria-hidden="true" tabindex="-1"></a>         <span class="at">explanation =</span> client<span class="sc">$</span><span class="fu">chat</span>(prompt, <span class="at">echo =</span> <span class="cn">FALSE</span>)) <span class="co"># Send the prompt to the LLM</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+
+</div>
+<div class="cell">
+
+</div>
+<p>We can print the explanation of each particular student (e.g., number 2) as follows (we have omitted the result to avoid repetition)</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb37"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(res[<span class="dv">2</span> ,]<span class="sc">$</span>explanation)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell quarto-layout-panel">
+
+</div>
+</section>
+</section>
+<section id="conclusion" class="level2" data-number="5">
+<h2 data-number="5" class="anchored" data-anchor-id="conclusion"><span class="header-section-number">5</span> Conclusion</h2>
+<p>In this tutorial, we have explored the application of LLMs in generating natural language explanations for predictive models in learning analytics. Throughout the tutorial, we demonstrated how LLMs can be integrated into an XAI pipeline to explain the decisions made by predictive models in an accessible manner. As such, we highlight the potential of LLMs in bridging the gap between technical model outputs and actionable insights for different stakeholders.</p>
+<p>It is important to mention that the insights generated by the LLM used during in this tutorial are specific to the Gemma model chosen to illustrate the integration of LLMs with XAI. Any future replication of this tutorial may almost certainly bring different outputs. This is because LLMs are by definition stochastic, and their results are not deterministic (consistent between runs). It is also expected that, as research in LLMs advances, new models arise with higher accuracy and lower size, and therefore the insights generated by them will be more relevant and precise.</p>
+<p>Similarly, although there are some guidelines and recommendations on how to prompt LLMs to achieve the best results, “prompt engineering” lies outside of the scope of our tutorial. Depending on the data, intended audience and platform for delivery of the insights, the prompts need to be modified accordingly. In the tutorial, we merely illustrate how to integrate custom prompts with the output from XAI tools to generate the corresponding insights. Specifically, extracting the relevant part from the XAI results in a way that it can be easily streamlined to the LLM is perhaps the most notable contribution of the tutorial. A lot of testing is needed to find a prompt that brings consistently relevant results which is a requirement to be able to implement the pipeline illustrated in this tutorial in a completely automated way (no human-in-the-loop). Indeed, the pipeline showcased in this chapter is easy to implement manually using web-based tools such as ChatGPT; however, relying on the API allows to upscale the process so it can be automated for a large number of students.</p>
+<p>Alternatively, rather than creating a static explanation of the ML models and their predictions, an interactive process through which the different stakeholders could ask questions to understand the results and obtain explanatinos and recommendations would be of great value. The library <code>ellmer</code> <span class="citation" data-cites="ellmer">[<a href="#ref-ellmer" role="doc-biblioref">17</a>]</span> presented in this chapter allows to conduct interactive conversations between the user and the LLM in the console or in the browser. This interaction would be more in line with recent research threads in XAI research, such as evaluative AI: a new perspective on XAI for decision-making in which evidence is provided against and in favor of human-made hypotheses, rather than providing explanations for the single most-likely AI outcome <span class="citation" data-cites="Miller2023-zx LABOOK2_Chapter_2">[<a href="#ref-LABOOK2_Chapter_2" role="doc-biblioref">4</a>, <a href="#ref-Miller2023-zx" role="doc-biblioref">13</a>]</span>.</p>
+
+
+</section>
+<section id="bibliography" class="level1 unnumbered">
+<h1 class="unnumbered">References</h1>
+<div id="refs" class="references csl-bib-body" role="doc-bibliography">
+<div id="ref-LABOOK2_Chapter_8" class="csl-entry" role="doc-biblioentry">
+<div class="csl-left-margin">1. </div><div class="csl-right-inline">Oliveira E, Song Y, Saqr M, López-Pernas S (2025) An introduction to large language models in education. In: Saqr M, López-Pernas S (eds) Advanced learning analytics methods: AI, precision and complexity. Springer Nature Switzerland, Cham</div>
+</div>
+<div id="ref-Misiejuk2025-aq" class="csl-entry" role="doc-biblioentry">
+<div class="csl-left-margin">2. </div><div class="csl-right-inline">Misiejuk K, López-Pernas S, Kaliisa R, Saqr M (2025) Integrating generative artificial intelligence in the learning analytics pipeline: A systematic review. J learn anal</div>
+</div>
+<div id="ref-Jorno2018-sn" class="csl-entry" role="doc-biblioentry">
+<div class="csl-left-margin">3. </div><div class="csl-right-inline">Jørnø RL, Gynther K (2018) What constitutes an <span>“actionable insight”</span> in learning analytics? J Learn Anal 5:198–221. https://doi.org/<a href="https://doi.org/10.18608/jla.2018.53.13">10.18608/jla.2018.53.13</a></div>
+</div>
+<div id="ref-LABOOK2_Chapter_2" class="csl-entry" role="doc-biblioentry">
+<div class="csl-left-margin">4. </div><div class="csl-right-inline">López-Pernas S, Oliveira E, Song Y, Saqr M (2025) AI, explainable AI and evaluative AI: An introduction to informed data-driven decision-making in education. In: Saqr M, López-Pernas S (eds) Advanced learning analytics methods: AI, precision and complexity. Springer Nature Switzerland, Cham</div>
+</div>
+<div id="ref-Mustafa2024-yn" class="csl-entry" role="doc-biblioentry">
+<div class="csl-left-margin">5. </div><div class="csl-right-inline">Mustafa MY, Tlili A, Lampropoulos G, Huang R, Jandrić P, Zhao J, Salha S, Xu L, Panda S, Kinshuk, López-Pernas S, Saqr M (2024) A systematic review of literature reviews on artificial intelligence in education (<span>AIED</span>): A roadmap to a future research agenda. Smart Learn Environ 11:1–33. https://doi.org/<a href="https://doi.org/10.1186/s40561-024-00350-5">10.1186/s40561-024-00350-5</a></div>
+</div>
+<div id="ref-Pinargote2024-kb" class="csl-entry" role="doc-biblioentry">
+<div class="csl-left-margin">6. </div><div class="csl-right-inline">Pinargote A, Calderón E, Cevallos K, Carrillo G, Chiluiza K, Echeverria V (2024) <a href="https://research.monash.edu/files/606148660/593895957_oa.pdf">Automating data narratives in learning analytics dashboards using <span>GenAI</span></a>. In: 2024 joint of international conference on learning analytics and knowledge workshops. CEUR-WS, pp 150–161</div>
+</div>
+<div id="ref-Susnjak2024" class="csl-entry" role="doc-biblioentry">
+<div class="csl-left-margin">7. </div><div class="csl-right-inline">Susnjak T (2024) Beyond predictive learning analytics modelling and onto <span class="nocase">eXplainable</span> artificial intelligence with prescriptive analytics and <span>ChatGPT</span>. Int J Artif Intell Educ 34:452–482. https://doi.org/<a href="https://doi.org/10.1007/s40593-023-00336-3">10.1007/s40593-023-00336-3</a></div>
+</div>
+<div id="ref-LABOOK2_Chapter_6" class="csl-entry" role="doc-biblioentry">
+<div class="csl-left-margin">8. </div><div class="csl-right-inline">Saqr M, López-Pernas S (2025) Explainable artificial intelligence in education: A tutorial for identifying the variables that matter. In: Saqr M, López-Pernas S (eds) Advanced learning analytics methods: AI, precision and complexity. Springer Nature Switzerland, Cham</div>
+</div>
+<div id="ref-LABOOK2_Chapter_7" class="csl-entry" role="doc-biblioentry">
+<div class="csl-left-margin">9. </div><div class="csl-right-inline">Saqr M, López-Pernas S (2025) Individualized explainable artificial intelligence: A tutorial for identifying local and individual predictions. In: Saqr M, López-Pernas S (eds) Advanced learning analytics methods: AI, precision and complexity. Springer Nature Switzerland, Cham</div>
+</div>
+<div id="ref-Oliveira2024-ci" class="csl-entry" role="doc-biblioentry">
+<div class="csl-left-margin">10. </div><div class="csl-right-inline">Oliveira E, Mohoni M, Rios S (2024) <a href="https://doi.org/10.1007/978-3-031-64315-6\_7">Towards explainable authorship verification: An approach to minimise academic misconduct in higher education</a>. In: Artificial intelligence in education. Posters and late breaking results, workshops and tutorials, industry and innovation tracks, practitioners, doctoral consortium and blue sky. Springer Nature Switzerland, Cham, pp 87–100</div>
+</div>
+<div id="ref-Alamri2021-zf" class="csl-entry" role="doc-biblioentry">
+<div class="csl-left-margin">11. </div><div class="csl-right-inline">Alamri R, Alharbi B (2021) Explainable student performance prediction models: A systematic review. IEEE Access 9:33132–33143. https://doi.org/<a href="https://doi.org/10.1109/access.2021.3061368">10.1109/access.2021.3061368</a></div>
+</div>
+<div id="ref-Miller2019-tj" class="csl-entry" role="doc-biblioentry">
+<div class="csl-left-margin">12. </div><div class="csl-right-inline">Miller T (2019) Explanation in artificial intelligence: Insights from the social sciences. Artif Intell 267:1–38. https://doi.org/<a href="https://doi.org/10.1016/j.artint.2018.07.007">10.1016/j.artint.2018.07.007</a></div>
+</div>
+<div id="ref-Miller2023-zx" class="csl-entry" role="doc-biblioentry">
+<div class="csl-left-margin">13. </div><div class="csl-right-inline">Miller T (2023) <a href="https://doi.org/10.1145/3593013.3594001">Explainable <span>AI</span> is dead, long live explainable <span>AI</span>!: Hypothesis-driven decision support using evaluative <span>AI</span></a>. In: 2023 ACM conference on fairness, accountability, and transparency. ACM, New York, NY, USA, pp 333–342</div>
+</div>
+<div id="ref-Khediri2024-dl" class="csl-entry" role="doc-biblioentry">
+<div class="csl-left-margin">14. </div><div class="csl-right-inline">Khediri A, Slimi H, Yahiaoui A, Derdour M, Bendjenna H, Ghenai CE (2024) <a href="https://doi.org/10.1109/pais62114.2024.10541168">Enhancing machine learning model interpretability in intrusion detection systems through <span>SHAP</span> explanations and <span>LLM</span>-generated descriptions</a>. In: 2024 6th international conference on pattern analysis and intelligent systems (PAIS). IEEE, pp 1–6</div>
+</div>
+<div id="ref-10742571" class="csl-entry" role="doc-biblioentry">
+<div class="csl-left-margin">15. </div><div class="csl-right-inline">Mekrache A, Mekki M, Ksentini A, Brik B, Verikoukis C (2024) On combining XAI and LLMs for trustworthy zero-touch network and service management in 6G. IEEE Communications Magazine 1–7. https://doi.org/<a href="https://doi.org/10.1109/MCOM.002.2400276">10.1109/MCOM.002.2400276</a></div>
+</div>
+<div id="ref-Swamy2024-wz" class="csl-entry" role="doc-biblioentry">
+<div class="csl-left-margin">16. </div><div class="csl-right-inline">Swamy V, Romano D, Desikan BS, Camburu O-M, Käser T (2024) <a href="http://arxiv.org/abs/2409.08027">From explanations to action: A zero-shot, theory-driven <span>LLM</span> framework for student performance feedback</a>. arXiv [csCY]</div>
+</div>
+<div id="ref-ellmer" class="csl-entry" role="doc-biblioentry">
+<div class="csl-left-margin">17. </div><div class="csl-right-inline">Wickham H, Cheng J (2025) <a href="https://CRAN.R-project.org/package=ellmer">Ellmer: Chat with large language models</a></div>
+</div>
+<div id="ref-tidyverse" class="csl-entry" role="doc-biblioentry">
+<div class="csl-left-margin">18. </div><div class="csl-right-inline">Wickham H, Averick M, Bryan J, Chang W, McGowan LD, François R, Grolemund G, Hayes A, Henry L, Hester J, Kuhn M, Pedersen TL, Miller E, Bache SM, Müller K, Ooms J, Robinson D, Seidel DP, Spinu V, Takahashi K, Vaughan D, Wilke C, Woo K, Yutani H (2019) Welcome to the <span class="nocase">tidyverse</span>. Journal of Open Source Software 4:1686. https://doi.org/<a href="https://doi.org/10.21105/joss.01686">10.21105/joss.01686</a></div>
+</div>
+<div id="ref-Strategist2024-pu" class="csl-entry" role="doc-biblioentry">
+<div class="csl-left-margin">19. </div><div class="csl-right-inline">Strategist SR-EAI (2024) System prompts in large language models</div>
+</div>
+<div id="ref-LABOOK2_Chapter_5" class="csl-entry" role="doc-biblioentry">
+<div class="csl-left-margin">20. </div><div class="csl-right-inline">Li T, Han F, Guo J, Wu J (2025) Comparative analysis of regularization methods for predicting student certification in online courses. In: Saqr M, López-Pernas S (eds) Advanced learning analytics methods: AI, precision and complexity. Springer Nature Switzerland, Cham</div>
+</div>
+<div id="ref-LABOOK2_Chapter_3" class="csl-entry" role="doc-biblioentry">
+<div class="csl-left-margin">21. </div><div class="csl-right-inline">Saqr M, Misiejuk K, Tikka S, López-Pernas S (2025) Artificial intelligence: Using machine learning to predict students’ performance. In: Saqr M, López-Pernas S (eds) Advanced learning analytics methods: AI, precision and complexity. Springer Nature Switzerland, Cham</div>
+</div>
+<div id="ref-LABOOK2_Chapter_4" class="csl-entry" role="doc-biblioentry">
+<div class="csl-left-margin">22. </div><div class="csl-right-inline">Saqr M, Misiejuk K, Tikka S, López-Pernas S (2025) Artificial intelligence: Using machine learning to classify students and predict low achievers. In: Saqr M, López-Pernas S (eds) Advanced learning analytics methods: AI, precision and complexity. Springer Nature Switzerland, Cham</div>
+</div>
+<div id="ref-rio" class="csl-entry" role="doc-biblioentry">
+<div class="csl-left-margin">23. </div><div class="csl-right-inline">Chan C, Leeper TJ, Becker J, Schoch D (2023) <a href="https://cran.r-project.org/package=rio">Rio: A swiss-army knife for data file i/o</a></div>
+</div>
+<div id="ref-rsample" class="csl-entry" role="doc-biblioentry">
+<div class="csl-left-margin">24. </div><div class="csl-right-inline">Frick H, Chow F, Kuhn M, Mahoney M, Silge J, Wickham H (2024) <a href="https://CRAN.R-project.org/package=rsample">Rsample: General resampling infrastructure</a></div>
+</div>
+<div id="ref-e1071" class="csl-entry" role="doc-biblioentry">
+<div class="csl-left-margin">25. </div><div class="csl-right-inline">Meyer D, Dimitriadou E, Hornik K, Weingessel A, Leisch F (2024) <a href="https://CRAN.R-project.org/package=e1071">e1071: Misc functions of the department of statistics, probability theory group (formerly: E1071), TU wien</a></div>
+</div>
+<div id="ref-DALEX" class="csl-entry" role="doc-biblioentry">
+<div class="csl-left-margin">26. </div><div class="csl-right-inline">Biecek P (2018) <a href="https://jmlr.org/papers/v19/18-416.html">DALEX: Explainers for complex predictive models in r</a>. Journal of Machine Learning Research 19:1–5</div>
+</div>
+<div id="ref-Jovanovic2021-et" class="csl-entry" role="doc-biblioentry">
+<div class="csl-left-margin">27. </div><div class="csl-right-inline">Jovanović J, Saqr M, Joksimović S, Gašević D (2021) Students matter the most in learning analytics: The effects of internal and instructional conditions in predicting academic success. Comput Educ 172: https://doi.org/<a href="https://doi.org/10.1016/j.compedu.2021.104251">10.1016/j.compedu.2021.104251</a></div>
+</div>
+<div id="ref-Dairai2024-zv" class="csl-entry" role="doc-biblioentry">
+<div class="csl-left-margin">28. </div><div class="csl-right-inline">DAIR.AI (2024) Elements of a prompt</div>
+</div>
+<div id="ref-Zytek2024-fn" class="csl-entry" role="doc-biblioentry">
+<div class="csl-left-margin">29. </div><div class="csl-right-inline">Zytek A, Pidò S, Veeramachaneni K (2024) <a href="https://doi.org/10.48550/arXiv.2405.06064"><span>LLMs</span> for <span>XAI</span>: Future directions for explaining explanations</a></div>
+</div>
+</div>
+</section>
+<section id="footnotes" class="footnotes footnotes-end-of-document" role="doc-endnotes">
+<hr>
+<ol>
+<li id="fn1"><p>Hugging Face: <a href="https://huggingface.co/">https://huggingface.co/</a><a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn2"><p>LM Studio: <a href="https://lmstudio.ai">https://lmstudio.ai</a><a href="#fnref2" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn3"><p><code>lmstudio-ai/gemma-2b-it-GGUF</code> <a href="https://huggingface.co/lmstudio-ai/gemma-2b-it-GGUF">https://huggingface.co/lmstudio-ai/gemma-2b-it-GGUF</a><a href="#fnref3" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn4"><p>Initializing the LM Studio server <a href="https://lmstudio.ai/docs/local-server#using-the-local-server">https://lmstudio.ai/docs/local-server#using-the-local-server</a><a href="#fnref4" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+</ol>
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    target: function(trigger) {
+      return trigger.previousElementSibling;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+  function tippyHover(el, contentFn) {
+    const config = {
+      allowHTML: true,
+      content: contentFn,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start'
+    };
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      return note.innerHTML;
+    });
+  }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+<nav class="page-navigation">
+  <div class="nav-page nav-page-previous">
+      <a href="../../chapters/ch10-bert/ch10-bert.html" class="pagination-link">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Classification with BERT</span></span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+      <a href="../../chapters/ch12-cds/ch12-cds.html" class="pagination-link">
+        <span class="nav-page-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Complex Systems</span></span> <i class="bi bi-arrow-right-short"></i>
+      </a>
+  </div>
+</nav>
+</div> <!-- /content -->
+<footer class="footer">
+  <div class="nav-footer">
+      <div class="nav-footer-center"><div class="cookie-consent-footer"><a href="#" id="open_preferences_center">Cookie Preferences</a></div></div>
+  </div>
+</footer>
+<script>
+  document.querySelector(".quarto-title").innerHTML =  '<div class="badge bs-warning bg-warning text-dark" style="float:right;">Pre-print</div>' +  document.querySelector(".quarto-title").innerHTML
+  var keywords = document.querySelector('meta[name="keywords"]')
+  if (keywords && keywords.content) {
+    document.getElementById("title-block-header").innerHTML = document.getElementById("title-block-header").innerHTML + 
+      '<div class="abstract"><div class="abstract-title">Keywords</div><div class="quarto-title-meta-contents"><p>'+
+      keywords.content +
+      '</p></div></div>'
+  }
+  function insertAfter(referenceNode, newNode) {
+      referenceNode.parentNode.insertBefore(newNode, referenceNode.nextSibling);
+  }
+  var authors = document.querySelectorAll('meta[name="author"]')
+  if (authors) {
+    var authorlist = Array.from(authors).map(e=>e.content).reduce((accum, curr) =>  accum + curr + ", ", "","").replace(/\,\s$/,"")
+    var citt = `<div class="card border-primary mb-3" style=;">
+      <div class="card-header bg-primary">To cite this chapter</div>
+      <div class="card-body small">
+        <p class="card-text">${authorlist} (2025).
+        <b>${document.getElementsByClassName("chapter-title")[0].innerText}</b>. 
+        In M. Saqr & S. López-Pernas (Eds.), <i>Advanced Learning Analytics Methods: AI, Precision and Complexity</i> 
+        (in – press). Springer. <a href="${window.location.href}">${window.location.href}</a></p>
+      </div>
+    </div>`;
+    insertAfter(document.getElementsByTagName("HEADER")[1],new DOMParser().parseFromString(citt, 'text/html').body.childNodes[0])
+  }
+</script>
+
+
+
+</body></html>

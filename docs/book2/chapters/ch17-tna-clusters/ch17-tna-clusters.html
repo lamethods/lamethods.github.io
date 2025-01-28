@@ -1,0 +1,1489 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.2.269">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="author" content="Sonsoles López-Pernas">
+<meta name="author" content="Santtu Tikka">
+<meta name="author" content="Mohammed Saqr">
+<meta name="keywords" content="learning analytics, transition network analysis, mixture Markov models, heterogeneity, clustering">
+
+<title>Advanced learning analytics methods - 17&nbsp; Mining Patterns and Clusters with Transition Network Analysis: A Heterogeneity Approach</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1.6em;
+  vertical-align: middle;
+}
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { color: #008000; } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { color: #008000; font-weight: bold; } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+}
+.hanging div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}
+</style>
+
+
+<script src="../../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../../">
+<link href="../../chapters/ch18-idio/ch18-idio.html" rel="next">
+<link href="../../chapters/ch16-ftna/ch16-ftna.html" rel="prev">
+<script src="../../site_libs/cookie-consent/cookie-consent.js"></script>
+<link href="../../site_libs/cookie-consent/cookie-consent.css" rel="stylesheet">
+<script src="../../site_libs/quarto-html/quarto.js"></script>
+<script src="../../site_libs/quarto-html/popper.min.js"></script>
+<script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 20,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit"
+  }
+}</script>
+<script async="" src="https://www.googletagmanager.com/gtag/js?id=G-Y4VBV3J9WD"></script>
+
+<script type="text/plain" cookie-consent="tracking">
+
+window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+gtag('js', new Date());
+gtag('config', 'G-Y4VBV3J9WD', { 'anonymize_ip': true});
+</script>
+
+<script type="text/javascript" charset="UTF-8">
+document.addEventListener('DOMContentLoaded', function () {
+cookieconsent.run({
+  "notice_banner_type":"simple",
+  "consent_type":"implied",
+  "palette":"light",
+  "language":"en",
+  "page_load_consent_levels":["strictly-necessary","functionality","tracking","targeting"],
+  "notice_banner_reject_button_hide":false,
+  "preferences_center_close_button_hide":false,
+  "website_name":""
+  });
+});
+</script> 
+  
+
+
+<meta name="twitter:title" content="Advanced learning analytics methods - 17&nbsp; Mining Patterns and Clusters with Transition Network Analysis: A Heterogeneity Approach">
+<meta name="twitter:description" content="In this chapter, we demonstrate how we can identify and study clusters within Transition Network Analysis (TNA) to reveal the underlying heterogeneity in learners' behavioral patterns.">
+<meta name="twitter:card" content="summary">
+<meta name="citation_title" content="[17]{.chapter-number}&nbsp; [Mining Patterns and Clusters with Transition Network Analysis: A Heterogeneity Approach]{.chapter-title}">
+<meta name="citation_abstract" content="In this chapter, we demonstrate how we can identify and study clusters within Transition Network Analysis (TNA) to reveal the underlying heterogeneity in learners&amp;amp;#039; behavioral patterns. Specifically, we rely on mixture Markov Models (MMM)  to identify latent subgroups characterized by unique transition probabilities, a method that can also incorporate covariates to explain the identified clusters.  We employ the `tna` R package to understand the distinct transition dynamics between states or events in each cluster through the study of centrality measures, communities and cliques. Lastly, we exemplify how to implement other forms of clustering (e.g., distance based) and grouping, as well as other types of transition networks (e.g., frequency-based transition networks).">
+<meta name="citation_keywords" content="learning analytics, transition network analysis, mixture Markov models, heterogeneity, clustering">
+<meta name="citation_author" content="Sonsoles López-Pernas">
+<meta name="citation_author" content="Santtu Tikka">
+<meta name="citation_author" content="Mohammed Saqr">
+<meta name="citation_fulltext_html_url" content="https://lamethods.github.io/ch17-tna-clusters.html">
+<meta name="citation_language" content="en">
+<meta name="citation_reference" content="citation_title=tna: Transition network analysis (TNA);,citation_author=Sonsoles López-Pernas;,citation_author=Santtu Tikka;,citation_author=Mohammed Saqr;,citation_publication_date=2024;,citation_cover_date=2024;,citation_year=2024;,citation_fulltext_html_url=http://dx.doi.org/10.32614/CRAN.package.tna;,citation_doi=10.32614/cran.package.tna;,citation_journal_title=CRAN: Contributed Packages;,citation_publisher=The R Foundation;">
+<meta name="citation_reference" content="citation_title=Welcome to the tidyverse;,citation_author=Hadley Wickham;,citation_author=Mara Averick;,citation_author=Jennifer Bryan;,citation_author=Winston Chang;,citation_author=Lucy D’Agostino McGowan;,citation_author=Romain François;,citation_author=Garrett Grolemund;,citation_author=Alex Hayes;,citation_author=Lionel Henry;,citation_author=Jim Hester;,citation_author=Max Kuhn;,citation_author=Thomas Lin Pedersen;,citation_author=Evan Miller;,citation_author=Stephan Milton Bache;,citation_author=Kirill Müller;,citation_author=Jeroen Ooms;,citation_author=David Robinson;,citation_author=Dana Paige Seidel;,citation_author=Vitalie Spinu;,citation_author=Kohske Takahashi;,citation_author=Davis Vaughan;,citation_author=Claus Wilke;,citation_author=Kara Woo;,citation_author=Hiroaki Yutani;,citation_publication_date=2019;,citation_cover_date=2019;,citation_year=2019;,citation_issue=43;,citation_doi=10.21105/joss.01686;,citation_volume=4;,citation_journal_title=Journal of Open Source Software;">
+<meta name="citation_reference" content="citation_title=Analyzing and visualizing state sequences inRwithTraMineR;,citation_author=Alexis Gabadinho;,citation_author=Gilbert Ritschard;,citation_author=Nicolas S Müller;,citation_author=Matthias Studer;,citation_publication_date=2011;,citation_cover_date=2011;,citation_year=2011;,citation_fulltext_html_url=https://archive-ouverte.unige.ch/unige:16809;,citation_issue=4;,citation_doi=10.18637/jss.v040.i04;,citation_issn=1548-7660;,citation_volume=40;,citation_journal_title=J. Stat. Softw.;,citation_publisher=Foundation for Open Access Statistic;">
+<meta name="citation_reference" content="citation_title=Mixture hidden markov models for sequence data: The seqHMM package in R;,citation_author=Satu Helske;,citation_author=Jouni Helske;,citation_publication_date=2019;,citation_cover_date=2019;,citation_year=2019;,citation_fulltext_html_url=http://dx.doi.org/10.18637/jss.v088.i03;,citation_issue=3;,citation_doi=10.18637/jss.v088.i03;,citation_volume=88;,citation_journal_title=J. Stat. Softw.;">
+<meta name="citation_reference" content="citation_title=Transition network analysis: A novel framework for modeling, visualizing, and identifying the temporal patterns of learners and learning processes;,citation_author=Mohammed Saqr;,citation_author=Sonsoles López-Pernas;,citation_author=Tiina Törmänen;,citation_author=Rogers Kaliisa;,citation_author=Kamila Misiejuk;,citation_author=Santtu Tikka;,citation_publication_date=2025;,citation_cover_date=2025;,citation_year=2025;,citation_conference_title=Proceedings of learning analytics &amp;amp;amp; knowledge (LAK ’25);,citation_conference=ACM;">
+<meta name="citation_reference" content="citation_title=A modern approach to transition analysis and process mining with markov models in education;,citation_author=Jouni Helske;,citation_author=Satu Helske;,citation_author=Mohammed Saqr;,citation_author=Sonsoles López-Pernas;,citation_author=Keefe Murphy;,citation_editor=Mohammed Saqr;,citation_editor=Sonsoles López-Pernas;,citation_publication_date=2024;,citation_cover_date=2024;,citation_year=2024;,citation_inbook_title=Learning analytics methods and tutorials: A practical guide using r;">
+<meta name="citation_reference" content="citation_title=A person-centered approach to study students’ socio-emotional interaction profiles and regulation of collaborative learning;,citation_abstract=Emotions in collaborative learning both originate from and are externalized in students’ socio-emotional interactions, and individual group members evidently contribute to these interactions to varying degrees. Research indicates that socio-emotional interactions within a group are related with the occurrence of co- and socially shared regulation of learning, which poses a need to study individual contributions to these interactions via a person-centered approach. This study implements multimodal data (video and electrodermal activity) and sequence mining methods to explore how secondary school students’ (n = 54, 18 groups) participation in socio-emotional interactions evolved across a series of collaborative tasks. On this basis, it identifies subgroups of students with distinct longitudinal profiles. Furthermore, it investigates how students with different socio-emotional interaction profiles contributed to their groups’ regulation of learning. Three profiles were identified: negative, neutral, and diverse. Each profile represents a particular socio-emotional interaction pattern with unique characteristics regarding the emotional valence of participation and physiological emotional activation. The profiles relate to students’ contributions to group regulation of learning. Students with the diverse profile were more likely to contribute to regulation, whereas the neutral profile students were less likely to contribute. The results highlight the importance of person-centered methods to account for individual differences and participation dynamics in collaborative learning and consequently clarify how they relate to and influence group regulation of learning.;,citation_author=Tiina Törmänen;,citation_author=Hanna Järvenoja;,citation_author=Mohammed Saqr;,citation_author=Jonna Malmberg;,citation_author=Sanna Järvelä;,citation_publication_date=2022;,citation_cover_date=2022;,citation_year=2022;,citation_fulltext_html_url=https://www.frontiersin.org/articles/10.3389/feduc.2022.866612;,citation_doi=10.3389/feduc.2022.866612;,citation_issn=2504-284X;,citation_volume=7;,citation_journal_title=Frontiers in Education;">
+<meta name="citation_reference" content="citation_title=Capturing where the learning process takes place: A person-specific and person-centered primer;,citation_abstract=Research conducted using variable-centered methods uses data from a “group of others” to derive generalizable laws. The average is considered a “norm” where everyone is supposed to be homogeneous and to fit the average yardstick. Deviations from the average are viewed as irregularities rather than natural manifestations of individual differences. However, this homogeneity assumption is theoretically and empirically flawed, leading to inaccurate generalizations about students’ behavior based on averages. Alternatively, heterogeneity is a more plausible and realistic characteristic of human functioning and behavior. In this paper, we review the limitations of variable-centered methods and introduce—with empirical examples—person-centered and person-specific methods as alternatives. Person-centered methods are designed with the foundational assumption that humans are heterogeneous, and such heterogeneity can be captured with statistical methods into patterns (or clusters). Person-specific (or idiographic) methods aim to accurately and precisely model the individual person (at the resolution of the single subject sample size). The implications of this paradigm shift are significant, with potential benefits including improved research validity, more effective interventions, and a better understanding of individual differences in learning, and, more importantly, personalization that is tethered to personalized analysis. Educational relevance statement Our study presents a primer on the importance of individual differences, heterogeneity and diversity in capturing the unique peculiarities of students. In doing so, we can offer relevant personalized support that is more equitable and individualized.;,citation_author=Mohammed Saqr;,citation_author=Leonie V D E Vogelsmeier;,citation_author=Sonsoles López-Pernas;,citation_publication_date=2024-07;,citation_cover_date=2024-07;,citation_year=2024;,citation_fulltext_html_url=https://www.sciencedirect.com/science/article/pii/S1041608024000852;,citation_doi=10.1016/j.lindif.2024.102492;,citation_issn=1041-6080;,citation_volume=113;,citation_journal_title=Learn. Individ. Differ.;">
+<meta name="citation_reference" content="citation_title=How CSCL roles emerge, persist, transition, and evolve over time: A four-year longitudinal study;,citation_author=Mohammed Saqr;,citation_author=Sonsoles López-Pernas;,citation_publication_date=2022;,citation_cover_date=2022;,citation_year=2022;,citation_fulltext_html_url=http://dx.doi.org/10.1016/j.compedu.2022.104581;,citation_doi=10.1016/j.compedu.2022.104581;,citation_issn=0360-1315;,citation_journal_title=Comput. Educ.;">
+<meta name="citation_reference" content="citation_title=Intense, turbulent, or wallowing in the mire: A longitudinal study of cross-course online tactics, strategies, and trajectories;,citation_abstract=Research has repeatedly demonstrated that students with effective learning strategies are more likely to have better academic achievement. Existing research has mostly focused on a single course or two, while longitudinal studies remain scarce. The present study examines the longitudinal sequence of students’ strategies, their succession, consistency, temporal unfolding, and whether students tend to retain or adapt strategies between courses. We use a large dataset of online traces from 135 students who completed 10 successive courses (i.e., 1350 course enrollments) in a higher education program. The methods used in this study have shown the feasibility of using trace data recorded by learning management systems to unobtrusively trace and model the longitudinal learning strategies across a program. We identified three program-level strategy trajectories: a stable and intense trajectory related to deep learning where students used diverse strategies and scored the highest grades; a fluctuating interactive trajectory, where students focused on course requirements, scored average grades, and were relatively fluctuating; and a light trajectory related to surface learning where students invested the least effort, scored the lowest grades, and had a relatively stable pathway. Students who were intensely active were more likely to transfer the intense strategies and therefore, they were expected to require less support or guidance. Students focusing on course requirements were not as effective self-regulators as they seemed and possibly required early guidance and support from teachers. Students with consistent light strategies or low effort needed proactive guidance and support.;,citation_author=Mohammed Saqr;,citation_author=Sonsoles López-Pernas;,citation_author=Jelena Jovanović;,citation_author=Dragan Gašević;,citation_publication_date=2023;,citation_cover_date=2023;,citation_year=2023;,citation_fulltext_html_url=https://www.sciencedirect.com/science/article/pii/S1096751622000586;,citation_doi=10.1016/j.iheduc.2022.100902;,citation_issn=1096-7516;,citation_volume=57;,citation_journal_title=internet high;">
+<meta name="citation_reference" content="citation_title=Momentary emotions emerge and evolve differently, yet are surprisingly stable within students;,citation_abstract=Research on academic emotions has explored different granularities that range from a full program to a single task. Yet, most of the existing research stems from cross-sectional studies. While immensely useful, lacking a temporal depth obfuscates the process of emotions into a flat process. To fill this gap, this study takes a process-oriented approach to study the momentary changes in academic emotions as they unfold in time into phases, changes, and successions of sequences during two lectures. We use intensive longitudinal data from 104 students attending a German University in the form of ecological momentary surveys. We rely on mixture models to cluster the data into states, use sequence analysis to map the longitudinal unfolding and mixture hidden Markov models to answer why certain longitudinal patterns emerge. Our findings point to differences among students in their reactions to contextual variables, yet, such reactions are relatively stable within students. In other words, students may have different emotional profiles, but these emotional profiles are surprisingly stable across time and contexts.;,citation_author=Mohammed Saqr;,citation_author=Sonsoles López-Pernas;,citation_publication_date=2024-07;,citation_cover_date=2024-07;,citation_year=2024;,citation_fulltext_html_url=https://ieeexplore.ieee.org/abstract/document/10645869?casa_token=hlCOlnZzsW0AAAAA:b_7JN-PmW_1qypHAsYp2p7qw1tTICcliwj_RjE8GE2YP148WDhHdwfMFAwcd3sg3D_HlXYmO7qNR;,citation_doi=10.1109/ICALT61570.2024.00031;,citation_isbn=9798350362053;,citation_conference_title=2024 IEEE international conference on advanced learning technologies (ICALT);,citation_conference=IEEE;">
+<meta name="citation_reference" content="citation_title=From learning actions to dynamics: Characterizing students’ individual temporal behavior with sequence analysis;,citation_author=Esteban Villalobos;,citation_author=Mar Pérez-Sanagustín;,citation_author=Julien Broisin;,citation_publication_date=2024;,citation_cover_date=2024;,citation_year=2024;,citation_fulltext_html_url=http://dx.doi.org/10.1007/978-3-031-64302-6_1;,citation_doi=10.1007/978-3-031-64302-6\_1;,citation_isbn=9783031643019,9783031643026;,citation_issn=0302-9743,1611-3349;,citation_inbook_title=Lecture notes in computer science;,citation_series_title=Lecture notes in computer science;">
+<meta name="citation_reference" content="citation_title=Affective states and regulation of learning during socio-emotional interactions in secondary school collaborative groups;,citation_abstract=BACKGROUND: Group affective states for learning are constantly formed through socio-emotional interactions. However, it remains unclear how the affective states vary during collaboration and how they occur with regulation of learning. Appropriate methods are needed to track both group affective states and these interaction processes. AIMS: The present study identifies different socio-emotional interaction episodes during groups’ collaborative learning and examines how group affective states fluctuate with regulation of learning during these episodes. SAMPLE: The participants were 54 secondary school students working in groups across four science learning sessions. METHODS: Multichannel process data (video, electrodermal activity [EDA]) were collected in an authentic classroom. Groups’ affective states were measured with emotional valence captured from video data, and activation captured as sympathetic arousal from EDA data. Regulation of learning was observed from the videotaped interactions. RESULTS: The study disclosed four clusters of socio-emotional interaction episodes (positive, negative, occasional regulation, frequent regulation), which differed in terms of fluctuation of affective states and activated regulation of learning. These clustered episodes confirm how affective states are constantly reset by socio-emotional interactions and regulation of learning. The results also show that states requiring regulation do not automatically lead to its activation. CONCLUSIONS: By advancing existing understanding of how group level socio-emotional processes contribute to regulation of learning, the study has implications for educational design and psychological practice. Methodologically, it contributes to collaborative learning research by employing multiple data channels (including biophysiological measures) to explore the various dimensions of socio-emotional processes in groups.;,citation_author=Tiina Törmänen;,citation_author=Hanna Järvenoja;,citation_author=Mohammed Saqr;,citation_author=Jonna Malmberg;,citation_author=Sanna Järvelä;,citation_publication_date=2023-04;,citation_cover_date=2023-04;,citation_year=2023;,citation_fulltext_html_url=http://dx.doi.org/10.1111/bjep.12525;,citation_doi=10.1111/bjep.12525;,citation_issn=0007-0998,2044-8279;,citation_pmid=35748024;,citation_volume=93 Suppl 1;,citation_journal_title=Br. J. Educ. Psychol.;">
+<meta name="citation_reference" content="citation_title=The longitudinal association between engagement and achievement varies by time, students’ profiles, and achievement state: A full program study;,citation_abstract=There is a paucity of longitudinal studies in online learning across courses or throughout programs. Our study intends to add to this emerging body of research by analyzing the longitudinal trajectories of interaction between student engagement and achievement over a full four-year program. We use learning analytics and life-course methods to study how achievement and engagement are intertwined and how such relationship evolves over a full program for 106 students. Our findings have indicated that the association between engagement and achievement varies between students and progresses differently between such groups over time. Our results showed that online engagement at any single time-point is not a consistent indicator for high achievement. It takes more than a single point of time to reliably forecast high achievement throughout the program. Longitudinal high grades, or longitudinal high levels of engagement (either separately or combined) were indicators of a stable academic trajectory in which students remained engaged —at least on average— and had a higher level of achievement. On the other hand, disengagement at any time point was consistently associated with lower achievement among low-engaged students. Improving to a higher level of engagement was associated with —at least— acceptable achievement levels and rare dropouts. Lack of improvement or “catching up” may be a more ominous sign that should be proactively addressed.;,citation_author=Mohammed Saqr;,citation_author=Sonsoles López-Pernas;,citation_author=Satu Helske;,citation_author=Stefan Hrastinski;,citation_publication_date=2023;,citation_cover_date=2023;,citation_year=2023;,citation_fulltext_html_url=https://www.sciencedirect.com/science/article/pii/S0360131523000647;,citation_doi=10.1016/j.compedu.2023.104787;,citation_issn=0360-1315;,citation_volume=199;,citation_journal_title=Comput. Educ.;">
+<meta name="citation_reference" content="citation_title=How the dynamics of engagement explain the momentum of achievement and the inertia of disengagement: A complex systems theory approach;,citation_abstract=Engagement can be understood as a complex dynamic system that unfolds over time and interacts within the student, school, and environment. Most of the research on the dynamics of engagement comes from classroom settings and it is so far inconclusive how and why engagement and disengagement evolve over time. Using person-centered methods, sequence, transition, and covariate analysis, we examined a large dataset of 18 consecutive courses of 245 students over a full program. We identified three engagement states (active, average, and disengaged), as well as three distinct longitudinal engagement trajectories (engaged, fluctuating, and mostly disengaged). Taken together, our results showed that engagement trajectories are rather stable over time conforming to the universal dynamics of complex systems. Engaged students were driven by course materials, their achievement, and their previous engaged states (momentum). Most importantly, our results offer a novel theoretical grounding for the understanding of disengagement which has so far remained unexplained. According to our results, disengagement follows the dynamics of a complex system where stability does not require a hard-wired causal mechanism but rather, it is an attractor state that pulls the system to settle in (inertia). Thus, disengagement becomes a hard to change equilibrium state for those students (or a stuck state).;,citation_author=Sonsoles López-Pernas;,citation_author=Mohammed Saqr;,citation_publication_date=2024-04;,citation_cover_date=2024-04;,citation_year=2024;,citation_fulltext_html_url=https://www.sciencedirect.com/science/article/pii/S0747563223004776;,citation_doi=10.1016/j.chb.2023.108126;,citation_issn=0747-5632;,citation_volume=153;,citation_journal_title=Comput. Human Behav.;">
+<meta name="citation_reference" content="citation_title=Social network analysis: A primer, a guide and a tutorial in R;,citation_abstract=AbstractThis chapter introduces the concept and methods of social network analysis (SNA) with a detailed guide to analysis with real world data using the R programming language. The chapter first introduces the basic concepts and types of networks. Then the chapter goes through a detailed step by step analysis of networks, computation of graph level measures as well as centralities with a concise interpretation in a collaborative environment. The chapter concludes with a discussion of network analysis, next steps as well as a list of further readings.;,citation_author=Mohammed Saqr;,citation_author=Sonsoles López-Pernas;,citation_author=Miguel Ángel Conde-González;,citation_author=Ángel Hernández-García;,citation_publication_date=2024;,citation_cover_date=2024;,citation_year=2024;,citation_fulltext_html_url=http://dx.doi.org/10.1007/978-3-031-54464-4_15;,citation_doi=10.1007/978-3-031-54464-4\_15;,citation_isbn=9783031544637,9783031544644;,citation_inbook_title=Learning analytics methods and tutorials;">
+<meta name="citation_reference" content="citation_title=Sequence analysis in education: Principles, technique, and tutorial with R;,citation_abstract=Patterns exist everywhere in our life, from the sequence of genes to the order of steps in cooking recipes. Discovering patterns, variations, regularities, or irregularities is at the heart of scientific inquiry and, therefore, several data mining methods have been developed to understand patterns. Sequence analysis—or sequence mining—was developed almost four decades ago to address the increasing needs for pattern mining [1]. Ever since, a wealth of applications, algorithms, and statistical tools have been developed, adapted, or incorporated into the array of sequence analysis. Since sequence mining has been conceptualized, it has grown in scale of adoption and range of applications across life and social sciences [2] and education research was no exception (eg,[3]). As a data mining technique, sequence mining has been commonly implemented to identify hidden patterns that would otherwise be missed using other analytical techniques and find interesting subsequences (parts of the sequence) that have practical significance or unexpected sequences that we did not know existed [4]. For instance, by mining sequences of collaborative dialogue, we;,citation_author=Mohammed Saqr;,citation_author=Sonsoles López-Pernas;,citation_author=Satu Helske;,citation_author=Marion Durand;,citation_author=Keefe Murphy;,citation_author=Matthias Studer;,citation_author=Gilbert Ritschard;,citation_publication_date=2024-02;,citation_cover_date=2024-02;,citation_year=2024;,citation_fulltext_html_url=https://scholar.google.es/citations?view_op=view_citation&amp;amp;amp;hl=en&amp;user=67eUI4gAAAAJ&amp;cstart=20&amp;pagesize=80&amp;citation_for_view=67eUI4gAAAAJ:7T2F9Uy0os0C;,citation_publisher=Springer Nature Switzerland;">
+<meta name="citation_reference" content="citation_title=Community detection in learning networks using R;,citation_abstract=AbstractIn the field of social network analysis, understanding interactions and group structures takes a center stage. This chapter focuses on finding such groups, constellations or ensembles of actors who can be grouped together, a process often referred to as community detection, particularly in the context of educational research. Community detection aims to uncover tightly knit subgroups of nodes who share strong connectivity within a network or have connectivity patterns that demarcates them from the others. This chapter explores various algorithms and techniques to detect these groups or cohesive clusters. Using well-known R packages, the chapter presents the core approach of identifying and visualizing densely connected subgroups in learning networks.;,citation_author=Ángel Hernández-García;,citation_author=Carlos Cuenca-Enrique;,citation_author=Adrienne Traxler;,citation_author=Sonsoles López-Pernas;,citation_author=Miguel Ángel Conde-González;,citation_author=Mohammed Saqr;,citation_publication_date=2024;,citation_cover_date=2024;,citation_year=2024;,citation_fulltext_html_url=https://link.springer.com/chapter/10.1007/978-3-031-54464-4_16;,citation_doi=10.1007/978-3-031-54464-4\_16;,citation_isbn=9783031544637,9783031544644;,citation_inbook_title=Learning analytics methods and tutorials;">
+<meta name="citation_reference" content="citation_title=Maps of random walks on complex networks reveal community structure;,citation_abstract=To comprehend the multipartite organization of large-scale biological and social systems, we introduce an information theoretic approach that reveals community structure in weighted and directed networks. We use the probability flow of random walks on a network as a proxy for information flows in the real system and decompose the network into modules by compressing a description of the probability flow. The result is a map that both simplifies and highlights the regularities in the structure and their relationships. We illustrate the method by making a map of scientific communication as captured in the citation patterns of &amp;amp;amp;gt;6,000 journals. We discover a multicentric organization with fields that vary dramatically in size and degree of integration into the network of science. Along the backbone of the network-including physics, chemistry, molecular biology, and medicine-information flows bidirectionally, but the map reveals a directional pattern of citation from the applied fields to the basic sciences.;,citation_author=Martin Rosvall;,citation_author=Carl T Bergstrom;,citation_publication_date=2008-01;,citation_cover_date=2008-01;,citation_year=2008;,citation_fulltext_html_url=http://dx.doi.org/10.1073/pnas.0706851105;,citation_issue=4;,citation_doi=10.1073/pnas.0706851105;,citation_issn=0027-8424,1091-6490;,citation_pmid=18216267;,citation_volume=105;,citation_journal_title=Proc. Natl. Acad. Sci. U. S. A.;,citation_publisher=Proceedings of the National Academy of Sciences;">
+<meta name="citation_reference" content="citation_title=The temporal dynamics of online problem-based learning: Why and when sequence matters;,citation_abstract=Early research on online PBL explored student satisfaction, effectiveness, and design. The temporal aspect of online PBL has rarely been addressed. Thus, a gap exists in our knowledge regarding how online PBL unfolds: when and for how long a group engages in collaborative discussions. Similarly, little is known about whether and what sequence of interactions could predict higher achievement. This study aims to bridge such a gap by implementing the latest advances in temporal learning analytics to analyze the sequential and temporal aspects of online PBL across a large sample (n = 204 students) of qualitatively coded interactions (8,009 interactions). We analyzed interactions at the group level to understand the group dynamics across whole problem discussions, and at the student level to understand the students’ contribution dynamics across different episodes. We followed such analyses by examining the association of interaction types and the sequences thereof with students’ performance using multilevel linear regression models. The analysis of the interactions reflected that the scripted PBL process is followed a logical sequence, yet often lacked enough depth. When cognitive interactions (e.g., arguments, questions, and evaluations) occurred, they kindled high cognitive interactions, when low cognitive and social interactions dominated, they kindled low cognitive interactions. The order and sequence of interactions were more predictive of performance, and with a higher explanatory power as compared to frequencies. Starting or initiating interactions (even with low cognitive content) showed the highest association with performance, pointing to the importance of initiative and sequencing.;,citation_author=Mohammed Saqr;,citation_author=Sonsoles López-Pernas;,citation_publication_date=2023-03;,citation_cover_date=2023-03;,citation_year=2023;,citation_fulltext_html_url=https://doi.org/10.1007/s11412-023-09385-1;,citation_issue=1;,citation_doi=10.1007/s11412-023-09385-1;,citation_issn=1556-1615;,citation_volume=18;,citation_journal_title=International Journal of Computer-Supported Collaborative Learning;">
+<meta name="citation_reference" content="citation_title=Mechanisms of self-regulation: A systems view;,citation_author=Paul Karoly;,citation_publication_date=1993-01;,citation_cover_date=1993-01;,citation_year=1993;,citation_issue=1;,citation_doi=10.1146/annurev.ps.44.020193.000323;,citation_issn=0066-4308,1545-2085;,citation_volume=44;,citation_journal_title=Annu. Rev. Psychol.;,citation_publisher=Annual Reviews;">
+<meta name="citation_reference" content="citation_title=Behavioural science is unlikely to change the world without a heterogeneity revolution;,citation_abstract=In the past decade, behavioural science has gained influence in policymaking but suffered a crisis of confidence in the replicability of its findings. Here, we describe a nascent heterogeneity revolution that we believe these twin historical trends have triggered. This revolution will be defined by the recognition that most treatment effects are heterogeneous, so the variation in effect estimates across studies that defines the replication crisis is to be expected as long as heterogeneous effects are studied without a systematic approach to sampling and moderation. When studied systematically, heterogeneity can be leveraged to build more complete theories of causal mechanism that could inform nuanced and dependable guidance to policymakers. We recommend investment in shared research infrastructure to make it feasible to study behavioural interventions in heterogeneous and generalizable samples, and suggest low-cost steps researchers can take immediately to avoid being misled by heterogeneity and begin to learn from it instead.;,citation_author=Christopher J Bryan;,citation_author=Elizabeth Tipton;,citation_author=David S Yeager;,citation_publication_date=2021-08;,citation_cover_date=2021-08;,citation_year=2021;,citation_fulltext_html_url=http://dx.doi.org/10.1038/s41562-021-01143-3;,citation_issue=8;,citation_doi=10.1038/s41562-021-01143-3;,citation_issn=2397-3374;,citation_pmid=34294901;,citation_volume=5;,citation_journal_title=Nat. Hum. Behav.;,citation_publisher=Springer Science; Business Media LLC;">
+<meta name="citation_reference" content="citation_title=Unpacking learning in the age of AI: Bridging AI, complexity, and precision education;,citation_author=Sonsoles López-Pernas;,citation_author=Ahmed Tlili;,citation_author=Rwitajit Majumdar;,citation_author=Sami Heikkinen;,citation_author=Mohammed Saqr;,citation_editor=Mohammed Saqr;,citation_editor=Sonsoles López-Pernas;,citation_publication_date=2025;,citation_cover_date=2025;,citation_year=2025;,citation_inbook_title=Advanced learning analytics methods: AI, precision and complexity;">
+<meta name="citation_reference" content="citation_title=AI, explainable AI and evaluative AI: An introduction to informed data-driven decision-making in education;,citation_author=Sonsoles López-Pernas;,citation_author=Eduardo Oliveira;,citation_author=Yige Song;,citation_author=Mohammed Saqr;,citation_editor=Mohammed Saqr;,citation_editor=Sonsoles López-Pernas;,citation_publication_date=2025;,citation_cover_date=2025;,citation_year=2025;,citation_inbook_title=Advanced learning analytics methods: AI, precision and complexity;">
+<meta name="citation_reference" content="citation_title=Artificial intelligence: Using machine learning to predict students’ performance;,citation_author=Mohammed Saqr;,citation_author=Kamila Misiejuk;,citation_author=Santtu Tikka;,citation_author=Sonsoles López-Pernas;,citation_editor=Mohammed Saqr;,citation_editor=Sonsoles López-Pernas;,citation_publication_date=2025;,citation_cover_date=2025;,citation_year=2025;,citation_inbook_title=Advanced learning analytics methods: AI, precision and complexity;">
+<meta name="citation_reference" content="citation_title=Artificial intelligence: Using machine learning to classify students and predict low achievers;,citation_author=Mohammed Saqr;,citation_author=Kamila Misiejuk;,citation_author=Santtu Tikka;,citation_author=Sonsoles López-Pernas;,citation_editor=Mohammed Saqr;,citation_editor=Sonsoles López-Pernas;,citation_publication_date=2025;,citation_cover_date=2025;,citation_year=2025;,citation_inbook_title=Advanced learning analytics methods: AI, precision and complexity;">
+<meta name="citation_reference" content="citation_title=Comparative analysis of regularization methods for predicting student certification in online courses;,citation_author=Tian Li;,citation_author=Feifei Han;,citation_author=Jiesi Guo;,citation_author=Jinran Wu;,citation_editor=Mohammed Saqr;,citation_editor=Sonsoles López-Pernas;,citation_publication_date=2025;,citation_cover_date=2025;,citation_year=2025;,citation_inbook_title=Advanced learning analytics methods: AI, precision and complexity;">
+<meta name="citation_reference" content="citation_title=Explainable artificial intelligence in education: A tutorial for identifying the variables that matter;,citation_author=Mohammed Saqr;,citation_author=Sonsoles López-Pernas;,citation_editor=Mohammed Saqr;,citation_editor=Sonsoles López-Pernas;,citation_publication_date=2025;,citation_cover_date=2025;,citation_year=2025;,citation_inbook_title=Advanced learning analytics methods: AI, precision and complexity;">
+<meta name="citation_reference" content="citation_title=Individualized explainable artificial intelligence: A tutorial for identifying local and individual predictions;,citation_author=Mohammed Saqr;,citation_author=Sonsoles López-Pernas;,citation_editor=Mohammed Saqr;,citation_editor=Sonsoles López-Pernas;,citation_publication_date=2025;,citation_cover_date=2025;,citation_year=2025;,citation_inbook_title=Advanced learning analytics methods: AI, precision and complexity;">
+<meta name="citation_reference" content="citation_title=An introduction to large language models in education;,citation_author=Eduardo Oliveira;,citation_author=Yige Song;,citation_author=Mohammed Saqr;,citation_author=Sonsoles López-Pernas;,citation_editor=Mohammed Saqr;,citation_editor=Sonsoles López-Pernas;,citation_publication_date=2025;,citation_cover_date=2025;,citation_year=2025;,citation_inbook_title=Advanced learning analytics methods: AI, precision and complexity;">
+<meta name="citation_reference" content="citation_title=The use of natural language processing in learning analytics;,citation_author=Tarid Wongvorachan;,citation_author=Okan Bulut;,citation_editor=Mohammed Saqr;,citation_editor=Sonsoles López-Pernas;,citation_publication_date=2025;,citation_cover_date=2025;,citation_year=2025;,citation_inbook_title=Advanced learning analytics methods: AI, precision and complexity;">
+<meta name="citation_reference" content="citation_title=Using language models for automated discourse coding: A primer and tutorial;,citation_author=Sonsoles López-Pernas;,citation_author=Kamila Misiejuk;,citation_author=Mohammed Saqr;,citation_editor=Mohammed Saqr;,citation_editor=Sonsoles López-Pernas;,citation_publication_date=2025;,citation_cover_date=2025;,citation_year=2025;,citation_inbook_title=Advanced learning analytics methods: AI, precision and complexity;">
+<meta name="citation_reference" content="citation_title=LLMs for explainable artificial intelligence: Automating natural language explanations of predictive analytics models;,citation_author=Sonsoles López-Pernas;,citation_author=Yige Song;,citation_author=Eduardo Oliveira;,citation_author=Mohammed Saqr;,citation_editor=Mohammed Saqr;,citation_editor=Sonsoles López-Pernas;,citation_publication_date=2025;,citation_cover_date=2025;,citation_year=2025;,citation_inbook_title=Advanced learning analytics methods: AI, precision and complexity;">
+<meta name="citation_reference" content="citation_title=Complex dynamic systems in education: Beyond the static, the linear and the causal reductionism;,citation_author=Mohammed Saqr;,citation_author=Daryn Dever;,citation_author=Sonsoles López-Pernas;,citation_author=Christophe Gernigon;,citation_author=Gwen Marchand;,citation_author=Avi Kaplan;,citation_editor=Mohammed Saqr;,citation_editor=Sonsoles López-Pernas;,citation_publication_date=2025;,citation_cover_date=2025;,citation_year=2025;,citation_inbook_title=Advanced learning analytics methods: AI, precision and complexity;">
+<meta name="citation_reference" content="citation_title=The advanced applications of psychological networks with EGA;,citation_author=Tarid Wongvorachan;,citation_author=Okan Bulut;,citation_editor=Mohammed Saqr;,citation_editor=Sonsoles López-Pernas;,citation_publication_date=2025;,citation_cover_date=2025;,citation_year=2025;,citation_inbook_title=Advanced learning analytics methods: AI, precision and complexity;">
+<meta name="citation_reference" content="citation_title=Detecting nonlinear patterns in education research: A tutorial on recurrence quantification analysis;,citation_author=Daryn Dever;,citation_editor=Mohammed Saqr;,citation_editor=Sonsoles López-Pernas;,citation_publication_date=2025;,citation_cover_date=2025;,citation_year=2025;,citation_inbook_title=Advanced learning analytics methods: AI, precision and complexity;">
+<meta name="citation_reference" content="citation_title=Mapping relational dynamics with transition network analysis: A primer and tutorial;,citation_author=Mohammed Saqr;,citation_author=Sonsoles López-Pernas;,citation_author=Santtu Tikka;,citation_editor=Mohammed Saqr;,citation_editor=Sonsoles López-Pernas;,citation_publication_date=2025;,citation_cover_date=2025;,citation_year=2025;,citation_inbook_title=Advanced learning analytics methods: AI, precision and complexity;">
+<meta name="citation_reference" content="citation_title=Capturing the breadth and dynamics of the temporal processes with frequency transition network analysis: A primer and tutorial;,citation_author=Mohammed Saqr;,citation_author=Sonsoles López-Pernas;,citation_author=Santtu Tikka;,citation_editor=Mohammed Saqr;,citation_editor=Sonsoles López-Pernas;,citation_publication_date=2025;,citation_cover_date=2025;,citation_year=2025;,citation_inbook_title=Advanced learning analytics methods: AI, precision and complexity;">
+<meta name="citation_reference" content="citation_title=Mining patterns and clusters with transition network analysis: A heterogeneity approach;,citation_author=Sonsoles López-Pernas;,citation_author=Santtu Tikka;,citation_author=Mohammed Saqr;,citation_editor=Mohammed Saqr;,citation_editor=Sonsoles López-Pernas;,citation_publication_date=2025;,citation_cover_date=2025;,citation_year=2025;,citation_inbook_title=Advanced learning analytics methods: AI, precision and complexity;">
+<meta name="citation_reference" content="citation_title=A comprehensive introduction to idiographic and within-person analytics;,citation_author=Mohammed Saqr;,citation_author=Hibiki Ito;,citation_author=Sonsoles López-Pernas;,citation_editor=Mohammed Saqr;,citation_editor=Sonsoles López-Pernas;,citation_publication_date=2025;,citation_cover_date=2025;,citation_year=2025;,citation_inbook_title=Advanced learning analytics methods: AI, precision and complexity;">
+<meta name="citation_reference" content="citation_title=The three levels of analysis: Variable-centered, person-centered and person-specific analysis in education;,citation_editor=Mohammed Saqr;,citation_editor=Sonsoles López-Pernas;,citation_publication_date=2025;,citation_cover_date=2025;,citation_year=2025;,citation_inbook_title=Advanced learning analytics methods: AI, precision and complexity;">
+<meta name="citation_reference" content="citation_title=Idiographic networks: A tutorial on graphical vector autoregression and unified structural equation modeling;,citation_author=Mohammed Saqr;,citation_author=Daryn Dever;,citation_author=Sonsoles López-Pernas;,citation_editor=Mohammed Saqr;,citation_editor=Sonsoles López-Pernas;,citation_publication_date=2025;,citation_cover_date=2025;,citation_year=2025;,citation_inbook_title=Advanced learning analytics methods: AI, precision and complexity;">
+<meta name="citation_reference" content="citation_title=Detecting long-memory psychological processes in academic settings using whittle’s maximum likelihood estimator: An application with r;,citation_author=Rémi Altamore;,citation_author=Clément Roume;,citation_author=Anne Teboul;,citation_author=Christophe Gernigon;,citation_editor=Mohammed Saqr;,citation_editor=Sonsoles López-Pernas;,citation_publication_date=2025;,citation_cover_date=2025;,citation_year=2025;,citation_inbook_title=Advanced learning analytics methods: AI, precision and complexity;">
+<meta name="citation_reference" content="citation_title=Automating individualized machine learning and AI prediction using AutoML: The case of idiographic predictions;,citation_author=Mohammed Saqr;,citation_author=Ahmed Tlili;,citation_author=Sonsoles López-Pernas;,citation_editor=Mohammed Saqr;,citation_editor=Sonsoles López-Pernas;,citation_publication_date=2025;,citation_cover_date=2025;,citation_year=2025;,citation_inbook_title=Advanced learning analytics methods: AI, precision and complexity;">
+<meta name="citation_reference" content="citation_title=Getting started with R for education research;,citation_author=Santtu Tikka;,citation_author=Juho Kopra;,citation_author=Merja Heinäniemi;,citation_author=Sonsoles López-Pernas;,citation_author=Mohammed Saqr;,citation_editor=Mohammed Saqr;,citation_editor=Sonsoles López-Pernas;,citation_publication_date=2024;,citation_cover_date=2024;,citation_year=2024;,citation_inbook_title=Learning analytics methods and tutorials: A practical guide using r;">
+<meta name="citation_reference" content="citation_title=Introductory statistics with R for educational researchers;,citation_author=Santtu Tikka;,citation_author=Juho Kopra;,citation_author=Merja Heinäniemi;,citation_author=Sonsoles López-Pernas;,citation_author=Mohammed Saqr;,citation_editor=Mohammed Saqr;,citation_editor=Sonsoles López-Pernas;,citation_publication_date=2024;,citation_cover_date=2024;,citation_year=2024;,citation_inbook_title=Learning analytics methods and tutorials: A practical guide using r;">
+<meta name="citation_reference" content="citation_title=An R approach to data cleaning and wrangling for education research;,citation_author=Juho Kopra;,citation_author=Santtu Tikka;,citation_author=Merja Heinäniemi;,citation_author=Sonsoles López-Pernas;,citation_author=Mohammed Saqr;,citation_editor=Mohammed Saqr;,citation_editor=Sonsoles López-Pernas;,citation_publication_date=2024;,citation_cover_date=2024;,citation_year=2024;,citation_inbook_title=Learning analytics methods and tutorials: A practical guide using r;">
+<meta name="citation_reference" content="citation_title=Visualizing and reporting educational data with R;,citation_abstract=AbstractVisualizing data is central in learning analytics research, underpins learning dashboards, and is a prime method for reporting results and insights to stakeholders. In this chapter, the reader will be guided through the process of generating meaningful and aesthetically pleasing visualizations of different types of student data using well-known R packages. The main visualization types will be demonstrated with an explanation of their usage and use cases. Furthermore, learning-related examples will be discussed in detail. For instance, readers will learn how to visualize learners’ logs extracted from learning management systems to show how trace data can be used to track students’ learning activities. In addition to creating compelling plots, readers will also be able to generate professional-looking tables with summary statistics.;,citation_author=Sonsoles López-Pernas;,citation_author=Kamila Misiejuk;,citation_author=Santtu Tikka;,citation_author=Juho Kopra;,citation_author=Merja Heinäniemi;,citation_author=Mohammed Saqr;,citation_publication_date=2024;,citation_cover_date=2024;,citation_year=2024;,citation_fulltext_html_url=https://link.springer.com/chapter/10.1007/978-3-031-54464-4_6;,citation_doi=10.1007/978-3-031-54464-4\_6;,citation_isbn=9783031544637,9783031544644;,citation_inbook_title=Learning analytics methods and tutorials;">
+<meta name="citation_reference" content="citation_title=Unpacking learning in the age of AI: Bridging AI, complexity, and precision education;,citation_author=Sonsoles López-Pernas;,citation_author=Ahmed Tlili;,citation_author=Rwitajit Majumdar;,citation_author=Sami Heikkinen;,citation_author=Mohammed Saqr;,citation_editor=Mohammed Saqr;,citation_editor=Sonsoles López-Pernas;,citation_publication_date=2025;,citation_cover_date=2025;,citation_year=2025;,citation_inbook_title=Advanced learning analytics methods: AI, precision and complexity;">
+<meta name="citation_reference" content="citation_title=AI, explainable AI and evaluative AI: An introduction to informed data-driven decision-making in education;,citation_author=Sonsoles López-Pernas;,citation_author=Eduardo Oliveira;,citation_author=Yige Song;,citation_author=Mohammed Saqr;,citation_editor=Mohammed Saqr;,citation_editor=Sonsoles López-Pernas;,citation_publication_date=2025;,citation_cover_date=2025;,citation_year=2025;,citation_inbook_title=Advanced learning analytics methods: AI, precision and complexity;">
+<meta name="citation_reference" content="citation_title=Artificial intelligence: Using machine learning to predict students’ performance;,citation_author=Mohammed Saqr;,citation_author=Kamila Misiejuk;,citation_author=Santtu Tikka;,citation_author=Sonsoles López-Pernas;,citation_editor=Mohammed Saqr;,citation_editor=Sonsoles López-Pernas;,citation_publication_date=2025;,citation_cover_date=2025;,citation_year=2025;,citation_inbook_title=Advanced learning analytics methods: AI, precision and complexity;">
+<meta name="citation_reference" content="citation_title=Artificial intelligence: Using machine learning to classify students and predict low achievers;,citation_author=Mohammed Saqr;,citation_author=Kamila Misiejuk;,citation_author=Santtu Tikka;,citation_author=Sonsoles López-Pernas;,citation_editor=Mohammed Saqr;,citation_editor=Sonsoles López-Pernas;,citation_publication_date=2025;,citation_cover_date=2025;,citation_year=2025;,citation_inbook_title=Advanced learning analytics methods: AI, precision and complexity;">
+<meta name="citation_reference" content="citation_title=Comparative analysis of regularization methods for predicting student certification in online courses;,citation_author=Tian Li;,citation_author=Feifei Han;,citation_author=Jiesi Guo;,citation_author=Jinran Wu;,citation_editor=Mohammed Saqr;,citation_editor=Sonsoles López-Pernas;,citation_publication_date=2025;,citation_cover_date=2025;,citation_year=2025;,citation_inbook_title=Advanced learning analytics methods: AI, precision and complexity;">
+<meta name="citation_reference" content="citation_title=Explainable artificial intelligence in education: A tutorial for identifying the variables that matter;,citation_author=Mohammed Saqr;,citation_author=Sonsoles López-Pernas;,citation_editor=Mohammed Saqr;,citation_editor=Sonsoles López-Pernas;,citation_publication_date=2025;,citation_cover_date=2025;,citation_year=2025;,citation_inbook_title=Advanced learning analytics methods: AI, precision and complexity;">
+<meta name="citation_reference" content="citation_title=Individualized explainable artificial intelligence: A tutorial for identifying local and individual predictions;,citation_author=Mohammed Saqr;,citation_author=Sonsoles López-Pernas;,citation_editor=Mohammed Saqr;,citation_editor=Sonsoles López-Pernas;,citation_publication_date=2025;,citation_cover_date=2025;,citation_year=2025;,citation_inbook_title=Advanced learning analytics methods: AI, precision and complexity;">
+<meta name="citation_reference" content="citation_title=An introduction to large language models in education;,citation_author=Eduardo Oliveira;,citation_author=Yige Song;,citation_author=Mohammed Saqr;,citation_author=Sonsoles López-Pernas;,citation_editor=Mohammed Saqr;,citation_editor=Sonsoles López-Pernas;,citation_publication_date=2025;,citation_cover_date=2025;,citation_year=2025;,citation_inbook_title=Advanced learning analytics methods: AI, precision and complexity;">
+<meta name="citation_reference" content="citation_title=The use of natural language processing in learning analytics;,citation_author=Tarid Wongvorachan;,citation_author=Okan Bulut;,citation_editor=Mohammed Saqr;,citation_editor=Sonsoles López-Pernas;,citation_publication_date=2025;,citation_cover_date=2025;,citation_year=2025;,citation_inbook_title=Advanced learning analytics methods: AI, precision and complexity;">
+<meta name="citation_reference" content="citation_title=Using language models for automated discourse coding: A primer and tutorial;,citation_author=Sonsoles López-Pernas;,citation_author=Kamila Misiejuk;,citation_author=Mohammed Saqr;,citation_editor=Mohammed Saqr;,citation_editor=Sonsoles López-Pernas;,citation_publication_date=2025;,citation_cover_date=2025;,citation_year=2025;,citation_inbook_title=Advanced learning analytics methods: AI, precision and complexity;">
+<meta name="citation_reference" content="citation_title=LLMs for explainable artificial intelligence: Automating natural language explanations of predictive analytics models;,citation_author=Sonsoles López-Pernas;,citation_author=Yige Song;,citation_author=Eduardo Oliveira;,citation_author=Mohammed Saqr;,citation_editor=Mohammed Saqr;,citation_editor=Sonsoles López-Pernas;,citation_publication_date=2025;,citation_cover_date=2025;,citation_year=2025;,citation_inbook_title=Advanced learning analytics methods: AI, precision and complexity;">
+<meta name="citation_reference" content="citation_title=Complex dynamic systems in education: Beyond the static, the linear and the causal reductionism;,citation_author=Mohammed Saqr;,citation_author=Daryn Dever;,citation_author=Sonsoles López-Pernas;,citation_author=Christophe Gernigon;,citation_author=Gwen Marchand;,citation_author=Avi Kaplan;,citation_editor=Mohammed Saqr;,citation_editor=Sonsoles López-Pernas;,citation_publication_date=2025;,citation_cover_date=2025;,citation_year=2025;,citation_inbook_title=Advanced learning analytics methods: AI, precision and complexity;">
+<meta name="citation_reference" content="citation_title=The advanced applications of psychological networks with EGA;,citation_author=Tarid Wongvorachan;,citation_author=Okan Bulut;,citation_editor=Mohammed Saqr;,citation_editor=Sonsoles López-Pernas;,citation_publication_date=2025;,citation_cover_date=2025;,citation_year=2025;,citation_inbook_title=Advanced learning analytics methods: AI, precision and complexity;">
+<meta name="citation_reference" content="citation_title=Mapping relational dynamics with transition network analysis: A primer and tutorial;,citation_author=Mohammed Saqr;,citation_author=Sonsoles López-Pernas;,citation_author=Santtu Tikka;,citation_editor=Mohammed Saqr;,citation_editor=Sonsoles López-Pernas;,citation_publication_date=2025;,citation_cover_date=2025;,citation_year=2025;,citation_inbook_title=Advanced learning analytics methods: AI, precision and complexity;">
+<meta name="citation_reference" content="citation_title=Capturing the breadth and dynamics of the temporal processes with frequency transition network analysis: A primer and tutorial;,citation_author=Mohammed Saqr;,citation_author=Sonsoles López-Pernas;,citation_author=Santtu Tikka;,citation_editor=Mohammed Saqr;,citation_editor=Sonsoles López-Pernas;,citation_publication_date=2025;,citation_cover_date=2025;,citation_year=2025;,citation_inbook_title=Advanced learning analytics methods: AI, precision and complexity;">
+<meta name="citation_reference" content="citation_title=Mining patterns and clusters with transition network analysis: A heterogeneity approach;,citation_author=Sonsoles López-Pernas;,citation_author=Santtu Tikka;,citation_author=Mohammed Saqr;,citation_editor=Mohammed Saqr;,citation_editor=Sonsoles López-Pernas;,citation_publication_date=2025;,citation_cover_date=2025;,citation_year=2025;,citation_inbook_title=Advanced learning analytics methods: AI, precision and complexity;">
+<meta name="citation_reference" content="citation_title=A comprehensive introduction to idiographic and within-person analytics;,citation_author=Mohammed Saqr;,citation_author=Hibiki Ito;,citation_author=Sonsoles López-Pernas;,citation_editor=Mohammed Saqr;,citation_editor=Sonsoles López-Pernas;,citation_publication_date=2025;,citation_cover_date=2025;,citation_year=2025;,citation_inbook_title=Advanced learning analytics methods: AI, precision and complexity;">
+<meta name="citation_reference" content="citation_title=The three levels of analysis: Variable-centered, person-centered and person-specific analysis in education;,citation_editor=Mohammed Saqr;,citation_editor=Sonsoles López-Pernas;,citation_publication_date=2025;,citation_cover_date=2025;,citation_year=2025;,citation_inbook_title=Advanced learning analytics methods: AI, precision and complexity;">
+<meta name="citation_reference" content="citation_title=Idiographic networks: A tutorial on graphical vector autoregression and unified structural equation modeling;,citation_author=Mohammed Saqr;,citation_author=Daryn Dever;,citation_author=Sonsoles López-Pernas;,citation_editor=Mohammed Saqr;,citation_editor=Sonsoles López-Pernas;,citation_publication_date=2025;,citation_cover_date=2025;,citation_year=2025;,citation_inbook_title=Advanced learning analytics methods: AI, precision and complexity;">
+<meta name="citation_reference" content="citation_title=Detecting long-memory psychological processes in academic settings using whittle’s maximum likelihood estimator: An application with r;,citation_author=Rémi Altamore;,citation_author=Clément Roume;,citation_author=Anne Teboul;,citation_author=Christophe Gernigon;,citation_editor=Mohammed Saqr;,citation_editor=Sonsoles López-Pernas;,citation_publication_date=2025;,citation_cover_date=2025;,citation_year=2025;,citation_inbook_title=Advanced learning analytics methods: AI, precision and complexity;">
+<meta name="citation_reference" content="citation_title=Automating individualized machine learning and AI prediction using AutoML: The case of idiographic predictions;,citation_author=Mohammed Saqr;,citation_author=Ahmed Tlili;,citation_author=Sonsoles López-Pernas;,citation_editor=Mohammed Saqr;,citation_editor=Sonsoles López-Pernas;,citation_publication_date=2025;,citation_cover_date=2025;,citation_year=2025;,citation_inbook_title=Advanced learning analytics methods: AI, precision and complexity;">
+<meta name="citation_reference" content="citation_title=Getting started with R for education research;,citation_author=Santtu Tikka;,citation_author=Juho Kopra;,citation_author=Merja Heinäniemi;,citation_author=Sonsoles López-Pernas;,citation_author=Mohammed Saqr;,citation_editor=Mohammed Saqr;,citation_editor=Sonsoles López-Pernas;,citation_publication_date=2024;,citation_cover_date=2024;,citation_year=2024;,citation_inbook_title=Learning analytics methods and tutorials: A practical guide using r;">
+<meta name="citation_reference" content="citation_title=Introductory statistics with R for educational researchers;,citation_author=Santtu Tikka;,citation_author=Juho Kopra;,citation_author=Merja Heinäniemi;,citation_author=Sonsoles López-Pernas;,citation_author=Mohammed Saqr;,citation_editor=Mohammed Saqr;,citation_editor=Sonsoles López-Pernas;,citation_publication_date=2024;,citation_cover_date=2024;,citation_year=2024;,citation_inbook_title=Learning analytics methods and tutorials: A practical guide using r;">
+<meta name="citation_reference" content="citation_title=An R approach to data cleaning and wrangling for education research;,citation_author=Juho Kopra;,citation_author=Santtu Tikka;,citation_author=Merja Heinäniemi;,citation_author=Sonsoles López-Pernas;,citation_author=Mohammed Saqr;,citation_editor=Mohammed Saqr;,citation_editor=Sonsoles López-Pernas;,citation_publication_date=2024;,citation_cover_date=2024;,citation_year=2024;,citation_inbook_title=Learning analytics methods and tutorials: A practical guide using r;">
+<meta name="citation_reference" content="citation_title=Visualizing and reporting educational data with R;,citation_abstract=AbstractVisualizing data is central in learning analytics research, underpins learning dashboards, and is a prime method for reporting results and insights to stakeholders. In this chapter, the reader will be guided through the process of generating meaningful and aesthetically pleasing visualizations of different types of student data using well-known R packages. The main visualization types will be demonstrated with an explanation of their usage and use cases. Furthermore, learning-related examples will be discussed in detail. For instance, readers will learn how to visualize learners’ logs extracted from learning management systems to show how trace data can be used to track students’ learning activities. In addition to creating compelling plots, readers will also be able to generate professional-looking tables with summary statistics.;,citation_author=Sonsoles López-Pernas;,citation_author=Kamila Misiejuk;,citation_author=Santtu Tikka;,citation_author=Juho Kopra;,citation_author=Merja Heinäniemi;,citation_author=Mohammed Saqr;,citation_publication_date=2024;,citation_cover_date=2024;,citation_year=2024;,citation_fulltext_html_url=https://link.springer.com/chapter/10.1007/978-3-031-54464-4_6;,citation_doi=10.1007/978-3-031-54464-4\_6;,citation_isbn=9783031544637,9783031544644;,citation_inbook_title=Learning analytics methods and tutorials;">
+<meta name="citation_reference" content="citation_title=Rio: A swiss-army knife for data file i/o;,citation_author=Chung-hong Chan;,citation_author=Thomas J. Leeper;,citation_author=Jason Becker;,citation_author=David Schoch;,citation_publication_date=2023;,citation_cover_date=2023;,citation_year=2023;,citation_fulltext_html_url=https://cran.r-project.org/package=rio;">
+<meta name="citation_reference" content="citation_title=Why educational research needs a complex system revolution that embraces individual differences, heterogeneity, and uncertainty;,citation_abstract=AbstractWhereas the field of learning analytics has matured, several methodological and theoretical issues remain unresolved. In this chapter, we discuss the potentials of complex systems as an overarching paradigm for understanding the learning process, learners and the learning environments and how they influence learning. We show how using complex system methodologies opens doors for new possibilities that may contribute new knowledge and solve some of the unresolved problems in learning analytics. Furthermore, we unpack the importance of individual differences in advancing the field bringing a much-needed theoretical perspective that could help offer answers to some of our pressing issues.;,citation_author=Mohammed Saqr;,citation_author=Marieke J Schreuder;,citation_author=Sonsoles López-Pernas;,citation_publication_date=2024;,citation_cover_date=2024;,citation_year=2024;,citation_fulltext_html_url=https://link.springer.com/chapter/10.1007/978-3-031-54464-4_22;,citation_doi=10.1007/978-3-031-54464-4\_22;,citation_isbn=9783031544637,9783031544644;,citation_inbook_title=Learning analytics methods and tutorials;">
+<meta name="citation_reference" content="citation_title=Behavioural science is unlikely to change the world without a heterogeneity revolution;,citation_abstract=In the past decade, behavioural science has gained influence in policymaking but suffered a crisis of confidence in the replicability of its findings. Here, we describe a nascent heterogeneity revolution that we believe these twin historical trends have triggered. This revolution will be defined by the recognition that most treatment effects are heterogeneous, so the variation in effect estimates across studies that defines the replication crisis is to be expected as long as heterogeneous effects are studied without a systematic approach to sampling and moderation. When studied systematically, heterogeneity can be leveraged to build more complete theories of causal mechanism that could inform nuanced and dependable guidance to policymakers. We recommend investment in shared research infrastructure to make it feasible to study behavioural interventions in heterogeneous and generalizable samples, and suggest low-cost steps researchers can take immediately to avoid being misled by heterogeneity and begin to learn from it instead.;,citation_author=Christopher J Bryan;,citation_author=Elizabeth Tipton;,citation_author=David S Yeager;,citation_publication_date=2021-08;,citation_cover_date=2021-08;,citation_year=2021;,citation_fulltext_html_url=http://dx.doi.org/10.1038/s41562-021-01143-3;,citation_issue=8;,citation_doi=10.1038/s41562-021-01143-3;,citation_issn=2397-3374;,citation_pmid=34294901;,citation_volume=5;,citation_journal_title=Nat. Hum. Behav.;,citation_publisher=Springer Science; Business Media LLC;">
+<meta name="citation_reference" content="citation_title=Latent class modeling with covariates: Two improved three-step approaches;,citation_abstract=Researchers using latent class (LC) analysis often proceed using the following three steps: (1) an LC model is built for a set of response variables, (2) subjects are assigned to LCs based on their posterior class membership probabilities, and (3) the association between the assigned class membership and external variables is investigated using simple cross-tabulations or multinomial logistic regression analysis. Bolck, Croon, and Hagenaars (2004) demonstrated that such a three-step approach underestimates the associations between covariates and class membership. They proposed resolving this problem by means of a specific correction method that involves modifying the third step. In this article, I extend the correction method of Bolck, Croon, and Hagenaars by showing that it involves maximizing a weighted log-likelihood function for clustered data. This conceptualization makes it possible to apply the method not only with categorical but also with continuous explanatory variables, to obtain correct tests using complex sampling variance estimation methods, and to implement it in standard software for logistic regression analysis. In addition, a new maximum likelihood (ML)—based correction method is proposed, which is more direct in the sense that it does not require analyzing weighted data. This new three-step ML method can be easily implemented in software for LC analysis. The reported simulation study shows that both correction methods perform very well in the sense that their parameter estimates and their SEs can be trusted, except for situations with very poorly separated classes. The main advantage of the ML method compared with the Bolck, Croon, and Hagenaars approach is that it is much more efficient and almost as efficient as one-step ML estimation.;,citation_author=Jeroen K Vermunt;,citation_publication_date=2010;,citation_cover_date=2010;,citation_year=2010;,citation_issue=4;,citation_doi=10.1093/pan/mpq025;,citation_issn=1047-1987,1476-4989;,citation_volume=18;,citation_journal_title=Polit. Anal.;,citation_publisher=Cambridge University Press (CUP);">
+<meta name="citation_reference" content="citation_title=Social network analysis: A primer, a guide and a tutorial in R;,citation_abstract=AbstractThis chapter introduces the concept and methods of social network analysis (SNA) with a detailed guide to analysis with real world data using the R programming language. The chapter first introduces the basic concepts and types of networks. Then the chapter goes through a detailed step by step analysis of networks, computation of graph level measures as well as centralities with a concise interpretation in a collaborative environment. The chapter concludes with a discussion of network analysis, next steps as well as a list of further readings.;,citation_author=Mohammed Saqr;,citation_author=Sonsoles López-Pernas;,citation_author=Miguel Ángel Conde-González;,citation_author=Ángel Hernández-García;,citation_publication_date=2024;,citation_cover_date=2024;,citation_year=2024;,citation_fulltext_html_url=http://dx.doi.org/10.1007/978-3-031-54464-4_15;,citation_doi=10.1007/978-3-031-54464-4\_15;,citation_isbn=9783031544637,9783031544644;,citation_inbook_title=Learning analytics methods and tutorials;">
+</head>
+
+<body class="nav-sidebar floating nav-fixed">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg navbar-dark ">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container">
+    <a class="navbar-brand" href="../../index.html">
+    <span class="navbar-title">LA Methods</span>
+    </a>
+  </div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll ms-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="../../../index.html">
+ <span class="menu-text">Home</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../../../book1/index.html">
+ <span class="menu-text">Learning Analytics Methods and Tutorials</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../../../book2/index.html">
+ <span class="menu-text">Advanced Learning Analytics Methods</span></a>
+  </li>  
+  <li class="nav-item compact">
+    <a class="nav-link" href="https://github.com/lamethods/code2/"><i class="bi bi-github" role="img" aria-label="Source Code">
+</i> 
+ <span class="menu-text"></span></a>
+  </li>  
+</ul>
+              <div id="quarto-search" class="" title="Search"></div>
+          </div> <!-- /navcollapse -->
+      </div> <!-- /container-fluid -->
+    </nav>
+  <nav class="quarto-secondary-nav" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+    <div class="container-fluid d-flex justify-content-between">
+      <h1 class="quarto-secondary-nav-title"><span class="chapter-number">17</span>&nbsp; <span class="chapter-title">Mining Patterns and Clusters with Transition Network Analysis: A Heterogeneity Approach</span></h1>
+      <button type="button" class="quarto-btn-toggle btn" aria-label="Show secondary navigation">
+        <i class="bi bi-chevron-right"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse sidebar-navigation floating overflow-auto">
+      <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Search"></div>
+        </div>
+      </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../index.html" class="sidebar-item-text sidebar-link">Welcome</a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../contributors.html" class="sidebar-item-text sidebar-link">Contributors</a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../chapters/ch01-intro/ch01-intro.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Introduction</span></a>
+  </div>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true">Artificial Intelligence</a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../chapters/ch02-AIxAI/ch02-aixai.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">AI and XAI</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../chapters/ch03-prediction/ch03-prediction.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Prediction</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../chapters/ch04-classification/ch04-classification.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Classification</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../chapters/ch05-regularization/ch05-regularization.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Regularization</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../chapters/ch06-xai-global/ch06-xai-global.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Global XAI</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../chapters/ch07-xai-local/ch07-xai-local.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Local XAI</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="true">Large Language Models</a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="true">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../chapters/ch08-llms/ch08-llms.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Large Language Models</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../chapters/ch09-nlp/ch09-nlp.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Natural Language Processing</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../chapters/ch10-bert/ch10-bert.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Classification with BERT</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../chapters/ch11-llmsxai/ch11-llmsxai.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Automated feedback with XAI and LLMs</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" aria-expanded="true">Complex Systems</a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" aria-expanded="true">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../chapters/ch12-cds/ch12-cds.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Complex Systems</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../chapters/ch13-ega/ch13-ega.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Exploratory Graph Analysis</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../chapters/ch14-rqa/ch14-rqa.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">Recurrent Quantification Analysis</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../chapters/ch15-tna/ch15-tna.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">15</span>&nbsp; <span class="chapter-title">Transition Network Analysis</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../chapters/ch16-ftna/ch16-ftna.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">16</span>&nbsp; <span class="chapter-title">Frequency-based Transition Network Analysis</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../chapters/ch17-tna-clusters/ch17-tna-clusters.html" class="sidebar-item-text sidebar-link active"><span class="chapter-number">17</span>&nbsp; <span class="chapter-title">Transition Network Analysis Clusters</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" aria-expanded="true">Idiographic</a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" aria-expanded="true">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../chapters/ch18-idio/ch18-idio.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">18</span>&nbsp; <span class="chapter-title">Within-person analysis</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../chapters/ch19-three-levels/ch19-three-levels.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">19</span>&nbsp; <span class="chapter-title">Heterogeneity</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../chapters/ch20-var/ch20-var.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">20</span>&nbsp; <span class="chapter-title">Vector Autoregression and uSEM</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../chapters/ch21-mle/ch21-mle.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">21</span>&nbsp; <span class="chapter-title">Maximum Likelihood Estimator</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../chapters/ch22-automl/ch22-automl.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">22</span>&nbsp; <span class="chapter-title">Automated Machine Learning</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+    </ul>
+    </div>
+</nav>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Table of contents</h2>
+   
+  <ul>
+  <li><a href="#introduction" id="toc-introduction" class="nav-link active" data-scroll-target="#introduction"><span class="toc-section-number">1</span>  Introduction</a></li>
+  <li><a href="#related-work" id="toc-related-work" class="nav-link" data-scroll-target="#related-work"><span class="toc-section-number">2</span>  Related work</a></li>
+  <li><a href="#tutorial-clusters-in-tna" id="toc-tutorial-clusters-in-tna" class="nav-link" data-scroll-target="#tutorial-clusters-in-tna"><span class="toc-section-number">3</span>  Tutorial: Clusters in TNA</a>
+  <ul class="collapse">
+  <li><a href="#importing-libraries" id="toc-importing-libraries" class="nav-link" data-scroll-target="#importing-libraries"><span class="toc-section-number">3.1</span>  Importing libraries</a></li>
+  <li><a href="#preparing-the-data" id="toc-preparing-the-data" class="nav-link" data-scroll-target="#preparing-the-data"><span class="toc-section-number">3.2</span>  Preparing the data</a></li>
+  <li><a href="#clustering" id="toc-clustering" class="nav-link" data-scroll-target="#clustering"><span class="toc-section-number">3.3</span>  Clustering</a></li>
+  <li><a href="#creating-and-visualizing-tna-results" id="toc-creating-and-visualizing-tna-results" class="nav-link" data-scroll-target="#creating-and-visualizing-tna-results"><span class="toc-section-number">3.4</span>  Creating and visualizing TNA results</a></li>
+  <li><a href="#communities" id="toc-communities" class="nav-link" data-scroll-target="#communities"><span class="toc-section-number">3.5</span>  Communities</a></li>
+  <li><a href="#centralities" id="toc-centralities" class="nav-link" data-scroll-target="#centralities"><span class="toc-section-number">3.6</span>  Centralities</a></li>
+  <li><a href="#cliques" id="toc-cliques" class="nav-link" data-scroll-target="#cliques"><span class="toc-section-number">3.7</span>  Cliques</a></li>
+  <li><a href="#other-forms-of-clustering-and-grouping" id="toc-other-forms-of-clustering-and-grouping" class="nav-link" data-scroll-target="#other-forms-of-clustering-and-grouping"><span class="toc-section-number">3.8</span>  Other forms of clustering and grouping</a></li>
+  <li><a href="#other-forms-of-tna" id="toc-other-forms-of-tna" class="nav-link" data-scroll-target="#other-forms-of-tna"><span class="toc-section-number">3.9</span>  Other forms of TNA</a></li>
+  </ul></li>
+  <li><a href="#discussion" id="toc-discussion" class="nav-link" data-scroll-target="#discussion"><span class="toc-section-number">4</span>  Discussion</a></li>
+  <li><a href="#bibliography" id="toc-bibliography" class="nav-link" data-scroll-target="#bibliography">References</a></li>
+  </ul>
+</nav>
+    <div class="quarto-margin-footer"><div class="margin-footer-item">
+<a href="https://github.com/lamethods/code2" target="_blank"> <button class="btn btn-outline-dark"> <svg xmlns="http://www.w3.org/2000/svg" viewbox="0 0 496 512" style="width: 22px;vertical-align: text-top;margin-right: 9px;"> <path d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3 .3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5 .3-6.2 2.3zm44.2-1.7c-2.9 .7-4.9 2.6-4.6 4.9 .3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3 .7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3 .3 2.9 2.3 3.9 1.6 1 3.6 .7 4.3-.7 .7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3 .7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3 .7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z" style="width: 24px;"> </path> </svg>Download code </button> </a>
+<div style="padding: 10px;">
+Check out our previous book! <br> <a href="../../../book1/index.html"><img src="../../../book1/1712067211600.jpeg" style="
+     width: 70%;
+ "></a>
+</div>
+<p><br> <small>© 2025 The authors</small></p>
+</div></div></div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title d-none d-lg-block"><span class="chapter-number">17</span>&nbsp; <span class="chapter-title">Mining Patterns and Clusters with Transition Network Analysis: A Heterogeneity Approach</span></h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    <div>
+    <div class="quarto-title-meta-heading">Authors</div>
+    <div class="quarto-title-meta-contents">
+             <p>Sonsoles López-Pernas </p>
+             <p>Santtu Tikka </p>
+             <p>Mohammed Saqr </p>
+          </div>
+  </div>
+    
+  
+    
+  </div>
+  
+<div>
+  <div class="abstract">
+    <div class="abstract-title">Abstract</div>
+    In this chapter, we demonstrate how we can identify and study clusters within Transition Network Analysis (TNA) to reveal the underlying heterogeneity in learners’ behavioral patterns. Specifically, we rely on mixture Markov Models (MMM) to identify latent subgroups characterized by unique transition probabilities, a method that can also incorporate covariates to explain the identified clusters. We employ the <code>tna</code> R package to understand the distinct transition dynamics between states or events in each cluster through the study of centrality measures, communities and cliques. Lastly, we exemplify how to implement other forms of clustering (e.g., distance based) and grouping, as well as other types of transition networks (e.g., frequency-based transition networks).
+  </div>
+</div>
+
+</header>
+
+<section id="introduction" class="level2" data-number="1">
+<h2 data-number="1" class="anchored" data-anchor-id="introduction"><span class="header-section-number">1</span> Introduction</h2>
+<p>Clusters, within the context of Transition Network Analysis (TNA), represent distinct subgroups within the sequence data that exhibit unique transition patterns between states or events <span class="citation" data-cites="Saqr2025-ku">[<a href="#ref-Saqr2025-ku" role="doc-biblioref">1</a>]</span>. In other words, these clusters share similar transition dynamics that are closer to each other within the same cluster and rather different from other clusters. Identifying these clusters rests on the assumption that students’ behavior varies across contexts and conditions giving rise to patterns of similar behavior that can be captured by appropriate clustering techniques. In doing so, clustering mines these unobserved patterns that may be overlooked when studying the data as a whole without considering the heterogeneity. Not accounting for the heterogeneity in the data may obscure individual differences <span class="citation" data-cites="Bryan2021-im">[<a href="#ref-Bryan2021-im" role="doc-biblioref">2</a>]</span>, let alone the true underlying structure.</p>
+<p>Clusters often arise from an underlying data generation mechanism that shapes how learners interact with tasks, contexts, and each other. The data generating mechanism reflects the interplay of cognitive, emotional, and social processes, as well as the structure and demands of the learning environment. For instance, self-regulation as a data generating mechanism shapes the transitions between states —such as planning, monitoring, and adaptation— which are driven by learners’ efforts to achieve goals, respond to feedback, or enact their tasks <span class="citation" data-cites="Karoly1993-ud">[<a href="#ref-Karoly1993-ud" role="doc-biblioref">3</a>]</span>. External factors, such as the presence of collaborative tasks or deadlines, may also influence these transitions by prompting learners to emphasize specific strategies like socio-emotional regulation or task coordination. Additionally, the heterogeneity in learners’ dispositions contributes to diverse patterns in how they regulate their learning as well as the facilitation and contextual variables. Together, these factors generate the distinct SRL transition patterns that are captured and represented with TNA clusters offering a window into their learning processes.</p>
+<p>Capturing such patterns allows to accurately understand students’ learning processes and their variations. Furthermore, it provides a foundation for theory building by linking these clusters to specific underlying mechanisms, e.g., self-regulation tactics and strategies. Clusters also represent episodes —sessions, epochs or times— where learners manifest certain behaviors. For instance, in a learning management system (LMS), a cluster could represent students’ pattern of focus on assessment, another may represent students’ engagement with their lectures, and so on. In the same vein, in self-regulated learning, clusters reveal variations in learning strategies, such as learners who adapt effectively by transitioning from monitoring to task adaptation, demonstrating advanced metacognitive skills. In contrast, some clusters may show learners stuck in cycles of monitoring and exploration without progressing, highlighting inefficiencies in self-regulation that could benefit from targeted interventions.</p>
+<p>The learning analytics literature has a rich tradition of grouping students’ similar behavior using similar methods, e.g., in sequence mining of LMS data these clusters are often referred to as tactics and aims to find clusters of online behavior <span class="citation" data-cites="Saqr2023-ts">[<a href="#ref-Saqr2023-ts" role="doc-biblioref">4</a>]</span>, self-regulation <span class="citation" data-cites="Tormanen2022-fw">[<a href="#ref-Tormanen2022-fw" role="doc-biblioref">5</a>]</span>, or engagement <span class="citation" data-cites="Saqr2023-lo">[<a href="#ref-Saqr2023-lo" role="doc-biblioref">6</a>]</span>. One can say that clusters in TNA are similar, however, the emphasis here is on clusters that share similar transition dynamics.</p>
+<p>Clustering in TNA not only identifies subgroups, but also broadens our understanding of the strategies learners employ <span class="citation" data-cites="Saqr2024-as">[<a href="#ref-Saqr2024-as" role="doc-biblioref">7</a>]</span>. When we analyze the group as a whole, only the average or most common patterns are visible. Instead, clustering allows to place the focus in patterns that are unique to specific subgroups, which may have been eclipsed by the general trends <span class="citation" data-cites="Bryan2021-im">[<a href="#ref-Bryan2021-im" role="doc-biblioref">2</a>]</span>. Moreover, clustering allows researchers to ask questions about the conditions under which specific patterns emerge if we use covariates and explanatory variables as part of the clustering model. For instance, do learners who frequently transition between planning and monitoring perform better in problem-solving tasks, and how does this vary in collaborative versus individual learning settings? Do emotional regulation clusters correlate with sustained engagement in challenging tasks, and how can these insights guide interventions?</p>
+<p>In TNA, clustering the sequence data is performed through identifying distinct transition patterns using mixture Markov models (MMM) <span class="citation" data-cites="Helske2024-lq">[<a href="#ref-Helske2024-lq" role="doc-biblioref">8</a>]</span>. Unlike simple Markov models that assume homogeneity in transition dynamics across all data, MMM accounts for the coexistence of multiple latent subgroups, each governed by its own unique transition matrix. MMM works by assigning each sequence to one of latent subgroups which share similar transition probabilities. In general it is a robust and flexible technique for clustering sequential data and more importantly it allows the inclusion of covariates that help identify or explain why certain clusters emerged.</p>
+<p>Using covariates allows researchers to explore what factors are associated with the emergence of specific clusters <span class="citation" data-cites="Vermunt2010-ps">[<a href="#ref-Vermunt2010-ps" role="doc-biblioref">9</a>]</span>. For example, higher-performing groups might consistently be involved in clusters of transitions involving monitoring and adaptation, reflecting emphasis on a metacognitive approach to their tasks. Such level of analysis contextualizes the clusters and also provides actionable insights into the conditions under which specific behaviors emerge.</p>
+<p>In this chapter, we provide a tutorial on how to identify and study clusters within TNA. We first review related works addressing the heterogeneity of transition dynamics between states or events in the education literature. We then provide a step-by-step tutorial using R on how to implement clustering in TNA using the <code>seqHMM</code> <span class="citation" data-cites="Helske2019-pu">[<a href="#ref-Helske2019-pu" role="doc-biblioref">10</a>]</span> and the <code>tna</code> <span class="citation" data-cites="Lopez-Pernas2024-nh">[<a href="#ref-Lopez-Pernas2024-nh" role="doc-biblioref">11</a>]</span> packages.</p>
+</section>
+<section id="related-work" class="level2" data-number="2">
+<h2 data-number="2" class="anchored" data-anchor-id="related-work"><span class="header-section-number">2</span> Related work</h2>
+<p>Educational research has evolved from adopting a one-size-fits-all approach to acknowledging the existing heterogeneity among students and their behavior <span class="citation" data-cites="Saqr2024-as">[<a href="#ref-Saqr2024-as" role="doc-biblioref">7</a>]</span>. The increasing availability of data about learners has made it possible to study heterogeneity when interacting in or with learning environments, like the LMS or discussion forums. This has enabled researchers to identify distinct self-regulated learning phases, learning tactics and strategies, or collaboration patterns. For example, looking at the transitions between actions that students carried out in the LMS, Saqr et al. <span class="citation" data-cites="Saqr2023-ts">[<a href="#ref-Saqr2023-ts" role="doc-biblioref">4</a>]</span> identified four learning tactics using a mixture hidden mixture Markov model: <em>lecture read</em>, <em>forum read</em>, <em>forum interact</em>, and <em>diverse</em>. Villalobos et al. <span class="citation" data-cites="Villalobos2024-ln">[<a href="#ref-Villalobos2024-ln" role="doc-biblioref">12</a>]</span> clustered sequences of students’ weekly interactions with the LMS using a mixture hidden Markov model and identified three distinct weekly strategies: <em>quiz-focused</em>, <em>material-focused</em>, and <em>diverse</em>.</p>
+<p>Looking into the overall LMS engagement levels instead, López-Pernas and Saqr <span class="citation" data-cites="Lopez-Pernas2024-bv">[<a href="#ref-Lopez-Pernas2024-bv" role="doc-biblioref">13</a>]</span> identified three distinct trajectories of students’ engagement profiles throughout each course of a study program using a mixture Markov model: <em>engaged</em>, <em>fluctuating</em> and <em>persistently disengaged</em>. They found that engagement dynamics fit the salient features of a complex dynamic system, where students that are disengaged rarely transition to higher engagement states, and engaged students —in the rare occasion they transition to lower engagement— return back to their engaged state right away. In a similar context, Saqr et al. <span class="citation" data-cites="Saqr2023-lo">[<a href="#ref-Saqr2023-lo" role="doc-biblioref">6</a>]</span> clustered students using a mixture hidden Markov model according to their patterns of LMS engagement and achievement and found three distinct trajectories of students: <em>engaged high-achieving starters</em>, <em>average starters</em>, and <em>disengaged starters</em>.</p>
+<p>Another recent trend in the literature is the study of emotions and how they influence learning outcomes. For instance, Saqr and López-Pernas <span class="citation" data-cites="Saqr2024-yo">[<a href="#ref-Saqr2024-yo" role="doc-biblioref">14</a>]</span> used a mixture hidden Markov model to cluster students’ according to the transitions between their emotions throughout two lectures. They found three trajectories: one with consistent anxiety, another one with constant happiness and alertness, and a third one with fluctuations between motivation-satisfaction and happiness-alertness. In another study, Törmänen et al. <span class="citation" data-cites="Tormanen2022-fw">[<a href="#ref-Tormanen2022-fw" role="doc-biblioref">5</a>]</span> used mixture hidden Markov models to cluster multimodal data: affective states and regulation were identified from video data, and activation was captured from electrodermal activity data. The authors identified four clusters of students with distinct socio-emotional interaction episodes —<em>frequent regulation</em>, <em>occasional regulation</em>, <em>positive</em>, and <em>negative</em>— which showed differences in the variability of affective states and the activation of learning regulation.</p>
+</section>
+<section id="tutorial-clusters-in-tna" class="level2" data-number="3">
+<h2 data-number="3" class="anchored" data-anchor-id="tutorial-clusters-in-tna"><span class="header-section-number">3</span> Tutorial: Clusters in TNA</h2>
+<p>In this section we present a step-by-step tutorial on how to identify and study clusters within TNA. Specifically, we will illustrate how to identify clusters using MMMs, visualize them, compare them, detect communities and compute centralities. We also illustrate how to implement other clustering and grouping techniques. To be able to follow the tutorial, it is assumed that the reader is familiar with the R programming language. If that is not the case, it is recommended to refer to previous tutorials on the basics of R <span class="citation" data-cites="Tikka2024-ph">[<a href="#ref-Tikka2024-ph" role="doc-biblioref">15</a>]</span>, data cleaning <span class="citation" data-cites="Kopra2024-fx">[<a href="#ref-Kopra2024-fx" role="doc-biblioref">16</a>]</span>, basic statistics <span class="citation" data-cites="Tikka2024-wl">[<a href="#ref-Tikka2024-wl" role="doc-biblioref">17</a>]</span>, and visualization <span class="citation" data-cites="Lopez-Pernas2024-ge">[<a href="#ref-Lopez-Pernas2024-ge" role="doc-biblioref">18</a>]</span>. It is also recommended to have previous knowledge about Markov models <span class="citation" data-cites="Helske2024-lq">[<a href="#ref-Helske2024-lq" role="doc-biblioref">8</a>]</span> and to have read Chapter 15 about TNA <span class="citation" data-cites="LABOOK2_Chapter_15">[<a href="#ref-LABOOK2_Chapter_15" role="doc-biblioref">19</a>]</span>.</p>
+<div class="cell">
+
+</div>
+<section id="importing-libraries" class="level3" data-number="3.1">
+<h3 data-number="3.1" class="anchored" data-anchor-id="importing-libraries"><span class="header-section-number">3.1</span> Importing libraries</h3>
+<p>As a first step in our tutorial, we will import the necessary libraries:</p>
+<ul>
+<li><strong>tidyverse</strong>: A collection of R packages for data science, including tools for data manipulation (<code>dplyr</code>), visualization (<code>ggplot2</code>), tidying data (<code>tidyr</code>), and more, designed to work seamlessly together <span class="citation" data-cites="tidyverse">[<a href="#ref-tidyverse" role="doc-biblioref">20</a>]</span>.</li>
+<li><strong>TraMineR</strong>: A package for sequence analysis that provides methods to analyze and visualize sequential data, like event transitions or state changes <span class="citation" data-cites="Gabadinho2011-wz">[<a href="#ref-Gabadinho2011-wz" role="doc-biblioref">21</a>]</span>.</li>
+<li><strong>seqHMM</strong>: A package for sequence analysis supporting modeling and clustering of sequential data using various Markov models <span class="citation" data-cites="Helske2019-pu">[<a href="#ref-Helske2019-pu" role="doc-biblioref">10</a>]</span>.</li>
+<li><strong>tna</strong>: A package for implementing TNA, offering tools to estimate, visualize and investigate transitions over time using a network lens <span class="citation" data-cites="Lopez-Pernas2024-nh">[<a href="#ref-Lopez-Pernas2024-nh" role="doc-biblioref">11</a>]</span>.</li>
+<li><strong>rio</strong>: A package for reading data in several formats <span class="citation" data-cites="rio">[<a href="#ref-rio" role="doc-biblioref">22</a>]</span>.</li>
+</ul>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse) <span class="co"># install.packages("tidyverse")</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(TraMineR) <span class="co"># install.packages("TraMineR")</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(seqHMM) <span class="co"># install.packages("seqHMM")</span></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tna) <span class="co"># install.packages("tna")</span></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(rio) <span class="co"># install.packages("rio")</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="preparing-the-data" class="level3" data-number="3.2">
+<h3 data-number="3.2" class="anchored" data-anchor-id="preparing-the-data"><span class="header-section-number">3.2</span> Preparing the data</h3>
+<p>We will use a simulated dataset based on a recent study by Saqr and López-Pernas <span class="citation" data-cites="Saqr2023-nv">[<a href="#ref-Saqr2023-nv" role="doc-biblioref">23</a>]</span>, containing students’ coded utterances in project-based learning implemented through online forum discussions. In this dataset, each row represents a team’s collaboration on a problem, containing the ordered coded utterances in each column. In addition, the dataset contains the grade for each student. There are 3000 sequences in total and 10 different types of coded utterances: <em>agree</em>, <em>argue</em>, <em>disagree</em>, <em>discuss</em>, <em>evaluate</em>, <em>facilitate</em>, <em>organize</em>, <em>question</em>, <em>share</em>, and <em>socialize.</em></p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>simulated_data <span class="ot">&lt;-</span> <span class="fu">import</span>(<span class="st">"https://github.com/lamethods/data2/raw/main/pbl/pbl.RDS"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>We can use the dataset to create a sequence object using the <code>seqdef</code> function from <code>TraMineR</code> and pass our coded data as an input (excluding the grades).</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>sequ <span class="ot">&lt;-</span> <span class="fu">seqdef</span>(simulated_data[, <span class="sc">-</span><span class="dv">1</span>])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="clustering" class="level3" data-number="3.3">
+<h3 data-number="3.3" class="anchored" data-anchor-id="clustering"><span class="header-section-number">3.3</span> Clustering</h3>
+<p>In our next step, we will cluster our sequence data with the aim of finding distinct groups that are governed by different transition dynamics. Specifically, we will fit an MMM to our data. A Markov model is a statistical model used to describe systems that transition between states with certain probabilities <span class="citation" data-cites="Helske2024-lq">[<a href="#ref-Helske2024-lq" role="doc-biblioref">8</a>]</span>. Markov models work under the assumption that the probability of moving to the next state depends only on the current state, not on the sequence of states that preceded it. A mixture Markov model extends the Markov model by allowing for multiple subpopulations or groups, each with its own set of transition probabilities (see <a href="#fig-mmm-example">Figure&nbsp;<span>17.1</span></a>). Instead of assuming a single transition structure for all data, it models the data as a combination (or mixture) of multiple Markov models, where each component represents a different latent subgroup. For more details on these concepts, please refer to <span class="citation" data-cites="Helske2024-lq">[<a href="#ref-Helske2024-lq" role="doc-biblioref">8</a>]</span>.</p>
+<div id="fig-mmm-example" class="quarto-figure quarto-figure-center anchored">
+<figure class="figure">
+<p><img src="img/mmm.png" class="img-fluid figure-img" style="width:80.0%"></p>
+<p></p><figcaption class="figure-caption"><strong>Figure</strong>&nbsp;1<strong>.</strong> Markov model vs.&nbsp;mixture Markov model</figcaption><p></p>
+</figure>
+</div>
+<p>We will use the <code>seqHMM</code> library <span class="citation" data-cites="Helske2019-pu">[<a href="#ref-Helske2019-pu" role="doc-biblioref">10</a>]</span> to cluster our sequences of students’ collaboration in groups using an MMM. When dealing with long sequences, the algorithm in charge of finding the best fitting model may take a long time. Therefore, it is recommended to provide a starting value of initial and transition probabilities that we hypothesize will be close to the real one that we expect the algorithm to find. As is the case in most clustering techniques, we do not know the optimum number of clusters. We illustrate the process for four clusters in this tutorial. In practice, we should estimate different models with different number of clusters to see which is the best fitting (lowest Bayesian Information Criterion level). Please, refer to a previous tutorial on Markov models for more details on this step <span class="citation" data-cites="Helske2024-lq">[<a href="#ref-Helske2024-lq" role="doc-biblioref">8</a>]</span>.</p>
+<p>To simulate the <strong>transition probabilities</strong>, we use the function <code>simulate_transition_probs</code> from <code>seqHMM</code>. As the first input, we provide the number of events or states in our model (ten in our case). As the second input we provide the number of clusters that we expect to find in this model (as mentioned before, we should try several combinations).</p>
+<p>To simulate the <strong>initial probabilities</strong>, we extract the first coded utterance for the complete sequence object, and we use <code>table</code> on the first column to calculate the proportion of times each code appears as the first step in the collaboration. We replicate these probabilities 4 times (one for each hypothesized cluster).</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">1234</span>)</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Creating constants for the number of codes (10) and the number of clusters (4)</span></span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>N_CODES <span class="ot">&lt;-</span> <span class="fu">length</span>(<span class="fu">alphabet</span>(sequ))</span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>N_CLUSTERS <span class="ot">&lt;-</span> <span class="dv">4</span></span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Transition probabilities (10 codes, 4 clusters)</span></span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a>trans_probs <span class="ot">&lt;-</span> <span class="fu">simulate_transition_probs</span>(N_CODES, N_CLUSTERS, <span class="at">diag_c =</span> <span class="dv">1</span>)</span>
+<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a><span class="co"># Initial probabilities (proportion of each code in t = 1)</span></span>
+<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a>init_probs <span class="ot">&lt;-</span> <span class="fu">as.numeric</span>(<span class="fu">prop.table</span>(<span class="fu">table</span>(sequ[, <span class="dv">1</span>])[<span class="dv">1</span><span class="sc">:</span>N_CODES]))</span>
+<span id="cb4-12"><a href="#cb4-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-13"><a href="#cb4-13" aria-hidden="true" tabindex="-1"></a><span class="co"># Replicate initial probabilities for each cluster</span></span>
+<span id="cb4-14"><a href="#cb4-14" aria-hidden="true" tabindex="-1"></a>init_probs <span class="ot">&lt;-</span> <span class="fu">replicate</span>(N_CLUSTERS, init_probs, <span class="at">simplify =</span> <span class="cn">FALSE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>We can now use <code>build_mmm</code> to define our MMM. We provide the sequence object as an input along with the number of clusters we expect to find (<code>n_clusters</code>), the transition probabilities, and the initial probabilities. In addition, an advantage of mixture Markov models —similarly, to other mixture models— is that it can take covariates. To do so, we have to provide the complete dataframe and specify the column(s) that we want to use as covariates, in our case, <code>Grade</code>. It is important to note that this dataframe should be in the same order as our sequence object. In addition, we need to provide a formula. In this case we use the formula <code>~ 0 + Grade,</code> which indicates that the cluster membership is explained by the students’ grades.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Build mixture Markov model for 4 clusters</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>mmm <span class="ot">&lt;-</span> <span class="fu">build_mmm</span>(sequ, </span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>                  <span class="at">n_clusters =</span> N_CLUSTERS,</span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>                  <span class="at">transition_probs =</span> trans_probs,</span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>                  <span class="at">data =</span> simulated_data,</span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>                  <span class="at">algorithm =</span> </span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>                  <span class="at">formula =</span> <span class="sc">~</span> <span class="dv">0</span> <span class="sc">+</span> Grade,</span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a>                  <span class="at">initial_probs =</span> init_probs)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Lastly, we can fit our model using <code>fit_model</code>. We provide the model that we have just defined (<code>mmm</code>) as an input. We can also define a series of parameters to specify the runtime of the algorithm that will find the optimum cluster solution. For example, we can specify how many CPU threads we would like to use (<code>threads</code> argument, 1 by default), that it should have 500 iterations (<code>restart</code> within <code>control_em</code> argument) as well as the optimization algorithm (<code>algorithm</code> within <code>control_em</code> argument, <code>"NLOPT_GD_MLSL_LDS"</code> by default), among others. See <span class="citation" data-cites="Helske2024-lq">[<a href="#ref-Helske2024-lq" role="doc-biblioref">8</a>]</span> and the <code>seqHMM</code> documentation <span class="citation" data-cites="Helske2019-pu">[<a href="#ref-Helske2019-pu" role="doc-biblioref">10</a>]</span> for more details. When dealing with long sequences and complex data like ours, this process can take a long time so you might need to leave your computer working for a few hours to arrive to the best solution. Once it has completed, we will have out fitted mixture Markov model in <code>fit_mmm</code>. Remember that in a real situation you would have to repeat this process for a range of clustering solutions (e.g., 2–10) to identify the optimum number of clusters.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>fit_mmm <span class="ot">&lt;-</span> <span class="fu">fit_model</span>(</span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>  mmm, </span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">global_step =</span> <span class="cn">TRUE</span>,</span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">local_step =</span> <span class="cn">TRUE</span>,</span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">threads =</span> <span class="dv">60</span>,</span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">control_em =</span> <span class="fu">list</span>(</span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">restart =</span> <span class="fu">list</span>(<span class="at">times =</span> <span class="dv">500</span>,  <span class="at">n_optimum =</span> <span class="dv">501</span>),</span>
+<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a>    <span class="at">algorithm =</span> <span class="st">"NLOPT_GD_MLSL_LDS"</span></span>
+<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+
+</div>
+</section>
+<section id="creating-and-visualizing-tna-results" class="level3" data-number="3.4">
+<h3 data-number="3.4" class="anchored" data-anchor-id="creating-and-visualizing-tna-results"><span class="header-section-number">3.4</span> Creating and visualizing TNA results</h3>
+<p>Now that we have our model fitted, we can use TNA —through the <code>tna</code> package <span class="citation" data-cites="Lopez-Pernas2024-nh">[<a href="#ref-Lopez-Pernas2024-nh" role="doc-biblioref">11</a>]</span>— to inspect the clusters that we have identified. We can use the function <code>group_tna</code> to create a grouped TNA model based on the clustering results. Specifically, we need to pass the MMM object (<code>fit_mmm$model</code>) as an argument.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>tna_group <span class="ot">&lt;-</span> <span class="fu">group_tna</span>(fit_mmm<span class="sc">$</span>model)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>The functions that we have learned in Chapter 15 <span class="citation" data-cites="LABOOK2_Chapter_15">[<a href="#ref-LABOOK2_Chapter_15" role="doc-biblioref">19</a>]</span> apply also to our grouped model created from the clustering results. For instance, we can plot the model using the <code>plot</code> function, and a separate plot will be created for each cluster, each with their own initial and transition probabilities (<a href="#fig-plot">Figure&nbsp;<span>17.2</span></a>). As a reminder, the pie around each node represents the initial probability of each code, whereas the arrows represent the transition probabilities between them.</p>
+<p>We can see that Cluster 1 is characterized by discussions starting with <em>socialize</em>, with strong transitions between <em>share</em> and <em>discuss</em>, and <em>disagree</em> and <em>facilitate</em>, <em>argue</em> and <em>discuss</em>, and <em>agree</em> and <em>discuss</em>. Cluster 2 is characterized by starting with <em>argue</em>, and also a strong transition between <em>share</em> and <em>discuss</em>, but also <em>disagree</em> and <em>socialize</em>. Cluster 3 encompasses more diverse of initial probabilities —especially <em>discuss</em> and <em>evaluate</em>. This cluster has a very strong repetition of <em>organize</em>, as well as <em>facilitate</em>. Similar to the previous clusters, <em>share</em> and <em>discuss</em> is the predominant transition between different codes, followed by <em>agree</em> and <em>discuss</em>. Cluster 4 has fewer but stronger transitions, especially between <em>socialize</em> and <em>disagree</em>, <em>share</em> and <em>discuss</em>, and <em>argue</em> and <em>discuss</em>.</p>
+<div>
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(tna_group)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div id="fig-plot" class="cell quarto-layout-panel">
+<figure class="figure">
+<div class="quarto-layout-row quarto-layout-valign-top">
+<div class="cell-output-display quarto-layout-cell quarto-layout-cell-subref" style="flex-basis: 50.0%;justify-content: center;">
+<div id="fig-plot-1" class="quarto-figure quarto-figure-center anchored">
+<figure class="figure">
+<p><img src="img/ch17-tna-clusters_files/figure-html/fig-plot-1.png" class="img-fluid figure-img" data-ref-parent="fig-plot" width="480"></p>
+<p></p><figcaption class="figure-caption">(a) Socially triggered</figcaption><p></p>
+</figure>
+</div>
+</div>
+<div class="cell-output-display quarto-layout-cell quarto-layout-cell-subref" style="flex-basis: 50.0%;justify-content: center;">
+<div id="fig-plot-2" class="quarto-figure quarto-figure-center anchored">
+<figure class="figure">
+<p><img src="img/ch17-tna-clusters_files/figure-html/fig-plot-2.png" class="img-fluid figure-img" data-ref-parent="fig-plot" width="480"></p>
+<p></p><figcaption class="figure-caption">(b) Argumentation triggered</figcaption><p></p>
+</figure>
+</div>
+</div>
+</div>
+<div class="quarto-layout-row quarto-layout-valign-top">
+<div class="cell-output-display quarto-layout-cell quarto-layout-cell-subref" style="flex-basis: 50.0%;justify-content: center;">
+<div id="fig-plot-3" class="quarto-figure quarto-figure-center anchored">
+<figure class="figure">
+<p><img src="img/ch17-tna-clusters_files/figure-html/fig-plot-3.png" class="img-fluid figure-img" data-ref-parent="fig-plot" width="480"></p>
+<p></p><figcaption class="figure-caption">(c) Facilitated discussions</figcaption><p></p>
+</figure>
+</div>
+</div>
+<div class="cell-output-display quarto-layout-cell quarto-layout-cell-subref" style="flex-basis: 50.0%;justify-content: center;">
+<div id="fig-plot-4" class="quarto-figure quarto-figure-center anchored">
+<figure class="figure">
+<p><img src="img/ch17-tna-clusters_files/figure-html/fig-plot-4.png" class="img-fluid figure-img" data-ref-parent="fig-plot" width="480"></p>
+<p></p><figcaption class="figure-caption">(d) Information triggered</figcaption><p></p>
+</figure>
+</div>
+</div>
+</div>
+<p></p><figcaption class="figure-caption"><strong>Figure</strong>&nbsp;2<strong>.</strong> Plot of each TNA model</figcaption><p></p>
+</figure>
+</div>
+</div>
+<p>We can also use the <code>summary</code> function to obtain a combined summary of the models corresponding to each cluster (<a href="#tbl-summary">Table&nbsp;<span>17.1</span></a>). We can see differences in the overall network properties of each cluster. Cluster 3 is the most connected cluster, with the largest number of edges, and highest density value, while Cluster 4 is the least connected one. Clusters 1 and 2 lie in between, Cluster 2 being more dense and interconnected (although with higher variability), while Cluster 1 has higher reciprocity and is more stable.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(tna_group)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="cell-output-display">
+<div id="tbl-summary" class="anchored">
+<table class="table table-sm table-striped">
+<caption>Table&nbsp;1<strong>.</strong> Summary of the grouped <code>tna</code> model</caption>
+<colgroup>
+<col style="width: 41%">
+<col style="width: 14%">
+<col style="width: 14%">
+<col style="width: 14%">
+<col style="width: 14%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: left;">metric</th>
+<th style="text-align: right;">Cluster 1</th>
+<th style="text-align: right;">Cluster 2</th>
+<th style="text-align: right;">Cluster 3</th>
+<th style="text-align: right;">Cluster 4</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">Node Count</td>
+<td style="text-align: right;">10.00</td>
+<td style="text-align: right;">10.00</td>
+<td style="text-align: right;">10.00</td>
+<td style="text-align: right;">10.00</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Edge Count</td>
+<td style="text-align: right;">61.00</td>
+<td style="text-align: right;">65.00</td>
+<td style="text-align: right;">76.00</td>
+<td style="text-align: right;">45.00</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Network Density</td>
+<td style="text-align: right;">0.68</td>
+<td style="text-align: right;">0.72</td>
+<td style="text-align: right;">0.84</td>
+<td style="text-align: right;">0.50</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Mean Distance</td>
+<td style="text-align: right;">0.18</td>
+<td style="text-align: right;">0.16</td>
+<td style="text-align: right;">0.03</td>
+<td style="text-align: right;">0.23</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Mean Out-Strength</td>
+<td style="text-align: right;">1.00</td>
+<td style="text-align: right;">1.00</td>
+<td style="text-align: right;">1.00</td>
+<td style="text-align: right;">1.00</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">SD Out-Strength</td>
+<td style="text-align: right;">0.97</td>
+<td style="text-align: right;">1.12</td>
+<td style="text-align: right;">0.86</td>
+<td style="text-align: right;">1.31</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Mean In-Strength</td>
+<td style="text-align: right;">1.00</td>
+<td style="text-align: right;">1.00</td>
+<td style="text-align: right;">1.00</td>
+<td style="text-align: right;">1.00</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">SD In-Strength</td>
+<td style="text-align: right;">0.00</td>
+<td style="text-align: right;">0.00</td>
+<td style="text-align: right;">0.00</td>
+<td style="text-align: right;">0.00</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Mean Out-Degree</td>
+<td style="text-align: right;">6.10</td>
+<td style="text-align: right;">6.50</td>
+<td style="text-align: right;">7.60</td>
+<td style="text-align: right;">4.50</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">SD Out-Degree</td>
+<td style="text-align: right;">2.69</td>
+<td style="text-align: right;">3.17</td>
+<td style="text-align: right;">1.90</td>
+<td style="text-align: right;">1.84</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Centralization (Out-Degree)</td>
+<td style="text-align: right;">0.32</td>
+<td style="text-align: right;">0.42</td>
+<td style="text-align: right;">0.25</td>
+<td style="text-align: right;">0.37</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Centralization (In-Degree)</td>
+<td style="text-align: right;">0.32</td>
+<td style="text-align: right;">0.30</td>
+<td style="text-align: right;">0.25</td>
+<td style="text-align: right;">0.37</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Reciprocity</td>
+<td style="text-align: right;">0.85</td>
+<td style="text-align: right;">0.75</td>
+<td style="text-align: right;">0.83</td>
+<td style="text-align: right;">0.60</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+<p>Since we entered the grade as a covariate in the clustering process, we can study how grades are related to cluster membership. To obtain a summary of the effect of the covariates, we can use the <code>mmm_stats</code> function from <code>tna</code>. The output of this function is a data frame containing the estimate associated with each covariate (only one in our case: grade) and its confidence interval, the standard error, the t-score, and the p-value. The results are calculated taking Cluster 1 as a reference. From <a href="#tbl-mmm-stats">Table&nbsp;<span>17.2</span></a>, we can see that grades had a small but statistically significant effect on the membership of clusters 2 and 3 (p-value &lt; 0.05), positive in the case of Cluster 2 (meaning that high achievers were more likely to belong to this cluster), and negative in the case of Cluster 3. For cluster 4, the effect was not statistically significant.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mmm_stats</span>(fit_mmm<span class="sc">$</span>model)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="cell-output-display">
+<div id="tbl-mmm-stats" class="anchored">
+<table class="table table-sm table-striped">
+<caption>Table&nbsp;2<strong>.</strong> Covariate effect</caption>
+<colgroup>
+<col style="width: 13%">
+<col style="width: 12%">
+<col style="width: 12%">
+<col style="width: 11%">
+<col style="width: 12%">
+<col style="width: 12%">
+<col style="width: 13%">
+<col style="width: 11%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: left;">Cluster</th>
+<th style="text-align: left;">Variable</th>
+<th style="text-align: right;">Estimate</th>
+<th style="text-align: right;">p_value</th>
+<th style="text-align: right;">CI_Lower</th>
+<th style="text-align: right;">CI_Upper</th>
+<th style="text-align: right;">Std_Error</th>
+<th style="text-align: right;">t_value</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">Cluster 2</td>
+<td style="text-align: left;">Grade</td>
+<td style="text-align: right;">0.004</td>
+<td style="text-align: right;">0.00</td>
+<td style="text-align: right;">0.003</td>
+<td style="text-align: right;">0.006</td>
+<td style="text-align: right;">0.001</td>
+<td style="text-align: right;">6.31</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Cluster 3</td>
+<td style="text-align: left;">Grade</td>
+<td style="text-align: right;">-0.007</td>
+<td style="text-align: right;">0.00</td>
+<td style="text-align: right;">-0.009</td>
+<td style="text-align: right;">-0.006</td>
+<td style="text-align: right;">0.001</td>
+<td style="text-align: right;">-8.45</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Cluster 4</td>
+<td style="text-align: left;">Grade</td>
+<td style="text-align: right;">0.000</td>
+<td style="text-align: right;">0.58</td>
+<td style="text-align: right;">-0.001</td>
+<td style="text-align: right;">0.002</td>
+<td style="text-align: right;">0.001</td>
+<td style="text-align: right;">0.55</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+<p>To ease the interpretation of our results henceforward, we can provide the clusters with more meaningful names. We can use the <code>rename_groups</code> function to provide the new names that are representative of each cluster’s dynamics.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>cnames <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"Socially triggered"</span>, <span class="st">"Argumentation triggered"</span>, </span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>            <span class="st">"Facilitated discussions"</span>, <span class="st">"Information triggered"</span>)</span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>tna_group <span class="ot">&lt;-</span> <span class="fu">rename_groups</span>(tna_group, cnames)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="communities" class="level3" data-number="3.5">
+<h3 data-number="3.5" class="anchored" data-anchor-id="communities"><span class="header-section-number">3.5</span> Communities</h3>
+<p>Similarly to simple TNA, we can study the specific patterns that characterize each cluster. For example, we can study whether we can detect distinct communities of states or events that often transition to one another to a greater extent than to the rest of the nodes, as well as compare if these communities are similar between clusters. We can obtain the community assignments using the <code>communities</code> function.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>communities_group <span class="ot">&lt;-</span> <span class="fu">communities</span>(tna_group)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>We can plot the results using the <code>plot</code> function and specifying the method of community detection we want to use. Refer to <span class="citation" data-cites="Hernandez-Garcia2024-ah">[<a href="#ref-Hernandez-Garcia2024-ah" role="doc-biblioref">24</a>]</span> for more details on the different community finding algorithms. For the example below we chose the <em>Leading Eigen</em> algorithm since it clearly illustrates the existence of different communities (depicted by different colors) in each cluster (<a href="#fig-communities">Figure&nbsp;<span>17.3</span></a>), each encompassing different nodes. Some similarities that can be perceived are that <em>argue</em> and <em>discuss</em> belong to the same community in each of the four clusters, and so do <em>disagree</em> and <em>facilitate</em> and <em>share</em> and <em>argue</em>. <em>Organize</em> is assigned to a community of its own in two clusters, suggesting that this action occurs rarely as a part of the collaboration process —probably more often at the beginning.</p>
+<p>Other algorithms would have yielded different results. For example the <em>Infomap</em> <span class="citation" data-cites="Rosvall2008-vj">[<a href="#ref-Rosvall2008-vj" role="doc-biblioref">25</a>]</span> algorithm does not detect any communities (i.e., the whole network is a single community) in any of the clusters.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(communities_group, <span class="at">method =</span> <span class="st">"leading_eigen"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div id="fig-communities" class="cell quarto-layout-panel">
+<figure class="figure">
+<div class="quarto-layout-row quarto-layout-valign-top">
+<div class="cell-output-display quarto-layout-cell quarto-layout-cell-subref" style="flex-basis: 50.0%;justify-content: center;">
+<div id="fig-communities-1" class="quarto-figure quarto-figure-center anchored">
+<figure class="figure">
+<p><img src="img/ch17-tna-clusters_files/figure-html/fig-communities-1.png" class="img-fluid figure-img" data-ref-parent="fig-communities" width="480"></p>
+<p></p><figcaption class="figure-caption">(a) Socially triggered</figcaption><p></p>
+</figure>
+</div>
+</div>
+<div class="cell-output-display quarto-layout-cell quarto-layout-cell-subref" style="flex-basis: 50.0%;justify-content: center;">
+<div id="fig-communities-2" class="quarto-figure quarto-figure-center anchored">
+<figure class="figure">
+<p><img src="img/ch17-tna-clusters_files/figure-html/fig-communities-2.png" class="img-fluid figure-img" data-ref-parent="fig-communities" width="480"></p>
+<p></p><figcaption class="figure-caption">(b) Argumentation triggered</figcaption><p></p>
+</figure>
+</div>
+</div>
+</div>
+<div class="quarto-layout-row quarto-layout-valign-top">
+<div class="cell-output-display quarto-layout-cell quarto-layout-cell-subref" style="flex-basis: 50.0%;justify-content: center;">
+<div id="fig-communities-3" class="quarto-figure quarto-figure-center anchored">
+<figure class="figure">
+<p><img src="img/ch17-tna-clusters_files/figure-html/fig-communities-3.png" class="img-fluid figure-img" data-ref-parent="fig-communities" width="480"></p>
+<p></p><figcaption class="figure-caption">(c) Facilitated discussions</figcaption><p></p>
+</figure>
+</div>
+</div>
+<div class="cell-output-display quarto-layout-cell quarto-layout-cell-subref" style="flex-basis: 50.0%;justify-content: center;">
+<div id="fig-communities-4" class="quarto-figure quarto-figure-center anchored">
+<figure class="figure">
+<p><img src="img/ch17-tna-clusters_files/figure-html/fig-communities-4.png" class="img-fluid figure-img" data-ref-parent="fig-communities" width="480"></p>
+<p></p><figcaption class="figure-caption">(d) Information triggered</figcaption><p></p>
+</figure>
+</div>
+</div>
+</div>
+<p></p><figcaption class="figure-caption"><strong>Figure</strong>&nbsp;3<strong>.</strong> Plot of each TNA model communities</figcaption><p></p>
+</figure>
+</div>
+</section>
+<section id="centralities" class="level3" data-number="3.6">
+<h3 data-number="3.6" class="anchored" data-anchor-id="centralities"><span class="header-section-number">3.6</span> Centralities</h3>
+<p>Centrality measures in transition networks allow to identify the role that each state or event takes in the process. For example, betweenness centrality captures how often a state acts as a bridge within the network, connecting different parts of the process. Out-degree centrality reflects the number of direct transitions originating from a state, indicating to which extent it drives the process towards other states. See <span class="citation" data-cites="LABOOK2_Chapter_15">[<a href="#ref-LABOOK2_Chapter_15" role="doc-biblioref">19</a>]</span> for a complete rationale of the role of centrality measures in TNA, and <span class="citation" data-cites="Saqr2024-mc">[<a href="#ref-Saqr2024-mc" role="doc-biblioref">26</a>]</span> for a detailed description of the most common centrality measures.</p>
+<p>When working with clusters in TNA, since each cluster has a different transition probability matrix, the nodes also have different centrality measures. The way to compute them is the same as in regular TNA, i.e., using the <code>centralities</code> function. We can specify which specific centralities we want to compute and plot them using the <code>plot</code> function (<a href="#fig-centralities">Figure&nbsp;<span>17.4</span></a>). <strong>Betweenness</strong> centrality shows the greatest differences. In the <em>Facilitated discussions</em> cluster, <em>Facilitate</em> has the highest betweenness followed by <em>Disagree</em>. In the <em>Information triggered</em> cluster, <em>Argue</em> is the node with the highest betweenness, followed by <em>Socialize</em>. In <em>Argumentation triggered</em>, the highest betweenness is that of the <em>Evaluate</em> node, followed by <em>Share</em>. In the <em>Socially triggered</em> cluster, <em>Facilitate</em> is the node with the highest betweenness. In terms of <strong>In-strength</strong>, the four clusters follow similar patterns, with <em>Discuss</em> being the node with the highest value, followed by <em>Socialize</em>. Lastly, regarding <strong>Out-strength</strong>, <em>Share</em> and <em>Discuss</em> are the nodes with the highest overall centrality values, sharing similar patterns among the clusters. The <em>Facilitate</em> node has the lowest out-strength for all clusters, indicating that is many times a recurring action that is repeated several times in a row. Similarly, the <em>Facilitated discussions</em> cluster has a remarkably low value of out-strength centrality for <em>Organize</em>, meaning that students might be commonly stuck at that point. To better understand the meaning of each of the centrality measures, please refer to <span class="citation" data-cites="LABOOK2_Chapter_15 Saqr2024-ce">[<a href="#ref-LABOOK2_Chapter_15" role="doc-biblioref">19</a>, <a href="#ref-Saqr2024-ce" role="doc-biblioref">27</a>]</span>. We can also print the centralities for each cluster to find out their exact value.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>cents <span class="ot">&lt;-</span> <span class="fu">centralities</span>(</span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>  tna_group, </span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">measures =</span> <span class="fu">c</span>(<span class="st">"Betweenness"</span>, <span class="st">"InStrength"</span>, <span class="st">"OutStrength"</span>)</span>
+<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(cents, <span class="at">ncol =</span> <span class="dv">3</span>) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div id="fig-centralities" class="quarto-figure quarto-figure-center anchored">
+<figure class="figure">
+<p><img src="img/ch17-tna-clusters_files/figure-html/fig-centralities-1.png" class="img-fluid figure-img" width="768"></p>
+<p></p><figcaption class="figure-caption"><strong>Figure</strong>&nbsp;4<strong>.</strong> Plot of each TNA model centralities</figcaption><p></p>
+</figure>
+</div>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(cents)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+
+</div>
+<div class="cell">
+<div class="cell-output-display">
+
+</div>
+</div>
+<!-- ## Comparing clusters -->
+<div class="cell">
+
+</div>
+</section>
+<section id="cliques" class="level3" data-number="3.7">
+<h3 data-number="3.7" class="anchored" data-anchor-id="cliques"><span class="header-section-number">3.7</span> Cliques</h3>
+<p>TNA provides functions to identify groups of nodes that have a reciprocal relationship, i.e., strong transition probabilities to and from one another. These can be groups of two nodes (dyads), three (triads), and so on. When we wish to detect these patterns when working with clusters, we can use the same function as in simple TNA (<code>cliques</code>), but we need to specify for which of the clusters we want to identify these cliques. For example, if we would like to identify and plot all dyads on the <em>Socially triggered</em> cluster, we must subset the <code>tna_group</code> object by cluster name and then specify the size of the cliques (2 for dyads), as well as any additional parameters (e.g., threshold for considering strong reciprocal connections). We can plot the resulting dyads using the <code>plot</code> function. Do not forget that this function is interactive, so you will need to hit enter in the console to plot all dyads (alternatively, you may add the following argument to the <code>plot</code> function: <code>ask = FALSE</code>). <a href="#fig-cluster-cliques">Figure&nbsp;<span>17.5</span></a> shows that there are three dyads in the <em>Socially triggered</em> cluster: one between <em>Argue</em> and <em>Discuss</em>, <em>Discuss</em> and <em>Socialize</em>, and <em>Evaluate</em> and <em>Question</em>.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>dyads1 <span class="ot">&lt;-</span> <span class="fu">cliques</span>(tna_group[[<span class="st">"Socially triggered"</span>]], <span class="at">size =</span> <span class="dv">2</span>, <span class="at">threshold =</span> <span class="fl">0.15</span>)</span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(dyads1)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div id="fig-cluster-cliques" class="cell quarto-layout-panel">
+<figure class="figure">
+<div class="quarto-layout-row quarto-layout-valign-top">
+<div class="cell-output-display quarto-layout-cell quarto-layout-cell-subref" style="flex-basis: 33.3%;justify-content: center;">
+<div id="fig-cluster-cliques-1" class="quarto-figure quarto-figure-center anchored">
+<figure class="figure">
+<p><img src="img/ch17-tna-clusters_files/figure-html/fig-cluster-cliques-1.png" class="img-fluid figure-img" data-ref-parent="fig-cluster-cliques" width="288"></p>
+<p></p><figcaption class="figure-caption">(a) Dyad 1</figcaption><p></p>
+</figure>
+</div>
+</div>
+<div class="cell-output-display quarto-layout-cell quarto-layout-cell-subref" style="flex-basis: 33.3%;justify-content: center;">
+<div id="fig-cluster-cliques-2" class="quarto-figure quarto-figure-center anchored">
+<figure class="figure">
+<p><img src="img/ch17-tna-clusters_files/figure-html/fig-cluster-cliques-2.png" class="img-fluid figure-img" data-ref-parent="fig-cluster-cliques" width="288"></p>
+<p></p><figcaption class="figure-caption">(b) Dyad 2</figcaption><p></p>
+</figure>
+</div>
+</div>
+<div class="cell-output-display quarto-layout-cell quarto-layout-cell-subref" style="flex-basis: 33.3%;justify-content: center;">
+<div id="fig-cluster-cliques-3" class="quarto-figure quarto-figure-center anchored">
+<figure class="figure">
+<p><img src="img/ch17-tna-clusters_files/figure-html/fig-cluster-cliques-3.png" class="img-fluid figure-img" data-ref-parent="fig-cluster-cliques" width="288"></p>
+<p></p><figcaption class="figure-caption">(c) Dyad 3</figcaption><p></p>
+</figure>
+</div>
+</div>
+</div>
+<p></p><figcaption class="figure-caption"><strong>Figure</strong>&nbsp;5<strong>.</strong> Dyads for cluster 1</figcaption><p></p>
+</figure>
+</div>
+</section>
+<section id="other-forms-of-clustering-and-grouping" class="level3" data-number="3.8">
+<h3 data-number="3.8" class="anchored" data-anchor-id="other-forms-of-clustering-and-grouping"><span class="header-section-number">3.8</span> Other forms of clustering and grouping</h3>
+<p>Throughout the tutorial we have seen how to identify and study clusters of students that are ruled by different transition patterns. However, we might want to identify groups of students through other mechanisms and only afterwards investigate their properties and transition patterns. In this section, we review different ways in which we can do this.</p>
+<section id="clustering-sequences" class="level4" data-number="3.8.1">
+<h4 data-number="3.8.1" class="anchored" data-anchor-id="clustering-sequences"><span class="header-section-number">3.8.1</span> Clustering sequences</h4>
+<p>A common way to study log data is through sequence analysis. Within this framework, several dissimilarity measures exist that allow to calculate how similar sequences of events or states are to one another, and cluster them in distinct groups. Distance measures can be broadly categorized in edit distances — such as optimal matching—, shared attributes — such as longest common subsequence (LCS), or longest common prefix (LCP), and distance based on state distributions —e.g., euclidean distance or chi-squared.</p>
+<p>In the next code chunk, we calculate the dissimilarity between our sequences using the <code>seqdist</code> function from the <code>TraMineR</code> package, using LCP as the distance measure, which means that sequences that start in the same way will have a shorter distance between them. We then cluster the sequences using hierarchical clustering (as implemented in the <code>hclust</code> function of the <code>stats</code> package) using Ward’s method minimum variance method (<code>"ward.D2"</code>). We establish the number of clusters by using the function <code>cutree</code> and retrieve the cluster assignment. We assign the result to a variable named <code>lcp_clusters</code>, to be able to operate with the cluster assignment later on. We can then visualize them using <code>seqdplot</code> (<a href="#fig-by-dist">Figure&nbsp;<span>17.6</span></a>) in which we see the distribution of states at each time point. For more details about this process, please refer to <span class="citation" data-cites="Saqr2024-ug">[<a href="#ref-Saqr2024-ug" role="doc-biblioref">28</a>]</span>. Upon inspection, we can assign names to each of the clusters.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Compute dissimilarities between sequences using the LCP method.</span></span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>dissimilarities <span class="ot">&lt;-</span> <span class="fu">seqdist</span>(sequ, <span class="at">method =</span> <span class="st">"LCP"</span>, <span class="at">indel =</span> <span class="dv">1</span>)</span>
+<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Perform hierarchical clustering on the computed dissimilarities </span></span>
+<span id="cb18-5"><a href="#cb18-5" aria-hidden="true" tabindex="-1"></a>clusters_sessionsh <span class="ot">&lt;-</span> <span class="fu">hclust</span>(<span class="fu">as.dist</span>(dissimilarities), <span class="at">method =</span> <span class="st">"ward.D2"</span>)</span>
+<span id="cb18-6"><a href="#cb18-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-7"><a href="#cb18-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Cut the hierarchical clustering tree into 4 clusters</span></span>
+<span id="cb18-8"><a href="#cb18-8" aria-hidden="true" tabindex="-1"></a>lcp_clusters <span class="ot">&lt;-</span> <span class="fu">cutree</span>(clusters_sessionsh, <span class="at">k =</span> <span class="dv">4</span>)</span>
+<span id="cb18-9"><a href="#cb18-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-10"><a href="#cb18-10" aria-hidden="true" tabindex="-1"></a><span class="co"># Plot a distribution plot (seqdplot) for the sequences</span></span>
+<span id="cb18-11"><a href="#cb18-11" aria-hidden="true" tabindex="-1"></a><span class="co"># grouped by their cluster assignments.</span></span>
+<span id="cb18-12"><a href="#cb18-12" aria-hidden="true" tabindex="-1"></a><span class="fu">seqdplot</span>(sequ, <span class="at">group =</span> lcp_clusters, <span class="at">ncol =</span> <span class="dv">5</span>)</span>
+<span id="cb18-13"><a href="#cb18-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-14"><a href="#cb18-14" aria-hidden="true" tabindex="-1"></a><span class="co"># Define meaningful cluster names based on interpretation of the data.</span></span>
+<span id="cb18-15"><a href="#cb18-15" aria-hidden="true" tabindex="-1"></a>cnamesd <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"Facilitated discussions"</span>, <span class="st">"Information triggered"</span>, </span>
+<span id="cb18-16"><a href="#cb18-16" aria-hidden="true" tabindex="-1"></a>             <span class="st">"Argumentation triggered"</span>, <span class="st">"Socially triggered"</span>)</span>
+<span id="cb18-17"><a href="#cb18-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-18"><a href="#cb18-18" aria-hidden="true" tabindex="-1"></a><span class="co"># Assign the corresponding cluster names to the cluster assignment vector.</span></span>
+<span id="cb18-19"><a href="#cb18-19" aria-hidden="true" tabindex="-1"></a>lcp_clusters <span class="ot">&lt;-</span> cnamesd[lcp_clusters]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div id="fig-by-dist" class="quarto-figure quarto-figure-center anchored">
+<figure class="figure">
+<p><img src="img/ch17-tna-clusters_files/figure-html/fig-by-dist-1.png" class="img-fluid figure-img" width="960"></p>
+<p></p><figcaption class="figure-caption"><strong>Figure</strong>&nbsp;6<strong>.</strong> Distance-based sequence clusters</figcaption><p></p>
+</figure>
+</div>
+</div>
+</div>
+<p>Once we have our cluster assignments, we can create a new clustered TNA object with the <code>group_tna</code> function, by passing the sequence object and the cluster assignments (<code>lcp_clusters</code>) as arguments. We can visualize the resulting clusters using the <code>plot</code> function as usual (<a href="#fig-by-dist-tna">Figure&nbsp;<span>17.7</span></a>), as well as perform all of the other operations that we have showcased throughout the chapter (centralities, communities, cliques, etc.).</p>
+<div>
+<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>seq_tna <span class="ot">&lt;-</span> <span class="fu">group_tna</span>(sequ, <span class="at">group =</span> lcp_clusters)</span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(seq_tna)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div id="fig-by-dist-tna" class="cell quarto-layout-panel">
+<figure class="figure">
+<div class="quarto-layout-row quarto-layout-valign-top">
+<div class="cell-output-display quarto-layout-cell quarto-layout-cell-subref" style="flex-basis: 50.0%;justify-content: center;">
+<div id="fig-by-dist-tna-1" class="quarto-figure quarto-figure-center anchored">
+<figure class="figure">
+<p><img src="img/ch17-tna-clusters_files/figure-html/fig-by-dist-tna-1.png" class="img-fluid figure-img" data-ref-parent="fig-by-dist-tna" width="480"></p>
+<p></p><figcaption class="figure-caption">(a) Argumentation triggered</figcaption><p></p>
+</figure>
+</div>
+</div>
+<div class="cell-output-display quarto-layout-cell quarto-layout-cell-subref" style="flex-basis: 50.0%;justify-content: center;">
+<div id="fig-by-dist-tna-2" class="quarto-figure quarto-figure-center anchored">
+<figure class="figure">
+<p><img src="img/ch17-tna-clusters_files/figure-html/fig-by-dist-tna-2.png" class="img-fluid figure-img" data-ref-parent="fig-by-dist-tna" width="480"></p>
+<p></p><figcaption class="figure-caption">(b) Facilitated discussions</figcaption><p></p>
+</figure>
+</div>
+</div>
+</div>
+<div class="quarto-layout-row quarto-layout-valign-top">
+<div class="cell-output-display quarto-layout-cell quarto-layout-cell-subref" style="flex-basis: 50.0%;justify-content: center;">
+<div id="fig-by-dist-tna-3" class="quarto-figure quarto-figure-center anchored">
+<figure class="figure">
+<p><img src="img/ch17-tna-clusters_files/figure-html/fig-by-dist-tna-3.png" class="img-fluid figure-img" data-ref-parent="fig-by-dist-tna" width="480"></p>
+<p></p><figcaption class="figure-caption">(c) Information triggered</figcaption><p></p>
+</figure>
+</div>
+</div>
+<div class="cell-output-display quarto-layout-cell quarto-layout-cell-subref" style="flex-basis: 50.0%;justify-content: center;">
+<div id="fig-by-dist-tna-4" class="quarto-figure quarto-figure-center anchored">
+<figure class="figure">
+<p><img src="img/ch17-tna-clusters_files/figure-html/fig-by-dist-tna-4.png" class="img-fluid figure-img" data-ref-parent="fig-by-dist-tna" width="480"></p>
+<p></p><figcaption class="figure-caption">(d) Socially triggered</figcaption><p></p>
+</figure>
+</div>
+</div>
+</div>
+<p></p><figcaption class="figure-caption"><strong>Figure</strong>&nbsp;7<strong>.</strong> TNA using distance-based clusters</figcaption><p></p>
+</figure>
+</div>
+</div>
+</section>
+<section id="fixed-groups" class="level4" data-number="3.8.2">
+<h4 data-number="3.8.2" class="anchored" data-anchor-id="fixed-groups"><span class="header-section-number">3.8.2</span> Fixed groups</h4>
+<p>In addition to clustering, we can also create groups based on deterministic or known groups (e.g., gender, grades, course, etc.). In the following chunk, we create a variable named <code>Achievers</code> which is a vector containing the value <code>"High"</code> if the corresponding student has a grade above 50, and <code>"Low"</code> otherwise. We pass this vector as the <code>group</code> argument of <code>group_tna</code>, just like we did in the previous example and we can then us all the range of functions of <code>tna</code> on the two groups (<a href="#fig-by-group">Figure&nbsp;<span>17.8</span></a>). This helps us visualize the difference in transition probabilities between low and high achievers.</p>
+<div>
+<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a>Achievers <span class="ot">&lt;-</span> <span class="fu">ifelse</span>(simulated_data<span class="sc">$</span>Grade <span class="sc">&gt;</span> <span class="dv">50</span>, <span class="st">"High"</span>, <span class="st">"Low"</span>)</span>
+<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a>course_tna <span class="ot">&lt;-</span> <span class="fu">group_tna</span>(sequ, <span class="at">group =</span> Achievers)</span>
+<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(course_tna)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div id="fig-by-group" class="cell quarto-layout-panel">
+<figure class="figure">
+<div class="quarto-layout-row quarto-layout-valign-top">
+<div class="cell-output-display quarto-layout-cell quarto-layout-cell-subref" style="flex-basis: 50.0%;justify-content: center;">
+<div id="fig-by-group-1" class="quarto-figure quarto-figure-center anchored">
+<figure class="figure">
+<p><img src="img/ch17-tna-clusters_files/figure-html/fig-by-group-1.png" class="img-fluid figure-img" data-ref-parent="fig-by-group" width="480"></p>
+<p></p><figcaption class="figure-caption">(a) High Achievers</figcaption><p></p>
+</figure>
+</div>
+</div>
+<div class="cell-output-display quarto-layout-cell quarto-layout-cell-subref" style="flex-basis: 50.0%;justify-content: center;">
+<div id="fig-by-group-2" class="quarto-figure quarto-figure-center anchored">
+<figure class="figure">
+<p><img src="img/ch17-tna-clusters_files/figure-html/fig-by-group-2.png" class="img-fluid figure-img" data-ref-parent="fig-by-group" width="480"></p>
+<p></p><figcaption class="figure-caption">(b) Low Achievers</figcaption><p></p>
+</figure>
+</div>
+</div>
+</div>
+<p></p><figcaption class="figure-caption"><strong>Figure</strong>&nbsp;8<strong>.</strong> TNA using groups instead of clusters</figcaption><p></p>
+</figure>
+</div>
+</div>
+</section>
+</section>
+<section id="other-forms-of-tna" class="level3" data-number="3.9">
+<h3 data-number="3.9" class="anchored" data-anchor-id="other-forms-of-tna"><span class="header-section-number">3.9</span> Other forms of TNA</h3>
+<p>As demonstrated in <span class="citation" data-cites="LABOOK2_Chapter_15">[<a href="#ref-LABOOK2_Chapter_15" role="doc-biblioref">19</a>]</span>, the TNA framework encompasses other forms of studying transitions, such as frequency-based transition networks. Instead of representing transition probabilities, frequency-based transition networks operate on the absolute values, i.e., the number or share of times each transition has appeared in the whole sequence object. This operationalization might be more appropriate in cases that there are not enough data to make inferences. This mode also supports cluster, allowing to inspect and compare transition frequencies among clusters.</p>
+<p>In the chunk below, we create a frequency-based transition network (<a href="#fig-by-scaled">Figure&nbsp;<span>17.9</span></a>), providing the results of the distance-based clustering as the <code>group</code> argument.</p>
+<div>
+<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a>tna_group_scaled <span class="ot">&lt;-</span> <span class="fu">group_ftna</span>(sequ, <span class="at">group =</span> lcp_clusters)</span>
+<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(tna_group_scaled)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div id="fig-by-scaled" class="cell quarto-layout-panel">
+<figure class="figure">
+<div class="quarto-layout-row quarto-layout-valign-top">
+<div class="cell-output-display quarto-layout-cell quarto-layout-cell-subref" style="flex-basis: 50.0%;justify-content: center;">
+<div id="fig-by-scaled-1" class="quarto-figure quarto-figure-center anchored">
+<figure class="figure">
+<p><img src="img/ch17-tna-clusters_files/figure-html/fig-by-scaled-1.png" class="img-fluid figure-img" data-ref-parent="fig-by-scaled" width="480"></p>
+<p></p><figcaption class="figure-caption">(a) Argumentation triggered</figcaption><p></p>
+</figure>
+</div>
+</div>
+<div class="cell-output-display quarto-layout-cell quarto-layout-cell-subref" style="flex-basis: 50.0%;justify-content: center;">
+<div id="fig-by-scaled-2" class="quarto-figure quarto-figure-center anchored">
+<figure class="figure">
+<p><img src="img/ch17-tna-clusters_files/figure-html/fig-by-scaled-2.png" class="img-fluid figure-img" data-ref-parent="fig-by-scaled" width="480"></p>
+<p></p><figcaption class="figure-caption">(b) Facilitated discussions</figcaption><p></p>
+</figure>
+</div>
+</div>
+</div>
+<div class="quarto-layout-row quarto-layout-valign-top">
+<div class="cell-output-display quarto-layout-cell quarto-layout-cell-subref" style="flex-basis: 50.0%;justify-content: center;">
+<div id="fig-by-scaled-3" class="quarto-figure quarto-figure-center anchored">
+<figure class="figure">
+<p><img src="img/ch17-tna-clusters_files/figure-html/fig-by-scaled-3.png" class="img-fluid figure-img" data-ref-parent="fig-by-scaled" width="480"></p>
+<p></p><figcaption class="figure-caption">(c) Information triggered</figcaption><p></p>
+</figure>
+</div>
+</div>
+<div class="cell-output-display quarto-layout-cell quarto-layout-cell-subref" style="flex-basis: 50.0%;justify-content: center;">
+<div id="fig-by-scaled-4" class="quarto-figure quarto-figure-center anchored">
+<figure class="figure">
+<p><img src="img/ch17-tna-clusters_files/figure-html/fig-by-scaled-4.png" class="img-fluid figure-img" data-ref-parent="fig-by-scaled" width="480"></p>
+<p></p><figcaption class="figure-caption">(d) Socially triggered</figcaption><p></p>
+</figure>
+</div>
+</div>
+</div>
+<p></p><figcaption class="figure-caption"><strong>Figure</strong>&nbsp;9<strong>.</strong> FTNA of each group</figcaption><p></p>
+</figure>
+</div>
+</div>
+</section>
+</section>
+<section id="discussion" class="level2" data-number="4">
+<h2 data-number="4" class="anchored" data-anchor-id="discussion"><span class="header-section-number">4</span> Discussion</h2>
+<p>Studying the learning process as a homogeneous phenomenon can overlook important variations that exist across different subgroups or contexts, leading to conclusions that may not fully capture the complexity of the phenomenon. Such an approach risks not only diluting the explanatory power of scientific findings but also perpetuating inequalities by failing to account for how distinct groups may experience or respond to the same processes differently. In turn, we should “capitalize on the heterogeneity that characterizes most effects in science” <span class="citation" data-cites="Bryan2021-im">[<a href="#ref-Bryan2021-im" role="doc-biblioref">2</a>]</span> (p.&nbsp;86), so we can better understand variations, improving the relevance and applicability of our findings across diverse populations.</p>
+<p>In this chapter, we have demonstrated how to identify clusters of transition networks, within the scope of TNA. We have illustrated this process for MMM clustering as well as for other forms of clustering. We have also showcased the features of TNA related to centralities, communities, and cliques, which provides as with a rich toolkit to study the heterogeneity of relational dynamics. Centrality measures, for instance, allow us to identify central states or transitions that shape the flow of behaviors or interactions. Influential nodes can vary significantly across subgroups, representing the diversity in how processes unfold.</p>
+<p>Similarly, communities within the network can uncover tightly connected groups of transitions that represent cohesive patterns, dynamics, or strategies. These sub-networks might reveal distinct behavioral tendencies or shared practices that are specific to certain groups or contexts. Cliques, as smaller subsets of closely interconnected transitions, provide yet another layer of detail, capturing unique micro-patterns that might otherwise go overlooked.</p>
+<p>Understanding the different patterns that can be identified from transition networks and how they prevail or differ among clusters, provides a comprehensive view on learning processes from a heterogeneity lens. In other words, identifying and studying different subgroups help us move beyond simplistic, one-size-fits-all interpretations to recognize the complexity and diversity inherent in behavior and interaction. Such interpretations have the potential to advance learning theories and support the design of interventions or policies that are sensitive to the diverse ways individuals and groups experience and respond to learning processes, which is one of the driving goals of learning analytics research. Embracing heterogeneity constitutes a step forward in ensuring that findings are equitable and capture diversity.</p>
+
+
+</section>
+<section id="bibliography" class="level1 unnumbered">
+<h1 class="unnumbered">References</h1>
+<div id="refs" class="references csl-bib-body" role="doc-bibliography">
+<div id="ref-Saqr2025-ku" class="csl-entry" role="doc-biblioentry">
+<div class="csl-left-margin">1. </div><div class="csl-right-inline">Saqr M, López-Pernas S, Törmänen T, Kaliisa R, Misiejuk K, Tikka S (2025) Transition network analysis: A novel framework for modeling, visualizing, and identifying the temporal patterns of learners and learning processes. In: Proceedings of learning analytics &amp; knowledge (LAK ’25). ACM, New York, NY, USA, pp in–press</div>
+</div>
+<div id="ref-Bryan2021-im" class="csl-entry" role="doc-biblioentry">
+<div class="csl-left-margin">2. </div><div class="csl-right-inline">Bryan CJ, Tipton E, Yeager DS (2021) Behavioural science is unlikely to change the world without a heterogeneity revolution. Nat Hum Behav 5:980–989. https://doi.org/<a href="https://doi.org/10.1038/s41562-021-01143-3">10.1038/s41562-021-01143-3</a></div>
+</div>
+<div id="ref-Karoly1993-ud" class="csl-entry" role="doc-biblioentry">
+<div class="csl-left-margin">3. </div><div class="csl-right-inline">Karoly P (1993) Mechanisms of self-regulation: A systems view. Annu Rev Psychol 44:23–52. https://doi.org/<a href="https://doi.org/10.1146/annurev.ps.44.020193.000323">10.1146/annurev.ps.44.020193.000323</a></div>
+</div>
+<div id="ref-Saqr2023-ts" class="csl-entry" role="doc-biblioentry">
+<div class="csl-left-margin">4. </div><div class="csl-right-inline">Saqr M, López-Pernas S, Jovanović J, Gašević D (2023) Intense, turbulent, or wallowing in the mire: A longitudinal study of cross-course online tactics, strategies, and trajectories. internet high 57:100902. https://doi.org/<a href="https://doi.org/10.1016/j.iheduc.2022.100902">10.1016/j.iheduc.2022.100902</a></div>
+</div>
+<div id="ref-Tormanen2022-fw" class="csl-entry" role="doc-biblioentry">
+<div class="csl-left-margin">5. </div><div class="csl-right-inline">Törmänen T, Järvenoja H, Saqr M, Malmberg J, Järvelä S (2022) A person-centered approach to study students’ socio-emotional interaction profiles and regulation of collaborative learning. Frontiers in Education 7: https://doi.org/<a href="https://doi.org/10.3389/feduc.2022.866612">10.3389/feduc.2022.866612</a></div>
+</div>
+<div id="ref-Saqr2023-lo" class="csl-entry" role="doc-biblioentry">
+<div class="csl-left-margin">6. </div><div class="csl-right-inline">Saqr M, López-Pernas S, Helske S, Hrastinski S (2023) The longitudinal association between engagement and achievement varies by time, students’ profiles, and achievement state: A full program study. Comput Educ 199:104787. https://doi.org/<a href="https://doi.org/10.1016/j.compedu.2023.104787">10.1016/j.compedu.2023.104787</a></div>
+</div>
+<div id="ref-Saqr2024-as" class="csl-entry" role="doc-biblioentry">
+<div class="csl-left-margin">7. </div><div class="csl-right-inline">Saqr M, Schreuder MJ, López-Pernas S (2024) <a href="https://doi.org/10.1007/978-3-031-54464-4\_22">Why educational research needs a complex system revolution that embraces individual differences, heterogeneity, and uncertainty</a>. In: Learning analytics methods and tutorials. Springer Nature Switzerland, Cham, pp 723–734</div>
+</div>
+<div id="ref-Helske2024-lq" class="csl-entry" role="doc-biblioentry">
+<div class="csl-left-margin">8. </div><div class="csl-right-inline">Helske J, Helske S, Saqr M, López-Pernas S, Murphy K (2024) A modern approach to transition analysis and process mining with markov models in education. In: Saqr M, López-Pernas S (eds) Learning analytics methods and tutorials: A practical guide using r. Springer, pp in–press</div>
+</div>
+<div id="ref-Vermunt2010-ps" class="csl-entry" role="doc-biblioentry">
+<div class="csl-left-margin">9. </div><div class="csl-right-inline">Vermunt JK (2010) Latent class modeling with covariates: Two improved three-step approaches. Polit Anal 18:450–469. https://doi.org/<a href="https://doi.org/10.1093/pan/mpq025">10.1093/pan/mpq025</a></div>
+</div>
+<div id="ref-Helske2019-pu" class="csl-entry" role="doc-biblioentry">
+<div class="csl-left-margin">10. </div><div class="csl-right-inline">Helske S, Helske J (2019) Mixture hidden markov models for sequence data: The <span class="nocase">seqHMM</span> package in <span>R</span>. J Stat Softw 88:1–32. https://doi.org/<a href="https://doi.org/10.18637/jss.v088.i03">10.18637/jss.v088.i03</a></div>
+</div>
+<div id="ref-Lopez-Pernas2024-nh" class="csl-entry" role="doc-biblioentry">
+<div class="csl-left-margin">11. </div><div class="csl-right-inline">López-Pernas S, Tikka S, Saqr M (2024) <a href="https://doi.org/10.32614/cran.package.tna"><span class="nocase">tna</span>: Transition network analysis (<span>TNA</span>)</a>. CRAN: Contributed Packages</div>
+</div>
+<div id="ref-Villalobos2024-ln" class="csl-entry" role="doc-biblioentry">
+<div class="csl-left-margin">12. </div><div class="csl-right-inline">Villalobos E, Pérez-Sanagustín M, Broisin J (2024) <a href="https://doi.org/10.1007/978-3-031-64302-6\_1">From learning actions to dynamics: Characterizing students’ individual temporal behavior with sequence analysis</a>. In: Lecture notes in computer science. Springer Nature Switzerland, Cham, pp 3–17</div>
+</div>
+<div id="ref-Lopez-Pernas2024-bv" class="csl-entry" role="doc-biblioentry">
+<div class="csl-left-margin">13. </div><div class="csl-right-inline">López-Pernas S, Saqr M (2024) How the dynamics of engagement explain the momentum of achievement and the inertia of disengagement: A complex systems theory approach. Comput Human Behav 153:108126. https://doi.org/<a href="https://doi.org/10.1016/j.chb.2023.108126">10.1016/j.chb.2023.108126</a></div>
+</div>
+<div id="ref-Saqr2024-yo" class="csl-entry" role="doc-biblioentry">
+<div class="csl-left-margin">14. </div><div class="csl-right-inline">Saqr M, López-Pernas S (2024) <a href="https://doi.org/10.1109/ICALT61570.2024.00031">Momentary emotions emerge and evolve differently, yet are surprisingly stable within students</a>. In: 2024 IEEE international conference on advanced learning technologies (ICALT). IEEE, pp 86–90</div>
+</div>
+<div id="ref-Tikka2024-ph" class="csl-entry" role="doc-biblioentry">
+<div class="csl-left-margin">15. </div><div class="csl-right-inline">Tikka S, Kopra J, Heinäniemi M, López-Pernas S, Saqr M (2024) Getting started with <span>R</span> for education research. In: Saqr M, López-Pernas S (eds) Learning analytics methods and tutorials: A practical guide using r. Springer, pp in–press</div>
+</div>
+<div id="ref-Kopra2024-fx" class="csl-entry" role="doc-biblioentry">
+<div class="csl-left-margin">16. </div><div class="csl-right-inline">Kopra J, Tikka S, Heinäniemi M, López-Pernas S, Saqr M (2024) An <span>R</span> approach to data cleaning and wrangling for education research. In: Saqr M, López-Pernas S (eds) Learning analytics methods and tutorials: A practical guide using r. Springer, pp in–press</div>
+</div>
+<div id="ref-Tikka2024-wl" class="csl-entry" role="doc-biblioentry">
+<div class="csl-left-margin">17. </div><div class="csl-right-inline">Tikka S, Kopra J, Heinäniemi M, López-Pernas S, Saqr M (2024) Introductory statistics with <span>R</span> for educational researchers. In: Saqr M, López-Pernas S (eds) Learning analytics methods and tutorials: A practical guide using r. Springer, pp in–press</div>
+</div>
+<div id="ref-Lopez-Pernas2024-ge" class="csl-entry" role="doc-biblioentry">
+<div class="csl-left-margin">18. </div><div class="csl-right-inline">López-Pernas S, Misiejuk K, Tikka S, Kopra J, Heinäniemi M, Saqr M (2024) <a href="https://doi.org/10.1007/978-3-031-54464-4\_6">Visualizing and reporting educational data with <span>R</span></a>. In: Learning analytics methods and tutorials. Springer Nature Switzerland, Cham, pp 151–194</div>
+</div>
+<div id="ref-LABOOK2_Chapter_15" class="csl-entry" role="doc-biblioentry">
+<div class="csl-left-margin">19. </div><div class="csl-right-inline">Saqr M, López-Pernas S, Tikka S (2025) Mapping relational dynamics with transition network analysis: A primer and tutorial. In: Saqr M, López-Pernas S (eds) Advanced learning analytics methods: AI, precision and complexity. Springer Nature Switzerland, Cham</div>
+</div>
+<div id="ref-tidyverse" class="csl-entry" role="doc-biblioentry">
+<div class="csl-left-margin">20. </div><div class="csl-right-inline">Wickham H, Averick M, Bryan J, Chang W, McGowan LD, François R, Grolemund G, Hayes A, Henry L, Hester J, Kuhn M, Pedersen TL, Miller E, Bache SM, Müller K, Ooms J, Robinson D, Seidel DP, Spinu V, Takahashi K, Vaughan D, Wilke C, Woo K, Yutani H (2019) Welcome to the <span class="nocase">tidyverse</span>. Journal of Open Source Software 4:1686. https://doi.org/<a href="https://doi.org/10.21105/joss.01686">10.21105/joss.01686</a></div>
+</div>
+<div id="ref-Gabadinho2011-wz" class="csl-entry" role="doc-biblioentry">
+<div class="csl-left-margin">21. </div><div class="csl-right-inline">Gabadinho A, Ritschard G, Müller NS, Studer M (2011) Analyzing and visualizing state sequences <span class="nocase">inRwithTraMineR</span>. J Stat Softw 40:1–37. https://doi.org/<a href="https://doi.org/10.18637/jss.v040.i04">10.18637/jss.v040.i04</a></div>
+</div>
+<div id="ref-rio" class="csl-entry" role="doc-biblioentry">
+<div class="csl-left-margin">22. </div><div class="csl-right-inline">Chan C, Leeper TJ, Becker J, Schoch D (2023) <a href="https://cran.r-project.org/package=rio">Rio: A swiss-army knife for data file i/o</a></div>
+</div>
+<div id="ref-Saqr2023-nv" class="csl-entry" role="doc-biblioentry">
+<div class="csl-left-margin">23. </div><div class="csl-right-inline">Saqr M, López-Pernas S (2023) The temporal dynamics of online problem-based learning: Why and when sequence matters. International Journal of Computer-Supported Collaborative Learning 18:11–37. https://doi.org/<a href="https://doi.org/10.1007/s11412-023-09385-1">10.1007/s11412-023-09385-1</a></div>
+</div>
+<div id="ref-Hernandez-Garcia2024-ah" class="csl-entry" role="doc-biblioentry">
+<div class="csl-left-margin">24. </div><div class="csl-right-inline">Hernández-García Á, Cuenca-Enrique C, Traxler A, López-Pernas S, Conde-González MÁ, Saqr M (2024) <a href="https://doi.org/10.1007/978-3-031-54464-4\_16">Community detection in learning networks using <span>R</span></a>. In: Learning analytics methods and tutorials. Springer Nature Switzerland, Cham, pp 519–540</div>
+</div>
+<div id="ref-Rosvall2008-vj" class="csl-entry" role="doc-biblioentry">
+<div class="csl-left-margin">25. </div><div class="csl-right-inline">Rosvall M, Bergstrom CT (2008) Maps of random walks on complex networks reveal community structure. Proc Natl Acad Sci U S A 105:1118–1123. https://doi.org/<a href="https://doi.org/10.1073/pnas.0706851105">10.1073/pnas.0706851105</a></div>
+</div>
+<div id="ref-Saqr2024-mc" class="csl-entry" role="doc-biblioentry">
+<div class="csl-left-margin">26. </div><div class="csl-right-inline">Saqr M, López-Pernas S, Conde-González MÁ, Hernández-García Á (2024) <a href="https://doi.org/10.1007/978-3-031-54464-4\_15">Social network analysis: A primer, a guide and a tutorial in <span>R</span></a>. In: Learning analytics methods and tutorials. Springer Nature Switzerland, Cham, pp 491–518</div>
+</div>
+<div id="ref-Saqr2024-ce" class="csl-entry" role="doc-biblioentry">
+<div class="csl-left-margin">27. </div><div class="csl-right-inline">Saqr M, López-Pernas S, Conde-González MÁ, Hernández-García Á (2024) <a href="https://doi.org/10.1007/978-3-031-54464-4\_15">Social network analysis: A primer, a guide and a tutorial in <span>R</span></a>. In: Learning analytics methods and tutorials. Springer Nature Switzerland, Cham, pp 491–518</div>
+</div>
+<div id="ref-Saqr2024-ug" class="csl-entry" role="doc-biblioentry">
+<div class="csl-left-margin">28. </div><div class="csl-right-inline">Saqr M, López-Pernas S, Helske S, Durand M, Murphy K, Studer M, Ritschard G (2024) <a href="https://scholar.google.es/citations?view_op=view_citation&amp;hl=en&amp;user=67eUI4gAAAAJ&amp;cstart=20&amp;pagesize=80&amp;citation_for_view=67eUI4gAAAAJ:7T2F9Uy0os0C">Sequence analysis in education: Principles, technique, and tutorial with <span>R</span></a>. 321–354</div>
+</div>
+</div>
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    target: function(trigger) {
+      return trigger.previousElementSibling;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+  function tippyHover(el, contentFn) {
+    const config = {
+      allowHTML: true,
+      content: contentFn,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start'
+    };
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      return note.innerHTML;
+    });
+  }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+<nav class="page-navigation">
+  <div class="nav-page nav-page-previous">
+      <a href="../../chapters/ch16-ftna/ch16-ftna.html" class="pagination-link">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">16</span>&nbsp; <span class="chapter-title">Frequency-based Transition Network Analysis</span></span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+      <a href="../../chapters/ch18-idio/ch18-idio.html" class="pagination-link">
+        <span class="nav-page-text"><span class="chapter-number">18</span>&nbsp; <span class="chapter-title">Within-person analysis</span></span> <i class="bi bi-arrow-right-short"></i>
+      </a>
+  </div>
+</nav>
+</div> <!-- /content -->
+<footer class="footer">
+  <div class="nav-footer">
+      <div class="nav-footer-center"><div class="cookie-consent-footer"><a href="#" id="open_preferences_center">Cookie Preferences</a></div></div>
+  </div>
+</footer>
+<script>
+  document.querySelector(".quarto-title").innerHTML =  '<div class="badge bs-warning bg-warning text-dark" style="float:right;">Pre-print</div>' +  document.querySelector(".quarto-title").innerHTML
+  var keywords = document.querySelector('meta[name="keywords"]')
+  if (keywords && keywords.content) {
+    document.getElementById("title-block-header").innerHTML = document.getElementById("title-block-header").innerHTML + 
+      '<div class="abstract"><div class="abstract-title">Keywords</div><div class="quarto-title-meta-contents"><p>'+
+      keywords.content +
+      '</p></div></div>'
+  }
+  function insertAfter(referenceNode, newNode) {
+      referenceNode.parentNode.insertBefore(newNode, referenceNode.nextSibling);
+  }
+  var authors = document.querySelectorAll('meta[name="author"]')
+  if (authors) {
+    var authorlist = Array.from(authors).map(e=>e.content).reduce((accum, curr) =>  accum + curr + ", ", "","").replace(/\,\s$/,"")
+    var citt = `<div class="card border-primary mb-3" style=;">
+      <div class="card-header bg-primary">To cite this chapter</div>
+      <div class="card-body small">
+        <p class="card-text">${authorlist} (2025).
+        <b>${document.getElementsByClassName("chapter-title")[0].innerText}</b>. 
+        In M. Saqr & S. López-Pernas (Eds.), <i>Advanced Learning Analytics Methods: AI, Precision and Complexity</i> 
+        (in – press). Springer. <a href="${window.location.href}">${window.location.href}</a></p>
+      </div>
+    </div>`;
+    insertAfter(document.getElementsByTagName("HEADER")[1],new DOMParser().parseFromString(citt, 'text/html').body.childNodes[0])
+  }
+</script>
+
+
+
+</body></html>

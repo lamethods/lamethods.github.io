@@ -1,0 +1,150 @@
+project:
+  type: book
+  output-dir: "../docs/book2"
+book:
+  title: "Advanced learning analytics methods"
+  subtitle: " AI, Precision and Complexity"
+  editor: "Mohammed Saqr & Sonsoles López-Pernas"
+  collection-editor: "Mohammed Saqr & Sonsoles López-Pernas"
+  cookie-consent: true
+  repo-url: https://github.com/lamethods/code2/
+  google-analytics: "G-Y4VBV3J9WD"
+  twitter-card: true
+  site-url: https://lamethods.github.io
+  sidebar:
+    title: "Advanced learning analytics methods"
+  navbar:
+    title: "LA Methods"
+    background: light
+    right:
+      - text: "Home"
+        file: ../index.html
+      - text: "Learning Analytics Methods and Tutorials"
+        href: ../book1/index.html
+      - text: "Advanced Learning Analytics Methods"
+        href: ../book2/index.html
+  chapters:
+    - text: "Welcome"
+      file: index.qmd
+    - text: "Contributors"
+      file: contributors.qmd
+    - text: "Introduction"
+      file: chapters/ch01-intro/ch01-intro.qmd
+    - part: "Artificial Intelligence"
+      chapters: 
+        - text: "AI and XAI"
+          file: chapters/ch02-AIxAI/ch02-aixai.qmd
+        - text: "Prediction"
+          file: chapters/ch03-prediction/ch03-prediction.qmd
+        - text: "Classification"
+          file: chapters/ch04-classification/ch04-classification.qmd
+        - text: "Regularization"
+          file: chapters/ch05-regularization/ch05-regularization.qmd
+        - text: "Global XAI"
+          file: chapters/ch06-xai-global/ch06-xai-global.qmd
+        - text: "Local XAI"
+          file: chapters/ch07-xai-local/ch07-xai-local.qmd
+    - part: "Large Language Models"
+      chapters: 
+        - text: "Large Language Models"
+          file: chapters/ch08-llms/ch08-llms.qmd
+        - text: "Natural Language Processing"
+          file: chapters/ch09-nlp/ch09-nlp.qmd
+        - text: "Classification with BERT"
+          file: chapters/ch10-bert/ch10-bert.qmd
+        - text: "Automated feedback with XAI and LLMs"
+          file: chapters/ch11-llmsxai/ch11-llmsxai.qmd
+    - part: "Complex Systems"
+      chapters: 
+        - text: "Complex Systems"
+          file: chapters/ch12-cds/ch12-cds.qmd
+        - text: "Exploratory Graph Analysis"
+          file: chapters/ch13-ega/ch13-ega.qmd
+        - text: "Recurrent Quantification Analysis"
+          file: chapters/ch14-rqa/ch14-rqa.qmd
+        - text: "Transition Network Analysis"
+          file: chapters/ch15-tna/ch15-tna.qmd
+        - text: "Frequency-based Transition Network Analysis"
+          file: chapters/ch16-ftna/ch16-ftna.qmd
+        - text: "Transition Network Analysis Clusters"
+          file: chapters/ch17-tna-clusters/ch17-tna-clusters.qmd
+    - part: "Idiographic"
+      chapters: 
+        - text: "Within-person analysis"
+          file: chapters/ch18-idio/ch18-idio.qmd
+        - text: "Heterogeneity"
+          file: chapters/ch19-three-levels/ch19-three-levels.qmd
+        - text: "Vector Autoregression and uSEM"
+          file: chapters/ch20-var/ch20-var.qmd
+        - text: "Maximum Likelihood Estimator"
+          file: chapters/ch21-mle/ch21-mle.qmd
+        - text: "Automated Machine Learning"
+          file: chapters/ch22-automl/ch22-automl.qmd
+format:
+  html:
+    theme: cosmo
+    citation: true
+    citation-location: document
+    google-scholar: true
+    df-print: "paged"
+    fig-align: "center"
+    toc: true
+    margin-footer: | 
+       <a href="https://github.com/lamethods/code2" target="_blank">
+          <button class="btn btn-outline-dark">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512" style="width: 22px;vertical-align: text-top;margin-right: 9px;">
+              <path d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3 .3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5 .3-6.2 2.3zm44.2-1.7c-2.9 .7-4.9 2.6-4.6 4.9 .3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3 .7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3 .3 2.9 2.3 3.9 1.6 1 3.6 .7 4.3-.7 .7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3 .7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3 .7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z" style="width: 24px;">
+              </path>
+            </svg>Download code
+          </button>
+        </a>
+        <div style="padding: 10px;">
+        Check out our previous book! <br/>
+        <a href="../../../book1/index.html"><img src="../../../book1/1712067211600.jpeg" style="
+            width: 70%;
+        "></a>
+        </div>
+       
+        <br/>
+        <small>© 2025 The authors</small>
+    include-after-body:
+      text: |
+        <script>
+          document.querySelector(".quarto-title").innerHTML =  '<div class="badge bs-warning bg-warning text-dark" style="float:right;">Pre-print</div>' +  document.querySelector(".quarto-title").innerHTML
+          var keywords = document.querySelector('meta[name="keywords"]')
+          if (keywords && keywords.content) {
+            document.getElementById("title-block-header").innerHTML = document.getElementById("title-block-header").innerHTML + 
+              '<div class="abstract"><div class="abstract-title">Keywords</div><div class="quarto-title-meta-contents"><p>'+
+              keywords.content +
+              '</p></div></div>'
+          }
+          function insertAfter(referenceNode, newNode) {
+              referenceNode.parentNode.insertBefore(newNode, referenceNode.nextSibling);
+          }
+          var authors = document.querySelectorAll('meta[name="author"]')
+          if (authors) {
+            var authorlist = Array.from(authors).map(e=>e.content).reduce((accum, curr) =>  accum + curr + ", ", "","").replace(/\,\s$/,"")
+            var citt = `<div class="card border-primary mb-3" style=;">
+              <div class="card-header bg-primary">To cite this chapter</div>
+              <div class="card-body small">
+                <p class="card-text">${authorlist} (2025).
+                <b>${document.getElementsByClassName("chapter-title")[0].innerText}</b>. 
+                In M. Saqr & S. López-Pernas (Eds.), <i>Advanced Learning Analytics Methods: AI, Precision and Complexity</i> 
+                (in – press). Springer. <a href="${window.location.href}">${window.location.href}</a></p>
+              </div>
+            </div>`;
+            insertAfter(document.getElementsByTagName("HEADER")[1],new DOMParser().parseFromString(citt, 'text/html').body.childNodes[0])
+          }
+        </script>
+    execute:
+      freeze: auto  # re-render only when source changes
+  # pdf:
+  #   documentclass: scrreprt
+csl: springer.cls  
+filters:
+  - section-bibliographies
+reference-section-title: References
+crossref:
+  chapters: true
+resources:
+  - CNAME

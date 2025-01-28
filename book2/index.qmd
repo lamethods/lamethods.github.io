@@ -1,0 +1,44 @@
+---
+author: "[Mohammed Saqr](https://saqr.me) & [Sonsoles López-Pernas](https://sonsoles.me)"
+toc: false
+margin-footer: |
+    <span></span>
+include-after-body:
+  text: |
+    <script>
+      document.querySelector(".quarto-title-meta-heading").innerHTML = "Editors"
+    </script>
+    <style>
+      #title-block-header.quarto-title-block.default .quarto-title-meta-contents a {
+          color: #2780e3 !important;
+      }
+      #title-block-header a {
+          text-decoration: underline;
+      }
+    </style>
+    
+---
+[Learning Analytics Unit](https://sites.uef.fi/learning-analytics/), University of Eastern Finland
+
+#    {.unnumbered}
+
+<img src="cover2.jpg" alt="Cover"  style="float:left;max-width: min(100%,17em);margin: 0px 20px 0px 0px;">
+<p>
+This is the website for the book **“Advanced learning analytics methods: AI, precision and complexity”** which will be published by Springer in 2025.
+</p>
+
+
+<p>Learning analytics (LA) has grown over the years, both in methods and practices. As an applied field, LA embraced a wide range of research methodologies and traditions, including those from computer science, education, statistics, and psychology. While such growth has produced a vast body of research and brought significant progress, the past few years have raised several critical questions: What has LA achieved? What is the current status of the field? And, more importantly, what is LA as a field?</p>
+
+<p>The meteoric rise of artificial intelligence (AI), and generative AI in particular, has sent shockwaves through many disciplines, and LA is no exception. As such the field has further expanded to encompass the new technology as it has always done. In doing so, LA has grown even larger and extended to the new areas which raised more questions about what LA is after all. In fact, the borders between LA, AI, educational data mining, and quantitative methods in general have always been unclear.</p>
+
+<p>Notwithstanding the LA identity debate, this book addresses several novel issues in LA and education, as well as the overlapping technologies and fields, from a methodological perspective. The book covers a range of topics related to advanced LA methods, including AI, precision education, and complex systems. While we do not claim to define the future of the field, our aim is to guide researchers in exploring some of these barely untrodden territories. We refrain from emphasizing or asserting that any topic lies within the definitive borders of LA. Instead, the book presents these advanced topics of significant interest to educational researchers, without placing undue focus on taxonomy or rigid classifications. Such borders have always been ---at least to us--- more artificial than real. In fact, almost every methodology we covered in the previous LA methods book came years before LA included them under its veneer. As such, the current book you are reading comprises four overarching methodological themes that reflect its title. While the said title says “advanced LA” we make no stress on LA in its narrow definition, and in fact, many chapters and discussions address the educational communities at large without being restrictive to LA.</p>
+
+<p>The first theme of the book addresses AI and machine learning (ML) which both have become increasingly important nowadays. Including AI and ML topics fills a gap in our previous book and introduces several current topics that are of interest to all researchers and practitioners. We also made sure to include introductory chapters that present these topics in considerable detail to the readers so they can equip themselves with the basic knowledge required to read the dense methodological chapters. This enhancement over the previous book makes it easier for early researchers to have a swift introduction.</p>
+
+<p>The book then introduces the “talk of the town": Large Language Models (LLMs) and Natural Language Processing (NLP) topics. The second section introduces the foundational concepts of Large Language Models and their potential applications in education in an introductory chapter that discusses the main concepts. Then, several tutorials cover areas like using LLMs to explain predictive models, code text and offer insights to researchers. Relevant to this theme is the use of NLP to understand students’ text which is presented with several advanced techniques.</p>
+
+<p>The editors</p>
+<p>
+[Mohammed Saqr](https://saqr.me) and [Sonsoles López-Pernas](https://sonsoles.me)
+</p>

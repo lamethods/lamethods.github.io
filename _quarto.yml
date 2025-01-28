@@ -1,142 +1,28 @@
 project:
-  type: book
-  output-dir: "docs"
-book:
-  title: "Learning analytics methods and tutorials"
-  subtitle: "A practical guide using R"
-  editor: "Mohammed Saqr & Sonsoles López-Pernas"
-  collection-editor: "Mohammed Saqr & Sonsoles López-Pernas"
+  type: website
+  output-dir: docs
+format:
+  html:
+    theme: cosmo
+website:
+  title: "Learning Analytics Methods"
   cookie-consent: true
   repo-url: https://github.com/lamethods/labook-code/
   google-analytics: "G-Y4VBV3J9WD"
   twitter-card: true
   site-url: https://lamethods.github.io
-  chapters:
-    - text: "Welcome"
-      file: index.qmd
-    - text: "Contributors"
-      file: contributors.qmd
-    # - text: "Preface"
-    #   file: preface.qmd
-    - text: "Foreword by Dragan Gašević"
-      file: foreword_dg.qmd
-    - text: "Foreword by Ryan Baker"
-      file: foreword_rb.qmd
-    - text: "Introduction"
-      file: chapters/ch01-intro/intro.qmd
-    - part: "Getting started"
-      chapters: 
-        - text: "Data"
-          file: chapters/ch02-data/ch2-data.qmd
-        - text: "Intro to R"
-          file: chapters/ch03-intro-r/ch3-intor.qmd
-        - text: "Data cleaning"
-          file: chapters/ch04-data-cleaning/ch4-datacleaning.qmd
-        - text: "Basic statistics"
-          file: chapters/ch05-basic-stats/ch5-stats.qmd
-        - text: "Data visualization"
-          file: chapters/ch06-data-visualization/ch6-viz.qmd
-    - part: "Machine Learning"
-      chapters: 
-        - text: "Predictive modeling"
-          file: chapters/ch07-prediction/ch7-pred.qmd
-        - text: "Dissimilarity-based Clustering"
-          file: chapters/ch08-clustering/ch8-clus.qmd
-        - text: "Model-based clustering"
-          file: chapters/ch09-model-based-clustering/ch9-model.qmd
-    - part: "Temporal methods"
-      chapters: 
-        - text: "Sequence analysis"
-          file: chapters/ch10-sequence-analysis/ch10-seq.qmd
-        - text: "VaSSTra"
-          file: chapters/ch11-vasstra/ch11-vasstra.qmd
-        - text: "Markov models"
-          file: chapters/ch12-markov/ch12-markov.qmd
-        - text: "Multi-channel sequences"
-          file: chapters/ch13-multichannel/ch13-multi.qmd
-        - text: "Process mining"
-          file: chapters/ch14-process-mining/ch14-process.qmd
-    - part: "Network analysis"
-      chapters: 
-        - text: "Social Network Analysis"
-          file: chapters/ch15-sna/ch15-sna.qmd
-        - text: "Community detection"
-          file: chapters/ch16-community/ch16-comm.qmd
-        - text: "Temporal Networks"
-          file: chapters/ch17-temporal-networks/ch17-tna.qmd
-        - text: "Epistemic Network Analysis"
-          file: chapters/ch18-ena-ona/ch18-ena.qmd
-    - part: "Psychometrics"
-      chapters: 
-        - text: "Psychological networks"
-          file: chapters/ch19-psychological-networks/ch19-psych.qmd
-        - text: "Factor analysis"
-          file: chapters/ch20-factor-analysis/ch20-factor.qmd
-        - text: "Structured Equation Modeling"
-          file: chapters/ch21-sem/ch21-sem.qmd
-    - text: "Future of LA"
-      file: chapters/ch22-conclusion/ch22-conclusion.qmd
-format:
-  html:
-    theme: cosmo
-    citation: true
-    citation-location: document
-    google-scholar: true
-    df-print: "paged"
-    fig-align: "center"
-    margin-footer: | 
-       <a href="https://github.com/lamethods/code" target="_blank">
-          <button class="btn btn-outline-dark">
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512" style="width: 22px;vertical-align: text-top;margin-right: 9px;">
-              <path d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3 .3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5 .3-6.2 2.3zm44.2-1.7c-2.9 .7-4.9 2.6-4.6 4.9 .3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3 .7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3 .3 2.9 2.3 3.9 1.6 1 3.6 .7 4.3-.7 .7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3 .7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3 .7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z" style="width: 24px;">
-              </path>
-            </svg>Download code
-          </button>
-        </a>
-        <br/>
-        <br/>
-        <small>© 2023 The authors</small>
-    include-after-body:
-      text: |
-        <script>
-          document.querySelector(".quarto-title").innerHTML =  /*'<div class="badge bs-warning bg-warning text-dark" style="float:right;">Pre-print</div>' + */ document.querySelector(".quarto-title").innerHTML
-          var keywords = document.querySelector('meta[name="keywords"]')
-          if (keywords && keywords.content) {
-            document.getElementById("title-block-header").innerHTML = document.getElementById("title-block-header").innerHTML + 
-              '<div class="abstract"><div class="abstract-title">Keywords</div><div class="quarto-title-meta-contents"><p>'+
-              keywords.content +
-              '</p></div></div>'
-          }
-          function insertAfter(referenceNode, newNode) {
-              referenceNode.parentNode.insertBefore(newNode, referenceNode.nextSibling);
-          }
-          var authors = document.querySelectorAll('meta[name="author"]')
-          var firstpage = document.querySelector('meta[name="citation_firstpage"]').content
-          var lastpage = document.querySelector('meta[name="citation_lastpage"]').content
-          var doi = document.querySelector('meta[name="citation_doi"]').content
-          if (authors) {
-            var authorlist = Array.from(authors).map(e=>e.content).reduce((accum, curr) =>  accum + curr + ", ", "","").replace(/\,\s$/,"")
-            var citt = `<div class="card border-primary mb-3" style=;">
-              <div class="card-header bg-primary">To cite this chapter</div>
-              <div class="card-body small">
-                <p class="card-text">${authorlist} (2024).
-                <b>${document.getElementsByClassName("chapter-title")[0].innerText}</b>. 
-                In M. Saqr & S. López-Pernas (Eds.), <i>Learning analytics methods and tutorials: A practical guide using R</i> &nbsp;
-                 (pp. ${firstpage}-${lastpage}).Springer, Cham. doi: <a href="https://doi.org/${doi}">${doi}</a></p>
-              </div>
-            </div>`;
-            insertAfter(document.getElementsByTagName("HEADER")[1],new DOMParser().parseFromString(citt, 'text/html').body.childNodes[0])
-          }
-        </script>
-    execute:
-      freeze: auto  # re-render only when source changes
-  # pdf:
-  #   documentclass: scrreprt
-csl: springer.cls  
-filters:
-  - section-bibliographies
-reference-section-title: References
-crossref:
-  chapters: true
+  open-graph: true
+  navbar:
+    title: "LA Methods"
+    background: light
+    search: false
+    right:
+      - text: "Home"
+        file: index.qmd
+      - text: "Learning Analytics Methods and Tutorials"
+        href: book1/index.html
+      - text: "Advanced Learning Analytics Methods"
+        href: book2/index.html
 resources:
   - CNAME
+

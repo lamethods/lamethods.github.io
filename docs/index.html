@@ -6,9 +6,8 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
-<meta name="author" content="Mohammed Saqr &amp; Sonsoles López-Pernas">
 
-<title>Learning analytics methods and tutorials</title>
+<title>Learning Analytics Methods</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -31,24 +30,22 @@ ul.task-list li input[type="checkbox"] {
 <script src="site_libs/quarto-search/fuse.min.js"></script>
 <script src="site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="./">
-<link href="./contributors.html" rel="next">
 <script src="site_libs/cookie-consent/cookie-consent.js"></script>
 <link href="site_libs/cookie-consent/cookie-consent.css" rel="stylesheet">
 <script src="site_libs/quarto-html/quarto.js"></script>
 <script src="site_libs/quarto-html/popper.min.js"></script>
 <script src="site_libs/quarto-html/tippy.umd.min.js"></script>
-<script src="site_libs/quarto-html/anchor.min.js"></script>
 <link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
 <link href="site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
 <link href="site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
-  "location": "sidebar",
+  "location": "navbar",
   "copy-button": false,
   "collapse-after": 3,
-  "panel-placement": "start",
-  "type": "textbox",
+  "panel-placement": "end",
+  "type": "overlay",
   "limit": 20,
   "language": {
     "search-no-results-text": "No results",
@@ -89,287 +86,241 @@ cookieconsent.run({
   
 
 
-<meta name="twitter:title" content="Learning analytics methods and tutorials">
-<meta name="twitter:description" content="A practical guide using R">
-<meta name="twitter:card" content="summary">
-<meta name="citation_title" content="Learning analytics methods and tutorials">
-<meta name="citation_author" content="[Mohammed Saqr](https://saqr.me) &amp;amp; [Sonsoles López-Pernas](https://sonsoles.me)">
-<meta name="citation_fulltext_html_url" content="https://lamethods.github.io/">
-<meta name="citation_language" content="en">
+<meta property="og:title" content="">
+<meta property="og:image" content="https://lamethods.github.io/book2/cover2.jpg">
+<meta property="og:site-name" content="Learning Analytics Methods">
+<meta name="twitter:title" content="">
+<meta name="twitter:image" content="https://lamethods.github.io/book2/cover2.jpg">
+<meta name="twitter:card" content="summary_large_image">
 </head>
 
-<body class="nav-sidebar floating">
+<body class="nav-fixed fullcontent">
 
 <div id="quarto-search-results"></div>
   <header id="quarto-header" class="headroom fixed-top">
-  <nav class="quarto-secondary-nav" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
-    <div class="container-fluid d-flex justify-content-between">
-      <h1 class="quarto-secondary-nav-title">Learning analytics methods and tutorials</h1>
-      <button type="button" class="quarto-btn-toggle btn" aria-label="Show secondary navigation">
-        <i class="bi bi-chevron-right"></i>
-      </button>
-    </div>
-  </nav>
+    <nav class="navbar navbar-expand-lg navbar-dark ">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container">
+    <a class="navbar-brand" href="./index.html">
+    <span class="navbar-title">LA Methods</span>
+    </a>
+  </div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll ms-auto">
+  <li class="nav-item">
+    <a class="nav-link active" href="./index.html" aria-current="page">
+ <span class="menu-text">Home</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="./book1/index.html">
+ <span class="menu-text">Learning Analytics Methods and Tutorials</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="./book2/index.html">
+ <span class="menu-text">Advanced Learning Analytics Methods</span></a>
+  </li>  
+</ul>
+              <div id="quarto-search" class="" title="Search"></div>
+          </div> <!-- /navcollapse -->
+      </div> <!-- /container-fluid -->
+    </nav>
 </header>
 <!-- content -->
-<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
 <!-- sidebar -->
-  <nav id="quarto-sidebar" class="sidebar collapse sidebar-navigation floating overflow-auto">
-    <div class="pt-lg-2 mt-2 text-left sidebar-header">
-    <div class="sidebar-title mb-0 py-0">
-      <a href="./">Learning analytics methods and tutorials</a> 
-        <div class="sidebar-tools-main">
-    <a href="https://github.com/lamethods/labook-code/" title="Source Code" class="sidebar-tool px-1"><i class="bi bi-github"></i></a>
-</div>
-    </div>
-      </div>
-      <div class="mt-2 flex-shrink-0 align-items-center">
-        <div class="sidebar-search">
-        <div id="quarto-search" class="" title="Search"></div>
-        </div>
-      </div>
-    <div class="sidebar-menu-container"> 
-    <ul class="list-unstyled mt-1">
-        <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="./index.html" class="sidebar-item-text sidebar-link active">Welcome</a>
-  </div>
-</li>
-        <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="./contributors.html" class="sidebar-item-text sidebar-link">Contributors</a>
-  </div>
-</li>
-        <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="./foreword_dg.html" class="sidebar-item-text sidebar-link">Foreword by Dragan Gašević</a>
-  </div>
-</li>
-        <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="./foreword_rb.html" class="sidebar-item-text sidebar-link">Foreword by Ryan Baker</a>
-  </div>
-</li>
-        <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="./chapters/ch01-intro/intro.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Introduction</span></a>
-  </div>
-</li>
-        <li class="sidebar-item sidebar-item-section">
-      <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true">Getting started</a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true">
-            <i class="bi bi-chevron-right ms-2"></i>
-          </a> 
-      </div>
-      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="./chapters/ch02-data/ch2-data.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Data</span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="./chapters/ch03-intro-r/ch3-intor.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Intro to R</span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="./chapters/ch04-data-cleaning/ch4-datacleaning.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Data cleaning</span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="./chapters/ch05-basic-stats/ch5-stats.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Basic statistics</span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="./chapters/ch06-data-visualization/ch6-viz.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Data visualization</span></a>
-  </div>
-</li>
-      </ul>
-  </li>
-        <li class="sidebar-item sidebar-item-section">
-      <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="true">Machine Learning</a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="true">
-            <i class="bi bi-chevron-right ms-2"></i>
-          </a> 
-      </div>
-      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="./chapters/ch07-prediction/ch7-pred.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Predictive modeling</span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="./chapters/ch08-clustering/ch8-clus.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Dissimilarity-based Clustering</span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="./chapters/ch09-model-based-clustering/ch9-model.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Model-based clustering</span></a>
-  </div>
-</li>
-      </ul>
-  </li>
-        <li class="sidebar-item sidebar-item-section">
-      <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" aria-expanded="true">Temporal methods</a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" aria-expanded="true">
-            <i class="bi bi-chevron-right ms-2"></i>
-          </a> 
-      </div>
-      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 show">  
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="./chapters/ch10-sequence-analysis/ch10-seq.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Sequence analysis</span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="./chapters/ch11-vasstra/ch11-vasstra.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">VaSSTra</span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="./chapters/ch12-markov/ch12-markov.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Markov models</span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="./chapters/ch13-multichannel/ch13-multi.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Multi-channel sequences</span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="./chapters/ch14-process-mining/ch14-process.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">Process mining</span></a>
-  </div>
-</li>
-      </ul>
-  </li>
-        <li class="sidebar-item sidebar-item-section">
-      <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" aria-expanded="true">Network analysis</a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" aria-expanded="true">
-            <i class="bi bi-chevron-right ms-2"></i>
-          </a> 
-      </div>
-      <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth1 show">  
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="./chapters/ch15-sna/ch15-sna.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">15</span>&nbsp; <span class="chapter-title">Social Network Analysis</span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="./chapters/ch16-community/ch16-comm.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">16</span>&nbsp; <span class="chapter-title">Community detection</span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="./chapters/ch17-temporal-networks/ch17-tna.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">17</span>&nbsp; <span class="chapter-title">Temporal Networks</span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="./chapters/ch18-ena-ona/ch18-ena.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">18</span>&nbsp; <span class="chapter-title">Epistemic Network Analysis</span></a>
-  </div>
-</li>
-      </ul>
-  </li>
-        <li class="sidebar-item sidebar-item-section">
-      <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" aria-expanded="true">Psychometrics</a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" aria-expanded="true">
-            <i class="bi bi-chevron-right ms-2"></i>
-          </a> 
-      </div>
-      <ul id="quarto-sidebar-section-5" class="collapse list-unstyled sidebar-section depth1 show">  
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="./chapters/ch19-psychological-networks/ch19-psych.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">19</span>&nbsp; <span class="chapter-title">Psychological networks</span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="./chapters/ch20-factor-analysis/ch20-factor.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">20</span>&nbsp; <span class="chapter-title">Factor analysis</span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="./chapters/ch21-sem/ch21-sem.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">21</span>&nbsp; <span class="chapter-title">Structured Equation Modeling</span></a>
-  </div>
-</li>
-      </ul>
-  </li>
-        <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="./chapters/ch22-conclusion/ch22-conclusion.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">22</span>&nbsp; <span class="chapter-title">Future of LA</span></a>
-  </div>
-</li>
-    </ul>
-    </div>
-</nav>
 <!-- margin-sidebar -->
-    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
-    <div class="quarto-margin-footer"><div class="margin-footer-item">
-<p><span></span></p>
-</div></div></div>
+    
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
-<header id="title-block-header" class="quarto-title-block default">
-<div class="quarto-title">
-<h1 class="title d-none d-lg-block">Learning analytics methods and tutorials</h1>
-<p class="subtitle lead">A practical guide using R</p>
-</div>
 
 
+    <!-- <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet"> -->
+    <!-- <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.7.2/font/bootstrap-icons.css" rel="stylesheet"> -->
+    <style>
+      .container-fluid {
+        padding: 0 !important;
+      }
+      #quarto-content {
+        display:block;
+      }
+      .book-cover {
+        max-height: 80vh;
+      }
+      main {
+        margin: 0 !important;
+      }
+      
+      #quarto-content>*{
+        padding-top: 0 !important;
+      }
+      .gradient-bg {
+        background: linear-gradient(to bottom, #cfe2ff, #ffffff);
+      }
+      .dark .gradient-bg {
+        background: linear-gradient(to bottom, #1e3a8a, #111827);
+      }
+      .img-thumbnail {
+       max-width: 80%;
+       width: 300px;
+      }
+      .navbar, body {
+        background: #cfe2ff
+      }        
+      
+      .btn-warning {
+        background-color: #f39301;
+        border-color: #f39301;
+      }
+        
+      .newbadge {
+        position: absolute;
+        right:0;
+        margin: 1em;
+        font-size: 0.9em;
+      }
+    </style>
+<div>
+    <main>
+        <section class="py-5 gradient-bg grid">
+            <div class="container text-center g-col-10 g-start-2">
+            <br>
+            <br>
+            <br>
+                <h1 class="display-4 fw-bold mb-3">Learning Analytics Methods</h1>
+                <p class="lead mb-4">Comprehensive guides for understanding and implementing learning analytics using R and advanced AI techniques.</p>
+                <div>
+                    <a href="#books" class="btn btn-warning me-2">Explore Books</a>
+                    <a href="#about" class="btn btn-outline-secondary">Learn More</a>
+                </div>
+            </div>
+        </section>
 
-<div class="quarto-title-meta">
+        <section id="books" class="py-5 bg-white grid">
+            <div class="g-col-10 g-start-2">
+                <h2 class="text-center mb-5">Our Books</h2>
+                <div class="g-col-12 grid">
+                    <div class="g-col-12 g-col-md-6">
+                        <div class="card h-100 border-0">
+                            <div class="card-body">
+                                <div class="text-center mb-4">
+                                <a href="book1/index.html">
+                                    <img src="book1/1712067211600.jpeg" alt="Learning Analytics Methods and Tutorials Book Cover" class="img-fluid book-cover rounded shadow">
+                                    
+                                    </a>
+                                </div>
+                                <h3 class="card-title">Learning Analytics Methods and Tutorials</h3>
+                                <p class="text-muted">A Practical Guide Using R</p>
+                                <p> This book includes all the basics of R as a programming language along with data cleaning, statistics, and data manipulation. It provides an accessible entry point for newcomers to learning analytics while covering major methodologies comprehensively. Each method begins with fundamental concepts, essential techniques, and basic functions before progressing to advanced innovations.</p>
+                                <ul class="list-unstyled">
+                                    <li><i class="bi bi-check-circle-fill text-success me-2"></i>Step-by-step tutorials with practical examples</li>
+                                    <li><i class="bi bi-check-circle-fill text-success me-2"></i>Comprehensive R code implementations</li>
+                                    <li><i class="bi bi-check-circle-fill text-success me-2"></i>Real-world educational datasets</li>
+                                    <li><i class="bi bi-check-circle-fill text-success me-2"></i>Authored by world-renowned researchers</li>
+                                </ul>
+                                <a href="book1/index.html" target="_blank" class="btn btn-warning mt-3">
+                                    <i class="bi bi-book me-2"></i>Read
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="g-col-12 g-col-md-6">
+                        <div class="card h-100 border-0">
+                            <div class="card-body">
+                                <div class="text-center mb-4">
+                                    <a href="book2/index.html" style="position:relative;">
+                                      <img src="book2/cover2.jpg" alt="Advanced Learning Analytics Methods Book Cover" class="img-fluid book-cover rounded shadow">
+                                    <span class="badge bg-danger newbadge">NEW!</span>
+                                    </a>
+                                    
 
-    <div>
-    <div class="quarto-title-meta-heading">Author</div>
-    <div class="quarto-title-meta-contents">
-             <p><a href="https://saqr.me">Mohammed Saqr</a> &amp; <a href="https://sonsoles.me">Sonsoles López-Pernas</a> </p>
-          </div>
-  </div>
-    
-  
-    
-  </div>
-  
+                                </div>
+                                <h3 class="card-title">Advanced Learning Analytics Methods</h3>
+                                <p class="text-muted">AI, Precision and Complexity</p>
+                                <p>Our new book builds upon the foundational methods introduced in the previous volume, adapting to the rapid advancements in artificial intelligence and complexity science. It provides researchers with cutting-edge methodologies at the intersection of learning analytics, AI, and complexity science, presenting novel techniques and their applications in education research.</p>
+                                <ul class="list-unstyled">
+                                    <li><i class="bi bi-check-circle-fill text-success me-2"></i>Advanced AI applications in education</li>
+                                    <li><i class="bi bi-check-circle-fill text-success me-2"></i>Complex systems analysis techniques</li>
+                                    <li><i class="bi bi-check-circle-fill text-success me-2"></i>Precision learning analytics</li>
+                                    <li><i class="bi bi-check-circle-fill text-success me-2"></i>Cutting-edge research methods</li>
+                                </ul>
+                                <a href="book2/index.html" target="_blank" class="btn btn-warning mt-3">
+                                    <i class="bi bi-book me-2"></i>Read
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
 
-</header>
+        <section id="about" class="py-5 bg-light grid">
+            <div class="g-col-10 g-start-2 text-center">
+                <h2 class="text-center mb-5">Motivation</h2>
 
-<p><a href="https://sites.uef.fi/learning-analytics/">Learning Analytics Unit</a>, University of Eastern Finland</p>
-<section id="section" class="level1 unnumbered">
-<h1 class="unnumbered"></h1>
-<img src="1712067211600.jpeg" alt="Smiley face" style="float:left;max-width: min(100%,17em);margin: 0px 20px 0px 0px;">
-<p>
-This is the website for the book <strong>“Learning analytics methods and tutorials: A practical guide using R”</strong> published by <a href="https://doi.org/10.1007/978-3-031-54464-4">Springer</a> in 2024.
+                <p class="lead">The lack of resources and methodological guidance on learning analytics has been a problem ever since the field started, and continues to be a problem today. We thought that the arduous journey in learning analytics should not be endured by everyone and we decided to make that resource with the help of the learning analytics community as well as our collaborators.</p>
+            </div>
+        </section>
+
+        <section id="editors" class="py-5 bg-white grid">
+            <div class="container g-col-10 g-start-2">
+                <h2 class="text-center mb-5">Meet the Editors</h2>
+                <div class="grid g-4">
+                    <div class="g-col-12 g-col-md-6">
+                        <div class="card h-100 border-0">
+                            <div class="card-body text-center">
+                                <img class="bi bi-people fs-1 text-warning mb-3 img-thumbnail" src="saqr.png"> 
+                                <h3 class="card-title">Mohammed Saqr</h3>
+                                <p class="card-text small">
+                                Dr. Mohammed Saqr is an Associate Professor of Learning Analytics and an Academy of Finland Research Council Researcher leading the Unit of Learning Analytics at the University of Eastern Finland (UEF), School of Computing, recognized as Europe’s most productive learning analytics lab (2019–2024, Scopus/Web of Science). He earned his PhD in Learning Analytics from Stockholm University, Sweden, completed a postdoc at Université Paris Cité, France, and holds the title of Docent in Learning Analytics from the University of Oulu, Finland. </p>
+<p class="card-text small">
+Mohammed has published over 200 peer-reviewed studies spanning learning analytics, AI, big data, network science, and interdisciplinary applications. His work has earned him numerous accolades, including Best Full Paper Awards at LAK24 (2024), TEEM Conferences (2023, 2024), and ICCE (2020). He was awarded Europe’s Emerging Scholar by SoLAR (2023) for advancing learning analytics research and practice, the Outstanding Paper Award at SITE (2022), and the Best Thesis Award (2018) from Stockholm University. He has also been nominated for Best Paper and Poster Awards at IEEE ICALT and EC-TEL (2024). Additionally, he has received prestigious grants, such as funding from the Academy of Finland (as PI) for idiographic learning analytics and from the Swedish Research Council (as Co-PI). </p>
+<p class="card-text small">
+Mohammed serves as an Associate Editor for <em>IEEE Transactions on Learning Technologies</em> and <em>Frontiers in Education</em>, an Editorial Board Member of the <em>British Journal of Educational Technology</em>, and an Academic Editor for <em>PLOS One</em>. He has guest-edited special issues on AI and education for major journals and serves as Editor-in-Chief for three books. </p>
+<p class="card-text small">
+Mohammed has delivered over 30 invited keynotes and talks, chaired tracks at major conferences such as ICCE and TEEM, contributed to senior program committees for LAK, AIED, and EC-TEL, and edited proceedings for leading conferences. His international research network includes collaborations with over 200 researchers from Europe, North America, Asia, and Australia and Africa.
+                                </p>
+                                
+                                <a href="https://saqr.me" target="_blank"><button class="btn btn-warning  btn-sm">
+                                <i class="bi bi-globe"></i>
+                                Visit</button></a>
+                                
+                            </div>
+                        </div>
+                    </div>
+                    <div class="g-col-12 g-col-md-6">
+                        <div class="card h-100 border-0">
+                            <div class="card-body text-center">
+                                <img class="bi bi-people fs-1 text-warning mb-3 img-thumbnail" src="lopezpernas.jpg"> 
+                                <h3 class="card-title">Sonsoles López-Pernas</h3>
+                                <p class="card-text small">
+                                Dr. Sonsoles López-Pernas is an Academy Fellow at University of Eastern Finland (UEF), where she works since 2022 and holds the title of Docent (adjunct professor) in educational data mining. She obtained her Masters and PhD in Engineering from Universidad Politécnica de Madrid (Spain). During her career, she has developed several open-source software projects related to educational technology and big data analysis. She is skilled in quantitative methods that include learning analytics, machine learning, process and sequence mining, network analysis and data visualization. </p> 
+                                <p class="card-text small">Sonsoles has more than 150 publications in learning analytics, artificial intelligence, and game-based learning among other topics. She has obtained several prestigious awards and recognitions that include a research award from the Royal Academy of Doctors of Spain (RADE), the IEEE TCLT early career researcher award, the extraordinary PhD thesis award from Universidad Politécnica de Madrid, and two open source project awards in the university open source software contest (CUSL), as well as best paper awards and nominations in learning analytics and game-based learning. She has contributed to the organization of several scientific conferences and workshops (e.g., Finnish Learning Analytics and Artificial Intelligence in Education conference and Network Analysis workshop at LAK), and has been part of the program committee of LAK, AIED, ICCE, and Koli Calling among others. Sonsoles sits on the editorial board of IEEE Transactions on Education, Frontiers in Education, and PloS One. 
 </p>
-<p>
-The lack of resources and methodological guidance on learning analytics has been a problem ever since the field started, and continues to be a problem today. We thought that the arduous journey in learning analytics should not be endured by everyone and we decided to make that resource with the help of the learning analytics community as well as our collaborators.
+                                <p class="card-text small">
+                                Sonsoles is currently funded as a fellow by the Research Council of Finland through the project CRETIC (Optimizing Clinical Reasoning in Time-Critical Scenarios: A data-driven multimodal approach). She is also the Principal Investigator of the EU-funded projects ISILA (Improving the quality and sustainability of learning using early intervention methods based on learning analytics) and ENDGAME (Escaping New Disinformation through GAmified cross-border Media literacy Education).
+                                </p>
+                                <a href="https://sonsoles.me" target="_blank"><button class="btn btn-warning btn-sm">
+                                <i class="bi bi-globe"></i>
+                                Visit</button></a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <br>
+                 <p class="text-center mb-4">
+                 Together, Mohammed and Sonsoles have extensively published in top journals in the field such as Computers &amp; Education, International Journal of Computer Supported Collaborative Learning, Computers in Human Behavior, Journal of Learning Analytics and Educational Research Review as well as top conferences e.g., LAK, ECTEL, ICALT and TEEM.
 </p>
-<p>
-In this book, we tried to include all the basics of R as a programming language as well as the basics of data cleaning, statistics, and data manipulation. In doing so, we wanted the newcomers to find an easy entry to the field. We also tried to be as comprehensive as we could and included almost all major methodologies. For every method, we started with the basics, explaining the main concepts, the essential techniques, and basic functions. In subsequent chapters, we went deeper into advanced methods that are at the forefront of novel methodological innovations. We also used real-life learning analytics data and made it readily available to researchers. To do so, we collaborated with world-renowned researchers, package developers, and methodological experts from other fields to offer an unprecedented resource on novel topics that are hard to find any resource for.
-</p>
-<p>
-We hope the readers find this book useful as a guide through learning analytics methods, highlighting the ways in which data-driven insights can benefit educators, learners, and researchers.
-</p>
-<p>
-The editors
-</p>
-<p>
-<a href="https://saqr.me">Mohammed Saqr</a> and <a href="https://sonsoles.me">Sonsoles López-Pernas</a>
-</p>
+            </div>
+        </section>
+    </main>
+
+    </div>
 
 
-</section>
 
 </main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
@@ -392,13 +343,6 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     }
   }
   toggleBodyColorPrimary();  
-  const icon = "";
-  const anchorJS = new window.AnchorJS();
-  anchorJS.options = {
-    placement: 'right',
-    icon: icon
-  };
-  anchorJS.add('.anchored');
   const clipboard = new window.ClipboardJS('.code-copy-button', {
     target: function(trigger) {
       return trigger.previousElementSibling;
@@ -505,32 +449,12 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
   }
 });
 </script>
-<nav class="page-navigation">
-  <div class="nav-page nav-page-previous">
-  </div>
-  <div class="nav-page nav-page-next">
-      <a href="./contributors.html" class="pagination-link">
-        <span class="nav-page-text">Contributors</span> <i class="bi bi-arrow-right-short"></i>
-      </a>
-  </div>
-</nav>
 </div> <!-- /content -->
 <footer class="footer">
   <div class="nav-footer">
       <div class="nav-footer-center"><div class="cookie-consent-footer"><a href="#" id="open_preferences_center">Cookie Preferences</a></div></div>
   </div>
 </footer>
-<script>
-  document.querySelector(".quarto-title-meta-heading").innerHTML = "Editors"
-</script>
-<style>
-  #title-block-header.quarto-title-block.default .quarto-title-meta-contents a {
-      color: #2780e3 !important;
-  }
-  #title-block-header a {
-      text-decoration: underline;
-  }
-</style>
 
 
 

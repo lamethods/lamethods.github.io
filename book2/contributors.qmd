@@ -1,0 +1,147 @@
+---
+toc: false
+margin-footer: |
+    <span></span>
+include-after-body:
+  text: |
+    <script>
+    </script>
+---
+# Contributors {.unnumbered}
+
+```{r, echo = F}
+```
+
+```{css}
+#| echo: false
+
+p {
+  margin-bottom: 0 !important;
+}
+```
+
+## Editors
+
+[**Mohammed Saqr**](https://saqr.me), University of Eastern Finland
+
+[**Sonsoles López-Pernas**](https://sonsoles.me), University of Eastern Finland
+
+## Associate Editors
+
+**Sami Heikkinen**, LAB University of Applied Sciences
+
+**Rwitajit Majumdar**, Kumamoto University 
+
+**Ahmed Tlili**, Beijing Normal University
+
+## Authors
+
+**Rémi Altamore**, Université de Montpellier
+
+**Okan Bulut**, University of Alberta
+
+**Daryn Dever**, University of Florida
+
+**Christophe Gernigon**, University of Montpellier
+
+**Jiesi Guo**,  Australian Catholic University
+
+**Feifei Han**, Australian Catholic University
+
+**Sami Heikkinen**, LAB University of Applied Sciences
+
+**Hibiki Ito**, University of Helsinki
+
+**Avi Kaplan**, Temple University
+
+**Halil Kayaduman**, University of Eastern Finland
+
+**Tian Li**, University of Queensland
+
+**Rwitajit Majumdar**, Kumamoto University 
+
+**Gwen Marchand**, University of Nevada
+
+**Sonsoles López-Pernas**, University of Eastern Finland
+
+**Kamila Misiejuk**, FernUniversität in Hagen
+
+**Eduardo Oliveira**, University of Melbourne
+
+**Clément Roume,** Université de Haute-Alsace
+
+**Mohammed Saqr**, University of Eastern Finland
+
+**Yige Song**,  University of Melbourne
+
+**Anne Teboul**, Université de Montpellier
+
+**Santtu Tikka**, University of Jyväskylä
+
+**Ahmed Tlili**, Beijing Normal University
+
+**Leonie V.D.E**. Vogelsmeier, Tilburg University
+
+**Tarid Wongvorachan**, University of Alberta
+
+**Jinran Wu**, Australian Catholic University
+
+
+## Reviewers
+
+**Rémi Altamore**, University of Montpellier
+
+**Okan Bulut**, University of Alberta
+
+**Shaun Cavestany**, University of Eastern Finland
+
+**Javier Conde**, Universidad Politécnica de Madrid
+
+**Tudor Cristea**, Eindhoven University of Technology
+
+**Mouna Denden**, Université Polytechnique Hauts-de-France
+
+**Melis Dülger**, Utrecht University
+
+**Ramy Elmoazen**, University of Eastern Finland
+
+**Hamza Hammami**, University of Tunis El Manar
+
+**Sami Heikkinen**, LAB University of Applied Sciences
+
+**Halil Kayaduman**, Inonu University
+
+**Ville Kivimäki**, Aalto University
+
+**Qinyi Liu**, University of Bergen
+
+**Nidia Guadalupe López Flores**, Reykjavik University
+
+**Sonsoles López-Pernas**, University of Eastern Finland
+
+**Joonas Merikko**, Annie Advisor
+
+**Kamila Misiejuk**, FernUniversität in Hagen
+
+**Ramkumar Rajendran**, IIT Bombay
+
+**Daevesh Singh**, IIT Bombay
+
+**Jaani Väisänen**, LAB University of Applied Sciences
+
+**Pavani Vemuri**, KU Leuven
+
+**Esteban Villalobos**, Université Toulouse III 
+
+**Megan Wiedbusch**, University of Central Florida
+
+**Tarid Wongvorachan**, University of Alberta
+
+
+## Editorial support
+
+**Cyprien Dujardin**, Université de Technologie de Compiègne
+
+**Jules Delannoy**, Université de Technologie de Compiègne
+
+**Ibrahim Belayachi**, Université de Technologie de Compiègne

@@ -1,0 +1,18 @@
+{
+  "hash": "fd7e5dfeb2a13bf08d6b0938a490d95f",
+  "result": {
+    "markdown": "---\ntoc: false\nmargin-footer: |\n    <span></span>\ninclude-after-body:\n  text: |\n    <script>\n    </script>\n---\n\n# Contributors {.unnumbered}\n\n\n::: {.cell}\n\n:::\n\n::: {.cell}\n<style type=\"text/css\">\np {\n  margin-bottom: 0 !important;\n}\n</style>\n:::\n\n\n## Editors\n\n[**Mohammed Saqr**](https://saqr.me), University of Eastern Finland\n\n[**Sonsoles López-Pernas**](https://sonsoles.me), University of Eastern Finland\n\n## Associate Editors\n\n**Sami Heikkinen**, LAB University of Applied Sciences\n\n**Rwitajit Majumdar**, Kumamoto University \n\n**Ahmed Tlili**, Beijing Normal University\n\n## Authors\n\n**Rémi Altamore**, Université de Montpellier\n\n**Okan Bulut**, University of Alberta\n\n**Daryn Dever**, University of Florida\n\n**Christophe Gernigon**, University of Montpellier\n\n**Jiesi Guo**,  Australian Catholic University\n\n**Feifei Han**, Australian Catholic University\n\n**Sami Heikkinen**, LAB University of Applied Sciences\n\n**Hibiki Ito**, University of Helsinki\n\n**Avi Kaplan**, Temple University\n\n**Halil Kayaduman**, University of Eastern Finland\n\n**Tian Li**, University of Queensland\n\n**Rwitajit Majumdar**, Kumamoto University \n\n**Gwen Marchand**, University of Nevada\n\n**Sonsoles López-Pernas**, University of Eastern Finland\n\n**Kamila Misiejuk**, FernUniversität in Hagen\n\n**Eduardo Oliveira**, University of Melbourne\n\n**Clément Roume,** Université de Haute-Alsace\n\n**Mohammed Saqr**, University of Eastern Finland\n\n**Yige Song**,  University of Melbourne\n\n**Anne Teboul**, Université de Montpellier\n\n**Santtu Tikka**, University of Jyväskylä\n\n**Ahmed Tlili**, Beijing Normal University\n\n**Leonie V.D.E**. Vogelsmeier, Tilburg University\n\n**Tarid Wongvorachan**, University of Alberta\n\n**Jinran Wu**, Australian Catholic University\n\n\n## Reviewers\n\n**Rémi Altamore**, University of Montpellier\n\n**Okan Bulut**, University of Alberta\n\n**Shaun Cavestany**, University of Eastern Finland\n\n**Javier Conde**, Universidad Politécnica de Madrid\n\n**Tudor Cristea**, Eindhoven University of Technology\n\n**Mouna Denden**, Université Polytechnique Hauts-de-France\n\n**Melis Dülger**, Utrecht University\n\n**Ramy Elmoazen**, University of Eastern Finland\n\n**Hamza Hammami**, University of Tunis El Manar\n\n**Sami Heikkinen**, LAB University of Applied Sciences\n\n**Halil Kayaduman**, Inonu University\n\n**Ville Kivimäki**, Aalto University\n\n**Qinyi Liu**, University of Bergen\n\n**Nidia Guadalupe López Flores**, Reykjavik University\n\n**Sonsoles López-Pernas**, University of Eastern Finland\n\n**Joonas Merikko**, Annie Advisor\n\n**Kamila Misiejuk**, FernUniversität in Hagen\n\n**Ramkumar Rajendran**, IIT Bombay\n\n**Daevesh Singh**, IIT Bombay\n\n**Jaani Väisänen**, LAB University of Applied Sciences\n\n**Pavani Vemuri**, KU Leuven\n\n**Esteban Villalobos**, Université Toulouse III \n\n**Megan Wiedbusch**, University of Central Florida\n\n**Tarid Wongvorachan**, University of Alberta\n\n\n## Editorial support\n\n**Cyprien Dujardin**, Université de Technologie de Compiègne\n\n**Jules Delannoy**, Université de Technologie de Compiègne\n\n**Ibrahim Belayachi**, Université de Technologie de Compiègne\n",
+    "supporting": [],
+    "filters": [
+      "rmarkdown/pagebreak.lua"
+    ],
+    "includes": {
+      "include-in-header": [
+        "<link href=\"site_libs/pagedtable-1.1/css/pagedtable.css\" rel=\"stylesheet\" />\n<script src=\"site_libs/pagedtable-1.1/js/pagedtable.js\"></script>\n"
+      ]
+    },
+    "engineDependencies": {},
+    "preserve": {},
+    "postProcess": true
+  }
+}

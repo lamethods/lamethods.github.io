@@ -1,0 +1,1008 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.2.269">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="author" content="Eduardo Oliveira">
+<meta name="author" content="Yige Song">
+<meta name="author" content="Mohammed Saqr">
+<meta name="author" content="Sonsoles López-Pernas">
+<meta name="keywords" content="large language models, artificial intelligence, learning analytics">
+
+<title>Advanced learning analytics methods - 8&nbsp; An Introduction to Large Language Models in Education</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1.6em;
+  vertical-align: middle;
+}
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+}
+.hanging div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}
+</style>
+
+
+<script src="../../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../../">
+<link href="../../chapters/ch09-nlp/ch09-nlp.html" rel="next">
+<link href="../../chapters/ch07-xai-local/ch07-xai-local.html" rel="prev">
+<script src="../../site_libs/cookie-consent/cookie-consent.js"></script>
+<link href="../../site_libs/cookie-consent/cookie-consent.css" rel="stylesheet">
+<script src="../../site_libs/quarto-html/quarto.js"></script>
+<script src="../../site_libs/quarto-html/popper.min.js"></script>
+<script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 20,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit"
+  }
+}</script>
+<script async="" src="https://www.googletagmanager.com/gtag/js?id=G-Y4VBV3J9WD"></script>
+
+<script type="text/plain" cookie-consent="tracking">
+
+window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+gtag('js', new Date());
+gtag('config', 'G-Y4VBV3J9WD', { 'anonymize_ip': true});
+</script>
+
+<script type="text/javascript" charset="UTF-8">
+document.addEventListener('DOMContentLoaded', function () {
+cookieconsent.run({
+  "notice_banner_type":"simple",
+  "consent_type":"implied",
+  "palette":"light",
+  "language":"en",
+  "page_load_consent_levels":["strictly-necessary","functionality","tracking","targeting"],
+  "notice_banner_reject_button_hide":false,
+  "preferences_center_close_button_hide":false,
+  "website_name":""
+  });
+});
+</script> 
+  
+
+
+<meta name="twitter:title" content="Advanced learning analytics methods - 8&nbsp; An Introduction to Large Language Models in Education">
+<meta name="twitter:description" content="Large language models (LLMs) have become central to contemporary advancements in education.">
+<meta name="twitter:card" content="summary">
+<meta name="citation_title" content="[8]{.chapter-number}&nbsp; [An Introduction to Large Language Models in Education]{.chapter-title}">
+<meta name="citation_abstract" content="Large language models (LLMs) have become central to contemporary advancements in education. LLMs facilitate applications such as automated feedback, question generation, sentiment analysis, and multilingual accessibility. This chapter examines the mechanisms that underpin LLMs ---namely, transformer architecture, pre-training, and generative abilities. Moreover, we present the diverse applications of LLMs in education, some of which will be covered in subsequent tutorial chapters in the present book. Lastly, we explore tools for interacting with LLMs, from beginner-friendly web interfaces to more advanced tools like APIs and frameworks such as the OpenAI API and Hugging Face&amp;amp;#039;s Transformers.">
+<meta name="citation_keywords" content="large language models, artificial intelligence, learning analytics">
+<meta name="citation_author" content="Eduardo Oliveira">
+<meta name="citation_author" content="Yige Song">
+<meta name="citation_author" content="Mohammed Saqr">
+<meta name="citation_author" content="Sonsoles López-Pernas">
+<meta name="citation_fulltext_html_url" content="https://lamethods.github.io/ch08-llms.html">
+<meta name="citation_language" content="en">
+<meta name="citation_reference" content="citation_title=From text to video with AI: The rise and potential of sora in education and libraries;,citation_author=Adebowale Jeremy Adetayo;,citation_author=Augustine I. Enamudu;,citation_author=Folashade Munirat Lawal;,citation_author=Abiodun Olusegun Odunewu;,citation_publication_date=2024-03;,citation_cover_date=2024-03;,citation_year=2024;,citation_fulltext_html_url=https://www.emerald.com/insight/content/doi/10.1108/lhtn-02-2024-0028/full/html;,citation_doi=10.1108/lhtn-02-2024-0028;,citation_issn=0741-9058;,citation_journal_title=Library hi tech news;,citation_publisher=Emerald;">
+<meta name="citation_reference" content="citation_title=Using large language models to simulate multiple humans and replicate human subject studies;,citation_author=Gati V. Aher;,citation_author=Rosa I. Arriaga;,citation_author=Adam Tauman Kalai;,citation_editor=Andreas Krause;,citation_editor=Emma Brunskill;,citation_editor=Kyunghyun Cho;,citation_editor=Barbara Engelhardt;,citation_editor=Sivan Sabato;,citation_editor=Jonathan Scarlett;,citation_publication_date=2023;,citation_cover_date=2023;,citation_year=2023;,citation_fulltext_html_url=https://proceedings.mlr.press/v202/aher23a.html;,citation_volume=202;,citation_conference_title=Proceedings of the 40th international conference on machine learning;,citation_conference=PMLR;,citation_series_title=Proceedings of machine learning research;">
+<meta name="citation_reference" content="citation_title=Leveraging language models and automatic summarization in online programming learning environments;,citation_author=Carlos Areces;,citation_author=Luciana Benotti;,citation_author=Franco Bulgarelli;,citation_author=Emilia Echeveste;,citation_author=Nadia Finzi;,citation_publication_date=2024-08;,citation_cover_date=2024-08;,citation_year=2024;,citation_fulltext_html_url=https://dl.acm.org/doi/full/10.1145/3653323;,citation_issue=8;,citation_doi=10.1145/3653323;,citation_issn=0001-0782;,citation_volume=67;,citation_journal_title=Communications of the ACM;,citation_publisher=Association for Computing Machinery (ACM);">
+<meta name="citation_reference" content="citation_title=Language models are few-shot learners;,citation_author=Tom B. Brown;,citation_author=Benjamin Mann;,citation_author=Nick Ryder;,citation_author=Melanie Subbiah;,citation_author=Jared Kaplan;,citation_author=Prafulla Dhariwal;,citation_author=Arvind Neelakantan;,citation_author=Pranav Shyam;,citation_author=Girish Sastry;,citation_author=Amanda Askell;,citation_author=Sandhini Agarwal;,citation_author=Ariel Herbert-Voss;,citation_author=Gretchen Krueger;,citation_author=Tom Henighan;,citation_author=Rewon Child;,citation_author=Aditya Ramesh;,citation_author=Daniel M. Ziegler;,citation_author=Jeffrey Wu;,citation_author=Clemens Winter;,citation_author=Christopher Hesse;,citation_author=Mark Chen;,citation_author=Eric Sigler;,citation_author=Mateusz Litwin;,citation_author=Scott Gray;,citation_author=Benjamin Chess;,citation_author=Jack Clark;,citation_author=Christopher Berner;,citation_author=Sam McCandlish;,citation_author=Alec Radford;,citation_author=Ilya Sutskever;,citation_author=Dario Amodei;,citation_publication_date=2020;,citation_cover_date=2020;,citation_year=2020;,citation_isbn=9781713829546;,citation_conference_title=Proceedings of the 34th international conference on neural information processing systems;,citation_conference=Curran Associates Inc.;,citation_series_title=NIPS ’20;">
+<meta name="citation_reference" content="citation_title=Learning phrase representations using RNN encoder-decoder for statistical machine translation;,citation_author=Kyunghyun Cho;,citation_author=Bart Merrienboer;,citation_author=Caglar Gulcehre;,citation_author=Dzmitry Bahdanau;,citation_author=Fethi Bougares;,citation_author=Holger Schwenk;,citation_author=Yoshua Bengio;,citation_publication_date=2014-06;,citation_cover_date=2014-06;,citation_year=2014;,citation_fulltext_html_url=https://aclanthology.org/D14-1179.pdf;,citation_doi=10.3115/v1/d14-1179;,citation_conference_title=Proceedings of the 2014 conference on empirical methods in natural language processing (EMNLP);">
+<meta name="citation_reference" content="citation_title=Deep reinforcement learning from human preferences;,citation_author=Paul Christiano;,citation_author=Jan Leike;,citation_author=Tom B. Brown;,citation_author=Miljan Martic;,citation_author=Shane Legg;,citation_author=Dario Amodei;,citation_publication_date=2017-06;,citation_cover_date=2017-06;,citation_year=2017;,citation_fulltext_html_url=http://arxiv.org/abs/1706.03741;,citation_journal_title=arXiv [stat.ML];">
+<meta name="citation_reference" content="citation_title=EduBERT: Pretrained deep language models for learning analytics;,citation_author=Benjamin Clavié;,citation_author=Kobi Gal;,citation_publication_date=2019-12;,citation_cover_date=2019-12;,citation_year=2019;,citation_fulltext_html_url=http://arxiv.org/abs/1912.00690;,citation_journal_title=arXiv [cs.CY];">
+<meta name="citation_reference" content="citation_title=Evaluating the usage of text-to-speech in K12 education;,citation_author=Laduona Dai;,citation_author=Veronika Kritskaia;,citation_author=Evelien Velden;,citation_author=Merel M. Jung;,citation_author=Marie Postma;,citation_author=Max M. Louwerse;,citation_publication_date=2022-11;,citation_cover_date=2022-11;,citation_year=2022;,citation_fulltext_html_url=http://dx.doi.org/10.1145/3578837.3578864;,citation_doi=10.1145/3578837.3578864;,citation_conference_title=Proceedings of the 2022 6th international conference on education and e-learning;,citation_conference=ACM;">
+<meta name="citation_reference" content="citation_title=Human-in-the-loop AI reviewing: Feasibility, opportunities, and risks;,citation_author=Iddo Drori;,citation_author=Dov Te’eni;,citation_publication_date=2024;,citation_cover_date=2024;,citation_year=2024;,citation_fulltext_html_url=https://aisel.aisnet.org/jais/vol25/iss1/7/;,citation_doi=10.17705/1jais.00867;,citation_issn=1536-9323;,citation_volume=25;,citation_journal_title=Journal of the Association for Information Systems;,citation_publisher=aisel.aisnet.org;">
+<meta name="citation_reference" content="citation_title=Chain-of-thoughts prompting with language models for accurate math problem-solving;,citation_author=Sze Ching Evelyn Fung;,citation_author=Man Fai Wong;,citation_author=Chee Wei Tan;,citation_publication_date=2023-10;,citation_cover_date=2023-10;,citation_year=2023;,citation_fulltext_html_url=https://ieeexplore.ieee.org/abstract/document/10534945/?casa_token=fUJt75Ht5ZcAAAAA:iECGjiOLL1ESoz9H-7KMHh9qphc-SGwHFYkfYZ-lkUWKaqOiIF3qa4OBHLDQpPr--40gf0SLI1pDXg;,citation_doi=10.1109/urtc60662.2023.10534945;,citation_conference_title=2023 IEEE MIT undergraduate research technology conference (URTC);,citation_conference=IEEE;">
+<meta name="citation_reference" content="citation_title=K-12BERT: BERT for k-12 education;,citation_author=Vasu Goel;,citation_author=Dhruv Sahnan;,citation_author=V. Venktesh;,citation_author=Gaurav Sharma;,citation_author=Deep Dwivedi;,citation_author=Mukesh Mohania;,citation_publication_date=2022;,citation_cover_date=2022;,citation_year=2022;,citation_fulltext_html_url=https://link.springer.com/chapter/10.1007/978-3-031-11647-6_123;,citation_doi=10.1007/978-3-031-11647-6_123;,citation_isbn=9783031116469;,citation_issn=1611-3349;,citation_inbook_title=Artificial intelligence in education. Posters and late breaking results, workshops and tutorials, industry and innovation tracks, practitioners’ and doctoral consortium;,citation_series_title=Lecture notes in computer science;">
+<meta name="citation_reference" content="citation_title=Long short-term memory;,citation_author=S. Hochreiter;,citation_author=J. Schmidhuber;,citation_publication_date=1997-11;,citation_cover_date=1997-11;,citation_year=1997;,citation_fulltext_html_url=https://direct.mit.edu/neco/article-pdf/9/8/1735/813796/neco.1997.9.8.1735.pdf;,citation_issue=8;,citation_doi=10.1162/neco.1997.9.8.1735;,citation_issn=0899-7667;,citation_volume=9;,citation_journal_title=Neural computation;,citation_publisher=MIT Press - Journals;">
+<meta name="citation_reference" content="citation_title=Generating educational materials with different levels of readability using LLMs;,citation_author=Chieh-Yang Huang;,citation_author=Jing Wei;,citation_author=Ting-Hao Kenneth Huang;,citation_publication_date=2024-05;,citation_cover_date=2024-05;,citation_year=2024;,citation_fulltext_html_url=https://dl.acm.org/doi/abs/10.1145/3690712.3690718?casa_token=_O9pquyJSZkAAAAA:zWQIHoJdC3pIXthErMB2JTmucjWklS_dpKIC8bdD3YNI2bIp46kfxwhflMGFph-aDnnCh_qM2dU;,citation_doi=10.1145/3690712.3690718;,citation_conference_title=Proceedings of the third workshop on intelligent and interactive writing assistants;,citation_conference=ACM;">
+<meta name="citation_reference" content="citation_title=Large language models in education: A focus on the complementary relationship between human teachers and ChatGPT;,citation_author=Jaeho Jeon;,citation_author=Seongyong Lee;,citation_publication_date=2023-12;,citation_cover_date=2023-12;,citation_year=2023;,citation_fulltext_html_url=https://idp.springer.com/authorize/casa?redirect_uri=https://link.springer.com/article/10.1007/s10639-023-11834-1&amp;amp;amp;casa_token=1t9D2PEJVmIAAAAA:lnj8Z6V3tYP8c6cCwzNWC6NlRFNPittZYHRg8vhlVJ7Ae98XLrXZv_6kBv87INoDAyQfr_9MQGkoCi8;,citation_issue=12;,citation_doi=10.1007/s10639-023-11834-1;,citation_issn=1360-2357;,citation_volume=28;,citation_journal_title=Education and information technologies;,citation_publisher=Springer Science; Business Media LLC;">
+<meta name="citation_reference" content="citation_title=Teach AI how to code: Using large language models as teachable agents for programming education;,citation_author=Hyoungwook Jin;,citation_author=Seonghee Lee;,citation_author=Hyungyu Shin;,citation_author=Juho Kim;,citation_publication_date=2024-05;,citation_cover_date=2024-05;,citation_year=2024;,citation_fulltext_html_url=https://dl.acm.org/doi/10.1145/3613904.3642349;,citation_doi=10.1145/3613904.3642349;,citation_volume=8;,citation_conference_title=Proceedings of the CHI conference on human factors in computing systems;,citation_conference=ACM;">
+<meta name="citation_reference" content="citation_title=A survey of reinforcement learning from human feedback;,citation_author=Timo Kaufmann;,citation_author=Paul Weng;,citation_author=Viktor Bengs;,citation_author=Eyke Hüllermeier;,citation_publication_date=2023-12;,citation_cover_date=2023-12;,citation_year=2023;,citation_fulltext_html_url=http://arxiv.org/abs/2312.14925;,citation_journal_title=arXiv [cs.LG];">
+<meta name="citation_reference" content="citation_title=Creating artificial students that never existed: Leveraging large language models and CTGANs for synthetic data generation;,citation_author=Mohammad Khalil;,citation_author=Farhad Vadiee;,citation_author=Ronas Shakya;,citation_author=Qinyi Liu;,citation_publication_date=2025-01;,citation_cover_date=2025-01;,citation_year=2025;,citation_fulltext_html_url=http://arxiv.org/abs/2501.01793;,citation_journal_title=arXiv [cs.LG];">
+<meta name="citation_reference" content="citation_title=HumSum: A personalized lecture summarization tool for humanities students using LLMs;,citation_author=Zahra Kolagar;,citation_author=Alessandra Zarcone;,citation_publication_date=2024;,citation_cover_date=2024;,citation_year=2024;,citation_fulltext_html_url=https://aclanthology.org/2024.personalize-1.4.pdf;,citation_conference_title=Proceedings of the 1st workshop on personalization of generative AI systems (PERSONALIZE 2024);">
+<meta name="citation_reference" content="citation_title=Propagating large language models programming feedback;,citation_author=Charles Koutcheme;,citation_author=Arto Hellas;,citation_publication_date=2024-07;,citation_cover_date=2024-07;,citation_year=2024;,citation_fulltext_html_url=http://dx.doi.org/10.1145/3657604.3664665;,citation_doi=10.1145/3657604.3664665;,citation_volume=1009;,citation_conference_title=Proceedings of the eleventh ACM conference on learning @ scale;,citation_conference=ACM;">
+<meta name="citation_reference" content="citation_title=Role of AI chatbots in education: Systematic literature review;,citation_author=Lasha Labadze;,citation_author=Maya Grigolia;,citation_author=Lela Machaidze;,citation_publication_date=2023-10;,citation_cover_date=2023-10;,citation_year=2023;,citation_fulltext_html_url=http://dx.doi.org/10.1186/s41239-023-00426-1;,citation_issue=1;,citation_doi=10.1186/s41239-023-00426-1;,citation_issn=2365-9440;,citation_volume=20;,citation_journal_title=International journal of educational technology in higher education;,citation_publisher=Springer Science; Business Media LLC;">
+<meta name="citation_reference" content="citation_title=Gradient-based learning applied to document recognition;,citation_author=Y. Lecun;,citation_author=L. Bottou;,citation_author=Y. Bengio;,citation_author=P. Haffner;,citation_publication_date=1998;,citation_cover_date=1998;,citation_year=1998;,citation_fulltext_html_url=https://ieeexplore.ieee.org/document/726791;,citation_issue=11;,citation_doi=10.1109/5.726791;,citation_issn=0018-9219;,citation_volume=86;,citation_journal_title=Proceedings of the IEEE. Institute of Electrical and Electronics Engineers;,citation_publisher=Institute of Electrical; Electronics Engineers (IEEE);">
+<meta name="citation_reference" content="citation_title=Few-shot is enough: Exploring ChatGPT prompt engineering method for automatic question generation in english education;,citation_author=Unggi Lee;,citation_author=Haewon Jung;,citation_author=Younghoon Jeon;,citation_author=Younghoon Sohn;,citation_author=Wonhee Hwang;,citation_author=Jewoong Moon;,citation_author=Hyeoncheol Kim;,citation_publication_date=2024-06;,citation_cover_date=2024-06;,citation_year=2024;,citation_fulltext_html_url=https://link.springer.com/article/10.1007/s10639-023-12249-8;,citation_issue=9;,citation_doi=10.1007/s10639-023-12249-8;,citation_issn=1360-2357;,citation_volume=29;,citation_journal_title=Education and information technologies;,citation_publisher=Springer Science; Business Media LLC;">
+<meta name="citation_reference" content="citation_title=How can i get it right? Using GPT to rephrase incorrect trainee responses;,citation_author=Jionghao Lin;,citation_author=Zifei Han;,citation_author=Danielle R. Thomas;,citation_author=Ashish Gurung;,citation_author=Shivang Gupta;,citation_author=Vincent Aleven;,citation_author=Kenneth R. Koedinger;,citation_publication_date=2024-07;,citation_cover_date=2024-07;,citation_year=2024;,citation_fulltext_html_url=https://link.springer.com/article/10.1007/s40593-024-00408-y;,citation_doi=10.1007/s40593-024-00408-y;,citation_issn=1560-4292;,citation_journal_title=International journal of artificial intelligence in education;,citation_publisher=Springer Science; Business Media LLC;">
+<meta name="citation_reference" content="citation_title=Scaffolding language learning via multi-modal tutoring systems with pedagogical instructions;,citation_author=Zhengyuan Liu;,citation_author=Stella Xin Yin;,citation_author=Carolyn Lee;,citation_author=Nancy F. Chen;,citation_publication_date=2024-04;,citation_cover_date=2024-04;,citation_year=2024;,citation_fulltext_html_url=http://arxiv.org/abs/2404.03429;,citation_journal_title=arXiv [cs.CL];">
+<meta name="citation_reference" content="citation_title=Ethical considerations and potential risks in the deployment of large language models in diverse societal contexts;,citation_author=Udara Piyasena Liyanage;,citation_author=Nimnaka Dilshan Ranaweera;,citation_publication_date=2023-11;,citation_cover_date=2023-11;,citation_year=2023;,citation_fulltext_html_url=https://vectoral.org/index.php/JCSD/article/view/49;,citation_issue=11;,citation_volume=8;,citation_journal_title=Journal of Computational Social Dynamics;,citation_publisher=vectoral.org;">
+<meta name="citation_reference" content="citation_title=Using BERT-like language models for automated discourse coding: A primer and tutorial;,citation_author=Sonsoles López-Pernas;,citation_author=Kamila Misiejuk;,citation_author=Mohammed Saqr;,citation_editor=Mohammed Saqr;,citation_editor=Sonsoles López-Pernas;,citation_publication_date=2025;,citation_cover_date=2025;,citation_year=2025;,citation_inbook_title=Advanced learning analytics methods: AI, precision and complexity;">
+<meta name="citation_reference" content="citation_title=AI, explainable AI and evaluative AI: An introduction to informed data-driven decision-making in education;,citation_author=Sonsoles López-Pernas;,citation_author=Eduardo Oliveira;,citation_author=Yige Song;,citation_author=Mohammed Saqr;,citation_editor=Mohammed Saqr;,citation_editor=Sonsoles López-Pernas;,citation_publication_date=2025;,citation_cover_date=2025;,citation_year=2025;,citation_inbook_title=Advanced learning analytics methods: AI, precision and complexity;">
+<meta name="citation_reference" content="citation_title=LLMs for explainable artificial intelligence: Automating natural language explanations of predictive analytics models;,citation_author=Sonsoles López-Pernas;,citation_author=Yige Song;,citation_author=Eduardo Oliveira;,citation_author=Mohammed Saqr;,citation_editor=Mohammed Saqr;,citation_editor=Sonsoles López-Pernas;,citation_publication_date=2025;,citation_cover_date=2025;,citation_year=2025;,citation_inbook_title=Advanced learning analytics methods: AI, precision and complexity;">
+<meta name="citation_reference" content="citation_title=Evaluation of student feedback within a MOOC using sentiment analysis and target groups;,citation_author=Karsten Lundqvist;,citation_author=Tharindu Liyanagunawardena;,citation_author=Louise Starkey;,citation_publication_date=2020-05;,citation_cover_date=2020-05;,citation_year=2020;,citation_fulltext_html_url=https://www.irrodl.org/index.php/irrodl/article/view/4783;,citation_issue=3;,citation_doi=10.19173/irrodl.v21i3.4783;,citation_issn=1492-3831;,citation_volume=21;,citation_journal_title=The International Review of Research in Open and Distributed Learning;,citation_publisher=Athabasca University Press;">
+<meta name="citation_reference" content="citation_title=Augmenting assessment with AI coding of online student discourse: A question of reliability;,citation_author=Kamila Misiejuk;,citation_author=Rogers Kaliisa;,citation_author=Jennifer Scianna;,citation_publication_date=2024-06;,citation_cover_date=2024-06;,citation_year=2024;,citation_fulltext_html_url=https://www.sciencedirect.com/science/article/pii/S2666920X24000171?dgcid=rss_sd_all;,citation_issue=100216;,citation_doi=10.1016/j.caeai.2024.100216;,citation_issn=2666-920X;,citation_volume=6;,citation_journal_title=Computers and Education: Artificial Intelligence;,citation_publisher=Elsevier BV;">
+<meta name="citation_reference" content="citation_title=Large language models as tools to generate radiology board-style multiple-choice questions;,citation_author=Neel P. Mistry;,citation_author=Huzaifa Saeed;,citation_author=Sidra Rafique;,citation_author=Thuy Le;,citation_author=Haron Obaid;,citation_author=Scott J. Adams;,citation_publication_date=2024-09;,citation_cover_date=2024-09;,citation_year=2024;,citation_fulltext_html_url=https://www.sciencedirect.com/science/article/pii/S107663322400432X;,citation_issue=9;,citation_doi=10.1016/j.acra.2024.06.046;,citation_issn=1076-6332;,citation_volume=31;,citation_journal_title=Academic radiology;,citation_publisher=Elsevier BV;">
+<meta name="citation_reference" content="citation_title=AI in language education: The impact of machine translation and ChatGPT;,citation_author=Louise Ohashi;,citation_publication_date=2024;,citation_cover_date=2024;,citation_year=2024;,citation_fulltext_html_url=https://link.springer.com/chapter/10.1007/978-3-031-71232-6_13;,citation_doi=10.1007/978-3-031-71232-6_13;,citation_isbn=9783031712319;,citation_issn=1868-4408;,citation_inbook_title=Intelligent systems reference library;,citation_series_title=Intelligent systems reference library;">
+<meta name="citation_reference" content="citation_title=Academic integrity considerations of AI large language models in the post-pandemic era: ChatGPT and beyond;,citation_author=Mike Perkins;,citation_publication_date=2023-01;,citation_cover_date=2023-01;,citation_year=2023;,citation_fulltext_html_url=https://open-publishing.org/journals/index.php/jutlp/article/view/635;,citation_issue=2;,citation_doi=10.53761/1.20.02.07;,citation_issn=1449-9789;,citation_volume=20;,citation_journal_title=Journal of university teaching &amp;amp;amp; learning practice;,citation_publisher=Open Access Publishing Association;">
+<meta name="citation_reference" content="citation_title=Automating data narratives in learning analytics dashboards using GenAI;,citation_author=Adriano Pinargote;,citation_author=Eddy Calderón;,citation_author=Kevin Cevallos;,citation_author=Gladys Carrillo;,citation_author=Katherine Chiluiza;,citation_author=Vanessa Echeverria;,citation_publication_date=2024;,citation_cover_date=2024;,citation_year=2024;,citation_fulltext_html_url=https://research.monash.edu/files/606148660/593895957_oa.pdf;,citation_conference_title=2024 joint of international conference on learning analytics and knowledge workshops;,citation_conference=CEUR-WS;">
+<meta name="citation_reference" content="citation_title=Large language models for education: Grading open-ended questions using ChatGPT;,citation_author=Gustavo Pinto;,citation_author=Isadora Cardoso-Pereira;,citation_author=Danilo Monteiro;,citation_author=Danilo Lucena;,citation_author=Alberto Souza;,citation_author=Kiev Gama;,citation_publication_date=2023-09;,citation_cover_date=2023-09;,citation_year=2023;,citation_fulltext_html_url=https://dl.acm.org/doi/abs/10.1145/3613372.3614197?casa_token=EQ7YgLsFdogAAAAA:M7CtdNC5eNEiVz9-kPtIgfVATc_azuQmIWfOATE4W40arAHt4HSV56eaX2R_SKxHCm1gpBm6WsdMKQ;,citation_doi=10.1145/3613372.3614197;,citation_conference_title=Proceedings of the XXXVII brazilian symposium on software engineering;,citation_conference=ACM;">
+<meta name="citation_reference" content="citation_title=Self-supervised learning: A succinct review;,citation_author=Veenu Rani;,citation_author=Syed Tufael Nabi;,citation_author=Munish Kumar;,citation_author=Ajay Mittal;,citation_author=Krishan Kumar;,citation_publication_date=2023-01;,citation_cover_date=2023-01;,citation_year=2023;,citation_fulltext_html_url=https://link.springer.com/article/10.1007/s11831-023-09884-2;,citation_issue=4;,citation_doi=10.1007/s11831-023-09884-2;,citation_issn=1134-3060;,citation_volume=30;,citation_journal_title=Archives of Computational Methods in Engineering. State of the Art Reviews;,citation_publisher=Springer Science; Business Media LLC;">
+<meta name="citation_reference" content="citation_title=Proximal policy optimization algorithms;,citation_author=John Schulman;,citation_author=Filip Wolski;,citation_author=Prafulla Dhariwal;,citation_author=Alec Radford;,citation_author=Oleg Klimov;,citation_publication_date=2017;,citation_cover_date=2017;,citation_year=2017;,citation_fulltext_html_url=http://dx.doi.org/10.48550/ARXIV.1707.06347;,citation_doi=10.48550/ARXIV.1707.06347;,citation_journal_title=arXiv [cs.LG];">
+<meta name="citation_reference" content="citation_title=ChatGPT and other large language models are double-edged swords;,citation_author=Yiqiu Shen;,citation_author=Laura Heacock;,citation_author=Jonathan Elias;,citation_author=Keith D. Hentel;,citation_author=Beatriu Reig;,citation_author=George Shih;,citation_author=Linda Moy;,citation_publication_date=2023-04;,citation_cover_date=2023-04;,citation_year=2023;,citation_fulltext_html_url=https://doi.org/10.1148/radiol.230163;,citation_doi=10.1148/radiol.230163;,citation_issn=0033-8419;,citation_volume=307;,citation_journal_title=Radiology;,citation_publisher=Radiological Society of North America (RSNA);">
+<meta name="citation_reference" content="citation_title=Emotion recognition from videos using multimodal large language models;,citation_author=Lorenzo Vaiani;,citation_author=Luca Cagliero;,citation_author=Paolo Garza;,citation_publication_date=2024-07;,citation_cover_date=2024-07;,citation_year=2024;,citation_fulltext_html_url=http://dx.doi.org/10.3390/fi16070247;,citation_issue=7;,citation_doi=10.3390/fi16070247;,citation_issn=1999-5903;,citation_volume=16;,citation_journal_title=Future internet;,citation_publisher=MDPI AG;">
+<meta name="citation_reference" content="citation_title=Attention is all you need;,citation_author=Ashish Vaswani;,citation_author=Noam M. Shazeer;,citation_author=Niki Parmar;,citation_author=Jakob Uszkoreit;,citation_author=Llion Jones;,citation_author=Aidan N. Gomez;,citation_author=Lukasz Kaiser;,citation_author=Illia Polosukhin;,citation_editor=I. Guyon;,citation_editor=U. Von Luxburg;,citation_editor=S. Bengio;,citation_editor=H. Wallach;,citation_editor=R. Fergus;,citation_editor=S. Vishwanathan;,citation_editor=R. Garnett;,citation_publication_date=2017-06;,citation_cover_date=2017-06;,citation_year=2017;,citation_fulltext_html_url=https://papers.nips.cc/paper/7181-attention-is-all-you-need;,citation_volume=30;,citation_journal_title=Neural Information Processing Systems;,citation_publisher=Curran Associates, Inc.;">
+<meta name="citation_reference" content="citation_title=Pre-trained language models and their applications;,citation_author=Haifeng Wang;,citation_author=Jiwei Li;,citation_author=Hua Wu;,citation_author=Eduard Hovy;,citation_author=Yu Sun;,citation_publication_date=2022-09;,citation_cover_date=2022-09;,citation_year=2022;,citation_fulltext_html_url=https://www.sciencedirect.com/science/article/pii/S2095809922006324;,citation_doi=10.1016/j.eng.2022.04.024;,citation_issn=2095-8099;,citation_volume=25;,citation_journal_title=Engineering (Beijing, China);,citation_publisher=Elsevier BV;">
+<meta name="citation_reference" content="citation_title=A review on code generation with LLMs: Application and evaluation;,citation_author=Jianxun Wang;,citation_author=Yixiang Chen;,citation_publication_date=2023-11;,citation_cover_date=2023-11;,citation_year=2023;,citation_fulltext_html_url=https://ieeexplore.ieee.org/abstract/document/10403378/?casa_token=Kykb_0n6lXMAAAAA:TQaoycJe36UMmhE-yVR5FK12d8Ju4YQc-fGYOH0R8yFKhmiGaiyGSVBrtAbad5ZwngRALnjx;,citation_doi=10.1109/medai59581.2023.00044;,citation_conference_title=2023 IEEE international conference on medical artificial intelligence (MedAI);,citation_conference=IEEE;">
+<meta name="citation_reference" content="citation_title=Aligning large language models with human: A survey;,citation_author=Yufei Wang;,citation_author=Wanjun Zhong;,citation_author=Liangyou Li;,citation_author=Fei Mi;,citation_author=Xingshan Zeng;,citation_author=Wenyong Huang;,citation_author=Lifeng Shang;,citation_author=Xin Jiang;,citation_author=Qun Liu;,citation_publication_date=2023-07;,citation_cover_date=2023-07;,citation_year=2023;,citation_fulltext_html_url=http://arxiv.org/abs/2307.12966;,citation_journal_title=arXiv [cs.CL];">
+<meta name="citation_reference" content="citation_title=Text-to-speech technology and math performance: A comparative study of students with disabilities, english language learners, and their general education peers;,citation_author=Xin Wei;,citation_publication_date=2024-06;,citation_cover_date=2024-06;,citation_year=2024;,citation_fulltext_html_url=https://journals.sagepub.com/doi/full/10.3102/0013189X241232995?casa_token=e7N4PHj2jakAAAAA%3AXqC0qY3bahIF-NLO9Lt6exgQsluKY0gNbtDJcGPV_HsAv8-UvpM5uZlq6o1U3HzuUxzwPO2Sh7NGPw;,citation_issue=5;,citation_doi=10.3102/0013189x241232995;,citation_issn=0013-189X;,citation_volume=53;,citation_journal_title=Educational researcher (Washington, D.C.: 1972);,citation_publisher=American Educational Research Association (AERA);">
+<meta name="citation_reference" content="citation_title=Elmer: Call LLM APIs from r;,citation_author=Hadley Wickham;,citation_publication_date=2024;,citation_cover_date=2024;,citation_year=2024;,citation_fulltext_html_url=https://github.com/tidyverse/elmer;">
+<meta name="citation_reference" content="citation_title=Understanding english as a foreign language students’ idea generation strategies for creative writing with natural language generation tools;,citation_author=David James Woo;,citation_author=Yanzhi Wang;,citation_author=Hengky Susanto;,citation_author=Kai Guo;,citation_publication_date=2023-12;,citation_cover_date=2023-12;,citation_year=2023;,citation_fulltext_html_url=http://dx.doi.org/10.1177/07356331231175999;,citation_issue=7;,citation_doi=10.1177/07356331231175999;,citation_issn=0735-6331;,citation_volume=61;,citation_journal_title=Journal of educational computing research;,citation_publisher=SAGE Publications;">
+<meta name="citation_reference" content="citation_title=Towards improving the reliability and transparency of ChatGPT for educational question answering;,citation_author=Yongchao Wu;,citation_author=Aron Henriksson;,citation_author=Martin Duneld;,citation_author=Jalal Nouri;,citation_publication_date=2023;,citation_cover_date=2023;,citation_year=2023;,citation_fulltext_html_url=https://link.springer.com/chapter/10.1007/978-3-031-42682-7_32;,citation_doi=10.1007/978-3-031-42682-7_32;,citation_isbn=9783031426810;,citation_issn=1611-3349;,citation_inbook_title=Lecture notes in computer science;,citation_series_title=Lecture notes in computer science;">
+<meta name="citation_reference" content="citation_title=Mathemyths: Leveraging large language models to teach mathematical language through child-AI co-creative storytelling;,citation_author=Chao Zhang;,citation_author=Xuechen Liu;,citation_author=Katherine Ziska;,citation_author=Soobin Jeon;,citation_author=Chi-Lin Yu;,citation_author=Ying Xu;,citation_publication_date=2024-05;,citation_cover_date=2024-05;,citation_year=2024;,citation_fulltext_html_url=https://dl.acm.org/doi/abs/10.1145/3613904.3642647;,citation_doi=10.1145/3613904.3642647;,citation_volume=33;,citation_conference_title=Proceedings of the CHI conference on human factors in computing systems;,citation_conference=ACM;">
+<meta name="citation_reference" content="citation_title=MM-LLMs: Recent advances in MultiModal large language models;,citation_author=Duzhen Zhang;,citation_author=Yahan Yu;,citation_author=Jiahua Dong;,citation_author=Chenxing Li;,citation_author=Dan Su;,citation_author=Chenhui Chu;,citation_author=Dong Yu;,citation_publication_date=2024-01;,citation_cover_date=2024-01;,citation_year=2024;,citation_fulltext_html_url=http://arxiv.org/abs/2401.13601;,citation_journal_title=arXiv [cs.CL];">
+<meta name="citation_reference" content="citation_title=LLMs for XAI: Future directions for explaining explanations;,citation_author=Alexandra Zytek;,citation_author=Sara Pidò;,citation_author=Kalyan Veeramachaneni;,citation_publication_date=2024-05;,citation_cover_date=2024-05;,citation_year=2024;,citation_fulltext_html_url=http://arxiv.org/abs/2405.06064;,citation_journal_title=arXiv [cs.AI];">
+</head>
+
+<body class="nav-sidebar floating nav-fixed">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg navbar-dark ">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container">
+    <a class="navbar-brand" href="../../index.html">
+    <span class="navbar-title">LA Methods</span>
+    </a>
+  </div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll ms-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="../../../index.html">
+ <span class="menu-text">Home</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../../../book1/index.html">
+ <span class="menu-text">Learning Analytics Methods and Tutorials</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../../../book2/index.html">
+ <span class="menu-text">Advanced Learning Analytics Methods</span></a>
+  </li>  
+  <li class="nav-item compact">
+    <a class="nav-link" href="https://github.com/lamethods/code2/"><i class="bi bi-github" role="img" aria-label="Source Code">
+</i> 
+ <span class="menu-text"></span></a>
+  </li>  
+</ul>
+              <div id="quarto-search" class="" title="Search"></div>
+          </div> <!-- /navcollapse -->
+      </div> <!-- /container-fluid -->
+    </nav>
+  <nav class="quarto-secondary-nav" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+    <div class="container-fluid d-flex justify-content-between">
+      <h1 class="quarto-secondary-nav-title"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">An Introduction to Large Language Models in Education</span></h1>
+      <button type="button" class="quarto-btn-toggle btn" aria-label="Show secondary navigation">
+        <i class="bi bi-chevron-right"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse sidebar-navigation floating overflow-auto">
+      <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Search"></div>
+        </div>
+      </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../index.html" class="sidebar-item-text sidebar-link">Welcome</a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../contributors.html" class="sidebar-item-text sidebar-link">Contributors</a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../chapters/ch01-intro/ch01-intro.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Introduction</span></a>
+  </div>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true">Artificial Intelligence</a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../chapters/ch02-AIxAI/ch02-aixai.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">AI and XAI</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../chapters/ch03-prediction/ch03-prediction.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Prediction</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../chapters/ch04-classification/ch04-classification.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Classification</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../chapters/ch05-regularization/ch05-regularization.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Regularization</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../chapters/ch06-xai-global/ch06-xai-global.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Global XAI</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../chapters/ch07-xai-local/ch07-xai-local.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Local XAI</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="true">Large Language Models</a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="true">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../chapters/ch08-llms/ch08-llms.html" class="sidebar-item-text sidebar-link active"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Large Language Models</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../chapters/ch09-nlp/ch09-nlp.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Natural Language Processing</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../chapters/ch10-bert/ch10-bert.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Classification with BERT</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../chapters/ch11-llmsxai/ch11-llmsxai.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Automated feedback with XAI and LLMs</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" aria-expanded="true">Complex Systems</a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" aria-expanded="true">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../chapters/ch12-cds/ch12-cds.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Complex Systems</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../chapters/ch13-ega/ch13-ega.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Exploratory Graph Analysis</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../chapters/ch14-rqa/ch14-rqa.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">Recurrent Quantification Analysis</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../chapters/ch15-tna/ch15-tna.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">15</span>&nbsp; <span class="chapter-title">Transition Network Analysis</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../chapters/ch16-ftna/ch16-ftna.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">16</span>&nbsp; <span class="chapter-title">Frequency-based Transition Network Analysis</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../chapters/ch17-tna-clusters/ch17-tna-clusters.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">17</span>&nbsp; <span class="chapter-title">Transition Network Analysis Clusters</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" aria-expanded="true">Idiographic</a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" aria-expanded="true">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../chapters/ch18-idio/ch18-idio.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">18</span>&nbsp; <span class="chapter-title">Within-person analysis</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../chapters/ch19-three-levels/ch19-three-levels.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">19</span>&nbsp; <span class="chapter-title">Heterogeneity</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../chapters/ch20-var/ch20-var.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">20</span>&nbsp; <span class="chapter-title">Vector Autoregression and uSEM</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../chapters/ch21-mle/ch21-mle.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">21</span>&nbsp; <span class="chapter-title">Maximum Likelihood Estimator</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../chapters/ch22-automl/ch22-automl.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">22</span>&nbsp; <span class="chapter-title">Automated Machine Learning</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+    </ul>
+    </div>
+</nav>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Table of contents</h2>
+   
+  <ul>
+  <li><a href="#introduction" id="toc-introduction" class="nav-link active" data-scroll-target="#introduction"><span class="toc-section-number">1</span>  Introduction</a></li>
+  <li><a href="#behind-the-scenes-of-llms" id="toc-behind-the-scenes-of-llms" class="nav-link" data-scroll-target="#behind-the-scenes-of-llms"><span class="toc-section-number">2</span>  Behind the scenes of LLMs</a>
+  <ul class="collapse">
+  <li><a href="#how-llms-work-the-transformer-architecture" id="toc-how-llms-work-the-transformer-architecture" class="nav-link" data-scroll-target="#how-llms-work-the-transformer-architecture"><span class="toc-section-number">2.1</span>  How LLMs Work: The “Transformer” Architecture</a></li>
+  <li><a href="#why-llms-work-the-power-of-being-pre-trained" id="toc-why-llms-work-the-power-of-being-pre-trained" class="nav-link" data-scroll-target="#why-llms-work-the-power-of-being-pre-trained"><span class="toc-section-number">2.2</span>  Why LLMs Work: The Power of Being “Pre-trained”</a></li>
+  <li><a href="#what-llms-do-the-generative-core-of-gpt" id="toc-what-llms-do-the-generative-core-of-gpt" class="nav-link" data-scroll-target="#what-llms-do-the-generative-core-of-gpt"><span class="toc-section-number">2.3</span>  What LLMs Do: The “Generative” Core of GPT</a></li>
+  <li><a href="#using-llms-from-web-interfaces-to-advanced-frameworks" id="toc-using-llms-from-web-interfaces-to-advanced-frameworks" class="nav-link" data-scroll-target="#using-llms-from-web-interfaces-to-advanced-frameworks"><span class="toc-section-number">2.4</span>  Using LLMs: From Web Interfaces to Advanced Frameworks</a></li>
+  </ul></li>
+  <li><a href="#conclusion" id="toc-conclusion" class="nav-link" data-scroll-target="#conclusion"><span class="toc-section-number">3</span>  Conclusion</a></li>
+  <li><a href="#bibliography" id="toc-bibliography" class="nav-link" data-scroll-target="#bibliography">References</a></li>
+  </ul>
+</nav>
+    <div class="quarto-margin-footer"><div class="margin-footer-item">
+<a href="https://github.com/lamethods/code2" target="_blank"> <button class="btn btn-outline-dark"> <svg xmlns="http://www.w3.org/2000/svg" viewbox="0 0 496 512" style="width: 22px;vertical-align: text-top;margin-right: 9px;"> <path d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3 .3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5 .3-6.2 2.3zm44.2-1.7c-2.9 .7-4.9 2.6-4.6 4.9 .3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3 .7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3 .3 2.9 2.3 3.9 1.6 1 3.6 .7 4.3-.7 .7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3 .7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3 .7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z" style="width: 24px;"> </path> </svg>Download code </button> </a>
+<div style="padding: 10px;">
+Check out our previous book! <br> <a href="../../../book1/index.html"><img src="../../../book1/1712067211600.jpeg" style="
+     width: 70%;
+ "></a>
+</div>
+<p><br> <small>© 2025 The authors</small></p>
+</div></div></div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title d-none d-lg-block"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">An Introduction to Large Language Models in Education</span></h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    <div>
+    <div class="quarto-title-meta-heading">Authors</div>
+    <div class="quarto-title-meta-contents">
+             <p>Eduardo Oliveira </p>
+             <p>Yige Song </p>
+             <p>Mohammed Saqr </p>
+             <p>Sonsoles López-Pernas </p>
+          </div>
+  </div>
+    
+  
+    
+  </div>
+  
+<div>
+  <div class="abstract">
+    <div class="abstract-title">Abstract</div>
+    Large language models (LLMs) have become central to contemporary advancements in education. LLMs facilitate applications such as automated feedback, question generation, sentiment analysis, and multilingual accessibility. This chapter examines the mechanisms that underpin LLMs —namely, transformer architecture, pre-training, and generative abilities. Moreover, we present the diverse applications of LLMs in education, some of which will be covered in subsequent tutorial chapters in the present book. Lastly, we explore tools for interacting with LLMs, from beginner-friendly web interfaces to more advanced tools like APIs and frameworks such as the OpenAI API and Hugging Face’s Transformers.
+  </div>
+</div>
+
+</header>
+
+<section id="introduction" class="level2" data-number="1">
+<h2 data-number="1" class="anchored" data-anchor-id="introduction"><span class="header-section-number">1</span> Introduction</h2>
+<p>Large Language Models (LLMs) are advanced AI systems primarily designed to process and generate human-like text, but their capabilities extend far beyond natural language tasks, enabling transformative applications across diverse domains, including education, research, software development, and more <span class="citation" data-cites="Brown_Mann_Ryder_Subbiah_Kaplan_Dhariwal_Neelakantan_Shyam_Sastry_Askell_et_al_2020 Vaswani_Shazeer_Parmar_Uszkoreit_Jones_Gomez_Kaiser_Polosukhin_2017">[<a href="#ref-Brown_Mann_Ryder_Subbiah_Kaplan_Dhariwal_Neelakantan_Shyam_Sastry_Askell_et_al_2020" role="doc-biblioref">1</a>, <a href="#ref-Vaswani_Shazeer_Parmar_Uszkoreit_Jones_Gomez_Kaiser_Polosukhin_2017" role="doc-biblioref">2</a>]</span>. Taking advantage of massive datasets and neural network architectures —such as the transformer mechanism <span class="citation" data-cites="Vaswani_Shazeer_Parmar_Uszkoreit_Jones_Gomez_Kaiser_Polosukhin_2017">[<a href="#ref-Vaswani_Shazeer_Parmar_Uszkoreit_Jones_Gomez_Kaiser_Polosukhin_2017" role="doc-biblioref">2</a>]</span>— LLMs can analyse context, predict sequential elements (e.g., the next word or token), and produce coherent, contextually appropriate outputs.</p>
+<p>While text generation and understanding are at the core of LLMs, their versatility stems from their ability to generalize patterns in data. This enables them to tackle tasks like code generation <span class="citation" data-cites="Wang_Chen_2023">[<a href="#ref-Wang_Chen_2023" role="doc-biblioref">3</a>]</span>, and even multimodal applications that integrate text with other data types, such as images and videos <span class="citation" data-cites="Zhang_Yu_Dong_Li_Su_Chu_Yu_2024">[<a href="#ref-Zhang_Yu_Dong_Li_Su_Chu_Yu_2024" role="doc-biblioref">4</a>]</span>. For instance, specialized models like Claude Sonnet excel in programming tasks, while multimodal extensions of GPT-4 demonstrate the ability to describe images and interpret visual data alongside textual inputs.</p>
+<p>LLMs are opening new possibilities in education by transforming how students learn and how educators teach and research <span class="citation" data-cites="Jeon_Lee_2023">[<a href="#ref-Jeon_Lee_2023" role="doc-biblioref">5</a>]</span>. These models can dynamically generate test questions tailored to diverse learning levels <span class="citation" data-cites="Mistry_Saeed_Rafique_Le_Obaid_Adams_2024">[<a href="#ref-Mistry_Saeed_Rafique_Le_Obaid_Adams_2024" role="doc-biblioref">6</a>]</span>, translate educational materials to improve accessibility <span class="citation" data-cites="Huang_Wei_Huang_2024">[<a href="#ref-Huang_Wei_Huang_2024" role="doc-biblioref">7</a>]</span>, summarize complex concepts for clearer understanding <span class="citation" data-cites="Areces_Benotti_Bulgarelli_Echeveste_Finzi_2024">[<a href="#ref-Areces_Benotti_Bulgarelli_Echeveste_Finzi_2024" role="doc-biblioref">8</a>]</span>, and simulate conversational practice to enhance language skills <span class="citation" data-cites="Liu_Yin_Lee_Chen_2024">[<a href="#ref-Liu_Yin_Lee_Chen_2024" role="doc-biblioref">9</a>]</span>. The personalization of learning experiences through LLMs can support students in mastering content at their own pace. In research, they enable the creation of synthetic datasets <span class="citation" data-cites="Khalil_Vadiee_Shakya_Liu_2025">[<a href="#ref-Khalil_Vadiee_Shakya_Liu_2025" role="doc-biblioref">10</a>]</span>, simulate experimental conditions for pedagogical studies <span class="citation" data-cites="Aher_Arriaga_Kalai_2023">[<a href="#ref-Aher_Arriaga_Kalai_2023" role="doc-biblioref">11</a>]</span>, and analyse vast corpora of text and structured data to uncover actionable insights.</p>
+<p>The scalability of LLMs, exemplified by models like GPT-3 with 175 billion parameters (i.e., the weights and biases of the different layers), has accelerated their adoption across fields. However, they are not without limitations. Issues such as biased, inaccurate, or fabricated outputs highlight the need for critical human oversight <span class="citation" data-cites="Liyanage_Ranaweera_2023">[<a href="#ref-Liyanage_Ranaweera_2023" role="doc-biblioref">12</a>]</span>. A human-in-the-loop approach is crucial to ensuring that LLMs align with educational goals and ethical standards, serving as tools to enhance learning rather than replace human expertise <span class="citation" data-cites="Drori_Teeni_2024 Wang_Zhong_Li_Mi_Zeng_Huang_Shang_Jiang_Liu_2023">[<a href="#ref-Drori_Teeni_2024" role="doc-biblioref">13</a>, <a href="#ref-Wang_Zhong_Li_Mi_Zeng_Huang_Shang_Jiang_Liu_2023" role="doc-biblioref">14</a>]</span>. Despite these challenges, LLMs are transforming how information is delivered, processed, and utilized. Their ability to integrate language understanding with broader data-processing capabilities positions them as invaluable tools for solving complex problems and enhancing accessibility across disciplines. The following sections explore the transformative applications of LLMs in education research and practice.</p>
+</section>
+<section id="behind-the-scenes-of-llms" class="level2" data-number="2">
+<h2 data-number="2" class="anchored" data-anchor-id="behind-the-scenes-of-llms"><span class="header-section-number">2</span> Behind the scenes of LLMs</h2>
+<p>To better understand how large language models function, it is helpful to break down their core components and processes into three interrelated aspects based on the acronym “GPT”: the Transformer architecture (T), which underpins their computational ability; the Pre-training phase (P), where the model learns patterns and knowledge from vast datasets; and the Generative abilities (G), which showcase their practical applications. The sequence T → P → G provides a logical progression from the foundational mechanics of LLMs to their training processes and, finally, to their real-world outputs. This structure offers a holistic view of these transformative technologies: first understanding the architecture that powers LLMs, then exploring how they are trained to predict and fine-tune their outputs, and ultimately seeing what they can generate. In the following sections, we explore each of these phases in detail, shedding light on their individual contributions to the overall capabilities of LLMs.</p>
+<section id="how-llms-work-the-transformer-architecture" class="level3" data-number="2.1">
+<h3 data-number="2.1" class="anchored" data-anchor-id="how-llms-work-the-transformer-architecture"><span class="header-section-number">2.1</span> How LLMs Work: The “Transformer” Architecture</h3>
+<p>The “Transformer” in GPT refers to the architectural framework that powers modern LLMs, enabling their remarkable fluency and adaptability. This architecture revolutionized natural language processing by introducing the attention mechanism <span class="citation" data-cites="Vaswani_Shazeer_Parmar_Uszkoreit_Jones_Gomez_Kaiser_Polosukhin_2017">[<a href="#ref-Vaswani_Shazeer_Parmar_Uszkoreit_Jones_Gomez_Kaiser_Polosukhin_2017" role="doc-biblioref">2</a>]</span>, which allows the model to understand relationships within a sequence and process context effectively. Without the “T,” LLMs could not achieve the coherence and precision that define their generative abilities.</p>
+<p>At its core, a LLM is a sophisticated function designed to predict the next element in a sequence. For example, given the input “The sun is shining”, the model might predict “brightly” or “today”. While this prediction task may sound straightforward, this isn’t a simple function like y = 2x + 1, in which the parameters are the coefficient of the linear function 2 and 1, and input of x=1 would give an output of 3. The underlying computations in LLMs are vastly more intricate. Instead of a handful of parameters, LLMs employ billions of them within multi-layered neural networks. Each layer refines the model’s understanding of the input, performing complex transformations based on the outputs of previous layers.</p>
+<p>Prior to the attention mechanism, models like recurrent neural networks (RNNs) <span class="citation" data-cites="Hochreiter_Schmidhuber_1997">[<a href="#ref-Hochreiter_Schmidhuber_1997" role="doc-biblioref">15</a>]</span> and convolutional neural networks (CNNs) <span class="citation" data-cites="Lecun_Bottou_Bengio_Haffner_1998">[<a href="#ref-Lecun_Bottou_Bengio_Haffner_1998" role="doc-biblioref">16</a>]</span> struggled to effectively process relationships in long or complex sequences, often treating input elements in isolation or with limited context <span class="citation" data-cites="Cho_van_Merrienboer_Gulcehre_Bahdanau_Bougares_Schwenk_Bengio_2014">[<a href="#ref-Cho_van_Merrienboer_Gulcehre_Bahdanau_Bougares_Schwenk_Bengio_2014" role="doc-biblioref">17</a>]</span>. The attention mechanism transformed this by allowing the model to weigh the importance of different parts of the input sequence based on their relevance to the task <span class="citation" data-cites="Vaswani_Shazeer_Parmar_Uszkoreit_Jones_Gomez_Kaiser_Polosukhin_2017">[<a href="#ref-Vaswani_Shazeer_Parmar_Uszkoreit_Jones_Gomez_Kaiser_Polosukhin_2017" role="doc-biblioref">2</a>]</span>. For example, consider the sentences “There’s a bat on the tree” and “He swings the bat”. In the first, “bat” refers to an animal, while in the second, it refers to a sports tool. The attention mechanism enables the model to focus on surrounding words like “tree” or “swings” to deduce the correct meaning. This ability to dynamically assign importance to specific words based on context is the key to LLMs’ accuracy and coherence.</p>
+<p>The attention mechanism calculates attention weights, assigning varying levels of importance to each word based on its relevance to the task at hand. For instance, in the sentence “The sun is shining”, the word “sun” is given more weight than less significant words like “the”. These weighted representations of words are passed through multiple layers of the neural network, with each layer building on the contextual understanding established by the previous one. Early layers might identify simple word relationships, like “sun” being associated with “shining”, while later layers incorporate broader knowledge, such as recognizing weather-related descriptions that often lead to words like “today” or “brightly”.</p>
+<p>In summary, the Transformer architecture is highly effective because it dynamically focuses attention on the most relevant parts of an input sequence at any given moment. This mechanism mirrors human behavior, where we concentrate on the information most pertinent to the task at hand while filtering out distractions. This synergy between attention and neural network computation forms the foundation of the architecture, making it the core of modern generative AI.</p>
+</section>
+<section id="why-llms-work-the-power-of-being-pre-trained" class="level3" data-number="2.2">
+<h3 data-number="2.2" class="anchored" data-anchor-id="why-llms-work-the-power-of-being-pre-trained"><span class="header-section-number">2.2</span> Why LLMs Work: The Power of Being “Pre-trained”</h3>
+<p>Previously, we discussed that LLMs are predictive models with billions of parameters, enabling them to perform complex calculations. But how are these parameters determined? That’s where the “P” in GPT - <strong>P</strong>re-training - comes in.</p>
+<p>In any prediction task, the goal is to learn from existing data to make accurate predictions for new inputs. For example, imagine you’re predicting the next number in a sequence like 2, 4, 6, 8. Based on the pattern, you might predict 10 as the next number. Similarly, LLMs predict the next word in a sentence based on patterns they’ve learned from vast amounts of text. For instance, given the sentence “The sun is shining”, the model might predict “brightly” as the next word. Before training begins, the structure of the model must be defined. In our example, this would mean deciding the type of rule used to predict the sequence, like identifying it as “add 2 to the previous number”. For LLMs, this involves defining the number of layers in the model, the capacity of the attention mechanism to focus on different parts of the input, and the dimensions of its internal representations and computations. These decisions shape how well the model can understand and generate language.</p>
+<p>Once the model structure is determined, the training process begins. In the numerical example, if we assume that we have an arithmetic sequence (that is, x<sub>t</sub> = 1 * x<sub>t-1</sub> + 2), the process involves identifying the parameters a=1 and b=2, which defines the rule for predicting the next number in the sequence. For LLMs, determining parameter values is far more complex, involving billions of parameters and advanced optimisation techniques. The training process is generally divided into two main stages: pre-training and fine-tuning, with reinforcement learning with human feedback (RLHF) often added for further refinement. Let us explore how these processes work in more detail in the following sections.</p>
+<section id="pre-training-and-fine-tuning" class="level4" data-number="2.2.1">
+<h4 data-number="2.2.1" class="anchored" data-anchor-id="pre-training-and-fine-tuning"><span class="header-section-number">2.2.1</span> Pre-training and Fine Tuning</h4>
+<p>Pre-training is the initial phase <span class="citation" data-cites="Wang_Li_Wu_Hovy_Sun_2022">[<a href="#ref-Wang_Li_Wu_Hovy_Sun_2022" role="doc-biblioref">18</a>]</span> where the model is exposed to a vast corpus of text data, such as books, articles, and websites. The size and diversity of this dataset are crucial for the model to learn general patterns of language, including grammar, semantics, and common word associations. Importantly, this process is self-supervised <span class="citation" data-cites="Rani_Nabi_Kumar_Mittal_Kumar_2023">[<a href="#ref-Rani_Nabi_Kumar_Mittal_Kumar_2023" role="doc-biblioref">19</a>]</span>, meaning the model learns from the structure of the data itself without requiring manually labelled examples. For instance, given the input “The sun is shining”, the model predicts the next word based on patterns it has seen in similar contexts during pre-training. In this case, it might predict words like “brightly” or “today” depending on the associations it has learned from the training data.</p>
+<p>On the technical side, the accuracy of these predictions is measured using a loss function, which quantifies how far the predicted word is from the actual next word in the sequence. For example, if the model predicts “cloudy” instead of “brightly,” the loss function assigns a higher value, indicating a larger error. These errors are minimized through a process called backpropagation, which calculates how each parameter in the model contributes to the error. Optimisation algorithms then adjust the parameters to reduce the loss, gradually improving the model’s ability to make accurate predictions.</p>
+<p>After pre-training, the model undergoes fine-tuning on smaller, domain-specific datasets. For example, if the model is to generate weather reports, it might be fine-tuned on a specialized corpus of meteorological data. This step builds on the general language patterns learned during pre-training, refining the model to perform specialized tasks with high accuracy. Returning to the earlier example, fine-tuning might teach the model to complete “The sun is shining” with specific terms like “in the afternoon” or “through the clouds”, based on its specialized training data.</p>
+</section>
+<section id="reinforcement-learning-with-human-feedback-rlhf" class="level4" data-number="2.2.2">
+<h4 data-number="2.2.2" class="anchored" data-anchor-id="reinforcement-learning-with-human-feedback-rlhf"><span class="header-section-number">2.2.2</span> Reinforcement Learning with Human Feedback (RLHF)</h4>
+<p>To further enhance the model’s alignment with human expectations, a process called reinforcement learning with human feedback (RLHF) <span class="citation" data-cites="Kaufmann_Weng_Bengs_Hüllermeier_2023">[<a href="#ref-Kaufmann_Weng_Bengs_Hüllermeier_2023" role="doc-biblioref">20</a>]</span> is often applied. This technique fine-tunes the model beyond its technical accuracy, ensuring it generates outputs that are clear, relevant, and aligned with human preferences. The approach was popularized by the work of Christiano et al.&nbsp;[2017], which demonstrated how human preferences could be used to guide models in learning complex tasks where clear evaluation criteria are difficult to define.</p>
+<p>In RLHF, human evaluators review the model’s outputs and rank them based on criteria like clarity, appropriateness, and usefulness. For instance, if the model is tasked with completing the phrase “The sun is shining”, it might produce options like “brightly”, “on the horizon”, or “through the clouds”. Evaluators would rank these outputs, perhaps preferring “brightly” for its clarity and generality over “on the horizon”, which might seem overly specific. These rankings are then used to train a reward model, which predicts scores for outputs based on their alignment with human preferences.</p>
+<p>During the reinforcement learning phase, the LLM generates new predictions, and the reward model assigns scores to these predictions. Using reinforcement learning algorithms, such as Proximal Policy Optimisation (PPO) <span class="citation" data-cites="Schulman_Wolski_Dhariwal_Radford_Klimov_2017">[<a href="#ref-Schulman_Wolski_Dhariwal_Radford_Klimov_2017" role="doc-biblioref">21</a>]</span>, the LLM updates its parameters to maximize the reward from the reward model. During this process, desirable outputs are assigned higher scores, while less preferred options are penalized. Through this iterative process, the model improves its ability to align with human-provided feedback, producing outputs that better meet expectations for clarity, relevance, and user-friendliness.</p>
+</section>
+</section>
+<section id="what-llms-do-the-generative-core-of-gpt" class="level3" data-number="2.3">
+<h3 data-number="2.3" class="anchored" data-anchor-id="what-llms-do-the-generative-core-of-gpt"><span class="header-section-number">2.3</span> What LLMs Do: The “Generative” Core of GPT</h3>
+<p>At the heart of large language models lies their generative ability - the “G” in GPT - which enables them to produce coherent, contextually relevant, and often human-like text. This generative capability transforms LLMs from passive tools into active collaborators across a wide range of applications, from creative writing and summarizing complex documents to coding and conversational AI.</p>
+<p>The generative process begins with a prompt, which serves as the input to the model. For instance, given the phrase “The sun is shining”, the model predicts likely continuations one word after another based on patterns it has learned during training. It might generate “brightly through the clouds” or “today after a long storm,” depending on its understanding of the context and relationships within the data it was trained on. This prediction is not random but calculated from probabilities assigned to thousands of potential next words, allowing the model to choose the most appropriate continuation.</p>
+<p>LLMs excel in generating text that reflects the tone, style, and intent of the input. For example, when prompted with “Write a formal letter about sunny weather”, the model might begin: “Dear Sir/Madam, I am writing to express my appreciation for the delightful sunny weather we have been experiencing”. Conversely, a casual prompt like “Tell me something cool about sunny days” could result in: “Did you know sunshine boosts your serotonin levels, making you feel happier?”. These examples demonstrate the model’s ability to adapt to the user’s intent and produce contextually appropriate outputs.</p>
+<p>Beyond generating text, LLMs can perform tasks such as aiding in language learning <span class="citation" data-cites="Liu_Yin_Lee_Chen_2024">[<a href="#ref-Liu_Yin_Lee_Chen_2024" role="doc-biblioref">9</a>]</span>, creating summaries <span class="citation" data-cites="Areces_Benotti_Bulgarelli_Echeveste_Finzi_2024">[<a href="#ref-Areces_Benotti_Bulgarelli_Echeveste_Finzi_2024" role="doc-biblioref">8</a>]</span>, and writing code <span class="citation" data-cites="Wang_Chen_2023">[<a href="#ref-Wang_Chen_2023" role="doc-biblioref">3</a>]</span>. This flexibility stems from their pre-training on diverse datasets that include examples across various domains, enabling them to handle a broad range of tasks. Despite its versatility, the generative process is not without challenges. LLMs may occasionally produce outputs that are factually inaccurate, contextually inappropriate, or overly verbose—a phenomenon known as “hallucination”. This highlights the importance of human oversight to ensure the quality and reliability of their outputs. Table 1 summarizes the main uses of LLMs and how they can be applied to different tasks in education and learning analytics.</p>
+<table class="table">
+<caption>Summary of main LLM tasks</caption>
+<colgroup>
+<col style="width: 9%">
+<col style="width: 12%">
+<col style="width: 11%">
+<col style="width: 30%">
+<col style="width: 36%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Task</th>
+<th>Description</th>
+<th>Example Models</th>
+<th>How It Works Technically</th>
+<th>Application in education</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Text Completion</td>
+<td>Predicting and generating text to complete a prompt.</td>
+<td>GPT-4, GPT-o1, Claude, LLaMA</td>
+<td>Utilizes autoregressive transformers to predict the next token based on preceding tokens, employing learned probability distributions.</td>
+<td>Auto-generating personalized feedback for students <span class="citation" data-cites="Koutcheme_Hellas_2024">[<a href="#ref-Koutcheme_Hellas_2024" role="doc-biblioref">22</a>]</span> .</td>
+</tr>
+<tr class="even">
+<td>Text Generation (Creative Writing)</td>
+<td>Generating creative and coherent long-form text.</td>
+<td>GPT-4, GPT-o1, Claude, LLaMA</td>
+<td>Uses autoregressive token prediction to produce semantically coherent, fluent, and diverse text.</td>
+<td>Supporting creative writing assignments, generating essay ideas, or storytelling exercises for students <span class="citation" data-cites="Woo_Wang_Susanto_Guo_2023">[<a href="#ref-Woo_Wang_Susanto_Guo_2023" role="doc-biblioref">23</a>]</span>.</td>
+</tr>
+<tr class="odd">
+<td>Question Answering</td>
+<td>Providing answers to factual or contextual questions.</td>
+<td>GPT-4, Claude, Gemini, RoBERTa</td>
+<td>Employs attention mechanisms to focus on relevant parts of the input context, generating precise answers. In extractive QA, identifies and extracts specific text spans.</td>
+<td>Automated Q&amp;A systems for course material, providing quick answers to student queries <span class="citation" data-cites="Wu_Henriksson_Duneld_Nouri_2023">[<a href="#ref-Wu_Henriksson_Duneld_Nouri_2023" role="doc-biblioref">24</a>]</span></td>
+</tr>
+<tr class="even">
+<td>Question Generation</td>
+<td>Generating questions based on input content.</td>
+<td>GPT-4, T5, BERT-QG</td>
+<td>Sequence-to-sequence models generate question tokens conditioned on input context.</td>
+<td>Auto-generating quiz questions or comprehension tests from textbook material or lecture notes <span class="citation" data-cites="Lee_Jung_Jeon_Sohn_Hwang_Moon_Kim_2024">[<a href="#ref-Lee_Jung_Jeon_Sohn_Hwang_Moon_Kim_2024" role="doc-biblioref">25</a>]</span>.</td>
+</tr>
+<tr class="odd">
+<td>Text Summarization</td>
+<td>Generating concise summaries from longer texts.</td>
+<td>GPT-4, Gemini, Claude, BART, T5</td>
+<td>Applies sequence-to-sequence transformer architectures to condense input text into coherent summaries, preserving essential information.</td>
+<td>Summarizing lecture notes, research papers, or learning materials for quicker understanding <span class="citation" data-cites="Kolagar_Zarcone_2024">[<a href="#ref-Kolagar_Zarcone_2024" role="doc-biblioref">26</a>]</span>.</td>
+</tr>
+<tr class="even">
+<td>Translation</td>
+<td>Translating text between languages.</td>
+<td>GPT-4, Gemini, mT5, LLaMA</td>
+<td>Uses encoder-decoder transformer models to map input tokens from the source language to the target language, aligning syntactic and semantic structures.</td>
+<td>Supporting multilingual learners by translating course materials, assignments, or instructions <span class="citation" data-cites="Ohashi_2024">[<a href="#ref-Ohashi_2024" role="doc-biblioref">27</a>]</span>.</td>
+</tr>
+<tr class="odd">
+<td>Text Classification</td>
+<td>Assigning labels or categories to text.</td>
+<td>BERT, RoBERTa, DistilBERT</td>
+<td>Tokenizes input text and processes it through transformer layers to produce embeddings, which are then classified into categories using a task-specific head.</td>
+<td>Analyzing student responses for sentiment (e.g., identifying frustration) <span class="citation" data-cites="Lundqvist_Liyanagunawardena_Starkey_2020">[<a href="#ref-Lundqvist_Liyanagunawardena_Starkey_2020" role="doc-biblioref">28</a>]</span>, or automatic discourse coding <span class="citation" data-cites="Misiejuk_Kaliisa_Scianna_2024">[<a href="#ref-Misiejuk_Kaliisa_Scianna_2024" role="doc-biblioref">29</a>]</span>.</td>
+</tr>
+<tr class="even">
+<td>Chat and Dialogue</td>
+<td>Generating conversational responses for chatbots.</td>
+<td>Claude, GPT-4, Gemini, LLaMA</td>
+<td>Maintains dialogue context by incorporating previous conversation turns, generating contextually relevant responses through autoregressive token prediction.</td>
+<td>Powering tutoring chatbots that assist students with real-time explanations and guidance <span class="citation" data-cites="Labadze_Grigolia_Machaidze_2023">[<a href="#ref-Labadze_Grigolia_Machaidze_2023" role="doc-biblioref">30</a>]</span>.</td>
+</tr>
+<tr class="odd">
+<td>Code Generation</td>
+<td>Writing or completing code snippets.</td>
+<td>GPT-o1, Codex, Gemini</td>
+<td>Predicts subsequent code tokens, based on previous training on a large corpora of code, ensuring syntactic and semantic correctness.</td>
+<td>Assisting students in programming courses by auto-generating or debugging code snippets <span class="citation" data-cites="Jin_Lee_Shin_Kim_2024">[<a href="#ref-Jin_Lee_Shin_Kim_2024" role="doc-biblioref">31</a>]</span>.</td>
+</tr>
+<tr class="even">
+<td>Paraphrasing and Rewriting</td>
+<td>Generating rephrased or simplified versions of input text.</td>
+<td>GPT-4, Claude, T5</td>
+<td>Fine-tuned models rephrase input text while preserving semantic meaning, often using reinforcement learning.</td>
+<td>Helping students rephrase ideas to avoid plagiarism, simplifying content, or generating alternative explanations of concepts <span class="citation" data-cites="Lin_Han_Thomas_Gurung_Gupta_Aleven_Koedinger_2024 Perkins_2023">[<a href="#ref-Lin_Han_Thomas_Gurung_Gupta_Aleven_Koedinger_2024" role="doc-biblioref">32</a>, <a href="#ref-Perkins_2023" role="doc-biblioref">33</a>]</span>.</td>
+</tr>
+<tr class="odd">
+<td>Style Transfer</td>
+<td>Rewriting text with a different style or tone.</td>
+<td>GPT-4, CTRL, Claude, LLaMA</td>
+<td>Generates text conditioned on desired stylistic attributes, often fine-tuned on datasets exemplifying target styles to learn appropriate transformations.</td>
+<td>Simplifying advanced academic content for younger students or adapting tone for academic writing <span class="citation" data-cites="Zhang_Liu_Ziska_Jeon_Yu_Xu_2024">[<a href="#ref-Zhang_Liu_Ziska_Jeon_Yu_Xu_2024" role="doc-biblioref">34</a>]</span>.</td>
+</tr>
+<tr class="even">
+<td>Knowledge Extraction</td>
+<td>Extracting entities or relationships from text.</td>
+<td>GPT-4, BERT, Gemini</td>
+<td>Utilizes attention layers to identify and classify entities and their relationships within text, enabling structured information extraction.</td>
+<td>Extracting key concepts, relationships, or named entities from lecture transcripts and research articles.</td>
+</tr>
+<tr class="odd">
+<td>Task automation</td>
+<td>Performing tasks with minimal or no labeled examples.</td>
+<td>Claude, GPT-4, GPT-o1, BART</td>
+<td>Takes advantage of in-context learning by interpreting task instructions and examples provided within the input, adapting to new tasks without explicit retraining.</td>
+<td>Automating grading of open-ended responses with minimal training or applying rubrics <span class="citation" data-cites="Pinto_Cardoso-Pereira_Monteiro_Lucena_Souza_Gama_2023">[<a href="#ref-Pinto_Cardoso-Pereira_Monteiro_Lucena_Souza_Gama_2023" role="doc-biblioref">35</a>]</span>, performing tedious technical tasks such as converting a screenshot of a table into LATEX code.</td>
+</tr>
+<tr class="even">
+<td>Data-to-Text Generation</td>
+<td>Generating natural language summaries or explanations from structured data.</td>
+<td>GPT-4, T5</td>
+<td>Encoder-decoder architectures map structured inputs (e.g., tables) into coherent text.</td>
+<td>Generating textual explanations of student performance data, or dashboards <span class="citation" data-cites="Pinargote_Calderón_Cevallos_Carrillo_Chiluiza_Echeverria_2024">[<a href="#ref-Pinargote_Calderón_Cevallos_Carrillo_Chiluiza_Echeverria_2024" role="doc-biblioref">36</a>]</span>.</td>
+</tr>
+<tr class="odd">
+<td>Multimodal Integration</td>
+<td>Combining text with images, audio, or other modalities.</td>
+<td>Gemini, GPT-4V, CLIP</td>
+<td>Aligns representations from different modalities using combined encoder architectures, facilitating tasks that require understanding across multiple data types (image, audio, video, etc.).</td>
+<td>Analyzing student engagement via multimodal data (e.g., combining video, text, and audio) <span class="citation" data-cites="Vaiani_Cagliero_Garza_2024">[<a href="#ref-Vaiani_Cagliero_Garza_2024" role="doc-biblioref">37</a>]</span>.</td>
+</tr>
+<tr class="even">
+<td>Text-to-Speech</td>
+<td>Converting written text into spoken language.</td>
+<td>Tacotron, Gemini, WaveNet, VALL-E</td>
+<td>Deep learning architectures generate natural-sounding speech from tokenized text inputs.</td>
+<td>Assisting visually impaired students, enabling spoken lecture notes, teaching young children who cannot read yet, or improving pronunciation for language learners <span class="citation" data-cites="Dai_Kritskaia_van_der_Velden_Jung_Postma_Louwerse_2022 Wei_2024">[<a href="#ref-Dai_Kritskaia_van_der_Velden_Jung_Postma_Louwerse_2022" role="doc-biblioref">38</a>, <a href="#ref-Wei_2024" role="doc-biblioref">39</a>]</span>.</td>
+</tr>
+<tr class="odd">
+<td>Text-to-Video</td>
+<td>Converting written text into video.</td>
+<td>Sora, Runway Gen 2</td>
+<td>Multimodal transformer architectures process text as input and generate video sequences using latent diffusion or frame interpolation.</td>
+<td>Creating engaging educational videos from course materials <span class="citation" data-cites="Adetayo_Enamudu_Lawal_Odunewu_2024">[<a href="#ref-Adetayo_Enamudu_Lawal_Odunewu_2024" role="doc-biblioref">40</a>]</span></td>
+</tr>
+<tr class="even">
+<td>Reasoning &amp; Problem Solving</td>
+<td>Solving logical, mathematical, or structured reasoning tasks.</td>
+<td>Claude, GPT-4, GPT-o1, Gemini</td>
+<td>Employs chain-of-thought prompting and step-by-step token generation to tackle complex reasoning tasks, enhancing problem-solving capabilities</td>
+<td>Assisting students with step-by-step solutions in math or logical reasoning exercises, enhancing comprehension <span class="citation" data-cites="Fung_Wong_Tan_2023">[<a href="#ref-Fung_Wong_Tan_2023" role="doc-biblioref">41</a>]</span>.</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="using-llms-from-web-interfaces-to-advanced-frameworks" class="level3" data-number="2.4">
+<h3 data-number="2.4" class="anchored" data-anchor-id="using-llms-from-web-interfaces-to-advanced-frameworks"><span class="header-section-number">2.4</span> Using LLMs: From Web Interfaces to Advanced Frameworks</h3>
+<p>After understanding how LLMs work and what they can be used for, the next step is exploring how to use them in practical scenarios. Whether you are a beginner looking to interact with LLMs through simple web interfaces or an advanced user building custom applications using APIs and frameworks, there are many ways to harness their capabilities.</p>
+<p>For beginners, web interfaces like ChatGPT, Claude (by Anthropic), and Perplexity AI offer user-friendly ways to explore LLM capabilities without requiring technical expertise. These platforms can assist with summarizing academic papers, generating insights from student feedback, generating or assessing code, brainstorming interventions for struggling learners, and more. These tools support uploading files, such as PDFs, or accessing content from open-access URLs, making them versatile for analyzing publicly available academic content.</p>
+<p>Such tools demonstrate the transformative power of LLMs across diverse domains, enabling students to engage more deeply with complex concepts while allowing educators to focus on higher-level instruction and personalized support. Whether applied to programming, language learning, or data analysis, these tools foster iterative learning: if the initial output does not fully meet the user’s needs, prompts and inputs can be refined to generate more tailored and meaningful results. This interaction not only enhances understanding but also encourages critical thinking and adaptability in both learners and educators.</p>
+<p>The second way to interact with large language models is through an Application Programming Interface (API). An API acts as a bridge, allowing software applications to communicate with the LLM programmatically. This makes APIs essential for developers seeking to integrate LLMs into custom applications, websites, or tools. Using APIs offers several significant advantages, particularly in education and learning analytics. One of the key benefits is integration, as APIs can seamlessly connect LLM functionalities to various platforms, enabling educators and developers to embed advanced capabilities into their own applications or systems. This flexibility allows for the customization of LLM features to suit specific educational needs, such as automating feedback, analyzing student performance data, or generating personalized learning materials tailored to individual progress. APIs also enhance efficiency by automating repetitive tasks, reducing the need for manual interaction with web interfaces, and enabling large-scale operations. However, while APIs provide powerful tools for enhancing educational workflows, they require basic programming knowledge for implementation and careful management of API keys to ensure security and prevent unauthorized access. Additionally, API usage may incur costs, which could pose a limitation for projects with tight budgets.</p>
+<p>API implementations are available in many programming languages, being Python the most common one. In the R programming language —the main language used in this book—, the <em>elmer</em> package <span class="citation" data-cites="Wickham_2024">[<a href="#ref-Wickham_2024" role="doc-biblioref">42</a>]</span> provides wrappers to interact with the APIs of the most common LLMs. In Chapter <span class="citation" data-cites="López-Pernas_Song_Oliveira_Saqr_2025">[<a href="#ref-López-Pernas_Song_Oliveira_Saqr_2025" role="doc-biblioref">43</a>]</span> of this book, we provide a tutorial on how to use LLMs via API to obtain personalized feedback.</p>
+<p>While APIs like OpenAI’s are excellent for quick, scalable interactions with powerful pre-trained language models, they operate as black boxes, where you rely on the provider to host and manage the models. This simplicity is a significant strength, but it may not meet the needs of users seeking greater control for performing context-specific tasks. This is where frameworks like Hugging Face’s Transformers come in. While transformers are not the only option within the Hugging Face ecosystem, they are among the most powerful and widely used tools for leveraging state-of-the-art language models. Hugging Face provides an open-source library —with over 1 million models (Dec, 2024)— that allows users to download and run these models locally or on the cloud infrastructure you control. A comprehensive list of pre-trained models is available on the <a href="https://huggingface.co/models"><u>Hugging Face Models Hub</u></a>.</p>
+<p>In the context of education and learning analytics, transformers are capable of making sense of complex data, such as analyzing student feedback, extracting themes from surveys, or identifying trends in course engagement. Moreover, users can further customize these models and fine-tune them to address their specific education needs. By offering flexibility, greater control, and adaptability, transformers expand the potential of LLMs beyond the simplicity of many API-based interactions.</p>
+<p>Consider a scenario where an educator needs to analyse student feedback to understand sentiments and identify areas for improvement. A pre-trained sentiment analysis model from Hugging Face can quickly classify feedback as positive, neutral, or negative, offering actionable insights for educators. For example, a model such as <a href="https://huggingface.co/nlptown/bert-base-multilingual-uncased-sentiment"><u>bert-base-multilingual-uncased</u></a> can be used, which has been fine-tuned specifically for sentiment analysis of product reviews in six languages. It is designed for immediate use in analyzing sentiment across multilingual product reviews and can also serve as a robust starting point for further fine-tuning on related sentiment analysis tasks, such as analyzing students’ course feedback or collaborative discourse. A few LLMs that have been specifically trained for education purposes exist, such as EduBERT <span class="citation" data-cites="Clavié_Gal_2019">[<a href="#ref-Clavié_Gal_2019" role="doc-biblioref">44</a>]</span> or K-12BERT <span class="citation" data-cites="Goel_Sahnan_Venktesh_Sharma_Dwivedi_Mohania_2022">[<a href="#ref-Goel_Sahnan_Venktesh_Sharma_Dwivedi_Mohania_2022" role="doc-biblioref">45</a>]</span>. In Chapter 10 <span class="citation" data-cites="López-Pernas_Misiejuk_Saqr_2025">[<a href="#ref-López-Pernas_Misiejuk_Saqr_2025" role="doc-biblioref">46</a>]</span> of this book, we provide a tutorial on how to use language models locally to automatically classify students’ discourse in collaborative problem-solving.</p>
+</section>
+</section>
+<section id="conclusion" class="level2" data-number="3">
+<h2 data-number="3" class="anchored" data-anchor-id="conclusion"><span class="header-section-number">3</span> Conclusion</h2>
+<p>This chapter provided an introduction to LLMs, exploring their foundational components —transformer architecture, pre-training, and generative abilities—- while demonstrating their transformative potential across applications in education. Building on this, the chapter also explored tools for interacting with LLMs, from beginner-friendly web interfaces to more advanced tools like APIs and frameworks such as OpenAI API and Hugging Face’s Transformers. These approaches enable users to operationalize LLMs for tasks such as summarizing academic papers, automatic text classification, and generating of learning materials.</p>
+<p>However, as the integration of LLMs in education becomes increasingly widespread, it is crucial to critically examine their limitations. The potential for biases in their outputs, issues of factual inaccuracies, and the challenges of ensuring transparency and interpretability must be addressed to harness their capabilities effectively. A careful balance between taking advantage of LLMs’ strengths and mitigating their shortcomings is necessary to ensure they serve as tools that improve, rather than hinder, educational and research practices <span class="citation" data-cites="Shen_Heacock_Elias_Hentel_Reig_Shih_Moy_2023">[<a href="#ref-Shen_Heacock_Elias_Hentel_Reig_Shih_Moy_2023" role="doc-biblioref">47</a>]</span>.</p>
+<p>An important avenue for addressing these challenges is the integration of explainable AI (XAI) techniques with LLMs. XAI methods aim to make the predictions and operations of LLMs more transparent <span class="citation" data-cites="López-Pernas_Oliveira_Song_Saqr_2025 Zytek_Pidò_Veeramachaneni_2024">[<a href="#ref-López-Pernas_Oliveira_Song_Saqr_2025" role="doc-biblioref">48</a>, <a href="#ref-Zytek_Pidò_Veeramachaneni_2024" role="doc-biblioref">49</a>]</span>, helping users understand the factors driving their outputs. In educational contexts, for example, XAI can clarify why specific feedback was generated for a student or reveal how particular patterns in data influence predictions, such as grading or performance analytics. Transparency is needed to build trust by enabling users to identify potential biases or inaccuracies in model outputs. As the adoption of LLMs continues, embedding XAI into their workflows will be critical for ensuring ethical and equitable outcomes.</p>
+
+
+</section>
+<section id="bibliography" class="level1 unnumbered">
+<h1 class="unnumbered">References</h1>
+<div id="refs" class="references csl-bib-body" role="doc-bibliography">
+<div id="ref-Brown_Mann_Ryder_Subbiah_Kaplan_Dhariwal_Neelakantan_Shyam_Sastry_Askell_et_al_2020" class="csl-entry" role="doc-biblioentry">
+<div class="csl-left-margin">1. </div><div class="csl-right-inline">Brown TB, Mann B, Ryder N, Subbiah M, Kaplan J, Dhariwal P, Neelakantan A, Shyam P, Sastry G, Askell A, Agarwal S, Herbert-Voss A, Krueger G, Henighan T, Child R, Ramesh A, Ziegler DM, Wu J, Winter C, Hesse C, Chen M, Sigler E, Litwin M, Gray S, Chess B, Clark J, Berner C, McCandlish S, Radford A, Sutskever I, Amodei D (2020) Language models are few-shot learners. In: Proceedings of the 34th international conference on neural information processing systems. Curran Associates Inc., Red Hook, NY, USA</div>
+</div>
+<div id="ref-Vaswani_Shazeer_Parmar_Uszkoreit_Jones_Gomez_Kaiser_Polosukhin_2017" class="csl-entry" role="doc-biblioentry">
+<div class="csl-left-margin">2. </div><div class="csl-right-inline">Vaswani A, Shazeer NM, Parmar N, Uszkoreit J, Jones L, Gomez AN, Kaiser L, Polosukhin I (2017) <a href="https://papers.nips.cc/paper/7181-attention-is-all-you-need">Attention is all you need</a>. Neural Information Processing Systems 30:5998–6008</div>
+</div>
+<div id="ref-Wang_Chen_2023" class="csl-entry" role="doc-biblioentry">
+<div class="csl-left-margin">3. </div><div class="csl-right-inline">Wang J, Chen Y (2023) <a href="https://doi.org/10.1109/medai59581.2023.00044">A review on code generation with LLMs: Application and evaluation</a>. In: 2023 IEEE international conference on medical artificial intelligence (MedAI). IEEE, pp 284–289</div>
+</div>
+<div id="ref-Zhang_Yu_Dong_Li_Su_Chu_Yu_2024" class="csl-entry" role="doc-biblioentry">
+<div class="csl-left-margin">4. </div><div class="csl-right-inline">Zhang D, Yu Y, Dong J, Li C, Su D, Chu C, Yu D (2024) <a href="http://arxiv.org/abs/2401.13601">MM-LLMs: Recent advances in MultiModal large language models</a>. arXiv [cs.CL]</div>
+</div>
+<div id="ref-Jeon_Lee_2023" class="csl-entry" role="doc-biblioentry">
+<div class="csl-left-margin">5. </div><div class="csl-right-inline">Jeon J, Lee S (2023) Large language models in education: A focus on the complementary relationship between human teachers and ChatGPT. Education and information technologies 28:15873–15892. https://doi.org/<a href="https://doi.org/10.1007/s10639-023-11834-1">10.1007/s10639-023-11834-1</a></div>
+</div>
+<div id="ref-Mistry_Saeed_Rafique_Le_Obaid_Adams_2024" class="csl-entry" role="doc-biblioentry">
+<div class="csl-left-margin">6. </div><div class="csl-right-inline">Mistry NP, Saeed H, Rafique S, Le T, Obaid H, Adams SJ (2024) Large language models as tools to generate radiology board-style multiple-choice questions. Academic radiology 31:3872–3878. https://doi.org/<a href="https://doi.org/10.1016/j.acra.2024.06.046">10.1016/j.acra.2024.06.046</a></div>
+</div>
+<div id="ref-Huang_Wei_Huang_2024" class="csl-entry" role="doc-biblioentry">
+<div class="csl-left-margin">7. </div><div class="csl-right-inline">Huang C-Y, Wei J, Huang T-HK (2024) <a href="https://doi.org/10.1145/3690712.3690718">Generating educational materials with different levels of readability using LLMs</a>. In: Proceedings of the third workshop on intelligent and interactive writing assistants. ACM, New York, NY, USA, pp 16–22</div>
+</div>
+<div id="ref-Areces_Benotti_Bulgarelli_Echeveste_Finzi_2024" class="csl-entry" role="doc-biblioentry">
+<div class="csl-left-margin">8. </div><div class="csl-right-inline">Areces C, Benotti L, Bulgarelli F, Echeveste E, Finzi N (2024) Leveraging language models and automatic summarization in online programming learning environments. Communications of the ACM 67:86–87. https://doi.org/<a href="https://doi.org/10.1145/3653323">10.1145/3653323</a></div>
+</div>
+<div id="ref-Liu_Yin_Lee_Chen_2024" class="csl-entry" role="doc-biblioentry">
+<div class="csl-left-margin">9. </div><div class="csl-right-inline">Liu Z, Yin SX, Lee C, Chen NF (2024) <a href="http://arxiv.org/abs/2404.03429">Scaffolding language learning via multi-modal tutoring systems with pedagogical instructions</a>. arXiv [cs.CL]</div>
+</div>
+<div id="ref-Khalil_Vadiee_Shakya_Liu_2025" class="csl-entry" role="doc-biblioentry">
+<div class="csl-left-margin">10. </div><div class="csl-right-inline">Khalil M, Vadiee F, Shakya R, Liu Q (2025) <a href="http://arxiv.org/abs/2501.01793">Creating artificial students that never existed: Leveraging large language models and CTGANs for synthetic data generation</a>. arXiv [cs.LG]</div>
+</div>
+<div id="ref-Aher_Arriaga_Kalai_2023" class="csl-entry" role="doc-biblioentry">
+<div class="csl-left-margin">11. </div><div class="csl-right-inline">Aher GV, Arriaga RI, Kalai AT (2023) <a href="https://proceedings.mlr.press/v202/aher23a.html">Using large language models to simulate multiple humans and replicate human subject studies</a>. In: Krause A, Brunskill E, Cho K, Engelhardt B, Sabato S, Scarlett J (eds) Proceedings of the 40th international conference on machine learning. PMLR, pp 337–371</div>
+</div>
+<div id="ref-Liyanage_Ranaweera_2023" class="csl-entry" role="doc-biblioentry">
+<div class="csl-left-margin">12. </div><div class="csl-right-inline">Liyanage UP, Ranaweera ND (2023) <a href="https://vectoral.org/index.php/JCSD/article/view/49">Ethical considerations and potential risks in the deployment of large language models in diverse societal contexts</a>. Journal of Computational Social Dynamics 8:15–25</div>
+</div>
+<div id="ref-Drori_Teeni_2024" class="csl-entry" role="doc-biblioentry">
+<div class="csl-left-margin">13. </div><div class="csl-right-inline">Drori I, Te’eni D (2024) Human-in-the-loop AI reviewing: Feasibility, opportunities, and risks. Journal of the Association for Information Systems 25:7. https://doi.org/<a href="https://doi.org/10.17705/1jais.00867">10.17705/1jais.00867</a></div>
+</div>
+<div id="ref-Wang_Zhong_Li_Mi_Zeng_Huang_Shang_Jiang_Liu_2023" class="csl-entry" role="doc-biblioentry">
+<div class="csl-left-margin">14. </div><div class="csl-right-inline">Wang Y, Zhong W, Li L, Mi F, Zeng X, Huang W, Shang L, Jiang X, Liu Q (2023) <a href="http://arxiv.org/abs/2307.12966">Aligning large language models with human: A survey</a>. arXiv [cs.CL]</div>
+</div>
+<div id="ref-Hochreiter_Schmidhuber_1997" class="csl-entry" role="doc-biblioentry">
+<div class="csl-left-margin">15. </div><div class="csl-right-inline">Hochreiter S, Schmidhuber J (1997) Long short-term memory. Neural computation 9:1735–1780. https://doi.org/<a href="https://doi.org/10.1162/neco.1997.9.8.1735">10.1162/neco.1997.9.8.1735</a></div>
+</div>
+<div id="ref-Lecun_Bottou_Bengio_Haffner_1998" class="csl-entry" role="doc-biblioentry">
+<div class="csl-left-margin">16. </div><div class="csl-right-inline">Lecun Y, Bottou L, Bengio Y, Haffner P (1998) Gradient-based learning applied to document recognition. Proceedings of the IEEE Institute of Electrical and Electronics Engineers 86:2278–2324. https://doi.org/<a href="https://doi.org/10.1109/5.726791">10.1109/5.726791</a></div>
+</div>
+<div id="ref-Cho_van_Merrienboer_Gulcehre_Bahdanau_Bougares_Schwenk_Bengio_2014" class="csl-entry" role="doc-biblioentry">
+<div class="csl-left-margin">17. </div><div class="csl-right-inline">Cho K, Merrienboer B van, Gulcehre C, Bahdanau D, Bougares F, Schwenk H, Bengio Y (2014) <a href="https://doi.org/10.3115/v1/d14-1179">Learning phrase representations using RNN encoder-decoder for statistical machine translation</a>. In: Proceedings of the 2014 conference on empirical methods in natural language processing (EMNLP). pp 1724–1734</div>
+</div>
+<div id="ref-Wang_Li_Wu_Hovy_Sun_2022" class="csl-entry" role="doc-biblioentry">
+<div class="csl-left-margin">18. </div><div class="csl-right-inline">Wang H, Li J, Wu H, Hovy E, Sun Y (2022) Pre-trained language models and their applications. Engineering (Beijing, China) 25:51–65. https://doi.org/<a href="https://doi.org/10.1016/j.eng.2022.04.024">10.1016/j.eng.2022.04.024</a></div>
+</div>
+<div id="ref-Rani_Nabi_Kumar_Mittal_Kumar_2023" class="csl-entry" role="doc-biblioentry">
+<div class="csl-left-margin">19. </div><div class="csl-right-inline">Rani V, Nabi ST, Kumar M, Mittal A, Kumar K (2023) Self-supervised learning: A succinct review. Archives of Computational Methods in Engineering State of the Art Reviews 30:2761–2775. https://doi.org/<a href="https://doi.org/10.1007/s11831-023-09884-2">10.1007/s11831-023-09884-2</a></div>
+</div>
+<div id="ref-Kaufmann_Weng_Bengs_Hüllermeier_2023" class="csl-entry" role="doc-biblioentry">
+<div class="csl-left-margin">20. </div><div class="csl-right-inline">Kaufmann T, Weng P, Bengs V, Hüllermeier E (2023) <a href="http://arxiv.org/abs/2312.14925">A survey of reinforcement learning from human feedback</a>. arXiv [cs.LG]</div>
+</div>
+<div id="ref-Schulman_Wolski_Dhariwal_Radford_Klimov_2017" class="csl-entry" role="doc-biblioentry">
+<div class="csl-left-margin">21. </div><div class="csl-right-inline">Schulman J, Wolski F, Dhariwal P, Radford A, Klimov O (2017) <a href="https://doi.org/10.48550/ARXIV.1707.06347">Proximal policy optimization algorithms</a>. arXiv [cs.LG]</div>
+</div>
+<div id="ref-Koutcheme_Hellas_2024" class="csl-entry" role="doc-biblioentry">
+<div class="csl-left-margin">22. </div><div class="csl-right-inline">Koutcheme C, Hellas A (2024) <a href="https://doi.org/10.1145/3657604.3664665">Propagating large language models programming feedback</a>. In: Proceedings of the eleventh ACM conference on learning @ scale. ACM, New York, NY, USA, pp 366–370</div>
+</div>
+<div id="ref-Woo_Wang_Susanto_Guo_2023" class="csl-entry" role="doc-biblioentry">
+<div class="csl-left-margin">23. </div><div class="csl-right-inline">Woo DJ, Wang Y, Susanto H, Guo K (2023) Understanding english as a foreign language students’ idea generation strategies for creative writing with natural language generation tools. Journal of educational computing research 61:1464–1482. https://doi.org/<a href="https://doi.org/10.1177/07356331231175999">10.1177/07356331231175999</a></div>
+</div>
+<div id="ref-Wu_Henriksson_Duneld_Nouri_2023" class="csl-entry" role="doc-biblioentry">
+<div class="csl-left-margin">24. </div><div class="csl-right-inline">Wu Y, Henriksson A, Duneld M, Nouri J (2023) <a href="https://doi.org/10.1007/978-3-031-42682-7_32">Towards improving the reliability and transparency of ChatGPT for educational question answering</a>. In: Lecture notes in computer science. Springer Nature Switzerland, Cham, pp 475–488</div>
+</div>
+<div id="ref-Lee_Jung_Jeon_Sohn_Hwang_Moon_Kim_2024" class="csl-entry" role="doc-biblioentry">
+<div class="csl-left-margin">25. </div><div class="csl-right-inline">Lee U, Jung H, Jeon Y, Sohn Y, Hwang W, Moon J, Kim H (2024) Few-shot is enough: Exploring ChatGPT prompt engineering method for automatic question generation in english education. Education and information technologies 29:11483–11515. https://doi.org/<a href="https://doi.org/10.1007/s10639-023-12249-8">10.1007/s10639-023-12249-8</a></div>
+</div>
+<div id="ref-Kolagar_Zarcone_2024" class="csl-entry" role="doc-biblioentry">
+<div class="csl-left-margin">26. </div><div class="csl-right-inline">Kolagar Z, Zarcone A (2024) <a href="https://aclanthology.org/2024.personalize-1.4.pdf">HumSum: A personalized lecture summarization tool for humanities students using LLMs</a>. In: Proceedings of the 1st workshop on personalization of generative AI systems (PERSONALIZE 2024). pp 36–70</div>
+</div>
+<div id="ref-Ohashi_2024" class="csl-entry" role="doc-biblioentry">
+<div class="csl-left-margin">27. </div><div class="csl-right-inline">Ohashi L (2024) <a href="https://doi.org/10.1007/978-3-031-71232-6_13">AI in language education: The impact of machine translation and ChatGPT</a>. In: Intelligent systems reference library. Springer Nature Switzerland, Cham, pp 289–311</div>
+</div>
+<div id="ref-Lundqvist_Liyanagunawardena_Starkey_2020" class="csl-entry" role="doc-biblioentry">
+<div class="csl-left-margin">28. </div><div class="csl-right-inline">Lundqvist K, Liyanagunawardena T, Starkey L (2020) Evaluation of student feedback within a MOOC using sentiment analysis and target groups. The International Review of Research in Open and Distributed Learning 21:140–156. https://doi.org/<a href="https://doi.org/10.19173/irrodl.v21i3.4783">10.19173/irrodl.v21i3.4783</a></div>
+</div>
+<div id="ref-Misiejuk_Kaliisa_Scianna_2024" class="csl-entry" role="doc-biblioentry">
+<div class="csl-left-margin">29. </div><div class="csl-right-inline">Misiejuk K, Kaliisa R, Scianna J (2024) Augmenting assessment with AI coding of online student discourse: A question of reliability. Computers and Education: Artificial Intelligence 6:100216. https://doi.org/<a href="https://doi.org/10.1016/j.caeai.2024.100216">10.1016/j.caeai.2024.100216</a></div>
+</div>
+<div id="ref-Labadze_Grigolia_Machaidze_2023" class="csl-entry" role="doc-biblioentry">
+<div class="csl-left-margin">30. </div><div class="csl-right-inline">Labadze L, Grigolia M, Machaidze L (2023) Role of AI chatbots in education: Systematic literature review. International journal of educational technology in higher education 20: https://doi.org/<a href="https://doi.org/10.1186/s41239-023-00426-1">10.1186/s41239-023-00426-1</a></div>
+</div>
+<div id="ref-Jin_Lee_Shin_Kim_2024" class="csl-entry" role="doc-biblioentry">
+<div class="csl-left-margin">31. </div><div class="csl-right-inline">Jin H, Lee S, Shin H, Kim J (2024) <a href="https://doi.org/10.1145/3613904.3642349">Teach AI how to code: Using large language models as teachable agents for programming education</a>. In: Proceedings of the CHI conference on human factors in computing systems. ACM, New York, NY, USA, pp 1–28</div>
+</div>
+<div id="ref-Lin_Han_Thomas_Gurung_Gupta_Aleven_Koedinger_2024" class="csl-entry" role="doc-biblioentry">
+<div class="csl-left-margin">32. </div><div class="csl-right-inline">Lin J, Han Z, Thomas DR, Gurung A, Gupta S, Aleven V, Koedinger KR (2024) How can i get it right? Using GPT to rephrase incorrect trainee responses. International journal of artificial intelligence in education 1–27. https://doi.org/<a href="https://doi.org/10.1007/s40593-024-00408-y">10.1007/s40593-024-00408-y</a></div>
+</div>
+<div id="ref-Perkins_2023" class="csl-entry" role="doc-biblioentry">
+<div class="csl-left-margin">33. </div><div class="csl-right-inline">Perkins M (2023) Academic integrity considerations of AI large language models in the post-pandemic era: ChatGPT and beyond. Journal of university teaching &amp; learning practice 20: https://doi.org/<a href="https://doi.org/10.53761/1.20.02.07">10.53761/1.20.02.07</a></div>
+</div>
+<div id="ref-Zhang_Liu_Ziska_Jeon_Yu_Xu_2024" class="csl-entry" role="doc-biblioentry">
+<div class="csl-left-margin">34. </div><div class="csl-right-inline">Zhang C, Liu X, Ziska K, Jeon S, Yu C-L, Xu Y (2024) <a href="https://doi.org/10.1145/3613904.3642647">Mathemyths: Leveraging large language models to teach mathematical language through child-AI co-creative storytelling</a>. In: Proceedings of the CHI conference on human factors in computing systems. ACM, New York, NY, USA, pp 1–23</div>
+</div>
+<div id="ref-Pinto_Cardoso-Pereira_Monteiro_Lucena_Souza_Gama_2023" class="csl-entry" role="doc-biblioentry">
+<div class="csl-left-margin">35. </div><div class="csl-right-inline">Pinto G, Cardoso-Pereira I, Monteiro D, Lucena D, Souza A, Gama K (2023) <a href="https://doi.org/10.1145/3613372.3614197">Large language models for education: Grading open-ended questions using ChatGPT</a>. In: Proceedings of the XXXVII brazilian symposium on software engineering. ACM, New York, NY, USA, pp 293–302</div>
+</div>
+<div id="ref-Pinargote_Calderón_Cevallos_Carrillo_Chiluiza_Echeverria_2024" class="csl-entry" role="doc-biblioentry">
+<div class="csl-left-margin">36. </div><div class="csl-right-inline">Pinargote A, Calderón E, Cevallos K, Carrillo G, Chiluiza K, Echeverria V (2024) <a href="https://research.monash.edu/files/606148660/593895957_oa.pdf">Automating data narratives in learning analytics dashboards using GenAI</a>. In: 2024 joint of international conference on learning analytics and knowledge workshops. CEUR-WS, pp 150–161</div>
+</div>
+<div id="ref-Vaiani_Cagliero_Garza_2024" class="csl-entry" role="doc-biblioentry">
+<div class="csl-left-margin">37. </div><div class="csl-right-inline">Vaiani L, Cagliero L, Garza P (2024) Emotion recognition from videos using multimodal large language models. Future internet 16:247. https://doi.org/<a href="https://doi.org/10.3390/fi16070247">10.3390/fi16070247</a></div>
+</div>
+<div id="ref-Dai_Kritskaia_van_der_Velden_Jung_Postma_Louwerse_2022" class="csl-entry" role="doc-biblioentry">
+<div class="csl-left-margin">38. </div><div class="csl-right-inline">Dai L, Kritskaia V, Velden E van der, Jung MM, Postma M, Louwerse MM (2022) <a href="https://doi.org/10.1145/3578837.3578864">Evaluating the usage of text-to-speech in K12 education</a>. In: Proceedings of the 2022 6th international conference on education and e-learning. ACM, New York, NY, USA, pp 182–188</div>
+</div>
+<div id="ref-Wei_2024" class="csl-entry" role="doc-biblioentry">
+<div class="csl-left-margin">39. </div><div class="csl-right-inline">Wei X (2024) Text-to-speech technology and math performance: A comparative study of students with disabilities, english language learners, and their general education peers. Educational researcher (Washington, DC: 1972) 53:285–295. https://doi.org/<a href="https://doi.org/10.3102/0013189x241232995">10.3102/0013189x241232995</a></div>
+</div>
+<div id="ref-Adetayo_Enamudu_Lawal_Odunewu_2024" class="csl-entry" role="doc-biblioentry">
+<div class="csl-left-margin">40. </div><div class="csl-right-inline">Adetayo AJ, Enamudu AI, Lawal FM, Odunewu AO (2024) From text to video with AI: The rise and potential of sora in education and libraries. Library hi tech news. <a href="https://doi.org/10.1108/lhtn-02-2024-0028">https://doi.org/10.1108/lhtn-02-2024-0028</a></div>
+</div>
+<div id="ref-Fung_Wong_Tan_2023" class="csl-entry" role="doc-biblioentry">
+<div class="csl-left-margin">41. </div><div class="csl-right-inline">Fung SCE, Wong MF, Tan CW (2023) <a href="https://doi.org/10.1109/urtc60662.2023.10534945">Chain-of-thoughts prompting with language models for accurate math problem-solving</a>. In: 2023 IEEE MIT undergraduate research technology conference (URTC). IEEE, pp 1–5</div>
+</div>
+<div id="ref-Wickham_2024" class="csl-entry" role="doc-biblioentry">
+<div class="csl-left-margin">42. </div><div class="csl-right-inline">Wickham H (2024) <a href="https://github.com/tidyverse/elmer">Elmer: Call LLM APIs from r</a>. Github</div>
+</div>
+<div id="ref-López-Pernas_Song_Oliveira_Saqr_2025" class="csl-entry" role="doc-biblioentry">
+<div class="csl-left-margin">43. </div><div class="csl-right-inline">López-Pernas S, Song Y, Oliveira E, Saqr M (2025) LLMs for explainable artificial intelligence: Automating natural language explanations of predictive analytics models. In: Saqr M, López-Pernas S (eds) Advanced learning analytics methods: AI, precision and complexity. Springer Nature Switzerland, Cham</div>
+</div>
+<div id="ref-Clavié_Gal_2019" class="csl-entry" role="doc-biblioentry">
+<div class="csl-left-margin">44. </div><div class="csl-right-inline">Clavié B, Gal K (2019) <a href="http://arxiv.org/abs/1912.00690">EduBERT: Pretrained deep language models for learning analytics</a>. arXiv [cs.CY]</div>
+</div>
+<div id="ref-Goel_Sahnan_Venktesh_Sharma_Dwivedi_Mohania_2022" class="csl-entry" role="doc-biblioentry">
+<div class="csl-left-margin">45. </div><div class="csl-right-inline">Goel V, Sahnan D, Venktesh V, Sharma G, Dwivedi D, Mohania M (2022) <a href="https://doi.org/10.1007/978-3-031-11647-6_123">K-12BERT: BERT for k-12 education</a>. In: Artificial intelligence in education. Posters and late breaking results, workshops and tutorials, industry and innovation tracks, practitioners’ and doctoral consortium. Springer International Publishing, Cham, pp 595–598</div>
+</div>
+<div id="ref-López-Pernas_Misiejuk_Saqr_2025" class="csl-entry" role="doc-biblioentry">
+<div class="csl-left-margin">46. </div><div class="csl-right-inline">López-Pernas S, Misiejuk K, Saqr M (2025) Using BERT-like language models for automated discourse coding: A primer and tutorial. In: Saqr M, López-Pernas S (eds) Advanced learning analytics methods: AI, precision and complexity. Springer Nature Switzerland, Cham</div>
+</div>
+<div id="ref-Shen_Heacock_Elias_Hentel_Reig_Shih_Moy_2023" class="csl-entry" role="doc-biblioentry">
+<div class="csl-left-margin">47. </div><div class="csl-right-inline">Shen Y, Heacock L, Elias J, Hentel KD, Reig B, Shih G, Moy L (2023) <a href="https://doi.org/10.1148/radiol.230163">ChatGPT and other large language models are double-edged swords</a>. Radiology 307:e230163</div>
+</div>
+<div id="ref-López-Pernas_Oliveira_Song_Saqr_2025" class="csl-entry" role="doc-biblioentry">
+<div class="csl-left-margin">48. </div><div class="csl-right-inline">López-Pernas S, Oliveira E, Song Y, Saqr M (2025) AI, explainable AI and evaluative AI: An introduction to informed data-driven decision-making in education. In: Saqr M, López-Pernas S (eds) Advanced learning analytics methods: AI, precision and complexity. Springer Nature Switzerland, Cham</div>
+</div>
+<div id="ref-Zytek_Pidò_Veeramachaneni_2024" class="csl-entry" role="doc-biblioentry">
+<div class="csl-left-margin">49. </div><div class="csl-right-inline">Zytek A, Pidò S, Veeramachaneni K (2024) <a href="http://arxiv.org/abs/2405.06064">LLMs for XAI: Future directions for explaining explanations</a>. arXiv [cs.AI]</div>
+</div>
+</div>
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    target: function(trigger) {
+      return trigger.previousElementSibling;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+  function tippyHover(el, contentFn) {
+    const config = {
+      allowHTML: true,
+      content: contentFn,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start'
+    };
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      return note.innerHTML;
+    });
+  }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+<nav class="page-navigation">
+  <div class="nav-page nav-page-previous">
+      <a href="../../chapters/ch07-xai-local/ch07-xai-local.html" class="pagination-link">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Local XAI</span></span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+      <a href="../../chapters/ch09-nlp/ch09-nlp.html" class="pagination-link">
+        <span class="nav-page-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Natural Language Processing</span></span> <i class="bi bi-arrow-right-short"></i>
+      </a>
+  </div>
+</nav>
+</div> <!-- /content -->
+<footer class="footer">
+  <div class="nav-footer">
+      <div class="nav-footer-center"><div class="cookie-consent-footer"><a href="#" id="open_preferences_center">Cookie Preferences</a></div></div>
+  </div>
+</footer>
+<script>
+  document.querySelector(".quarto-title").innerHTML =  '<div class="badge bs-warning bg-warning text-dark" style="float:right;">Pre-print</div>' +  document.querySelector(".quarto-title").innerHTML
+  var keywords = document.querySelector('meta[name="keywords"]')
+  if (keywords && keywords.content) {
+    document.getElementById("title-block-header").innerHTML = document.getElementById("title-block-header").innerHTML + 
+      '<div class="abstract"><div class="abstract-title">Keywords</div><div class="quarto-title-meta-contents"><p>'+
+      keywords.content +
+      '</p></div></div>'
+  }
+  function insertAfter(referenceNode, newNode) {
+      referenceNode.parentNode.insertBefore(newNode, referenceNode.nextSibling);
+  }
+  var authors = document.querySelectorAll('meta[name="author"]')
+  if (authors) {
+    var authorlist = Array.from(authors).map(e=>e.content).reduce((accum, curr) =>  accum + curr + ", ", "","").replace(/\,\s$/,"")
+    var citt = `<div class="card border-primary mb-3" style=;">
+      <div class="card-header bg-primary">To cite this chapter</div>
+      <div class="card-body small">
+        <p class="card-text">${authorlist} (2025).
+        <b>${document.getElementsByClassName("chapter-title")[0].innerText}</b>. 
+        In M. Saqr & S. López-Pernas (Eds.), <i>Advanced Learning Analytics Methods: AI, Precision and Complexity</i> 
+        (in – press). Springer. <a href="${window.location.href}">${window.location.href}</a></p>
+      </div>
+    </div>`;
+    insertAfter(document.getElementsByTagName("HEADER")[1],new DOMParser().parseFromString(citt, 'text/html').body.childNodes[0])
+  }
+</script>
+
+
+
+</body></html>

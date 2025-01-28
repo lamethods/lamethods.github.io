@@ -1,0 +1,16 @@
+---
+title: "Detecting Nonlinear Patterns in Education Research: A tutorial on Recurrence Quantification Analysis"
+format: html
+author: 
+  - name: "Daryn Dever"
+number-sections: true
+crossref:
+  fig-title: '**Figure**'
+  fig-labels: arabic
+  title-delim: "**.**"
+abstract-title: "Abstract"
+abstract: "Recurrence Quantification Analysis (RQA) is a robust analytical technique that can be used to identify and quantify patterns within nonlinear dynamical systems. This analysis can identify shifts in human behavior regarding learning processes, the evolution of how a system demonstrates functionality versus dysfunctionality, and how this shifts across different time dimensions. Ultimately, RQA can reveal patterns in learning processes that could not be captured, measured, or tracked using traditional methods. As such, this chapter reviews the different methodologies for applying RQA to education research, leveraging this analytical methodology for capturing the dynamics of learning processes as it occurs within educational contexts. This chapter will review three RQA methods, including auto-RQA, cross-RQA, and multidimensional-RQA, how it has been applied within education research, and provide a tutorial of how these analyses can be conducted and interpreted for your own research purposes."
+keywords: "Recurrence Quantification Analysis; Nonlinear Analyses; Education Research; Complexity; Tutorial"
+---
+
+Forthcoming

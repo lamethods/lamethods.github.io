@@ -1,0 +1,2128 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.2.269">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="keywords" content="achievement motivation, approach, avoidance, complex dynamical systems, fractals, learning analytics, long-memory processes, person-specific methods, time series analysis">
+
+<title>Advanced learning analytics methods - 21&nbsp; Detecting Long-Memory Psychological Processes in Academic Settings Using Whittle’s Maximum Likelihood Estimator: An Application with R</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1.6em;
+  vertical-align: middle;
+}
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { color: #008000; } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { color: #008000; font-weight: bold; } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+}
+.hanging div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}
+</style>
+
+
+<script src="../../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../../">
+<link href="../../chapters/ch22-automl/ch22-automl.html" rel="next">
+<link href="../../chapters/ch20-var/ch20-var.html" rel="prev">
+<script src="../../site_libs/cookie-consent/cookie-consent.js"></script>
+<link href="../../site_libs/cookie-consent/cookie-consent.css" rel="stylesheet">
+<script src="../../site_libs/quarto-html/quarto.js"></script>
+<script src="../../site_libs/quarto-html/popper.min.js"></script>
+<script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 20,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit"
+  }
+}</script>
+<script async="" src="https://www.googletagmanager.com/gtag/js?id=G-Y4VBV3J9WD"></script>
+
+<script type="text/plain" cookie-consent="tracking">
+
+window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+gtag('js', new Date());
+gtag('config', 'G-Y4VBV3J9WD', { 'anonymize_ip': true});
+</script>
+
+<script type="text/javascript" charset="UTF-8">
+document.addEventListener('DOMContentLoaded', function () {
+cookieconsent.run({
+  "notice_banner_type":"simple",
+  "consent_type":"implied",
+  "palette":"light",
+  "language":"en",
+  "page_load_consent_levels":["strictly-necessary","functionality","tracking","targeting"],
+  "notice_banner_reject_button_hide":false,
+  "preferences_center_close_button_hide":false,
+  "website_name":""
+  });
+});
+</script> 
+  
+
+<link href="../../site_libs/pagedtable-1.1/css/pagedtable.css" rel="stylesheet">
+<script src="../../site_libs/pagedtable-1.1/js/pagedtable.js"></script>
+
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<meta name="twitter:title" content="Advanced learning analytics methods - 21&nbsp; Detecting Long-Memory Psychological Processes in Academic Settings Using Whittle’s Maximum Likelihood Estimator: An Application with R">
+<meta name="twitter:description" content="Person-specific approaches are best suited to account for the complex, dynamic, and idiosyncratic processes from which cognitive, emotional, motivational, relational, and behavioral patterns emerge.">
+<meta name="twitter:card" content="summary">
+<meta name="citation_title" content="[21]{.chapter-number}&nbsp; [Detecting Long-Memory Psychological Processes in Academic Settings Using Whittle’s Maximum Likelihood Estimator: An Application with R]{.chapter-title}">
+<meta name="citation_abstract" content="Person-specific approaches are best suited to account for the complex, dynamic, and idiosyncratic processes from which cognitive, emotional, motivational, relational, and behavioral patterns emerge. Among these approaches, Whittle&amp;amp;#039;s approximation of the Maximum Likelihood Estimator (MLE) enables the detection of long-term memory processes in relatively short time series of data. In this chapter, we outline the principles of Whittle's MLE, illustrate its application—using R—to the motivational dynamics of approach and avoidance in an academic context, and then discuss the theoretical and practical implications of detecting long-memory processes in the field of education and learning.">
+<meta name="citation_keywords" content="achievement motivation, approach, avoidance, complex dynamical systems, fractals, learning analytics, long-memory processes, person-specific methods, time series analysis">
+<meta name="citation_fulltext_html_url" content="https://lamethods.github.io/ch21-mle.html">
+<meta name="citation_language" content="en">
+<meta name="citation_reference" content="citation_title=Rethinking Approach and Avoidance in Achievement Contexts: The Perspective of Dynamical Systems;,citation_abstract=An integrative model of approach and avoidance goals in achievement contexts is proposed based on the concepts and principles of nonlinear dynamical systems. These goals are conceptualized as self-organizing systems in which information relevant to competence expectancies and perceptions of benefit and threat for the self is integrated with respect to either a single coherent state (static integration) or 2 conflicting coherent states (dynamic integration). Mathematical equations depict the emergence of approach and avoidance attractor dynamics from the proposed integration process. The model specifies the conditions under which states of goal involvement will display patterns of resistance (stability), oscillation between approach and avoidance (instability), or reversal (nonlinear change). As a result, this model of approach and avoidance goals equips previous dynamical models of self-regulation with greater social?cognitive substance. It also provides a parsimonious account of achievement motivation and resolves lingering inconsistencies and uncertainties in the achievement goal literature. Moreover, the dynamical systems approach, on which the model is based, provides a heuristic framework for generating new predictions regarding the ebb and flow of approach and avoidance in achievement contexts.;,citation_author=Christophe Gernigon;,citation_author=Robin R. Vallacher;,citation_author=Andrzej Nowak;,citation_author=David E. Conroy;,citation_publication_date=2015-12;,citation_cover_date=2015-12;,citation_year=2015;,citation_fulltext_html_url=https://doi.org/10.1037/gpr0000055;,citation_issue=4;,citation_doi=10.1037/gpr0000055;,citation_issn=1089-2680;,citation_volume=19;,citation_journal_title=Review of General Psychology;">
+<meta name="citation_reference" content="citation_title=Toward a Process Approach in Psychology: Stepping into Heraclitus’ River;,citation_abstract=Psychological science constructs much of the knowledge that we consume in our everyday lives. This book is a systematic analysis of this process, and of the nature of the knowledge it produces. The authors show how mainstream scientific activity treats psychological properties as being fundamentally stable, universal, and isolable. They then challenge this status quo by inviting readers to recognize that dynamics, context-specificity, interconnectedness, and uncertainty, are a natural and exciting part of human psychology – these are not things to be avoided and feared, but instead embraced. This requires a shift toward a process-based approach that recognizes the situated, time-dependent, and fundamentally processual nature of psychological phenomena. With complex dynamic systems as a framework, this book sketches out how we might move toward a process-based praxis that is more suitable and effective for understanding human functioning.;,citation_author=Paul Van Geert;,citation_author=Naomi De Ruiter;,citation_publication_date=2022;,citation_cover_date=2022;,citation_year=2022;,citation_fulltext_html_url=https://www.cambridge.org/core/books/toward-a-process-approach-in-psychology/EC533F57C8AC04A0646EEF2E63ADAA58;,citation_doi=10.1017/9781108859189;,citation_isbn=978-1-108-49090-0;">
+<meta name="citation_reference" content="citation_title=Capturing where the learning process takes place: A person-specific and person-centered primer;,citation_abstract=Research conducted using variable-centered methods uses data from a “group of others” to derive generalizable laws. The average is considered a “norm” where everyone is supposed to be homogeneous and to fit the average yardstick. Deviations from the average are viewed as irregularities rather than natural manifestations of individual differences. However, this homogeneity assumption is theoretically and empirically flawed, leading to inaccurate generalizations about students’ behavior based on averages. Alternatively, heterogeneity is a more plausible and realistic characteristic of human functioning and behavior. In this paper, we review the limitations of variable-centered methods and introduce—with empirical examples—person-centered and person-specific methods as alternatives. Person-centered methods are designed with the foundational assumption that humans are heterogeneous, and such heterogeneity can be captured with statistical methods into patterns (or clusters). Person-specific (or idiographic) methods aim to accurately and precisely model the individual person (at the resolution of the single subject sample size). The implications of this paradigm shift are significant, with potential benefits including improved research validity, more effective interventions, and a better understanding of individual differences in learning, and, more importantly, personalization that is tethered to personalized analysis. Educational relevance statement Our study presents a primer on the importance of individual differences, heterogeneity and diversity in capturing the unique peculiarities of students. In doing so, we can offer relevant personalized support that is more equitable and individualized.;,citation_author=Mohammed Saqr;,citation_author=Leonie V. D. E. Vogelsmeier;,citation_author=Sonsoles López-Pernas;,citation_publication_date=2024-07;,citation_cover_date=2024-07;,citation_year=2024;,citation_fulltext_html_url=https://www.sciencedirect.com/science/article/pii/S1041608024000852;,citation_doi=10.1016/j.lindif.2024.102492;,citation_issn=1041-6080;,citation_volume=113;,citation_journal_title=Learning and Individual Differences;">
+<meta name="citation_reference" content="citation_title=A guide to Whittle maximum likelihood estimator in MATLAB;,citation_author=Clément Roume;,citation_publication_date=2023-10;,citation_cover_date=2023-10;,citation_year=2023;,citation_fulltext_html_url=https://www.frontiersin.org/journals/network-physiology/articles/10.3389/fnetp.2023.1204757/full;,citation_doi=10.3389/fnetp.2023.1204757;,citation_volume=3;,citation_journal_title=Frontiers in Network Physiology;">
+<meta name="citation_reference" content="citation_title=Visualizing and Reporting Educational Data with R;,citation_author=Sonsoles López-Pernas;,citation_author=Kamila Misiejuk;,citation_author=Santtu Tikka;,citation_author=Juho Kopra;,citation_author=Merja Heinäniemi;,citation_author=Mohammed Saqr;,citation_editor=Mohammed Saqr;,citation_editor=Sonsoles López-Pernas;,citation_publication_date=2024;,citation_cover_date=2024;,citation_year=2024;,citation_fulltext_html_url=https://doi.org/10.1007/978-3-031-54464-4_6;,citation_doi=10.1007/978-3-031-54464-4_6;,citation_inbook_title=undefined;">
+<meta name="citation_reference" content="citation_title=Long-range anticorrelations and non-Gaussian behavior of the heartbeat;,citation_author=C.-K. Peng;,citation_author=J. Mietus;,citation_author=J. M. Hausdorff;,citation_author=S. Havlin;,citation_author=H. E. Stanley;,citation_author=A. L. Goldberger;,citation_publication_date=1993-03;,citation_cover_date=1993-03;,citation_year=1993;,citation_fulltext_html_url=https://link.aps.org/doi/10.1103/PhysRevLett.70.1343;,citation_issue=9;,citation_doi=10.1103/PhysRevLett.70.1343;,citation_volume=70;,citation_journal_title=Physical Review Letters;">
+<meta name="citation_reference" content="citation_title=An R Approach to Data Cleaning and Wrangling for Education Research;,citation_author=Juho Kopra;,citation_author=Santtu Tikka;,citation_author=Merja Heinäniemi;,citation_author=Sonsoles López-Pernas;,citation_author=Mohammed Saqr;,citation_editor=Mohammed Saqr;,citation_editor=Sonsoles López-Pernas;,citation_publication_date=2024;,citation_cover_date=2024;,citation_year=2024;,citation_fulltext_html_url=https://doi.org/10.1007/978-3-031-54464-4_4;,citation_doi=10.1007/978-3-031-54464-4_4;,citation_inbook_title=undefined;">
+<meta name="citation_reference" content="citation_title=Theoretical and Methodological Issues in Serial Correlation Analysis;,citation_author=Didier Delignières;,citation_author=Vivien Marmelat;,citation_editor=Michael J. Richardson;,citation_editor=Michael A. Riley;,citation_editor=Kevin Shockley;,citation_publication_date=2013;,citation_cover_date=2013;,citation_year=2013;,citation_doi=10.1007/978-1-4614-5465-6_7;,citation_conference=Springer;">
+<meta name="citation_reference" content="citation_title=Fractal Analysis of Human Gait Variability via Stride Interval Time Series;,citation_author=Angkoon Phinyomark;,citation_author=Robyn Larracy;,citation_author=Erik Scheme;,citation_publication_date=2020-04;,citation_cover_date=2020-04;,citation_year=2020;,citation_fulltext_html_url=https://www.frontiersin.org/journals/physiology/articles/10.3389/fphys.2020.00333/full;,citation_doi=10.3389/fphys.2020.00333;,citation_volume=11;,citation_journal_title=Frontiers in Physiology;">
+<meta name="citation_reference" content="citation_title=Better than DFA? A Bayesian Method for Estimating the Hurst Exponent in Behavioral Sciences;,citation_author=Aaron D. Likens;,citation_author=Madhur Mangalam;,citation_author=Aaron Y. Wong;,citation_author=Anaelle C. Charles;,citation_author=Caitlin Mills;,citation_publication_date=2023-01;,citation_cover_date=2023-01;,citation_year=2023;,citation_fulltext_html_url=https://www.ncbi.nlm.nih.gov/pmc/articles/PMC9900970/;,citation_pmid=36748008 PMCID: PMC9900970;,citation_journal_title=ArXiv;">
+<meta name="citation_reference" content="citation_title=Long-Memory Processes: Probabilistic Properties and Statistical Methods;,citation_author=Jan Beran;,citation_author=Yuanhua Feng;,citation_author=Sucharita Ghosh;,citation_author=Rafal Kulik;,citation_publication_date=2013;,citation_cover_date=2013;,citation_year=2013;,citation_fulltext_html_url=https://link.springer.com/10.1007/978-3-642-35512-7;,citation_doi=10.1007/978-3-642-35512-7;">
+<meta name="citation_reference" content="citation_title=A Note On Long Memory Time Series;,citation_author=Claude Diebolt;,citation_author=Vivien Guiraud;,citation_publication_date=2005-12;,citation_cover_date=2005-12;,citation_year=2005;,citation_fulltext_html_url=https://doi.org/10.1007/s11135-004-0436-z;,citation_issue=6;,citation_doi=10.1007/s11135-004-0436-z;,citation_volume=39;,citation_journal_title=Quality and Quantity;">
+<meta name="citation_reference" content="citation_title=Almost, but not quite there: Research into the emergence of higher-order motivated behavior should fully embrace the dynamic systems approach;,citation_author=Christophe Gernigon;,citation_author=Rémi Altamore;,citation_author=Robin R Vallacher;,citation_author=Paul L C Van Geert;,citation_author=Ruud J R Den Hartigh;,citation_publication_date=2024-06;,citation_cover_date=2024-06;,citation_year=2024;,citation_fulltext_html_url=osf.io/preprints/psyarxiv/rt6wj;,citation_doi=10.31234/osf.io/rt6wj;,citation_publisher=PsyArXiv;">
+<meta name="citation_reference" content="citation_title=How the dynamics of engagement explain the momentum of achievement and the inertia of disengagement: A complex systems theory approach;,citation_author=Sonsoles López-Pernas;,citation_author=Mohammed Saqr;,citation_publication_date=2024-04;,citation_cover_date=2024-04;,citation_year=2024;,citation_fulltext_html_url=https://www.sciencedirect.com/science/article/pii/S0747563223004776;,citation_doi=10.1016/j.chb.2023.108126;,citation_volume=153;,citation_journal_title=Computers in Human Behavior;">
+<meta name="citation_reference" content="citation_title=Self-efficacy: The exercise of control;,citation_author=Albert Bandura;,citation_publication_date=1997;,citation_cover_date=1997;,citation_year=1997;,citation_series_title=Self-efficacy: The exercise of control;">
+<meta name="citation_reference" content="citation_title=Contingencies of self-worth;,citation_author=Jennifer Crocker;,citation_author=Connie T. Wolfe;,citation_publication_date=2001;,citation_cover_date=2001;,citation_year=2001;,citation_doi=10.1037/0033-295X.108.3.593;,citation_volume=108;,citation_journal_title=Psychological Review;">
+<meta name="citation_reference" content="citation_title=Development and Validation of the Approach-Avoidance System Questionnaire (AASQ);,citation_author=Anne Teboul;,citation_author=Cyril Klosek;,citation_author=Camille Montiny;,citation_author=Christophe Gernigon;,citation_publication_date=2019-11;,citation_cover_date=2019-11;,citation_year=2019;,citation_fulltext_html_url=https://www.ncbi.nlm.nih.gov/pmc/articles/PMC6871152/;,citation_doi=10.3389/fpsyg.2019.02531;,citation_pmid=31803096 PMCID: PMC6871152;,citation_volume=10;,citation_journal_title=Frontiers in Psychology;">
+<meta name="citation_reference" content="citation_title=Fractal Fluctuations and Complexity: Current Debates and Future Challenges;,citation_author=Didier Delignières;,citation_author=Vivien Marmelat;,citation_publication_date=2012;,citation_cover_date=2012;,citation_year=2012;,citation_fulltext_html_url=https://www.dl.begellhouse.com/journals/4b27cbfc562e21b8,69b880e9174891c4,2a9dc09b2067e67a.html;,citation_issue=6;,citation_doi=10.1615/CritRevBiomedEng.2013006727;,citation_volume=40;,citation_journal_title=Critical Reviews™ in Biomedical Engineering;">
+<meta name="citation_reference" content="citation_title=Cognitive emissions of 1/f noise;,citation_author=D. L. Gilden;,citation_publication_date=2001-01;,citation_cover_date=2001-01;,citation_year=2001;,citation_issue=1;,citation_doi=10.1037/0033-295x.108.1.33;,citation_pmid=11212631;,citation_volume=108;,citation_journal_title=Psychological Review;">
+<meta name="citation_reference" content="citation_title=The Noise in Natural Phenomena;,citation_author=Bruce J. West;,citation_author=Michael Shlesinger;,citation_publication_date=1990;,citation_cover_date=1990;,citation_year=1990;,citation_fulltext_html_url=https://www.jstor.org/stable/29773862;,citation_issue=1;,citation_volume=78;,citation_journal_title=American Scientist;">
+<meta name="citation_reference" content="citation_title=The fractal dynamics of self-esteem and physical self;,citation_author=Didier Delignières;,citation_author=Marina Fortes;,citation_author=Grégory Ninot;,citation_publication_date=2004-10;,citation_cover_date=2004-10;,citation_year=2004;,citation_issue=4;,citation_pmid=15473949;,citation_volume=8;,citation_journal_title=Nonlinear Dynamics, Psychology, and Life Sciences;">
+<meta name="citation_reference" content="citation_title=The Temporal Structure of State Self-Esteem Variability During Parent–Adolescent Interactions: More Than Random Fluctuations;,citation_author=Naomi M. P. De Ruiter;,citation_author=Ruud J. R. Den Hartigh;,citation_author=Ralf F. A. Cox;,citation_author=Paul L. C. Van Geert;,citation_author=E. Saskia Kunnen;,citation_publication_date=2015-05;,citation_cover_date=2015-05;,citation_year=2015;,citation_fulltext_html_url=https://doi.org/10.1080/15298868.2014.994026;,citation_issue=3;,citation_doi=10.1080/15298868.2014.994026;,citation_volume=14;,citation_journal_title=Self and Identity;">
+<meta name="citation_reference" content="citation_title=Fractal dynamics in self-evaluation reveal self-concept clarity;,citation_author=Alexander E. Wong;,citation_author=Robin R. Vallacher;,citation_author=Andrzej Nowak;,citation_publication_date=2014-10;,citation_cover_date=2014-10;,citation_year=2014;,citation_issue=4;,citation_pmid=25196705;,citation_volume=18;,citation_journal_title=Nonlinear Dynamics, Psychology, and Life Sciences;">
+<meta name="citation_reference" content="citation_title=Dispersion of response times reveals cognitive dynamics;,citation_author=John G. Holden;,citation_author=Guy C. Van Orden;,citation_author=Michael T. Turvey;,citation_publication_date=2009;,citation_cover_date=2009;,citation_year=2009;,citation_issue=2;,citation_doi=10.1037/a0014849;,citation_volume=116;,citation_journal_title=Psychological Review;">
+<meta name="citation_reference" content="citation_title=The emergent coordination of cognitive function;,citation_author=Christopher T. Kello;,citation_author=Brandon C. Beltz;,citation_author=John G. Holden;,citation_author=Guy C. Van Orden;,citation_publication_date=2007;,citation_cover_date=2007;,citation_year=2007;,citation_issue=4;,citation_doi=10.1037/0096-3445.136.4.551;,citation_volume=136;,citation_journal_title=Journal of Experimental Psychology: General;">
+<meta name="citation_reference" content="citation_title=Self-organization of cognitive performance;,citation_author=Guy C. Van Orden;,citation_author=John G. Holden;,citation_author=Michael T. Turvey;,citation_publication_date=2003;,citation_cover_date=2003;,citation_year=2003;,citation_issue=3;,citation_doi=10.1037/0096-3445.132.3.331;,citation_volume=132;,citation_journal_title=Journal of Experimental Psychology: General;">
+<meta name="citation_reference" content="citation_title=Pink Noise in Language Production: A Nonlinear Approach to the Multilingual Lexicon;,citation_author=Wander Lowie;,citation_author=Rika Plat;,citation_author=Kees De Bot;,citation_publication_date=2014-07;,citation_cover_date=2014-07;,citation_year=2014;,citation_fulltext_html_url=https://doi.org/10.1080/10407413.2014.929479;,citation_issue=3;,citation_doi=10.1080/10407413.2014.929479;,citation_volume=26;,citation_journal_title=Ecological Psychology;">
+<meta name="citation_reference" content="citation_title=Learning, Motor Skill, and Long-Range Correlations;,citation_author=Déborah Nourrit-Lucas;,citation_author=Adaté Olivier Tossa;,citation_author=Grégory Zélic;,citation_author=Didier Delignières;,citation_publication_date=2015-05;,citation_cover_date=2015-05;,citation_year=2015;,citation_fulltext_html_url=https://doi.org/10.1080/00222895.2014.967655;,citation_issue=3;,citation_doi=10.1080/00222895.2014.967655;,citation_volume=47;,citation_journal_title=Journal of Motor Behavior;">
+<meta name="citation_reference" content="citation_title=Pink Noise in Rowing Ergometer Performance and the Role of Skill Level;,citation_author=Ruud J. R. Den Hartigh;,citation_author=Ralf F. A. Cox;,citation_author=Christophe Gernigon;,citation_author=Nico W. Van Yperen;,citation_author=Paul L. C. Van Geert;,citation_publication_date=2015;,citation_cover_date=2015;,citation_year=2015;,citation_fulltext_html_url=https://journals.humankinetics.com/view/journals/mcj/19/4/article-p355.xml;,citation_issue=4;,citation_doi=10.1123/mc.2014-0071;,citation_volume=19;,citation_journal_title=Motor Control;">
+<meta name="citation_reference" content="citation_title=The Relation Between Complexity and Resilient Motor Performance and the Effects of Differential Learning;,citation_author=Ruud J. R. Den Hartigh;,citation_author=Sem Otten;,citation_author=Zuzanna M. Gruszczynska;,citation_author=Yannick Hill;,citation_publication_date=2021-08;,citation_cover_date=2021-08;,citation_year=2021;,citation_fulltext_html_url=https://www.frontiersin.org/journals/human-neuroscience/articles/10.3389/fnhum.2021.715375/full;,citation_doi=10.3389/fnhum.2021.715375;,citation_volume=15;,citation_journal_title=Frontiers in Human Neuroscience;">
+<meta name="citation_reference" content="citation_title=Fractal dynamics of human gait: A reassessment of the 1996 data of Hausdorff et al.;,citation_author=Didier Delignières;,citation_author=Kjerstin Torre;,citation_publication_date=2009-04;,citation_cover_date=2009-04;,citation_year=2009;,citation_fulltext_html_url=https://journals.physiology.org/doi/full/10.1152/japplphysiol.90757.2008;,citation_issue=4;,citation_doi=10.1152/japplphysiol.90757.2008;,citation_volume=106;,citation_journal_title=Journal of Applied Physiology;">
+<meta name="citation_reference" content="citation_title=Fractal dynamics in physiology: Alterations with disease and aging;,citation_author=Ary L. Goldberger;,citation_author=Luis A. N. Amaral;,citation_author=Jeffrey M. Hausdorff;,citation_author=Plamen Ch. Ivanov;,citation_author=C.-K. Peng;,citation_author=H. Eugene Stanley;,citation_publication_date=2002-02;,citation_cover_date=2002-02;,citation_year=2002;,citation_fulltext_html_url=https://www.pnas.org/doi/10.1073/pnas.012579499;,citation_issue=suppl_1;,citation_doi=10.1073/pnas.012579499;,citation_volume=99;,citation_journal_title=Proceedings of the National Academy of Sciences;">
+<meta name="citation_reference" content="citation_title=Altered fractal dynamics of gait: Reduced stride-interval correlations with aging and Huntington’s disease;,citation_author=J. M. Hausdorff;,citation_author=S. L. Mitchell;,citation_author=R. Firtion;,citation_author=C.-K. Peng;,citation_author=M. E. Cudkowicz;,citation_author=J. Y. Wei;,citation_author=A. L. Goldberger;,citation_publication_date=1997-01;,citation_cover_date=1997-01;,citation_year=1997;,citation_issue=1;,citation_doi=10.1152/jappl.1997.82.1.262;,citation_pmid=9029225;,citation_volume=82;,citation_journal_title=Journal of Applied Physiology (Bethesda, Md.: 1985);">
+<meta name="citation_reference" content="citation_title=Evidence of chaotic mood variation in bipolar disorder;,citation_author=Allan Gottschalk;,citation_author=Mark S. Bauer;,citation_author=Peter C. Whybrow;,citation_publication_date=1995;,citation_cover_date=1995;,citation_year=1995;,citation_doi=10.1001/archpsyc.1995.03950230061009;,citation_volume=52;,citation_journal_title=Archives of General Psychiatry;">
+<meta name="citation_reference" content="citation_title=An interaction-dominant perspective on reading fluency and dyslexia;,citation_author=M. L. Wijnants;,citation_author=F. Hasselman;,citation_author=R. F. A. Cox;,citation_author=A. M. T. Bosman;,citation_author=G. Van Orden;,citation_publication_date=2012-07;,citation_cover_date=2012-07;,citation_year=2012;,citation_fulltext_html_url=https://doi.org/10.1007/s11881-012-0067-3;,citation_issue=2;,citation_doi=10.1007/s11881-012-0067-3;,citation_volume=62;,citation_journal_title=Annals of Dyslexia;">
+<meta name="citation_reference" content="citation_title=1/f scaling in movement time changes with practice in precision aiming;,citation_author=Maarten L. Wijnants;,citation_author=Anna M. T. Bosman;,citation_author=Fred Hasselman;,citation_author=Ralf F. A. Cox;,citation_author=Guy C. Van Orden;,citation_publication_date=2009-01;,citation_cover_date=2009-01;,citation_year=2009;,citation_issue=1;,citation_pmid=19061546;,citation_volume=13;,citation_journal_title=Nonlinear Dynamics, Psychology, and Life Sciences;">
+<meta name="citation_reference" content="citation_title=Factores asociados a la emergencia de patrones diferenciales de la motivación en el trabajo. [Variables related to the emergence of differential patterns in work motivation.];,citation_author=Carlos Arrieta;,citation_author=José Navarro;,citation_author=Susana Vicente;,citation_publication_date=2008;,citation_cover_date=2008;,citation_year=2008;,citation_volume=20;,citation_journal_title=Psicothema;">
+<meta name="citation_reference" content="citation_title=Healthy Variability in Organizational Behavior: Empirical Evidence and New Steps for Future Research;,citation_author=José Navarro;,citation_author=Rita Rueff-Lopes;,citation_publication_date=2015-10;,citation_cover_date=2015-10;,citation_year=2015;,citation_issue=4;,citation_pmid=26375939;,citation_volume=19;,citation_journal_title=Nonlinear Dynamics, Psychology, and Life Sciences;">
+<meta name="citation_reference" content="citation_title=Complex versus Complicated Models of Cognition;,citation_author=Ruud J. R. Den Hartigh;,citation_author=Ralf F. A. Cox;,citation_author=Paul L. C. Van Geert;,citation_editor=Lorenzo Magnani;,citation_editor=Tommaso Bertolotti;,citation_publication_date=2017;,citation_cover_date=2017;,citation_year=2017;,citation_fulltext_html_url=https://doi.org/10.1007/978-3-319-30526-4_30;,citation_doi=10.1007/978-3-319-30526-4_30;,citation_inbook_title=undefined;">
+<meta name="citation_reference" content="citation_title=Interaction-Dominant Causation in Mind and Brain, and Its Implication for Questions of Generalization and Replication;,citation_author=Sebastian Wallot;,citation_author=Damian G. Kelty-Stephen;,citation_publication_date=2018-06;,citation_cover_date=2018-06;,citation_year=2018;,citation_fulltext_html_url=https://doi.org/10.1007/s11023-017-9455-0;,citation_issue=2;,citation_doi=10.1007/s11023-017-9455-0;,citation_volume=28;,citation_journal_title=Minds and Machines;">
+<meta name="citation_reference" content="citation_title=Lack of group-to-individual generalizability is a threat to human subjects research;,citation_author=Aaron J. Fisher;,citation_author=John D. Medaglia;,citation_author=Bertus F. Jeronimus;,citation_publication_date=2018-07;,citation_cover_date=2018-07;,citation_year=2018;,citation_fulltext_html_url=https://www.pnas.org/doi/full/10.1073/pnas.1711978115;,citation_issue=27;,citation_doi=10.1073/pnas.1711978115;,citation_volume=115;,citation_journal_title=Proceedings of the National Academy of Sciences;">
+<meta name="citation_reference" content="citation_title=The Curious Case of the Cross-Sectional Correlation;,citation_author=E. L. Hamaker;,citation_publication_date=2024-11;,citation_cover_date=2024-11;,citation_year=2024;,citation_fulltext_html_url=https://www.tandfonline.com/doi/citedby/10.1080/00273171.2022.2155930;,citation_issue=6;,citation_doi=10.1080/00273171.2022.2155930;,citation_issn=0027-3171;,citation_volume=59;,citation_journal_title=Multivariate Behavioral Research;">
+<meta name="citation_reference" content="citation_title=The New Person-Specific Paradigm in Psychology;,citation_author=Peter C. M. Molenaar;,citation_author=Cynthia G. Campbell;,citation_publication_date=2009-04;,citation_cover_date=2009-04;,citation_year=2009;,citation_fulltext_html_url=https://doi.org/10.1111/j.1467-8721.2009.01619.x;,citation_issue=2;,citation_doi=10.1111/j.1467-8721.2009.01619.x;,citation_volume=18;,citation_journal_title=Current Directions in Psychological Science;">
+<meta name="citation_reference" content="citation_title=Fractional Brownian Motions, Fractional Noises and Applications;,citation_author=Benoit B. Mandelbrot;,citation_author=John W. Van Ness;,citation_publication_date=1968;,citation_cover_date=1968;,citation_year=1968;,citation_fulltext_html_url=https://www.jstor.org/stable/2027184;,citation_issue=4;,citation_volume=10;,citation_journal_title=SIAM Review;">
+<meta name="citation_reference" content="citation_title=A Dynamical View of High School Attendance: An Assessment of Short-term and Long-term Dependencies in Five Urban Schools;,citation_author=Matthijs Koopmans;,citation_publication_date=2015-01;,citation_cover_date=2015-01;,citation_year=2015;,citation_issue=1;,citation_pmid=25575559;,citation_volume=19;,citation_journal_title=Nonlinear Dynamics, Psychology, and Life Sciences;">
+<meta name="citation_reference" content="citation_title=On the Pervasiveness of Long Range Memory Processes in Daily High School Attendance Rates;,citation_author=Matthijs Koopmans;,citation_publication_date=2018-04;,citation_cover_date=2018-04;,citation_year=2018;,citation_issue=2;,citation_pmid=29600954;,citation_volume=22;,citation_journal_title=Nonlinear Dynamics, Psychology, and Life Sciences;">
+<meta name="citation_reference" content="citation_title=Education is a Complex Dynamical System: Challenges for Research;,citation_author=Matthijs Koopmans;,citation_publication_date=2020-05;,citation_cover_date=2020-05;,citation_year=2020;,citation_fulltext_html_url=https://doi.org/10.1080/00220973.2019.1566199;,citation_issue=3;,citation_doi=10.1080/00220973.2019.1566199;,citation_volume=88;,citation_journal_title=The Journal of Experimental Education;">
+<meta name="citation_reference" content="citation_title=Optimizing a bayesian method for estimating the hurst exponent in behavioral sciences;,citation_author=Madhur Mangalam;,citation_author=Taylor Wilson;,citation_author=Joel Sommerfeld;,citation_author=Aaron D Likens;,citation_publication_date=2023;,citation_cover_date=2023;,citation_year=2023;,citation_fulltext_html_url=https://arxiv.org/abs/2301.12064;">
+<meta name="citation_reference" content="citation_title=Complex Systems Research in Educational Psychology: Aligning Theory and Method;,citation_author=Jonathan C. Hilpert;,citation_author=Gwen C. Marchand;,citation_publication_date=2018-07;,citation_cover_date=2018-07;,citation_year=2018;,citation_fulltext_html_url=https://doi.org/10.1080/00461520.2018.1469411;,citation_issue=3;,citation_doi=10.1080/00461520.2018.1469411;,citation_volume=53;,citation_journal_title=Educational Psychologist;">
+<meta name="citation_reference" content="citation_title=Piecewise Whittle estimator for trabecular bone radiograph characterization;,citation_author=Khaled Harrar;,citation_author=Latifa Hamami;,citation_author=Eric Lespessailles;,citation_author=Rachid Jennane;,citation_publication_date=2013-11;,citation_cover_date=2013-11;,citation_year=2013;,citation_fulltext_html_url=https://www.sciencedirect.com/science/article/pii/S1746809413000943;,citation_issue=6;,citation_doi=10.1016/j.bspc.2013.06.009;,citation_volume=8;,citation_journal_title=Biomedical Signal Processing and Control;">
+<meta name="citation_reference" content="citation_title=The nonlinear dynamics of speech categorization;,citation_abstract=Little is known about the processes underlying the nonlinear relationship between acoustics and speech perception. In Exp 1, the effects of systematic variation of a single acoustic parameter (silent gap duration between a natural utterance of s and a synthetic vowel ay) on judgments of speech category were explored. The resulting shifts in category boundary between say and stay showed rich dynamics, including hysteresis, contrast, and critical boundary effects. A dynamical model is proposed to account for the observed patterns. Exp 2 evaluated 1 prediction of the model, that changing the relative stability of the 2 percepts allows categorical switching. In agreement with the model, an increase in the number of stimulus repetitions maximized the frequency of judgments of category change near the boundary. Thus, a dynamical approach affords the rudiments for a theory of the effects of temporal context on speech categorization. (PsycINFO Database Record (c) 2016 APA, all rights reserved);,citation_author=Betty Tuller;,citation_author=Pamela Case;,citation_author=Mingzhou Ding;,citation_author=J. A. Scott Kelso;,citation_publication_date=1994;,citation_cover_date=1994;,citation_year=1994;,citation_issue=1;,citation_doi=10.1037/0096-1523.20.1.3;,citation_issn=1939-1277;,citation_volume=20;,citation_journal_title=Journal of Experimental Psychology: Human Perception and Performance;">
+<meta name="citation_reference" content="citation_title=Evenly spacing in Detrended Fluctuation Analysis;,citation_abstract=Detrended Fluctuation Analysis is a widely used method, which aims at assessing the level of self-similarity in time series. This method analyzes the diffusion properties of the signal, by computing the linear regression slope in the diffusion plot, representing in log–log coordinates the relationship between the variability of the signal and the length of the intervals over which this variability is computed. We compare in this paper the results obtained with logarithmically spaced and evenly spaced diffusion plots. The study shows the substantial benefits of evenly spacing, especially in the reduction of the variability of estimation.;,citation_author=Zainy M. H. Almurad;,citation_author=Didier Delignières;,citation_publication_date=2016-06;,citation_cover_date=2016-06;,citation_year=2016;,citation_fulltext_html_url=https://www.sciencedirect.com/science/article/pii/S0378437116000455;,citation_doi=10.1016/j.physa.2015.12.155;,citation_issn=0378-4371;,citation_volume=451;,citation_journal_title=Physica A: Statistical Mechanics and its Applications;">
+<meta name="citation_reference" content="citation_title=How the Complexity of Psychological Processes Reframes the Issue of Reproducibility in Psychological Science;,citation_abstract=In the past decade, various recommendations have been published to enhance the methodological rigor and publication standards in psychological science. However, adhering to these recommendations may have limited impact on the reproducibility of causal effects as long as psychological phenomena continue to be viewed as decomposable into separate and additive statistical structures of causal relationships. In this article, we show that (a) psychological phenomena are patterns emerging from nondecomposable and nonisolable complex processes that obey idiosyncratic nonlinear dynamics, (b) these processual features jeopardize the chances of standard reproducibility of statistical results, and (c) these features call on researchers to reconsider what can and should be reproduced, that is, the psychological processes per se, and the signatures of their complexity and dynamics. Accordingly, we argue for a greater consideration of process causality of psychological phenomena reflected by key properties of complex dynamical systems (CDSs). This implies developing and testing formal models of psychological dynamics, which can be implemented by computer simulation. The scope of the CDS paradigm and its convergences with other paradigms are discussed regarding the reproducibility issue. Ironically, the CDS approach could account for both reproducibility and nonreproducibility of the statistical effects usually sought in mainstream psychological science.;,citation_author=Christophe Gernigon;,citation_author=Ruud J. R. Den Hartigh;,citation_author=Robin R. Vallacher;,citation_author=Paul L. C. Van Geert;,citation_publication_date=2024-11;,citation_cover_date=2024-11;,citation_year=2024;,citation_fulltext_html_url=https://doi.org/10.1177/17456916231187324;,citation_issue=6;,citation_doi=10.1177/17456916231187324;,citation_issn=1745-6916;,citation_volume=19;,citation_journal_title=Perspectives on Psychological Science;">
+</head>
+
+<body class="nav-sidebar floating nav-fixed">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg navbar-dark ">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container">
+    <a class="navbar-brand" href="../../index.html">
+    <span class="navbar-title">LA Methods</span>
+    </a>
+  </div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll ms-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="../../../index.html">
+ <span class="menu-text">Home</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../../../book1/index.html">
+ <span class="menu-text">Learning Analytics Methods and Tutorials</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../../../book2/index.html">
+ <span class="menu-text">Advanced Learning Analytics Methods</span></a>
+  </li>  
+  <li class="nav-item compact">
+    <a class="nav-link" href="https://github.com/lamethods/code2/"><i class="bi bi-github" role="img" aria-label="Source Code">
+</i> 
+ <span class="menu-text"></span></a>
+  </li>  
+</ul>
+              <div id="quarto-search" class="" title="Search"></div>
+          </div> <!-- /navcollapse -->
+      </div> <!-- /container-fluid -->
+    </nav>
+  <nav class="quarto-secondary-nav" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+    <div class="container-fluid d-flex justify-content-between">
+      <h1 class="quarto-secondary-nav-title"><span class="chapter-number">21</span>&nbsp; <span class="chapter-title">Detecting Long-Memory Psychological Processes in Academic Settings Using Whittle’s Maximum Likelihood Estimator: An Application with R</span></h1>
+      <button type="button" class="quarto-btn-toggle btn" aria-label="Show secondary navigation">
+        <i class="bi bi-chevron-right"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse sidebar-navigation floating overflow-auto">
+      <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Search"></div>
+        </div>
+      </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../index.html" class="sidebar-item-text sidebar-link">Welcome</a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../contributors.html" class="sidebar-item-text sidebar-link">Contributors</a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../chapters/ch01-intro/ch01-intro.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Introduction</span></a>
+  </div>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true">Artificial Intelligence</a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../chapters/ch02-AIxAI/ch02-aixai.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">AI and XAI</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../chapters/ch03-prediction/ch03-prediction.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Prediction</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../chapters/ch04-classification/ch04-classification.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Classification</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../chapters/ch05-regularization/ch05-regularization.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Regularization</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../chapters/ch06-xai-global/ch06-xai-global.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Global XAI</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../chapters/ch07-xai-local/ch07-xai-local.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Local XAI</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="true">Large Language Models</a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="true">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../chapters/ch08-llms/ch08-llms.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Large Language Models</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../chapters/ch09-nlp/ch09-nlp.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Natural Language Processing</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../chapters/ch10-bert/ch10-bert.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Classification with BERT</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../chapters/ch11-llmsxai/ch11-llmsxai.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Automated feedback with XAI and LLMs</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" aria-expanded="true">Complex Systems</a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" aria-expanded="true">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../chapters/ch12-cds/ch12-cds.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Complex Systems</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../chapters/ch13-ega/ch13-ega.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Exploratory Graph Analysis</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../chapters/ch14-rqa/ch14-rqa.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">Recurrent Quantification Analysis</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../chapters/ch15-tna/ch15-tna.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">15</span>&nbsp; <span class="chapter-title">Transition Network Analysis</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../chapters/ch16-ftna/ch16-ftna.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">16</span>&nbsp; <span class="chapter-title">Frequency-based Transition Network Analysis</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../chapters/ch17-tna-clusters/ch17-tna-clusters.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">17</span>&nbsp; <span class="chapter-title">Transition Network Analysis Clusters</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" aria-expanded="true">Idiographic</a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" aria-expanded="true">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../chapters/ch18-idio/ch18-idio.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">18</span>&nbsp; <span class="chapter-title">Within-person analysis</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../chapters/ch19-three-levels/ch19-three-levels.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">19</span>&nbsp; <span class="chapter-title">Heterogeneity</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../chapters/ch20-var/ch20-var.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">20</span>&nbsp; <span class="chapter-title">Vector Autoregression and uSEM</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../chapters/ch21-mle/ch21-mle.html" class="sidebar-item-text sidebar-link active"><span class="chapter-number">21</span>&nbsp; <span class="chapter-title">Maximum Likelihood Estimator</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../chapters/ch22-automl/ch22-automl.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">22</span>&nbsp; <span class="chapter-title">Automated Machine Learning</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+    </ul>
+    </div>
+</nav>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Table of contents</h2>
+   
+  <ul>
+  <li><a href="#introduction" id="toc-introduction" class="nav-link active" data-scroll-target="#introduction"><span class="toc-section-number">21.1</span>  Introduction</a></li>
+  <li><a href="#principles-of-whittles-maximum-likelihood-estimator-mle" id="toc-principles-of-whittles-maximum-likelihood-estimator-mle" class="nav-link" data-scroll-target="#principles-of-whittles-maximum-likelihood-estimator-mle"><span class="toc-section-number">21.2</span>  Principles of Whittle’s Maximum Likelihood Estimator (MLE)</a></li>
+  <li><a href="#application-of-whittles-mle-to-motivational-dynamics-in-an-academic-context" id="toc-application-of-whittles-mle-to-motivational-dynamics-in-an-academic-context" class="nav-link" data-scroll-target="#application-of-whittles-mle-to-motivational-dynamics-in-an-academic-context"><span class="toc-section-number">21.3</span>  Application of Whittle’s MLE to motivational dynamics in an academic context</a>
+  <ul class="collapse">
+  <li><a href="#the-dynamical-model-of-approach-and-avoidance-motivation-in-achievement-contexts" id="toc-the-dynamical-model-of-approach-and-avoidance-motivation-in-achievement-contexts" class="nav-link" data-scroll-target="#the-dynamical-model-of-approach-and-avoidance-motivation-in-achievement-contexts"><span class="toc-section-number">21.3.1</span>  The dynamical model of approach and avoidance motivation in achievement contexts</a></li>
+  <li><a href="#analysis-of-the-time-series-of-k-using-r" id="toc-analysis-of-the-time-series-of-k-using-r" class="nav-link" data-scroll-target="#analysis-of-the-time-series-of-k-using-r"><span class="toc-section-number">21.3.2</span>  Analysis of the time series of <span class="math inline">\(k\)</span> using R</a></li>
+  </ul></li>
+  <li><a href="#discussion" id="toc-discussion" class="nav-link" data-scroll-target="#discussion"><span class="toc-section-number">21.4</span>  Discussion</a></li>
+  <li><a href="#conclusion" id="toc-conclusion" class="nav-link" data-scroll-target="#conclusion"><span class="toc-section-number">21.5</span>  Conclusion</a></li>
+  <li><a href="#suggested-readings-and-example-papers" id="toc-suggested-readings-and-example-papers" class="nav-link" data-scroll-target="#suggested-readings-and-example-papers"><span class="toc-section-number">21.6</span>  Suggested readings and example papers</a></li>
+  <li><a href="#bibliography" id="toc-bibliography" class="nav-link" data-scroll-target="#bibliography">References</a></li>
+  </ul>
+</nav>
+    <div class="quarto-margin-footer"><div class="margin-footer-item">
+<a href="https://github.com/lamethods/code2" target="_blank"> <button class="btn btn-outline-dark"> <svg xmlns="http://www.w3.org/2000/svg" viewbox="0 0 496 512" style="width: 22px;vertical-align: text-top;margin-right: 9px;"> <path d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3 .3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5 .3-6.2 2.3zm44.2-1.7c-2.9 .7-4.9 2.6-4.6 4.9 .3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3 .7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3 .3 2.9 2.3 3.9 1.6 1 3.6 .7 4.3-.7 .7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3 .7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3 .7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z" style="width: 24px;"> </path> </svg>Download code </button> </a>
+<div style="padding: 10px;">
+Check out our previous book! <br> <a href="../../../book1/index.html"><img src="../../../book1/1712067211600.jpeg" style="
+     width: 70%;
+ "></a>
+</div>
+<p><br> <small>© 2025 The authors</small></p>
+</div></div></div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title d-none d-lg-block"><span class="chapter-number">21</span>&nbsp; <span class="chapter-title">Detecting Long-Memory Psychological Processes in Academic Settings Using Whittle’s Maximum Likelihood Estimator: An Application with R</span></h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+<div>
+  <div class="abstract">
+    <div class="abstract-title">Abstract</div>
+    Person-specific approaches are best suited to account for the complex, dynamic, and idiosyncratic processes from which cognitive, emotional, motivational, relational, and behavioral patterns emerge. Among these approaches, Whittle’s approximation of the Maximum Likelihood Estimator (MLE) enables the detection of long-term memory processes in relatively short time series of data. In this chapter, we outline the principles of Whittle’s MLE, illustrate its application—using R—to the motivational dynamics of approach and avoidance in an academic context, and then discuss the theoretical and practical implications of detecting long-memory processes in the field of education and learning.
+  </div>
+</div>
+
+</header>
+
+<!--
+<section id="introduction" class="level2" data-number="21.1">
+<h2 data-number="21.1"><span class="header-section-number">21.1</span> Introduction</h2>
+<p>People’s cognitive, emotional, motivational, relational, and behavioral patterns emerge from complex, dynamic, and idiosyncratic processes <span class="citation" data-cites="gernigon_2024b">[<a href="#ref-gernigon_2024b" role="doc-biblioref">1</a>]</span>. Thus, these processes operate in an original way, at an individual level which is the most relevant scale for examining them <span class="citation" data-cites="van_geert_2022">[<a href="#ref-van_geert_2022" role="doc-biblioref">2</a>]</span>. This requires person-specific methods, particularly those based on the analysis of time series of idiographic data <span class="citation" data-cites="saqr_2024">[<a href="#ref-saqr_2024" role="doc-biblioref">3</a>]</span>. Some of these analysis techniques, such as the popular <em>Detrended Fluctuation Analysis</em> (DFA; <span class="citation" data-cites="peng_1993">[<a href="#ref-peng_1993" role="doc-biblioref">4</a>]</span>), can be used to detect whether a variable of interest is randomly fluctuating (white noise<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a>), or follows a movement deviating from its trajectory under the influence of random shocks (Brownian motion<a href="#fn2" class="footnote-ref" id="fnref2" role="doc-noteref"><sup>2</sup></a>), or obey particular auto-correlation structures that are redundant across different time scales and that reveal a kind of memory process in the form of a long-term dependency (1/<span class="math inline">\(f\)</span> noise or pink noise<a href="#fn3" class="footnote-ref" id="fnref3" role="doc-noteref"><sup>3</sup></a>).</p>
+<p>In addition to its ease of implementation, DFA has the advantage of being applicable to either stationary (e.g., white noise, pink noise) or non-stationary signals (Brownian motion). This method is based on a statistical property of fractional Brownian motion <span class="citation" data-cites="mandelbrot_1968">[<a href="#ref-mandelbrot_1968" role="doc-biblioref">5</a>]</span> whereby the size of the variance to the power <span class="math inline">\(𝛼\)</span> is proportional to the sample size. The power value <span class="math inline">\(𝛼\)</span> is the fractal exponent which provides information about the fluctuation structure of the variable of interest. When <span class="math inline">\(𝛼\)</span> is between 0 and 1, the time series is stationary and can be qualified as noise. From 0 to 0.5, the time series is anti-correlated to itself, which means that an increase in the value of the variable is followed by a decrease and vice versa. At 0.5 the series corresponds to white Gaussian noise. From 0.5 to 1 the time series is autocorrelated and displays long-term memory properties. For a <span class="math inline">\(𝛼\)</span> between 1 and 2, the series is non-stationary and is referred to as motion. A value of 1.5 corresponds to ordinary Brownian motion <span class="citation" data-cites="delignieres_2013">[<a href="#ref-delignieres_2013" role="doc-biblioref">6</a>]</span>.</p>
+<p>Despite its great popularity, DFA suffers from reliability issues when confronted with certain empirical data, particularly when the length of the time series to be analyzed is less than 500 data points. Depending on the size and target population of the studies for which this method is to be applied, it may prove very difficult to obtain such series lengths. For example, if we want to analyze walking, 500 steps represent between 10 and 12 minutes of walking, which is difficult to achieve for elderly adults with a loss of autonomy <span class="citation" data-cites="phinyomark_2020">[<a href="#ref-phinyomark_2020" role="doc-biblioref">7</a>]</span>.</p>
+<p>Some methods make it possible to estimate the fractal exponent of shorter time series without being affected by the estimation biases that DFA presents for such series <span class="citation" data-cites="likens_2023 mangalam_2023 phinyomark_2020 roume_2023">[<a href="#ref-phinyomark_2020" role="doc-biblioref">7</a>–<a href="#ref-roume_2023" role="doc-biblioref">10</a>]</span>. This chapter presents one of these methods: Whittle’s approximation of the Maximum Likelihood Estimator (MLE). Whereas the DFA output is estimated via linear regression, Whittle’s estimator is a more sophisticated method that consists of solving an optimization problem <span class="citation" data-cites="beran_2013">[<a href="#ref-beran_2013" role="doc-biblioref">11</a>]</span>. As a comparison, with only 128 data points, Whittle’s MLE gives results twice as accurate as the DFA on 512 data points <span class="citation" data-cites="roume_2023">[<a href="#ref-roume_2023" role="doc-biblioref">10</a>]</span>, the latter offering results that were however already considered satisfactory <span class="citation" data-cites="almurad_2016">[<a href="#ref-almurad_2016" role="doc-biblioref">12</a>]</span>.</p>
+<p>The first part of the chapter is devoted to the presentation of the principles of Whittle’s MLE, as well as their formal implementation. Next, a concrete application of Whittle’s MLE to the study of the dynamics of approach and avoidance motivation in an academic context is offered as an illustration of these principles. This illustration begins with a presentation of the motivational model referred to, continues with the application of Whittle’s MLE to a time series of individual data relating to this model, and ends with a discussion of the result obtained. The chapter concludes with an attempt to reconcile variable-centered nomothetic approaches with person-specific approaches. This reconciliation, potentially capable of resolving the ergodicity issue in psychological science, requires the primacy of person-specific approaches.</p>
+</section>
+<section id="principles-of-whittles-maximum-likelihood-estimator-mle" class="level2" data-number="21.2">
+<h2 data-number="21.2"><span class="header-section-number">21.2</span> Principles of Whittle’s Maximum Likelihood Estimator (MLE)</h2>
+<p>The general principle of Whittle’s estimator is to find the value of <span class="math inline">\(𝛼\)</span> in the interval [0,1] that maximizes the Whittle’s log-likelihood function accounted for by Equation 1:</p>
+<p><span class="math display">\[
+l_w(\alpha) = -\frac{2}{N} \sum_{j=1}^{m} \left( \ln cT&#39;(\omega_j; \alpha) + \frac{P(\omega_j)}{cT&#39;(\omega_j; \alpha)} \right),\tag{1}
+\]</span></p>
+<p>where <span class="math inline">\(P(\omega_j)\)</span> is the periodogram of the time series <span class="math inline">\(x(j)\)</span> of length <span class="math inline">\(N\)</span>; <span class="math inline">\(\omega_j\)</span> are Fourier’s frequencies defined as <span class="math inline">\(\omega = 2\pi j/N\)</span>; <span class="math inline">\(m\)</span> is the integer part of <span class="math inline">\((N-1)/2\)</span>; <span class="math inline">\(T&#39;(\omega_j; \alpha)\)</span> is the theoretical spectral density; and <span class="math inline">\(c\)</span> is a constant used to adjust the powers of the theoretical spectrum.</p>
+<p>In this chapter, we will use the theoretical power spectral density of an ARFIMA (Autoregressive Fractionally Integrated Moving Average<a href="#fn4" class="footnote-ref" id="fnref4" role="doc-noteref"><sup>4</sup></a>) model, which enables the modeling of time series with long memory. ARFIMA models are denoted ARFIMA(<span class="math inline">\(p\)</span>,<span class="math inline">\(d\)</span>,<span class="math inline">\(q\)</span>) with <span class="math inline">\(p\)</span> as the order indicating the number of time lags of the autoregressive model, <span class="math inline">\(q\)</span> as the order of the moving-average model, and <span class="math inline">\(d\)</span> as the fractional integration parameter ranging from -0.5 to 0.5. It corresponds to the exponent <span class="math inline">\(𝛼\)</span> via the conversion: <span class="math inline">\(𝛼\)</span> = <span class="math inline">\(d\)</span> + ½ with <span class="math inline">\(𝛼\)</span> belonging to the interval [0, 1]. The theoretical power spectral density that is used here is that of the ARFIMA(0,<span class="math inline">\(d\)</span>,0) model, which reads as follow:</p>
+<p><span class="math display">\[
+T&#39;(\omega_j; \alpha) = \frac{1}{2\pi} \left( 2 \sin \frac{\omega_j}{2} \right)^{1-2\alpha}. \tag{2}
+\]</span></p>
+<p>An algorithm based on Whittle’s estimator can be developed in three steps. The first one combines data pre-processing, via normalization of the time series and then estimation of the periodogram of this series. The second step is the estimation of <span class="math inline">\(α\)</span>. An optimization algorithm is used to find the <span class="math inline">\(α\)</span> value for which the Whittle’s log-likelihood function, <span class="math inline">\(l_w(\alpha)\)</span>, reaches its maximum value. The third step is optional and is carried out only if the <span class="math inline">\(α\)</span> value obtained from the algorithm is that of the upper bound. In this case, the maximum of the <span class="math inline">\(l_w(\alpha)\)</span> function can be considered to belong to the interval [1,2], which means that the time series is probably non-stationary. Indeed, the <span class="math inline">\(l_w(\alpha)\)</span> function is only applicable for stationary signals, with an <span class="math inline">\(𝛼\)</span> value within the interval [0,1]. Nevertheless, non-stationary series can be analyzed by using a differentiated (derivative) version of the original series and then adding 1 to the <span class="math inline">\(𝛼\)</span> value provided by the algorithm <span class="citation" data-cites="diebolt_2005">[<a href="#ref-diebolt_2005" role="doc-biblioref">13</a>]</span>. In summary, the third step consists of differentiating the time series, then applying the first two steps and finally adding 1 to the <span class="math inline">\(𝛼\)</span> value obtained from the algorithm.</p>
+</section>
+<section id="application-of-whittles-mle-to-motivational-dynamics-in-an-academic-context" class="level2" data-number="21.3">
+<h2 data-number="21.3"><span class="header-section-number">21.3</span> Application of Whittle’s MLE to motivational dynamics in an academic context</h2>
+<section id="the-dynamical-model-of-approach-and-avoidance-motivation-in-achievement-contexts" class="level3" data-number="21.3.1">
+<h3 data-number="21.3.1"><span class="header-section-number">21.3.1</span> The dynamical model of approach and avoidance motivation in achievement contexts</h3>
+<p>Motivational states regarding a goal to be achieved are properties emerging from complex dynamical systems. As such, motivational states fluctuate non-linearly, thus exhibiting various patterns such as persistence of effort or its absence, as well as oscillations and even abrupt shifts between motivated and unmotivated states <span class="citation" data-cites="gernigon_2024a gernigon_2015 lopez-pernas_2024b">[<a href="#ref-gernigon_2024a" role="doc-biblioref">14</a>–<a href="#ref-lopez-pernas_2024b" role="doc-biblioref">16</a>]</span>. We will illustrate how Whittle’s MLE can help characterize the dynamics and the complexity of approach and avoidance motivations in an academic context, more specifically with respect to a Ph.D. student’s pursuit of the goal of reaching the defense of their doctoral thesis.</p>
+<p>Based on the complex dynamical system perspective, approach and avoidance motivational states can be conceptualized as being constrained by two competing attractors <span class="citation" data-cites="gernigon_2015">[<a href="#ref-gernigon_2015" role="doc-biblioref">15</a>]</span>. Attractors are sets of states of a system that are more or less strongly attracted and stabilized within a limited number of values, as if—metaphorically—the trajectories of these states (here, the motivational states) were constrained by the valleys of a hilly landscape. According to Tuller et al. <span class="citation" data-cites="tuller_1994">[<a href="#ref-tuller_1994" role="doc-biblioref">17</a>]</span>, the shape of a landscape that may include one or two attractors can be accounted for by the following equation:</p>
+<p><span class="math display">\[
+V(x) = kx - \frac{1}{2} x^2 + \frac{1}{4} x^4, \tag{3}
+\]</span></p>
+<p>where <span class="math inline">\(V(x)\)</span> is the potential function that constrains the different motivational states <span class="math inline">\(x\)</span>; <span class="math inline">\(k\)</span> is the control parameter that specifies the direction and degree of tilt of the graph of <span class="math inline">\(V(x)\)</span> towards approach (when <span class="math inline">\(k\)</span> tends towards +1) and avoidance (when <span class="math inline">\(k\)</span> tends towards –1) motivations (see Figure 1).</p>
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img src="attractor_landscapes.png" class="img-fluid" width="600" /></p>
+<p><figcaption>Approach (Appr.) and avoidance (Avoid.) attractor landscapes as defined by Equation 3 with different values of the control parameter <span class="math inline">\(k\)</span> (from +1 to –1).</figcaption></p>
+</figure>
+</div>
+<p>The value of the parameter <span class="math inline">\(k\)</span> is itself conceived as resulting from the combination of three social cognitive variables considered to be necessary and sufficient for achievement motivation: Competence expectancies with regard to a goal (e.g., <span class="citation" data-cites="bandura_1997">[<a href="#ref-bandura_1997" role="doc-biblioref">18</a>]</span>), as well as the benefit to the self that the prospect of achieving a goal conveys and the threat to the self associated with the prospect of failure (e.g., <span class="citation" data-cites="crocker_2001">[<a href="#ref-crocker_2001" role="doc-biblioref">19</a>]</span>). These three variables contribute to determining <span class="math inline">\(k\)</span> according to Equation 4:</p>
+<p><span class="math display">\[
+k = (Ce \times Bs) - [Ts \times (1 - Ce)], \tag{4}
+\]</span></p>
+<p>where <span class="math inline">\(Ce\)</span> is the level of competence expectancies, <span class="math inline">\(Bs\)</span> is the potential benefit to the self, and <span class="math inline">\(Ts\)</span> is the potential threat to the self, with <span class="math inline">\(Ce\)</span>, <span class="math inline">\(Bs\)</span>, and <span class="math inline">\(Ts\)</span> <span class="math inline">\(\in\)</span> ]0;1].</p>
+<p>The analysis of the time series of <span class="math inline">\(k\)</span> values using Whittle’s MLE will make it possible to test whether the motivational states of approach and avoidance do emerge from a system of elements (i.e., the internal and environmental antecedents of motivation identified in the literature) interweaving complex interactions. The time series under study comes from data collected from a Ph.D. student who responded every week—over 111 consecutive weeks—to three items related to her goal of completing her doctoral dissertation, a goal she eventually achieved. Each week, each of these three items was drawn at random from the items of each of the three dimensions <span class="math inline">\(Ce\)</span>, <span class="math inline">\(Bs\)</span>, and <span class="math inline">\(Ts\)</span> of Teboul et al.’s <span class="citation" data-cites="teboul_2019">[<a href="#ref-teboul_2019" role="doc-biblioref">20</a>]</span> Approach-Avoidance System Questionnaire. This weekly measurement of <span class="math inline">\(Ce\)</span>, <span class="math inline">\(Bs\)</span>, and <span class="math inline">\(Ts\)</span> enabled <span class="math inline">\(k\)</span> to be calculated for each week.</p>
+</section>
+<section id="analysis-of-the-time-series-of-k-using-r" class="level3" data-number="21.3.2">
+<h3 data-number="21.3.2"><span class="header-section-number">21.3.2</span> Analysis of the time series of <span class="math inline">\(k\)</span> using R</h3>
+<section id="libraries-used" class="level4" data-number="21.3.2.1">
+<h4 data-number="21.3.2.1"><span class="header-section-number">21.3.2.1</span> Libraries used</h4>
+<p>Whittle’s MLE was originally coded using MATLAB language (see <span class="citation" data-cites="roume_2023">[<a href="#ref-roume_2023" role="doc-biblioref">10</a>]</span>). However, the MATLAB algorithm can be translated into R code using only the <code>stats</code> package, which is a basic package—automatically installed—on R. This package contains a set of useful functions for many statistical calculations. We will use <code>rio</code> to import and load data into R. We will use <code>dplyr</code>, <code>gt</code> and <code>ggplot2</code> packages to easily manipulate and visualize our data (to learn how to use these three packages, readers can refer to the previous edition of the book, see <span class="citation" data-cites="kopra_2024 lopez-pernas_2024a">[<a href="#ref-kopra_2024" role="doc-biblioref">21</a>, <a href="#ref-lopez-pernas_2024a" role="doc-biblioref">22</a>]</span>. These five packages can be installed using the <code>install.packages()</code> function.</p>
+<div class="cell">
+<div class="sourceCode" id="cb1"><pre class="sourceCode r cell-code"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">&quot;stats&quot;</span>)</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">&quot;rio&quot;</span>)</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">&quot;dplyr&quot;</span>)</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">&quot;gt&quot;</span>)</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">&quot;ggplot2&quot;</span>)</span></code></pre></div>
+</div>
+<p>These packages can then be loaded with the <code>library()</code> function.</p>
+<div class="cell">
+<div class="sourceCode" id="cb2"><pre class="sourceCode r cell-code"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(stats)</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(rio)</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(gt)</span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span></code></pre></div>
+</div>
+</section>
+<section id="data-visualization" class="level4" data-number="21.3.2.2">
+<h4 data-number="21.3.2.2"><span class="header-section-number">21.3.2.2</span> Data visualization</h4>
+<p>First, we load the data with <code>import()</code> function from <code>rio</code> and visualize an extract of them (<a href="#fig-motivation-data">Figure <span class="quarto-unresolved-ref">fig-motivation-data</span></a>) with the function <code>gt_preview()</code>.</p>
+<div class="cell">
+<div class="sourceCode" id="cb3"><pre class="sourceCode r cell-code"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>MotivationData <span class="ot">&lt;-</span> <span class="fu">import</span>(<span class="fu">paste0</span>(</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>  <span class="st">&quot;https://github.com/lamethods/data2/raw/main/&quot;</span>,</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>  <span class="st">&quot;motivation/Motivation.xlsx&quot;</span></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>))</span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a><span class="fu">gt_preview</span>(MotivationData, <span class="at">top_n =</span> <span class="dv">8</span>, <span class="at">bottom_n =</span> <span class="dv">1</span>)</span></code></pre></div>
+<div id="fig-motivation-data" class="quarto-figure quarto-figure-center">
+<figure>
+
+<div id="itgphlszdy" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<style>#itgphlszdy table {
+  font-family: system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+#itgphlszdy thead, #itgphlszdy tbody, #itgphlszdy tfoot, #itgphlszdy tr, #itgphlszdy td, #itgphlszdy th {
+  border-style: none;
+}
+
+#itgphlszdy p {
+  margin: 0;
+  padding: 0;
+}
+
+#itgphlszdy .gt_table {
+  display: table;
+  border-collapse: collapse;
+  line-height: normal;
+  margin-left: auto;
+  margin-right: auto;
+  color: #333333;
+  font-size: 16px;
+  font-weight: normal;
+  font-style: normal;
+  background-color: #FFFFFF;
+  width: auto;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #A8A8A8;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #A8A8A8;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+}
+
+#itgphlszdy .gt_caption {
+  padding-top: 4px;
+  padding-bottom: 4px;
+}
+
+#itgphlszdy .gt_title {
+  color: #333333;
+  font-size: 125%;
+  font-weight: initial;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-bottom-color: #FFFFFF;
+  border-bottom-width: 0;
+}
+
+#itgphlszdy .gt_subtitle {
+  color: #333333;
+  font-size: 85%;
+  font-weight: initial;
+  padding-top: 3px;
+  padding-bottom: 5px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-top-color: #FFFFFF;
+  border-top-width: 0;
+}
+
+#itgphlszdy .gt_heading {
+  background-color: #FFFFFF;
+  text-align: center;
+  border-bottom-color: #FFFFFF;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+}
+
+#itgphlszdy .gt_bottom_border {
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#itgphlszdy .gt_col_headings {
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+}
+
+#itgphlszdy .gt_col_heading {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: normal;
+  text-transform: inherit;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: bottom;
+  padding-top: 5px;
+  padding-bottom: 6px;
+  padding-left: 5px;
+  padding-right: 5px;
+  overflow-x: hidden;
+}
+
+#itgphlszdy .gt_column_spanner_outer {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: normal;
+  text-transform: inherit;
+  padding-top: 0;
+  padding-bottom: 0;
+  padding-left: 4px;
+  padding-right: 4px;
+}
+
+#itgphlszdy .gt_column_spanner_outer:first-child {
+  padding-left: 0;
+}
+
+#itgphlszdy .gt_column_spanner_outer:last-child {
+  padding-right: 0;
+}
+
+#itgphlszdy .gt_column_spanner {
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  vertical-align: bottom;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  overflow-x: hidden;
+  display: inline-block;
+  width: 100%;
+}
+
+#itgphlszdy .gt_spanner_row {
+  border-bottom-style: hidden;
+}
+
+#itgphlszdy .gt_group_heading {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: middle;
+  text-align: left;
+}
+
+#itgphlszdy .gt_empty_group_heading {
+  padding: 0.5px;
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  vertical-align: middle;
+}
+
+#itgphlszdy .gt_from_md > :first-child {
+  margin-top: 0;
+}
+
+#itgphlszdy .gt_from_md > :last-child {
+  margin-bottom: 0;
+}
+
+#itgphlszdy .gt_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  margin: 10px;
+  border-top-style: solid;
+  border-top-width: 1px;
+  border-top-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: middle;
+  overflow-x: hidden;
+}
+
+#itgphlszdy .gt_stub {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-right-style: solid;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#itgphlszdy .gt_stub_row_group {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-right-style: solid;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  padding-left: 5px;
+  padding-right: 5px;
+  vertical-align: top;
+}
+
+#itgphlszdy .gt_row_group_first td {
+  border-top-width: 2px;
+}
+
+#itgphlszdy .gt_row_group_first th {
+  border-top-width: 2px;
+}
+
+#itgphlszdy .gt_summary_row {
+  color: #333333;
+  background-color: #FFFFFF;
+  text-transform: inherit;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#itgphlszdy .gt_first_summary_row {
+  border-top-style: solid;
+  border-top-color: #D3D3D3;
+}
+
+#itgphlszdy .gt_first_summary_row.thick {
+  border-top-width: 2px;
+}
+
+#itgphlszdy .gt_last_summary_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#itgphlszdy .gt_grand_summary_row {
+  color: #333333;
+  background-color: #FFFFFF;
+  text-transform: inherit;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#itgphlszdy .gt_first_grand_summary_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-top-style: double;
+  border-top-width: 6px;
+  border-top-color: #D3D3D3;
+}
+
+#itgphlszdy .gt_last_grand_summary_row_top {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-bottom-style: double;
+  border-bottom-width: 6px;
+  border-bottom-color: #D3D3D3;
+}
+
+#itgphlszdy .gt_striped {
+  background-color: rgba(128, 128, 128, 0.05);
+}
+
+#itgphlszdy .gt_table_body {
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#itgphlszdy .gt_footnotes {
+  color: #333333;
+  background-color: #FFFFFF;
+  border-bottom-style: none;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+}
+
+#itgphlszdy .gt_footnote {
+  margin: 0px;
+  font-size: 90%;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#itgphlszdy .gt_sourcenotes {
+  color: #333333;
+  background-color: #FFFFFF;
+  border-bottom-style: none;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+}
+
+#itgphlszdy .gt_sourcenote {
+  font-size: 90%;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#itgphlszdy .gt_left {
+  text-align: left;
+}
+
+#itgphlszdy .gt_center {
+  text-align: center;
+}
+
+#itgphlszdy .gt_right {
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+}
+
+#itgphlszdy .gt_font_normal {
+  font-weight: normal;
+}
+
+#itgphlszdy .gt_font_bold {
+  font-weight: bold;
+}
+
+#itgphlszdy .gt_font_italic {
+  font-style: italic;
+}
+
+#itgphlszdy .gt_super {
+  font-size: 65%;
+}
+
+#itgphlszdy .gt_footnote_marks {
+  font-size: 75%;
+  vertical-align: 0.4em;
+  position: initial;
+}
+
+#itgphlszdy .gt_asterisk {
+  font-size: 100%;
+  vertical-align: 0;
+}
+
+#itgphlszdy .gt_indent_1 {
+  text-indent: 5px;
+}
+
+#itgphlszdy .gt_indent_2 {
+  text-indent: 10px;
+}
+
+#itgphlszdy .gt_indent_3 {
+  text-indent: 15px;
+}
+
+#itgphlszdy .gt_indent_4 {
+  text-indent: 20px;
+}
+
+#itgphlszdy .gt_indent_5 {
+  text-indent: 25px;
+}
+
+#itgphlszdy .katex-display {
+  display: inline-flex !important;
+  margin-bottom: 0.75em !important;
+}
+
+#itgphlszdy div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
+  height: 0px !important;
+}
+</style>
+<table class="gt_table" data-quarto-disable-processing="false" data-quarto-bootstrap="false">
+  <thead>
+    <tr class="gt_col_headings">
+      <th class="gt_col_heading gt_columns_bottom_border gt_left" rowspan="1" colspan="1" scope="col" id="a::stub"></th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1" scope="col" id="Week">Week</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1" scope="col" id="Ce">Ce</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1" scope="col" id="Bs">Bs</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1" scope="col" id="Ts">Ts</th>
+    </tr>
+  </thead>
+  <tbody class="gt_table_body">
+    <tr><th id="stub_1_1" scope="row" class="gt_row gt_right gt_stub" style="font-family: Courier;">1</th>
+<td headers="stub_1_1 Week" class="gt_row gt_right">1</td>
+<td headers="stub_1_1 Ce" class="gt_row gt_right">0.5</td>
+<td headers="stub_1_1 Bs" class="gt_row gt_right">0.5</td>
+<td headers="stub_1_1 Ts" class="gt_row gt_right">0.5</td></tr>
+    <tr><th id="stub_1_2" scope="row" class="gt_row gt_right gt_stub" style="font-family: Courier;">2</th>
+<td headers="stub_1_2 Week" class="gt_row gt_right">2</td>
+<td headers="stub_1_2 Ce" class="gt_row gt_right">0.5</td>
+<td headers="stub_1_2 Bs" class="gt_row gt_right">0.5</td>
+<td headers="stub_1_2 Ts" class="gt_row gt_right">0.5</td></tr>
+    <tr><th id="stub_1_3" scope="row" class="gt_row gt_right gt_stub" style="font-family: Courier;">3</th>
+<td headers="stub_1_3 Week" class="gt_row gt_right">3</td>
+<td headers="stub_1_3 Ce" class="gt_row gt_right">0.6</td>
+<td headers="stub_1_3 Bs" class="gt_row gt_right">1.0</td>
+<td headers="stub_1_3 Ts" class="gt_row gt_right">1.0</td></tr>
+    <tr><th id="stub_1_4" scope="row" class="gt_row gt_right gt_stub" style="font-family: Courier;">4</th>
+<td headers="stub_1_4 Week" class="gt_row gt_right">4</td>
+<td headers="stub_1_4 Ce" class="gt_row gt_right">0.7</td>
+<td headers="stub_1_4 Bs" class="gt_row gt_right">1.0</td>
+<td headers="stub_1_4 Ts" class="gt_row gt_right">1.0</td></tr>
+    <tr><th id="stub_1_5" scope="row" class="gt_row gt_right gt_stub" style="font-family: Courier;">5</th>
+<td headers="stub_1_5 Week" class="gt_row gt_right">5</td>
+<td headers="stub_1_5 Ce" class="gt_row gt_right">0.5</td>
+<td headers="stub_1_5 Bs" class="gt_row gt_right">1.0</td>
+<td headers="stub_1_5 Ts" class="gt_row gt_right">1.0</td></tr>
+    <tr><th id="stub_1_6" scope="row" class="gt_row gt_right gt_stub" style="font-family: Courier;">6</th>
+<td headers="stub_1_6 Week" class="gt_row gt_right">6</td>
+<td headers="stub_1_6 Ce" class="gt_row gt_right">0.5</td>
+<td headers="stub_1_6 Bs" class="gt_row gt_right">1.0</td>
+<td headers="stub_1_6 Ts" class="gt_row gt_right">1.0</td></tr>
+    <tr><th id="stub_1_7" scope="row" class="gt_row gt_right gt_stub" style="font-family: Courier;">7</th>
+<td headers="stub_1_7 Week" class="gt_row gt_right">7</td>
+<td headers="stub_1_7 Ce" class="gt_row gt_right">0.3</td>
+<td headers="stub_1_7 Bs" class="gt_row gt_right">1.0</td>
+<td headers="stub_1_7 Ts" class="gt_row gt_right">1.0</td></tr>
+    <tr><th id="stub_1_8" scope="row" class="gt_row gt_right gt_stub" style="font-family: Courier;">8</th>
+<td headers="stub_1_8 Week" class="gt_row gt_right">8</td>
+<td headers="stub_1_8 Ce" class="gt_row gt_right">0.5</td>
+<td headers="stub_1_8 Bs" class="gt_row gt_right">1.0</td>
+<td headers="stub_1_8 Ts" class="gt_row gt_right">1.0</td></tr>
+    <tr><th id="stub_1_9" scope="row" class="gt_row gt_right gt_stub" style="font-family: Courier; font-size: x-small; background-color: #E4E4E4;">9..110</th>
+<td headers="stub_1_9 Week" class="gt_row gt_right" style="background-color: #E4E4E4;"></td>
+<td headers="stub_1_9 Ce" class="gt_row gt_right" style="background-color: #E4E4E4;"></td>
+<td headers="stub_1_9 Bs" class="gt_row gt_right" style="background-color: #E4E4E4;"></td>
+<td headers="stub_1_9 Ts" class="gt_row gt_right" style="background-color: #E4E4E4;"></td></tr>
+    <tr><th id="stub_1_10" scope="row" class="gt_row gt_right gt_stub" style="font-family: Courier;">111</th>
+<td headers="stub_1_10 Week" class="gt_row gt_right">111</td>
+<td headers="stub_1_10 Ce" class="gt_row gt_right">0.6</td>
+<td headers="stub_1_10 Bs" class="gt_row gt_right">1.0</td>
+<td headers="stub_1_10 Ts" class="gt_row gt_right">1.0</td></tr>
+  </tbody>
+  
+  
+</table>
+</div>
+<p><figcaption>Figure 21.1: Preview of motivation data</figcaption></p>
+</figure>
+</div>
+</div>
+<p>The dataset comprises four columns of length 111: the first column is the number of weeks (‘Week’), the second column is the values of competence expectancies for each week (‘Ce’), the third is the values of potential benefit to the self (‘Bs’) and the last column the values of potential threat to the self (‘Ts’). To calculate the <span class="math inline">\(k\)</span> values according to Equation 4, we use <code>mutate</code> from the <code>dplyr</code> package to create a fifth column and apply the equation for each week (<a href="#fig-motivation-data-col">Figure <span class="quarto-unresolved-ref">fig-motivation-data-col</span></a>).</p>
+<div class="cell">
+<div class="sourceCode" id="cb4"><pre class="sourceCode r cell-code"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>MotivationData <span class="ot">&lt;-</span> MotivationData <span class="sc">%&gt;%</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">K =</span> (Ce <span class="sc">*</span> Bs) <span class="sc">-</span> (Ts <span class="sc">*</span> (<span class="dv">1</span> <span class="sc">-</span> Ce))) </span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>k_values <span class="ot">&lt;-</span> (MotivationData<span class="sc">$</span>K) <span class="co"># store K values in a vector</span></span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a><span class="fu">gt_preview</span>(MotivationData, <span class="at">top_n =</span> <span class="dv">8</span>, <span class="at">bottom_n =</span> <span class="dv">1</span>)</span></code></pre></div>
+<div id="fig-motivation-data-col" class="quarto-figure quarto-figure-center">
+<figure>
+
+<div id="pysswuqgci" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<style>#pysswuqgci table {
+  font-family: system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+#pysswuqgci thead, #pysswuqgci tbody, #pysswuqgci tfoot, #pysswuqgci tr, #pysswuqgci td, #pysswuqgci th {
+  border-style: none;
+}
+
+#pysswuqgci p {
+  margin: 0;
+  padding: 0;
+}
+
+#pysswuqgci .gt_table {
+  display: table;
+  border-collapse: collapse;
+  line-height: normal;
+  margin-left: auto;
+  margin-right: auto;
+  color: #333333;
+  font-size: 16px;
+  font-weight: normal;
+  font-style: normal;
+  background-color: #FFFFFF;
+  width: auto;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #A8A8A8;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #A8A8A8;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+}
+
+#pysswuqgci .gt_caption {
+  padding-top: 4px;
+  padding-bottom: 4px;
+}
+
+#pysswuqgci .gt_title {
+  color: #333333;
+  font-size: 125%;
+  font-weight: initial;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-bottom-color: #FFFFFF;
+  border-bottom-width: 0;
+}
+
+#pysswuqgci .gt_subtitle {
+  color: #333333;
+  font-size: 85%;
+  font-weight: initial;
+  padding-top: 3px;
+  padding-bottom: 5px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-top-color: #FFFFFF;
+  border-top-width: 0;
+}
+
+#pysswuqgci .gt_heading {
+  background-color: #FFFFFF;
+  text-align: center;
+  border-bottom-color: #FFFFFF;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+}
+
+#pysswuqgci .gt_bottom_border {
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#pysswuqgci .gt_col_headings {
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+}
+
+#pysswuqgci .gt_col_heading {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: normal;
+  text-transform: inherit;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: bottom;
+  padding-top: 5px;
+  padding-bottom: 6px;
+  padding-left: 5px;
+  padding-right: 5px;
+  overflow-x: hidden;
+}
+
+#pysswuqgci .gt_column_spanner_outer {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: normal;
+  text-transform: inherit;
+  padding-top: 0;
+  padding-bottom: 0;
+  padding-left: 4px;
+  padding-right: 4px;
+}
+
+#pysswuqgci .gt_column_spanner_outer:first-child {
+  padding-left: 0;
+}
+
+#pysswuqgci .gt_column_spanner_outer:last-child {
+  padding-right: 0;
+}
+
+#pysswuqgci .gt_column_spanner {
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  vertical-align: bottom;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  overflow-x: hidden;
+  display: inline-block;
+  width: 100%;
+}
+
+#pysswuqgci .gt_spanner_row {
+  border-bottom-style: hidden;
+}
+
+#pysswuqgci .gt_group_heading {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: middle;
+  text-align: left;
+}
+
+#pysswuqgci .gt_empty_group_heading {
+  padding: 0.5px;
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  vertical-align: middle;
+}
+
+#pysswuqgci .gt_from_md > :first-child {
+  margin-top: 0;
+}
+
+#pysswuqgci .gt_from_md > :last-child {
+  margin-bottom: 0;
+}
+
+#pysswuqgci .gt_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  margin: 10px;
+  border-top-style: solid;
+  border-top-width: 1px;
+  border-top-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: middle;
+  overflow-x: hidden;
+}
+
+#pysswuqgci .gt_stub {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-right-style: solid;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#pysswuqgci .gt_stub_row_group {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-right-style: solid;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  padding-left: 5px;
+  padding-right: 5px;
+  vertical-align: top;
+}
+
+#pysswuqgci .gt_row_group_first td {
+  border-top-width: 2px;
+}
+
+#pysswuqgci .gt_row_group_first th {
+  border-top-width: 2px;
+}
+
+#pysswuqgci .gt_summary_row {
+  color: #333333;
+  background-color: #FFFFFF;
+  text-transform: inherit;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#pysswuqgci .gt_first_summary_row {
+  border-top-style: solid;
+  border-top-color: #D3D3D3;
+}
+
+#pysswuqgci .gt_first_summary_row.thick {
+  border-top-width: 2px;
+}
+
+#pysswuqgci .gt_last_summary_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#pysswuqgci .gt_grand_summary_row {
+  color: #333333;
+  background-color: #FFFFFF;
+  text-transform: inherit;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#pysswuqgci .gt_first_grand_summary_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-top-style: double;
+  border-top-width: 6px;
+  border-top-color: #D3D3D3;
+}
+
+#pysswuqgci .gt_last_grand_summary_row_top {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-bottom-style: double;
+  border-bottom-width: 6px;
+  border-bottom-color: #D3D3D3;
+}
+
+#pysswuqgci .gt_striped {
+  background-color: rgba(128, 128, 128, 0.05);
+}
+
+#pysswuqgci .gt_table_body {
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#pysswuqgci .gt_footnotes {
+  color: #333333;
+  background-color: #FFFFFF;
+  border-bottom-style: none;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+}
+
+#pysswuqgci .gt_footnote {
+  margin: 0px;
+  font-size: 90%;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#pysswuqgci .gt_sourcenotes {
+  color: #333333;
+  background-color: #FFFFFF;
+  border-bottom-style: none;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+}
+
+#pysswuqgci .gt_sourcenote {
+  font-size: 90%;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#pysswuqgci .gt_left {
+  text-align: left;
+}
+
+#pysswuqgci .gt_center {
+  text-align: center;
+}
+
+#pysswuqgci .gt_right {
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+}
+
+#pysswuqgci .gt_font_normal {
+  font-weight: normal;
+}
+
+#pysswuqgci .gt_font_bold {
+  font-weight: bold;
+}
+
+#pysswuqgci .gt_font_italic {
+  font-style: italic;
+}
+
+#pysswuqgci .gt_super {
+  font-size: 65%;
+}
+
+#pysswuqgci .gt_footnote_marks {
+  font-size: 75%;
+  vertical-align: 0.4em;
+  position: initial;
+}
+
+#pysswuqgci .gt_asterisk {
+  font-size: 100%;
+  vertical-align: 0;
+}
+
+#pysswuqgci .gt_indent_1 {
+  text-indent: 5px;
+}
+
+#pysswuqgci .gt_indent_2 {
+  text-indent: 10px;
+}
+
+#pysswuqgci .gt_indent_3 {
+  text-indent: 15px;
+}
+
+#pysswuqgci .gt_indent_4 {
+  text-indent: 20px;
+}
+
+#pysswuqgci .gt_indent_5 {
+  text-indent: 25px;
+}
+
+#pysswuqgci .katex-display {
+  display: inline-flex !important;
+  margin-bottom: 0.75em !important;
+}
+
+#pysswuqgci div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
+  height: 0px !important;
+}
+</style>
+<table class="gt_table" data-quarto-disable-processing="false" data-quarto-bootstrap="false">
+  <thead>
+    <tr class="gt_col_headings">
+      <th class="gt_col_heading gt_columns_bottom_border gt_left" rowspan="1" colspan="1" scope="col" id="a::stub"></th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1" scope="col" id="Week">Week</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1" scope="col" id="Ce">Ce</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1" scope="col" id="Bs">Bs</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1" scope="col" id="Ts">Ts</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1" scope="col" id="K">K</th>
+    </tr>
+  </thead>
+  <tbody class="gt_table_body">
+    <tr><th id="stub_1_1" scope="row" class="gt_row gt_right gt_stub" style="font-family: Courier;">1</th>
+<td headers="stub_1_1 Week" class="gt_row gt_right">1</td>
+<td headers="stub_1_1 Ce" class="gt_row gt_right">0.5</td>
+<td headers="stub_1_1 Bs" class="gt_row gt_right">0.5</td>
+<td headers="stub_1_1 Ts" class="gt_row gt_right">0.5</td>
+<td headers="stub_1_1 K" class="gt_row gt_right">0.0</td></tr>
+    <tr><th id="stub_1_2" scope="row" class="gt_row gt_right gt_stub" style="font-family: Courier;">2</th>
+<td headers="stub_1_2 Week" class="gt_row gt_right">2</td>
+<td headers="stub_1_2 Ce" class="gt_row gt_right">0.5</td>
+<td headers="stub_1_2 Bs" class="gt_row gt_right">0.5</td>
+<td headers="stub_1_2 Ts" class="gt_row gt_right">0.5</td>
+<td headers="stub_1_2 K" class="gt_row gt_right">0.0</td></tr>
+    <tr><th id="stub_1_3" scope="row" class="gt_row gt_right gt_stub" style="font-family: Courier;">3</th>
+<td headers="stub_1_3 Week" class="gt_row gt_right">3</td>
+<td headers="stub_1_3 Ce" class="gt_row gt_right">0.6</td>
+<td headers="stub_1_3 Bs" class="gt_row gt_right">1.0</td>
+<td headers="stub_1_3 Ts" class="gt_row gt_right">1.0</td>
+<td headers="stub_1_3 K" class="gt_row gt_right">0.2</td></tr>
+    <tr><th id="stub_1_4" scope="row" class="gt_row gt_right gt_stub" style="font-family: Courier;">4</th>
+<td headers="stub_1_4 Week" class="gt_row gt_right">4</td>
+<td headers="stub_1_4 Ce" class="gt_row gt_right">0.7</td>
+<td headers="stub_1_4 Bs" class="gt_row gt_right">1.0</td>
+<td headers="stub_1_4 Ts" class="gt_row gt_right">1.0</td>
+<td headers="stub_1_4 K" class="gt_row gt_right">0.4</td></tr>
+    <tr><th id="stub_1_5" scope="row" class="gt_row gt_right gt_stub" style="font-family: Courier;">5</th>
+<td headers="stub_1_5 Week" class="gt_row gt_right">5</td>
+<td headers="stub_1_5 Ce" class="gt_row gt_right">0.5</td>
+<td headers="stub_1_5 Bs" class="gt_row gt_right">1.0</td>
+<td headers="stub_1_5 Ts" class="gt_row gt_right">1.0</td>
+<td headers="stub_1_5 K" class="gt_row gt_right">0.0</td></tr>
+    <tr><th id="stub_1_6" scope="row" class="gt_row gt_right gt_stub" style="font-family: Courier;">6</th>
+<td headers="stub_1_6 Week" class="gt_row gt_right">6</td>
+<td headers="stub_1_6 Ce" class="gt_row gt_right">0.5</td>
+<td headers="stub_1_6 Bs" class="gt_row gt_right">1.0</td>
+<td headers="stub_1_6 Ts" class="gt_row gt_right">1.0</td>
+<td headers="stub_1_6 K" class="gt_row gt_right">0.0</td></tr>
+    <tr><th id="stub_1_7" scope="row" class="gt_row gt_right gt_stub" style="font-family: Courier;">7</th>
+<td headers="stub_1_7 Week" class="gt_row gt_right">7</td>
+<td headers="stub_1_7 Ce" class="gt_row gt_right">0.3</td>
+<td headers="stub_1_7 Bs" class="gt_row gt_right">1.0</td>
+<td headers="stub_1_7 Ts" class="gt_row gt_right">1.0</td>
+<td headers="stub_1_7 K" class="gt_row gt_right">-0.4</td></tr>
+    <tr><th id="stub_1_8" scope="row" class="gt_row gt_right gt_stub" style="font-family: Courier;">8</th>
+<td headers="stub_1_8 Week" class="gt_row gt_right">8</td>
+<td headers="stub_1_8 Ce" class="gt_row gt_right">0.5</td>
+<td headers="stub_1_8 Bs" class="gt_row gt_right">1.0</td>
+<td headers="stub_1_8 Ts" class="gt_row gt_right">1.0</td>
+<td headers="stub_1_8 K" class="gt_row gt_right">0.0</td></tr>
+    <tr><th id="stub_1_9" scope="row" class="gt_row gt_right gt_stub" style="font-family: Courier; font-size: x-small; background-color: #E4E4E4;">9..110</th>
+<td headers="stub_1_9 Week" class="gt_row gt_right" style="background-color: #E4E4E4;"></td>
+<td headers="stub_1_9 Ce" class="gt_row gt_right" style="background-color: #E4E4E4;"></td>
+<td headers="stub_1_9 Bs" class="gt_row gt_right" style="background-color: #E4E4E4;"></td>
+<td headers="stub_1_9 Ts" class="gt_row gt_right" style="background-color: #E4E4E4;"></td>
+<td headers="stub_1_9 K" class="gt_row gt_right" style="background-color: #E4E4E4;"></td></tr>
+    <tr><th id="stub_1_10" scope="row" class="gt_row gt_right gt_stub" style="font-family: Courier;">111</th>
+<td headers="stub_1_10 Week" class="gt_row gt_right">111</td>
+<td headers="stub_1_10 Ce" class="gt_row gt_right">0.6</td>
+<td headers="stub_1_10 Bs" class="gt_row gt_right">1.0</td>
+<td headers="stub_1_10 Ts" class="gt_row gt_right">1.0</td>
+<td headers="stub_1_10 K" class="gt_row gt_right">0.2</td></tr>
+  </tbody>
+  
+  
+</table>
+</div>
+<p><figcaption>Figure 21.2: Preview of motivation data with additional column</figcaption></p>
+</figure>
+</div>
+</div>
+<p>To visualize the temporal dynamics of <span class="math inline">\(k\)</span>, we use <code>ggplot2</code> to create a line plot (see Figure 2).</p>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode" id="cb5"><pre class="sourceCode r cell-code"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(MotivationData, <span class="fu">aes</span>(<span class="at">x =</span> Week, <span class="at">y =</span> K)) <span class="sc">+</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="at">colour =</span> <span class="st">&quot;turquoise4&quot;</span>, <span class="at">linewidth =</span> <span class="fl">0.8</span>) <span class="sc">+</span></span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">colour =</span> <span class="st">&quot;magenta&quot;</span>, <span class="at">size =</span> <span class="dv">1</span>) <span class="sc">+</span></span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">&quot;Week&quot;</span>, <span class="at">y =</span> <span class="st">&quot;k&quot;</span>) <span class="sc">+</span></span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_x_continuous</span>(<span class="at">breaks =</span> <span class="fu">seq</span>(<span class="dv">0</span>, <span class="dv">110</span>, <span class="at">by =</span> <span class="dv">10</span>)) <span class="sc">+</span></span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_y_continuous</span>(<span class="at">breaks =</span> <span class="fu">seq</span>(<span class="sc">-</span><span class="dv">1</span>, <span class="dv">1</span>, <span class="at">by =</span> <span class="fl">0.5</span>)) <span class="sc">+</span></span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(</span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a>    <span class="at">panel.background =</span> <span class="fu">element_rect</span>(<span class="at">fill =</span> <span class="st">&quot;gray95&quot;</span>)</span>
+<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a>  )</span></code></pre></div>
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img src="ch21-mle_files/figure-html/unnamed-chunk-6-1.png" class="img-fluid" width="960" /></p>
+<p><figcaption>Line plot of the evolution of the control parameter of approach and avoidance motivations <span class="math inline">\(k\)</span>.</figcaption></p>
+</figure>
+</div>
+</div>
+</div>
+<p>The plot in Figure 2 shows the variations in the student’s motivational state with respect to her goal of defending her Ph.D. thesis. This motivational state is reflected by the value of the parameter <span class="math inline">\(k\)</span> (vertical axis), which determines the inclination of the attractor landscape towards approach (when <span class="math inline">\(k\)</span> tends towards +1) or avoidance (when <span class="math inline">\(k\)</span> tends towards –1). The values of <span class="math inline">\(k\)</span> are characterized by varied non-linear changes over the weeks (horizontal axis). At certain periods, fluctuations in motivational state remain confined within the avoidance attractor (e.g., from week 12 to week 30). At other times, these fluctuations tend to stay within the approach attractor (e.g., from week 93 to week 102). But overall, motivation seems rather unstable, most often oscillating between the two attractors by crossing the value of <span class="math inline">\(k\)</span> = 0. At first glance, motivational variability may look erratic, with no consistent trend over time. Although visual analysis of the data is essential, it is Whittle’s MLE that enables the temporal structure of the variability of this signal to be detected statistically.</p>
+</section>
+<section id="application-of-whittles-mle-algorithm" class="level4" data-number="21.3.2.3">
+<h4 data-number="21.3.2.3"><span class="header-section-number">21.3.2.3</span> Application of Whittle’s MLE algorithm</h4>
+<p>The first step in Whittle’s MLE algorithm is to estimate the power spectral density (or periodogram) of the vector containing the values of <span class="math inline">\(k\)</span>.</p>
+<div class="cell">
+<div class="sourceCode" id="cb6"><pre class="sourceCode r cell-code"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Power spectral density estimation of vector x</span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> (k_values)</span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>X <span class="ot">&lt;-</span> <span class="fu">scale</span>(x)</span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>N <span class="ot">&lt;-</span> <span class="fu">length</span>(X)</span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>m <span class="ot">&lt;-</span> <span class="fu">floor</span>((N <span class="sc">-</span> <span class="dv">1</span>) <span class="sc">/</span> <span class="dv">2</span>)</span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>Y <span class="ot">&lt;-</span> <span class="fu">fft</span>(X) <span class="co"># Fast Discrete Fourier Transform</span></span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a>P <span class="ot">&lt;-</span> (<span class="dv">1</span> <span class="sc">/</span> (pi <span class="sc">*</span> N)) <span class="sc">*</span> <span class="fu">abs</span>(Y[<span class="dv">2</span><span class="sc">:</span>(m <span class="sc">+</span> <span class="dv">1</span>)])<span class="sc">^</span><span class="dv">2</span> <span class="co"># Power spectral density estimation</span></span>
+<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a>w <span class="ot">&lt;-</span> (<span class="dv">2</span> <span class="sc">*</span> pi <span class="sc">*</span> (<span class="dv">1</span><span class="sc">:</span>m)) <span class="sc">/</span> N <span class="co"># Fourier frequencies</span></span></code></pre></div>
+</div>
+<p>Firstly, we give the name <code>x</code> to the <code>k_values</code> vector. Then, as a necessary step for the algorithm to work properly, the <code>scale()</code> function standardizes the vector <code>x</code> by setting its mean to 0 and its standard deviation to 1. The value <code>N</code> represents the length of the standardized vector <code>X</code> (here 111). The value <code>m</code> is half the total length of the vector <code>N</code>, minus 1 and rounded down to the nearest integer using the <code>floor()</code> function. The number <code>m</code> represents the number of frequencies used to estimate the power spectral density. The <code>fft()</code> function is an algorithm that calculates the discrete Fourier transform of the standardized vector <code>X</code>, thus adapting the signal <code>X</code> from the time domain to the frequency domain. The calculation of the vector <code>P</code> is used to estimate the periodogram (i.e., power per frequency unit) from the Fourier transform. The vector <code>w</code> represents the Fourier frequencies for <code>m</code> values.</p>
+<p>The next step is to define the Whittle’s likelihood function. To estimate the <span class="math inline">\(α\)</span> value of the signal, Whittle’s MLE compares the empirical periodogram with a theoretical spectral density, here derived from an ARFIMA(0,<span class="math inline">\(d\)</span>,0) model which is a class of models capturing long-term memory processes in time series. The function evaluates how well an ARFIMA(0,<span class="math inline">\(d\)</span>,0) model with a given parameter <span class="math inline">\(α\)</span> matches the observed time series, by comparing their spectral density. This comparison is carried out via a likelihood measure. The aim is to find the <span class="math inline">\(α\)</span> value for which the Whittle’s likelihood function reaches its maximum, thus denoting the best possible fit between the theoretical model and the empirical data.</p>
+<p>To build this function, we first set its arguments.</p>
+<div class="cell">
+<div class="sourceCode" id="cb7"><pre class="sourceCode r cell-code"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Whittle’s log-likelihood function with ARFIMA(0,d,0) theoretical PSD</span></span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>WLLF <span class="ot">&lt;-</span> <span class="cf">function</span>(a, w, P, N) {</span></code></pre></div>
+</div>
+<p>The <code>a</code> parameter is the <span class="math inline">\(α\)</span> parameter to be estimated, which controls the type of fluctuation (i.e., anti-correlated, random, long-term autocorrelated) in the ARFIMA model. The other three parameters relate to the empirical signal detailed above. The function processing aims to (a) calculate the theoretical spectral density, (b) adjust it to the empirical data, and (c) calculate Whittle’s log-likelihood function between the adjusted theoretical spectral density and the empirical spectral density. The resulting value will be used to assess how well a certain parameter <span class="math inline">\(α\)</span> fits the time series.</p>
+<div class="cell">
+<div class="sourceCode" id="cb8"><pre class="sourceCode r cell-code"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>  Tp <span class="ot">&lt;-</span> (<span class="dv">1</span> <span class="sc">/</span> (<span class="dv">2</span> <span class="sc">*</span> pi)) <span class="sc">*</span> (<span class="dv">2</span> <span class="sc">*</span> <span class="fu">sin</span>(w <span class="sc">/</span> <span class="dv">2</span>))<span class="sc">^</span>(<span class="dv">1</span> <span class="sc">-</span> <span class="dv">2</span> <span class="sc">*</span> a) <span class="co"># ARFIMA theoretical PSD</span></span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>  c <span class="ot">&lt;-</span> <span class="fu">sum</span>(P) <span class="sc">/</span> <span class="fu">sum</span>(Tp)</span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>  T <span class="ot">&lt;-</span> c <span class="sc">*</span> Tp <span class="co"># Theoretical PSD adjusted </span></span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>  lw <span class="ot">&lt;-</span> <span class="sc">-</span>(<span class="dv">2</span> <span class="sc">/</span> N) <span class="sc">*</span> <span class="fu">sum</span>(<span class="fu">log</span>(T) <span class="sc">+</span> (P <span class="sc">/</span> T)) <span class="co"># Whittle’s log-likelihood</span></span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">return</span>(lw)</span>
+<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a><span class="er">}</span></span></code></pre></div>
+</div>
+<p>The <code>Tp</code> vector is the theoretical spectral density for an ARFIMA(0,<span class="math inline">\(d\)</span>,0) model. The calculation of <code>c</code> normalizes the theoretical spectral density <code>Tp</code> so that it matches the scale of the empirical spectral density <code>P</code>. The adjusted theoretical spectral density <code>T</code> is obtained by multiplying the normalization factor <code>c</code> by the theoretical spectral density <code>Tp</code>. This adjusted theoretical spectral density is the density to be compared with the empirical spectral density. Next, Whittle’s log-likelihood <code>lw</code>—which measures the likelihood between the adjusted theoretical spectral density and the empirical spectral density—is calculated. The larger the resulting <code>lw</code> value, the larger is the likelihood between the theoretical spectral density and the empirical periodogram. The aim is therefore to find the value of <span class="math inline">\(α\)</span> that maximizes this function.</p>
+<p>The final step is to optimize Whittle’s log-likelihood function to find this <span class="math inline">\(α\)</span> value.</p>
+<div class="cell">
+<div class="sourceCode" id="cb9"><pre class="sourceCode r cell-code"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>A <span class="ot">&lt;-</span> <span class="fu">optimize</span>(<span class="cf">function</span>(a) <span class="fu">WLLF</span>(a, w, P, N), <span class="at">lower =</span> <span class="dv">0</span>, <span class="at">upper =</span> <span class="dv">1</span>, <span class="at">maximum =</span> <span class="cn">TRUE</span>, </span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>              <span class="at">tol =</span> <span class="fl">0.0001</span>)</span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>A <span class="ot">&lt;-</span> A<span class="sc">$</span>maximum</span></code></pre></div>
+</div>
+<p>The <code>optimize()</code> function is used to find the maximum of a function over a specified interval. Here, <code>a</code> is the parameter <span class="math inline">\(α\)</span> to be estimated and, as detailed above, the function <code>WLLF(a, w, P, N)</code> calculates Whittle’s log-likelihood for a given <span class="math inline">\(α\)</span>. If the series is considered stationary, the value <span class="math inline">\(α\)</span> must lie within the interval [0,1]. Consequently, the lower bound of the interval in which <span class="math inline">\(α\)</span> is to be sought is <code>lower = 0</code> and the upper bound is <code>upper = 1</code>. The argument <code>maximum = TRUE</code> is used to maximize the function. Finally, we specify a tolerance of 0.0001 for the convergence of the optimization algorithm, which controls the precision of the maximum search. Once <code>optimize()</code> has found the maximum of the specified function in the interval, this value is extracted and assigned to <code>A</code>.</p>
+<p>At this stage, a resulting <span class="math inline">\(α\)</span> value very close to 1 (i.e., <span class="math inline">\(α\)</span> <span class="math inline">\(\geq\)</span> 0.9999) may suggest that the time series is non-stationary (i.e., that its mean and variance change over time). As ARFIMA(0,<span class="math inline">\(d\)</span>,0) models are designed for stationary series, an estimate of <span class="math inline">\(α\)</span> very close to 1 could indicate that the initial theoretical model does not represent the time series well. In this specific case, it is possible to work on a differentiated version of the original series and then add 1 to the <span class="math inline">\(α\)</span> value yielded by the algorithm.</p>
+<div class="cell">
+<div class="sourceCode" id="cb10"><pre class="sourceCode r cell-code"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="co"># If the time series is non-stationary</span></span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> (A <span class="sc">&gt;=</span> <span class="fl">0.9999</span>) {</span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>  XDiff <span class="ot">&lt;-</span> <span class="fu">diff</span>(X)</span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a>  YDiff <span class="ot">&lt;-</span> <span class="fu">fft</span>(XDiff)</span>
+<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a>  mdiff <span class="ot">&lt;-</span> <span class="fu">floor</span>((N <span class="sc">-</span> <span class="dv">2</span>) <span class="sc">/</span> <span class="dv">2</span>)</span>
+<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a>  Pdiff <span class="ot">&lt;-</span> (<span class="dv">1</span> <span class="sc">/</span> (pi <span class="sc">*</span> N)) <span class="sc">*</span> <span class="fu">abs</span>(YDiff[<span class="dv">2</span><span class="sc">:</span>(mdiff <span class="sc">+</span> <span class="dv">1</span>)])<span class="sc">^</span><span class="dv">2</span></span>
+<span id="cb10-7"><a href="#cb10-7" aria-hidden="true" tabindex="-1"></a>  wdiff <span class="ot">&lt;-</span> (<span class="dv">2</span> <span class="sc">*</span> pi <span class="sc">*</span> (<span class="dv">1</span><span class="sc">:</span>mdiff)) <span class="sc">/</span> N</span>
+<span id="cb10-8"><a href="#cb10-8" aria-hidden="true" tabindex="-1"></a>  A <span class="ot">&lt;-</span> <span class="fu">optimize</span>(<span class="cf">function</span>(a) <span class="fu">WLLF</span>(a, wdiff, Pdiff, N <span class="sc">-</span> <span class="dv">1</span>), <span class="at">lower =</span> <span class="dv">0</span>, <span class="at">upper =</span> <span class="dv">1</span>, </span>
+<span id="cb10-9"><a href="#cb10-9" aria-hidden="true" tabindex="-1"></a>                <span class="at">maximum =</span> <span class="cn">TRUE</span>, <span class="at">tol =</span> <span class="fl">0.0001</span>)</span>
+<span id="cb10-10"><a href="#cb10-10" aria-hidden="true" tabindex="-1"></a>  A <span class="ot">&lt;-</span> A<span class="sc">$</span>maximum</span>
+<span id="cb10-11"><a href="#cb10-11" aria-hidden="true" tabindex="-1"></a>  A <span class="ot">&lt;-</span> A <span class="sc">+</span> <span class="dv">1</span></span>
+<span id="cb10-12"><a href="#cb10-12" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
+</div>
+<p>The <code>if()</code> condition only applies when <code>A</code> is greater than or equal to 0.9999. In this case, we apply a differentiation to the standardized vector <code>X</code> to make it stationary. Next, the remaining steps are similar to those in the previous algorithm, where the aim is to estimate an <span class="math inline">\(α\)</span> value by maximizing Whittle’s log-likelihood function, but this time on the differentiated series. The differentiation of the time series has reduced the order of integration by one degree. Therefore, after estimating <span class="math inline">\(α\)</span> for the differentiated series, 1 is added to compensate for this differentiation.</p>
+<p>With both algorithms implemented, we can now display the <span class="math inline">\(α\)</span> value maximized from Whittle’s log-likelihood function.</p>
+</section>
+<section id="result" class="level4" data-number="21.3.2.4">
+<h4 data-number="21.3.2.4"><span class="header-section-number">21.3.2.4</span> Result</h4>
+<div class="cell">
+<div class="sourceCode" id="cb11"><pre class="sourceCode r cell-code"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>A</span></code></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 1.000066</code></pre>
+</div>
+</div>
+<p>As for the time series of the control parameter <span class="math inline">\(k\)</span> of the approach and avoidance motivations, the estimated value of <span class="math inline">\(α\)</span> is about 1. Thus, it is the third step of the algorithm for non-stationary series that worked, after a value of <span class="math inline">\(α\)</span> <span class="math inline">\(\geq\)</span> 0.9999 was delivered by the first two steps of the algorithm. The value close to 1, diverging on the lower bound, suggests that this time series may be related to 1/<span class="math inline">\(f\)</span> noise. Although the length of the series analyzed is quite short and the estimated <span class="math inline">\(α\)</span> value can therefore be considered only acceptable but not optimal, this indicative result gives us important information about the structure of the variability of the time series of <span class="math inline">\(k\)</span>. More precisely, the variability of the series of <span class="math inline">\(k\)</span> is neither totally random (i.e., white noise) nor rigid by its short-term deviations alone (i.e., Brownian motion), but lies between these two extremes, organizing itself between disorder and order. This type of variability is expressed by a 1/<span class="math inline">\(f\)</span> noise trajectory that reflects the long-term memory of goal-directed motivation, in other words, a motivational dynamics that relies on the traces of its past history.</p>
+</section>
+</section>
+</section>
+<section id="discussion" class="level2" data-number="21.4">
+<h2 data-number="21.4"><span class="header-section-number">21.4</span> Discussion</h2>
+<p>1/<span class="math inline">\(f\)</span> noise, as an optimal compromise between the uncontrollable disorder of random series and the overly strict order of excessively predictable series, is an intrinsic signature of the dynamics of phenomena emerging from complex interactions <span class="citation" data-cites="delignieres_2012 gilden_2001 west_1990">[<a href="#ref-delignieres_2012" role="doc-biblioref">23</a>–<a href="#ref-west_1990" role="doc-biblioref">25</a>]</span>. Using idiographic methods, researchers have been able to find this dynamic signature in a variety of psychological phenomena or human behaviors that may result from education or training procedures, such as self-esteem <span class="citation" data-cites="delignieres_2004 de_ruiter_2015 wong_2014">[<a href="#ref-delignieres_2004" role="doc-biblioref">26</a>–<a href="#ref-wong_2014" role="doc-biblioref">28</a>]</span>, cognitive performance <span class="citation" data-cites="holden_2009 kello_2007 van_orden_2003">[<a href="#ref-holden_2009" role="doc-biblioref">29</a>–<a href="#ref-van_orden_2003" role="doc-biblioref">31</a>]</span>, language learning <span class="citation" data-cites="lowie_2014">[<a href="#ref-lowie_2014" role="doc-biblioref">32</a>]</span>, motor learning <span class="citation" data-cites="nourrit-lucas_2015">[<a href="#ref-nourrit-lucas_2015" role="doc-biblioref">33</a>]</span>, and motor performance <span class="citation" data-cites="den_hartigh_2015 den_hartigh_2021 delignieres_2009">[<a href="#ref-den_hartigh_2015" role="doc-biblioref">34</a>–<a href="#ref-delignieres_2009" role="doc-biblioref">36</a>]</span>. By employing a person-specific method such as Whittle’s MLE, the present case study offers an empirical validation of the grounding of approach and avoidance motivation as a dynamic and complex phenomenon.</p>
+<p>As an optimal compromise between order and disorder, 1/<span class="math inline">\(f\)</span> noise helps maintain the system’s stability, while endowing it with the flexibility to respond to its environment. This cooperative organization between the preservation of a coherent state and adaptation to environmental influences promotes efficient operation of a system then considered healthy. For example, variability of 1/<span class="math inline">\(f\)</span> noise has been found in young, healthy subjects in their walking rhythm or heart rate, while more predictable or random fluctuations in these variables have been detected in patients and the elderly <span class="citation" data-cites="goldberger_2002 hausdorff_1997">[<a href="#ref-goldberger_2002" role="doc-biblioref">37</a>, <a href="#ref-hausdorff_1997" role="doc-biblioref">38</a>]</span>. Similarly, mood variation has been found to show 1/<span class="math inline">\(f\)</span> noise fluctuations in healthy individuals, whereas it was more organized and predictable in patients with bipolar disorder <span class="citation" data-cites="gottschalk_1995">[<a href="#ref-gottschalk_1995" role="doc-biblioref">39</a>]</span>. Among dyslexic children, greater trial-to-trial random variability was found in a word-naming task, thus revealing less clear examples of 1/<span class="math inline">\(f\)</span> noise in their response times, compared with non-dyslexic children <span class="citation" data-cites="wijnants_2012">[<a href="#ref-wijnants_2012" role="doc-biblioref">40</a>]</span>.</p>
+<p>In the educational realm, and more specifically as regards learning, the development of new competencies has been shown to be associated with 1/<span class="math inline">\(f\)</span> noise variability in performance. For example, in multilingual learning, Lowie et al. <span class="citation" data-cites="lowie_2014">[<a href="#ref-lowie_2014" role="doc-biblioref">32</a>]</span> conducted a repeated word-naming experiment with one participant over a period of six years. During each test session of a total of 26, the participant was asked to name 200 words in his native language (Dutch) and his second language (English). Over the course of the sessions, the improvement of skills in the second language—resulting from repeated practice—led to a series of response times in this second language that was increasingly characterized by 1/<span class="math inline">\(f\)</span> distributions. In addition, 4 test sessions were conducted after a 7-day period of exclusive use of either the native language or the second language. On the one hand, this single-language immersion strengthened the 1/<span class="math inline">\(f\)</span> structure of the response time distributions in the language concerned, particularly when this was the second language. On the other hand, this immersion led to whiter the time series in the language that had not been used. These findings support 1/<span class="math inline">\(f\)</span> noise as an indicator of optimal coordination of a person’s language subsystems.</p>
+<p>In the domain of motor learning—in rowing <span class="citation" data-cites="den_hartigh_2015">[<a href="#ref-den_hartigh_2015" role="doc-biblioref">34</a>]</span> and skiing <span class="citation" data-cites="nourrit-lucas_2015">[<a href="#ref-nourrit-lucas_2015" role="doc-biblioref">33</a>]</span>—experts’ performances have been found to follow 1/<span class="math inline">\(f\)</span> dynamics, whereas more random patterns of performance variation, approaching white noise, have been evidenced among novices. Moreover, Den Hartigh et al. <span class="citation" data-cites="den_hartigh_2021">[<a href="#ref-den_hartigh_2021" role="doc-biblioref">35</a>]</span> found that higher levels of complexity, as reflected by an <span class="math inline">\(α\)</span> value approaching 1 in the 1/<span class="math inline">\(f^α\)</span> noise expression, were related to more perturbation-resistant motor performance. In sum, learning and expertise development seem to be corollaries of a progressive installation of complexity—as reflected by 1/<span class="math inline">\(f\)</span> noise distributions—within systems governing behaviors <span class="citation" data-cites="wijnants_2009">[<a href="#ref-wijnants_2009" role="doc-biblioref">41</a>]</span>.</p>
+<p>In motivational research, time series analyses designed to detect typical signatures of the complexity of motivational processes are still lacking. Yet, in the workplace context, it has been shown that medium or high levels of different motivational variables are associated with patterns of chaotic variability in these variables, while lowest levels are associated with patterns of variation in between linear and random <span class="citation" data-cites="arrieta_2008 navarro_2015">[<a href="#ref-arrieta_2008" role="doc-biblioref">42</a>, <a href="#ref-navarro_2015" role="doc-biblioref">43</a>]</span>. Although only one case was examined in the present chapter, the 1/<span class="math inline">\(f\)</span> variation pattern that was found could reflect the typical dynamics of adaptive achievement motivation in students pursuing important goals. Thus, rather than exhibiting motivational variability that is totally random or strictly influenced by short-term events (e.g., exams, oral performances), achievement motivation in students would keep a stable and consistent state over time, while remaining capable of adapting to the constraints of the academic environment. However, the possibility of more random or rigid motivational dynamics in students who, unlike the present example, are likely to abandon their goal remains to be explored.</p>
+<p>Although this research paradigm is still nascent in the academic literature, the analysis of long-term memory in psychological processes in students offers attractive theoretical and applied perspectives. From a theoretical point of view, the finding of signatures typical of complex dynamical systems within the time series analyzed informs about the nature of the processes governing approach and avoidance motivation. Unlike mainstream research in psychology, which views processes as structures of relationships between components <span class="citation" data-cites="den_hartigh_2017 van_orden_2003 wallot_2018">[<a href="#ref-van_orden_2003" role="doc-biblioref">31</a>, <a href="#ref-den_hartigh_2017" role="doc-biblioref">44</a>, <a href="#ref-wallot_2018" role="doc-biblioref">45</a>]</span>, the present result supports the conceptualization of achievement motivation as a phenomenon emerging from the self-organizing complexity of interactions and nonlinear attractor dynamics <span class="citation" data-cites="gernigon_2024a gernigon_2015">[<a href="#ref-gernigon_2024a" role="doc-biblioref">14</a>, <a href="#ref-gernigon_2015" role="doc-biblioref">15</a>]</span>. Indeed, whereas the component-dominant approach is currently criticized for its inability to account for the complexity, the dynamics, and the idiosyncratic character of psychological processes <span class="citation" data-cites="gernigon_2024b">[<a href="#ref-gernigon_2024b" role="doc-biblioref">1</a>]</span>, the interaction-dominant approach inherent in the complex dynamical systems paradigm is specifically designed to account for these characteristics. Thus, this approach enables researchers to access a <em>process causality</em> of psychological phenomena <span class="citation" data-cites="van_geert_2022">[<a href="#ref-van_geert_2022" role="doc-biblioref">2</a>]</span>. Like many other psychological phenomena involved in academic achievement as well as in the harmonious development of individuals, achievement motivation will be best understood when examined through the lens of the complex dynamical systems approach <span class="citation" data-cites="gernigon_2024a">[<a href="#ref-gernigon_2024a" role="doc-biblioref">14</a>]</span>.</p>
+<p>In terms of practical application, the value of analyzing relatively short time series, such as that offered by Whittle’s MLE, lies in the possibility of tracking the individual trajectories of psychological phenomena important to academic achievement. Today, the development of online course materials makes it possible to collect a large amount of data relating to students’ logins, which can serve as behavioral indicators of their engagement in learning throughout an academic year. This is what López-Pernas and Saqr <span class="citation" data-cites="lopez-pernas_2024b">[<a href="#ref-lopez-pernas_2024b" role="doc-biblioref">16</a>]</span> did on a series of only 18 consecutive courses. Extending this monitoring on more courses would enable the collection of a number of data sufficient to implement Whittle’s MLE. Then, the detection of drifts in the distribution of motivational measures towards white noise or Brownian motion could serve as a warning signal of the risk of academic failure and dropping out, and of the imminent need to deploy individualized support strategies. The implementation of such an individualized monitoring and intervention strategy would be greatly facilitated by the development of algorithms capable of automatically analyzing the time series of data relating to the successive logins and proposing exercises tailored to the needs of each student.</p>
+<p>Like any method, Whittle’s MLE has its own limitations. Although it can be used to analyze shorter series than DFA, Roume <span class="citation" data-cites="roume_2023">[<a href="#ref-roume_2023" role="doc-biblioref">10</a>]</span> has shown, for example, that with 128 data points, errors in classifying the signal as stationary or non-stationary can occur for <span class="math inline">\(α\)</span> values close to 1, and more particularly just above 1. This is why we have considered the <span class="math inline">\(α\)</span> value resulting from the case study—based on 111 data points—presented in this chapter as only acceptable, but not optimal. Consequently, Whittle’s MLE users are encouraged, wherever possible, to analyze longer series. Otherwise, the estimated values can only be used for descriptive purposes, but hardly for statistical inference.</p>
+</section>
+<section id="conclusion" class="level2" data-number="21.5">
+<h2 data-number="21.5"><span class="header-section-number">21.5</span> Conclusion</h2>
+<p>While variable-centered nomothetic approaches enable the finding of statistical laws concerning large populations or groups, person-specific approaches, such as the present application of Whittle’s MLE, offer access to processes that are by definition intra-individual. In psychology, the laws discovered by variable-centered approaches are rarely ergodic, that is, they are hardly applicable to the person level <span class="citation" data-cites="fisher_2018 hamaker_2023 molenaar_2009 saqr_2024">[<a href="#ref-saqr_2024" role="doc-biblioref">3</a>, <a href="#ref-fisher_2018" role="doc-biblioref">46</a>–<a href="#ref-molenaar_2009" role="doc-biblioref">48</a>]</span>. However, in some ways, person-specific and variable-centered approaches can go hand in hand. While typical dynamics reflecting process causality can be detected by specific time series analyses conducted at the person level, the accumulation of these individual dynamics should enable, at population level, inferential statistics that are comparable to those observed in nomothetic research. As a result, using individual cases as a starting point for generalization may lead to replicating the trends observed by variable-centered approaches, while at the same time accounting for particularities that may even contradict these trends. This way of restoring convergence between person-specific and variable-centered approaches is one promising strategy for solving the ergodicity issue in psychological science <span class="citation" data-cites="gernigon_2024b">[<a href="#ref-gernigon_2024b" role="doc-biblioref">1</a>]</span>.</p>
+</section>
+<section id="suggested-readings-and-example-papers" class="level2" data-number="21.6">
+<h2 data-number="21.6"><span class="header-section-number">21.6</span> Suggested readings and example papers</h2>
+<p>In this chapter, you have seen an introduction and tutorial on how to apply Whittle’s MLE in educational research. In particular, this technique allows the use of shorter series than other more popular techniques, which is an advantage for its use in the educational field as it can be difficult to collect more than 500 data points per series. This technique has not yet been applied to the learning context, but for example to the biomedical field <span class="citation" data-cites="harrar_2013">[<a href="#ref-harrar_2013" role="doc-biblioref">49</a>]</span>.</p>
+<p>Readers interested in time series analysis in the field of learning may refer to the work of Lowie et al. in language learning <span class="citation" data-cites="lowie_2014">[<a href="#ref-lowie_2014" role="doc-biblioref">32</a>]</span> and Nourrit-Lucas et al. in motor learning <span class="citation" data-cites="nourrit-lucas_2015">[<a href="#ref-nourrit-lucas_2015" role="doc-biblioref">33</a>]</span>. In the educational field, the work of Koopmans <span class="citation" data-cites="koopmans_2015 koopmans_2018">[<a href="#ref-koopmans_2015" role="doc-biblioref">50</a>, <a href="#ref-koopmans_2018" role="doc-biblioref">51</a>]</span> also illustrates how school attendance shows dynamics in 1/<span class="math inline">\(f\)</span> noise.</p>
+<p>Finally, more broadly, the articles by Hilpert and Marchand <span class="citation" data-cites="hilpert_2018">[<a href="#ref-hilpert_2018" role="doc-biblioref">52</a>]</span> and Koopmans <span class="citation" data-cites="koopmans_2020">[<a href="#ref-koopmans_2020" role="doc-biblioref">53</a>]</span> offer a rich overview of the complex dynamical systems paradigm, its key concepts and the methodologies that can be employed for education.</p>
+-->
+Forthcoming
+<style>
+#bibliography, #footnotes {
+display: none;
+}
+</style>
+
+
+
+<section id="bibliography" class="level1 unnumbered">
+<h1 class="unnumbered">References</h1>
+<div id="refs" class="references csl-bib-body" role="doc-bibliography">
+<div id="ref-gernigon_2024b" class="csl-entry" role="doc-biblioentry">
+<div class="csl-left-margin">1. </div><div class="csl-right-inline">Gernigon C, Den Hartigh RJR, Vallacher RR, Van Geert PLC (2024) How the <span>Complexity</span> of <span>Psychological</span> <span>Processes</span> <span>Reframes</span> the <span>Issue</span> of <span>Reproducibility</span> in <span>Psychological</span> <span>Science</span>. Perspectives on Psychological Science 19:952–977. https://doi.org/<a href="https://doi.org/10.1177/17456916231187324">10.1177/17456916231187324</a></div>
+</div>
+<div id="ref-van_geert_2022" class="csl-entry" role="doc-biblioentry">
+<div class="csl-left-margin">2. </div><div class="csl-right-inline">Van Geert P, De Ruiter N (2022) <a href="https://doi.org/10.1017/9781108859189">Toward a <span>Process</span> <span>Approach</span> in <span>Psychology</span>: <span>Stepping</span> into <span>Heraclitus</span>’ <span>River</span></a>. Cambridge University Press, Cambridge</div>
+</div>
+<div id="ref-saqr_2024" class="csl-entry" role="doc-biblioentry">
+<div class="csl-left-margin">3. </div><div class="csl-right-inline">Saqr M, Vogelsmeier LVDE, López-Pernas S (2024) Capturing where the learning process takes place: <span>A</span> person-specific and person-centered primer. Learning and Individual Differences 113:102492. https://doi.org/<a href="https://doi.org/10.1016/j.lindif.2024.102492">10.1016/j.lindif.2024.102492</a></div>
+</div>
+<div id="ref-peng_1993" class="csl-entry" role="doc-biblioentry">
+<div class="csl-left-margin">4. </div><div class="csl-right-inline">Peng C-K, Mietus J, Hausdorff JM, Havlin S, Stanley HE, Goldberger AL (1993) Long-range anticorrelations and non-<span>Gaussian</span> behavior of the heartbeat. Physical Review Letters 70:1343–1346. https://doi.org/<a href="https://doi.org/10.1103/PhysRevLett.70.1343">10.1103/PhysRevLett.70.1343</a></div>
+</div>
+<div id="ref-mandelbrot_1968" class="csl-entry" role="doc-biblioentry">
+<div class="csl-left-margin">5. </div><div class="csl-right-inline">Mandelbrot BB, Van Ness JW (1968) <a href="https://www.jstor.org/stable/2027184">Fractional <span>Brownian</span> <span>Motions</span>, <span>Fractional</span> <span>Noises</span> and <span>Applications</span></a>. SIAM Review 10:422–437</div>
+</div>
+<div id="ref-delignieres_2013" class="csl-entry" role="doc-biblioentry">
+<div class="csl-left-margin">6. </div><div class="csl-right-inline">Delignières D, Marmelat V (2013) <a href="https://doi.org/10.1007/978-1-4614-5465-6_7">Theoretical and <span>Methodological</span> <span>Issues</span> in <span>Serial</span> <span>Correlation</span> <span>Analysis</span></a>. In: Richardson MJ, Riley MA, Shockley K (eds). Springer, New York, NY, pp 127–148</div>
+</div>
+<div id="ref-phinyomark_2020" class="csl-entry" role="doc-biblioentry">
+<div class="csl-left-margin">7. </div><div class="csl-right-inline">Phinyomark A, Larracy R, Scheme E (2020) Fractal <span>Analysis</span> of <span>Human</span> <span>Gait</span> <span>Variability</span> via <span>Stride</span> <span>Interval</span> <span>Time</span> <span>Series</span>. Frontiers in Physiology 11: https://doi.org/<a href="https://doi.org/10.3389/fphys.2020.00333">10.3389/fphys.2020.00333</a></div>
+</div>
+<div id="ref-likens_2023" class="csl-entry" role="doc-biblioentry">
+<div class="csl-left-margin">8. </div><div class="csl-right-inline">Likens AD, Mangalam M, Wong AY, Charles AC, Mills C (2023) <a href="https://www.ncbi.nlm.nih.gov/pubmed/36748008 PMCID: PMC9900970">Better than <span>DFA</span>? <span>A</span> <span>Bayesian</span> <span>Method</span> for <span>Estimating</span> the <span>Hurst</span> <span>Exponent</span> in <span>Behavioral</span> <span>Sciences</span></a>. ArXiv arXiv:2301.11262v1</div>
+</div>
+<div id="ref-mangalam_2023" class="csl-entry" role="doc-biblioentry">
+<div class="csl-left-margin">9. </div><div class="csl-right-inline">Mangalam M, Wilson T, Sommerfeld J, Likens AD (2023) <a href="https://arxiv.org/abs/2301.12064">Optimizing a bayesian method for estimating the hurst exponent in behavioral sciences</a></div>
+</div>
+<div id="ref-roume_2023" class="csl-entry" role="doc-biblioentry">
+<div class="csl-left-margin">10. </div><div class="csl-right-inline">Roume C (2023) A guide to <span>Whittle</span> maximum likelihood estimator in <span>MATLAB</span>. Frontiers in Network Physiology 3: https://doi.org/<a href="https://doi.org/10.3389/fnetp.2023.1204757">10.3389/fnetp.2023.1204757</a></div>
+</div>
+<div id="ref-beran_2013" class="csl-entry" role="doc-biblioentry">
+<div class="csl-left-margin">11. </div><div class="csl-right-inline">Beran J, Feng Y, Ghosh S, Kulik R (2013) <a href="https://doi.org/10.1007/978-3-642-35512-7">Long-<span>Memory</span> <span>Processes</span>: <span>Probabilistic</span> <span>Properties</span> and <span>Statistical</span> <span>Methods</span></a>. Springer, Berlin, Heidelberg</div>
+</div>
+<div id="ref-almurad_2016" class="csl-entry" role="doc-biblioentry">
+<div class="csl-left-margin">12. </div><div class="csl-right-inline">Almurad ZMH, Delignières D (2016) Evenly spacing in <span>Detrended</span> <span>Fluctuation</span> <span>Analysis</span>. Physica A: Statistical Mechanics and its Applications 451:63–69. https://doi.org/<a href="https://doi.org/10.1016/j.physa.2015.12.155">10.1016/j.physa.2015.12.155</a></div>
+</div>
+<div id="ref-diebolt_2005" class="csl-entry" role="doc-biblioentry">
+<div class="csl-left-margin">13. </div><div class="csl-right-inline">Diebolt C, Guiraud V (2005) A <span>Note</span> <span>On</span> <span>Long</span> <span>Memory</span> <span>Time</span> <span>Series</span>. Quality and Quantity 39:827–836. https://doi.org/<a href="https://doi.org/10.1007/s11135-004-0436-z">10.1007/s11135-004-0436-z</a></div>
+</div>
+<div id="ref-gernigon_2024a" class="csl-entry" role="doc-biblioentry">
+<div class="csl-left-margin">14. </div><div class="csl-right-inline">Gernigon C, Altamore R, Vallacher RR, Van Geert PLC, Den Hartigh RJR (2024) Almost, but not quite there: Research into the emergence of higher-order motivated behavior should fully embrace the dynamic systems approach. <a href="https://doi.org/10.31234/osf.io/rt6wj">https://doi.org/10.31234/osf.io/rt6wj</a></div>
+</div>
+<div id="ref-gernigon_2015" class="csl-entry" role="doc-biblioentry">
+<div class="csl-left-margin">15. </div><div class="csl-right-inline">Gernigon C, Vallacher RR, Nowak A, Conroy DE (2015) Rethinking <span>Approach</span> and <span>Avoidance</span> in <span>Achievement</span> <span>Contexts</span>: <span>The</span> <span>Perspective</span> of <span>Dynamical</span> <span>Systems</span>. Review of General Psychology 19:443–457. https://doi.org/<a href="https://doi.org/10.1037/gpr0000055">10.1037/gpr0000055</a></div>
+</div>
+<div id="ref-lopez-pernas_2024b" class="csl-entry" role="doc-biblioentry">
+<div class="csl-left-margin">16. </div><div class="csl-right-inline">López-Pernas S, Saqr M (2024) How the dynamics of engagement explain the momentum of achievement and the inertia of disengagement: <span>A</span> complex systems theory approach. Computers in Human Behavior 153:108126. https://doi.org/<a href="https://doi.org/10.1016/j.chb.2023.108126">10.1016/j.chb.2023.108126</a></div>
+</div>
+<div id="ref-tuller_1994" class="csl-entry" role="doc-biblioentry">
+<div class="csl-left-margin">17. </div><div class="csl-right-inline">Tuller B, Case P, Ding M, Kelso JAS (1994) The nonlinear dynamics of speech categorization. Journal of Experimental Psychology: Human Perception and Performance 20:3–16. https://doi.org/<a href="https://doi.org/10.1037/0096-1523.20.1.3">10.1037/0096-1523.20.1.3</a></div>
+</div>
+<div id="ref-bandura_1997" class="csl-entry" role="doc-biblioentry">
+<div class="csl-left-margin">18. </div><div class="csl-right-inline">Bandura A (1997) Self-efficacy: <span>The</span> exercise of control. W H Freeman/Times Books/ Henry Holt &amp; Co, New York, NY, US</div>
+</div>
+<div id="ref-crocker_2001" class="csl-entry" role="doc-biblioentry">
+<div class="csl-left-margin">19. </div><div class="csl-right-inline">Crocker J, Wolfe CT (2001) Contingencies of self-worth. Psychological Review 108:593–623. https://doi.org/<a href="https://doi.org/10.1037/0033-295X.108.3.593">10.1037/0033-295X.108.3.593</a></div>
+</div>
+<div id="ref-teboul_2019" class="csl-entry" role="doc-biblioentry">
+<div class="csl-left-margin">20. </div><div class="csl-right-inline">Teboul A, Klosek C, Montiny C, Gernigon C (2019) Development and <span>Validation</span> of the <span>Approach</span>-<span>Avoidance</span> <span>System</span> <span>Questionnaire</span> (<span>AASQ</span>). Frontiers in Psychology 10:2531. https://doi.org/<a href="https://doi.org/10.3389/fpsyg.2019.02531">10.3389/fpsyg.2019.02531</a></div>
+</div>
+<div id="ref-kopra_2024" class="csl-entry" role="doc-biblioentry">
+<div class="csl-left-margin">21. </div><div class="csl-right-inline">Kopra J, Tikka S, Heinäniemi M, López-Pernas S, Saqr M (2024) <a href="https://doi.org/10.1007/978-3-031-54464-4_4">An <span>R</span> <span>Approach</span> to <span>Data</span> <span>Cleaning</span> and <span>Wrangling</span> for <span>Education</span> <span>Research</span></a>. In: Saqr M, López-Pernas S (eds). Springer Nature Switzerland, Cham, pp 95–119</div>
+</div>
+<div id="ref-lopez-pernas_2024a" class="csl-entry" role="doc-biblioentry">
+<div class="csl-left-margin">22. </div><div class="csl-right-inline">López-Pernas S, Misiejuk K, Tikka S, Kopra J, Heinäniemi M, Saqr M (2024) <a href="https://doi.org/10.1007/978-3-031-54464-4_6">Visualizing and <span>Reporting</span> <span>Educational</span> <span>Data</span> with <span>R</span></a>. In: Saqr M, López-Pernas S (eds). Springer Nature Switzerland, Cham, pp 151–194</div>
+</div>
+<div id="ref-delignieres_2012" class="csl-entry" role="doc-biblioentry">
+<div class="csl-left-margin">23. </div><div class="csl-right-inline">Delignières D, Marmelat V (2012) Fractal <span>Fluctuations</span> and <span>Complexity</span>: <span>Current</span> <span>Debates</span> and <span>Future</span> <span>Challenges</span>. Critical Reviews™ in Biomedical Engineering 40: https://doi.org/<a href="https://doi.org/10.1615/CritRevBiomedEng.2013006727">10.1615/CritRevBiomedEng.2013006727</a></div>
+</div>
+<div id="ref-gilden_2001" class="csl-entry" role="doc-biblioentry">
+<div class="csl-left-margin">24. </div><div class="csl-right-inline">Gilden DL (2001) Cognitive emissions of 1/f noise. Psychological Review 108:33–56. https://doi.org/<a href="https://doi.org/10.1037/0033-295x.108.1.33">10.1037/0033-295x.108.1.33</a></div>
+</div>
+<div id="ref-west_1990" class="csl-entry" role="doc-biblioentry">
+<div class="csl-left-margin">25. </div><div class="csl-right-inline">West BJ, Shlesinger M (1990) <a href="https://www.jstor.org/stable/29773862">The <span>Noise</span> in <span>Natural</span> <span>Phenomena</span></a>. American Scientist 78:40–45</div>
+</div>
+<div id="ref-delignieres_2004" class="csl-entry" role="doc-biblioentry">
+<div class="csl-left-margin">26. </div><div class="csl-right-inline">Delignières D, Fortes M, Ninot G (2004) <a href="https://www.ncbi.nlm.nih.gov/pubmed/15473949">The fractal dynamics of self-esteem and physical self</a>. Nonlinear Dynamics, Psychology, and Life Sciences 8:479–510</div>
+</div>
+<div id="ref-de_ruiter_2015" class="csl-entry" role="doc-biblioentry">
+<div class="csl-left-margin">27. </div><div class="csl-right-inline">De Ruiter NMP, Den Hartigh RJR, Cox RFA, Van Geert PLC, Kunnen ES (2015) The <span>Temporal</span> <span>Structure</span> of <span>State</span> <span>Self</span>-<span>Esteem</span> <span>Variability</span> <span>During</span> <span>Parent</span>–<span>Adolescent</span> <span>Interactions</span>: <span>More</span> <span>Than</span> <span>Random</span> <span>Fluctuations</span>. Self and Identity 14:314–333. https://doi.org/<a href="https://doi.org/10.1080/15298868.2014.994026">10.1080/15298868.2014.994026</a></div>
+</div>
+<div id="ref-wong_2014" class="csl-entry" role="doc-biblioentry">
+<div class="csl-left-margin">28. </div><div class="csl-right-inline">Wong AE, Vallacher RR, Nowak A (2014) <a href="https://www.ncbi.nlm.nih.gov/pubmed/25196705">Fractal dynamics in self-evaluation reveal self-concept clarity</a>. Nonlinear Dynamics, Psychology, and Life Sciences 18:349–369</div>
+</div>
+<div id="ref-holden_2009" class="csl-entry" role="doc-biblioentry">
+<div class="csl-left-margin">29. </div><div class="csl-right-inline">Holden JG, Van Orden GC, Turvey MT (2009) Dispersion of response times reveals cognitive dynamics. Psychological Review 116:318–342. https://doi.org/<a href="https://doi.org/10.1037/a0014849">10.1037/a0014849</a></div>
+</div>
+<div id="ref-kello_2007" class="csl-entry" role="doc-biblioentry">
+<div class="csl-left-margin">30. </div><div class="csl-right-inline">Kello CT, Beltz BC, Holden JG, Van Orden GC (2007) The emergent coordination of cognitive function. Journal of Experimental Psychology: General 136:551–568. https://doi.org/<a href="https://doi.org/10.1037/0096-3445.136.4.551">10.1037/0096-3445.136.4.551</a></div>
+</div>
+<div id="ref-van_orden_2003" class="csl-entry" role="doc-biblioentry">
+<div class="csl-left-margin">31. </div><div class="csl-right-inline">Van Orden GC, Holden JG, Turvey MT (2003) Self-organization of cognitive performance. Journal of Experimental Psychology: General 132:331–350. https://doi.org/<a href="https://doi.org/10.1037/0096-3445.132.3.331">10.1037/0096-3445.132.3.331</a></div>
+</div>
+<div id="ref-lowie_2014" class="csl-entry" role="doc-biblioentry">
+<div class="csl-left-margin">32. </div><div class="csl-right-inline">Lowie W, Plat R, De Bot K (2014) Pink <span>Noise</span> in <span>Language</span> <span>Production</span>: <span>A</span> <span>Nonlinear</span> <span>Approach</span> to the <span>Multilingual</span> <span>Lexicon</span>. Ecological Psychology 26:216–228. https://doi.org/<a href="https://doi.org/10.1080/10407413.2014.929479">10.1080/10407413.2014.929479</a></div>
+</div>
+<div id="ref-nourrit-lucas_2015" class="csl-entry" role="doc-biblioentry">
+<div class="csl-left-margin">33. </div><div class="csl-right-inline">Nourrit-Lucas D, Tossa AO, Zélic G, Delignières D (2015) Learning, <span>Motor</span> <span>Skill</span>, and <span>Long</span>-<span>Range</span> <span>Correlations</span>. Journal of Motor Behavior 47:182–189. https://doi.org/<a href="https://doi.org/10.1080/00222895.2014.967655">10.1080/00222895.2014.967655</a></div>
+</div>
+<div id="ref-den_hartigh_2015" class="csl-entry" role="doc-biblioentry">
+<div class="csl-left-margin">34. </div><div class="csl-right-inline">Den Hartigh RJR, Cox RFA, Gernigon C, Yperen NWV, Van Geert PLC (2015) Pink <span>Noise</span> in <span>Rowing</span> <span>Ergometer</span> <span>Performance</span> and the <span>Role</span> of <span>Skill</span> <span>Level</span>. Motor Control 19:355–369. https://doi.org/<a href="https://doi.org/10.1123/mc.2014-0071">10.1123/mc.2014-0071</a></div>
+</div>
+<div id="ref-den_hartigh_2021" class="csl-entry" role="doc-biblioentry">
+<div class="csl-left-margin">35. </div><div class="csl-right-inline">Den Hartigh RJR, Otten S, Gruszczynska ZM, Hill Y (2021) The <span>Relation</span> <span>Between</span> <span>Complexity</span> and <span>Resilient</span> <span>Motor</span> <span>Performance</span> and the <span>Effects</span> of <span>Differential</span> <span>Learning</span>. Frontiers in Human Neuroscience 15: https://doi.org/<a href="https://doi.org/10.3389/fnhum.2021.715375">10.3389/fnhum.2021.715375</a></div>
+</div>
+<div id="ref-delignieres_2009" class="csl-entry" role="doc-biblioentry">
+<div class="csl-left-margin">36. </div><div class="csl-right-inline">Delignières D, Torre K (2009) Fractal dynamics of human gait: A reassessment of the 1996 data of <span>Hausdorff</span> et al. Journal of Applied Physiology 106:1272–1279. https://doi.org/<a href="https://doi.org/10.1152/japplphysiol.90757.2008">10.1152/japplphysiol.90757.2008</a></div>
+</div>
+<div id="ref-goldberger_2002" class="csl-entry" role="doc-biblioentry">
+<div class="csl-left-margin">37. </div><div class="csl-right-inline">Goldberger AL, Amaral LAN, Hausdorff JM, Ivanov PCh, Peng C-K, Stanley HE (2002) Fractal dynamics in physiology: <span>Alterations</span> with disease and aging. Proceedings of the National Academy of Sciences 99:2466–2472. https://doi.org/<a href="https://doi.org/10.1073/pnas.012579499">10.1073/pnas.012579499</a></div>
+</div>
+<div id="ref-hausdorff_1997" class="csl-entry" role="doc-biblioentry">
+<div class="csl-left-margin">38. </div><div class="csl-right-inline">Hausdorff JM, Mitchell SL, Firtion R, Peng C-K, Cudkowicz ME, Wei JY, Goldberger AL (1997) Altered fractal dynamics of gait: Reduced stride-interval correlations with aging and <span>Huntington</span>’s disease. Journal of Applied Physiology (Bethesda, Md: 1985) 82:262–269. https://doi.org/<a href="https://doi.org/10.1152/jappl.1997.82.1.262">10.1152/jappl.1997.82.1.262</a></div>
+</div>
+<div id="ref-gottschalk_1995" class="csl-entry" role="doc-biblioentry">
+<div class="csl-left-margin">39. </div><div class="csl-right-inline">Gottschalk A, Bauer MS, Whybrow PC (1995) Evidence of chaotic mood variation in bipolar disorder. Archives of General Psychiatry 52:947–959. https://doi.org/<a href="https://doi.org/10.1001/archpsyc.1995.03950230061009">10.1001/archpsyc.1995.03950230061009</a></div>
+</div>
+<div id="ref-wijnants_2012" class="csl-entry" role="doc-biblioentry">
+<div class="csl-left-margin">40. </div><div class="csl-right-inline">Wijnants ML, Hasselman F, Cox RFA, Bosman AMT, Van Orden G (2012) An interaction-dominant perspective on reading fluency and dyslexia. Annals of Dyslexia 62:100–119. https://doi.org/<a href="https://doi.org/10.1007/s11881-012-0067-3">10.1007/s11881-012-0067-3</a></div>
+</div>
+<div id="ref-wijnants_2009" class="csl-entry" role="doc-biblioentry">
+<div class="csl-left-margin">41. </div><div class="csl-right-inline">Wijnants ML, Bosman AMT, Hasselman F, Cox RFA, Van Orden GC (2009) <a href="https://www.ncbi.nlm.nih.gov/pubmed/19061546">1/f scaling in movement time changes with practice in precision aiming</a>. Nonlinear Dynamics, Psychology, and Life Sciences 13:79–98</div>
+</div>
+<div id="ref-arrieta_2008" class="csl-entry" role="doc-biblioentry">
+<div class="csl-left-margin">42. </div><div class="csl-right-inline">Arrieta C, Navarro J, Vicente S (2008) Factores asociados a la emergencia de patrones diferenciales de la motivación en el trabajo. [<span>Variables</span> related to the emergence of differential patterns in work motivation.]. Psicothema 20:745–752</div>
+</div>
+<div id="ref-navarro_2015" class="csl-entry" role="doc-biblioentry">
+<div class="csl-left-margin">43. </div><div class="csl-right-inline">Navarro J, Rueff-Lopes R (2015) <a href="https://www.ncbi.nlm.nih.gov/pubmed/26375939">Healthy <span>Variability</span> in <span>Organizational</span> <span>Behavior</span>: <span>Empirical</span> <span>Evidence</span> and <span>New</span> <span>Steps</span> for <span>Future</span> <span>Research</span></a>. Nonlinear Dynamics, Psychology, and Life Sciences 19:529–552</div>
+</div>
+<div id="ref-den_hartigh_2017" class="csl-entry" role="doc-biblioentry">
+<div class="csl-left-margin">44. </div><div class="csl-right-inline">Den Hartigh RJR, Cox RFA, Van Geert PLC (2017) <a href="https://doi.org/10.1007/978-3-319-30526-4_30">Complex versus <span>Complicated</span> <span>Models</span> of <span>Cognition</span></a>. In: Magnani L, Bertolotti T (eds). Springer International Publishing, Cham, pp 657–669</div>
+</div>
+<div id="ref-wallot_2018" class="csl-entry" role="doc-biblioentry">
+<div class="csl-left-margin">45. </div><div class="csl-right-inline">Wallot S, Kelty-Stephen DG (2018) Interaction-<span>Dominant</span> <span>Causation</span> in <span>Mind</span> and <span>Brain</span>, and <span>Its</span> <span>Implication</span> for <span>Questions</span> of <span>Generalization</span> and <span>Replication</span>. Minds and Machines 28:353–374. https://doi.org/<a href="https://doi.org/10.1007/s11023-017-9455-0">10.1007/s11023-017-9455-0</a></div>
+</div>
+<div id="ref-fisher_2018" class="csl-entry" role="doc-biblioentry">
+<div class="csl-left-margin">46. </div><div class="csl-right-inline">Fisher AJ, Medaglia JD, Jeronimus BF (2018) Lack of group-to-individual generalizability is a threat to human subjects research. Proceedings of the National Academy of Sciences 115:E6106–E6115. https://doi.org/<a href="https://doi.org/10.1073/pnas.1711978115">10.1073/pnas.1711978115</a></div>
+</div>
+<div id="ref-hamaker_2023" class="csl-entry" role="doc-biblioentry">
+<div class="csl-left-margin">47. </div><div class="csl-right-inline">Hamaker EL (2024) The <span>Curious</span> <span>Case</span> of the <span>Cross</span>-<span>Sectional</span> <span>Correlation</span>. Multivariate Behavioral Research 59:1111–1122. https://doi.org/<a href="https://doi.org/10.1080/00273171.2022.2155930">10.1080/00273171.2022.2155930</a></div>
+</div>
+<div id="ref-molenaar_2009" class="csl-entry" role="doc-biblioentry">
+<div class="csl-left-margin">48. </div><div class="csl-right-inline">Molenaar PCM, Campbell CG (2009) The <span>New</span> <span>Person</span>-<span>Specific</span> <span>Paradigm</span> in <span>Psychology</span>. Current Directions in Psychological Science 18:112–117. https://doi.org/<a href="https://doi.org/10.1111/j.1467-8721.2009.01619.x">10.1111/j.1467-8721.2009.01619.x</a></div>
+</div>
+<div id="ref-harrar_2013" class="csl-entry" role="doc-biblioentry">
+<div class="csl-left-margin">49. </div><div class="csl-right-inline">Harrar K, Hamami L, Lespessailles E, Jennane R (2013) Piecewise <span>Whittle</span> estimator for trabecular bone radiograph characterization. Biomedical Signal Processing and Control 8:657–666. https://doi.org/<a href="https://doi.org/10.1016/j.bspc.2013.06.009">10.1016/j.bspc.2013.06.009</a></div>
+</div>
+<div id="ref-koopmans_2015" class="csl-entry" role="doc-biblioentry">
+<div class="csl-left-margin">50. </div><div class="csl-right-inline">Koopmans M (2015) <a href="https://www.ncbi.nlm.nih.gov/pubmed/25575559">A <span>Dynamical</span> <span>View</span> of <span>High</span> <span>School</span> <span>Attendance</span>: <span>An</span> <span>Assessment</span> of <span>Short</span>-term and <span>Long</span>-term <span>Dependencies</span> in <span>Five</span> <span>Urban</span> <span>Schools</span></a>. Nonlinear Dynamics, Psychology, and Life Sciences 19:65–80</div>
+</div>
+<div id="ref-koopmans_2018" class="csl-entry" role="doc-biblioentry">
+<div class="csl-left-margin">51. </div><div class="csl-right-inline">Koopmans M (2018) <a href="https://www.ncbi.nlm.nih.gov/pubmed/29600954">On the <span>Pervasiveness</span> of <span>Long</span> <span>Range</span> <span>Memory</span> <span>Processes</span> in <span>Daily</span> <span>High</span> <span>School</span> <span>Attendance</span> <span>Rates</span></a>. Nonlinear Dynamics, Psychology, and Life Sciences 22:243–262</div>
+</div>
+<div id="ref-hilpert_2018" class="csl-entry" role="doc-biblioentry">
+<div class="csl-left-margin">52. </div><div class="csl-right-inline">Hilpert JC, Marchand GC (2018) Complex <span>Systems</span> <span>Research</span> in <span>Educational</span> <span>Psychology</span>: <span>Aligning</span> <span>Theory</span> and <span>Method</span>. Educational Psychologist 53:185–202. https://doi.org/<a href="https://doi.org/10.1080/00461520.2018.1469411">10.1080/00461520.2018.1469411</a></div>
+</div>
+<div id="ref-koopmans_2020" class="csl-entry" role="doc-biblioentry">
+<div class="csl-left-margin">53. </div><div class="csl-right-inline">Koopmans M (2020) Education is a <span>Complex</span> <span>Dynamical</span> <span>System</span>: <span>Challenges</span> for <span>Research</span>. The Journal of Experimental Education 88:358–374. https://doi.org/<a href="https://doi.org/10.1080/00220973.2019.1566199">10.1080/00220973.2019.1566199</a></div>
+</div>
+</div>
+</section>
+<section id="footnotes" class="footnotes footnotes-end-of-document" role="doc-endnotes">
+<hr>
+<ol>
+<li id="fn1"><p>White noise is a stochastic process, that is, which is reflected by a signal that unfolds randomly over time and thus has a null autocorrelation.<a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn2"><p>Originally, Brownian motion is the random movement of a particle in a liquid or gas due to successive shocks from surrounding molecules.<a href="#fnref2" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn3"><p>1/<span class="math inline">\(f\)</span> noise or pink noise features distributions of temporal fluctuations of a phenomenon displaying the following properties: The frequencies of fluctuations remain invariant across time scales; the frequency of a particular magnitude of fluctuation is inversely proportional to that magnitude; lagged autocorrelations decay slowly, as an inverse power of lag (i.e., long-range temporal correlations).<a href="#fnref3" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn4"><p>ARFIMA (Autoregressive Fractionally Integrated Moving Average) models are statistical tools that model time series with long memory. By allowing the differencing parameter <span class="math inline">\(d\)</span> to take fractional values, they generalize ARIMA (Autoregressive Integrated Moving Average) models, which themselves generalize ARMA (Autoregressive Moving Average) models to non-stationary series.<a href="#fnref4" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+</ol>
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    target: function(trigger) {
+      return trigger.previousElementSibling;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+  function tippyHover(el, contentFn) {
+    const config = {
+      allowHTML: true,
+      content: contentFn,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start'
+    };
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      return note.innerHTML;
+    });
+  }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+<nav class="page-navigation">
+  <div class="nav-page nav-page-previous">
+      <a href="../../chapters/ch20-var/ch20-var.html" class="pagination-link">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">20</span>&nbsp; <span class="chapter-title">Vector Autoregression and uSEM</span></span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+      <a href="../../chapters/ch22-automl/ch22-automl.html" class="pagination-link">
+        <span class="nav-page-text"><span class="chapter-number">22</span>&nbsp; <span class="chapter-title">Automated Machine Learning</span></span> <i class="bi bi-arrow-right-short"></i>
+      </a>
+  </div>
+</nav>
+</div> <!-- /content -->
+<footer class="footer">
+  <div class="nav-footer">
+      <div class="nav-footer-center"><div class="cookie-consent-footer"><a href="#" id="open_preferences_center">Cookie Preferences</a></div></div>
+  </div>
+</footer>
+<script>
+  document.querySelector(".quarto-title").innerHTML =  '<div class="badge bs-warning bg-warning text-dark" style="float:right;">Pre-print</div>' +  document.querySelector(".quarto-title").innerHTML
+  var keywords = document.querySelector('meta[name="keywords"]')
+  if (keywords && keywords.content) {
+    document.getElementById("title-block-header").innerHTML = document.getElementById("title-block-header").innerHTML + 
+      '<div class="abstract"><div class="abstract-title">Keywords</div><div class="quarto-title-meta-contents"><p>'+
+      keywords.content +
+      '</p></div></div>'
+  }
+  function insertAfter(referenceNode, newNode) {
+      referenceNode.parentNode.insertBefore(newNode, referenceNode.nextSibling);
+  }
+  var authors = document.querySelectorAll('meta[name="author"]')
+  if (authors) {
+    var authorlist = Array.from(authors).map(e=>e.content).reduce((accum, curr) =>  accum + curr + ", ", "","").replace(/\,\s$/,"")
+    var citt = `<div class="card border-primary mb-3" style=;">
+      <div class="card-header bg-primary">To cite this chapter</div>
+      <div class="card-body small">
+        <p class="card-text">${authorlist} (2025).
+        <b>${document.getElementsByClassName("chapter-title")[0].innerText}</b>. 
+        In M. Saqr & S. López-Pernas (Eds.), <i>Advanced Learning Analytics Methods: AI, Precision and Complexity</i> 
+        (in – press). Springer. <a href="${window.location.href}">${window.location.href}</a></p>
+      </div>
+    </div>`;
+    insertAfter(document.getElementsByTagName("HEADER")[1],new DOMParser().parseFromString(citt, 'text/html').body.childNodes[0])
+  }
+</script>
+
+
+
+</body></html>

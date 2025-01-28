@@ -1,0 +1,18 @@
+---
+title: "The Use of Natural Language Processing in Learning Analytics"
+author: 
+   - name: "Tarid Wongvorachan"
+   - name: "Okan Bulut"
+format: html
+number-sections: true
+crossref:
+  fig-title: '**Figure**'
+  fig-labels: arabic
+  title-delim: "**.**"
+abstract-title: "Abstract"
+abstract: "In the educational context, the usage of written text is as equally important as the usage of numerical components for teachers to make informed decisions in their pedagogical strategies. This chapter explores the practical implementation of natural language processing (NLP) within the context of learning analytics, specifically focusing on text mining and information extraction of textual data sourced from LA environments, including student feedback, forum posts, online discussions, and course materials. This application could provide insights into student behaviors, learning patterns, and educational content. This chapter introduces foundational NLP concepts and techniques, including text preprocessing, TF-IDF analysis, topic modeling, and text summarization. We demonstrate these techniques using functions from R packages such as tm, tidytext, topicmodels, and lexRankr to students' comments on a course evaluation survey. Finally, we explore the application of sentiment analysis in learning analytics to gain insights into student perceptions. In summary, this chapter serves as a comprehensive guide for leveraging NLP techniques in learning analytics using R. This guideline provides readers with the knowledge and tools necessary to analyze and derive insights from textual data in educational contexts."
+keywords: "Natural language processing, Text mining, Sentiment Analysis, Learning analytics"
+
+---
+
+Forthcoming

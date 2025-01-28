@@ -1,0 +1,1047 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.2.269">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="author" content="Joran Jongerling">
+<meta name="author" content="Sonsoles López-Pernas">
+<meta name="author" content="Mohammed Saqr">
+<meta name="author" content="Leonie V.D.E. Vogelsmeier">
+<meta name="keywords" content="Structural Equation Modeling, learning analytics, SEM">
+
+<title>Learning analytics methods and tutorials - 21&nbsp; Structural Equation Modeling with R for Education Scientists</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1.6em;
+  vertical-align: middle;
+}
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { color: #008000; } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { color: #008000; font-weight: bold; } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+}
+.hanging div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}
+</style>
+
+
+<script src="../../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../../">
+<link href="../../chapters/ch22-conclusion/ch22-conclusion.html" rel="next">
+<link href="../../chapters/ch20-factor-analysis/ch20-factor.html" rel="prev">
+<script src="../../site_libs/cookie-consent/cookie-consent.js"></script>
+<link href="../../site_libs/cookie-consent/cookie-consent.css" rel="stylesheet">
+<script src="../../site_libs/quarto-html/quarto.js"></script>
+<script src="../../site_libs/quarto-html/popper.min.js"></script>
+<script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 20,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit"
+  }
+}</script>
+<script async="" src="https://www.googletagmanager.com/gtag/js?id=G-Y4VBV3J9WD"></script>
+
+<script type="text/plain" cookie-consent="tracking">
+
+window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+gtag('js', new Date());
+gtag('config', 'G-Y4VBV3J9WD', { 'anonymize_ip': true});
+</script>
+
+<script type="text/javascript" charset="UTF-8">
+document.addEventListener('DOMContentLoaded', function () {
+cookieconsent.run({
+  "notice_banner_type":"simple",
+  "consent_type":"implied",
+  "palette":"light",
+  "language":"en",
+  "page_load_consent_levels":["strictly-necessary","functionality","tracking","targeting"],
+  "notice_banner_reject_button_hide":false,
+  "preferences_center_close_button_hide":false,
+  "website_name":""
+  });
+});
+</script> 
+  
+
+<link href="../../site_libs/pagedtable-1.1/css/pagedtable.css" rel="stylesheet">
+<script src="../../site_libs/pagedtable-1.1/js/pagedtable.js"></script>
+
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<meta name="twitter:title" content="Learning analytics methods and tutorials - 21&nbsp; Structural Equation Modeling with R for Education Scientists">
+<meta name="twitter:description" content="Structural Equation Modeling (SEM) is a  method for modeling the multitude of relationships between latent variables and the observable indicators, as well as the relationship between the latent…">
+<meta name="twitter:image" content="https://lamethods.github.io/../book2/cover2.jpg">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="citation_title" content="[21]{.chapter-number}&nbsp; [Structural Equation Modeling with R for Education Scientists]{.chapter-title}">
+<meta name="citation_abstract" content="Structural Equation Modeling (SEM) is a  method for modeling the multitude of relationships between latent variables and the observable indicators, as well as the relationship between the latent variables themselves to test theories. In its most common form, SEM combines confirmatory factor analysis (CFA with another method named path analysis). Just like CFA, SEM relates observed variables to latent variables that are measured by those observed variables and, as path analysis does, SEM allows for a wide range of regression-type relations between sets of variables (both latent and observed). This chapter presents an introduction to SEM, an integrated strategy for conducting SEM analysis that is well-suited for educational sciences, and a tutorial on how to carry out an SEM analysis in R.">
+<meta name="citation_keywords" content="Structural Equation Modeling, learning analytics, SEM">
+<meta name="citation_author" content="Joran Jongerling">
+<meta name="citation_author" content="Sonsoles López-Pernas">
+<meta name="citation_author" content="Mohammed Saqr">
+<meta name="citation_author" content="Leonie V.D.E. Vogelsmeier">
+<meta name="citation_fulltext_html_url" content="https://lamethods.github.io/ch21-sem.html">
+<meta name="citation_doi" content="10.1007/978-3-031-54464-4_21">
+<meta name="citation_language" content="en">
+<meta name="citation_firstpage" content="705">
+<meta name="citation_lastpage" content="721">
+<meta name="citation_reference" content="citation_title=Identifying factors affecting acceptance of virtual reality in classrooms based on technology acceptance model (TAM);,citation_author=Faizah Abd Majid;,citation_author=Nurshamshida Mohd Shamsudin;,citation_publication_date=2019-12;,citation_cover_date=2019-12;,citation_year=2019;,citation_issue=2;,citation_issn=1823-7797;,citation_volume=15;,citation_journal_title=Asian journal of university education;,citation_publisher=UiTM Press, Universiti Teknologi MARA;">
+<meta name="citation_reference" content="citation_title=Research trends in measurement and intervention tools for self-regulated learning for e-learning environments—systematic review (2008–2018);,citation_author=Eric Araka;,citation_author=Elizaphan Maina;,citation_author=Rhoda Gitonga;,citation_author=Robert Oboko;,citation_publication_date=2020-12;,citation_cover_date=2020-12;,citation_year=2020;,citation_fulltext_html_url=http://dx.doi.org/10.1186/s41039-020-00129-5;,citation_issue=1;,citation_doi=10.1186/s41039-020-00129-5;,citation_issn=1793-2068;,citation_volume=15;,citation_journal_title=Research and practice in technology enhanced learning;,citation_publisher=Springer Science; Business Media LLC;">
+<meta name="citation_reference" content="citation_title=Psychometric approaches for developing commensurate measures across independent studies: Traditional and new models;,citation_author=Daniel J. Bauer;,citation_author=Andrea M. Hussong;,citation_publication_date=2009-06;,citation_cover_date=2009-06;,citation_year=2009;,citation_issue=2;,citation_issn=1082-989X;,citation_volume=14;,citation_journal_title=Psychological methods;,citation_publisher=American Psychological Association (APA);">
+<meta name="citation_reference" content="citation_title=Practical issues in structural modeling;,citation_author=P. M. Bentler;,citation_author=Chih-Ping Chou;,citation_publication_date=1987-08;,citation_cover_date=1987-08;,citation_year=1987;,citation_issue=1;,citation_issn=0049-1241;,citation_volume=16;,citation_journal_title=Sociological methods &amp;amp;amp; research;,citation_publisher=SAGE Publications;">
+<meta name="citation_reference" content="citation_title=Testing for the equivalence of factor covariance and mean structures: The issue of partial measurement invariance;,citation_author=Barbara M. Byrne;,citation_author=Richard J. Shavelson;,citation_author=Bengt Muthén;,citation_publication_date=1989-05;,citation_cover_date=1989-05;,citation_year=1989;,citation_issue=3;,citation_issn=0033-2909;,citation_volume=105;,citation_journal_title=Psychological bulletin;,citation_publisher=American Psychological Association (APA);">
+<meta name="citation_reference" content="citation_title=Technology acceptance model (TAM): A study of teachers’ perception of the use of serious games in the higher education;,citation_author=Daniel Cardona Valencia;,citation_author=Fray Alonso Betancur Duque;,citation_publication_date=2023-02;,citation_cover_date=2023-02;,citation_year=2023;,citation_issue=1;,citation_issn=1932-8540;,citation_volume=18;,citation_journal_title=IEEE Revista Iberoamericana de Tecnologias del Aprendizaje;,citation_publisher=Institute of Electrical; Electronics Engineers (IEEE);">
+<meta name="citation_reference" content="citation_title=Sensitivity of goodness of fit indexes to lack of measurement invariance;,citation_author=Fang Fang Chen;,citation_publication_date=2007-07;,citation_cover_date=2007-07;,citation_year=2007;,citation_issue=3;,citation_issn=1070-5511;,citation_volume=14;,citation_journal_title=Structural equation modeling: a multidisciplinary journal;,citation_publisher=Informa UK Limited;">
+<meta name="citation_reference" content="citation_title=User acceptance of information technology: System characteristics, user perceptions and behavioral impacts;,citation_author=Fred D. Davis;,citation_publication_date=1993-03;,citation_cover_date=1993-03;,citation_year=1993;,citation_issue=3;,citation_issn=0020-7373;,citation_volume=38;,citation_journal_title=International journal of man-machine studies;,citation_publisher=Elsevier BV;">
+<meta name="citation_reference" content="citation_title=Counting clicks is not enough: Validating a theorized model of engagement in learning analytics;,citation_author=Ed Fincham;,citation_author=Alexander Whitelock-Wainwright;,citation_author=Vitomir Kovanović;,citation_author=Srećko Joksimović;,citation_author=Jan-Paul Staalduinen;,citation_author=Dragan Gašević;,citation_publication_date=2019-03;,citation_cover_date=2019-03;,citation_year=2019;,citation_isbn=9781450362566;,citation_conference_title=Proceedings of the 9th international conference on learning analytics &amp;amp;amp; knowledge;,citation_conference=Association for Computing Machinery;,citation_series_title=LAK19;">
+<meta name="citation_reference" content="citation_title=Revisiting sample size and number of parameter estimates: Some support for the n:q hypothesis;,citation_author=Dennis L. Jackson;,citation_publication_date=2003-01;,citation_cover_date=2003-01;,citation_year=2003;,citation_issue=1;,citation_issn=1070-5511;,citation_volume=10;,citation_journal_title=Structural equation modeling: a multidisciplinary journal;,citation_publisher=Informa UK Limited;">
+<meta name="citation_reference" content="citation_title=Simultaneous factor analysis in several populations;,citation_author=Karl Gustav Jöreskog;,citation_publication_date=1971-12;,citation_cover_date=1971-12;,citation_year=1971;,citation_issue=4;,citation_issn=0033-3123;,citation_volume=36;,citation_journal_title=Psychometrika;,citation_publisher=Springer Science; Business Media LLC;">
+<meta name="citation_reference" content="citation_title=LISREL: A general computer program for estimating a linear structural equation system involving multiple indicators of unmeasured;,citation_author=Karl Gustav Jöreskog;,citation_author=Mariella Van Thillo;,citation_publication_date=1972;,citation_cover_date=1972;,citation_year=1972;">
+<meta name="citation_reference" content="citation_title=Learning analytics of student participation and achievement in online distance education: A structural equation modeling;,citation_author=Mustafa Koç;,citation_publication_date=2017-12;,citation_cover_date=2017-12;,citation_year=2017;,citation_fulltext_html_url=https://jestp.com/index.php/estp/article/view/405;,citation_issue=6;,citation_doi=10.12738/estp.2017.6.0059;,citation_issn=2148-7561;,citation_volume=17;,citation_journal_title=Educational Sciences: Theory &amp;amp;amp; Practice;">
+<meta name="citation_reference" content="citation_title=A structural equation model of predictors of online learners’ engagement and satisfaction;,citation_author=Sevda Kucuk;,citation_author=Jennifer C. Richardson;,citation_publication_date=2019;,citation_cover_date=2019;,citation_year=2019;,citation_issue=2;,citation_volume=23;,citation_journal_title=Online Learning;">
+<meta name="citation_reference" content="citation_title=How motivation affects academic performance: A structural equation modelling analysis;,citation_author=R. A. Kusurkar;,citation_author=Th J. Ten Cate;,citation_author=C. M. P. Vos;,citation_author=P. Westers;,citation_author=G. Croiset;,citation_publication_date=2013-03;,citation_cover_date=2013-03;,citation_year=2013;,citation_issue=1;,citation_issn=1382-4996;,citation_volume=18;,citation_journal_title=Advances in health sciences education: theory and practice;">
+<meta name="citation_reference" content="citation_title=Technology acceptance model: A literature review from 1986 to 2013;,citation_author=Nikola Marangunić;,citation_author=Andrina Granić;,citation_publication_date=2015-03;,citation_cover_date=2015-03;,citation_year=2015;,citation_issue=1;,citation_issn=1615-5289;,citation_volume=14;,citation_journal_title=Universal access in the information society;,citation_publisher=Springer Science; Business Media LLC;">
+<meta name="citation_reference" content="citation_title=Adoption of artificial intelligence in science teaching: From the vantage point of the african science teachers;,citation_author=Cecilia Obi Nja;,citation_author=Kimson Joseph Idiege;,citation_author=Uduak Edet Uwe;,citation_author=Anne Ndidi Meremikwu;,citation_author=Esther Etop Ekon;,citation_author=Costly Manyo Erim;,citation_author=Julius Ukah Ukah;,citation_author=Eneyo Okon Eyo;,citation_author=Mary Ideba Anari;,citation_author=Bernedette Umalili Cornelius-Ukpepi;,citation_publication_date=2023-09;,citation_cover_date=2023-09;,citation_year=2023;,citation_fulltext_html_url=http://dx.doi.org/10.1186/s40561-023-00261-x;,citation_issue=1;,citation_doi=10.1186/s40561-023-00261-x;,citation_issn=2196-7091;,citation_volume=10;,citation_journal_title=Smart learning environments;,citation_publisher=Springer Science; Business Media LLC;">
+<meta name="citation_reference" content="citation_title=Teachers’ burnout: A SEM analysis in an asian context;,citation_author=Lantip Diat Prasojo;,citation_author=Akhmad Habibi;,citation_author=Mohd Faiz Mohd Yaakob;,citation_author=Robin Pratama;,citation_author=Mat Rahimi Yusof;,citation_author=Amirul Mukminin;,citation_author=undefined Suyanto;,citation_author=Farida Hanum;,citation_publication_date=2020-01;,citation_cover_date=2020-01;,citation_year=2020;,citation_issue=1;,citation_issn=2405-8440;,citation_volume=6;,citation_journal_title=Heliyon;,citation_publisher=Elsevier BV;">
+<meta name="citation_reference" content="citation_title=Lavaan: An r package for structural equation modeling;,citation_author=Yves Rosseel;,citation_publication_date=2012;,citation_cover_date=2012;,citation_year=2012;,citation_fulltext_html_url=http://dx.doi.org/10.18637/jss.v048.i02;,citation_issue=2;,citation_doi=10.18637/jss.v048.i02;,citation_issn=1548-7660;,citation_volume=48;,citation_journal_title=Journal of statistical software;,citation_publisher=Foundation for Open Access Statistic;">
+<meta name="citation_reference" content="citation_title=The lavaan tutorial;,citation_author=Yves Rosseel;,citation_publication_date=2023;,citation_cover_date=2023;,citation_year=2023;,citation_fulltext_html_url=https://lavaan.ugent.be/tutorial/;">
+<meta name="citation_reference" content="citation_title=A general method for studying differences in factor means and factor structure between groups;,citation_author=Dag Sörbom;,citation_publication_date=1974-11;,citation_cover_date=1974-11;,citation_year=1974;,citation_issue=2;,citation_issn=0007-1102;,citation_volume=27;,citation_journal_title=The British journal of mathematical and statistical psychology;,citation_publisher=Wiley;">
+<meta name="citation_reference" content="citation_title=Assessing measurement invariance in cross‐national consumer research;,citation_author=Jan-Benedict E. M. Steenkamp;,citation_author=Hans Baumgartner;,citation_publication_date=1998-06;,citation_cover_date=1998-06;,citation_year=1998;,citation_issue=1;,citation_issn=0093-5301;,citation_volume=25;,citation_journal_title=The journal of consumer research;,citation_publisher=Oxford University Press (OUP);">
+<meta name="citation_reference" content="citation_title=The nature and building blocks of educational technology research;,citation_author=Teemu Valtonen;,citation_author=Sonsoles López-Pernas;,citation_author=Mohammed Saqr;,citation_author=Henriikka Vartiainen;,citation_author=Erkko Tapio Sointu;,citation_author=Matti Tedre;,citation_publication_date=2022;,citation_cover_date=2022;,citation_year=2022;,citation_issue=107123;,citation_issn=0747-5632;,citation_volume=128;,citation_journal_title=Computers in human behavior;,citation_publisher=Elsevier BV;">
+<meta name="citation_reference" content="citation_title=Factor analysis in education research using r;,citation_author=Leonie V. D. E. Vogelsmeier;,citation_author=M. Saqr;,citation_author=S. López-Pernas;,citation_author=J. Jongerling;,citation_editor=Mohammed Saqr;,citation_editor=Sonsoles López-Pernas;,citation_publication_date=2024;,citation_cover_date=2024;,citation_year=2024;,citation_inbook_title=Learning analytics methods and tutorials: A practical guide using r;">
+<meta name="citation_reference" content="citation_title=Correlation and causation;,citation_author=S. Wright;,citation_publication_date=1921;,citation_cover_date=1921;,citation_year=1921;,citation_volume=20;,citation_journal_title=Journal of Agricultural Research;">
+<meta name="citation_reference" content="citation_title=A broad collection of datasets for educational research training and application;,citation_author=Sonsoles López-Pernas;,citation_author=Mohammed Saqr;,citation_author=Javier Conde;,citation_author=Laura Del-Rı́o-Carazo;,citation_editor=Mohammed Saqr;,citation_editor=Sonsoles López-Pernas;,citation_publication_date=2024;,citation_cover_date=2024;,citation_year=2024;,citation_inbook_title=Learning analytics methods and tutorials: A practical guide using R;">
+<meta name="citation_reference" content="citation_title=Applying structural equation modeling (SEM) in educational research: An introduction;,citation_author=Timothy Teo;,citation_author=Liang Ting Tsai;,citation_author=Chih-Chien Yang;,citation_publication_date=2013;,citation_cover_date=2013;,citation_year=2013;,citation_inbook_title=Application of structural equation modeling in educational research and practice;">
+</head>
+
+<body class="nav-sidebar floating nav-fixed">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg navbar-dark ">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container">
+    <a class="navbar-brand" href="../../index.html">
+    <span class="navbar-title">LA Methods</span>
+    </a>
+  </div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll ms-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="../../../index.html">
+ <span class="menu-text">Home</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../../../book1/index.html">
+ <span class="menu-text">Learning Analytics Methods and Tutorials</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../../../book2/index.html">
+ <span class="menu-text">Advanced Learning Analytics Methods</span></a>
+  </li>  
+  <li class="nav-item compact">
+    <a class="nav-link" href="https://github.com/lamethods/labook-code/"><i class="bi bi-github" role="img" aria-label="Source Code">
+</i> 
+ <span class="menu-text"></span></a>
+  </li>  
+</ul>
+              <div id="quarto-search" class="" title="Search"></div>
+          </div> <!-- /navcollapse -->
+      </div> <!-- /container-fluid -->
+    </nav>
+  <nav class="quarto-secondary-nav" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+    <div class="container-fluid d-flex justify-content-between">
+      <h1 class="quarto-secondary-nav-title"><span class="chapter-number">21</span>&nbsp; <span class="chapter-title">Structural Equation Modeling with R for Education Scientists</span></h1>
+      <button type="button" class="quarto-btn-toggle btn" aria-label="Show secondary navigation">
+        <i class="bi bi-chevron-right"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse sidebar-navigation floating overflow-auto">
+      <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Search"></div>
+        </div>
+      </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../index.html" class="sidebar-item-text sidebar-link">Welcome</a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../contributors.html" class="sidebar-item-text sidebar-link">Contributors</a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../foreword_dg.html" class="sidebar-item-text sidebar-link">Foreword by Dragan Gašević</a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../foreword_rb.html" class="sidebar-item-text sidebar-link">Foreword by Ryan Baker</a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../chapters/ch01-intro/intro.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Introduction</span></a>
+  </div>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true">Getting started</a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../chapters/ch02-data/ch2-data.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Data</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../chapters/ch03-intro-r/ch3-intor.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Intro to R</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../chapters/ch04-data-cleaning/ch4-datacleaning.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Data cleaning</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../chapters/ch05-basic-stats/ch5-stats.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Basic statistics</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../chapters/ch06-data-visualization/ch6-viz.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Data visualization</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="true">Machine Learning</a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="true">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../chapters/ch07-prediction/ch7-pred.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Predictive modeling</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../chapters/ch08-clustering/ch8-clus.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Dissimilarity-based Clustering</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../chapters/ch09-model-based-clustering/ch9-model.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Model-based clustering</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" aria-expanded="true">Temporal methods</a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" aria-expanded="true">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../chapters/ch10-sequence-analysis/ch10-seq.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Sequence analysis</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../chapters/ch11-vasstra/ch11-vasstra.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">VaSSTra</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../chapters/ch12-markov/ch12-markov.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Markov models</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../chapters/ch13-multichannel/ch13-multi.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Multi-channel sequences</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../chapters/ch14-process-mining/ch14-process.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">Process mining</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" aria-expanded="true">Network analysis</a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" aria-expanded="true">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../chapters/ch15-sna/ch15-sna.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">15</span>&nbsp; <span class="chapter-title">Social Network Analysis</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../chapters/ch16-community/ch16-comm.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">16</span>&nbsp; <span class="chapter-title">Community detection</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../chapters/ch17-temporal-networks/ch17-tna.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">17</span>&nbsp; <span class="chapter-title">Temporal Networks</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../chapters/ch18-ena-ona/ch18-ena.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">18</span>&nbsp; <span class="chapter-title">Epistemic Network Analysis</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" aria-expanded="true">Psychometrics</a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" aria-expanded="true">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-5" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../chapters/ch19-psychological-networks/ch19-psych.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">19</span>&nbsp; <span class="chapter-title">Psychological networks</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../chapters/ch20-factor-analysis/ch20-factor.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">20</span>&nbsp; <span class="chapter-title">Factor analysis</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../chapters/ch21-sem/ch21-sem.html" class="sidebar-item-text sidebar-link active"><span class="chapter-number">21</span>&nbsp; <span class="chapter-title">Structured Equation Modeling</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../chapters/ch22-conclusion/ch22-conclusion.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">22</span>&nbsp; <span class="chapter-title">Future of LA</span></a>
+  </div>
+</li>
+    </ul>
+    </div>
+</nav>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Table of contents</h2>
+   
+  <ul>
+  <li><a href="#introduction" id="toc-introduction" class="nav-link active" data-scroll-target="#introduction"><span class="toc-section-number">1</span>  Introduction</a></li>
+  <li><a href="#literature-review" id="toc-literature-review" class="nav-link" data-scroll-target="#literature-review"><span class="toc-section-number">2</span>  Literature review</a></li>
+  <li><a href="#recap-of-sem" id="toc-recap-of-sem" class="nav-link" data-scroll-target="#recap-of-sem"><span class="toc-section-number">3</span>  Recap of SEM</a></li>
+  <li><a href="#integrated-strategy-for-structural-equation-modeling" id="toc-integrated-strategy-for-structural-equation-modeling" class="nav-link" data-scroll-target="#integrated-strategy-for-structural-equation-modeling"><span class="toc-section-number">4</span>  Integrated Strategy for Structural Equation Modeling</a>
+  <ul class="collapse">
+  <li><a href="#step-1-steps-from-the-previous-chapter-while-assessing-configural-invariance" id="toc-step-1-steps-from-the-previous-chapter-while-assessing-configural-invariance" class="nav-link" data-scroll-target="#step-1-steps-from-the-previous-chapter-while-assessing-configural-invariance"><span class="toc-section-number">4.1</span>  Step 1: Steps from the previous chapter while assessing configural invariance</a></li>
+  <li><a href="#step-2-assessing-higher-levels-of-invariance" id="toc-step-2-assessing-higher-levels-of-invariance" class="nav-link" data-scroll-target="#step-2-assessing-higher-levels-of-invariance"><span class="toc-section-number">4.2</span>  Step 2: Assessing Higher Levels of Invariance</a></li>
+  <li><a href="#step-3-building-the-structural-equation-model-and-assessing-fit" id="toc-step-3-building-the-structural-equation-model-and-assessing-fit" class="nav-link" data-scroll-target="#step-3-building-the-structural-equation-model-and-assessing-fit"><span class="toc-section-number">4.3</span>  Step 3: Building the Structural Equation Model and Assessing Fit</a></li>
+  </ul></li>
+  <li><a href="#sem-in-r" id="toc-sem-in-r" class="nav-link" data-scroll-target="#sem-in-r"><span class="toc-section-number">5</span>  SEM in R</a>
+  <ul class="collapse">
+  <li><a href="#preparation" id="toc-preparation" class="nav-link" data-scroll-target="#preparation"><span class="toc-section-number">5.1</span>  Preparation</a></li>
+  <li><a href="#step-1-steps-from-the-previous-chapter" id="toc-step-1-steps-from-the-previous-chapter" class="nav-link" data-scroll-target="#step-1-steps-from-the-previous-chapter"><span class="toc-section-number">5.2</span>  Step 1: Steps from the previous chapter</a></li>
+  <li><a href="#step-2-assessing-higher-levels-of-invariance-1" id="toc-step-2-assessing-higher-levels-of-invariance-1" class="nav-link" data-scroll-target="#step-2-assessing-higher-levels-of-invariance-1"><span class="toc-section-number">5.3</span>  Step 2: Assessing Higher Levels of Invariance</a></li>
+  <li><a href="#step-3-building-the-structural-equation-model-and-assessing-fit-1" id="toc-step-3-building-the-structural-equation-model-and-assessing-fit-1" class="nav-link" data-scroll-target="#step-3-building-the-structural-equation-model-and-assessing-fit-1"><span class="toc-section-number">5.4</span>  Step 3: Building the Structural Equation Model and Assessing Fit</a></li>
+  </ul></li>
+  <li><a href="#conclusion" id="toc-conclusion" class="nav-link" data-scroll-target="#conclusion"><span class="toc-section-number">6</span>  Conclusion</a></li>
+  <li><a href="#further-readings" id="toc-further-readings" class="nav-link" data-scroll-target="#further-readings"><span class="toc-section-number">7</span>  Further readings</a></li>
+  <li><a href="#bibliography" id="toc-bibliography" class="nav-link" data-scroll-target="#bibliography">References</a></li>
+  </ul>
+</nav>
+    <div class="quarto-margin-footer"><div class="margin-footer-item">
+<a href="https://github.com/lamethods/code" target="_blank"> <button class="btn btn-outline-dark"> <svg xmlns="http://www.w3.org/2000/svg" viewbox="0 0 496 512" style="width: 22px;vertical-align: text-top;margin-right: 9px;"> <path d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3 .3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5 .3-6.2 2.3zm44.2-1.7c-2.9 .7-4.9 2.6-4.6 4.9 .3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3 .7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3 .3 2.9 2.3 3.9 1.6 1 3.6 .7 4.3-.7 .7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3 .7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3 .7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z" style="width: 24px;"> </path> </svg>Download code </button> </a> <br>
+<div style="padding: 10px;">
+Check out our new book! <br> <a href="../../../book2/index.html"><img src="../../../book2/cover2.jpg" style="
+     width: 70%;
+ "></a>
+</div>
+<p><br> <small>© 2024 The authors</small></p>
+</div></div></div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title d-none d-lg-block"><span class="chapter-number">21</span>&nbsp; <span class="chapter-title">Structural Equation Modeling with R for Education Scientists</span></h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    <div>
+    <div class="quarto-title-meta-heading">Authors</div>
+    <div class="quarto-title-meta-contents">
+             <p>Joran Jongerling </p>
+             <p>Sonsoles López-Pernas </p>
+             <p>Mohammed Saqr </p>
+             <p>Leonie V.D.E. Vogelsmeier </p>
+          </div>
+  </div>
+    
+  
+    
+  </div>
+  
+<div>
+  <div class="abstract">
+    <div class="abstract-title">Abstract</div>
+    Structural Equation Modeling (SEM) is a method for modeling the multitude of relationships between latent variables and the observable indicators, as well as the relationship between the latent variables themselves to test theories. In its most common form, SEM combines confirmatory factor analysis (CFA with another method named path analysis). Just like CFA, SEM relates observed variables to latent variables that are measured by those observed variables and, as path analysis does, SEM allows for a wide range of regression-type relations between sets of variables (both latent and observed). This chapter presents an introduction to SEM, an integrated strategy for conducting SEM analysis that is well-suited for educational sciences, and a tutorial on how to carry out an SEM analysis in R.
+  </div>
+</div>
+
+</header>
+
+<section id="introduction" class="level2" data-number="1">
+<h2 data-number="1" class="anchored" data-anchor-id="introduction"><span class="header-section-number">1</span> Introduction</h2>
+<p>Educational research involves a variety of theoretical constructs that are not directly observable (e.g., motivation, engagement, cognitive development, and self-regulation) and that can only be indirectly studied by looking at participant’s responses to observable indicators of these constructs (e.g., participants’ responses to questionnaire items). The previous chapter about factor analysis <span class="citation" data-cites="Vogelsmeier_Saqr_López-Pernas_Jongerling_2024">[<a href="#ref-Vogelsmeier_Saqr_López-Pernas_Jongerling_2024" role="doc-biblioref">1</a>]</span> showed how to assess the factor structure of these unobserved, or latent, constructs and, thus, which items are good measurements of these constructs. This is crucial for developing valid instruments to measure (i.e., quantify) the latent constructs encountered in educational research. However, good measurement of latent constructs is typically not the researchers' ultimate goal. Usually, they subsequently want to answer questions about relationships or mean differences between (multiple) of these constructs, such as, “<em>Is teacher motivation related to student engagement?</em>” or “<em>Does student engagement significantly differ for small and large-scale teaching styles?</em>” If researchers only have (i) <em>observed variables</em> (e.g., years of teacher experience) for both predictor and outcome variables and (ii) want to investigate the effect of one or more predictor variables on a <em>single outcome variable</em> at a time (e.g., the effect of teacher experience and teacher gender on student GPA), these types of questions can be answered using familiar analysis methods such as multiple regression or ANOVA. However, as soon as questions involve latent variables or testing an entire system of (complex) interrelations between variables (like the ones found in most theoretical frameworks), researchers need an analysis technique with more flexibility that allows for modeling a multitude of relationships between (latent and/or observed) variables simultaneously <span class="citation" data-cites="teo2013applying">[<a href="#ref-teo2013applying" role="doc-biblioref">2</a>]</span>; that is, researchers need SEM.</p>
+<p>At its core, SEM is a mix of factor analysis (discussed in the previous chapter) and a method called path analysis, which was invented by Wright <span class="citation" data-cites="Wright_1921">[<a href="#ref-Wright_1921" role="doc-biblioref">3</a>]</span>. One can think of path analysis as a type of multiple regression analysis because it also allows estimating and testing direct effects between variables. However, while multiple regression merely allows for testing the direct effects of predictor(s) on only a single outcome variable, path analysis can look at both direct and indirect effects between whole sets of predictor(s) on whole sets of other variables simultaneously. This implies that in path analysis, a variable can simultaneously be an outcome and a predictor: a variable might be predicted by one or more variables while also serving as a predictor for other variables. In other words, with path analysis, researchers can pretty much fit any model they can dream of as long as all variables are observed. Fitting a path model to latent variables requires going beyond path analysis. Fortunately, Jöreskog and Van Thillo <span class="citation" data-cites="Jöreskog_Van_Thillo_1972">[<a href="#ref-Jöreskog_Van_Thillo_1972" role="doc-biblioref">4</a>]</span> developed a statistical software called LISREL that allowed the use of latent variables in path analysis and thereby created SEM. Over the years, their work has been integrated into increasingly user-friendly software, contributing to the widespread use of the technique in social sciences today. This widespread use has also led to the definition of a SEM model becoming less concrete as the term is now also used for models with only observed variables, even though that would officially be a path model.</p>
+</section>
+<section id="literature-review" class="level2" data-number="2">
+<h2 data-number="2" class="anchored" data-anchor-id="literature-review"><span class="header-section-number">2</span> Literature review</h2>
+<p>Perhaps the most well-known application of SEM in education research is the technology acceptance model (TAM), used to explain teachers’ adoption of education technology <span class="citation" data-cites="Davis_1993">[<a href="#ref-Davis_1993" role="doc-biblioref">5</a>]</span>. The model hypothesizes that a teacher's decision to adopt and use technology is influenced by their perceptions of its ease of use and usefulness. These perceptions shape their attitude toward technology use, which, in turn, affects their intention to use it and their actual usage. Such complex interplay in factors that influence technology acceptance requires using sophisticated methods such as SEM. The model has been extensively applied and validated in several contexts <span class="citation" data-cites="Valtonen_López-Pernas_Saqr_Vartiainen_Sointu_Tedre_2022">[<a href="#ref-Valtonen_López-Pernas_Saqr_Vartiainen_Sointu_Tedre_2022" role="doc-biblioref">6</a>]</span>, investigating the adoption of multiple technological innovations such as serious games <span class="citation" data-cites="Cardona_Valencia_Betancur_Duque_2023">[<a href="#ref-Cardona_Valencia_Betancur_Duque_2023" role="doc-biblioref">7</a>]</span>, virtual reality <span class="citation" data-cites="Abd_Majid_Mohd_Shamsudin_2019">[<a href="#ref-Abd_Majid_Mohd_Shamsudin_2019" role="doc-biblioref">8</a>]</span>, or artificial intelligence <span class="citation" data-cites="Nja_Idiege_Uwe_Meremikwu_Ekon_Erim_Ukah_Eyo_Anari_Cornelius-Ukpepi_2023">[<a href="#ref-Nja_Idiege_Uwe_Meremikwu_Ekon_Erim_Ukah_Eyo_Anari_Cornelius-Ukpepi_2023" role="doc-biblioref">9</a>]</span>. The model has also been extended in several ways throughout the years to address the influence of other factors such as personality traits, result demonstrability, and risk, among many others <span class="citation" data-cites="Marangunić_Granić_2015">[<a href="#ref-Marangunić_Granić_2015" role="doc-biblioref">10</a>]</span>.</p>
+<p>Many other applications of SEM exist in education research. For example Kusurkar et al. <span class="citation" data-cites="Kusurkar_Ten_Cate_Vos_Westers_Croiset_2013">[<a href="#ref-Kusurkar_Ten_Cate_Vos_Westers_Croiset_2013" role="doc-biblioref">11</a>]</span> used SEM to investigate how <em>motivation</em> affects <em>academic performance</em>. They hypothesized that greater levels of self-determined motivation are associated with the adoption of effective study strategies and increased study dedication, resulting in improved academic achievement. Their findings confirmed that the influence of motivation on academic performance is mediated by the use of effective study strategies. The work by Kucuk and Richardson <span class="citation" data-cites="Kucuk_Richardson_2019">[<a href="#ref-Kucuk_Richardson_2019" role="doc-biblioref">12</a>]</span> examined the interconnections between the three types of Community of Inquiry presence (<em>teaching</em>, <em>social,</em> and <em>cognitive</em>), four engagement components (<em>agentic</em>, <em>behavioral</em>, <em>cognitive,</em> and <em>emotional</em>), and <em>satisfaction</em> in online courses. The findings suggest that <em>teaching presence</em>, <em>cognitive presence</em>, <em>emotional engagement</em>, <em>behavioral engagement</em>, and <em>cognitive engagement</em> were significant predictors of <em>satisfaction</em>, explaining 88% of its variance.</p>
+<p>The rise of digital learning and the opportunities for unobtrusive data collection have given rise to a new wave of studies that take advantage of the trace log data that students leave behind in online systems <span class="citation" data-cites="Araka_Maina_Gitonga_Oboko_2020">[<a href="#ref-Araka_Maina_Gitonga_Oboko_2020" role="doc-biblioref">13</a>]</span>, instead of relying on self-reported data from questionnaires. For instance, Koç <span class="citation" data-cites="Koç_2017">[<a href="#ref-Koç_2017" role="doc-biblioref">14</a>]</span> proposed a model that explains the association between <em>student participation</em> and <em>academic achievement</em>. <em>Student participation</em> was measured through attendance to online lectures and discussion forum submissions. His results suggest that “student success in online learning [can] be promoted by increasing student participation in discussion forums and online lectures with more engaging learning activities” <span class="citation" data-cites="Koç_2017">[<a href="#ref-Koç_2017" role="doc-biblioref">14</a>]</span>. Fincham et al. <span class="citation" data-cites="Fincham_Whitelock-Wainwright_Kovanović_Joksimović_van_Staalduinen_Gašević_2019">[<a href="#ref-Fincham_Whitelock-Wainwright_Kovanović_Joksimović_van_Staalduinen_Gašević_2019" role="doc-biblioref">15</a>]</span> validated a theorized model of <em>engagement</em> in learning analytics using factor analysis and SEM. He found that <em>affective engagement</em> (measured by sentiment, sadness, and joy of students’ writing) and <em>cognitive</em> <em>engagement</em> (measured by syntactic simplicity, word concreteness, and referential cohesion) are not significantly associated with students’ final grades but <em>academic</em> and <em>behavioral engagement</em> (problem submissions, videos watched, and weeks active) are.</p>
+<p>The rest of this chapter presents a recap of SEM, an integrated strategy for conducting a SEM analysis that is well suited for Educational Sciences, and an illustration of how to carry out a SEM analysis in R. Like the previous chapter, the presentation in this chapter will be kept applied and focus on how to conduct the analysis in R, instead of diving into technical details (for this, interested readers are referred to the readings listed at the end of this chapter).</p>
+</section>
+<section id="recap-of-sem" class="level2" data-number="3">
+<h2 data-number="3" class="anchored" data-anchor-id="recap-of-sem"><span class="header-section-number">3</span> Recap of SEM</h2>
+<p>In its most common form, SEM combines confirmatory factor analysis (CFA) with path analysis. Like CFA, SEM relates observed variables to latent variables that are measured by those observed variables, and, like path analysis, SEM allows for a wide range of relations between entire sets of variables (both latent and observed). As mentioned before, SEM is nowadays an umbrella term that also includes path analysis with only observed variables. However, this chapter focuses on SEM with latent variables to show its full potential. For the sake of brevity, it is assumed that the readers of this chapter have already read the factor analysis chapter, where a good description and recap of CFA (and how it differs from exploratory factor analysis) is provided.</p>
+<p>The similarity between CFA and SEM is illustrated in Figure 1. It can be seen that both models consist of a part in which the observed and latent variables are related to each other (these relations are referred to as the measurement model) and a part in which the latent factors are related to each other (these relations are referred to as the structural model). The crucial difference between CFA and SEM is that factors in CFA can only <em>correlate</em> with each other (see Figure 1a). In contrast, SEM gives us more flexibility regarding (the set of) relationships between (observed and latent) variables. For example, Figure 1b shows the same factor model as Figure 1a. However, in Figure 1b, Factors 2 and 3 are both predicted by Factor 1a but are unrelated beyond that. Which model researchers specify, that is, what relations between (latent) variables they model, is entirely up to them. However, this flexibility is also a danger of SEM: the fact that researchers can fit any model they can think of does not mean they should. Ideally, the chosen relationships are driven by theory and substantive knowledge of the field.</p>
+<div id="fig-1" class="quarto-layout-panel">
+<figure class="figure">
+<div class="quarto-layout-row quarto-layout-valign-top">
+<div class="quarto-layout-cell quarto-layout-cell-subref" style="flex-basis: 50.0%;justify-content: center;">
+<div id="fig-1a" class="quarto-figure quarto-figure-center anchored">
+<figure class="figure">
+<p><img src="SEM/media/image1.png" class="img-fluid figure-img" data-ref-parent="fig-1"></p>
+<p></p><figcaption class="figure-caption">(a) A 3-factor CFA model with correlated factors, and Each factor is measured by three observed variables (X<sub>1</sub> – X<sub>3,</sub> X<sub>4</sub> – X<sub>6,</sub> X<sub>7</sub> – X<sub>9</sub>).</figcaption><p></p>
+</figure>
+</div>
+</div>
+<div class="quarto-layout-cell quarto-layout-cell-subref" style="flex-basis: 50.0%;justify-content: center;">
+<div id="fig-1b" class="quarto-figure quarto-figure-center anchored">
+<figure class="figure">
+<p><img src="SEM/media/image2.png" class="img-fluid figure-img" data-ref-parent="fig-1"></p>
+<p></p><figcaption class="figure-caption">(b) A a SEM with one latent predictor variable and two latent outcome variables. The model is identical to the CFA model in a). However, now there are regression relationships between factors, as indicated by the straight arrows between them.</figcaption><p></p>
+</figure>
+</div>
+</div>
+</div>
+<p></p><figcaption class="figure-caption"><strong>Figure</strong>&nbsp;1<strong>.</strong> CFA with covariances between factors vs.&nbsp;SEM with relationships between factors. The straight arrows from the factors to the observed variables indicate factor loadings (the regression weights obtained by regressing the observed variable on the factor). Double-headed arrows between factors indicate covariance. The <span class="math inline">\(\epsilon\)</span>’s represent errors. Curved single-headed arrows indicated variances. Each observed variable can also have an intercept, and each latent variable can also have a mean, but these are not explicitly indicated in the figure. <!-- The blue dashed boxes indicate the structural models. The gray dashed boxes indicate the measurement models. --></figcaption><p></p>
+</figure>
+</div>
+</section>
+<section id="integrated-strategy-for-structural-equation-modeling" class="level2" data-number="4">
+<h2 data-number="4" class="anchored" data-anchor-id="integrated-strategy-for-structural-equation-modeling"><span class="header-section-number">4</span> Integrated Strategy for Structural Equation Modeling</h2>
+<p>In the following, we guide you, the researcher, through the different steps of conducting a SEM analysis. It is important to highlight that the most crucial part of a SEM analysis is checking its assumptions and checking measurement invariance (which was already briefly mentioned in the previous chapter). Measurement invariance means that the factor model underlying your instrument apply equally to relevant subgroups in your sample. In other words, measurement invariance implies that if you analyzed each of those subgroups with factor analysis separately (using the three steps described in the previous chapter), you would find the same model in each one. Measurement invariance is crucial: As discussed in the previous chapter, the interpretation of a latent variable depends on the factor model. Therefore, if the factor model of the latent variable(s) in your SEM model differs, for example, across biological sex, you effectively throw apples and oranges together if you analyze both males and females simultaneously in your analysis, which will result in uninterpretable outcomes. At the very least, you would want the same factor model for everyone in terms of the same number of factors and the same pattern of relationships between the factors and the observed variables. This scenario is called configural invariance. However, most research questions require higher levels of invariance, in which not only the number of factors and the pattern of factor loadings are the same across subgroups, but also the actual values of (most of the) parameters such as factor loadings and intercepts are equal across groups. More information about the different levels of invariance and how and when to test for it is presented below. After you have checked the assumptions and measurement invariance, you can safely apply and interpret a SEM analysis. The actual SEM analysis is just the final step of the modeling strategy presented here.</p>
+<section id="step-1-steps-from-the-previous-chapter-while-assessing-configural-invariance" class="level3" data-number="4.1">
+<h3 data-number="4.1" class="anchored" data-anchor-id="step-1-steps-from-the-previous-chapter-while-assessing-configural-invariance"><span class="header-section-number">4.1</span> Step 1: Steps from the previous chapter while assessing configural invariance</h3>
+<p>Since SEM analyses typically look at the relationship of one or more latent variables with one or more other (latent or observed) variables, you first need to ensure that the latent variables represent what you think they represent. To this end, the first step is going through some or all the steps described in the previous chapter for every latent variable you include. If you use a new instrument to measure the latent variables, you should go through all the steps from (1) exploring the data structure, (2) building the factor model and assessing fit, and (3) assessing generalizability<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a>. As explained in the previous chapter, step 3 should be conducted using a holdout sample or a new sample. However, you can use the same (holdout or new) sample for your SEM analysis. More on determining sufficient sample sizes is discussed below in the “SEM in R” section.</p>
+<p>Once the factor model of your latent variables has been established or verified, you must ensure that this structure applies to all relevant subgroups in your sample. That is, you need to check for measurement invariance. The first level of invariance is configural invariance and, thus, whether the number of underlying factors and the pattern of relations between those factors and the observed variables is the same in each relevant subgroup. To test for configural invariance, you must go through the steps outlined in the previous chapter for each relevant group in your sample separately. Note that this also means you need sufficient observations for model building and generalizability in each subgroup you want to consider. Which subgroups are important to consider separately will always come down to theory.</p>
+<p>If you use an existing instrument on a sample from a population for which the instrument had already been validated and configural invariance attained in previous research (i.e., you have strong a priori assumptions about the CFA model), you could skip the three steps from the factor analysis chapter and go straight to assessing the fit of the CFA model to your data. If it fits, you can continue with the SEM analysis. However, even when using existing validated instruments, it is strongly recommended to follow all the aforementioned steps for each relevant subgroup of your sample, as your sample might differ in important ways from the ones on which the instrument was validated, which could potentially introduce biases into your results.</p>
+</section>
+<section id="step-2-assessing-higher-levels-of-invariance" class="level3" data-number="4.2">
+<h3 data-number="4.2" class="anchored" data-anchor-id="step-2-assessing-higher-levels-of-invariance"><span class="header-section-number">4.2</span> Step 2: Assessing Higher Levels of Invariance</h3>
+<p>After establishing configural invariance between relevant groups, it is time to verify that the factor model parameters (specifically the loadings and intercepts) are also invariant across the factor models of each group. To illustrate why these “higher levels of invariance” are important, assume you want to investigate the relationship between children’s age and how engaged they are in class. You measure the latent variable “classroom engagement” using a factor model on the three observed variables <em>engages in group activities</em>, <em>asks for assistance when needed</em>, and <em>prefers working alone</em>. Of these three variables, <em>asks for assistance</em> might be more indicative of classroom engagement for girls than for boys due to cultural stereotypes. Boys could be way less likely to ask for assistance, not because they are less engaged, but because society taught them that boys should not ask for help and should instead figure things out themselves. In this example, the interpretation of the latent variable would be different between girls and boys: for girls, you truly measure classroom engagement; for boys, you measure an uninterpretable mix of classroom engagement and how much they internalized gender stereotypes. If you ignored this between-group difference in the meaning of the latent variable when including it in a SEM model, you would come to invalid conclusions about the structural relationships between (latent or latent and observed) variables. Fortunately, the type of invariance in this example would show up as a difference in the relation between the factor <em>classroom engagement</em> and the variable <em>asks for assistance</em> between boys and girls. In other words, it would show up as a difference in factor loadings between groups.</p>
+<p>Testing for higher levels of invariance in the factor model between categorical characteristics or “groups” (e.g., gender, nationality) can be done by testing for differences in model parameters between groups using a multi-group approach <span class="citation" data-cites="Jöreskog_1971 Sörbom_1974">[<a href="#ref-Jöreskog_1971" role="doc-biblioref">16</a>, <a href="#ref-Sörbom_1974" role="doc-biblioref">17</a>]</span> that compares the fit of a factor model in which all parameters are allowed to differ between groups to one in which one or more parameters are constrained to be equal across groups. If constraining parameters across groups does not cause a substantially worse model fit, invariance holds, and the constrained parameters can safely be considered and modeled as equal across groups. To assess for invariance across continuous variables (e.g., age) one could split the continuous variable into groups (e.g., changing the continuous variable age into the groups “young” and “old”), although one should ideally use more advanced methods like Moderated Non-Linear Factor Analysis <span class="citation" data-cites="Bauer_Hussong_2009">[<a href="#ref-Bauer_Hussong_2009" role="doc-biblioref">18</a>]</span> since categorizing continuous variables leads to loss of information. This chapter, however, will focus on the multi-group approach because it is the most common and widely available approach.</p>
+<p>There are two important points about the invariance of model parameters that make the lives of researchers a little easier. First, not all model parameters have to be invariant. If you investigate relationships between (latent) constructs, as opposed to mean differences, only the factor loadings have to be invariant. For assessing differences in means, the factor loadings and the intercepts must be invariant. Note that the effects of categorical predictors on other variables also pertain to differences in means and that both loading- and intercept invariance are needed to interpret those effects. Note that a factor model comprises not only factor loadings and intercepts but also unique variances. However, unique variances do not have to be invariant across groups when looking at relationships or mean differences across latent variables. Therefore, we will not further consider them in this chapter. Second, the discussion of measurement invariance so far in this section has been about what is called <em>full invariance,</em> in which all parameters of a certain type (i.e., all factor loadings and/or all intercepts) are equivalent across groups (or across levels of a continuous variable). While this would represent an ideal situation, full invariance will rarely hold and is also not necessary. Partial invariance in which several, but not all, parameters of a certain type are invariant across groups is typically considered enough (e.g., the factor loadings of 4 out of 6 variables used to measure a factor are invariant across groups). Specifically, as long as at least two loadings are invariant across groups, one can look at relations between the corresponding latent variable and other (observed and/or latent) variables, and as long as at least two factor loadings and at least two intercepts are equal, one can meaningfully look at differences in means too (<span class="citation" data-cites="Byrne_Shavelson_Muthén_1989">[<a href="#ref-Byrne_Shavelson_Muthén_1989" role="doc-biblioref">19</a>]</span>; but also see <span class="citation" data-cites="Steenkamp_Baumgartner_1998">[<a href="#ref-Steenkamp_Baumgartner_1998" role="doc-biblioref">20</a>]</span>).</p>
+</section>
+<section id="step-3-building-the-structural-equation-model-and-assessing-fit" class="level3" data-number="4.3">
+<h3 data-number="4.3" class="anchored" data-anchor-id="step-3-building-the-structural-equation-model-and-assessing-fit"><span class="header-section-number">4.3</span> Step 3: Building the Structural Equation Model and Assessing Fit</h3>
+<p>After verifying the required level of measurement invariance for all latent variables that will be used in the SEM analysis, you are ready to investigate structural relations (e.g., regression relationships) between the factors (as well as observed variables if desired). Like with the factor models in the previous chapter, you first have to evaluate if the model fits your data sufficiently. You should only interpret the structural relations if the model fits the data. If the model does not fit, it is not a good description of the data and does not warrant further interpretation.</p>
+</section>
+</section>
+<section id="sem-in-r" class="level2" data-number="5">
+<h2 data-number="5" class="anchored" data-anchor-id="sem-in-r"><span class="header-section-number">5</span> SEM in R</h2>
+<p>In the following, you will be taken through the essential steps of performing SEM in the open-source software R. To this end, the same dataset <span class="citation" data-cites="Prasojo_Habibi_Mohd_Yaakob_Pratama_Yusof_Mukminin_Suyanto_Hanum_2020">[<a href="#ref-Prasojo_Habibi_Mohd_Yaakob_Pratama_Yusof_Mukminin_Suyanto_Hanum_2020" role="doc-biblioref">21</a>]</span> will be used as the one to which factor analysis was applied to in the previous chapter <span class="citation" data-cites="Vogelsmeier_Saqr_López-Pernas_Jongerling_2024">[<a href="#ref-Vogelsmeier_Saqr_López-Pernas_Jongerling_2024" role="doc-biblioref">1</a>]</span>. The dataset contains survey data about teacher burnout in Indonesia. In total, 876 respondents have answered questions on five domains: <em>Teacher Self-Concept</em> (TSC, 5 questions), <em>Teacher Efficacy</em> (TE, 5 questions), <em>Emotional Exhaustion</em> (EE, 5 questions), <em>Depersonalization</em> (DP, 3 questions), and <em>Reduced Personal Accomplishment</em> (RPA, 7 questions). Thus, the total number of variables equals 25. The questions were assessed on a 5-point Likert scale (ranging from 1 = “never” to 5 = “always”). For more information on the dataset, the interested reader is referred to the data chapter of the book <span class="citation" data-cites="Lopez-Pernas2024-hy">[<a href="#ref-Lopez-Pernas2024-hy" role="doc-biblioref">22</a>]</span>.</p>
+<p>In line with the seven hypotheses about the structural relationships in the original article, the SEM analysis presented below tests whether TE is predicted by TSC and whether EE, DE, and RPA are respectively predicted by TE and TSC. Note that, as SEM builds up on factor analysis, the code presented below also builds up on the factor analysis results and syntax from the previous chapter. Without reading the previous chapter, the steps in this chapter might therefore be harder to follow.</p>
+<p>To provide an example of how to assess between-group invariance of the constructs, it will be tested whether the same factor structure holds across gender. More specifically, because the running example is only interested in relationships between constructs and not mean differences, only loading invariance will be tested for. However, code to also test for intercept invariance will also be provided.</p>
+<section id="preparation" class="level3" data-number="5.1">
+<h3 data-number="5.1" class="anchored" data-anchor-id="preparation"><span class="header-section-number">5.1</span> Preparation</h3>
+<p>To follow all the steps, you have to install the following packages with the function install.packages(). You only have to install them the first time you want to use them; therefore, the commands are commented below. Once you have the packages installed, you must load them with the <code>library()</code> function whenever you open the R script.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(lavaan) <span class="co"># install.packages("lavaan")</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse) <span class="co"># install.packages("tidyverse")</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(rio) <span class="co"># install.packages("rio") </span></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(psych) <span class="co"># install.packages("psych")</span></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(combinat) <span class="co"># install.packages("combinat")</span></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(devtools) <span class="co"># install.packages("devtools")</span></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(sleasy) <span class="co"># devtools::install_github("JoranTiU/sleasy")</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<section id="reading-in-the-data" class="level4" data-number="5.1.1">
+<h4 data-number="5.1.1" class="anchored" data-anchor-id="reading-in-the-data"><span class="header-section-number">5.1.1</span> Reading in the data</h4>
+<p>The data can be read in, and the variable names can be extracted with the following commands:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>dataset <span class="ot">&lt;-</span> <span class="fu">import</span>(<span class="st">"https://github.com/lamethods/data/raw/main/4_teachersBurnout/2.%20Response.xlsx"</span>)</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>var_names <span class="ot">&lt;-</span> <span class="fu">colnames</span>(dataset)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>In the following, you will also find commands to add a gender variable to the dataset. This variable is only added to demonstrate how to perform invariance tests. Although the original data contains gender, it is unfortunately not part of the publicly shared data.<a href="#fn2" class="footnote-ref" id="fnref2" role="doc-noteref"><sup>2</sup></a> The proportion of men <code>(gender = 0)</code> and women <code>(gender = 1)</code> in the created variable aligns with the reported values from the article corresponding to the dataset.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">1611</span>)</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>dataset<span class="sc">$</span>gender <span class="ot">&lt;-</span> <span class="fu">as.factor</span>((<span class="fu">sample</span>(<span class="fu">c</span>(<span class="fu">rep</span>(<span class="dv">0</span>, <span class="dv">618</span>), <span class="fu">rep</span>(<span class="dv">1</span>, <span class="dv">258</span>)))))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="are-the-data-suited-for-sem" class="level4" data-number="5.1.2">
+<h4 data-number="5.1.2" class="anchored" data-anchor-id="are-the-data-suited-for-sem"><span class="header-section-number">5.1.2</span> Are the data suited for SEM?</h4>
+<p>Several data characteristics are necessary for SEM. These largely overlap with the necessary data characteristics for factor analysis, as discussed in the previous chapter (i.e., are the variables continuous? Are the correlations between the variables sufficiently large? Is there enough common variance among the variables? Are the data normally distributed?). Therefore, the steps in R to check whether the data are suited will not be presented here, as you can look those up in the previous chapter. To summarize: The data were suited for analysis with factor analysis and SEM, but the distribution of the variables is somewhat left-skewed. Therefore, an estimation method that is robust against non-normality should be used.</p>
+<p>The one characteristic that needs additional investigation is the sample size. As mentioned in the previous chapter on factor analysis, Bentler and Chou <span class="citation" data-cites="Bentler_Chou_1987">[<a href="#ref-Bentler_Chou_1987" role="doc-biblioref">23</a>]</span> recommend having 5 observations per estimated parameter, while Jackson <span class="citation" data-cites="Jackson_2003">[<a href="#ref-Jackson_2003" role="doc-biblioref">24</a>]</span> recommends having 10, and preferably 20 observations, for each parameter you want to estimate. Therefore, the total number of observations depends on the exact model fitted to the data. If you start your SEM analysis with going through all three recommended model-building steps from the previous chapter (see the “Integrated Strategy for Structural Equation Modeling” above), you need to base your required sample size on the number of parameters estimated by an exploratory factor analysis (e.g., for a two-factor model fitted to 10 variables, you would need about (20 factor loadings + 10 intercepts + 10 error-variances) * 10 = 400 cases) and multiply that by 2 to also have enough observations for a new or holdout sample to check generalizability of your factor-model and for fitting your SEM model. Note that the sample size calculated this way is what you need in each relevant subgroup for which you want to assess measurement invariance. As mentioned above, you could go straight to the SEM analysis if you use an existing instrument on a sample from a population for which the instrument has already been validated and shown to be invariant across relevant groups in previous research. In that case, you would need fewer observations because a SEM model (like a CFA model) will have more constraints than an exploratory factor analysis model and hence fewer parameters to estimate.</p>
+<p>You will perform the SEM analysis using the holdout sample from the previous chapter. The sample size for that is 438, which is sufficiently large to estimate 20 intercepts, 10 loadings, 10 unique variances, and 10 relations between factors according to the more lenient rules by Bentler and Chou <span class="citation" data-cites="Bentler_Chou_1987">[<a href="#ref-Bentler_Chou_1987" role="doc-biblioref">23</a>]</span>. As you will see in Step 2, this number of parameters aligns well with the SEM model that will be fitted to the data.</p>
+</section>
+</section>
+<section id="step-1-steps-from-the-previous-chapter" class="level3" data-number="5.2">
+<h3 data-number="5.2" class="anchored" data-anchor-id="step-1-steps-from-the-previous-chapter"><span class="header-section-number">5.2</span> Step 1: Steps from the previous chapter</h3>
+<p>As explained in the strategy section, it is recommended to go through all the steps mentioned in the previous chapter (exploring the data structure, building the factor model and assessing fit, and assessing generalizability), and the R code for these steps can also be found there. For brevity, the steps and code will not be repeated here. Additionally, configural invariance (tested by following the steps from the previous chapter for each relevant subgroup separately) will be assumed to hold so that this section can focus on the code needed for a SEM analysis. We begin with picking up at the code for randomly assigning 438 rows of the data to a holdout dataset:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">19</span>)</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>ind <span class="ot">&lt;-</span> <span class="fu">sample</span>(<span class="fu">c</span>(<span class="fu">rep</span>(<span class="st">"model.building"</span>, <span class="dv">438</span>), <span class="fu">rep</span>(<span class="st">"holdout"</span>, <span class="dv">438</span>)))</span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>tmp <span class="ot">&lt;-</span> <span class="fu">split</span>(dataset, ind)</span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>model.building <span class="ot">&lt;-</span> tmp<span class="sc">$</span>model.building</span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>holdout <span class="ot">&lt;-</span> tmp<span class="sc">$</span>holdout</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>For an explanation of the code, please go back to the previous chapter.</p>
+</section>
+<section id="step-2-assessing-higher-levels-of-invariance-1" class="level3" data-number="5.3">
+<h3 data-number="5.3" class="anchored" data-anchor-id="step-2-assessing-higher-levels-of-invariance-1"><span class="header-section-number">5.3</span> Step 2: Assessing Higher Levels of Invariance</h3>
+<p>Before looking into the structural relationships of interest, you have to ensure that the loading (and possibly intercept) invariance holds across groups for which this might be violated according to theory. To this end, you first have to specify the model, which is very similar to the model that was specified in the previous chapter for the CFA model. The model syntax looks as follows:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>SEM_model <span class="ot">&lt;-</span> <span class="st">'</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="st"># Regressing items on factors </span></span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a><span class="st">TSC =~ TSC1 + TSC2 + TSC3 + TSC4 + TSC5</span></span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a><span class="st">TE =~ TE1 + TE2 + TE3 + TE5</span></span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a><span class="st">EE =~ EE1 + EE2 + EE3 + EE4</span></span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a><span class="st">DE =~ DE1 + DE2 + DE3</span></span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a><span class="st">RPA =~ RPA1 + RPA2 + RPA3 + RPA4</span></span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a><span class="st"># Relations between factors</span></span>
+<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a><span class="st">TE ~ TSC</span></span>
+<span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a><span class="st">EE ~ TE + TSC</span></span>
+<span id="cb5-12"><a href="#cb5-12" aria-hidden="true" tabindex="-1"></a><span class="st">DE ~ TE + TSC</span></span>
+<span id="cb5-13"><a href="#cb5-13" aria-hidden="true" tabindex="-1"></a><span class="st">RPA ~ TE + TSC</span></span>
+<span id="cb5-14"><a href="#cb5-14" aria-hidden="true" tabindex="-1"></a><span class="st">'</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>The first part of this syntax is exactly the same as the syntax that defined the CFA model in the previous chapter, with the syntax elements “=~” indicating that a factor is measured by specific observed variables. The code above defines a model where the factors TSC, TE, EE, DE, and RPA are measured by different sets of variables, which are separated by “+”. In addition to the measurement part, this syntax includes the specification of relations between factors using the “~” operator. For example, TE is regressed onto TSC, indicating a directional relationship from TSC to TE. When comparing this syntax to the one from the previous chapter, you will see that the only thing that changes when you move from CFA to SEM is that you specify concrete structural relations (i.e., which latent factors are regressed on each other) instead of solely specifying correlations. Although intercepts are not explicitly mentioned in the model, they can be included by using the <code>meanstructure = TRUE</code> argument in the command when estimating the model.</p>
+<p>Once the model syntax is specified, you can check whether invariance across groups (here, gender) holds. More specifically, you check this by comparing a model with and without equality constraints on the parameters of interest (here, as motivated before, only the loadings) and check whether adding constraints reduces model fit more than desired. To evaluate the degree of fit reduction, you can look at the changes in the global fit measures described in the previous chapter. These were (1) the Chi-squared significance test, (2) the comparative fit index (CFI), (3) the root mean square error of approximation (RMSEA), and (4) the standardized root mean square residual (SRMR). Recall that, unlike the Chi-squared significance test that assesses perfect fit, the CFI, RMSEA, and SRMR assess approximate fit. Similarly, only the Chi-squared significance test is a formal test for assessing invariance. As for assessing global fit, each fit measure is accompanied by rules of thumb when assessing invariance, allowing you to decide whether or not (approximate) invariance holds. The difference is that the rules of thumb now pertain to differences in the criteria between models with and without constraints. The Chi-significance test should be nonsignificant because otherwise, the model with constraints fits significantly worse. Keep in mind, however, that this test easily rejects the assumption of invariance with increasing sample size. Regarding the other three measures, the rules of thumb are that differences in CFI should be smaller than or equal to .01, differences in RMSEA should be smaller than or equal to .015, and differences in SRMR should be smaller than or equal to .030 <span class="citation" data-cites="Chen_2007">[<a href="#ref-Chen_2007" role="doc-biblioref">25</a>]</span>.</p>
+<p>You do not have to perform the invariance assessment by constraining parameters yourself. Instead, you can use the command below. The argument <code>model</code> asks you to specify the model syntax, <code>data</code> asks for the dataset that you want to use for the analysis, and <code>group</code> refers to the variable for which you want to assess invariance. The argument <code>estimator</code> indicates which estimation procedure is used. The default is standard maximum likelihood (“ML”) estimation. However, for the current data, a robust maximum likelihood (“MLR”) estimation is applied to account for small violations of the normality assumption. If the data contain missing values, you can add the argument <code>missing</code> and specify it as equal to “fiml”, corresponding to a full information maximum likelihood approach. As already discussed in the previous chapter, this is a sensible approach if you have at least missing at random (<code>MAR</code>) data details about missing data mechanisms can be found in the lavaan tutorial <span class="citation" data-cites="Rosseel_2012">[<a href="#ref-Rosseel_2012" role="doc-biblioref">26</a>]</span>. Next, the argument “intercept” indicates whether intercept invariance should be assessed in addition to loading invariance. If put to <code>TRUE</code>, the output contains information on both loading and intercept invariance unless two or more of the four fit criteria indicate that loading invariance is violated because then, assessing intercept invariance does not make sense. This information would be provided in the form of a message. Finally, the argument “display” indicates whether output about group-specific parameters and differences are provided (when set to <code>TRUE</code>) or not (when set to <code>FALSE</code>).</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">invarianceCheck</span>(<span class="at">model =</span> SEM_model, <span class="at">data =</span> holdout, </span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>                <span class="at">group =</span> <span class="st">"gender"</span>, <span class="at">estimator =</span> <span class="st">"MLR"</span>, <span class="at">intercept =</span> <span class="cn">FALSE</span>, </span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>                <span class="at">missing =</span> <span class="cn">FALSE</span>, <span class="at">display =</span> <span class="cn">FALSE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Nested Model Comparison------------------------------------------------------------------- 
+ 
+
+Scaled Chi-Squared Difference Test (method = "satorra.bentler.2001")
+
+lavaan-&gt;unknown():  
+   lavaan NOTE: The "Chisq" column contains standard test statistics, not the 
+   robust test that should be reported per model. A robust difference test is 
+   a function of two standard (not robust) statistics.
+                    Df   AIC   BIC  Chisq Chisq diff Df diff Pr(&gt;Chisq)
+Loadings_Free      320 15711 16283 648.06                              
+Loadings_Invariant 335 15693 16203 660.17     9.8747      15     0.8275
+
+Model Fit Indices ------------------------------------------------------------------------ 
+ 
+                   chisq.scaled df.scaled pvalue.scaled rmsea.robust cfi.robust
+Loadings_Free          632.823†       320          .000        .068       .923 
+Loadings_Invariant     638.987        335          .000        .065†      .925†
+                    srmr
+Loadings_Free      .050†
+Loadings_Invariant .053 
+
+Differences in Fit Indices --------------------------------------------------------------- 
+ 
+                                   df.scaled rmsea.robust cfi.robust  srmr
+Loadings_Invariant - Loadings_Free        15       -0.002      0.002 0.002
+
+Loading Invariance Interpretation -------------------------------------------------------- 
+ 
+The hypothesis of perfect loading invariance *is not* rejected according to the
+      Chi-Square difference test statistics because the p-value is larger or equal to 0.05. 
+ 
+The hypothesis of approximate loading invariance *is not* rejected
+        according to the CFI because the difference in CFI value is smaller than
+        or equal to 0.01. 
+ 
+The hypothesis of approximate loading invariance *is not* rejected
+       according to the RMSEA because the difference in RMSEA value is smaller
+       than or equal to 0.015. 
+ 
+The hypothesis of approximate loading invariance *is not* rejected
+       according to the SRMR because the difference in SRMR value is smaller than
+       or equal to 0.030. 
+ </code></pre>
+</div>
+</div>
+<p>Inspecting the output, you can see several sections. You may directly go to the last section “Loading Invariance Interpretation” because this provides you with information on whether or not invariance is rejected according to the four fit measures (following the cut-off values provided before). If you are interested in (reporting) details about the Chi-square significance test and the (differences in) model fit criteria, you can also inspect the beginning of the output.<a href="#fn3" class="footnote-ref" id="fnref3" role="doc-noteref"><sup>3</sup></a> It can be seen that invariance is not rejected according to any of the criteria. Similar to assessing model fit in factor analysis, it is advised that no more than one criterion should reject invariance for concluding that invariance holds. If this is initially not the case, you may release one equality constraint at a time (i.e., moving towards partially invariant models) and run the <code>invarianceCheck()</code> function again until partial invariance holds. In order to decide which constraints to release, you can consult the information provided when the “display” argument is set to <code>TRUE</code>. The output will then show the loadings and intercepts per group as well as the differences in these parameters across groups. You will also get a message indicating which loading (and intercept) differs most between groups. These would be the first targets to estimate freely across groups (while making sure that the minimum requirements for partial invariance mentioned above hold). How to update the model syntax to freely estimate parameters between groups is explained on the lavaan package website <span class="citation" data-cites="Rosseel_2012">[<a href="#ref-Rosseel_2012" role="doc-biblioref">26</a>]</span>.</p>
+</section>
+<section id="step-3-building-the-structural-equation-model-and-assessing-fit-1" class="level3" data-number="5.4">
+<h3 data-number="5.4" class="anchored" data-anchor-id="step-3-building-the-structural-equation-model-and-assessing-fit-1"><span class="header-section-number">5.4</span> Step 3: Building the Structural Equation Model and Assessing Fit</h3>
+<p>The next step is to perform the SEM analysis on the holdout data using the specified SEM model with the following command:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>sem_robust <span class="ot">&lt;-</span> <span class="fu">sem</span>(<span class="at">model =</span> SEM_model, <span class="at">data =</span> holdout, <span class="at">std.lv =</span> <span class="cn">TRUE</span>,</span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>              <span class="at">estimator =</span> <span class="st">"MLR"</span>, <span class="at">meanstructure =</span> <span class="cn">TRUE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>The arguments are the same as for the <code>cfa()</code> function discussed in the previous chapter. The relevant (standardized) output about the structural relations can be extracted from the SEM model with the command below. The first argument asks you to specify the <code>lavaan</code> object from which you want to extract the structural relations, <code>nd</code> lets you specify the number of decimals you want to display (with default 3).</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sem_structural_results</span>(sem_robust, <span class="at">nd =</span> <span class="dv">3</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+
+<div data-pagedtable="false">
+  <script data-pagedtable-source="" type="application/json">
+{"columns":[{"label":["outcome"],"name":[1],"type":["chr"],"align":["left"]},{"label":["predictor"],"name":[2],"type":["chr"],"align":["left"]},{"label":["std estimate"],"name":[3],"type":["chr"],"align":["left"]},{"label":["se"],"name":[4],"type":["chr"],"align":["left"]},{"label":["p-value"],"name":[5],"type":["chr"],"align":["left"]}],"data":[{"1":"TSC","2":"TE","3":"0.693","4":"0.121","5":"0"},{"1":"TSC","2":"EE","3":"0.547","4":"0.17","5":"0"},{"1":"TSC","2":"DE","3":"0.4","4":"0.143","5":"0"},{"1":"TSC","2":"RPA","3":"0.413","4":"0.111","5":"0"},{"1":"TE","2":"EE","3":"0.32","4":"0.114","5":"0"},{"1":"TE","2":"DE","3":"0.293","4":"0.088","5":"0.001"},{"1":"TE","2":"RPA","3":"0.326","4":"0.084","5":"0"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
+  </script>
+</div>
+</div>
+</div>
+<p>Looking at the output from left to right, you can see the outcome variable of the structural relationship, the predictor of the structural relationship, the regression coefficient, the standard error of the regression coefficient, and the p-value of the effect. Here, you see that all structural relations are significantly different from zero and thus that TE, EE, DE, and RPA are all related to TSC and that EE, DE, and RPA are related to TE. As mentioned, the function <code>sem_structural_results()</code> displays the most relevant information about the structural relations. For more information and unstandardized estimates, you can use the <code>summary()</code> function on the <code>lavaan</code> object <code>sem_robust</code> also see the <code>lavaan</code> tutorial by <span class="citation" data-cites="Rosseel_2023">[<a href="#ref-Rosseel_2023" role="doc-biblioref">27</a>]</span>.</p>
+</section>
+</section>
+<section id="conclusion" class="level2" data-number="6">
+<h2 data-number="6" class="anchored" data-anchor-id="conclusion"><span class="header-section-number">6</span> Conclusion</h2>
+<p>SEM is a rich, powerful, and mature statistical framework that has more than a century of evolution and expansion. Several other extensions have been developed to include dynamic structural equation modelling for the analysis of temporal data, latent growth curve modelling for the analysis of systematic change over time, and multilevel SEM for the analysis of hierarchically clustered (or nested) data, to mention just a few. This chapter merely provided a primer that introduces the basics of the methods and an example application. Hopefully, it opens the door for interested readers to explore such a powerful framework that offers an excellent solution to many of the analytical tasks that researchers seek.</p>
+</section>
+<section id="further-readings" class="level2" data-number="7">
+<h2 data-number="7" class="anchored" data-anchor-id="further-readings"><span class="header-section-number">7</span> Further readings</h2>
+<p>In this chapter, you have seen an introduction and tutorial on how to apply SEM in educational research. To learn more about how SEM can be applied to this field, you can consult these resources:</p>
+<ul>
+<li><p>Teo, T., Ting Tsai, L., &amp; Yang, C. 2013. "Applying Structural Equation Modeling (SEM) in Educational Research: An Introduction". In Application of Structural Equation Modeling in Educational Research and Practice.</p></li>
+<li><p>Khine, M. S., ed.&nbsp;2013. “Application of Structural Equation Modeling in Educational Research and Practice”. Contemporary Approaches to Research in Learning Innovations.</p></li>
+</ul>
+<p>To learn more about SEM in general, you can refer to the following:</p>
+<ul>
+<li><p>Kline, R. B. 2015. “Principles and Practice of Structural Equation Modeling”. 4th Edition. Guilford Publications.</p></li>
+<li><p>Hoyle, Rick H. 2012. “Handbook of Structural Equation Modeling”. Guilford Press.</p></li>
+</ul>
+
+
+</section>
+<section id="bibliography" class="level1 unnumbered">
+<h1 class="unnumbered">References</h1>
+<div id="refs" class="references csl-bib-body" role="doc-bibliography">
+<div id="ref-Vogelsmeier_Saqr_López-Pernas_Jongerling_2024" class="csl-entry" role="doc-biblioentry">
+<div class="csl-left-margin">1. </div><div class="csl-right-inline">Vogelsmeier LVDE, Saqr M, López-Pernas S, Jongerling J (2024) Factor analysis in education research using r. In: Saqr M, López-Pernas S (eds) Learning analytics methods and tutorials: A practical guide using r. Springer, pp in–press</div>
+</div>
+<div id="ref-teo2013applying" class="csl-entry" role="doc-biblioentry">
+<div class="csl-left-margin">2. </div><div class="csl-right-inline">Teo T, Tsai LT, Yang C-C (2013) Applying structural equation modeling (SEM) in educational research: An introduction. In: Application of structural equation modeling in educational research and practice. Brill, pp 1–21</div>
+</div>
+<div id="ref-Wright_1921" class="csl-entry" role="doc-biblioentry">
+<div class="csl-left-margin">3. </div><div class="csl-right-inline">Wright S (1921) Correlation and causation. Journal of Agricultural Research 20:557–585</div>
+</div>
+<div id="ref-Jöreskog_Van_Thillo_1972" class="csl-entry" role="doc-biblioentry">
+<div class="csl-left-margin">4. </div><div class="csl-right-inline">Jöreskog KG, Van Thillo M (1972) LISREL: A general computer program for estimating a linear structural equation system involving multiple indicators of unmeasured. ETS Research Bulletin Series</div>
+</div>
+<div id="ref-Davis_1993" class="csl-entry" role="doc-biblioentry">
+<div class="csl-left-margin">5. </div><div class="csl-right-inline">Davis FD (1993) User acceptance of information technology: System characteristics, user perceptions and behavioral impacts. International journal of man-machine studies 38:475–487</div>
+</div>
+<div id="ref-Valtonen_López-Pernas_Saqr_Vartiainen_Sointu_Tedre_2022" class="csl-entry" role="doc-biblioentry">
+<div class="csl-left-margin">6. </div><div class="csl-right-inline">Valtonen T, López-Pernas S, Saqr M, Vartiainen H, Sointu ET, Tedre M (2022) The nature and building blocks of educational technology research. Computers in human behavior 128:107123</div>
+</div>
+<div id="ref-Cardona_Valencia_Betancur_Duque_2023" class="csl-entry" role="doc-biblioentry">
+<div class="csl-left-margin">7. </div><div class="csl-right-inline">Cardona Valencia D, Betancur Duque FA (2023) Technology acceptance model (TAM): A study of teachers’ perception of the use of serious games in the higher education. IEEE Revista Iberoamericana de Tecnologias del Aprendizaje 18:123–129</div>
+</div>
+<div id="ref-Abd_Majid_Mohd_Shamsudin_2019" class="csl-entry" role="doc-biblioentry">
+<div class="csl-left-margin">8. </div><div class="csl-right-inline">Abd Majid F, Mohd Shamsudin N (2019) Identifying factors affecting acceptance of virtual reality in classrooms based on technology acceptance model (TAM). Asian journal of university education 15:51</div>
+</div>
+<div id="ref-Nja_Idiege_Uwe_Meremikwu_Ekon_Erim_Ukah_Eyo_Anari_Cornelius-Ukpepi_2023" class="csl-entry" role="doc-biblioentry">
+<div class="csl-left-margin">9. </div><div class="csl-right-inline">Nja CO, Idiege KJ, Uwe UE, Meremikwu AN, Ekon EE, Erim CM, Ukah JU, Eyo EO, Anari MI, Cornelius-Ukpepi BU (2023) Adoption of artificial intelligence in science teaching: From the vantage point of the african science teachers. Smart learning environments 10: https://doi.org/<a href="https://doi.org/10.1186/s40561-023-00261-x">10.1186/s40561-023-00261-x</a></div>
+</div>
+<div id="ref-Marangunić_Granić_2015" class="csl-entry" role="doc-biblioentry">
+<div class="csl-left-margin">10. </div><div class="csl-right-inline">Marangunić N, Granić A (2015) Technology acceptance model: A literature review from 1986 to 2013. Universal access in the information society 14:81–95</div>
+</div>
+<div id="ref-Kusurkar_Ten_Cate_Vos_Westers_Croiset_2013" class="csl-entry" role="doc-biblioentry">
+<div class="csl-left-margin">11. </div><div class="csl-right-inline">Kusurkar RA, Ten Cate TJ, Vos CMP, Westers P, Croiset G (2013) How motivation affects academic performance: A structural equation modelling analysis. Advances in health sciences education: theory and practice 18:57–69</div>
+</div>
+<div id="ref-Kucuk_Richardson_2019" class="csl-entry" role="doc-biblioentry">
+<div class="csl-left-margin">12. </div><div class="csl-right-inline">Kucuk S, Richardson JC (2019) A structural equation model of predictors of online learners’ engagement and satisfaction. Online Learning 23:196–216</div>
+</div>
+<div id="ref-Araka_Maina_Gitonga_Oboko_2020" class="csl-entry" role="doc-biblioentry">
+<div class="csl-left-margin">13. </div><div class="csl-right-inline">Araka E, Maina E, Gitonga R, Oboko R (2020) Research trends in measurement and intervention tools for self-regulated learning for e-learning environments—systematic review (2008–2018). Research and practice in technology enhanced learning 15: https://doi.org/<a href="https://doi.org/10.1186/s41039-020-00129-5">10.1186/s41039-020-00129-5</a></div>
+</div>
+<div id="ref-Koç_2017" class="csl-entry" role="doc-biblioentry">
+<div class="csl-left-margin">14. </div><div class="csl-right-inline">Koç M (2017) Learning analytics of student participation and achievement in online distance education: A structural equation modeling. Educational Sciences: Theory &amp; Practice 17: https://doi.org/<a href="https://doi.org/10.12738/estp.2017.6.0059">10.12738/estp.2017.6.0059</a></div>
+</div>
+<div id="ref-Fincham_Whitelock-Wainwright_Kovanović_Joksimović_van_Staalduinen_Gašević_2019" class="csl-entry" role="doc-biblioentry">
+<div class="csl-left-margin">15. </div><div class="csl-right-inline">Fincham E, Whitelock-Wainwright A, Kovanović V, Joksimović S, Staalduinen J-P van, Gašević D (2019) Counting clicks is not enough: Validating a theorized model of engagement in learning analytics. In: Proceedings of the 9th international conference on learning analytics &amp; knowledge. Association for Computing Machinery, New York, NY, USA, pp 501–510</div>
+</div>
+<div id="ref-Jöreskog_1971" class="csl-entry" role="doc-biblioentry">
+<div class="csl-left-margin">16. </div><div class="csl-right-inline">Jöreskog KG (1971) Simultaneous factor analysis in several populations. Psychometrika 36:409–426</div>
+</div>
+<div id="ref-Sörbom_1974" class="csl-entry" role="doc-biblioentry">
+<div class="csl-left-margin">17. </div><div class="csl-right-inline">Sörbom D (1974) A general method for studying differences in factor means and factor structure between groups. The British journal of mathematical and statistical psychology 27:229–239</div>
+</div>
+<div id="ref-Bauer_Hussong_2009" class="csl-entry" role="doc-biblioentry">
+<div class="csl-left-margin">18. </div><div class="csl-right-inline">Bauer DJ, Hussong AM (2009) Psychometric approaches for developing commensurate measures across independent studies: Traditional and new models. Psychological methods 14:101–125</div>
+</div>
+<div id="ref-Byrne_Shavelson_Muthén_1989" class="csl-entry" role="doc-biblioentry">
+<div class="csl-left-margin">19. </div><div class="csl-right-inline">Byrne BM, Shavelson RJ, Muthén B (1989) Testing for the equivalence of factor covariance and mean structures: The issue of partial measurement invariance. Psychological bulletin 105:456–466</div>
+</div>
+<div id="ref-Steenkamp_Baumgartner_1998" class="csl-entry" role="doc-biblioentry">
+<div class="csl-left-margin">20. </div><div class="csl-right-inline">Steenkamp J-BEM, Baumgartner H (1998) Assessing measurement invariance in cross‐national consumer research. The journal of consumer research 25:78–107</div>
+</div>
+<div id="ref-Prasojo_Habibi_Mohd_Yaakob_Pratama_Yusof_Mukminin_Suyanto_Hanum_2020" class="csl-entry" role="doc-biblioentry">
+<div class="csl-left-margin">21. </div><div class="csl-right-inline">Prasojo LD, Habibi A, Mohd Yaakob MF, Pratama R, Yusof MR, Mukminin A, Suyanto, Hanum F (2020) Teachers’ burnout: A SEM analysis in an asian context. Heliyon 6:e03144</div>
+</div>
+<div id="ref-Lopez-Pernas2024-hy" class="csl-entry" role="doc-biblioentry">
+<div class="csl-left-margin">22. </div><div class="csl-right-inline">López-Pernas S, Saqr M, Conde J, Del-Rı́o-Carazo L (2024) A broad collection of datasets for educational research training and application. In: Saqr M, López-Pernas S (eds) Learning analytics methods and tutorials: A practical guide using <span>R</span>. Springer, pp in–press</div>
+</div>
+<div id="ref-Bentler_Chou_1987" class="csl-entry" role="doc-biblioentry">
+<div class="csl-left-margin">23. </div><div class="csl-right-inline">Bentler PM, Chou C-P (1987) Practical issues in structural modeling. Sociological methods &amp; research 16:78–117</div>
+</div>
+<div id="ref-Jackson_2003" class="csl-entry" role="doc-biblioentry">
+<div class="csl-left-margin">24. </div><div class="csl-right-inline">Jackson DL (2003) Revisiting sample size and number of parameter estimates: Some support for the n:q hypothesis. Structural equation modeling: a multidisciplinary journal 10:128–141</div>
+</div>
+<div id="ref-Chen_2007" class="csl-entry" role="doc-biblioentry">
+<div class="csl-left-margin">25. </div><div class="csl-right-inline">Chen FF (2007) Sensitivity of goodness of fit indexes to lack of measurement invariance. Structural equation modeling: a multidisciplinary journal 14:464–504</div>
+</div>
+<div id="ref-Rosseel_2012" class="csl-entry" role="doc-biblioentry">
+<div class="csl-left-margin">26. </div><div class="csl-right-inline">Rosseel Y (2012) Lavaan: An r package for structural equation modeling. Journal of statistical software 48: https://doi.org/<a href="https://doi.org/10.18637/jss.v048.i02">10.18637/jss.v048.i02</a></div>
+</div>
+<div id="ref-Rosseel_2023" class="csl-entry" role="doc-biblioentry">
+<div class="csl-left-margin">27. </div><div class="csl-right-inline">Rosseel Y (2023) <a href="https://lavaan.ugent.be/tutorial/">The lavaan tutorial</a></div>
+</div>
+</div>
+</section>
+<section id="footnotes" class="footnotes footnotes-end-of-document" role="doc-endnotes">
+<hr>
+<ol>
+<li id="fn1"><p>Note that observed variables (such as age or gender) can just be added to your SEM model. Only multiple-item instruments to assess psychological constructs must be validated. Thus, you can ignore the observed variables in this first SEM step.<a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn2"><p>We contacted the authors, but they refrained from sharing the variable because they still plan to conduct research using the variable.<a href="#fnref2" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn3"><p>Note that you will first see a note from lavaan about ‘the "Chisq" column contain[ing] standard test statistics’. You can simply ignore this, as it just gives information on how the difference in fit was tested.<a href="#fnref3" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+</ol>
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    target: function(trigger) {
+      return trigger.previousElementSibling;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+  function tippyHover(el, contentFn) {
+    const config = {
+      allowHTML: true,
+      content: contentFn,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start'
+    };
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      return note.innerHTML;
+    });
+  }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+<nav class="page-navigation">
+  <div class="nav-page nav-page-previous">
+      <a href="../../chapters/ch20-factor-analysis/ch20-factor.html" class="pagination-link">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">20</span>&nbsp; <span class="chapter-title">Factor analysis</span></span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+      <a href="../../chapters/ch22-conclusion/ch22-conclusion.html" class="pagination-link">
+        <span class="nav-page-text"><span class="chapter-number">22</span>&nbsp; <span class="chapter-title">Future of LA</span></span> <i class="bi bi-arrow-right-short"></i>
+      </a>
+  </div>
+</nav>
+</div> <!-- /content -->
+<footer class="footer">
+  <div class="nav-footer">
+      <div class="nav-footer-center"><div class="cookie-consent-footer"><a href="#" id="open_preferences_center">Cookie Preferences</a></div></div>
+  </div>
+</footer>
+<script>
+  document.querySelector(".quarto-title").innerHTML =  /*'<div class="badge bs-warning bg-warning text-dark" style="float:right;">Pre-print</div>' + */ document.querySelector(".quarto-title").innerHTML
+  var keywords = document.querySelector('meta[name="keywords"]')
+  if (keywords && keywords.content) {
+    document.getElementById("title-block-header").innerHTML = document.getElementById("title-block-header").innerHTML + 
+      '<div class="abstract"><div class="abstract-title">Keywords</div><div class="quarto-title-meta-contents"><p>'+
+      keywords.content +
+      '</p></div></div>'
+  }
+  function insertAfter(referenceNode, newNode) {
+      referenceNode.parentNode.insertBefore(newNode, referenceNode.nextSibling);
+  }
+  var authors = document.querySelectorAll('meta[name="author"]')
+  var firstpage = document.querySelector('meta[name="citation_firstpage"]').content
+  var lastpage = document.querySelector('meta[name="citation_lastpage"]').content
+  var doi = document.querySelector('meta[name="citation_doi"]').content
+  if (authors) {
+    var authorlist = Array.from(authors).map(e=>e.content).reduce((accum, curr) =>  accum + curr + ", ", "","").replace(/\,\s$/,"")
+    var citt = `<div class="card border-primary mb-3" style=;">
+      <div class="card-header bg-primary">To cite this chapter</div>
+      <div class="card-body small">
+        <p class="card-text">${authorlist} (2024).
+        <b>${document.getElementsByClassName("chapter-title")[0].innerText}</b>. 
+        In M. Saqr & S. López-Pernas (Eds.), <i>Learning analytics methods and tutorials: A practical guide using R</i> &nbsp;
+         (pp. ${firstpage}-${lastpage}).Springer, Cham. doi: <a href="https://doi.org/${doi}">${doi}</a></p>
+      </div>
+    </div>`;
+    insertAfter(document.getElementsByTagName("HEADER")[1],new DOMParser().parseFromString(citt, 'text/html').body.childNodes[0])
+  }
+  
+  insertAfter
+</script>
+
+
+
+</body></html>

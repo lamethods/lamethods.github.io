@@ -1,0 +1,1070 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.2.269">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="author" content="Mohammed Saqr">
+<meta name="author" content="Daryn Dever">
+<meta name="author" content="Sonsoles López-Pernas">
+<meta name="author" content="Christophe Gernigon">
+<meta name="author" content="Gwen Marchand">
+<meta name="author" content="Avi Kaplan">
+<meta name="keywords" content="learning analytics, complex systems, network analysis, recurrence quantification analysis">
+
+<title>Advanced learning analytics methods - 12&nbsp; Complex Dynamic Systems in Education: Beyond the Static, the Linear and the Causal Reductionism</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1.6em;
+  vertical-align: middle;
+}
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+}
+.hanging div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}
+</style>
+
+
+<script src="../../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../../">
+<link href="../../chapters/ch13-ega/ch13-ega.html" rel="next">
+<link href="../../chapters/ch11-llmsxai/ch11-llmsxai.html" rel="prev">
+<script src="../../site_libs/cookie-consent/cookie-consent.js"></script>
+<link href="../../site_libs/cookie-consent/cookie-consent.css" rel="stylesheet">
+<script src="../../site_libs/quarto-html/quarto.js"></script>
+<script src="../../site_libs/quarto-html/popper.min.js"></script>
+<script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 20,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit"
+  }
+}</script>
+<script async="" src="https://www.googletagmanager.com/gtag/js?id=G-Y4VBV3J9WD"></script>
+
+<script type="text/plain" cookie-consent="tracking">
+
+window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+gtag('js', new Date());
+gtag('config', 'G-Y4VBV3J9WD', { 'anonymize_ip': true});
+</script>
+
+<script type="text/javascript" charset="UTF-8">
+document.addEventListener('DOMContentLoaded', function () {
+cookieconsent.run({
+  "notice_banner_type":"simple",
+  "consent_type":"implied",
+  "palette":"light",
+  "language":"en",
+  "page_load_consent_levels":["strictly-necessary","functionality","tracking","targeting"],
+  "notice_banner_reject_button_hide":false,
+  "preferences_center_close_button_hide":false,
+  "website_name":""
+  });
+});
+</script> 
+  
+
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<meta name="twitter:title" content="Advanced learning analytics methods - 12&nbsp; Complex Dynamic Systems in Education: Beyond the Static, the Linear and the Causal Reductionism">
+<meta name="twitter:description" content="Traditional methods in educational research often fail to capture the complex and evolving nature of learning processes.">
+<meta name="twitter:card" content="summary">
+<meta name="citation_title" content="[12]{.chapter-number}&nbsp; [Complex Dynamic Systems in Education: Beyond the Static, the Linear and the Causal Reductionism]{.chapter-title}">
+<meta name="citation_abstract" content="Traditional methods in educational research often fail to capture the complex and evolving nature of learning processes. This chapter examines the use of complex systems theory in education to address these limitations. The chapter covers the main characteristics of complex systems such as non-linear relationships, emergent properties, and feedback mechanisms to explain how educational phenomena unfold. Some of the main methodological approaches are presented, such as network analysis and recurrence quantification analysis to study relationships and patterns in learning. These have been operationalized by existing education research to study self-regulation, engagement, and academic emotions, among other learning-related constructs. Lastly, the chapter describes data collection methods that are suitable for studying learning processes from a complex systems’ perspective.">
+<meta name="citation_keywords" content="learning analytics, complex systems, network analysis, recurrence quantification analysis">
+<meta name="citation_author" content="Mohammed Saqr">
+<meta name="citation_author" content="Daryn Dever">
+<meta name="citation_author" content="Sonsoles López-Pernas">
+<meta name="citation_author" content="Christophe Gernigon">
+<meta name="citation_author" content="Gwen Marchand">
+<meta name="citation_author" content="Avi Kaplan">
+<meta name="citation_fulltext_html_url" content="https://lamethods.github.io/ch12-cds.html">
+<meta name="citation_language" content="en">
+<meta name="citation_reference" content="citation_title=On the existence of potential landscape in the evolution of complex systems;,citation_author=Ping Ao;,citation_author=Chulan Kwon;,citation_author=Hong Qian;,citation_publication_date=2007-03;,citation_cover_date=2007-03;,citation_year=2007;,citation_fulltext_html_url=https://onlinelibrary.wiley.com/doi/abs/10.1002/cplx.20171;,citation_issue=4;,citation_doi=10.1002/cplx.20171;,citation_issn=1099-0526;,citation_volume=12;,citation_journal_title=Complexity;,citation_publisher=Wiley;">
+<meta name="citation_reference" content="citation_title=From the origin of life to pandemics: Emergent phenomena in complex systems;,citation_author=Oriol Artime;,citation_author=Manlio De Domenico;,citation_publication_date=2022-07;,citation_cover_date=2022-07;,citation_year=2022;,citation_fulltext_html_url=https://royalsocietypublishing.org/doi/10.1098/rsta.2020.0410;,citation_issue=2227;,citation_doi=10.1098/rsta.2020.0410;,citation_issn=1364-503X;,citation_volume=380;,citation_journal_title=Philosophical transactions. Series A, Mathematical, physical, and engineering sciences;,citation_publisher=The Royal Society;">
+<meta name="citation_reference" content="citation_title=How nature works: The science of self-organized criticality;,citation_author=Per Bak;,citation_publication_date=1999-04;,citation_cover_date=1999-04;,citation_year=1999;,citation_fulltext_html_url=https://link.springer.com/book/10.1007/978-1-4757-5426-1;,citation_doi=10.1007/978-1-4757-5426-1;,citation_isbn=9780387987385;">
+<meta name="citation_reference" content="citation_title=Complex systems in the spotlight: Next steps after the 2021 nobel prize in physics;,citation_author=Ginestra Bianconi;,citation_author=Alex Arenas;,citation_author=Jacob Biamonte;,citation_author=Lincoln D. Carr;,citation_author=Byungnam Kahng;,citation_author=Janos Kertesz;,citation_author=Jürgen Kurths;,citation_author=Linyuan Lü;,citation_author=Cristina Masoller;,citation_author=Adilson E. Motter;,citation_author=Matjaž Perc;,citation_author=Filippo Radicchi;,citation_author=Ramakrishna Ramaswamy;,citation_author=Francisco A. Rodrigues;,citation_author=Marta Sales-Pardo;,citation_author=Maxi San Miguel;,citation_author=Stefan Thurner;,citation_author=Taha Yasseri;,citation_publication_date=2023-01;,citation_cover_date=2023-01;,citation_year=2023;,citation_fulltext_html_url=https://iopscience.iop.org/article/10.1088/2632-072X/ac7f75/meta;,citation_issue=1;,citation_doi=10.1088/2632-072X/ac7f75;,citation_issn=2632-072X;,citation_volume=4;,citation_journal_title=Journal of Physics: Complexity;,citation_publisher=IOP Publishing;">
+<meta name="citation_reference" content="citation_title=Assessment and teaching of 21st century skills;,citation_author=Marilyn Binkley;,citation_author=Ola Erstad;,citation_author=Joan Herman;,citation_author=Senta Raizen;,citation_author=Martin Ripley;,citation_author=May Miller-Ricci;,citation_author=Mike Rumble;,citation_publication_date=2012;,citation_cover_date=2012;,citation_year=2012;,citation_fulltext_html_url=http://dx.doi.org/10.1007/978-94-007-2324-5;,citation_doi=10.1007/978-94-007-2324-5;,citation_journal_title=Assessment and Teaching of 21st Century Skills;">
+<meta name="citation_reference" content="citation_title=Social networks at work;,citation_author=Daniel J. Brass;,citation_author=Stephen P. Borgatti;,citation_editor=Daniel J. Brass;,citation_editor=Stephen P. Borgatti;,citation_publication_date=2019-11;,citation_cover_date=2019-11;,citation_year=2019;,citation_fulltext_html_url=http://dx.doi.org/10.4324/9780203701942;,citation_doi=10.4324/9780203701942;,citation_isbn=9780203701942;">
+<meta name="citation_reference" content="citation_title=Complex systems approaches to psychopathology;,citation_author=Laura Bringmann;,citation_author=Marieke Helmich;,citation_author=Markus Eronen;,citation_author=Manuel Voelkle;,citation_editor=Robert F. Krueger;,citation_editor=Paul H. Blaney;,citation_publication_date=2023-05;,citation_cover_date=2023-05;,citation_year=2023;,citation_fulltext_html_url=https://academic.oup.com/book/45782/chapter-abstract/400197713?redirectedFrom=fulltext;,citation_doi=10.1093/med-psych/9780197542521.003.0005;,citation_isbn=9780197542521;,citation_inbook_title=Oxford textbook of psychopathology;">
+<meta name="citation_reference" content="citation_title=Self-organization in biological systems;,citation_author=Scott Camazine;,citation_author=Jean-Louis Deneubourg;,citation_author=Nigel R. Franks;,citation_author=James Sneyd;,citation_author=Guy Theraula;,citation_author=Eric Bonabeau;,citation_publication_date=2003-08;,citation_cover_date=2003-08;,citation_year=2003;,citation_fulltext_html_url=https://press.princeton.edu/books/paperback/9780691116242/self-organization-in-biological-systems;,citation_isbn=9780691116242;,citation_series_title=Princeton studies in complexity;">
+<meta name="citation_reference" content="citation_title=Nonlinear population dynamics are ubiquitous in animals;,citation_author=T. J. Clark;,citation_author=Angela D. Luis;,citation_publication_date=2020-01;,citation_cover_date=2020-01;,citation_year=2020;,citation_fulltext_html_url=https://www.nature.com/articles/s41559-019-1052-6;,citation_issue=1;,citation_doi=10.1038/s41559-019-1052-6;,citation_issn=2397-334X;,citation_volume=4;,citation_journal_title=Nature ecology &amp;amp;amp; evolution;,citation_publisher=Springer Science; Business Media LLC;">
+<meta name="citation_reference" content="citation_title=Synergy and self‐organization in the evolution of complex systems;,citation_author=Peter A. Corning;,citation_publication_date=1995-01;,citation_cover_date=1995-01;,citation_year=1995;,citation_fulltext_html_url=https://onlinelibrary.wiley.com/doi/abs/10.1002/sres.3850120204;,citation_issue=2;,citation_doi=10.1002/sres.3850120204;,citation_issn=1099-1735;,citation_volume=12;,citation_journal_title=Systems research: the official journal of the International Federation for Systems Research;,citation_publisher=Wiley;">
+<meta name="citation_reference" content="citation_title=Capturing sequences of learners’ self-regulatory interactions with instructional material during game-based learning using auto-recurrence quantification analysis;,citation_author=Daryn A. Dever;,citation_author=Mary Jean Amon;,citation_author=Hana Vrzáková;,citation_author=Megan D. Wiedbusch;,citation_author=Elizabeth B. Cloude;,citation_author=Roger Azevedo;,citation_publication_date=2022-05;,citation_cover_date=2022-05;,citation_year=2022;,citation_fulltext_html_url=http://dx.doi.org/10.3389/fpsyg.2022.813677;,citation_doi=10.3389/fpsyg.2022.813677;,citation_issn=1664-1078;,citation_volume=13;,citation_journal_title=Frontiers in psychology;">
+<meta name="citation_reference" content="citation_title=A complex systems approach to analyzing pedagogical agents’ scaffolding of self-regulated learning within an intelligent tutoring system;,citation_author=Daryn A. Dever;,citation_author=Nathan A. Sonnenfeld;,citation_author=Megan D. Wiedbusch;,citation_author=S. Grace Schmorrow;,citation_author=Mary Jean Amon;,citation_author=Roger Azevedo;,citation_publication_date=2023-12;,citation_cover_date=2023-12;,citation_year=2023;,citation_fulltext_html_url=https://doi.org/10.1007/s11409-023-09346-x;,citation_issue=3;,citation_doi=10.1007/s11409-023-09346-x;,citation_issn=1556-1631;,citation_volume=18;,citation_journal_title=Metacognition and Learning;">
+<meta name="citation_reference" content="citation_title=Dynamic adaptation in child–adult language interaction;,citation_author=Marijn Dijk;,citation_author=Paul Geert;,citation_author=Katharina Korecky-Kröll;,citation_author=Isabelle Maillochon;,citation_author=Sabine Laaha;,citation_author=Wolfgang U. Dressler;,citation_author=Dominique Bassano;,citation_publication_date=2013-06;,citation_cover_date=2013-06;,citation_year=2013;,citation_fulltext_html_url=http://dx.doi.org/10.1111/lang.12002;,citation_issue=2;,citation_doi=10.1111/lang.12002;,citation_issn=0023-8333;,citation_volume=63;,citation_journal_title=Language learning;,citation_publisher=Wiley;">
+<meta name="citation_reference" content="citation_title=Enhancing bayesian approaches in the cognitive and neural sciences via complex dynamical systems theory;,citation_author=Luis H. Favela;,citation_author=Mary Jean Amon;,citation_publication_date=2023-03;,citation_cover_date=2023-03;,citation_year=2023;,citation_fulltext_html_url=https://www.mdpi.com/2673-8716/3/1/8;,citation_issue=1;,citation_doi=10.3390/dynamics3010008;,citation_issn=2673-8716;,citation_volume=3;,citation_journal_title=Dynamics;,citation_publisher=MDPI AG;">
+<meta name="citation_reference" content="citation_title=Exploring male english major’s motivation trajectory through complex dynamic systems theory;,citation_author=Yang Gao;,citation_author=Xiaochen Wang;,citation_author=Pinwei Fan;,citation_publication_date=2024-03;,citation_cover_date=2024-03;,citation_year=2024;,citation_fulltext_html_url=https://link.springer.com/article/10.1007/s12144-023-05062-6;,citation_issue=10;,citation_doi=10.1007/s12144-023-05062-6;,citation_issn=1046-1310;,citation_volume=43;,citation_journal_title=Current psychology (New Brunswick, N.J.);,citation_publisher=Springer Science; Business Media LLC;">
+<meta name="citation_reference" content="citation_title=A complex dynamic systems perspective on teacher learning and identity formation: An instrumental case;,citation_author=Joanna K. Garner;,citation_author=Avi Kaplan;,citation_publication_date=2019-01;,citation_cover_date=2019-01;,citation_year=2019;,citation_fulltext_html_url=https://www.tandfonline.com/doi/abs/10.1080/13540602.2018.1533811;,citation_issue=1;,citation_doi=10.1080/13540602.2018.1533811;,citation_issn=1354-0602;,citation_volume=25;,citation_journal_title=Teachers and teaching;,citation_publisher=Informa UK Limited;">
+<meta name="citation_reference" content="citation_title=A dynamic systems model of cognitive and language growth;,citation_author=Paul Geert;,citation_publication_date=1991;,citation_cover_date=1991;,citation_year=1991;,citation_fulltext_html_url=https://psycnet.apa.org/doiLanding?doi=10.1037%2F0033-295X.98.1.3;,citation_issue=1;,citation_doi=10.1037/0033-295X.98.1.3;,citation_volume=98;,citation_journal_title=Psychological Review;">
+<meta name="citation_reference" content="citation_title=A dynamic systems model of basic developmental mechanisms: Piaget, vygotsky, and beyond;,citation_author=Paul Geert;,citation_publication_date=1998-10;,citation_cover_date=1998-10;,citation_year=1998;,citation_fulltext_html_url=http://dx.doi.org/10.1037/0033-295x.105.4.634-677;,citation_issue=4;,citation_doi=10.1037/0033-295x.105.4.634-677;,citation_issn=0033-295X;,citation_volume=105;,citation_journal_title=Psychological review;,citation_publisher=American Psychological Association (APA);">
+<meta name="citation_reference" content="citation_title=How the complexity of psychological processes reframes the issue of reproducibility in psychological science;,citation_author=Christophe Gernigon;,citation_author=Ruud J. R. Den Hartigh;,citation_author=Robin R. Vallacher;,citation_author=Paul L. C. Geert;,citation_publication_date=2024;,citation_cover_date=2024;,citation_year=2024;,citation_fulltext_html_url=http://dx.doi.org/10.1177/17456916231187324;,citation_issue=6;,citation_doi=10.1177/17456916231187324;,citation_issn=1745-6916;,citation_volume=18;,citation_journal_title=Perspectives on psychological science: a journal of the Association for Psychological Science;">
+<meta name="citation_reference" content="citation_title=Processing misconceptions: Dynamic systems perspectives on thinking and learning;,citation_author=Julia Gouvea;,citation_publication_date=2023-08;,citation_cover_date=2023-08;,citation_year=2023;,citation_fulltext_html_url=http://dx.doi.org/10.3389/feduc.2023.1215361;,citation_doi=10.3389/feduc.2023.1215361;,citation_issn=2504-284X;,citation_volume=8;,citation_journal_title=Frontiers in education;,citation_publisher=Frontiers Media SA;">
+<meta name="citation_reference" content="citation_title=A theoretical model of phase transitions in human hand movements;,citation_author=H. Haken;,citation_author=J. A. Kelso;,citation_author=H. Bunz;,citation_publication_date=1985;,citation_cover_date=1985;,citation_year=1985;,citation_fulltext_html_url=http://dx.doi.org/10.1007/bf00336922;,citation_issue=5;,citation_doi=10.1007/bf00336922;,citation_issn=0340-1200;,citation_volume=51;,citation_journal_title=Biological cybernetics;,citation_publisher=Springer Nature America, Inc;">
+<meta name="citation_reference" content="citation_title=A nonlinear dynamical systems approach to emotional attractor states during media viewing;,citation_author=Jingjing Han;,citation_author=M. J. Amon;,citation_publication_date=2021;,citation_cover_date=2021;,citation_year=2021;,citation_fulltext_html_url=https://escholarship.org/uc/item/4ds2p1z2;,citation_issue=43;,citation_volume=43;,citation_journal_title=Annual Meeting of the Cognitive Science Society;">
+<meta name="citation_reference" content="citation_title=Socio-emotional CONcern DynamicS in a model of real-time dyadic interaction: Parent-child play in autism;,citation_author=Casper Hesp;,citation_author=Henderien W. Steenbeek;,citation_author=Paul L. C. Geert;,citation_publication_date=2019-07;,citation_cover_date=2019-07;,citation_year=2019;,citation_fulltext_html_url=http://dx.doi.org/10.3389/fpsyg.2019.01635;,citation_doi=10.3389/fpsyg.2019.01635;,citation_issn=1664-1078;,citation_volume=10;,citation_journal_title=Frontiers in psychology;,citation_publisher=Frontiers Media SA;">
+<meta name="citation_reference" content="citation_title=Complex systems research in educational psychology: Aligning theory and method;,citation_author=Jonathan C. Hilpert;,citation_author=Gwen C. Marchand;,citation_publication_date=2018-06;,citation_cover_date=2018-06;,citation_year=2018;,citation_fulltext_html_url=http://dx.doi.org/10.1080/00461520.2018.1469411;,citation_issue=3;,citation_doi=10.1080/00461520.2018.1469411;,citation_issn=0046-1520;,citation_volume=53;,citation_journal_title=Educational psychologist;">
+<meta name="citation_reference" content="citation_title=Clustering and fighting in two- party crowds: Simulating the approach-avoidance conflict;,citation_author=Wander Jager;,citation_author=Roel Popping;,citation_author=Hans Sande;,citation_publication_date=2001-06;,citation_cover_date=2001-06;,citation_year=2001;,citation_fulltext_html_url=https://www.jasss.org/4/3/7.html;,citation_publisher=Journal of Artificial Societies; Social Simulation;">
+<meta name="citation_reference" content="citation_title=Emergence phenomena in self-organizing systems: A systematic literature review of concepts, researches, and future prospects;,citation_author=Somayeh Kalantari;,citation_author=Eslam Nazemi;,citation_author=Behrooz Masoumi;,citation_publication_date=2020-07;,citation_cover_date=2020-07;,citation_year=2020;,citation_fulltext_html_url=https://www.tandfonline.com/doi/abs/10.1080/10919392.2020.1748977;,citation_issue=3;,citation_doi=10.1080/10919392.2020.1748977;,citation_issn=1091-9392;,citation_volume=30;,citation_journal_title=Journal of organizational computing;,citation_publisher=Informa UK Limited;">
+<meta name="citation_reference" content="citation_title=Learning as identity change, self-regulated learning as identity exploration: A complex dynamic systems perspective on the goals of education in the 21st century;,citation_author=Avi Kaplan;,citation_author=Joanna Garner;,citation_author=Amanda Neuber;,citation_publication_date=2023-11;,citation_cover_date=2023-11;,citation_year=2023;,citation_fulltext_html_url=https://emiratesscholar.com/directory/index.php/1wgc/article/view/88;,citation_conference_title=Proceedings of the 1st world giftedness center international conference;">
+<meta name="citation_reference" content="citation_title=Steps for applying the complex dynamical systems approach in educational research: A guide for the perplexed scholar;,citation_author=Avi Kaplan;,citation_author=Joanna K. Garner;,citation_publication_date=2020-05;,citation_cover_date=2020-05;,citation_year=2020;,citation_fulltext_html_url=http://dx.doi.org/10.1080/00220973.2020.1745738;,citation_issue=3;,citation_doi=10.1080/00220973.2020.1745738;,citation_issn=0022-0973;,citation_volume=88;,citation_journal_title=Journal of experimental education;,citation_publisher=Informa UK Limited;">
+<meta name="citation_reference" content="citation_author=Avi Kaplan;,citation_author=Joanna K. Garner;">
+<meta name="citation_reference" content="citation_title=Education is a complex dynamical system: Challenges for research;,citation_author=Matthijs Koopmans;,citation_publication_date=2020;,citation_cover_date=2020;,citation_year=2020;,citation_fulltext_html_url=https://doi.org/10.1080/00220973.2019.1566199;,citation_issue=3;,citation_doi=10.1080/00220973.2019.1566199;,citation_issn=0022-0973;,citation_volume=88;,citation_journal_title=Journal of experimental education;,citation_publisher=Routledge;">
+<meta name="citation_reference" content="citation_title=The structure of scientific revolutions;,citation_author=T. Kuhn;,citation_publication_date=1962;,citation_cover_date=1962;,citation_year=1962;,citation_fulltext_html_url=https://psycnet.apa.org/record/1962-35001-000;">
+<meta name="citation_reference" content="citation_title=Frequencies and averages miss the point of SRL evolution: A complex dynamic systems approach;,citation_author=Sonsoles López Pernas;,citation_author=Miguel Conde-González;,citation_author=Miroslava Raspopović Milić;,citation_author=Mohammed Saqr;,citation_publication_date=2025;,citation_cover_date=2025;,citation_year=2025;,citation_fulltext_html_url=https://www.researchgate.net/publication/385864390_Frequencies_and_averages_miss_the_point_of_SRL_evolution_A_complex_dynamic_systems_approach;,citation_conference_title=Proceedings TEEM 2024: Twelfth international conference on technological ecosystems for enhancing multiculturality. TEEM 2024. Lecture notes in education technology;,citation_conference=Springer;,citation_series_title=LNCS;">
+<meta name="citation_reference" content="citation_title=How the dynamics of engagement explain the momentum of achievement and the inertia of disengagement: A complex systems theory approach;,citation_author=Sonsoles López-Pernas;,citation_author=Mohammed Saqr;,citation_publication_date=2024-04;,citation_cover_date=2024-04;,citation_year=2024;,citation_fulltext_html_url=https://www.sciencedirect.com/science/article/pii/S0747563223004776;,citation_doi=10.1016/j.chb.2023.108126;,citation_issn=0747-5632;,citation_volume=153;,citation_journal_title=Computers in human behavior;">
+<meta name="citation_reference" content="citation_title=The butterfly effect;,citation_author=Edward Lorenz;,citation_publication_date=2001-01;,citation_cover_date=2001-01;,citation_year=2001;,citation_fulltext_html_url=http://dx.doi.org/10.1142/9789812386472_0007;,citation_doi=10.1142/9789812386472_0007;,citation_isbn=9789810244040;,citation_issn=1793-1010;,citation_inbook_title=The chaos avant-garde;">
+<meta name="citation_reference" content="citation_title=Pink noise in language production: A nonlinear approach to the multilingual lexicon;,citation_author=Wander Lowie;,citation_author=Rika Plat;,citation_author=Kees Bot;,citation_publication_date=2014-07;,citation_cover_date=2014-07;,citation_year=2014;,citation_fulltext_html_url=http://dx.doi.org/10.1080/10407413.2014.929479;,citation_issue=3;,citation_doi=10.1080/10407413.2014.929479;,citation_issn=1040-7413;,citation_volume=26;,citation_journal_title=Ecological psychology: a publication of the International Society for Ecological Psychology;,citation_publisher=Informa UK Limited;">
+<meta name="citation_reference" content="citation_title=A dynamical model of general intelligence: The positive manifold of intelligence by mutualism;,citation_author=Han L. J. Maas;,citation_author=Conor V. Dolan;,citation_author=Raoul P. P. P. Grasman;,citation_author=Jelte M. Wicherts;,citation_author=Hilde M. Huizenga;,citation_author=Maartje E. J. Raijmakers;,citation_publication_date=2006-10;,citation_cover_date=2006-10;,citation_year=2006;,citation_fulltext_html_url=http://dx.doi.org/10.1037/0033-295X.113.4.842;,citation_issue=4;,citation_doi=10.1037/0033-295X.113.4.842;,citation_issn=0033-295X;,citation_volume=113;,citation_journal_title=Psychological review;,citation_publisher=American Psychological Association (APA);">
+<meta name="citation_reference" content="citation_title=How the monitoring events of individual students are associated with phases of regulation: A network analysis approach;,citation_author=Jonna Malmberg;,citation_author=Mohammed Saqr;,citation_author=Hanna Järvenoja;,citation_author=Sanna Järvelä;,citation_publication_date=2022;,citation_cover_date=2022;,citation_year=2022;,citation_fulltext_html_url=https://learning-analytics.info/index.php/JLA/article/view/7429;,citation_issue=1;,citation_volume=9;,citation_journal_title=Journal of learning analytics;">
+<meta name="citation_reference" content="citation_title=Modeling learning and teaching interaction by a map with vanishing denominators: Fixed points stability and bifurcations;,citation_author=Ugo Merlone;,citation_author=Anastasiia Panchuk;,citation_author=Paul Geert;,citation_publication_date=2019-09;,citation_cover_date=2019-09;,citation_year=2019;,citation_fulltext_html_url=http://dx.doi.org/10.1016/j.chaos.2019.06.008;,citation_doi=10.1016/j.chaos.2019.06.008;,citation_issn=0960-0779;,citation_volume=126;,citation_journal_title=Chaos, solitons, and fractals;,citation_publisher=Elsevier BV;">
+<meta name="citation_reference" content="citation_title=A game theoretic framework for incentive-based models of intrinsic motivation in artificial systems;,citation_author=Kathryn E. Merrick;,citation_author=Kamran Shafi;,citation_publication_date=2013-10;,citation_cover_date=2013-10;,citation_year=2013;,citation_fulltext_html_url=http://dx.doi.org/10.3389/fpsyg.2013.00791;,citation_doi=10.3389/fpsyg.2013.00791;,citation_issn=1664-1078;,citation_volume=4;,citation_journal_title=Frontiers in psychology;,citation_publisher=Frontiers Media SA;">
+<meta name="citation_reference" content="citation_title=Recurrence quantification analysis of eye gaze dynamics during team collaboration;,citation_author=Robert Moulder;,citation_author=Brandon Booth;,citation_author=Angelina Abitino;,citation_author=Sidney D’Mello;,citation_publication_date=2023-03;,citation_cover_date=2023-03;,citation_year=2023;,citation_fulltext_html_url=http://dx.doi.org/10.1145/3576050.3576113;,citation_doi=10.1145/3576050.3576113;,citation_conference_title=LAK23: 13th international learning analytics and knowledge conference;,citation_conference=ACM;">
+<meta name="citation_reference" content="citation_title=Learning, motor skill, and long-range correlations;,citation_author=Déborah Nourrit-Lucas;,citation_author=Adaté Olivier Tossa;,citation_author=Grégory Zélic;,citation_author=Didier Delignières;,citation_publication_date=2015;,citation_cover_date=2015;,citation_year=2015;,citation_fulltext_html_url=http://dx.doi.org/10.1080/00222895.2014.967655;,citation_issue=3;,citation_doi=10.1080/00222895.2014.967655;,citation_issn=0022-2895;,citation_volume=47;,citation_journal_title=Journal of motor behavior;,citation_publisher=Informa UK Limited;">
+<meta name="citation_reference" content="citation_title=Dynamical minimalism: Why less is more in psychology;,citation_author=Andrzej Nowak;,citation_publication_date=2004;,citation_cover_date=2004;,citation_year=2004;,citation_fulltext_html_url=http://dx.doi.org/10.1207/s15327957pspr0802_12;,citation_issue=2;,citation_doi=10.1207/s15327957pspr0802_12;,citation_issn=1088-8683;,citation_volume=8;,citation_journal_title=Personality and social psychology review: an official journal of the Society for Personality and Social Psychology, Inc;,citation_publisher=SAGE Publications;">
+<meta name="citation_reference" content="citation_title=Complexity theory of psychopathology;,citation_author=Merlijn Olthof;,citation_author=Fred Hasselman;,citation_author=Freek Oude Maatman;,citation_author=Anna M. T. Bosman;,citation_author=Anna Lichtwarck-Aschoff;,citation_publication_date=2023-04;,citation_cover_date=2023-04;,citation_year=2023;,citation_fulltext_html_url=http://dx.doi.org/10.1037/abn0000740;,citation_issue=3;,citation_doi=10.1037/abn0000740;,citation_issn=2769-755X;,citation_volume=132;,citation_journal_title=Journal of psychopathology and clinical science;">
+<meta name="citation_reference" content="citation_title=A review of self-regulated learning: Six models and four directions for research;,citation_author=Ernesto Panadero;,citation_publication_date=2017-04;,citation_cover_date=2017-04;,citation_year=2017;,citation_fulltext_html_url=http://dx.doi.org/10.3389/fpsyg.2017.00422;,citation_doi=10.3389/fpsyg.2017.00422;,citation_issn=1664-1078;,citation_volume=8;,citation_journal_title=Frontiers in psychology;">
+<meta name="citation_reference" content="citation_title=Long-range anticorrelations and non-gaussian behavior of the heartbeat;,citation_author=C-K Peng;,citation_author=J. Mietus;,citation_author=J. M. Hausdorff;,citation_author=S. Havlin;,citation_author=H. E. Stanley;,citation_author=A. L. Goldberger;,citation_publication_date=1993-03;,citation_cover_date=1993-03;,citation_year=1993;,citation_fulltext_html_url=http://dx.doi.org/10.1103/PhysRevLett.70.1343;,citation_issue=9;,citation_doi=10.1103/PhysRevLett.70.1343;,citation_issn=0031-9007;,citation_volume=70;,citation_journal_title=Physical review letters;,citation_publisher=American Physical Society (APS);">
+<meta name="citation_reference" content="citation_title=The macroscope: A new world scientific system;,citation_author=J. Rosnay;,citation_editor=F. Heylighen C. Joslyn Turchin;,citation_publication_date=1979;,citation_cover_date=1979;,citation_year=1979;,citation_fulltext_html_url=https://cir.nii.ac.jp/crid/1130000795655870208;">
+<meta name="citation_reference" content="citation_title=Group-level analysis of engagement poorly reflects individual students’ processes: Why we need idiographic learning analytics;,citation_author=Mohammed Saqr;,citation_publication_date=2024-01;,citation_cover_date=2024-01;,citation_year=2024;,citation_fulltext_html_url=https://www.sciencedirect.com/science/article/pii/S0747563223003424;,citation_issue=107991;,citation_doi=10.1016/j.chb.2023.107991;,citation_issn=0747-5632;,citation_volume=150;,citation_journal_title=Computers in human behavior;,citation_publisher=Elsevier BV;">
+<meta name="citation_reference" content="citation_title=Psychological networks: A modern approach to analysis of learning and complex learning processes;,citation_author=Mohammed Saqr;,citation_author=Emorie Beck;,citation_author=Sonsoles López-Pernas;,citation_editor=Mohammed Saqr;,citation_editor=Sonsoles López-Pernas;,citation_publication_date=2024;,citation_cover_date=2024;,citation_year=2024;,citation_fulltext_html_url=https://doi.org/10.1007/978-3-031-54464-4_19;,citation_doi=10.1007/978-3-031-54464-4_19;,citation_isbn=9783031544644;,citation_inbook_title=Learning analytics methods and tutorials: A practical guide using r;">
+<meta name="citation_reference" content="citation_title=Mapping the self in self‐regulation using complex dynamic systems approach;,citation_author=Mohammed Saqr;,citation_author=Sonsoles López-Pernas;,citation_publication_date=2024-03;,citation_cover_date=2024-03;,citation_year=2024;,citation_fulltext_html_url=https://bera-journals.onlinelibrary.wiley.com/doi/10.1111/bjet.13452;,citation_doi=10.1111/bjet.13452;,citation_issn=0007-1013;,citation_journal_title=British journal of educational technology: journal of the Council for Educational Technology;,citation_publisher=Wiley;">
+<meta name="citation_reference" content="citation_title=Social network analysis: A primer, a guide and a tutorial in r;,citation_author=Mohammed Saqr;,citation_author=Sonsoles López-Pernas;,citation_author=Miguel Ángel Conde-González;,citation_author=Ángel Hernández-García;,citation_publication_date=2024;,citation_cover_date=2024;,citation_year=2024;,citation_fulltext_html_url=http://dx.doi.org/10.1007/978-3-031-54464-4_15;,citation_doi=10.1007/978-3-031-54464-4_15;,citation_isbn=9783031544637;,citation_inbook_title=Learning analytics methods and tutorials;">
+<meta name="citation_reference" content="citation_title=The longitudinal association between engagement and achievement varies by time, students’ subgroups, and achievement state: A full program study;,citation_author=Mohammed Saqr;,citation_author=Sonsoles López-Pernas;,citation_author=Satu Helske;,citation_author=Stefan Hrastinski;,citation_publication_date=2023;,citation_cover_date=2023;,citation_year=2023;,citation_fulltext_html_url=https://www.sciencedirect.com/science/article/pii/S0360131523000647;,citation_issn=0360-1315;,citation_journal_title=Computers &amp;amp;amp; education;,citation_publisher=Elsevier;">
+<meta name="citation_reference" content="citation_title=Transition network analysis: A novel framework for modeling, visualizing, and identifying the temporal patterns of learners and learning processes;,citation_author=Mohammed Saqr;,citation_author=Sonsoles López-Pernas;,citation_author=Tiina Törmänen;,citation_author=Rogers Kaliisa;,citation_author=Kamila Misiejuk;,citation_author=Santtu Tikka;,citation_publication_date=2024-11;,citation_cover_date=2024-11;,citation_year=2024;,citation_fulltext_html_url=http://arxiv.org/abs/2411.15486;,citation_journal_title=arXiv [cs.SI];">
+<meta name="citation_reference" content="citation_title=Networks in education: A travelogue through five decades;,citation_author=Mohammed Saqr;,citation_author=Oleksandra Poquet;,citation_author=Sonsoles Lopez-Pernas;,citation_publication_date=2022;,citation_cover_date=2022;,citation_year=2022;,citation_fulltext_html_url=http://dx.doi.org/10.1109/access.2022.3159674;,citation_doi=10.1109/access.2022.3159674;,citation_issn=2169-3536;,citation_volume=10;,citation_journal_title=IEEE access: practical innovations, open solutions;,citation_publisher=Institute of Electrical; Electronics Engineers (IEEE);">
+<meta name="citation_reference" content="citation_title=Why educational research needs a complex system revolution that embraces individual differences, heterogeneity, and uncertainty;,citation_author=Mohammed Saqr;,citation_author=Marieke J. Schreuder;,citation_author=Sonsoles López-Pernas;,citation_editor=Mohammed Saqr;,citation_editor=Sonsoles López-Pernas;,citation_publication_date=2024;,citation_cover_date=2024;,citation_year=2024;,citation_fulltext_html_url=https://doi.org/10.1007/978-3-031-54464-4_22;,citation_doi=10.1007/978-3-031-54464-4_22;,citation_isbn=9783031544644;,citation_inbook_title=Learning analytics methods and tutorials: A practical guide using r;">
+<meta name="citation_reference" content="citation_title=Introduction to the modeling and analysis of complex systems;,citation_author=Hiroki Sayama;,citation_publication_date=2015;,citation_cover_date=2015;,citation_year=2015;,citation_fulltext_html_url=https://knightscholar.geneseo.edu/oer-ost/14/;,citation_isbn=9781942341062;">
+<meta name="citation_reference" content="citation_title=Critical transitions in nature and society;,citation_author=Marten Scheffer;,citation_publication_date=2020-11;,citation_cover_date=2020-11;,citation_year=2020;,citation_fulltext_html_url=https://play.google.com/store/books/details?id=okT_DwAAQBAJ;,citation_isbn=9781400833276;">
+<meta name="citation_reference" content="citation_title=An introduction to complex systems science and its applications;,citation_author=Alexander F. Siegenfeld;,citation_author=Yaneer Bar-Yam;,citation_publication_date=2019-12;,citation_cover_date=2019-12;,citation_year=2019;,citation_fulltext_html_url=http://arxiv.org/abs/1912.05088;,citation_journal_title=arXiv [physics.soc-ph];">
+<meta name="citation_reference" content="citation_title=Coordinating perceptually grounded categories through language: A case study for colour;,citation_author=Luc Steels;,citation_author=Tony Belpaeme;,citation_publication_date=2005-08;,citation_cover_date=2005-08;,citation_year=2005;,citation_fulltext_html_url=http://dx.doi.org/10.1017/S0140525X05000087;,citation_issue=4;,citation_doi=10.1017/S0140525X05000087;,citation_issn=0140-525X;,citation_volume=28;,citation_journal_title=The behavioral and brain sciences;,citation_publisher=Cambridge University Press (CUP);">
+<meta name="citation_reference" content="citation_title=An empirical validation of a dynamic systems model of interaction: Do children of different sociometric statuses differ in their dyadic play?;,citation_author=Henderien Steenbeek;,citation_author=Paul Geert;,citation_publication_date=2008-03;,citation_cover_date=2008-03;,citation_year=2008;,citation_fulltext_html_url=http://dx.doi.org/10.1111/j.1467-7687.2007.00655.x;,citation_issue=2;,citation_doi=10.1111/j.1467-7687.2007.00655.x;,citation_issn=1363-755X;,citation_volume=11;,citation_journal_title=Developmental science;,citation_publisher=Wiley;">
+<meta name="citation_reference" content="citation_title=Momentary student engagement as a dynamic developmental system;,citation_author=Jennifer E. Symonds;,citation_author=Avi Kaplan;,citation_author=Katja Upadyaya;,citation_author=Katariina Salmela Aro;,citation_author=Benjamin M. Torsney;,citation_author=Ellen Skinner;,citation_author=Jacquelynne S. Eccles;,citation_publication_date=2024-08;,citation_cover_date=2024-08;,citation_year=2024;,citation_fulltext_html_url=https://psycnet.apa.org/fulltext/2025-13463-001.html;,citation_doi=10.1037/teo0000288;,citation_issn=1068-8471;,citation_journal_title=Journal of theoretical and philosophical psychology;,citation_publisher=American Psychological Association (APA);">
+<meta name="citation_reference" content="citation_title=Introduction to the theory of complex systems;,citation_author=Stefan Thurner;,citation_author=Rudolf Hanel;,citation_author=Peter Klimek;,citation_publication_date=2018-10;,citation_cover_date=2018-10;,citation_year=2018;,citation_fulltext_html_url=http://dx.doi.org/10.1093/oso/9780198821939.001.0001;,citation_doi=10.1093/oso/9780198821939.001.0001;,citation_isbn=9780198821939;">
+<meta name="citation_reference" content="citation_title=Affective states and regulation of learning during socio-emotional interactions in secondary school collaborative groups;,citation_author=Tiina Törmänen;,citation_author=Hanna Järvenoja;,citation_author=Mohammed Saqr;,citation_author=Jonna Malmberg;,citation_author=Sanna Järvelä;,citation_publication_date=2023-04;,citation_cover_date=2023-04;,citation_year=2023;,citation_fulltext_html_url=http://dx.doi.org/10.1111/bjep.12525;,citation_issue=S1;,citation_doi=10.1111/bjep.12525;,citation_issn=0007-0998;,citation_volume=93 Suppl 1;,citation_journal_title=The British journal of educational psychology;,citation_publisher=Wiley;">
+<meta name="citation_reference" content="citation_title=Computational social psychology;,citation_author=Robin R. Vallacher;,citation_editor=Robin R. Vallacher;,citation_editor=Stephen J. Read;,citation_editor=Andrzej Nowak;,citation_publication_date=2017-05;,citation_cover_date=2017-05;,citation_year=2017;,citation_fulltext_html_url=http://dx.doi.org/10.4324/9781315173726;,citation_doi=10.4324/9781315173726;,citation_isbn=9781315173726;">
+<meta name="citation_reference" content="citation_title=The fractal picture of health and wellbeing;,citation_author=Guy Van Orden;,citation_publication_date=2007;,citation_cover_date=2007;,citation_year=2007;,citation_fulltext_html_url=http://dx.doi.org/10.1037/e593942007-002;,citation_doi=10.1037/e593942007-002;,citation_journal_title=PsycEXTRA Dataset;,citation_publisher=American Psychological Association (APA);">
+<meta name="citation_reference" content="citation_title=Resilience: What it is and is not;,citation_author=Brian H. Walker;,citation_publication_date=2020;,citation_cover_date=2020;,citation_year=2020;,citation_fulltext_html_url=http://dx.doi.org/10.5751/es-11647-250211;,citation_issue=2;,citation_doi=10.5751/es-11647-250211;,citation_issn=1708-3087;,citation_volume=25;,citation_journal_title=Ecology and society: a journal of integrative science for resilience and sustainability;,citation_publisher=Resilience Alliance, Inc.;">
+<meta name="citation_reference" content="citation_title=Interaction-dominant causation in mind and brain, and its implication for questions of generalization and replication;,citation_author=Sebastian Wallot;,citation_author=Damian G. Kelty-Stephen;,citation_publication_date=2018-06;,citation_cover_date=2018-06;,citation_year=2018;,citation_fulltext_html_url=https://doi.org/10.1007/s11023-017-9455-0;,citation_issue=2;,citation_doi=10.1007/s11023-017-9455-0;,citation_issn=0924-6495;,citation_volume=28;,citation_journal_title=Minds and machines;,citation_publisher=Springer Science; Business Media LLC;">
+<meta name="citation_reference" content="citation_title=Reconstructing the evolution history of networked complex systems;,citation_author=Junya Wang;,citation_author=Yi-Jiao Zhang;,citation_author=Cong Xu;,citation_author=Jiaze Li;,citation_author=Jiachen Sun;,citation_author=Jiarong Xie;,citation_author=Ling Feng;,citation_author=Tianshou Zhou;,citation_author=Yanqing Hu;,citation_publication_date=2024-04;,citation_cover_date=2024-04;,citation_year=2024;,citation_fulltext_html_url=http://dx.doi.org/10.1038/s41467-024-47248-x;,citation_issue=1;,citation_doi=10.1038/s41467-024-47248-x;,citation_issn=2041-1723;,citation_volume=15;,citation_journal_title=Nature communications;">
+<meta name="citation_reference" content="citation_title=Recurrence quantification analysis of nonlinear dynamical systems;,citation_author=C. Webber;,citation_author=J. Zbilut;,citation_editor=G. Van Orden M. A. Riley;,citation_publication_date=2004;,citation_cover_date=2004;,citation_year=2004;,citation_fulltext_html_url=https://www.nsf.gov/pubs/2005/nsf05057/nmbs/chap2.pdf;,citation_inbook_title=Tutorials in contemporary nonlinear methods for the behavioral;">
+<meta name="citation_reference" content="citation_title=Simpler methods do it better: Success of recurrence quantification analysis as a general purpose data analysis tool;,citation_author=Jr Webber;,citation_author=Norbert Marwan;,citation_author=Angelo Facchini;,citation_author=Alessandro Giuliani;,citation_publication_date=2009-10;,citation_cover_date=2009-10;,citation_year=2009;,citation_fulltext_html_url=http://dx.doi.org/10.1016/j.physleta.2009.08.052;,citation_issue=41;,citation_doi=10.1016/j.physleta.2009.08.052;,citation_issn=0375-9601;,citation_volume=373;,citation_journal_title=Physics letters. A;,citation_publisher=Elsevier BV;">
+<meta name="citation_reference" content="citation_title=Psychology and social networks: A dynamic network theory perspective;,citation_author=James D. Westaby;,citation_author=Danielle L. Pfaff;,citation_author=Nicholas Redding;,citation_publication_date=2014-04;,citation_cover_date=2014-04;,citation_year=2014;,citation_fulltext_html_url=http://dx.doi.org/10.1037/a0036106;,citation_issue=3;,citation_doi=10.1037/a0036106;,citation_issn=0003-066X;,citation_volume=69;,citation_journal_title=The American psychologist;,citation_publisher=American Psychological Association (APA);">
+<meta name="citation_reference" content="citation_title=Cybernetics;,citation_author=N. Wiener;,citation_publication_date=1948;,citation_cover_date=1948;,citation_year=1948;,citation_issue=5;,citation_volume=179;,citation_journal_title=Scientific American;">
+<meta name="citation_reference" content="citation_title=The relation of strength of stimulus to rapidity of habit‐formation;,citation_author=Robert M. Yerkes;,citation_author=John D. Dodson;,citation_publication_date=1908-11;,citation_cover_date=1908-11;,citation_year=1908;,citation_fulltext_html_url=http://dx.doi.org/10.1002/cne.920180503;,citation_issue=5;,citation_doi=10.1002/cne.920180503;,citation_issn=0092-7015;,citation_volume=18;,citation_journal_title=Journal of Comparative Neurology and Psychology;,citation_publisher=Wiley;">
+<meta name="citation_reference" content="citation_title=Evolution of behavioral attractors with learning: Nonequilibrium phase transitions;,citation_author=P. G. Zanone;,citation_author=J. A. Kelso;,citation_publication_date=1992;,citation_cover_date=1992;,citation_year=1992;,citation_fulltext_html_url=http://dx.doi.org/10.1037/0096-1523.18.2.403;,citation_issue=2;,citation_doi=10.1037/0096-1523.18.2.403;,citation_issn=0096-1523;,citation_volume=18;,citation_journal_title=Journal of experimental psychology. Human perception and performance;,citation_publisher=American Psychological Association (APA);">
+</head>
+
+<body class="nav-sidebar floating nav-fixed">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg navbar-dark ">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container">
+    <a class="navbar-brand" href="../../index.html">
+    <span class="navbar-title">LA Methods</span>
+    </a>
+  </div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll ms-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="../../../index.html">
+ <span class="menu-text">Home</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../../../book1/index.html">
+ <span class="menu-text">Learning Analytics Methods and Tutorials</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../../../book2/index.html">
+ <span class="menu-text">Advanced Learning Analytics Methods</span></a>
+  </li>  
+  <li class="nav-item compact">
+    <a class="nav-link" href="https://github.com/lamethods/code2/"><i class="bi bi-github" role="img" aria-label="Source Code">
+</i> 
+ <span class="menu-text"></span></a>
+  </li>  
+</ul>
+              <div id="quarto-search" class="" title="Search"></div>
+          </div> <!-- /navcollapse -->
+      </div> <!-- /container-fluid -->
+    </nav>
+  <nav class="quarto-secondary-nav" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+    <div class="container-fluid d-flex justify-content-between">
+      <h1 class="quarto-secondary-nav-title"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Complex Dynamic Systems in Education: Beyond the Static, the Linear and the Causal Reductionism</span></h1>
+      <button type="button" class="quarto-btn-toggle btn" aria-label="Show secondary navigation">
+        <i class="bi bi-chevron-right"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse sidebar-navigation floating overflow-auto">
+      <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Search"></div>
+        </div>
+      </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../index.html" class="sidebar-item-text sidebar-link">Welcome</a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../contributors.html" class="sidebar-item-text sidebar-link">Contributors</a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../chapters/ch01-intro/ch01-intro.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Introduction</span></a>
+  </div>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true">Artificial Intelligence</a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../chapters/ch02-AIxAI/ch02-aixai.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">AI and XAI</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../chapters/ch03-prediction/ch03-prediction.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Prediction</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../chapters/ch04-classification/ch04-classification.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Classification</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../chapters/ch05-regularization/ch05-regularization.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Regularization</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../chapters/ch06-xai-global/ch06-xai-global.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Global XAI</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../chapters/ch07-xai-local/ch07-xai-local.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Local XAI</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="true">Large Language Models</a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="true">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../chapters/ch08-llms/ch08-llms.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Large Language Models</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../chapters/ch09-nlp/ch09-nlp.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Natural Language Processing</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../chapters/ch10-bert/ch10-bert.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Classification with BERT</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../chapters/ch11-llmsxai/ch11-llmsxai.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Automated feedback with XAI and LLMs</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" aria-expanded="true">Complex Systems</a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" aria-expanded="true">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../chapters/ch12-cds/ch12-cds.html" class="sidebar-item-text sidebar-link active"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Complex Systems</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../chapters/ch13-ega/ch13-ega.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Exploratory Graph Analysis</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../chapters/ch14-rqa/ch14-rqa.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">Recurrent Quantification Analysis</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../chapters/ch15-tna/ch15-tna.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">15</span>&nbsp; <span class="chapter-title">Transition Network Analysis</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../chapters/ch16-ftna/ch16-ftna.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">16</span>&nbsp; <span class="chapter-title">Frequency-based Transition Network Analysis</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../chapters/ch17-tna-clusters/ch17-tna-clusters.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">17</span>&nbsp; <span class="chapter-title">Transition Network Analysis Clusters</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" aria-expanded="true">Idiographic</a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" aria-expanded="true">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../chapters/ch18-idio/ch18-idio.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">18</span>&nbsp; <span class="chapter-title">Within-person analysis</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../chapters/ch19-three-levels/ch19-three-levels.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">19</span>&nbsp; <span class="chapter-title">Heterogeneity</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../chapters/ch20-var/ch20-var.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">20</span>&nbsp; <span class="chapter-title">Vector Autoregression and uSEM</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../chapters/ch21-mle/ch21-mle.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">21</span>&nbsp; <span class="chapter-title">Maximum Likelihood Estimator</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../chapters/ch22-automl/ch22-automl.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">22</span>&nbsp; <span class="chapter-title">Automated Machine Learning</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+    </ul>
+    </div>
+</nav>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Table of contents</h2>
+   
+  <ul>
+  <li><a href="#introduction" id="toc-introduction" class="nav-link active" data-scroll-target="#introduction"><span class="toc-section-number">1</span>  Introduction</a></li>
+  <li><a href="#why-complex-systems-in-education" id="toc-why-complex-systems-in-education" class="nav-link" data-scroll-target="#why-complex-systems-in-education"><span class="toc-section-number">2</span>  Why complex systems in education?</a>
+  <ul class="collapse">
+  <li><a href="#nonlinearity" id="toc-nonlinearity" class="nav-link" data-scroll-target="#nonlinearity"><span class="toc-section-number">2.1</span>  <strong>Nonlinearity</strong></a></li>
+  <li><a href="#emergence-and-self-organization" id="toc-emergence-and-self-organization" class="nav-link" data-scroll-target="#emergence-and-self-organization"><span class="toc-section-number">2.2</span>  Emergence and Self-organization</a></li>
+  <li><a href="#feedback-loops" id="toc-feedback-loops" class="nav-link" data-scroll-target="#feedback-loops"><span class="toc-section-number">2.3</span>  Feedback Loops</a></li>
+  <li><a href="#adaptation-and-evolution" id="toc-adaptation-and-evolution" class="nav-link" data-scroll-target="#adaptation-and-evolution"><span class="toc-section-number">2.4</span>  Adaptation and Evolution</a></li>
+  <li><a href="#hierarchies-scales-and-network-structures" id="toc-hierarchies-scales-and-network-structures" class="nav-link" data-scroll-target="#hierarchies-scales-and-network-structures"><span class="toc-section-number">2.5</span>  Hierarchies, Scales, and Network Structures</a></li>
+  <li><a href="#dynamics-and-sensitivity-to-initial-conditions" id="toc-dynamics-and-sensitivity-to-initial-conditions" class="nav-link" data-scroll-target="#dynamics-and-sensitivity-to-initial-conditions"><span class="toc-section-number">2.6</span>  Dynamics and Sensitivity to Initial Conditions</a></li>
+  </ul></li>
+  <li><a href="#analytical-approaches" id="toc-analytical-approaches" class="nav-link" data-scroll-target="#analytical-approaches"><span class="toc-section-number">3</span>  Analytical approaches</a>
+  <ul class="collapse">
+  <li><a href="#network-analysis-capturing-the-interactions-and-dynamics" id="toc-network-analysis-capturing-the-interactions-and-dynamics" class="nav-link" data-scroll-target="#network-analysis-capturing-the-interactions-and-dynamics"><span class="toc-section-number">3.1</span>  Network analysis: Capturing the interactions and dynamics</a></li>
+  <li><a href="#recurrence-quantification-analysis" id="toc-recurrence-quantification-analysis" class="nav-link" data-scroll-target="#recurrence-quantification-analysis"><span class="toc-section-number">3.2</span>  Recurrence Quantification Analysis</a></li>
+  <li><a href="#simulation" id="toc-simulation" class="nav-link" data-scroll-target="#simulation"><span class="toc-section-number">3.3</span>  Simulation</a></li>
+  </ul></li>
+  <li><a href="#data-collection" id="toc-data-collection" class="nav-link" data-scroll-target="#data-collection"><span class="toc-section-number">4</span>  Data collection</a>
+  <ul class="collapse">
+  <li><a href="#capturing-a-systems-state-through-rich-description-interviews-and-written-reflections" id="toc-capturing-a-systems-state-through-rich-description-interviews-and-written-reflections" class="nav-link" data-scroll-target="#capturing-a-systems-state-through-rich-description-interviews-and-written-reflections"><span class="toc-section-number">4.1</span>  Capturing a system’s state through rich description: interviews and written reflections</a></li>
+  <li><a href="#capturing-real-time-emergence-through-observations-and-stimulated-recall" id="toc-capturing-real-time-emergence-through-observations-and-stimulated-recall" class="nav-link" data-scroll-target="#capturing-real-time-emergence-through-observations-and-stimulated-recall"><span class="toc-section-number">4.2</span>  Capturing real-time emergence through observations and stimulated recall</a></li>
+  </ul></li>
+  <li><a href="#final-remarks" id="toc-final-remarks" class="nav-link" data-scroll-target="#final-remarks"><span class="toc-section-number">5</span>  Final remarks</a></li>
+  <li><a href="#bibliography" id="toc-bibliography" class="nav-link" data-scroll-target="#bibliography">References</a></li>
+  </ul>
+</nav>
+    <div class="quarto-margin-footer"><div class="margin-footer-item">
+<a href="https://github.com/lamethods/code2" target="_blank"> <button class="btn btn-outline-dark"> <svg xmlns="http://www.w3.org/2000/svg" viewbox="0 0 496 512" style="width: 22px;vertical-align: text-top;margin-right: 9px;"> <path d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3 .3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5 .3-6.2 2.3zm44.2-1.7c-2.9 .7-4.9 2.6-4.6 4.9 .3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3 .7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3 .3 2.9 2.3 3.9 1.6 1 3.6 .7 4.3-.7 .7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3 .7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3 .7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z" style="width: 24px;"> </path> </svg>Download code </button> </a>
+<div style="padding: 10px;">
+Check out our previous book! <br> <a href="../../../book1/index.html"><img src="../../../book1/1712067211600.jpeg" style="
+     width: 70%;
+ "></a>
+</div>
+<p><br> <small>© 2025 The authors</small></p>
+</div></div></div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title d-none d-lg-block"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Complex Dynamic Systems in Education: Beyond the Static, the Linear and the Causal Reductionism</span></h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    <div>
+    <div class="quarto-title-meta-heading">Authors</div>
+    <div class="quarto-title-meta-contents">
+             <p>Mohammed Saqr </p>
+             <p>Daryn Dever </p>
+             <p>Sonsoles López-Pernas </p>
+             <p>Christophe Gernigon </p>
+             <p>Gwen Marchand </p>
+             <p>Avi Kaplan </p>
+          </div>
+  </div>
+    
+  
+    
+  </div>
+  
+<div>
+  <div class="abstract">
+    <div class="abstract-title">Abstract</div>
+    Traditional methods in educational research often fail to capture the complex and evolving nature of learning processes. This chapter examines the use of complex systems theory in education to address these limitations. The chapter covers the main characteristics of complex systems such as non-linear relationships, emergent properties, and feedback mechanisms to explain how educational phenomena unfold. Some of the main methodological approaches are presented, such as network analysis and recurrence quantification analysis to study relationships and patterns in learning. These have been operationalized by existing education research to study self-regulation, engagement, and academic emotions, among other learning-related constructs. Lastly, the chapter describes data collection methods that are suitable for studying learning processes from a complex systems’ perspective.
+  </div>
+</div>
+
+</header>
+
+<section id="introduction" class="level2" data-number="1">
+<h2 data-number="1" class="anchored" data-anchor-id="introduction"><span class="header-section-number">1</span> Introduction</h2>
+<p>Learning —like most psychological phenomena— is far from being simple or trivial. It involves multiple cognitive processes, contexts and dimensions with complex and dynamic interplay between them <span class="citation" data-cites="Hilpert_Marchand_2018 Kaplan_Garner_2020 Saqr_Schreuder_López-Pernas_2024">[<a href="#ref-Hilpert_Marchand_2018" role="doc-biblioref">1</a>–<a href="#ref-Saqr_Schreuder_López-Pernas_2024" role="doc-biblioref">3</a>]</span>. Therefore, most learning theories and frameworks describe learning as a multifaceted process that evolves over time. For example, most theorists depict self-regulated learning as having several phases or processes <span class="citation" data-cites="Panadero_2017">[<a href="#ref-Panadero_2017" role="doc-biblioref">4</a>]</span> that influence each other resulting in the emergence of certain behaviors, e.g., learning strategies. Similarly, engagement is commonly conceptualized as a multidimensional process that unfolds in time with a significant interplay between the dimensions across contexts, tasks and cultures <span class="citation" data-cites="Saqr_Schreuder_López-Pernas_2024 Symonds_Kaplan_Upadyaya_Aro_Torsney_Skinner_Eccles_2024">[<a href="#ref-Saqr_Schreuder_López-Pernas_2024" role="doc-biblioref">3</a>, <a href="#ref-Symonds_Kaplan_Upadyaya_Aro_Torsney_Skinner_Eccles_2024" role="doc-biblioref">5</a>]</span>. These complexity features apply to most learning theories, frameworks, and constructs and also extends to interpersonal processes, groups, classrooms, and organizations <span class="citation" data-cites="Gouvea_2023">[<a href="#ref-Gouvea_2023" role="doc-biblioref">6</a>]</span>. All of the aforementioned examples, and many others, exhibit features typical of complex systems. Traditional methods often fail to adequately capture their complexity and dynamics, and therefore, complex system methods are required to capture their unique features <span class="citation" data-cites="Koopmans_2020 Saqr_Schreuder_López-Pernas_2024">[<a href="#ref-Saqr_Schreuder_López-Pernas_2024" role="doc-biblioref">3</a>, <a href="#ref-Koopmans_2020" role="doc-biblioref">7</a>]</span>.</p>
+<p>But, before moving on, we must articulate what we mean by a complex system. The word <em>complexity</em> signifies multiple components that interact with each other in intricate ways <span class="citation" data-cites="Thurner_Hanel_Klimek_2018">[<a href="#ref-Thurner_Hanel_Klimek_2018" role="doc-biblioref">8</a>]</span>. Thus, a <em>complex</em> <em>system</em> is a collection of components that interact together in unique ways that lead to the emergent behavior of the system as a whole and cannot be understood by nor reduced to its individual components. The term <em>dynamic</em> indicates that the system changes and evolves over time exhibiting different states and conditions <span class="citation" data-cites="Sayama_2015 Scheffer_2020">[<a href="#ref-Sayama_2015" role="doc-biblioref">9</a>, <a href="#ref-Scheffer_2020" role="doc-biblioref">10</a>]</span>.</p>
+<p>Researchers vary in their definitions of complex dynamic systems and in the level of detail by which they describe these systems. However, most researchers can agree on some basic requirements for identifying a system as complex: the presence of intricate properties, chaotic unpredictable behavior or outcomes, nonlinear dynamics, and interactions between the system components <span class="citation" data-cites="Bringmann_Helmich_Eronen_Voelkle_2023 Olthof_Hasselman_Oude_Maatman_Bosman_Lichtwarck-Aschoff_2023">[<a href="#ref-Bringmann_Helmich_Eronen_Voelkle_2023" role="doc-biblioref">11</a>, <a href="#ref-Olthof_Hasselman_Oude_Maatman_Bosman_Lichtwarck-Aschoff_2023" role="doc-biblioref">12</a>]</span>. Furthermore, these properties exist in different mixtures exhibiting different dynamics and interactions and due to this variability, complex systems and their associated behaviors/properties are not perfectly replicable <span class="citation" data-cites="Sayama_2015 Scheffer_2020">[<a href="#ref-Sayama_2015" role="doc-biblioref">9</a>, <a href="#ref-Scheffer_2020" role="doc-biblioref">10</a>]</span>.</p>
+</section>
+<section id="why-complex-systems-in-education" class="level2" data-number="2">
+<h2 data-number="2" class="anchored" data-anchor-id="why-complex-systems-in-education"><span class="header-section-number">2</span> Why complex systems in education?</h2>
+<p>As we have mentioned before, humans, their behavior, and their social structures (e.g., groups, institutions, societies) manifest complex and dynamic behavior, making conceptualizing them as complex dynamic systems an apt epistemological endeavor <span class="citation" data-cites="Hilpert_Marchand_2018">[<a href="#ref-Hilpert_Marchand_2018" role="doc-biblioref">1</a>]</span>. Viewing human phenomena as complex dynamic systems allows us to capture their complex organization, dynamics, and behavior <span class="citation" data-cites="López-Pernas_Saqr_2024">[<a href="#ref-López-Pernas_Saqr_2024" role="doc-biblioref">13</a>]</span>. It stands to reason that while traditional statistics and inference methods may be useful in capturing some characteristics of complex systems or offer a summary of a system’s state at a single time, such methods are incompatible and would fail in fully capturing the complexity of these systems <span class="citation" data-cites="Bringmann_Helmich_Eronen_Voelkle_2023">[<a href="#ref-Bringmann_Helmich_Eronen_Voelkle_2023" role="doc-biblioref">11</a>]</span>.</p>
+<p>Traditional statistics were designed to capture what is commonly known as a box-and-arrow structure, where A and B leads to C; what is known as component-dominant structure. In component-dominant structures, the components themselves in their accumulation, are assumed to define the behavior of the system <span class="citation" data-cites="López-Pernas_Saqr_2024">[<a href="#ref-López-Pernas_Saqr_2024" role="doc-biblioref">13</a>]</span>. Therefore, the focus in complex systems shifts from analyzing components in isolation to the whole system and to understanding the interactions between them <span class="citation" data-cites="Hilpert_Marchand_2018 Saqr_Schreuder_López-Pernas_2024">[<a href="#ref-Hilpert_Marchand_2018" role="doc-biblioref">1</a>, <a href="#ref-Saqr_Schreuder_López-Pernas_2024" role="doc-biblioref">3</a>]</span>. The effects of interactions—rather than the individual components themselves—become more significant in determining the system’s behavior. These interactions can result in emergent behavior that cannot be fully explained by simply summing the effects of individual components <span class="citation" data-cites="Hilpert_Marchand_2018 Saqr_Schreuder_López-Pernas_2024">[<a href="#ref-Hilpert_Marchand_2018" role="doc-biblioref">1</a>, <a href="#ref-Saqr_Schreuder_López-Pernas_2024" role="doc-biblioref">3</a>]</span>.</p>
+<p>Let us take an example. In a box-and-arrow system, a researcher may study variables that influence students’ achievement with data that includes the constructs of student engagement, teacher competence, and home support. The researcher uses regression analysis and computes a coefficient for the relations of each of these variables with achievement to estimate their distinct contributions to predicting achievement <span class="citation" data-cites="Hilpert_Marchand_2018 Symonds_Kaplan_Upadyaya_Aro_Torsney_Skinner_Eccles_2024">[<a href="#ref-Hilpert_Marchand_2018" role="doc-biblioref">1</a>, <a href="#ref-Symonds_Kaplan_Upadyaya_Aro_Torsney_Skinner_Eccles_2024" role="doc-biblioref">5</a>]</span>. In a regression analysis, the assumption is that each of the three variables relates to achievement in a way that, at least in part, is independent from the other variables. By the statistical assumptions governing the regression analysis, the variables are required to have no significant relationship with each other (often referred to as non-collinearity). Clearly, such assumptions constitute an oversimplification of the interrelations of these variables: they influence each other and interact with each other in non-trivial ways. A supportive home would boost engagement, as would a competent teacher, and, in turn, engagement could facilitate familial support of the student <span class="citation" data-cites="Saqr_López-Pernas_Helske_Hrastinski_2023 Saqr_Schreuder_López-Pernas_2024">[<a href="#ref-Saqr_Schreuder_López-Pernas_2024" role="doc-biblioref">3</a>, <a href="#ref-Saqr_López-Pernas_Helske_Hrastinski_2023" role="doc-biblioref">14</a>]</span>. As such, assuming that variables are independent and unrelated does not reflect real-life social-psychological processes that underlie learning and achievement. Conceptualizing learning and achievement as a complex dynamic system, in which the three variables interdepend and mutually impact each other, would better correspond to reality <span class="citation" data-cites="López-Pernas_Saqr_2024 Saqr_Schreuder_López-Pernas_2024">[<a href="#ref-Saqr_Schreuder_López-Pernas_2024" role="doc-biblioref">3</a>, <a href="#ref-López-Pernas_Saqr_2024" role="doc-biblioref">13</a>]</span>. A complex dynamic systems approach would allow conceptualizing, investigating, and describing the interactions between these variables, and the mutual influence they exert on each other in a way that reflects the multifaceted nature of learning and achievement. That, however, requires appropriate methods that are able to capture the dynamics, processes, interactions, and intricacies among these variables, and the way they give rise to the global behavior of the system. Such research would lead to a theory of the emergence patterns of the learning and achievement system, how the system’s components reflect a process of self-organization, and how the system’s global behavior constrains the state of the system’s components and their interactions <span class="citation" data-cites="Binkley_Erstad_Herman_Raizen_Ripley_Miller-Ricci_Rumble_2012 Garner_Kaplan_2019 Kaplan_Garner_2020 Saqr_Schreuder_López-Pernas_2024 Scheffer_2020">[<a href="#ref-Kaplan_Garner_2020" role="doc-biblioref">2</a>, <a href="#ref-Saqr_Schreuder_López-Pernas_2024" role="doc-biblioref">3</a>, <a href="#ref-Scheffer_2020" role="doc-biblioref">10</a>, <a href="#ref-Binkley_Erstad_Herman_Raizen_Ripley_Miller-Ricci_Rumble_2012" role="doc-biblioref">15</a>, <a href="#ref-Garner_Kaplan_2019" role="doc-biblioref">16</a>]</span>.</p>
+<p>Thus, in contrast to box-and-arrow or component-dominant systems, complex dynamic systems are <em>interaction-dominant</em> - the interactions and the interdependencies between the components define system behavior. Hence, system behavior cannot be reduced to any of the components or their distinct interactions. As the system’s components interact, new behavior, and behavior patterns emerge. Notably, the relationship between the system’s behavior and the states of its components is not proportional, which manifests in nonlinear system behavior. Rather than an additive process, a complex system’s components and their interactions give rise to behavior that is greater than the sum of its parts (e.g., planning + metacognition <span class="math inline">\(\neq\)</span> self-regulation). Complex systems are also not strictly predictable <span class="citation" data-cites="Gernigon_Den_Hartigh_Vallacher_van_Geert_2024 Wallot_Kelty-Stephen_2018">[<a href="#ref-Gernigon_Den_Hartigh_Vallacher_van_Geert_2024" role="doc-biblioref">17</a>, <a href="#ref-Wallot_Kelty-Stephen_2018" role="doc-biblioref">18</a>]</span>.</p>
+<p>Adopting a CDS lens in education presents an opportunity to advance our existing theories and provide a deeper understanding of change, stability, and resilience in educational contexts. An opportunity to understand the dynamics and temporal aspects of how a learning process progresses, regresses or interacts with the context and environment. These dynamical aspects, while prevalent in our theories and practice, have remained hardly straightforward to capture with existing methods or interpret with existing theoretical frameworks. Recently, serious work has been done to renew theories within CDS see for instance <span class="citation" data-cites="Symonds_Kaplan_Upadyaya_Aro_Torsney_Skinner_Eccles_2024">[<a href="#ref-Symonds_Kaplan_Upadyaya_Aro_Torsney_Skinner_Eccles_2024" role="doc-biblioref">5</a>]</span>.</p>
+<p>Using a CDS lens has resulted in significant breakthroughs in other fields e.g., Nobel prize in physics <span class="citation" data-cites="Bianconi_Arenas_Biamonte_Carr_Kahng_Kertesz_Kurths_Lü_Masoller_Motter_2023">[<a href="#ref-Bianconi_Arenas_Biamonte_Carr_Kahng_Kertesz_Kurths_Lü_Masoller_Motter_2023" role="doc-biblioref">19</a>]</span> and holds the promise for novel and meaningful insights to unravel the structure and temporal dynamics of learning. These opportunities not only promise a richer understanding but also offer practical implications for designing interventions that are adaptive, resilient, and responsive to the nuances of educational systems. To further explain the complex systems and their dynamics we will discuss the main characteristics and concepts of complex systems in the remainder of this section.</p>
+<section id="nonlinearity" class="level3" data-number="2.1">
+<h3 data-number="2.1" class="anchored" data-anchor-id="nonlinearity"><span class="header-section-number">2.1</span> <strong>Nonlinearity</strong></h3>
+<p>Nonlinearity is a defining feature of complex systems, describing relationships between system components as not proportional or additive and highly sensitive to initial conditions <span class="citation" data-cites="Favela_Amon_2023">[<a href="#ref-Favela_Amon_2023" role="doc-biblioref">20</a>]</span>. Within a nonlinear system, the output (or behavior) of the system is not directly proportional to the input, where small changes can lead to disproportionately large outcomes, and vice versa, also described as a “butterfly effect” <span class="citation" data-cites="Lorenz_2001">[<a href="#ref-Lorenz_2001" role="doc-biblioref">21</a>]</span>. This concept directly contrasts with linear systems in which the system’s output is easily predicted by the inputs, such as represented by the equation <em>y = mx + b</em> and similar variations. In complex systems, nonlinear relationships can manifest in ways that defy conventional intuition (e.g., <span class="citation" data-cites="Clark_Luis_2020">[<a href="#ref-Clark_Luis_2020" role="doc-biblioref">22</a>]</span>) where a small environmental disturbance, such as the interruption of a classmate, can trigger a cascade of effects that can dramatically and irrevocably alter learning processes, e.g., <span class="citation" data-cites="Clark_Luis_2020">[<a href="#ref-Clark_Luis_2020" role="doc-biblioref">22</a>]</span> disruption of cognitive engagement. A typical example of non-linearity in educational psychology is the Yerkes-Dodson law, which describes the relationship between arousal and performance <span class="citation" data-cites="Yerkes_Dodson_1908">[<a href="#ref-Yerkes_Dodson_1908" role="doc-biblioref">23</a>]</span>. The Yerkes-Dodson Law states that performance improves as physiological or mental arousal increases, but only to an optimal level. Beyond this point, excessive arousal leads to a decline in performance (see <a href="#fig-yerkes">Figure&nbsp;<span>12.1</span></a>).</p>
+<div id="fig-yerkes" class="quarto-figure quarto-figure-center anchored">
+<figure class="figure">
+<p><img src="img/img/media/yerkes.png" class="img-fluid figure-img" style="width:4.6875in"></p>
+<p></p><figcaption class="figure-caption"><strong>Figure</strong>&nbsp;1<strong>.</strong> The Yerkes-Dodson Law <span class="citation" data-cites="Yerkes_Dodson_1908">[<a href="#ref-Yerkes_Dodson_1908" role="doc-biblioref">23</a>]</span> illustrates the relationship between arousal and performance. Performance increases with arousal up to an optimal point, beyond which excessive arousal impairs performance. The graph highlights three key zones: increasing performance due to heightened focus and motivation at low-to-moderate arousal (left), optimal performance at moderate arousal levels (peak), and declining performance caused by excessive stress and cognitive overload at high arousal levels (right).</figcaption><p></p>
+</figure>
+</div>
+<p>Similarly within learning processes, initial conditions (e.g., the age of a pedagogical agent) can significantly and disproportionately affect students’ learning outcomes. Nonlinearity in complex systems highlights that systems are not merely the sum of their parts; rather, the interactions between components of a system and the elicitation of these interactions by initial condition can create emergent properties, leading to unforeseeable outcomes by considering and examining individual components alone.</p>
+</section>
+<section id="emergence-and-self-organization" class="level3" data-number="2.2">
+<h3 data-number="2.2" class="anchored" data-anchor-id="emergence-and-self-organization"><span class="header-section-number">2.2</span> Emergence and Self-organization</h3>
+<p>In complex systems, <em>emergence</em> refers to how new properties, patterns, and behaviors arise from the interactions between a system’s individual components, although these behaviors are not present within the components themselves <span class="citation" data-cites="Artime_De_Domenico_2022 Kalantari_Nazemi_Masoumi_2020">[<a href="#ref-Artime_De_Domenico_2022" role="doc-biblioref">24</a>, <a href="#ref-Kalantari_Nazemi_Masoumi_2020" role="doc-biblioref">25</a>]</span>. In other words, the behavior of the whole system cannot be attributed to a single component and the contribution of any component cannot be isolated, nor can it be added to any other putative distinct contributions. It is the interaction that elicits these behaviors. For example, in psychological phenomena such as self-regulated learning, the process of self-regulation cannot occur by just enacting individual components, or strategies. Instead, it is the interaction between these strategies, such as engaging in information processing while evaluating content as (ir)relevant, from which this process emerges <span class="citation" data-cites="Dever_Amon_Vrzáková_Wiedbusch_Cloude_Azevedo_2022">[<a href="#ref-Dever_Amon_Vrzáková_Wiedbusch_Cloude_Azevedo_2022" role="doc-biblioref">26</a>]</span>. The emergence concept illustrates how the whole system becomes more than just the sum of its parts, exhibiting capabilities that transcend the faculties of individual components.</p>
+<p><em>Self-organization</em>, closely related to the concept of emergence, is the process by which order spontaneously arises from disorder without the oversight of a central controller <span class="citation" data-cites="Camazine_Deneubourg_Franks_Sneyd_Theraula_Bonabeau_2003 Dever_Sonnenfeld_Wiedbusch_Schmorrow_Amon_Azevedo_2023">[<a href="#ref-Camazine_Deneubourg_Franks_Sneyd_Theraula_Bonabeau_2003" role="doc-biblioref">27</a>, <a href="#ref-Dever_Sonnenfeld_Wiedbusch_Schmorrow_Amon_Azevedo_2023" role="doc-biblioref">28</a>]</span>. Self-organization can be explained by the presence of simple local rules that lead to global-scale patterns of behaviors. Continuing our example in applying these concepts to self-regulated learning from above, students’ self-regulation can follow a set of simple rules resulting in self-organization. For example, a simple rule could be that after defining a task, a student should engage in planning procedures. This rule can trigger a set of several cognitive and metacognitive processes (e.g., prior knowledge activation, planning, goal-setting) that occurs without the dictation of a central controller, representing self-organization in learning processes and other educational phenomena. Within psychological phenomena, this can be seen in group dynamics in which social norms, cultures, or identities are formed within groups and result in synchronized behavior, such as that seen within amusement parks or vehicular traffic. The self-organization of these systems is driven by feedback mechanisms that constrain and reinforce patterns from which behavior can demonstrate stability and adaptability (see <a href="#fig-emergence">Figure&nbsp;<span>12.2</span></a>).</p>
+<div id="fig-emergence" class="quarto-figure quarto-figure-center anchored">
+<figure class="figure">
+<p><img src="img/img/media/emergence.png" class="img-fluid figure-img" style="width:3.5in"></p>
+<p></p><figcaption class="figure-caption"><strong>Figure</strong>&nbsp;2<strong>.</strong> Individual interactions (bottom) collectively give rise to emergent properties and patterns (middle), which form higher-order structures through self-organization (top). These emergent structures, in turn, influence and shape the underlying interactions, creating a continuous feedback loop that drives the dynamic behavior of the system.</figcaption><p></p>
+</figure>
+</div>
+</section>
+<section id="feedback-loops" class="level3" data-number="2.3">
+<h3 data-number="2.3" class="anchored" data-anchor-id="feedback-loops"><span class="header-section-number">2.3</span> Feedback Loops</h3>
+<p>A fundamental concept within complex systems, <em>feedback loops</em> occur when the output of a system feeds back into itself to serve as inputs. These feedback loops serve as the way in which a system amplifies its behavior (positive feedback loop) or stabilizes changes within the system (negative feedback loop), shaping the system’s adaptability to environmental changes <span class="citation" data-cites="Wiener_1948">[<a href="#ref-Wiener_1948" role="doc-biblioref">29</a>]</span>. Positive feedback loops accelerate change wherein the system moves away from its initial state and experiences exponential growth. We can think of positive feedback loops in terms of the engagement of cognitive and metacognitive strategies during learning. As students become increasingly engaged with learning materials, develop conceptual understanding, and mature in their abilities to adequately deploy learning processes, the student’s cognition and behavior can move away from its initial state, destabilizing to further mature and develop in their application of learning processes.</p>
+<p>Negative feedback loops moderate the change within the system to stabilize behaviors, leading to systems that demonstrate equilibrium. For example, stabilization of cognitive processes, such as in the repetition of learning strategies over a short period of time, can result in the equilibrium of a system in which the learning establishes a new “initial” state. In complex systems, the presence of both positive and negative feedback loops is essential for the balance and functionality of a system wherein excessive change can lead to unsustainable growth and subsequent collapse but a substantive lack of change indicates stagnation.</p>
+<p>With psychological phenomena, such as emotion regulation, the balance of activating and deactivating states are essential to the stability and health of a system. In this context, an example of a positive feedback loop is the interaction between anxiety and procrastination (<a href="#fig-instability">Figure&nbsp;<span>12.3</span></a>- left): anxiety about a task leads to procrastination, which in turn increases anxiety as deadlines approach, creating a self-reinforcing cycle that can spiral into overwhelming anxiety (instability). On the other hand, a negative feedback loop can involve anxiety and self-regulated time-management strategies (<a href="#fig-instability">Figure&nbsp;<span>12.3</span></a> - right), where anxiety triggers the use of time-management techniques, such as breaking tasks into smaller steps or scheduling work sessions. These strategies reduce anxiety by promoting a sense of control and progress, gradually stabilizing emotional fluctuations and converging toward a balanced state of productivity.</p>
+<div id="fig-instability" class="quarto-figure quarto-figure-center anchored">
+<figure class="figure">
+<p><img src="img/img/media/instability.png" class="img-fluid figure-img" style="width:5.46354in"></p>
+<p></p><figcaption class="figure-caption"><strong>Figure</strong>&nbsp;3<strong>.</strong> An example of a positive feedback loop (left) shows how anxiety and procrastination reinforce each other, amplifying anxiety and potentially leading to overwhelming stress (instability). In contrast, the negative feedback loop (right) demonstrates how anxiety triggers self-regulated time-management strategies, which reduce anxiety and stabilize emotional fluctuations over time, converging toward a balanced and productive state (equilibrium). Adapted from Rosnay <span class="citation" data-cites="Rosnay_1979">[<a href="#ref-Rosnay_1979" role="doc-biblioref">30</a>]</span>.</figcaption><p></p>
+</figure>
+</div>
+</section>
+<section id="adaptation-and-evolution" class="level3" data-number="2.4">
+<h3 data-number="2.4" class="anchored" data-anchor-id="adaptation-and-evolution"><span class="header-section-number">2.4</span> Adaptation and Evolution</h3>
+<p>Feedback loops serve as the mechanisms by which a complex system can <em>adapt</em> and <em>evolve</em>. Through these mechanisms, a system can respond to both internal and external conditions wherein the components of a system can make decisions based on local information, self-organize into new configurations that respond to added conditions, and maintain functionality within dynamic environments <span class="citation" data-cites="Ao_Kwon_Qian_2007 Wang_Zhang_Xu_Li_Sun_Xie_Feng_Zhou_Hu_2024">[<a href="#ref-Ao_Kwon_Qian_2007" role="doc-biblioref">31</a>, <a href="#ref-Wang_Zhang_Xu_Li_Sun_Xie_Feng_Zhou_Hu_2024" role="doc-biblioref">32</a>]</span>. However, there is a balance that must be struck in the adaptability of a system in which a system that is too rigid or too flexible can result in counterintuitive behaviors that result in the instability of a system.</p>
+<p>Rigidity, broadly, refers to the inability for system behaviors to adapt to the external pressures and influences of the surrounding environment. In being too flexible, however, system behaviors do not adhere to the rules set to determine how the individual components react to environmental changes and in response to other system changes. For example, if a learner’s self-regulation system is too rigid, this may be characterized by the increased repetition of minimal learning strategies such that a learner may only apply summarizing and note-taking to the learning materials. This presents a potential issue in that if the learning material no longer supports these two strategies (such as seen within non-traditional lectures and materials), the learner may not be able to apply more novel learning strategies. Conversely, if the learner’s behaviors are too flexible and do not adhere to the internal rules of the system, the learner does not demonstrate structure which is imperative for learning.</p>
+<p>The adaptivity of a system can result in the evolution of the same system where, because of the changes the system was required to undergo as a reaction to internal or environmental changes, the emergent properties and patterns of system dynamics no longer replicate those present within the original system <span class="citation" data-cites="Corning_1995">[<a href="#ref-Corning_1995" role="doc-biblioref">33</a>]</span>. This is modeled in systems that display increasingly more sophisticated and complex behaviors as time progresses. For example, evolution within educational psychological systems is determined by the emergence of new behaviors or abilities within students. In reference to psychological phenomena, educational psychologists have coined the term <em>learning</em> wherein the understanding of an individual changes as a result of new information present within the environment.</p>
+</section>
+<section id="hierarchies-scales-and-network-structures" class="level3" data-number="2.5">
+<h3 data-number="2.5" class="anchored" data-anchor-id="hierarchies-scales-and-network-structures"><span class="header-section-number">2.5</span> Hierarchies, Scales, and Network Structures</h3>
+<p>Complex systems are characterized by their organization and interactions across organizational levels. This organization allows us to understand system structures and the influence each structure and connection has on each other for informing adaptive and evolutionary behaviors. <em>Hierarchical,</em> or multi-level structures, refer to a system’s organization of its components in layers where each level consists of components that can be considered sub-components of a higher-level system <span class="citation" data-cites="Siegenfeld_Bar-Yam_2019">[<a href="#ref-Siegenfeld_Bar-Yam_2019" role="doc-biblioref">34</a>]</span>. Each of these levels can function on different spatial and temporal <em>scales</em> wherein the behavior of an individual component can affect a larger system. When examining complex systems, it is essential for scales to be considered as observing only one level may not allow for the patterns of the full system to be observed. For example, self-regulated learning consists of several macro-processes which each contain several micro-processes. Examining only a singular macro-process (e.g., planning) —while providing valuable insights about planning, a specific aspect of the self-regulatory process– narrows the scope in which the self-regulatory behavior cannot be fully examined. <em>Networks</em> are the frameworks that connect each component of a system which shapes how information is conveyed across the different components, whether the components are different levels or scales <span class="citation" data-cites="Wang_Zhang_Xu_Li_Sun_Xie_Feng_Zhou_Hu_2024">[<a href="#ref-Wang_Zhang_Xu_Li_Sun_Xie_Feng_Zhou_Hu_2024" role="doc-biblioref">32</a>]</span>. Within a networked system, components are connected through relationships that dictate how components interact with each other. These relationships determine the speed at which information spreads, the resilience of a system to failures, the uniformity of system components in relation to each other, and the elicitation of emergent behaviors <span class="citation" data-cites="Walker_2020">[<a href="#ref-Walker_2020" role="doc-biblioref">35</a>]</span>. Because of these hierarchies, scales, and networks, it is difficult to determine the underlying causes of behaviors and predict future system behaviors but is vital for the adaptability and evolution of the complex system (<a href="#fig-fractal">Figure&nbsp;<span>12.4</span></a>).</p>
+<div id="fig-fractal" class="quarto-figure quarto-figure-center anchored">
+<figure class="figure">
+<p><img src="img/img/media/fractal.png" class="img-fluid figure-img" style="width:2.88021in"></p>
+<p></p><figcaption class="figure-caption"><strong>Figure</strong>&nbsp;4<strong>.</strong> This network visualization illustrates the hierarchical or multi-level structure of a complex system, with each colored cluster representing a distinct domain of interconnected components. For example, one cluster could represent Self-Regulated Learning (SRL), including components such as goal-setting, self-monitoring, and reflection. Other clusters represent related domains like Engagement and Motivation, each with their own interconnected sub-components. The links between clusters represent the interactions between these domains, demonstrating how a change in one area, such as SRL, can cascade and influence others, like Motivation or Engagement. The thickness in the links between clusters may indicate the strength of the relationship between clusters where colors (e.g., green versus red) may indicate the positive or negative relationship between the clusters.</figcaption><p></p>
+</figure>
+</div>
+</section>
+<section id="dynamics-and-sensitivity-to-initial-conditions" class="level3" data-number="2.6">
+<h3 data-number="2.6" class="anchored" data-anchor-id="dynamics-and-sensitivity-to-initial-conditions"><span class="header-section-number">2.6</span> Dynamics and Sensitivity to Initial Conditions</h3>
+<p>Complex systems exhibit dynamic behaviors that arise from the interactions between system components. System <em>dynamics</em> refer to the changes exhibited by the system over time due to the evolution of component interactions and the influence of external conditions from the environment. The dynamics of a system can demonstrate cycles of repeated behaviors, chaotic behaviors that appear random, or emergent in which unforeseen patterns suddenly or gradually arise from local interactions <span class="citation" data-cites="Favela_Amon_2023">[<a href="#ref-Favela_Amon_2023" role="doc-biblioref">20</a>]</span>. However, these dynamics are greatly sensitive to initial conditions in which small variations in the starting point of a process can have a multiplicative effect on system behaviors later on. This ties into the aforementioned “butterfly effect” concept mentioned earlier in this section. In all, the sensitivity to initial conditions makes it nearly impossible to employ predictive modeling when encountering complex systems where short-term behavior may be relatively predictable in contrast to long-term behaviors due to the amplification over a temporal scaling. <em>Attractor states</em> serve as the stable configuration of relationships and behaviors that a complex system tends to evolve toward <span class="citation" data-cites="Han_Amon_2021">[<a href="#ref-Han_Amon_2021" role="doc-biblioref">36</a>]</span>. This can be thought of as the ‘destination’ of the system in which a mathematical model aims to represent all possible states that a complex system occupies, including the intermediary states, on its course towards a convergence point (see <a href="#fig-att">Figure&nbsp;<span>12.5</span></a>). An example is found in the study by Gao et al. <span class="citation" data-cites="Gao_Wang_Fan_2024">[<a href="#ref-Gao_Wang_Fan_2024" role="doc-biblioref">37</a>]</span> exploring students’ motivation, where the authors found that several initial conditions interact closely with academic affordances, steering the system toward attractor states primarily influenced by career planning.</p>
+<div id="fig-att" class="quarto-figure quarto-figure-center anchored">
+<figure class="figure">
+<p><img src="img/img/media/attractor.png" class="img-fluid figure-img" style="width:3.22917in"></p>
+<p></p><figcaption class="figure-caption"><strong>Figure</strong>&nbsp;5<strong>.</strong> Complex systems tend to evolve toward <strong>attractor states</strong>—stable patterns or behaviors that the system naturally gravitates toward. These attractors can reflect positive stability, where the system maintains a desirable equilibrium (2<sub>A</sub>), or, on the other hand, they can signify being “stuck”, where the system is locked into a maladaptive or undesirable state that resists change (2<sub>B</sub>). The system’s initial conditions (1<sub>A</sub> vs.&nbsp;1<sub>B)</sub> significantly influences its future behavior; tiny differences at the start can result in vastly different outcomes and lead to evolve towards a positive attractor state (1<sub>A</sub> to 2<sub>A</sub>) or to a negative one (1<sub>B</sub> to 2<sub>B</sub>).</figcaption><p></p>
+</figure>
+</div>
+</section>
+</section>
+<section id="analytical-approaches" class="level2" data-number="3">
+<h2 data-number="3" class="anchored" data-anchor-id="analytical-approaches"><span class="header-section-number">3</span> Analytical approaches</h2>
+<p>Scientific paradigms shape the nature of research questions and the methods used to answer them <span class="citation" data-cites="Kuhn_1962">[<a href="#ref-Kuhn_1962" role="doc-biblioref">38</a>]</span>. The complex systems approach uses certain methods of investigation and has developed its own toolbox of analysis and computer modeling.</p>
+<section id="network-analysis-capturing-the-interactions-and-dynamics" class="level3" data-number="3.1">
+<h3 data-number="3.1" class="anchored" data-anchor-id="network-analysis-capturing-the-interactions-and-dynamics"><span class="header-section-number">3.1</span> Network analysis: Capturing the interactions and dynamics</h3>
+<p>Network analysis is a quantitative method to identify the structure and interactions between components of a complex system <span class="citation" data-cites="Saqr_López-Pernas_Conde-González_Hernández-García_2024 Saqr_Poquet_Lopez-Pernas_2022">[<a href="#ref-Saqr_López-Pernas_Conde-González_Hernández-García_2024" role="doc-biblioref">39</a>, <a href="#ref-Saqr_Poquet_Lopez-Pernas_2022" role="doc-biblioref">40</a>]</span>. Networks are represented as nodes (i.e., vertices) and edges (i.e., links) where nodes typically represent the component of a complex system and the edges represent the relationships between these components. These nodes and edges serve as the fundamental building blocks of networks, identifying intersecting relationships between system components. For example, if we take self-regulated learning (see <a href="#fig-psych-net">Figure&nbsp;<span>12.6</span></a>) as a complex system, a specific strategy (such as goals setting) will be represented as a node where edges will be visible to show how strategies connect with each other, e.g., regulation, or help-seeking <span class="citation" data-cites="Saqr_López-Pernas_2024">[<a href="#ref-Saqr_López-Pernas_2024" role="doc-biblioref">41</a>]</span>. This analytical approach is extremely valuable for capturing and examining interdependent relationships wherein it is essential to dissect the degree to which nodes are related to each other.</p>
+<div id="fig-psych-net" class="quarto-figure quarto-figure-center anchored">
+<figure class="figure">
+<p><img src="img/img/media/psychnet.png" class="img-fluid figure-img" style="width:3.86354in"></p>
+<p></p><figcaption class="figure-caption"><strong>Figure</strong>&nbsp;6<strong>.</strong> Partial correlation network between SRL components <span class="citation" data-cites="Saqr_López-Pernas_2024">[<a href="#ref-Saqr_López-Pernas_2024" role="doc-biblioref">41</a>]</span>. The thickness of each edge is proportional to the strength of partial correlation. Higher values indicate stronger partial correlation and therefore interdependence.</figcaption><p></p>
+</figure>
+</div>
+<p>From this analytic method, researchers can capture the number of connections each node has which quantifies the degree of influence a particular node has on network dynamics (i.e., strength or expected influence), if a node acts as a critical connector for other parts of a system or other networks which reveals its role in transferring information within a system (i.e., betweenness centrality), the tendency of a system to form tight sub-groups which reveals system hierarchies and interconnectedness (i.e., clustering), and the distance between nodes which reveals the efficiency of information spread across a network (i.e., path length; <span class="citation" data-cites="Brass_Borgatti_2019">[<a href="#ref-Brass_Borgatti_2019" role="doc-biblioref">42</a>]</span>). These network analytics can allow researchers to visualize system connectedness, patterns, and outliers, analyze how these relationships change over time, and identify the complexity of the system structure (e.g., nested, hierarchical, multilayered) <span class="citation" data-cites="Malmberg_Saqr_Järvenoja_Järvelä_2022 Saqr_Beck_López-Pernas_2024">[<a href="#ref-Malmberg_Saqr_Järvenoja_Järvelä_2022" role="doc-biblioref">43</a>, <a href="#ref-Saqr_Beck_López-Pernas_2024" role="doc-biblioref">44</a>]</span>.</p>
+<p>There are several examples in the literature of the use of psychological networks to model psychological or education processes. SRL, as exemplified before, has been one of the phenomena most commonly modeled through complexity methods. For instance, López-Pernas et al. <span class="citation" data-cites="López_Pernas_Conde-González_Raspopović_Milić_Saqr_2025">[<a href="#ref-López_Pernas_Conde-González_Raspopović_Milić_Saqr_2025" role="doc-biblioref">45</a>]</span> used partial correlation networks <span class="citation" data-cites="Saqr_Beck_López-Pernas_2024">[<a href="#ref-Saqr_Beck_López-Pernas_2024" role="doc-biblioref">44</a>]</span> to model the relationship between students’ SRL components. The authors found that the SRL dimensions with the most influence in the SRL process differ from the beginning (when metacognition is more influential) to the end of the course (motivation), and therefore might be more amenable to intervention. Saqr &amp; López-Pernas <span class="citation" data-cites="Saqr_López-Pernas_2024">[<a href="#ref-Saqr_López-Pernas_2024" role="doc-biblioref">41</a>]</span> used different temporal and contemporaneous networks to study the differences between group-based (depicted in <a href="#fig-psych-net">Figure&nbsp;<span>12.6</span></a>) and individual SRL dynamics. The authors concluded that the average SRL process is not representative of the individual SRL processes of each student, advocating for the study of idiographic analysis to gather personalized insights. Using a similar approach, Saqr <span class="citation" data-cites="Saqr_2024">[<a href="#ref-Saqr_2024" role="doc-biblioref">46</a>]</span> studied the interplay of engagement dimensions using log data from a learning management system and found marked differences between group-level and within-person variance. These highlight that complex systems behave differently for different individuals, depending on the initial conditions, the interdependence between the system’s components, and the influence of external variables.</p>
+<p>Through a transition network analysis approach <span class="citation" data-cites="Saqr_López-Pernas_Törmänen_Kaliisa_Misiejuk_Tikka_2024">[<a href="#ref-Saqr_López-Pernas_Törmänen_Kaliisa_Misiejuk_Tikka_2024" role="doc-biblioref">47</a>]</span>, López-Pernas and Saqr <span class="citation" data-cites="López-Pernas_Saqr_2024">[<a href="#ref-López-Pernas_Saqr_2024" role="doc-biblioref">13</a>]</span> studied the longitudinal dynamics of online engagement using sequence analysis and transition networks (<a href="#fig-tna">Figure&nbsp;<span>12.7</span></a> - left) and found that engagement patterns remain relatively stable over time, aligning with the typical behaviors observed in complex systems (i.e., attractor states, <a href="#fig-tna">Figure&nbsp;<span>12.7</span></a> - right). Significant changes in these patterns are rare, and when they do occur, they are generally brief, with students often reverting to their original engagement levels. This suggests that a student’s initial engagement state heavily influences their long-term trajectory, effectively determining their likely outcomes.</p>
+<div id="fig-tna" class="quarto-figure quarto-figure-center anchored">
+<figure class="figure">
+<p><img src="img/img/media/tna.png" class="img-fluid figure-img" style="width:6.5in"></p>
+<p></p><figcaption class="figure-caption"><strong>Figure</strong>&nbsp;7<strong>.</strong> Transition network of students in the <em>mostly disengaged</em> trajectory identified by <span class="citation" data-cites="López-Pernas_Saqr_2024">[<a href="#ref-López-Pernas_Saqr_2024" role="doc-biblioref">13</a>]</span>. Students in this trajectory tend to reach a disengaged state and remain disengaged.</figcaption><p></p>
+</figure>
+</div>
+<p>Lastly, it is worth mentioning that, although SRL and engagement can be studied as complex systems of their own, they can be also modeled as part of a macro complex system where they interact with one another and other components (e.g., motivation), as proposed by <span class="citation" data-cites="Saqr_Beck_López-Pernas_2024">[<a href="#ref-Saqr_Beck_López-Pernas_2024" role="doc-biblioref">44</a>]</span> (<a href="#fig-srl">Figure&nbsp;<span>12.8</span></a>).</p>
+<div id="fig-srl" class="quarto-figure quarto-figure-center anchored">
+<figure class="figure">
+<p><img src="img/img/media/srl.png" class="img-fluid figure-img" style="width:4.25694in"></p>
+<p></p><figcaption class="figure-caption"><strong>Figure</strong>&nbsp;8<strong>.</strong> Psychological network illustrating the complex system formed by SRL and other constructs <span class="citation" data-cites="Saqr_Beck_López-Pernas_2024">[<a href="#ref-Saqr_Beck_López-Pernas_2024" role="doc-biblioref">44</a>]</span></figcaption><p></p>
+</figure>
+</div>
+</section>
+<section id="recurrence-quantification-analysis" class="level3" data-number="3.2">
+<h3 data-number="3.2" class="anchored" data-anchor-id="recurrence-quantification-analysis"><span class="header-section-number">3.2</span> Recurrence Quantification Analysis</h3>
+<p>Recurrence Quantification Analysis (RQA) is a statistical technique that reveals the nonlinearity and dynamic properties of time series data <span class="citation" data-cites="Webber_Zbilut_2004 Webber_Marwan_Facchini_Giuliani_2009">[<a href="#ref-Webber_Zbilut_2004" role="doc-biblioref">48</a>, <a href="#ref-Webber_Marwan_Facchini_Giuliani_2009" role="doc-biblioref">49</a>]</span>. This method detects and quantifies how systems shift between repetitive and novel sequences of behaviors across a temporal space. Three types of RQA methods exist: auto-RQA (aRQA), cross-RQA (cRQA), and multidimensional-RQA (mdRQA). aRQA examines the dynamics within a singular time series, cRQA identifies shared dynamics of two time series, and mdRQA identifies the repeating patterns across more than two time series <span class="citation" data-cites="Moulder_Booth_Abitino_DMello_2023">[<a href="#ref-Moulder_Booth_Abitino_DMello_2023" role="doc-biblioref">50</a>]</span>. These analyses can be completed with either categorical or continuous time series data which are mapped against each other on a matrix where Time Series 1 is mapped on the x-axis and Time Series 2 is mapped on the y-axis. On the matrix, the intersection of time series values are highlighted black if the values are considered the same, pre-determined using radial metrics (this is explained in the tutorial down below).</p>
+<p>Taking categorical aRQA as an example, Time Series 1 [A, B, X, Y, A, S,X, Y] will be the same dataset as Time Series 2 [A, B, X, Y, A, S, X, Y]. Every time on the matrix time points match in value, such as that with time points t1 and t5 as well as t3 and t7, the intersection on the matrix is shaded black (see <a href="#fig-rqa">Figure&nbsp;<span>12.9</span></a>). The diagonal line represents the line of identity (LOI) where the time series will always be recurrent with itself at Lag 0. Lags are defined by the distance between time points. For example, Lag 1 represents time points that are removed by one time space (e.g., Time 1 and Time 2, Time 2 and Time 3); Lag 2 represents time points removed by two time spaces (e.g., Time 1 and Time 3). By incorporating lags into subsequent analyses, RQA considers the temporal relationships between events such that patterns in data can emerge across large time differences.</p>
+<div id="fig-rqa" class="quarto-figure quarto-figure-center anchored">
+<figure class="figure">
+<p><img src="img/img/media/rqa.png" class="img-fluid figure-img" style="width:3.21472in"></p>
+<p></p><figcaption class="figure-caption"><strong>Figure</strong>&nbsp;9<strong>.</strong> Example of aRQA recurrence matrix.</figcaption><p></p>
+</figure>
+</div>
+<p>RQA outputs several metrics, including recurrence rate (proportion of repetition), percent determinism (proportion of patterns on diagonals), average diagonal line length (average length of diagonal line structures), laminarity (proportion of repetitions on vertical line structures), and trapping time (average length of vertical lines). This is not an exhaustive list, but it represents the vast amount of information that can be extracted through this analysis that can explain the degree to which a system displays dynamism, how events that occur within the environment impact the dynamics of the system, and the degree to which a system demonstrates adaptivity. For example, a study by Dever et al. <span class="citation" data-cites="Dever_Amon_Vrzáková_Wiedbusch_Cloude_Azevedo_2022">[<a href="#ref-Dever_Amon_Vrzáková_Wiedbusch_Cloude_Azevedo_2022" role="doc-biblioref">26</a>]</span> applied this analytical methodology to self-regulated learning strategies during game-based learning. In identifying significant differences in the metrics output by aRQA analyses according to learning outcomes and agency experienced by students in the game, Dever et al. <span class="citation" data-cites="Dever_Amon_Vrzáková_Wiedbusch_Cloude_Azevedo_2022">[<a href="#ref-Dever_Amon_Vrzáková_Wiedbusch_Cloude_Azevedo_2022" role="doc-biblioref">26</a>]</span> established how students demonstrated functionality in their self-regulation during learning and were able to identify instances in which students demonstrated dysfunctional self-regulation. This provides interesting insights into how students should be supported and scaffolded within their self-regulated learning behaviors. For example, can we identify when a student demonstrates dysfunctional behaviors and how can we design interventions which help the student to correct this dysfunction to demonstrate functional self-regulation?</p>
+</section>
+<section id="simulation" class="level3" data-number="3.3">
+<h3 data-number="3.3" class="anchored" data-anchor-id="simulation"><span class="header-section-number">3.3</span> Simulation</h3>
+<p>Nowadays, computers make it possible to implement complex systems of equations of change. But for those who shy away from mathematical formalization, there are user-friendly computer programs that make it very easy to simulate the complexity of interactions at the origin of self-organization processes and attractor dynamics <span class="citation" data-cites="Gernigon_Den_Hartigh_Vallacher_van_Geert_2024 Nowak_2004 Vallacher_2017">[<a href="#ref-Gernigon_Den_Hartigh_Vallacher_van_Geert_2024" role="doc-biblioref">17</a>, <a href="#ref-Nowak_2004" role="doc-biblioref">51</a>, <a href="#ref-Vallacher_2017" role="doc-biblioref">52</a>]</span>. Among the most popular computer simulation tools are dynamic networks, agent-based models, and cellular automata. As explained earlier in this chapter, a dynamic network models a complex system as a network of connected nodes (the system’s components). This type of computational tool has been used to model and simulate the dynamics of several phenomena of interest to the educational field, including intelligence development <span class="citation" data-cites="van_der_Maas_Dolan_Grasman_Wicherts_Huizenga_Raijmakers_2006">[<a href="#ref-van_der_Maas_Dolan_Grasman_Wicherts_Huizenga_Raijmakers_2006" role="doc-biblioref">53</a>]</span>, language development <span class="citation" data-cites="van_Geert_1991">[<a href="#ref-van_Geert_1991" role="doc-biblioref">54</a>]</span>, parent-child interactions <span class="citation" data-cites="van_Dijk_van_Geert_Korecky-Kröll_Maillochon_Laaha_Dressler_Bassano_2013">[<a href="#ref-van_Dijk_van_Geert_Korecky-Kröll_Maillochon_Laaha_Dressler_Bassano_2013" role="doc-biblioref">55</a>]</span>, and goal-directed motivation <span class="citation" data-cites="Westaby_Pfaff_Redding_2014">[<a href="#ref-Westaby_Pfaff_Redding_2014" role="doc-biblioref">56</a>]</span>. One of the most user-friendly open-source software packages for creating dynamic network models is Insight Maker<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a>. Agent-based models simulate the behavior of virtual agents that represent the components of a system. These agents interact with each other and with their virtual environment based on iteratively applied evolution rules. Agent-based models have thus made it possible to model the dynamics of phenomena important to the educational context, such as motivation <span class="citation" data-cites="Jager_Popping_van_de_Sande_2001 Merrick_Shafi_2013">[<a href="#ref-Jager_Popping_van_de_Sande_2001" role="doc-biblioref">57</a>, <a href="#ref-Merrick_Shafi_2013" role="doc-biblioref">58</a>]</span>, language development <span class="citation" data-cites="Steels_Belpaeme_2005">[<a href="#ref-Steels_Belpaeme_2005" role="doc-biblioref">59</a>]</span>, and parent-child interactions <span class="citation" data-cites="Hesp_Steenbeek_van_Geert_2019">[<a href="#ref-Hesp_Steenbeek_van_Geert_2019" role="doc-biblioref">60</a>]</span>. One of the most widely used open-source, user-friendly programming platforms for agent-based modeling is NetLogo<a href="#fn2" class="footnote-ref" id="fnref2" role="doc-noteref"><sup>2</sup></a>. Finally, cellular automata are simplified forms of agent-based models, where agents are the cells of a two-dimensional lattice or a line. The state of each cell at time t+1 depends, through the application of an evolution rule, on the state of the cells in its neighborhood at time t. The same rule is then applied to the new generation of cells at t+1 to shape generation t+2, and so forth. One of the most insightful applications of cellular automata to psychological development processes concerns the self-organizing dynamics of the self-concept into differentiated structures <span class="citation" data-cites="Nowak_2004">[<a href="#ref-Nowak_2004" role="doc-biblioref">51</a>]</span>, that is, into distinct clusters that may virtually represent different dimensions of the self, such as the academic self, the athletic self, the relational self, etc. Among the open-source platforms for user-friendly implementation of cellular automata we might mention Golly<a href="#fn3" class="footnote-ref" id="fnref3" role="doc-noteref"><sup>3</sup></a>.</p>
+<p>Unlike the component-dominant mainstream approach, which aims to identify causal factors, the complex dynamic systems paradigm focuses on the identification of interaction-dominant processes. This is what the research methods we have just briefly reviewed contribute to, by aiming to experimentally test the volatility and stability of systems’ behavior, to identify statistical signatures of complexity and non-linearity in the time series of these systems’ states, to formally and/or computationally model the self-organization processes at work within them, and, for the sake of validating the models built, to retrieve the same statistical signatures in the time series generated by their computer simulation. Once validated, these dynamic models are invaluable tools for testing the effects of interventions, such as pedagogical ones, on the dynamics of important educational variables.</p>
+</section>
+</section>
+<section id="data-collection" class="level2" data-number="4">
+<h2 data-number="4" class="anchored" data-anchor-id="data-collection"><span class="header-section-number">4</span> Data collection</h2>
+<section id="capturing-a-systems-state-through-rich-description-interviews-and-written-reflections" class="level3" data-number="4.1">
+<h3 data-number="4.1" class="anchored" data-anchor-id="capturing-a-systems-state-through-rich-description-interviews-and-written-reflections"><span class="header-section-number">4.1</span> Capturing a system’s state through rich description: interviews and written reflections</h3>
+<p>Understanding complex phenomena, such as individuals’ learning, motivation, identities, and actions, requires methods that capitalize on the richness and depth of personal experiences. Narrative interviews and written reflections are markedly effective for capturing the state of a complex system at specific points in time. These methods provide insight into how individuals interpret and enact their roles, goals, beliefs, perceptions, and learning strategies within their unique lived contexts <span class="citation" data-cites="Kaplan_Garner">[<a href="#ref-Kaplan_Garner" role="doc-biblioref">61</a>]</span>.</p>
+<p>Narrative interviews serve as an effective tool for exploring individuals’ experiences and meaning-making processes. Interviewers prompt participants to share personal stories, revealing the interplay between system elements such as beliefs, goals, self-perceptions, emotions, and actions. For example, research on teachers’ professional development has used interviews conducted before, during, and after the program to trace changes in participants’ motivations and instructional practices <span class="citation" data-cites="Garner_Kaplan_2019">[<a href="#ref-Garner_Kaplan_2019" role="doc-biblioref">16</a>]</span>. These interviews allowed participants to reflect on their teaching journey, the influence of prior experiences, and how professional development shaped their beliefs about student learning and instructional strategies.</p>
+<p>Written reflections provide another method for capturing detailed and introspective data. These reflections can be gathered over time, such as through daily or weekly diary entries, offering snapshots of participants’ evolving thoughts and decisions. For instance, teachers reflecting on their experiences with inquiry-based learning might describe how their beliefs about teaching shifted during the professional development program. Such reflections illuminate the dynamic relationships among the person’s system components, revealing how changes in context or new experiences challenge or reinforce existing beliefs, goals, and strategies.</p>
+<p>The analysis of these rich data sources involves identifying key elements of the individual’s complex system, such as their beliefs, values, goals, emotions, and actions, as well as the relationships among them <span class="citation" data-cites="Malmberg_Saqr_Järvenoja_Järvelä_2022 Törmänen_Järvenoja_Saqr_Malmberg_Järvelä_2023">[<a href="#ref-Malmberg_Saqr_Järvenoja_Järvelä_2022" role="doc-biblioref">43</a>, <a href="#ref-Törmänen_Järvenoja_Saqr_Malmberg_Järvelä_2023" role="doc-biblioref">62</a>]</span>. Researchers synthesize these findings to create a holistic understanding of the individual’s system at specific points in time, highlighting patterns and tensions within and across system elements. Additionally, comparing data across participants allows for researchers to identify shared patterns and generate theoretical principles that explain how identities and actions develop in different contexts.</p>
+<p>These methods emphasize the importance of capturing the nuanced and context-dependent nature of complex systems. Narrative interviews and written reflections provide a deep and detailed understanding of individuals’ experiences, enabling researchers to document the states of their systems at key moments and track their evolution over time.</p>
+</section>
+<section id="capturing-real-time-emergence-through-observations-and-stimulated-recall" class="level3" data-number="4.2">
+<h3 data-number="4.2" class="anchored" data-anchor-id="capturing-real-time-emergence-through-observations-and-stimulated-recall"><span class="header-section-number">4.2</span> Capturing real-time emergence through observations and stimulated recall</h3>
+<p>Studying real-time emergence in complex systems requires methods that capture dynamic processes as they unfold. Observations and stimulated recall interviews are particularly effective for examining how engagement emerges within specific contexts, providing detailed accounts of participants’ experiences, interactions, decisions, and actions <span class="citation" data-cites="Kaplan_Garner">[<a href="#ref-Kaplan_Garner" role="doc-biblioref">61</a>]</span>.</p>
+<p>Detailed observations allow researchers to document participants’ behaviors and interactions in naturalistic or designed settings. For example, in a study of visitors to a museum exhibition designed to promote inventiveness, the researchers used observations to capture participants’ engagement with the exhibition’s physical and conceptual features. Observational data revealed how visitors interacted with the content, expressed their perceptions, and responded to the contextual elements of the exhibition. This real-time data provided insight into how participants’ identities and goals were activated and shaped by the environment <span class="citation" data-cites="Kaplan_Garner_Neuber_2023">[<a href="#ref-Kaplan_Garner_Neuber_2023" role="doc-biblioref">63</a>]</span>.</p>
+<p>Stimulated recall interviews build on observational data by eliciting participants’ reflections on their thoughts, emotions, and decisions during specific moments of activity. Conducted shortly after the observed session, these interviews prompt participants to describe their experiences in detail, often using notes or video footage as memory aids. For example, in the museum study described above, following an experience with an artifact, participants were asked to recount their thought processes during the visit, providing insights into how they connected the exhibition content to their roles and goals, such as seeing themselves as creative or inventive in other areas of life.</p>
+<p>Combining observations with stimulated recall interviews allows researchers to construct a comprehensive picture of how engagement emerges in real-time through participants’ experiences in an authentic educational context. Observations provide a foundation for understanding what participants do and say within the context, while stimulated recall interviews add depth by uncovering the subjective meanings behind these actions. Analyzing these data sources together allows researchers to identify patterns of interaction between contextual features and individual dispositions, highlighting the dynamic and context-dependent nature of engagement emergence.</p>
+<p>These methods are particularly valuable for capturing the temporal and situational aspects of complex systems. Observations provide a detailed record of real-time activity, while stimulated recall interviews offer access to participants’ reflective processes. Together, these approaches enable researchers to study the dynamic interplay between individuals and their environments, shedding light on how identities and actions develop and transform within specific contexts.</p>
+</section>
+</section>
+<section id="final-remarks" class="level2" data-number="5">
+<h2 data-number="5" class="anchored" data-anchor-id="final-remarks"><span class="header-section-number">5</span> Final remarks</h2>
+<p>The complex dynamic systems approach lends itself to empirical observation, but in a different way to traditional scientific approaches. While the latter aim to discover —by isolating— causal relationships between independent and dependent variables, the complex dynamic systems approach investigates the way in which the system’s global behavioral patterns, or order parameters, change or stabilize under the effect of a parameter external to the system, or control parameter, which constrains the system’s internal interaction dynamics <span class="citation" data-cites="Haken_Kelso_Bunz_1985">[<a href="#ref-Haken_Kelso_Bunz_1985" role="doc-biblioref">64</a>]</span>. For example, with regard to motor learning, Zanone and Kelso <span class="citation" data-cites="Zanone_Kelso_1992">[<a href="#ref-Zanone_Kelso_1992" role="doc-biblioref">65</a>]</span> showed how an oscillatory synchronization motor skill to be acquired can emerge and then stabilize by training it to resist increasing perturbations. Here, perturbations play the role of a control parameter that is experimentally manipulated —by gradually increasing the required frequency of limbs’ oscillation— in order to push the system of the emergent synchronization into disorganization. The resulting learning is thus defined in dynamic terms, that is, as the stabilization of the system’s new behavior in the form of its resistance to perturbation.</p>
+<p>The states of complex dynamic systems evolve over time while exhibiting typical statistical properties. Recurrence Quantification Analysis (RQA) can detect regularities and forms of stability (attractors) in the dynamics of the states of a complex system. The temporal distribution of these states also reveals a long-term memory property that translates into a particular autocorrelation structure that can be found whatever the time scale on which these states are observed. This statistical structure, which reveals dynamics based on the traces of its own past history, is a power-law temporal distribution known as 1/<em>f</em> noise or pink noise. Its detection is enabled by time-series analysis of the states of the system under study, particularly through Detrended Fluctuation Analysis [DFA; <span class="citation" data-cites="Peng_Mietus_Hausdorff_Havlin_Stanley_Goldberger_1993">[<a href="#ref-Peng_Mietus_Hausdorff_Havlin_Stanley_Goldberger_1993" role="doc-biblioref">66</a>]</span>] and the various adaptations of this technique that have been created to overcome its limitations (see, for example, the chapter by Altamore et al., this book). In the educational field, distributions in the form of 1/<em>f</em> noise have been identified in language learning <span class="citation" data-cites="Lowie_Plat_de_Bot_2014">[<a href="#ref-Lowie_Plat_de_Bot_2014" role="doc-biblioref">67</a>]</span> and motor learning <span class="citation" data-cites="Nourrit-Lucas_Tossa_Zélic_Delignières_2015">[<a href="#ref-Nourrit-Lucas_Tossa_Zélic_Delignières_2015" role="doc-biblioref">68</a>]</span>, attesting that learning is indeed a dynamic phenomenon in the sense of the theory of complex dynamic systems. Interestingly, 1/<em>f</em> distributions are ubiquitous in nature <span class="citation" data-cites="Bak_1999">[<a href="#ref-Bak_1999" role="doc-biblioref">69</a>]</span>, and their replacement by other types of distribution often reflects anomalies <span class="citation" data-cites="Van_Orden_2007">[<a href="#ref-Van_Orden_2007" role="doc-biblioref">70</a>]</span>. Consequently, from an applied perspective, such replacements can be used as warning signals of a risk of deteriorating behavior, for example, a risk of discouragement towards academic studies or even academic failure. Detecting such a signal can then be very useful in deciding whether to implement individualized support procedures for students in difficulty, before it is too late.</p>
+<p>Variations in the states of a complex dynamic system are the result of iterative processes that can be modeled mathematically. The momentary state of a system depends to a large extent on its previous state, which in turn depended on an earlier state, and so forth. When time is expressed in continuous form, this dependence of a system on its own history can be accounted for by differential equations such as d<em>x</em>/d<em>t</em> = <em>f</em>(<em>x</em>), where d represents the variation in the system’s state <em>x</em> or the variation of time <em>t</em>. When time is discretized, history dependence is expressed by different equations such as <em>x<sub>t</sub></em><sub>+1</sub> = <em>f</em>(<em>x<sub>t</sub></em>). However, state variations of complex dynamic systems also result from iterative interactions (often reciprocal in the form of couplings) between their components. The above-mentioned equations of change are then enriched by the influences of changes in the variables interacting within the system, taking the form of systems of differential or difference equations. All these equations are capable of producing monostable (one attractor), multistable (several attractors that can be visited more or less cyclically), or even chaotic behaviors of the system. In the educational field, such equations of change have been used to model the dynamics of cognitive development <span class="citation" data-cites="van_Geert_1998">[<a href="#ref-van_Geert_1998" role="doc-biblioref">71</a>]</span>, language development <span class="citation" data-cites="van_Geert_1991">[<a href="#ref-van_Geert_1991" role="doc-biblioref">54</a>]</span>, social development <span class="citation" data-cites="Steenbeek_van_Geert_2008">[<a href="#ref-Steenbeek_van_Geert_2008" role="doc-biblioref">72</a>]</span>, and teaching-learning interactions <span class="citation" data-cites="Merlone_Panchuk_van_Geert_2019">[<a href="#ref-Merlone_Panchuk_van_Geert_2019" role="doc-biblioref">73</a>]</span>.</p>
+
+
+</section>
+<section id="bibliography" class="level1 unnumbered">
+<h1 class="unnumbered">References</h1>
+<div id="refs" class="references csl-bib-body" role="doc-bibliography">
+<div id="ref-Hilpert_Marchand_2018" class="csl-entry" role="doc-biblioentry">
+<div class="csl-left-margin">1. </div><div class="csl-right-inline">Hilpert JC, Marchand GC (2018) Complex systems research in educational psychology: Aligning theory and method. Educational psychologist 53:185–202. https://doi.org/<a href="https://doi.org/10.1080/00461520.2018.1469411">10.1080/00461520.2018.1469411</a></div>
+</div>
+<div id="ref-Kaplan_Garner_2020" class="csl-entry" role="doc-biblioentry">
+<div class="csl-left-margin">2. </div><div class="csl-right-inline">Kaplan A, Garner JK (2020) Steps for applying the complex dynamical systems approach in educational research: A guide for the perplexed scholar. Journal of experimental education 88:486–502. https://doi.org/<a href="https://doi.org/10.1080/00220973.2020.1745738">10.1080/00220973.2020.1745738</a></div>
+</div>
+<div id="ref-Saqr_Schreuder_López-Pernas_2024" class="csl-entry" role="doc-biblioentry">
+<div class="csl-left-margin">3. </div><div class="csl-right-inline">Saqr M, Schreuder MJ, López-Pernas S (2024) <a href="https://doi.org/10.1007/978-3-031-54464-4_22">Why educational research needs a complex system revolution that embraces individual differences, heterogeneity, and uncertainty</a>. In: Saqr M, López-Pernas S (eds) Learning analytics methods and tutorials: A practical guide using r. Springer Nature Switzerland, Cham, pp 723–734</div>
+</div>
+<div id="ref-Panadero_2017" class="csl-entry" role="doc-biblioentry">
+<div class="csl-left-margin">4. </div><div class="csl-right-inline">Panadero E (2017) A review of self-regulated learning: Six models and four directions for research. Frontiers in psychology 8:422. https://doi.org/<a href="https://doi.org/10.3389/fpsyg.2017.00422">10.3389/fpsyg.2017.00422</a></div>
+</div>
+<div id="ref-Symonds_Kaplan_Upadyaya_Aro_Torsney_Skinner_Eccles_2024" class="csl-entry" role="doc-biblioentry">
+<div class="csl-left-margin">5. </div><div class="csl-right-inline">Symonds JE, Kaplan A, Upadyaya K, Aro KS, Torsney BM, Skinner E, Eccles JS (2024) Momentary student engagement as a dynamic developmental system. Journal of theoretical and philosophical psychology. <a href="https://doi.org/10.1037/teo0000288">https://doi.org/10.1037/teo0000288</a></div>
+</div>
+<div id="ref-Gouvea_2023" class="csl-entry" role="doc-biblioentry">
+<div class="csl-left-margin">6. </div><div class="csl-right-inline">Gouvea J (2023) Processing misconceptions: Dynamic systems perspectives on thinking and learning. Frontiers in education 8: https://doi.org/<a href="https://doi.org/10.3389/feduc.2023.1215361">10.3389/feduc.2023.1215361</a></div>
+</div>
+<div id="ref-Koopmans_2020" class="csl-entry" role="doc-biblioentry">
+<div class="csl-left-margin">7. </div><div class="csl-right-inline">Koopmans M (2020) Education is a complex dynamical system: Challenges for research. Journal of experimental education 88:358–374. https://doi.org/<a href="https://doi.org/10.1080/00220973.2019.1566199">10.1080/00220973.2019.1566199</a></div>
+</div>
+<div id="ref-Thurner_Hanel_Klimek_2018" class="csl-entry" role="doc-biblioentry">
+<div class="csl-left-margin">8. </div><div class="csl-right-inline">Thurner S, Hanel R, Klimek P (2018) <a href="https://doi.org/10.1093/oso/9780198821939.001.0001">Introduction to the theory of complex systems</a>. Oxford University Press, London, England</div>
+</div>
+<div id="ref-Sayama_2015" class="csl-entry" role="doc-biblioentry">
+<div class="csl-left-margin">9. </div><div class="csl-right-inline">Sayama H (2015) <a href="https://knightscholar.geneseo.edu/oer-ost/14/">Introduction to the modeling and analysis of complex systems</a>. Open SUNY Textbooks</div>
+</div>
+<div id="ref-Scheffer_2020" class="csl-entry" role="doc-biblioentry">
+<div class="csl-left-margin">10. </div><div class="csl-right-inline">Scheffer M (2020) <a href="https://play.google.com/store/books/details?id=okT_DwAAQBAJ">Critical transitions in nature and society</a>. Princeton University Press</div>
+</div>
+<div id="ref-Bringmann_Helmich_Eronen_Voelkle_2023" class="csl-entry" role="doc-biblioentry">
+<div class="csl-left-margin">11. </div><div class="csl-right-inline">Bringmann L, Helmich M, Eronen M, Voelkle M (2023) <a href="https://doi.org/10.1093/med-psych/9780197542521.003.0005">Complex systems approaches to psychopathology</a>. In: Krueger RF, Blaney PH (eds) Oxford textbook of psychopathology. Oxford University PressNew York, pp 103–122</div>
+</div>
+<div id="ref-Olthof_Hasselman_Oude_Maatman_Bosman_Lichtwarck-Aschoff_2023" class="csl-entry" role="doc-biblioentry">
+<div class="csl-left-margin">12. </div><div class="csl-right-inline">Olthof M, Hasselman F, Oude Maatman F, Bosman AMT, Lichtwarck-Aschoff A (2023) Complexity theory of psychopathology. Journal of psychopathology and clinical science 132:314–323. https://doi.org/<a href="https://doi.org/10.1037/abn0000740">10.1037/abn0000740</a></div>
+</div>
+<div id="ref-López-Pernas_Saqr_2024" class="csl-entry" role="doc-biblioentry">
+<div class="csl-left-margin">13. </div><div class="csl-right-inline">López-Pernas S, Saqr M (2024) How the dynamics of engagement explain the momentum of achievement and the inertia of disengagement: A complex systems theory approach. Computers in human behavior 153:108126. https://doi.org/<a href="https://doi.org/10.1016/j.chb.2023.108126">10.1016/j.chb.2023.108126</a></div>
+</div>
+<div id="ref-Saqr_López-Pernas_Helske_Hrastinski_2023" class="csl-entry" role="doc-biblioentry">
+<div class="csl-left-margin">14. </div><div class="csl-right-inline">Saqr M, López-Pernas S, Helske S, Hrastinski S (2023) <a href="https://www.sciencedirect.com/science/article/pii/S0360131523000647">The longitudinal association between engagement and achievement varies by time, students’ subgroups, and achievement state: A full program study</a>. Computers &amp; education 104787</div>
+</div>
+<div id="ref-Binkley_Erstad_Herman_Raizen_Ripley_Miller-Ricci_Rumble_2012" class="csl-entry" role="doc-biblioentry">
+<div class="csl-left-margin">15. </div><div class="csl-right-inline">Binkley M, Erstad O, Herman J, Raizen S, Ripley M, Miller-Ricci M, Rumble M (2012) Assessment and teaching of 21st century skills. Assessment and Teaching of 21st Century Skills 1–15. https://doi.org/<a href="https://doi.org/10.1007/978-94-007-2324-5">10.1007/978-94-007-2324-5</a></div>
+</div>
+<div id="ref-Garner_Kaplan_2019" class="csl-entry" role="doc-biblioentry">
+<div class="csl-left-margin">16. </div><div class="csl-right-inline">Garner JK, Kaplan A (2019) A complex dynamic systems perspective on teacher learning and identity formation: An instrumental case. Teachers and teaching 25:7–33. https://doi.org/<a href="https://doi.org/10.1080/13540602.2018.1533811">10.1080/13540602.2018.1533811</a></div>
+</div>
+<div id="ref-Gernigon_Den_Hartigh_Vallacher_van_Geert_2024" class="csl-entry" role="doc-biblioentry">
+<div class="csl-left-margin">17. </div><div class="csl-right-inline">Gernigon C, Den Hartigh RJR, Vallacher RR, Geert PLC van (2024) How the complexity of psychological processes reframes the issue of reproducibility in psychological science. Perspectives on psychological science: a journal of the Association for Psychological Science 18:952–977. https://doi.org/<a href="https://doi.org/10.1177/17456916231187324">10.1177/17456916231187324</a></div>
+</div>
+<div id="ref-Wallot_Kelty-Stephen_2018" class="csl-entry" role="doc-biblioentry">
+<div class="csl-left-margin">18. </div><div class="csl-right-inline">Wallot S, Kelty-Stephen DG (2018) Interaction-dominant causation in mind and brain, and its implication for questions of generalization and replication. Minds and machines 28:353–374. https://doi.org/<a href="https://doi.org/10.1007/s11023-017-9455-0">10.1007/s11023-017-9455-0</a></div>
+</div>
+<div id="ref-Bianconi_Arenas_Biamonte_Carr_Kahng_Kertesz_Kurths_Lü_Masoller_Motter_2023" class="csl-entry" role="doc-biblioentry">
+<div class="csl-left-margin">19. </div><div class="csl-right-inline">Bianconi G, Arenas A, Biamonte J, Carr LD, Kahng B, Kertesz J, Kurths J, Lü L, Masoller C, Motter AE, Perc M, Radicchi F, Ramaswamy R, Rodrigues FA, Sales-Pardo M, Miguel MS, Thurner S, Yasseri T (2023) Complex systems in the spotlight: Next steps after the 2021 nobel prize in physics. Journal of Physics: Complexity 4:010201. https://doi.org/<a href="https://doi.org/10.1088/2632-072X/ac7f75">10.1088/2632-072X/ac7f75</a></div>
+</div>
+<div id="ref-Favela_Amon_2023" class="csl-entry" role="doc-biblioentry">
+<div class="csl-left-margin">20. </div><div class="csl-right-inline">Favela LH, Amon MJ (2023) Enhancing bayesian approaches in the cognitive and neural sciences via complex dynamical systems theory. Dynamics 3:115–136. https://doi.org/<a href="https://doi.org/10.3390/dynamics3010008">10.3390/dynamics3010008</a></div>
+</div>
+<div id="ref-Lorenz_2001" class="csl-entry" role="doc-biblioentry">
+<div class="csl-left-margin">21. </div><div class="csl-right-inline">Lorenz E (2001) <a href="https://doi.org/10.1142/9789812386472_0007">The butterfly effect</a>. In: The chaos avant-garde. WORLD SCIENTIFIC, pp 91–94</div>
+</div>
+<div id="ref-Clark_Luis_2020" class="csl-entry" role="doc-biblioentry">
+<div class="csl-left-margin">22. </div><div class="csl-right-inline">Clark TJ, Luis AD (2020) Nonlinear population dynamics are ubiquitous in animals. Nature ecology &amp; evolution 4:75–81. https://doi.org/<a href="https://doi.org/10.1038/s41559-019-1052-6">10.1038/s41559-019-1052-6</a></div>
+</div>
+<div id="ref-Yerkes_Dodson_1908" class="csl-entry" role="doc-biblioentry">
+<div class="csl-left-margin">23. </div><div class="csl-right-inline">Yerkes RM, Dodson JD (1908) The relation of strength of stimulus to rapidity of habit‐formation. Journal of Comparative Neurology and Psychology 18:459–482. https://doi.org/<a href="https://doi.org/10.1002/cne.920180503">10.1002/cne.920180503</a></div>
+</div>
+<div id="ref-Artime_De_Domenico_2022" class="csl-entry" role="doc-biblioentry">
+<div class="csl-left-margin">24. </div><div class="csl-right-inline">Artime O, De Domenico M (2022) From the origin of life to pandemics: Emergent phenomena in complex systems. Philosophical transactions Series A, Mathematical, physical, and engineering sciences 380:20200410. https://doi.org/<a href="https://doi.org/10.1098/rsta.2020.0410">10.1098/rsta.2020.0410</a></div>
+</div>
+<div id="ref-Kalantari_Nazemi_Masoumi_2020" class="csl-entry" role="doc-biblioentry">
+<div class="csl-left-margin">25. </div><div class="csl-right-inline">Kalantari S, Nazemi E, Masoumi B (2020) Emergence phenomena in self-organizing systems: A systematic literature review of concepts, researches, and future prospects. Journal of organizational computing 30:224–265. https://doi.org/<a href="https://doi.org/10.1080/10919392.2020.1748977">10.1080/10919392.2020.1748977</a></div>
+</div>
+<div id="ref-Dever_Amon_Vrzáková_Wiedbusch_Cloude_Azevedo_2022" class="csl-entry" role="doc-biblioentry">
+<div class="csl-left-margin">26. </div><div class="csl-right-inline">Dever DA, Amon MJ, Vrzáková H, Wiedbusch MD, Cloude EB, Azevedo R (2022) Capturing sequences of learners’ self-regulatory interactions with instructional material during game-based learning using auto-recurrence quantification analysis. Frontiers in psychology 13:813677. https://doi.org/<a href="https://doi.org/10.3389/fpsyg.2022.813677">10.3389/fpsyg.2022.813677</a></div>
+</div>
+<div id="ref-Camazine_Deneubourg_Franks_Sneyd_Theraula_Bonabeau_2003" class="csl-entry" role="doc-biblioentry">
+<div class="csl-left-margin">27. </div><div class="csl-right-inline">Camazine S, Deneubourg J-L, Franks NR, Sneyd J, Theraula G, Bonabeau E (2003) <a href="https://press.princeton.edu/books/paperback/9780691116242/self-organization-in-biological-systems">Self-organization in biological systems</a>. Princeton University Press, Princeton, NJ</div>
+</div>
+<div id="ref-Dever_Sonnenfeld_Wiedbusch_Schmorrow_Amon_Azevedo_2023" class="csl-entry" role="doc-biblioentry">
+<div class="csl-left-margin">28. </div><div class="csl-right-inline">Dever DA, Sonnenfeld NA, Wiedbusch MD, Schmorrow SG, Amon MJ, Azevedo R (2023) A complex systems approach to analyzing pedagogical agents’ scaffolding of self-regulated learning within an intelligent tutoring system. Metacognition and Learning 18:659–691. https://doi.org/<a href="https://doi.org/10.1007/s11409-023-09346-x">10.1007/s11409-023-09346-x</a></div>
+</div>
+<div id="ref-Wiener_1948" class="csl-entry" role="doc-biblioentry">
+<div class="csl-left-margin">29. </div><div class="csl-right-inline">Wiener N (1948) Cybernetics. Scientific American 179:14–19</div>
+</div>
+<div id="ref-Rosnay_1979" class="csl-entry" role="doc-biblioentry">
+<div class="csl-left-margin">30. </div><div class="csl-right-inline">Rosnay J (1979) <a href="https://cir.nii.ac.jp/crid/1130000795655870208">The macroscope: A new world scientific system</a>. NY Harper Row, New York</div>
+</div>
+<div id="ref-Ao_Kwon_Qian_2007" class="csl-entry" role="doc-biblioentry">
+<div class="csl-left-margin">31. </div><div class="csl-right-inline">Ao P, Kwon C, Qian H (2007) On the existence of potential landscape in the evolution of complex systems. Complexity 12:19–27. https://doi.org/<a href="https://doi.org/10.1002/cplx.20171">10.1002/cplx.20171</a></div>
+</div>
+<div id="ref-Wang_Zhang_Xu_Li_Sun_Xie_Feng_Zhou_Hu_2024" class="csl-entry" role="doc-biblioentry">
+<div class="csl-left-margin">32. </div><div class="csl-right-inline">Wang J, Zhang Y-J, Xu C, Li J, Sun J, Xie J, Feng L, Zhou T, Hu Y (2024) Reconstructing the evolution history of networked complex systems. Nature communications 15:2849. https://doi.org/<a href="https://doi.org/10.1038/s41467-024-47248-x">10.1038/s41467-024-47248-x</a></div>
+</div>
+<div id="ref-Corning_1995" class="csl-entry" role="doc-biblioentry">
+<div class="csl-left-margin">33. </div><div class="csl-right-inline">Corning PA (1995) Synergy and self‐organization in the evolution of complex systems. Systems research: the official journal of the International Federation for Systems Research 12:89–121. https://doi.org/<a href="https://doi.org/10.1002/sres.3850120204">10.1002/sres.3850120204</a></div>
+</div>
+<div id="ref-Siegenfeld_Bar-Yam_2019" class="csl-entry" role="doc-biblioentry">
+<div class="csl-left-margin">34. </div><div class="csl-right-inline">Siegenfeld AF, Bar-Yam Y (2019) <a href="http://arxiv.org/abs/1912.05088">An introduction to complex systems science and its applications</a>. arXiv [physics.soc-ph]</div>
+</div>
+<div id="ref-Walker_2020" class="csl-entry" role="doc-biblioentry">
+<div class="csl-left-margin">35. </div><div class="csl-right-inline">Walker BH (2020) Resilience: What it is and is not. Ecology and society: a journal of integrative science for resilience and sustainability 25: https://doi.org/<a href="https://doi.org/10.5751/es-11647-250211">10.5751/es-11647-250211</a></div>
+</div>
+<div id="ref-Han_Amon_2021" class="csl-entry" role="doc-biblioentry">
+<div class="csl-left-margin">36. </div><div class="csl-right-inline">Han J, Amon MJ (2021) <a href="https://escholarship.org/uc/item/4ds2p1z2">A nonlinear dynamical systems approach to emotional attractor states during media viewing</a>. Annual Meeting of the Cognitive Science Society 43:</div>
+</div>
+<div id="ref-Gao_Wang_Fan_2024" class="csl-entry" role="doc-biblioentry">
+<div class="csl-left-margin">37. </div><div class="csl-right-inline">Gao Y, Wang X, Fan P (2024) Exploring male english major’s motivation trajectory through complex dynamic systems theory. Current psychology (New Brunswick, NJ) 43:9089–9100. https://doi.org/<a href="https://doi.org/10.1007/s12144-023-05062-6">10.1007/s12144-023-05062-6</a></div>
+</div>
+<div id="ref-Kuhn_1962" class="csl-entry" role="doc-biblioentry">
+<div class="csl-left-margin">38. </div><div class="csl-right-inline">Kuhn T (1962) <a href="https://psycnet.apa.org/record/1962-35001-000">The structure of scientific revolutions</a>. University of Chicago Press, Chicago, IL</div>
+</div>
+<div id="ref-Saqr_López-Pernas_Conde-González_Hernández-García_2024" class="csl-entry" role="doc-biblioentry">
+<div class="csl-left-margin">39. </div><div class="csl-right-inline">Saqr M, López-Pernas S, Conde-González MÁ, Hernández-García Á (2024) <a href="https://doi.org/10.1007/978-3-031-54464-4_15">Social network analysis: A primer, a guide and a tutorial in r</a>. In: Learning analytics methods and tutorials. Springer Nature Switzerland, Cham, pp 491–518</div>
+</div>
+<div id="ref-Saqr_Poquet_Lopez-Pernas_2022" class="csl-entry" role="doc-biblioentry">
+<div class="csl-left-margin">40. </div><div class="csl-right-inline">Saqr M, Poquet O, Lopez-Pernas S (2022) Networks in education: A travelogue through five decades. IEEE access: practical innovations, open solutions 10:32361–32380. https://doi.org/<a href="https://doi.org/10.1109/access.2022.3159674">10.1109/access.2022.3159674</a></div>
+</div>
+<div id="ref-Saqr_López-Pernas_2024" class="csl-entry" role="doc-biblioentry">
+<div class="csl-left-margin">41. </div><div class="csl-right-inline">Saqr M, López-Pernas S (2024) Mapping the self in self‐regulation using complex dynamic systems approach. British journal of educational technology: journal of the Council for Educational Technology. <a href="https://doi.org/10.1111/bjet.13452">https://doi.org/10.1111/bjet.13452</a></div>
+</div>
+<div id="ref-Brass_Borgatti_2019" class="csl-entry" role="doc-biblioentry">
+<div class="csl-left-margin">42. </div><div class="csl-right-inline">Brass DJ, Borgatti SP (2019) <a href="https://doi.org/10.4324/9780203701942">Social networks at work</a>. Routledge</div>
+</div>
+<div id="ref-Malmberg_Saqr_Järvenoja_Järvelä_2022" class="csl-entry" role="doc-biblioentry">
+<div class="csl-left-margin">43. </div><div class="csl-right-inline">Malmberg J, Saqr M, Järvenoja H, Järvelä S (2022) <a href="https://learning-analytics.info/index.php/JLA/article/view/7429">How the monitoring events of individual students are associated with phases of regulation: A network analysis approach</a>. Journal of learning analytics 9:77–92</div>
+</div>
+<div id="ref-Saqr_Beck_López-Pernas_2024" class="csl-entry" role="doc-biblioentry">
+<div class="csl-left-margin">44. </div><div class="csl-right-inline">Saqr M, Beck E, López-Pernas S (2024) <a href="https://doi.org/10.1007/978-3-031-54464-4_19">Psychological networks: A modern approach to analysis of learning and complex learning processes</a>. In: Saqr M, López-Pernas S (eds) Learning analytics methods and tutorials: A practical guide using r. Springer Nature Switzerland, Cham, pp 639–671</div>
+</div>
+<div id="ref-López_Pernas_Conde-González_Raspopović_Milić_Saqr_2025" class="csl-entry" role="doc-biblioentry">
+<div class="csl-left-margin">45. </div><div class="csl-right-inline">López Pernas S, Conde-González M, Raspopović Milić M, Saqr M (2025) <a href="https://www.researchgate.net/publication/385864390_Frequencies_and_averages_miss_the_point_of_SRL_evolution_A_complex_dynamic_systems_approach">Frequencies and averages miss the point of SRL evolution: A complex dynamic systems approach</a>. In: Proceedings TEEM 2024: Twelfth international conference on technological ecosystems for enhancing multiculturality. TEEM 2024. Lecture notes in education technology. Springer, Berlin, Germany, pp in–press</div>
+</div>
+<div id="ref-Saqr_2024" class="csl-entry" role="doc-biblioentry">
+<div class="csl-left-margin">46. </div><div class="csl-right-inline">Saqr M (2024) Group-level analysis of engagement poorly reflects individual students’ processes: Why we need idiographic learning analytics. Computers in human behavior 150:107991. https://doi.org/<a href="https://doi.org/10.1016/j.chb.2023.107991">10.1016/j.chb.2023.107991</a></div>
+</div>
+<div id="ref-Saqr_López-Pernas_Törmänen_Kaliisa_Misiejuk_Tikka_2024" class="csl-entry" role="doc-biblioentry">
+<div class="csl-left-margin">47. </div><div class="csl-right-inline">Saqr M, López-Pernas S, Törmänen T, Kaliisa R, Misiejuk K, Tikka S (2024) <a href="http://arxiv.org/abs/2411.15486">Transition network analysis: A novel framework for modeling, visualizing, and identifying the temporal patterns of learners and learning processes</a>. arXiv [cs.SI]</div>
+</div>
+<div id="ref-Webber_Zbilut_2004" class="csl-entry" role="doc-biblioentry">
+<div class="csl-left-margin">48. </div><div class="csl-right-inline">Webber C, Zbilut J (2004) <a href="https://www.nsf.gov/pubs/2005/nsf05057/nmbs/chap2.pdf">Recurrence quantification analysis of nonlinear dynamical systems</a>. In: M. A. Riley GVO (ed) Tutorials in contemporary nonlinear methods for the behavioral. pp 26–94</div>
+</div>
+<div id="ref-Webber_Marwan_Facchini_Giuliani_2009" class="csl-entry" role="doc-biblioentry">
+<div class="csl-left-margin">49. </div><div class="csl-right-inline">Webber J Charles L., Marwan N, Facchini A, Giuliani A (2009) Simpler methods do it better: Success of recurrence quantification analysis as a general purpose data analysis tool. Physics letters A 373:3753–3756. https://doi.org/<a href="https://doi.org/10.1016/j.physleta.2009.08.052">10.1016/j.physleta.2009.08.052</a></div>
+</div>
+<div id="ref-Moulder_Booth_Abitino_DMello_2023" class="csl-entry" role="doc-biblioentry">
+<div class="csl-left-margin">50. </div><div class="csl-right-inline">Moulder R, Booth B, Abitino A, D’Mello S (2023) <a href="https://doi.org/10.1145/3576050.3576113">Recurrence quantification analysis of eye gaze dynamics during team collaboration</a>. In: LAK23: 13th international learning analytics and knowledge conference. ACM, New York, NY, USA</div>
+</div>
+<div id="ref-Nowak_2004" class="csl-entry" role="doc-biblioentry">
+<div class="csl-left-margin">51. </div><div class="csl-right-inline">Nowak A (2004) Dynamical minimalism: Why less is more in psychology. Personality and social psychology review: an official journal of the Society for Personality and Social Psychology, Inc 8:183–192. https://doi.org/<a href="https://doi.org/10.1207/s15327957pspr0802_12">10.1207/s15327957pspr0802_12</a></div>
+</div>
+<div id="ref-Vallacher_2017" class="csl-entry" role="doc-biblioentry">
+<div class="csl-left-margin">52. </div><div class="csl-right-inline">Vallacher RR (2017) <a href="https://doi.org/10.4324/9781315173726">Computational social psychology</a>. Routledge, New York : Routledge, 2017. | Series: Frontiers of social psychology</div>
+</div>
+<div id="ref-van_der_Maas_Dolan_Grasman_Wicherts_Huizenga_Raijmakers_2006" class="csl-entry" role="doc-biblioentry">
+<div class="csl-left-margin">53. </div><div class="csl-right-inline">Maas HLJ van der, Dolan CV, Grasman RPPP, Wicherts JM, Huizenga HM, Raijmakers MEJ (2006) A dynamical model of general intelligence: The positive manifold of intelligence by mutualism. Psychological review 113:842–861. https://doi.org/<a href="https://doi.org/10.1037/0033-295X.113.4.842">10.1037/0033-295X.113.4.842</a></div>
+</div>
+<div id="ref-van_Geert_1991" class="csl-entry" role="doc-biblioentry">
+<div class="csl-left-margin">54. </div><div class="csl-right-inline">Geert P van (1991) A dynamic systems model of cognitive and language growth. Psychological Review 98:3–53. https://doi.org/<a href="https://doi.org/10.1037/0033-295X.98.1.3">10.1037/0033-295X.98.1.3</a></div>
+</div>
+<div id="ref-van_Dijk_van_Geert_Korecky-Kröll_Maillochon_Laaha_Dressler_Bassano_2013" class="csl-entry" role="doc-biblioentry">
+<div class="csl-left-margin">55. </div><div class="csl-right-inline">Dijk M van, Geert P van, Korecky-Kröll K, Maillochon I, Laaha S, Dressler WU, Bassano D (2013) Dynamic adaptation in child–adult language interaction. Language learning 63:243–270. https://doi.org/<a href="https://doi.org/10.1111/lang.12002">10.1111/lang.12002</a></div>
+</div>
+<div id="ref-Westaby_Pfaff_Redding_2014" class="csl-entry" role="doc-biblioentry">
+<div class="csl-left-margin">56. </div><div class="csl-right-inline">Westaby JD, Pfaff DL, Redding N (2014) Psychology and social networks: A dynamic network theory perspective. The American psychologist 69:269–284. https://doi.org/<a href="https://doi.org/10.1037/a0036106">10.1037/a0036106</a></div>
+</div>
+<div id="ref-Jager_Popping_van_de_Sande_2001" class="csl-entry" role="doc-biblioentry">
+<div class="csl-left-margin">57. </div><div class="csl-right-inline">Jager W, Popping R, Sande H van de (2001) <a href="https://www.jasss.org/4/3/7.html">Clustering and fighting in two- party crowds: Simulating the approach-avoidance conflict</a></div>
+</div>
+<div id="ref-Merrick_Shafi_2013" class="csl-entry" role="doc-biblioentry">
+<div class="csl-left-margin">58. </div><div class="csl-right-inline">Merrick KE, Shafi K (2013) A game theoretic framework for incentive-based models of intrinsic motivation in artificial systems. Frontiers in psychology 4:791. https://doi.org/<a href="https://doi.org/10.3389/fpsyg.2013.00791">10.3389/fpsyg.2013.00791</a></div>
+</div>
+<div id="ref-Steels_Belpaeme_2005" class="csl-entry" role="doc-biblioentry">
+<div class="csl-left-margin">59. </div><div class="csl-right-inline">Steels L, Belpaeme T (2005) Coordinating perceptually grounded categories through language: A case study for colour. The behavioral and brain sciences 28:469-89; discussion 489-529. https://doi.org/<a href="https://doi.org/10.1017/S0140525X05000087">10.1017/S0140525X05000087</a></div>
+</div>
+<div id="ref-Hesp_Steenbeek_van_Geert_2019" class="csl-entry" role="doc-biblioentry">
+<div class="csl-left-margin">60. </div><div class="csl-right-inline">Hesp C, Steenbeek HW, Geert PLC van (2019) Socio-emotional CONcern DynamicS in a model of real-time dyadic interaction: Parent-child play in autism. Frontiers in psychology 10:1635. https://doi.org/<a href="https://doi.org/10.3389/fpsyg.2019.01635">10.3389/fpsyg.2019.01635</a></div>
+</div>
+<div id="ref-Kaplan_Garner" class="csl-entry" role="doc-biblioentry">
+<div class="csl-left-margin">61. </div><div class="csl-right-inline">Kaplan A, Garner JK</div>
+</div>
+<div id="ref-Törmänen_Järvenoja_Saqr_Malmberg_Järvelä_2023" class="csl-entry" role="doc-biblioentry">
+<div class="csl-left-margin">62. </div><div class="csl-right-inline">Törmänen T, Järvenoja H, Saqr M, Malmberg J, Järvelä S (2023) Affective states and regulation of learning during socio-emotional interactions in secondary school collaborative groups. The British journal of educational psychology 93 Suppl 1:48–70. https://doi.org/<a href="https://doi.org/10.1111/bjep.12525">10.1111/bjep.12525</a></div>
+</div>
+<div id="ref-Kaplan_Garner_Neuber_2023" class="csl-entry" role="doc-biblioentry">
+<div class="csl-left-margin">63. </div><div class="csl-right-inline">Kaplan A, Garner J, Neuber A (2023) <a href="https://emiratesscholar.com/directory/index.php/1wgc/article/view/88">Learning as identity change, self-regulated learning as identity exploration: A complex dynamic systems perspective on the goals of education in the 21st century</a>. In: Proceedings of the 1st world giftedness center international conference</div>
+</div>
+<div id="ref-Haken_Kelso_Bunz_1985" class="csl-entry" role="doc-biblioentry">
+<div class="csl-left-margin">64. </div><div class="csl-right-inline">Haken H, Kelso JA, Bunz H (1985) A theoretical model of phase transitions in human hand movements. Biological cybernetics 51:347–356. https://doi.org/<a href="https://doi.org/10.1007/bf00336922">10.1007/bf00336922</a></div>
+</div>
+<div id="ref-Zanone_Kelso_1992" class="csl-entry" role="doc-biblioentry">
+<div class="csl-left-margin">65. </div><div class="csl-right-inline">Zanone PG, Kelso JA (1992) Evolution of behavioral attractors with learning: Nonequilibrium phase transitions. Journal of experimental psychology Human perception and performance 18:403–421. https://doi.org/<a href="https://doi.org/10.1037/0096-1523.18.2.403">10.1037/0096-1523.18.2.403</a></div>
+</div>
+<div id="ref-Peng_Mietus_Hausdorff_Havlin_Stanley_Goldberger_1993" class="csl-entry" role="doc-biblioentry">
+<div class="csl-left-margin">66. </div><div class="csl-right-inline">Peng C-K, Mietus J, Hausdorff JM, Havlin S, Stanley HE, Goldberger AL (1993) Long-range anticorrelations and non-gaussian behavior of the heartbeat. Physical review letters 70:1343–1346. https://doi.org/<a href="https://doi.org/10.1103/PhysRevLett.70.1343">10.1103/PhysRevLett.70.1343</a></div>
+</div>
+<div id="ref-Lowie_Plat_de_Bot_2014" class="csl-entry" role="doc-biblioentry">
+<div class="csl-left-margin">67. </div><div class="csl-right-inline">Lowie W, Plat R, Bot K de (2014) Pink noise in language production: A nonlinear approach to the multilingual lexicon. Ecological psychology: a publication of the International Society for Ecological Psychology 26:216–228. https://doi.org/<a href="https://doi.org/10.1080/10407413.2014.929479">10.1080/10407413.2014.929479</a></div>
+</div>
+<div id="ref-Nourrit-Lucas_Tossa_Zélic_Delignières_2015" class="csl-entry" role="doc-biblioentry">
+<div class="csl-left-margin">68. </div><div class="csl-right-inline">Nourrit-Lucas D, Tossa AO, Zélic G, Delignières D (2015) Learning, motor skill, and long-range correlations. Journal of motor behavior 47:182–189. https://doi.org/<a href="https://doi.org/10.1080/00222895.2014.967655">10.1080/00222895.2014.967655</a></div>
+</div>
+<div id="ref-Bak_1999" class="csl-entry" role="doc-biblioentry">
+<div class="csl-left-margin">69. </div><div class="csl-right-inline">Bak P (1999) <a href="https://doi.org/10.1007/978-1-4757-5426-1">How nature works: The science of self-organized criticality</a>, 1st ed. Springer, New York, NY</div>
+</div>
+<div id="ref-Van_Orden_2007" class="csl-entry" role="doc-biblioentry">
+<div class="csl-left-margin">70. </div><div class="csl-right-inline">Van Orden G (2007) <a href="https://doi.org/10.1037/e593942007-002">The fractal picture of health and wellbeing</a>. PsycEXTRA Dataset</div>
+</div>
+<div id="ref-van_Geert_1998" class="csl-entry" role="doc-biblioentry">
+<div class="csl-left-margin">71. </div><div class="csl-right-inline">Geert P van (1998) A dynamic systems model of basic developmental mechanisms: Piaget, vygotsky, and beyond. Psychological review 105:634–677. https://doi.org/<a href="https://doi.org/10.1037/0033-295x.105.4.634-677">10.1037/0033-295x.105.4.634-677</a></div>
+</div>
+<div id="ref-Steenbeek_van_Geert_2008" class="csl-entry" role="doc-biblioentry">
+<div class="csl-left-margin">72. </div><div class="csl-right-inline">Steenbeek H, Geert P van (2008) An empirical validation of a dynamic systems model of interaction: Do children of different sociometric statuses differ in their dyadic play? Developmental science 11:253–281. https://doi.org/<a href="https://doi.org/10.1111/j.1467-7687.2007.00655.x">10.1111/j.1467-7687.2007.00655.x</a></div>
+</div>
+<div id="ref-Merlone_Panchuk_van_Geert_2019" class="csl-entry" role="doc-biblioentry">
+<div class="csl-left-margin">73. </div><div class="csl-right-inline">Merlone U, Panchuk A, Geert P van (2019) Modeling learning and teaching interaction by a map with vanishing denominators: Fixed points stability and bifurcations. Chaos, solitons, and fractals 126:253–265. https://doi.org/<a href="https://doi.org/10.1016/j.chaos.2019.06.008">10.1016/j.chaos.2019.06.008</a></div>
+</div>
+</div>
+</section>
+<section id="footnotes" class="footnotes footnotes-end-of-document" role="doc-endnotes">
+<hr>
+<ol>
+<li id="fn1"><p>Insight Maker: <a href="https://www.insightmaker.com"><u>https://www.insightmaker.com</u></a><a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn2"><p>NetLogo: <a href="https://ccl.northwestern.edu/netlogo"><u>https://ccl.northwestern.edu/netlogo</u></a><a href="#fnref2" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn3"><p>Golly: <a href="https://golly.sourceforge.io"><u>https://golly.sourceforge.io</u></a><a href="#fnref3" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+</ol>
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    target: function(trigger) {
+      return trigger.previousElementSibling;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+  function tippyHover(el, contentFn) {
+    const config = {
+      allowHTML: true,
+      content: contentFn,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start'
+    };
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      return note.innerHTML;
+    });
+  }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+<nav class="page-navigation">
+  <div class="nav-page nav-page-previous">
+      <a href="../../chapters/ch11-llmsxai/ch11-llmsxai.html" class="pagination-link">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Automated feedback with XAI and LLMs</span></span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+      <a href="../../chapters/ch13-ega/ch13-ega.html" class="pagination-link">
+        <span class="nav-page-text"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Exploratory Graph Analysis</span></span> <i class="bi bi-arrow-right-short"></i>
+      </a>
+  </div>
+</nav>
+</div> <!-- /content -->
+<footer class="footer">
+  <div class="nav-footer">
+      <div class="nav-footer-center"><div class="cookie-consent-footer"><a href="#" id="open_preferences_center">Cookie Preferences</a></div></div>
+  </div>
+</footer>
+<script>
+  document.querySelector(".quarto-title").innerHTML =  '<div class="badge bs-warning bg-warning text-dark" style="float:right;">Pre-print</div>' +  document.querySelector(".quarto-title").innerHTML
+  var keywords = document.querySelector('meta[name="keywords"]')
+  if (keywords && keywords.content) {
+    document.getElementById("title-block-header").innerHTML = document.getElementById("title-block-header").innerHTML + 
+      '<div class="abstract"><div class="abstract-title">Keywords</div><div class="quarto-title-meta-contents"><p>'+
+      keywords.content +
+      '</p></div></div>'
+  }
+  function insertAfter(referenceNode, newNode) {
+      referenceNode.parentNode.insertBefore(newNode, referenceNode.nextSibling);
+  }
+  var authors = document.querySelectorAll('meta[name="author"]')
+  if (authors) {
+    var authorlist = Array.from(authors).map(e=>e.content).reduce((accum, curr) =>  accum + curr + ", ", "","").replace(/\,\s$/,"")
+    var citt = `<div class="card border-primary mb-3" style=;">
+      <div class="card-header bg-primary">To cite this chapter</div>
+      <div class="card-body small">
+        <p class="card-text">${authorlist} (2025).
+        <b>${document.getElementsByClassName("chapter-title")[0].innerText}</b>. 
+        In M. Saqr & S. López-Pernas (Eds.), <i>Advanced Learning Analytics Methods: AI, Precision and Complexity</i> 
+        (in – press). Springer. <a href="${window.location.href}">${window.location.href}</a></p>
+      </div>
+    </div>`;
+    insertAfter(document.getElementsByTagName("HEADER")[1],new DOMParser().parseFromString(citt, 'text/html').body.childNodes[0])
+  }
+</script>
+
+
+
+</body></html>

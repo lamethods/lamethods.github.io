@@ -1,41 +1,191 @@
 ---
-author: "[Mohammed Saqr](https://saqr.me) & [Sonsoles López-Pernas](https://sonsoles.me)"
-toc: false
-margin-footer: |
-    <span></span>
-include-after-body:
-  text: |
-    <script>
-      document.querySelector(".quarto-title-meta-heading").innerHTML = "Editors"
-    </script>
+format:
+  html:
+    anchor-sections: false
+---
+
+
+```{=html}
+    <!-- <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet"> -->
+    <!-- <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.7.2/font/bootstrap-icons.css" rel="stylesheet"> -->
     <style>
-      #title-block-header.quarto-title-block.default .quarto-title-meta-contents a {
-          color: #2780e3 !important;
+      .container-fluid {
+        padding: 0 !important;
       }
-      #title-block-header a {
-          text-decoration: underline;
+      #quarto-content {
+        display:block;
+      }
+      .book-cover {
+        max-height: 80vh;
+      }
+      main {
+        margin: 0 !important;
+      }
+      
+      #quarto-content>*{
+        padding-top: 0 !important;
+      }
+      .gradient-bg {
+        background: linear-gradient(to bottom, #cfe2ff, #ffffff);
+      }
+      .dark .gradient-bg {
+        background: linear-gradient(to bottom, #1e3a8a, #111827);
+      }
+      .img-thumbnail {
+       max-width: 80%;
+       width: 300px;
+      }
+      .navbar, body {
+        background: #cfe2ff
+      }        
+      
+      .btn-warning {
+        background-color: #f39301;
+        border-color: #f39301;
+      }
+        
+      .newbadge {
+        position: absolute;
+        right:0;
+        margin: 1em;
+        font-size: 0.9em;
       }
     </style>
-    
----
-[Learning Analytics Unit](https://sites.uef.fi/learning-analytics/), University of Eastern Finland
+<div>
+    <main >
+        <section class="py-5 gradient-bg grid">
+            <div class="container text-center g-col-10 g-start-2">
+            <br/>
+            <br/>
+            <br/>
+                <h1 class="display-4 fw-bold mb-3">Learning Analytics Methods</h1>
+                <p class="lead mb-4">Comprehensive guides for understanding and implementing learning analytics using R and advanced AI techniques.</p>
+                <div>
+                    <a href="#books" class="btn btn-warning me-2">Explore Books</a>
+                    <a href="#about" class="btn btn-outline-secondary">Learn More</a>
+                </div>
+            </div>
+        </section>
 
-#    {.unnumbered}
+        <section id="books" class="py-5 bg-white grid">
+            <div class="g-col-10 g-start-2">
+                <h2 class="text-center mb-5">Our Books</h2>
+                <div class="g-col-12 grid">
+                    <div class="g-col-12 g-col-md-6">
+                        <div class="card h-100 border-0">
+                            <div class="card-body">
+                                <div class="text-center mb-4">
+                                <a href="book1/index.html">
+                                    <img src="book1/1712067211600.jpeg" alt="Learning Analytics Methods and Tutorials Book Cover" class="img-fluid book-cover rounded shadow">
+                                    
+                                    </a>
+                                </div>
+                                <h3 class="card-title">Learning Analytics Methods and Tutorials</h3>
+                                <p class="text-muted">A Practical Guide Using R</p>
+                                <p> This book includes all the basics of R as a programming language along with data cleaning, statistics, and data manipulation. It provides an accessible entry point for newcomers to learning analytics while covering major methodologies comprehensively. Each method begins with fundamental concepts, essential techniques, and basic functions before progressing to advanced innovations.</p>
+                                <ul class="list-unstyled">
+                                    <li><i class="bi bi-check-circle-fill text-success me-2"></i>Step-by-step tutorials with practical examples</li>
+                                    <li><i class="bi bi-check-circle-fill text-success me-2"></i>Comprehensive R code implementations</li>
+                                    <li><i class="bi bi-check-circle-fill text-success me-2"></i>Real-world educational datasets</li>
+                                    <li><i class="bi bi-check-circle-fill text-success me-2"></i>Authored by world-renowned researchers</li>
+                                </ul>
+                                <a href="book1/index.html" target="_blank" class="btn btn-warning mt-3">
+                                    <i class="bi bi-book me-2"></i>Read
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="g-col-12 g-col-md-6">
+                        <div class="card h-100 border-0">
+                            <div class="card-body">
+                                <div class="text-center mb-4">
+                                    <a href="book2/index.html" style="position:relative;">
+                                      <img src="book2/cover2.jpg" alt="Advanced Learning Analytics Methods Book Cover" class="img-fluid book-cover rounded shadow">
+                                    <span class="badge bg-danger newbadge">NEW!</span>
+                                    </a>
+                                    
 
-<img src="1712067211600.jpeg" alt="Smiley face"  style="float:left;max-width: min(100%,17em);margin: 0px 20px 0px 0px;">
-<p>
-This is the website for the book **“Learning analytics methods and tutorials: A practical guide using R”** published by [Springer](https://doi.org/10.1007/978-3-031-54464-4) in 2024.
+                                </div>
+                                <h3 class="card-title">Advanced Learning Analytics Methods</h3>
+                                <p class="text-muted">AI, Precision and Complexity</p>
+                                <p>Our new book builds upon the foundational methods introduced in the previous volume, adapting to the rapid advancements in artificial intelligence and complexity science. It provides researchers with cutting-edge methodologies at the intersection of learning analytics, AI, and complexity science, presenting novel techniques and their applications in education research.</p>
+                                <ul class="list-unstyled">
+                                    <li><i class="bi bi-check-circle-fill text-success me-2"></i>Advanced AI applications in education</li>
+                                    <li><i class="bi bi-check-circle-fill text-success me-2"></i>Complex systems analysis techniques</li>
+                                    <li><i class="bi bi-check-circle-fill text-success me-2"></i>Precision learning analytics</li>
+                                    <li><i class="bi bi-check-circle-fill text-success me-2"></i>Cutting-edge research methods</li>
+                                </ul>
+                                <a href="book2/index.html" target="_blank" class="btn btn-warning mt-3">
+                                    <i class="bi bi-book me-2"></i>Read
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="about" class="py-5 bg-light grid">
+            <div class="g-col-10 g-start-2 text-center">
+                <h2 class="text-center mb-5">Motivation</h2>
+
+                <p class="lead">The lack of resources and methodological guidance on learning analytics has been a problem ever since the field started, and continues to be a problem today. We thought that the arduous journey in learning analytics should not be endured by everyone and we decided to make that resource with the help of the learning analytics community as well as our collaborators.</p>
+            </div>
+        </section>
+
+        <section id="editors" class="py-5 bg-white grid">
+            <div class="container g-col-10 g-start-2">
+                <h2 class="text-center mb-5">Meet the Editors</h2>
+                <div class="grid g-4">
+                    <div class="g-col-12 g-col-md-6">
+                        <div class="card h-100 border-0">
+                            <div class="card-body text-center">
+                                <img class="bi bi-people fs-1 text-warning mb-3 img-thumbnail" src="saqr.png"/> 
+                                <h3 class="card-title">Mohammed Saqr</h3>
+                                <p class="card-text small">
+                                Dr. Mohammed Saqr is an Associate Professor of Learning Analytics and an Academy of Finland Research Council Researcher leading the Unit of Learning Analytics at the University of Eastern Finland (UEF), School of Computing, recognized as Europe’s most productive learning analytics lab (2019–2024, Scopus/Web of Science). He earned his PhD in Learning Analytics from Stockholm University, Sweden, completed a postdoc at Université Paris Cité, France, and holds the title of Docent in Learning Analytics from the University of Oulu, Finland. </p>
+<p class="card-text small">
+Mohammed has published over 200 peer-reviewed studies spanning learning analytics, AI, big data, network science, and interdisciplinary applications. His work has earned him numerous accolades, including Best Full Paper Awards at LAK24 (2024), TEEM Conferences (2023, 2024), and ICCE (2020). He was awarded Europe’s Emerging Scholar by SoLAR (2023) for advancing learning analytics research and practice, the Outstanding Paper Award at SITE (2022), and the Best Thesis Award (2018) from Stockholm University. He has also been nominated for Best Paper and Poster Awards at IEEE ICALT and EC-TEL (2024). Additionally, he has received prestigious grants, such as funding from the Academy of Finland (as PI) for idiographic learning analytics and from the Swedish Research Council (as Co-PI). </p>
+<p class="card-text small">
+Mohammed serves as an Associate Editor for <em>IEEE Transactions on Learning Technologies</em> and <em>Frontiers in Education</em>, an Editorial Board Member of the <em>British Journal of Educational Technology</em>, and an Academic Editor for <em>PLOS One</em>. He has guest-edited special issues on AI and education for major journals and serves as Editor-in-Chief for three books. </p>
+<p class="card-text small">
+Mohammed has delivered over 30 invited keynotes and talks, chaired tracks at major conferences such as ICCE and TEEM, contributed to senior program committees for LAK, AIED, and EC-TEL, and edited proceedings for leading conferences. His international research network includes collaborations with over 200 researchers from Europe, North America, Asia, and Australia and Africa.
+                                </p>
+                                
+                                <a href="https://saqr.me" target="_blank"><button class="btn btn-warning  btn-sm">
+                                <i class="bi bi-globe"></i>
+                                Visit</button></a>
+                                
+                            </div>
+                        </div>
+                    </div>
+                    <div class="g-col-12 g-col-md-6">
+                        <div class="card h-100 border-0">
+                            <div class="card-body text-center">
+                                <img class="bi bi-people fs-1 text-warning mb-3 img-thumbnail" src="lopezpernas.jpg"/> 
+                                <h3 class="card-title">Sonsoles López-Pernas</h3>
+                                <p class="card-text small">
+                                Dr. Sonsoles López-Pernas is an Academy Fellow at University of Eastern Finland (UEF), where she works since 2022 and holds the title of Docent (adjunct professor) in educational data mining. She obtained her Masters and PhD in Engineering from Universidad Politécnica de Madrid (Spain). During her career, she has developed several open-source software projects related to educational technology and big data analysis. She is skilled in quantitative methods that include learning analytics, machine learning, process and sequence mining, network analysis and data visualization. </p> 
+                                <p class="card-text small">Sonsoles has more than 150 publications in learning analytics, artificial intelligence, and game-based learning among other topics. She has obtained several prestigious awards and recognitions that include a research award from the Royal Academy of Doctors of Spain (RADE), the IEEE TCLT early career researcher award, the extraordinary PhD thesis award from Universidad Politécnica de Madrid, and two open source project awards in the university open source software contest (CUSL), as well as best paper awards and nominations in learning analytics and game-based learning. She has contributed to the organization of several scientific conferences and workshops (e.g., Finnish Learning Analytics and Artificial Intelligence in Education conference and Network Analysis workshop at LAK), and has been part of the program committee of LAK, AIED, ICCE, and Koli Calling among others. Sonsoles sits on the editorial board of IEEE Transactions on Education, Frontiers in Education, and PloS One. 
 </p>
-<p>
-The lack of resources and methodological guidance on learning analytics has been a problem ever since the field started, and continues to be a problem today. We thought that the arduous journey in learning analytics should not be endured by everyone and we decided to make that resource with the help of the learning analytics community as well as our collaborators.
+                                <p class="card-text small">
+                                Sonsoles is currently funded as a fellow by the Research Council of Finland through the project CRETIC (Optimizing Clinical Reasoning in Time-Critical Scenarios: A data-driven multimodal approach). She is also the Principal Investigator of the EU-funded projects ISILA (Improving the quality and sustainability of learning using early intervention methods based on learning analytics) and ENDGAME (Escaping New Disinformation through GAmified cross-border Media literacy Education).
+                                </p>
+                                <a href="https://sonsoles.me" target="_blank"><button class="btn btn-warning btn-sm">
+                                <i class="bi bi-globe"></i>
+                                Visit</button></a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <br/>
+                 <p class="text-center mb-4">
+                 Together, Mohammed and Sonsoles have extensively published in top journals in the field such as Computers & Education, International Journal of Computer Supported Collaborative Learning, Computers in Human Behavior, Journal of Learning Analytics and Educational Research Review as well as top conferences e.g., LAK, ECTEL, ICALT and TEEM.
 </p>
-<p>
-In this book, we tried to include all the basics of R as a programming language as well as the basics of data cleaning, statistics, and data manipulation. In doing so, we wanted the newcomers to find an easy entry to the field. We also tried to be as comprehensive as we could and included almost all major methodologies. For every method, we started with the basics, explaining the main concepts, the essential techniques, and basic functions. In subsequent chapters, we went deeper into advanced methods that are at the forefront of novel methodological innovations. We also used real-life learning analytics data and made it readily available to researchers. To do so, we collaborated with world-renowned researchers, package developers, and methodological experts from other fields to offer an unprecedented resource on novel topics that are hard to find any resource for. 
-</p>
-<p>
-We hope the readers find this book useful as a guide through learning analytics methods, highlighting the ways in which data-driven insights can benefit educators, learners, and researchers.
-</p>
-<p>The editors</p>
-<p>
-[Mohammed Saqr](https://saqr.me) and [Sonsoles López-Pernas](https://sonsoles.me)
-</p>
+            </div>
+        </section>
+    </main>
+
+    </div>
+```
+

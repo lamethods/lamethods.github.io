@@ -1,0 +1,72 @@
+ <style>
+    body {
+      margin: 0;
+      padding: 20px;
+    }
+    .books-container {
+      display: flex;
+      justify-content: space-around;
+      flex-wrap: wrap;
+      gap: 20px;
+    }
+    .book {
+      text-align: center;
+      width: 300px;
+      min-width: 20%;
+    }
+    .book img {
+      width: 100%;
+      height: auto;
+      border-radius: 8px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    }
+    .book h3 {
+      margin-top: 10px;
+      font-size: 1.2em;
+    }
+    .book p {
+      font-size: 0.9em;
+      color: #555;
+    }
+    
+    .newbadge {
+      position: absolute;
+      right:0;
+      margin: 1em;
+      font-size: 0.9em;
+    }
+    
+    .cover2 {
+      -webkit-filter: grayscale(100%); /* Safari 6.0 - 9.0 */
+      filter: grayscale(100%);
+}
+</style>
+<div class="books-container">
+<div class="book">
+<a href="book1/index.html">
+<img src="book1/1712067211600.jpeg" alt="Book 1 Cover"/>
+</a>
+<h3>
+<a href="book1/index.html">Learning Analytics Methods and Tutorials</a>
+</h3>
+<p>A practical guide using R</p>
+</div>
+
+<div class="book">
+<a href="book2/index.html" style="position:relative;">
+<img src="book2/cover2.jpg" alt="Book 2 Cover" class="cover2"/>
+<span class="badge bg-danger newbadge">NEW!</span>
+</a>
+<h3>
+<a href="book2/index.html">Advanced Learning Analytics Methods</a>
+</h3>
+<p>AI, Precision and Complexity</p>
+</a>
+</div>
+</div>
+<br/> 
+<div class="text-center">
+<small class="text-center">
+Edited by [Mohammed Saqr](https://saqr.me) and [Sonsoles López-Pernas](https://sonsoles.me) (University of Eastern Finland).
+</small>
+</div>
