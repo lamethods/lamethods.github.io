@@ -25,9 +25,13 @@ format:
       #quarto-content>*{
         padding-top: 0 !important;
       }
+      
       .gradient-bg {
         background: linear-gradient(to bottom, #cfe2ff, #ffffff);
+        padding-top: 0px !important;
+        padding-bottom: 0px !important;
       }
+      
       .dark .gradient-bg {
         background: linear-gradient(to bottom, #1e3a8a, #111827);
       }
@@ -55,21 +59,17 @@ format:
     <main >
         <section class="py-5 gradient-bg grid">
             <div class="container text-center g-col-10 g-start-2">
-            <br/>
-            <br/>
-            <br/>
                 <h1 class="display-4 fw-bold mb-3">Learning Analytics Methods</h1>
                 <p class="lead mb-4">Comprehensive guides for understanding and implementing learning analytics using R and advanced AI techniques.</p>
-                <div>
+               <!-- <div>
                     <a href="#books" class="btn btn-warning me-2">Explore Books</a>
                     <a href="#about" class="btn btn-outline-secondary">Learn More</a>
-                </div>
+                </div>-->
             </div>
         </section>
 
         <section id="books" class="py-5 bg-white grid">
             <div class="g-col-10 g-start-2">
-                <h2 class="text-center mb-5">Our Books</h2>
                 <div class="g-col-12 grid">
                     <div class="g-col-12 g-col-md-6">
                         <div class="card h-100 border-0">
