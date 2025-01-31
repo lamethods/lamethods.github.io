@@ -6,7 +6,7 @@ execute:
   eval: FALSE
 author: 
    - name: "Sonsoles López-Pernas"
-   - name: "Sami Heikkineni"
+   - name: "Sami Heikkinen"
    - name: "Ahmed Tlili"
    - name: "Rwitajit Majumdar"
    - name: "Mohammed Saqr"
