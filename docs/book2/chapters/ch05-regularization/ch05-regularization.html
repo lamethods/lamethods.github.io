@@ -522,9 +522,8 @@ Check out our previous book! <br> <a href="../../../book1/index.html"><img src="
 
 </header>
 
-<!--
 <section id="sec:1" class="level2" data-number="1">
-<h2 data-number="1"><span class="header-section-number">1</span> Introduction</h2>
+<h2 data-number="1" class="anchored" data-anchor-id="sec:1"><span class="header-section-number">1</span> Introduction</h2>
 <p>In the past decade, the educational landscape has undergone a seismic shift with the advent and proliferation of online learning platforms <span class="citation" data-cites="papadakis2023moocs">[<a href="#ref-papadakis2023moocs" role="doc-biblioref">1</a>]</span>. Among these, Massive Open Online Courses (MOOCs) have emerged as a transformative force, democratizing access to high-quality education on a global scale <span class="citation" data-cites="deng2019progress">[<a href="#ref-deng2019progress" role="doc-biblioref">2</a>]</span>. First emerged in 2008, Massive Open Online Courses (MOOCs) provide anyone with an internet connection and low-cost access to educational materials and activities delivered by experts. Like other forms of adult education, the establishment of MOOCs aims to help learners realize their potential and apply newly acquired knowledge and skills to improve their lives <span class="citation" data-cites="knowles1980modern">[<a href="#ref-knowles1980modern" role="doc-biblioref">3</a>]</span>. Students enroll in MOOCs for various reasons, including personal interest, career advancement, academic support, or social connections <span class="citation" data-cites="brooker2018tale">[<a href="#ref-brooker2018tale" role="doc-biblioref">4</a>]</span>. Unlike traditional online or in-person adult education courses, MOOCs allow students to access courses anywhere and time. Despite their potential, MOOCs have faced many challenges, such as accreditation and certification (Sanchez-Gordon), instructional design <span class="citation" data-cites="spector2014editorial">[<a href="#ref-spector2014editorial" role="doc-biblioref">5</a>]</span>, types of learners <span class="citation" data-cites="bingol2020factors">[<a href="#ref-bingol2020factors" role="doc-biblioref">6</a>]</span>, as well as dropout rates <span class="citation" data-cites="xiong2015examining">[<a href="#ref-xiong2015examining" role="doc-biblioref">7</a>]</span>.</p>
 <p>At the forefront of this revolution stands edX Online Courses &amp; Programs, a pioneering platform founded in May 2012 under the administration of the Massachusetts Institute of Technology (MIT). As a leader in the MOOC space, the courses on the edX are, offered by world-renowned institutions, schools, non-profit organizations, and corporations across a diverse array of subjects, from subjects in science, technology, engineering, and math (STEM) to social sciences and humanities. edX has opened the doors of elite education to millions of learners worldwide through its commitment to accessibility and rigorous academic standards, making it a beacon of innovation in online education.</p>
 <p>In the traditional classrooms where the teaching staff interact with students face-to-face <span class="citation" data-cites="han2023relations">[<a href="#ref-han2023relations" role="doc-biblioref">8</a>]</span>, this allows them to have direct perceptions of students’ levels of engagement, hence, targeted strategies can be implemented in advance to increase student engagement and to prevent students from dropping out.</p>
@@ -539,21 +538,21 @@ Check out our previous book! <br> <a href="../../../book1/index.html"><img src="
 </ol>
 </section>
 <section id="methodologies" class="level2" data-number="2">
-<h2 data-number="2"><span class="header-section-number">2</span> Methodologies</h2>
+<h2 data-number="2" class="anchored" data-anchor-id="methodologies"><span class="header-section-number">2</span> Methodologies</h2>
 <p>In this section, we will describe three regularization methods (i.e., LASSO, SCAD, and MCP) and the cross-validation method for hyperparameter tuning. In addition, we also will introduce some popular classification evaluation metrics.</p>
 <section id="regularization-methods-for-high-dimensional-data" class="level3" data-number="2.1">
-<h3 data-number="2.1"><span class="header-section-number">2.1</span> Regularization Methods for High-Dimensional Data</h3>
+<h3 data-number="2.1" class="anchored" data-anchor-id="regularization-methods-for-high-dimensional-data"><span class="header-section-number">2.1</span> Regularization Methods for High-Dimensional Data</h3>
 <p>In the context of high-dimensional data, where the number of predictors (<span class="math inline">\(p\)</span>) is large relative to the number of observations (<span class="math inline">\(n\)</span>), traditional statistical methods often fail due to overfitting, multicollinearity, and computational issues. Regularization methods have emerged as powerful tools to address these challenges by introducing a penalty term to the loss function, effectively shrinking some coefficient estimates towards zero and, in some cases, setting them exactly to zero <span class="citation" data-cites="hastie2015statistical">[<a href="#ref-hastie2015statistical" role="doc-biblioref">16</a>]</span>.</p>
 <p>These methods perform simultaneous variable selection and coefficient estimation, making them particularly useful in scenarios where identifying the most important predictors is as crucial as making accurate predictions. The general form of a penalized regression problem (with regression coefficients <span class="math inline">\(\beta\)</span>) can be written as <span class="citation" data-cites="fu2021robust wang2023new">[<a href="#ref-fu2021robust" role="doc-biblioref">17</a>, <a href="#ref-wang2023new" role="doc-biblioref">18</a>]</span>: <span class="math display">\[\min_{\beta}\{L(\beta) + \lambda P(\beta)\}\]</span> where <span class="math inline">\(L(\beta)\)</span> is the loss function (e.g., negative log-likelihood for logistic regression), <span class="math inline">\(P(\beta)\)</span> is the penalty function, and <span class="math inline">\(\lambda\)</span> is the tuning parameter controlling the strength of regularization. Moreover, we will delve deeper into each of the three regularization methods (LASSO, SCAD, and MCP) we implemented in the following contents.</p>
 <div class="remark proof">
 <p><span class="proof-title"><em>Remark</em>. </span>In this study, we focus on a classification task using regularization methods, specifically through three types of regularized logistic regression models. We need to adjust the first component for continuous response variables, replacing the logistic loss function with alternatives like least squares or robust losses such as Huber <span class="citation" data-cites="huber1973robust">[<a href="#ref-huber1973robust" role="doc-biblioref">19</a>]</span> or exponential loss <span class="citation" data-cites="jiang2019robust">[<a href="#ref-jiang2019robust" role="doc-biblioref">20</a>]</span>. Multicollinearity is not a concern in our regularization approach. Regularization methods inherently address multicollinearity by applying penalties that shrink the coefficients of correlated predictors, effectively reducing redundancy and enhancing model stability.</p>
 </div>
 <section id="lasso" class="level4" data-number="2.1.1">
-<h4 data-number="2.1.1"><span class="header-section-number">2.1.1</span> LASSO</h4>
+<h4 data-number="2.1.1" class="anchored" data-anchor-id="lasso"><span class="header-section-number">2.1.1</span> LASSO</h4>
 <p>LASSO, introduced by Tibshirani <span class="citation" data-cites="tibshirani1996regression">[<a href="#ref-tibshirani1996regression" role="doc-biblioref">13</a>]</span>, adds an L1 penalty to the loss function: <span class="math display">\[P(\beta) = ||\beta||_{1} =\Sigma |\beta_j|.\]</span> The L1 penalty has the property of shrinking some coefficients exactly to zero, effectively performing variable selection. This is due to the geometry of the L1 ball, which intersects with the contours of the loss function at the axes, leading to sparse solutions <span class="citation" data-cites="hastie2015statistical">[<a href="#ref-hastie2015statistical" role="doc-biblioref">16</a>]</span>. Key properties of LASSO are listed: a) Performs both variable selection and regularization; b) Produces sparse models, which are often easier to interpret; c) Can handle high-dimensional data (<span class="math inline">\(p &gt; n\)</span>); and d) Tends to select one variable from a group of correlated predictors. However, LASSO has some limitations: a) In the <span class="math inline">\(p &gt; n\)</span> case, it selects most <span class="math inline">\(n\)</span> variables before saturation; b) It can be biased for large coefficients; and c) It does not have the oracle property (consistent variable selection).</p>
 </section>
 <section id="scad" class="level4" data-number="2.1.2">
-<h4 data-number="2.1.2"><span class="header-section-number">2.1.2</span> SCAD</h4>
+<h4 data-number="2.1.2" class="anchored" data-anchor-id="scad"><span class="header-section-number">2.1.2</span> SCAD</h4>
 <p>SCAD, proposed by Fan and Li <span class="citation" data-cites="fan2001variable">[<a href="#ref-fan2001variable" role="doc-biblioref">14</a>]</span>, is a non-convex penalty that aims to overcome some of the limitations of LASSO. The SCAD penalty is defined as: <span class="math display">\[P(\beta) =
 \begin{cases}
 \lambda|\beta| &amp; \text{if } |\beta| \leq \lambda \\
@@ -562,7 +561,7 @@ Check out our previous book! <br> <a href="../../../book1/index.html"><img src="
 \end{cases},\]</span> where <span class="math inline">\(a &gt; 2\)</span> is a tuning parameter, often set to <span class="math inline">\(3.7\)</span> as suggested by Fan and Li <span class="citation" data-cites="fan2001variable">[<a href="#ref-fan2001variable" role="doc-biblioref">14</a>]</span>. Moreover, key properties of SCAD are given as a) Overcomes the bias issue of LASSO for large coefficients; b) Possesses the oracle property (asymptotically performs as well as if the true model were known in advance); c) Produces sparse solutions; d) Continuous in <span class="math inline">\(\beta\)</span>, which leads to more stable solutions. However, SCAD also has some challenges: a) Non-convex optimization problem, which can be computationally more demanding; and b) Requires tuning of two parameters (<span class="math inline">\(\lambda\)</span> and <span class="math inline">\(a\)</span>).</p>
 </section>
 <section id="mcp" class="level4" data-number="2.1.3">
-<h4 data-number="2.1.3"><span class="header-section-number">2.1.3</span> MCP</h4>
+<h4 data-number="2.1.3" class="anchored" data-anchor-id="mcp"><span class="header-section-number">2.1.3</span> MCP</h4>
 <p>MCP introduced by Zhang <span class="citation" data-cites="zhang2010nearly">[<a href="#ref-zhang2010nearly" role="doc-biblioref">15</a>]</span>, is another non-convex penalty designed to address the limitations of LASSO. The MCP is defined as: <span class="math display">\[P(\beta) =
 \begin{cases}
 \lambda |\beta| - \frac{\beta^2}{2\gamma} &amp; \text{if } |\beta| \leq \gamma \lambda \\
@@ -572,15 +571,15 @@ Check out our previous book! <br> <a href="../../../book1/index.html"><img src="
 </section>
 </section>
 <section id="k-fold-cross-validation-for-hyperparameter-tuning" class="level3" data-number="2.2">
-<h3 data-number="2.2"><span class="header-section-number">2.2</span> K-Fold Cross-Validation for Hyperparameter Tuning</h3>
+<h3 data-number="2.2" class="anchored" data-anchor-id="k-fold-cross-validation-for-hyperparameter-tuning"><span class="header-section-number">2.2</span> K-Fold Cross-Validation for Hyperparameter Tuning</h3>
 <p>K-Fold Cross-Validation (CV) is a widely used method for hyperparameter tuning in statistical learning, providing a robust estimate of model performance across different data subsets <span class="citation" data-cites="hastie2009elements">[<a href="#ref-hastie2009elements" role="doc-biblioref">22</a>]</span>. The process begins by setting aside an independent test set and dividing the remaining data into <span class="math inline">\(K\)</span> equally sized folds. Hyperparameter tuning is then performed by systematically exploring a predefined hyperparameter space. For each hyperparameter combination, the model is trained on <span class="math inline">\(K-1\)</span> folds and validated on the remaining fold, rotating through all <span class="math inline">\(K\)</span> folds. The average performance across these <span class="math inline">\(K\)</span> iterations is used to assess each hyperparameter set. This approach helps select hyperparameters that generalize well to unseen data, reducing overfitting risk.</p>
 <p>The K-Fold CV process for hyperparameter tuning typically involves several steps: defining a hyperparameter grid or search space, performing the cross-validation loop for each hyperparameter combination, selecting the best-performing hyperparameters, and finally training and evaluating the model on the entire dataset and held-out test set, respectively. The hyperparameter search can be conducted using various methods, including grid search, random search <span class="citation" data-cites="bergstra2012random">[<a href="#ref-bergstra2012random" role="doc-biblioref">23</a>]</span>, or more advanced techniques like Bayesian optimization <span class="citation" data-cites="snoek2012practical">[<a href="#ref-snoek2012practical" role="doc-biblioref">24</a>]</span>. While this method offers advantages such as robust performance estimation and efficient use of limited data, it also presents challenges. These include computational cost, especially for large datasets or complex models, and the potential instability of results depending on the specific folds used.</p>
 </section>
 <section id="classification-evaluation-metrics" class="level3" data-number="2.3">
-<h3 data-number="2.3"><span class="header-section-number">2.3</span> Classification Evaluation Metrics</h3>
+<h3 data-number="2.3" class="anchored" data-anchor-id="classification-evaluation-metrics"><span class="header-section-number">2.3</span> Classification Evaluation Metrics</h3>
 <p>In classification problems, especially binary classification, several metrics are commonly used to evaluate model performance. These metrics provide different perspectives on the model’s effectiveness and are derived from the confusion matrix. Understanding these metrics is crucial for properly assessing and comparing classification models. Before diving into the metrics, it is important to understand the confusion matrix in Table <a href="#confusion_matrix" data-reference-type="ref" data-reference="confusion_matrix">1</a>, which is the foundation for these metrics.</p>
 <div id="confusion_matrix">
-<table>
+<table class="table">
 <caption>The illustration of the confusion matrix</caption>
 <thead>
 <tr class="header">
@@ -616,10 +615,10 @@ Check out our previous book! <br> <a href="../../../book1/index.html"><img src="
 </section>
 </section>
 <section id="data-description-and-exploratory-analysis" class="level2" data-number="3">
-<h2 data-number="3"><span class="header-section-number">3</span> Data Description and Exploratory Analysis</h2>
+<h2 data-number="3" class="anchored" data-anchor-id="data-description-and-exploratory-analysis"><span class="header-section-number">3</span> Data Description and Exploratory Analysis</h2>
 <p>This section will present the dataset chosen for our illustration and conduct a preliminary exploration using basic visualization techniques.</p>
 <section id="dataset-overview" class="level3" data-number="3.1">
-<h3 data-number="3.1"><span class="header-section-number">3.1</span> Dataset Overview</h3>
+<h3 data-number="3.1" class="anchored" data-anchor-id="dataset-overview"><span class="header-section-number">3.1</span> Dataset Overview</h3>
 <p>Our dataset comes from <a href="https://github.com/lamethods/data2/blob/main/mooc/HXPC13_DI_v3_11-13-2019.RDS">an online learning platform</a> and contains information about students enrolled in various courses. The key variables in our analysis include:</p>
 <ul>
 <li><p><code>certified</code>: Whether the student received certification (our target variable);</p></li>
@@ -636,108 +635,108 @@ Check out our previous book! <br> <a href="../../../book1/index.html"><img src="
 <p>It is important to note that the response variable in our study is “certified”, with the other variables serving as predictors, as applied in Yuan et al. <span class="citation" data-cites="yuan2024integrating">[<a href="#ref-yuan2024integrating" role="doc-biblioref">26</a>]</span>.</p>
 </section>
 <section id="data-preparation-and-exploratory-data-analysis" class="level3" data-number="3.2">
-<h3 data-number="3.2"><span class="header-section-number">3.2</span> Data Preparation and Exploratory Data Analysis</h3>
+<h3 data-number="3.2" class="anchored" data-anchor-id="data-preparation-and-exploratory-data-analysis"><span class="header-section-number">3.2</span> Data Preparation and Exploratory Data Analysis</h3>
 <p>We begin our analysis by loading the necessary libraries and preparing our data:</p>
 <div class="cell">
-<div class="sourceCode" id="cb1"><pre class="sourceCode r cell-code"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(patchwork)</span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span>
 <span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(caret)</span>
 <span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ncvreg)</span>
 <span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(pROC)</span>
 <span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>repo <span class="ot">&lt;-</span> <span class="st">&quot;https://github.com/lamethods/data2/raw/refs/heads/main/&quot;</span></span>
-<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>dataset <span class="ot">&lt;-</span> <span class="st">&quot;mooc/HXPC13_DI_v3_11-13-2019.RDS&quot;</span></span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>repo <span class="ot">&lt;-</span> <span class="st">"https://github.com/lamethods/data2/raw/refs/heads/main/"</span></span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>dataset <span class="ot">&lt;-</span> <span class="st">"mooc/HXPC13_DI_v3_11-13-2019.RDS"</span></span>
 <span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>mydata <span class="ot">&lt;-</span> <span class="fu">readRDS</span>(<span class="fu">url</span>(<span class="fu">paste0</span>(repo, dataset)))</span>
-<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>data <span class="ot">&lt;-</span> mydata[,<span class="fu">c</span>(<span class="st">&quot;certified&quot;</span>,<span class="st">&quot;course_id&quot;</span>,<span class="st">&quot;explored&quot;</span>,<span class="st">&quot;gender&quot;</span>,</span>
-<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a>                  <span class="st">&quot;nevents&quot;</span>,<span class="st">&quot;ndays_act&quot;</span>,<span class="st">&quot;nplay_video&quot;</span>,<span class="st">&quot;nchapters&quot;</span>,</span>
-<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a>                  <span class="st">&quot;nforum_posts&quot;</span>,<span class="st">&quot;final_cc_cname_DI&quot;</span>)]</span>
-<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a>data[data <span class="sc">==</span> <span class="st">&quot;&quot;</span>] <span class="ot">&lt;-</span> <span class="cn">NA</span></span>
-<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a>data <span class="ot">&lt;-</span> <span class="fu">na.omit</span>(data)</span></code></pre></div>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>data <span class="ot">&lt;-</span> mydata[,<span class="fu">c</span>(<span class="st">"certified"</span>,<span class="st">"course_id"</span>,<span class="st">"explored"</span>,<span class="st">"gender"</span>,</span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a>                  <span class="st">"nevents"</span>,<span class="st">"ndays_act"</span>,<span class="st">"nplay_video"</span>,<span class="st">"nchapters"</span>,</span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a>                  <span class="st">"nforum_posts"</span>,<span class="st">"final_cc_cname_DI"</span>)]</span>
+<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a>data[data <span class="sc">==</span> <span class="st">""</span>] <span class="ot">&lt;-</span> <span class="cn">NA</span></span>
+<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a>data <span class="ot">&lt;-</span> <span class="fu">na.omit</span>(data)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>The following code snippet loads our dataset, selects the relevant columns, replaces empty strings with NA values, and removes any rows with missing data. Here, we shall notice our target of this chapter is to illustrate how to employ high-dimensionality reduction approaches for identifying key predictors (factors) relevant to the response (whether certified or not), thus we remove all the samples with missing data.</p>
 <div class="cell">
-<div class="sourceCode" id="cb2"><pre class="sourceCode r cell-code"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">table</span>(data<span class="sc">$</span>certified, data<span class="sc">$</span>course_id)</span></code></pre></div>
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">table</span>(data<span class="sc">$</span>certified, data<span class="sc">$</span>course_id)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>   
     HarvardX/PH207x/2012_Fall HarvardX/PH278x/2013_Spring
   0                     17671                       11006
   1                      1724                         616</code></pre>
 </div>
-<div class="sourceCode" id="cb4"><pre class="sourceCode r cell-code"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">table</span>(data<span class="sc">$</span>certified, data<span class="sc">$</span>gender)</span></code></pre></div>
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">table</span>(data<span class="sc">$</span>certified, data<span class="sc">$</span>gender)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>   
         f     m
   0 13077 15600
   1  1078  1262</code></pre>
 </div>
-<div class="sourceCode" id="cb6"><pre class="sourceCode r cell-code"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">table</span>(data<span class="sc">$</span>certified, data<span class="sc">$</span>explored)</span></code></pre></div>
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">table</span>(data<span class="sc">$</span>certified, data<span class="sc">$</span>explored)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>   
         0     1
   0 26027  2650
   1    60  2280</code></pre>
 </div>
-<div class="sourceCode" id="cb8"><pre class="sourceCode r cell-code"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Ensure &#39;course_id&#39; is a factor</span></span>
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Ensure 'course_id' is a factor</span></span>
 <span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>data<span class="sc">$</span>course_id <span class="ot">&lt;-</span> <span class="fu">as.factor</span>(data<span class="sc">$</span>course_id)</span>
 <span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Rename specific course names</span></span>
 <span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a><span class="fu">levels</span>(data<span class="sc">$</span>course_id)[<span class="fu">levels</span>(data<span class="sc">$</span>course_id) <span class="sc">==</span> </span>
-<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a>                         <span class="st">&quot;HarvardX/PH207x/2012_Fall&quot;</span>] <span class="ot">&lt;-</span> <span class="st">&quot;c_id1&quot;</span></span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a>                         <span class="st">"HarvardX/PH207x/2012_Fall"</span>] <span class="ot">&lt;-</span> <span class="st">"c_id1"</span></span>
 <span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a><span class="fu">levels</span>(data<span class="sc">$</span>course_id)[<span class="fu">levels</span>(data<span class="sc">$</span>course_id) <span class="sc">==</span> </span>
-<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a>                         <span class="st">&quot;HarvardX/PH278x/2013_Spring&quot;</span>] <span class="ot">&lt;-</span> <span class="st">&quot;c_id2&quot;</span></span></code></pre></div>
+<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a>                         <span class="st">"HarvardX/PH278x/2013_Spring"</span>] <span class="ot">&lt;-</span> <span class="st">"c_id2"</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Before diving into our predictive modeling, it is crucial to understand the distribution and relationships within our data. We use visualization techniques with two R packages “ggplot2” <span class="citation" data-cites="wickham2011ggplot2">[<a href="#ref-wickham2011ggplot2" role="doc-biblioref">27</a>]</span> and “patchwork” <span class="citation" data-cites="pedersen2019package">[<a href="#ref-pedersen2019package" role="doc-biblioref">28</a>]</span> to gain these insights.</p>
 <div class="cell">
-<div class="sourceCode" id="cb9"><pre class="sourceCode r cell-code"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Certification rates by course</span></span>
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Certification rates by course</span></span>
 <span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>plot1 <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(data, <span class="fu">aes</span>(<span class="at">x =</span> course_id, <span class="at">fill =</span> <span class="fu">factor</span>(certified))) <span class="sc">+</span></span>
-<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_bar</span>(<span class="at">position =</span> <span class="st">&quot;fill&quot;</span>) <span class="sc">+</span></span>
-<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">y =</span> <span class="st">&quot;proportion&quot;</span>, <span class="at">title =</span> <span class="st">&quot;course_id&quot;</span>, <span class="at">fill =</span> <span class="st">&quot;certified&quot;</span>) <span class="sc">+</span></span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_bar</span>(<span class="at">position =</span> <span class="st">"fill"</span>) <span class="sc">+</span></span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">y =</span> <span class="st">"proportion"</span>, <span class="at">title =</span> <span class="st">"course_id"</span>, <span class="at">fill =</span> <span class="st">"certified"</span>) <span class="sc">+</span></span>
 <span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">axis.text.x =</span> <span class="fu">element_text</span>(<span class="at">angle =</span> <span class="dv">45</span>, <span class="at">hjust =</span> <span class="dv">1</span>),</span>
 <span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a>        <span class="at">plot.title =</span> <span class="fu">element_text</span>(<span class="at">hjust =</span> <span class="fl">0.5</span>))</span>
 <span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Certification rates by gender</span></span>
 <span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a>plot2 <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(data, <span class="fu">aes</span>(<span class="at">x =</span> gender, <span class="at">fill =</span> <span class="fu">factor</span>(certified))) <span class="sc">+</span></span>
-<span id="cb9-9"><a href="#cb9-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_bar</span>(<span class="at">position =</span> <span class="st">&quot;fill&quot;</span>) <span class="sc">+</span></span>
-<span id="cb9-10"><a href="#cb9-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">y =</span> <span class="st">&quot;proportion&quot;</span>, <span class="at">title =</span> <span class="st">&quot;gender&quot;</span>, <span class="at">fill =</span> <span class="st">&quot;Certified&quot;</span>) <span class="sc">+</span></span>
+<span id="cb9-9"><a href="#cb9-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_bar</span>(<span class="at">position =</span> <span class="st">"fill"</span>) <span class="sc">+</span></span>
+<span id="cb9-10"><a href="#cb9-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">y =</span> <span class="st">"proportion"</span>, <span class="at">title =</span> <span class="st">"gender"</span>, <span class="at">fill =</span> <span class="st">"Certified"</span>) <span class="sc">+</span></span>
 <span id="cb9-11"><a href="#cb9-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">plot.title =</span> <span class="fu">element_text</span>(<span class="at">hjust =</span> <span class="fl">0.5</span>))</span>
 <span id="cb9-12"><a href="#cb9-12" aria-hidden="true" tabindex="-1"></a><span class="co"># Certification rates by exploration status</span></span>
 <span id="cb9-13"><a href="#cb9-13" aria-hidden="true" tabindex="-1"></a>plot3 <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(data, <span class="fu">aes</span>(<span class="at">x =</span> explored, <span class="at">fill =</span> <span class="fu">factor</span>(certified))) <span class="sc">+</span></span>
-<span id="cb9-14"><a href="#cb9-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_bar</span>(<span class="at">position =</span> <span class="st">&quot;fill&quot;</span>) <span class="sc">+</span></span>
-<span id="cb9-15"><a href="#cb9-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">y =</span> <span class="st">&quot;proportion&quot;</span>, <span class="at">title =</span> <span class="st">&quot;explored&quot;</span>, <span class="at">fill =</span> <span class="st">&quot;Certified&quot;</span>) <span class="sc">+</span></span>
+<span id="cb9-14"><a href="#cb9-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_bar</span>(<span class="at">position =</span> <span class="st">"fill"</span>) <span class="sc">+</span></span>
+<span id="cb9-15"><a href="#cb9-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">y =</span> <span class="st">"proportion"</span>, <span class="at">title =</span> <span class="st">"explored"</span>, <span class="at">fill =</span> <span class="st">"Certified"</span>) <span class="sc">+</span></span>
 <span id="cb9-16"><a href="#cb9-16" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">plot.title =</span> <span class="fu">element_text</span>(<span class="at">hjust =</span> <span class="fl">0.5</span>))</span>
 <span id="cb9-17"><a href="#cb9-17" aria-hidden="true" tabindex="-1"></a><span class="co"># Combine the plots</span></span>
 <span id="cb9-18"><a href="#cb9-18" aria-hidden="true" tabindex="-1"></a>combined_plot <span class="ot">&lt;-</span> plot1 <span class="sc">|</span> plot2 <span class="sc">|</span> plot3</span>
-<span id="cb9-19"><a href="#cb9-19" aria-hidden="true" tabindex="-1"></a>combined_plot <span class="sc">+</span> <span class="fu">plot_layout</span>(<span class="at">guides =</span> <span class="st">&#39;collect&#39;</span>)</span></code></pre></div>
+<span id="cb9-19"><a href="#cb9-19" aria-hidden="true" tabindex="-1"></a>combined_plot <span class="sc">+</span> <span class="fu">plot_layout</span>(<span class="at">guides =</span> <span class="st">'collect'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<div id="fig-cert-rates" class="quarto-figure quarto-figure-center">
-<figure>
-<p><img src="img/ch05-regularization_files/figure-html/fig-cert-rates-1.png" class="img-fluid" width="960" /></p>
-<p><figcaption><strong>Figure</strong> 1<strong>.</strong> The visualization of the certification rates by course, gender, and exploration status</figcaption></p>
+<div id="fig-cert-rates" class="quarto-figure quarto-figure-center anchored">
+<figure class="figure">
+<p><img src="img/ch05-regularization_files/figure-html/fig-cert-rates-1.png" class="img-fluid figure-img" width="960"></p>
+<p></p><figcaption class="figure-caption"><strong>Figure</strong>&nbsp;1<strong>.</strong> The visualization of the certification rates by course, gender, and exploration status</figcaption><p></p>
 </figure>
 </div>
 </div>
 </div>
-<p>This code creates three bar plots reported in <a href="#fig-cert-rates">Figure <span class="quarto-unresolved-ref">fig-cert-rates</span></a> showing the certification rates by course (categorical variable), gender (binary variable), and exploration status (binary variable). These visualizations help us understand how certification rates vary across different subgroups in our dataset.</p>
+<p>This code creates three bar plots reported in <a href="#fig-cert-rates">Figure&nbsp;<span>5.1</span></a> showing the certification rates by course (categorical variable), gender (binary variable), and exploration status (binary variable). These visualizations help us understand how certification rates vary across different subgroups in our dataset.</p>
 <p>Moreover, we can obtain the detailed numerical results of the certification rates by course, gender, and exploration status with the following codes:</p>
 <div class="cell">
-<div class="sourceCode" id="cb10"><pre class="sourceCode r cell-code"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="co"># course_id</span></span>
-<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a><span class="fu">table</span>(data<span class="sc">$</span>certified,data<span class="sc">$</span>course_id)</span></code></pre></div>
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="co"># course_id</span></span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a><span class="fu">table</span>(data<span class="sc">$</span>certified,data<span class="sc">$</span>course_id)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>   
     c_id1 c_id2
   0 17671 11006
   1  1724   616</code></pre>
 </div>
-<div class="sourceCode" id="cb12"><pre class="sourceCode r cell-code"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="co"># gender</span></span>
-<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a><span class="fu">table</span>(data<span class="sc">$</span>certified,data<span class="sc">$</span>gender)</span></code></pre></div>
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="co"># gender</span></span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a><span class="fu">table</span>(data<span class="sc">$</span>certified,data<span class="sc">$</span>gender)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>   
         f     m
   0 13077 15600
   1  1078  1262</code></pre>
 </div>
-<div class="sourceCode" id="cb14"><pre class="sourceCode r cell-code"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="co"># explored</span></span>
-<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a><span class="fu">table</span>(data<span class="sc">$</span>certified,data<span class="sc">$</span>explored)</span></code></pre></div>
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="co"># explored</span></span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a><span class="fu">table</span>(data<span class="sc">$</span>certified,data<span class="sc">$</span>explored)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>   
         0     1
@@ -747,62 +746,62 @@ Check out our previous book! <br> <a href="../../../book1/index.html"><img src="
 </div>
 <p>In addition, different from the former visualization for binary and categorical variables, here, we also create boxplots to visualize the relationship between certification and various numeric variables:</p>
 <div class="cell">
-<div class="sourceCode" id="cb16"><pre class="sourceCode r cell-code"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>data_long <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(</span>
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>data_long <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(</span>
 <span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">certified =</span> <span class="fu">rep</span>(data<span class="sc">$</span>certified, <span class="dv">5</span>),</span>
-<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">metric =</span> <span class="fu">factor</span>(<span class="fu">rep</span>(<span class="fu">c</span>(<span class="st">&quot;nevents&quot;</span>, <span class="st">&quot;ndays_act&quot;</span>, <span class="st">&quot;nchapters&quot;</span>, <span class="st">&quot;nplay_video&quot;</span>,</span>
-<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a>                        <span class="st">&quot;nforum_posts&quot;</span>), <span class="at">each =</span> <span class="fu">nrow</span>(data))),</span>
+<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">metric =</span> <span class="fu">factor</span>(<span class="fu">rep</span>(<span class="fu">c</span>(<span class="st">"nevents"</span>, <span class="st">"ndays_act"</span>, <span class="st">"nchapters"</span>, <span class="st">"nplay_video"</span>,</span>
+<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a>                        <span class="st">"nforum_posts"</span>), <span class="at">each =</span> <span class="fu">nrow</span>(data))),</span>
 <span id="cb16-5"><a href="#cb16-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">value =</span> <span class="fu">c</span>(data<span class="sc">$</span>nevents, data<span class="sc">$</span>ndays_act, data<span class="sc">$</span>nchapters, data<span class="sc">$</span>nplay_video, data<span class="sc">$</span>nforum_posts)</span>
 <span id="cb16-6"><a href="#cb16-6" aria-hidden="true" tabindex="-1"></a>)</span>
 <span id="cb16-7"><a href="#cb16-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Create a data frame manually for faceting</span></span>
 <span id="cb16-8"><a href="#cb16-8" aria-hidden="true" tabindex="-1"></a>faceted_plot <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(data_long, <span class="fu">aes</span>(<span class="at">x =</span> <span class="fu">factor</span>(certified), <span class="at">y =</span> value, <span class="at">fill =</span> <span class="fu">factor</span>(certified))) <span class="sc">+</span></span>
 <span id="cb16-9"><a href="#cb16-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>() <span class="sc">+</span></span>
-<span id="cb16-10"><a href="#cb16-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_wrap</span>(<span class="sc">~</span> metric, <span class="at">scales =</span> <span class="st">&quot;free_y&quot;</span>, <span class="at">ncol =</span> <span class="dv">2</span>) <span class="sc">+</span></span>
-<span id="cb16-11"><a href="#cb16-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">&quot;Metrics by Certification Status&quot;</span>, <span class="at">x =</span> <span class="st">&quot;Certified&quot;</span>, <span class="at">y =</span> <span class="st">&quot;Value&quot;</span>, <span class="at">fill =</span> <span class="st">&quot;Certified&quot;</span>) <span class="sc">+</span></span>
+<span id="cb16-10"><a href="#cb16-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_wrap</span>(<span class="sc">~</span> metric, <span class="at">scales =</span> <span class="st">"free_y"</span>, <span class="at">ncol =</span> <span class="dv">2</span>) <span class="sc">+</span></span>
+<span id="cb16-11"><a href="#cb16-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Metrics by Certification Status"</span>, <span class="at">x =</span> <span class="st">"Certified"</span>, <span class="at">y =</span> <span class="st">"Value"</span>, <span class="at">fill =</span> <span class="st">"Certified"</span>) <span class="sc">+</span></span>
 <span id="cb16-12"><a href="#cb16-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">plot.title =</span> <span class="fu">element_text</span>(<span class="at">hjust =</span> <span class="fl">0.5</span>),</span>
 <span id="cb16-13"><a href="#cb16-13" aria-hidden="true" tabindex="-1"></a>        <span class="at">strip.text =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">12</span>),</span>
-<span id="cb16-14"><a href="#cb16-14" aria-hidden="true" tabindex="-1"></a>        <span class="at">legend.position =</span> <span class="st">&quot;bottom&quot;</span>,</span>
+<span id="cb16-14"><a href="#cb16-14" aria-hidden="true" tabindex="-1"></a>        <span class="at">legend.position =</span> <span class="st">"bottom"</span>,</span>
 <span id="cb16-15"><a href="#cb16-15" aria-hidden="true" tabindex="-1"></a>        <span class="at">aspect.ratio =</span> <span class="fl">0.45</span>) <span class="co"># Adjust the aspect ratio to make plots taller or wider</span></span>
 <span id="cb16-16"><a href="#cb16-16" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb16-17"><a href="#cb16-17" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(faceted_plot)</span></code></pre></div>
+<span id="cb16-17"><a href="#cb16-17" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(faceted_plot)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<div id="fig-boxplot" class="quarto-figure quarto-figure-center">
-<figure>
-<p><img src="img/ch05-regularization_files/figure-html/fig-boxplot-1.png" class="img-fluid" width="480" /></p>
-<p><figcaption><strong>Figure</strong> 2<strong>.</strong> The visualization of the certification outcomes by <code>nevents</code>, <code>ndays_act</code>, <code>nchapters</code>, <code>nplay_video</code>, and <code>nforum_posts</code></figcaption></p>
+<div id="fig-boxplot" class="quarto-figure quarto-figure-center anchored">
+<figure class="figure">
+<p><img src="img/ch05-regularization_files/figure-html/fig-boxplot-1.png" class="img-fluid figure-img" width="480"></p>
+<p></p><figcaption class="figure-caption"><strong>Figure</strong>&nbsp;2<strong>.</strong> The visualization of the certification outcomes by <code>nevents</code>, <code>ndays_act</code>, <code>nchapters</code>, <code>nplay_video</code>, and <code>nforum_posts</code></figcaption><p></p>
 </figure>
 </div>
 </div>
 </div>
-<p>These boxplots in <a href="#fig-boxplot">Figure <span class="quarto-unresolved-ref">fig-boxplot</span></a> reveal the differences in various engagement metrics between certified and non-certified students, highlighting that certified users generally show higher levels of engagement across multiple dimensions. In each boxplot, variables such as <code>nevents</code>, <code>ndays_act</code>, and <code>nchapters</code> display distinct patterns between certified and non-certified individuals, with certified students showing higher medians and wider distributions in these metrics. This pattern suggests that active and sustained participation—through frequent events, consistent activity days, and more completed chapters—is associated with a greater likelihood of certification. However, the patterns for <code>nplay_video</code> and <code>nforum_posts</code> are less clear, as both certified and non-certified students show similar distributions with low levels of forum participation overall. This lack of differentiation implies that while direct interaction with course material is crucial, forum activity and video play frequency may not significantly impact certification outcomes. Therefore, we will further analyze the visualization results with advanced regression approaches to better understand these relationships and quantify the extent to which each metric influences the likelihood of certification.</p>
+<p>These boxplots in <a href="#fig-boxplot">Figure&nbsp;<span>5.2</span></a> reveal the differences in various engagement metrics between certified and non-certified students, highlighting that certified users generally show higher levels of engagement across multiple dimensions. In each boxplot, variables such as <code>nevents</code>, <code>ndays_act</code>, and <code>nchapters</code> display distinct patterns between certified and non-certified individuals, with certified students showing higher medians and wider distributions in these metrics. This pattern suggests that active and sustained participation—through frequent events, consistent activity days, and more completed chapters—is associated with a greater likelihood of certification. However, the patterns for <code>nplay_video</code> and <code>nforum_posts</code> are less clear, as both certified and non-certified students show similar distributions with low levels of forum participation overall. This lack of differentiation implies that while direct interaction with course material is crucial, forum activity and video play frequency may not significantly impact certification outcomes. Therefore, we will further analyze the visualization results with advanced regression approaches to better understand these relationships and quantify the extent to which each metric influences the likelihood of certification.</p>
 </section>
 </section>
 <section id="data-modelling-and-numerical-results" class="level2" data-number="4">
-<h2 data-number="4"><span class="header-section-number">4</span> Data Modelling and Numerical Results</h2>
+<h2 data-number="4" class="anchored" data-anchor-id="data-modelling-and-numerical-results"><span class="header-section-number">4</span> Data Modelling and Numerical Results</h2>
 <section id="data-preprocessing" class="level3" data-number="4.1">
-<h3 data-number="4.1"><span class="header-section-number">4.1</span> Data Preprocessing</h3>
+<h3 data-number="4.1" class="anchored" data-anchor-id="data-preprocessing"><span class="header-section-number">4.1</span> Data Preprocessing</h3>
 <p>In regularized regression for high-dimensional predictors, the optimization objective combines two components: the negative log-likelihood (for logistic regression) and the penalty function, with a hyperparameter lambda balancing them. In practice, predictors can have different scales, which may complicate the hyperparameter tuning process by impacting the search for an optimal lambda within a specified range. Therefore, it is necessary to scale the numeric variables to ensure they are on a consistent scale, improving the stability and efficiency of tuning. Additionally, converting categorical variables to factors allows the model to correctly interpret them as categorical, which is essential for meaningful analysis and accurate results. Therefore, before applying our regularization methods, we need to preprocess our data. We scale the numeric variables and convert categorical variables to factors:</p>
 <div class="cell">
-<div class="sourceCode" id="cb17"><pre class="sourceCode r cell-code"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>data2 <span class="ot">&lt;-</span> <span class="fu">as.data.frame</span>(<span class="fu">scale</span>(data[,<span class="fu">c</span>(<span class="st">&quot;nevents&quot;</span>, <span class="st">&quot;ndays_act&quot;</span>, <span class="st">&quot;nplay_video&quot;</span>, </span>
-<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>                                     <span class="st">&quot;nchapters&quot;</span>, <span class="st">&quot;nforum_posts&quot;</span>)]))</span>
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>data2 <span class="ot">&lt;-</span> <span class="fu">as.data.frame</span>(<span class="fu">scale</span>(data[,<span class="fu">c</span>(<span class="st">"nevents"</span>, <span class="st">"ndays_act"</span>, <span class="st">"nplay_video"</span>, </span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>                                     <span class="st">"nchapters"</span>, <span class="st">"nforum_posts"</span>)]))</span>
 <span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a>data2<span class="sc">$</span>certified <span class="ot">&lt;-</span> <span class="fu">as.factor</span>(data<span class="sc">$</span>certified)</span>
 <span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a>data2<span class="sc">$</span>course_id <span class="ot">&lt;-</span> <span class="fu">as.factor</span>(data<span class="sc">$</span>course_id)</span>
 <span id="cb17-5"><a href="#cb17-5" aria-hidden="true" tabindex="-1"></a>data2<span class="sc">$</span>explored <span class="ot">&lt;-</span> <span class="fu">as.factor</span>(data<span class="sc">$</span>explored)</span>
 <span id="cb17-6"><a href="#cb17-6" aria-hidden="true" tabindex="-1"></a>data2<span class="sc">$</span>gender <span class="ot">&lt;-</span> <span class="fu">as.factor</span>(data<span class="sc">$</span>gender)</span>
-<span id="cb17-7"><a href="#cb17-7" aria-hidden="true" tabindex="-1"></a>data2<span class="sc">$</span>final_cc_cname_DI <span class="ot">&lt;-</span> <span class="fu">as.factor</span>(data<span class="sc">$</span>final_cc_cname_DI)</span></code></pre></div>
+<span id="cb17-7"><a href="#cb17-7" aria-hidden="true" tabindex="-1"></a>data2<span class="sc">$</span>final_cc_cname_DI <span class="ot">&lt;-</span> <span class="fu">as.factor</span>(data<span class="sc">$</span>final_cc_cname_DI)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
 <section id="model-preparation" class="level3" data-number="4.2">
-<h3 data-number="4.2"><span class="header-section-number">4.2</span> Model Preparation</h3>
+<h3 data-number="4.2" class="anchored" data-anchor-id="model-preparation"><span class="header-section-number">4.2</span> Model Preparation</h3>
 <p>We split our data into training (80%) and test (20%) sets:</p>
 <div class="cell">
-<div class="sourceCode" id="cb18"><pre class="sourceCode r cell-code"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">123</span>)</span>
+<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">123</span>)</span>
 <span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>train_indices <span class="ot">&lt;-</span> <span class="fu">createDataPartition</span>(data2<span class="sc">$</span>certified, <span class="at">p =</span> <span class="fl">0.8</span>, <span class="at">list =</span> <span class="cn">FALSE</span>)</span>
 <span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a>train_data <span class="ot">&lt;-</span> data2[train_indices, ]</span>
-<span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a>test_data <span class="ot">&lt;-</span> data2[<span class="sc">-</span>train_indices, ]</span></code></pre></div>
+<span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a>test_data <span class="ot">&lt;-</span> data2[<span class="sc">-</span>train_indices, ]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Considering the potential impacts of interactions between predictors, we construct many interaction terms in our statistical modeling. With such some interaction terms, we can clearly illustrate the effectiveness of the regularization approaches for handling high-dimensional predictors in regression modeling. We prepare our design matrices with interaction terms and response vectors:</p>
 <div class="cell">
-<div class="sourceCode" id="cb19"><pre class="sourceCode r cell-code"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>y_train <span class="ot">&lt;-</span> train_data<span class="sc">$</span>certified</span>
+<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>y_train <span class="ot">&lt;-</span> train_data<span class="sc">$</span>certified</span>
 <span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>X_train <span class="ot">&lt;-</span> <span class="fu">model.matrix</span>(certified <span class="sc">~</span> course_id <span class="sc">+</span> gender <span class="sc">+</span> final_cc_cname_DI <span class="sc">+</span> </span>
 <span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a>                          nevents <span class="sc">+</span> ndays_act <span class="sc">+</span>nplay_video <span class="sc">+</span> explored <span class="sc">+</span> nchapters <span class="sc">+</span></span>
 <span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a>                          nforum_posts <span class="sc">+</span> final_cc_cname_DI <span class="sc">+</span> </span>
@@ -820,19 +819,19 @@ Check out our previous book! <br> <a href="../../../book1/index.html"><img src="
 <span id="cb19-16"><a href="#cb19-16" aria-hidden="true" tabindex="-1"></a>                            explored <span class="sc">+</span> nchapters <span class="sc">+</span> nforum_posts) <span class="sc">*</span> gender <span class="sc">+</span></span>
 <span id="cb19-17"><a href="#cb19-17" aria-hidden="true" tabindex="-1"></a>                         (nevents <span class="sc">+</span> ndays_act <span class="sc">+</span> nplay_video <span class="sc">+</span> explored <span class="sc">+</span> </span>
 <span id="cb19-18"><a href="#cb19-18" aria-hidden="true" tabindex="-1"></a>                            nchapters <span class="sc">+</span> nforum_posts) <span class="sc">*</span> course_id, </span>
-<span id="cb19-19"><a href="#cb19-19" aria-hidden="true" tabindex="-1"></a>                       <span class="at">data =</span> test_data)[,<span class="sc">-</span><span class="dv">1</span>]</span></code></pre></div>
+<span id="cb19-19"><a href="#cb19-19" aria-hidden="true" tabindex="-1"></a>                       <span class="at">data =</span> test_data)[,<span class="sc">-</span><span class="dv">1</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
 <section id="cross-validation-and-model-fitting" class="level3" data-number="4.3">
-<h3 data-number="4.3"><span class="header-section-number">4.3</span> Cross-validation and Model Fitting</h3>
+<h3 data-number="4.3" class="anchored" data-anchor-id="cross-validation-and-model-fitting"><span class="header-section-number">4.3</span> Cross-validation and Model Fitting</h3>
 <p>We implement three regularization methods: LASSO, SCAD, and MCP. These methods are particularly useful for high-dimensional data where we have a large number of predictors relative to the number of observations. They perform variable selection by shrinking some coefficients to exactly zero, effectively removing those predictors from the model. We implement these methods using the “ncvreg” package <span class="citation" data-cites="breheny2024package">[<a href="#ref-breheny2024package" role="doc-biblioref">29</a>]</span> in R.</p>
 <p>We use k-fold cross-validation to select the optimal regularization parameter (lambda) for each method with the folder number <span class="math inline">\(5\)</span>. Our implementation uses the Area Under the ROC Curve (AUC) as the performance metric:</p>
 <div class="cell">
-<div class="sourceCode" id="cb20"><pre class="sourceCode r cell-code"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Function to perform cross-validation using AUC and fit the model</span></span>
+<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Function to perform cross-validation using AUC and fit the model</span></span>
 <span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a>cv_and_fit_auc <span class="ot">&lt;-</span> <span class="cf">function</span>(X, y, penalty, <span class="at">nfolds =</span> <span class="dv">5</span>) {</span>
 <span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">set.seed</span>(<span class="dv">123</span>)  <span class="co"># for reproducibility</span></span>
 <span id="cb20-4"><a href="#cb20-4" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Fit the model using the entire path</span></span>
-<span id="cb20-5"><a href="#cb20-5" aria-hidden="true" tabindex="-1"></a>  fit <span class="ot">&lt;-</span> <span class="fu">ncvreg</span>(X, y, <span class="at">family =</span> <span class="st">&quot;binomial&quot;</span>, <span class="at">penalty =</span> penalty, <span class="at">standardize =</span> <span class="cn">FALSE</span>)</span>
+<span id="cb20-5"><a href="#cb20-5" aria-hidden="true" tabindex="-1"></a>  fit <span class="ot">&lt;-</span> <span class="fu">ncvreg</span>(X, y, <span class="at">family =</span> <span class="st">"binomial"</span>, <span class="at">penalty =</span> penalty, <span class="at">standardize =</span> <span class="cn">FALSE</span>)</span>
 <span id="cb20-6"><a href="#cb20-6" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Perform k-fold cross-validation</span></span>
 <span id="cb20-7"><a href="#cb20-7" aria-hidden="true" tabindex="-1"></a>  folds <span class="ot">&lt;-</span> <span class="fu">sample</span>(<span class="fu">rep</span>(<span class="dv">1</span><span class="sc">:</span>nfolds, <span class="at">length.out =</span> <span class="fu">length</span>(y))) </span>
 <span id="cb20-8"><a href="#cb20-8" aria-hidden="true" tabindex="-1"></a>  aucs <span class="ot">&lt;-</span> <span class="fu">matrix</span>(<span class="dv">0</span>, <span class="at">nrow =</span> nfolds, <span class="at">ncol =</span> <span class="fu">length</span>(fit<span class="sc">$</span>lambda))</span>
@@ -844,7 +843,7 @@ Check out our previous book! <br> <a href="../../../book1/index.html"><img src="
 <span id="cb20-14"><a href="#cb20-14" aria-hidden="true" tabindex="-1"></a>    X_test_cv <span class="ot">&lt;-</span> X[test_indices, ]</span>
 <span id="cb20-15"><a href="#cb20-15" aria-hidden="true" tabindex="-1"></a>    y_test_cv <span class="ot">&lt;-</span> y[test_indices]</span>
 <span id="cb20-16"><a href="#cb20-16" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Fit model on training data</span></span>
-<span id="cb20-17"><a href="#cb20-17" aria-hidden="true" tabindex="-1"></a>    cv_fit <span class="ot">&lt;-</span> <span class="fu">ncvreg</span>(X_train_cv, y_train_cv, <span class="at">family =</span> <span class="st">&quot;binomial&quot;</span>, </span>
+<span id="cb20-17"><a href="#cb20-17" aria-hidden="true" tabindex="-1"></a>    cv_fit <span class="ot">&lt;-</span> <span class="fu">ncvreg</span>(X_train_cv, y_train_cv, <span class="at">family =</span> <span class="st">"binomial"</span>, </span>
 <span id="cb20-18"><a href="#cb20-18" aria-hidden="true" tabindex="-1"></a>                     <span class="at">penalty =</span> penalty, <span class="at">lambda =</span> fit<span class="sc">$</span>lambda,<span class="at">standardize =</span> <span class="cn">FALSE</span>)</span>
 <span id="cb20-19"><a href="#cb20-19" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Calculate AUC for each lambda</span></span>
 <span id="cb20-20"><a href="#cb20-20" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> (j <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="fu">length</span>(cv_fit<span class="sc">$</span>lambda)) {</span>
@@ -876,22 +875,22 @@ Check out our previous book! <br> <a href="../../../book1/index.html"><img src="
 <span id="cb20-46"><a href="#cb20-46" aria-hidden="true" tabindex="-1"></a>  coef <span class="ot">&lt;-</span> <span class="fu">coef</span>(fit)[, optimal_lambda_index]</span>
 <span id="cb20-47"><a href="#cb20-47" aria-hidden="true" tabindex="-1"></a>  <span class="fu">return</span>(<span class="fu">list</span>(<span class="at">fit =</span> fit, <span class="at">coef =</span> coef, <span class="at">optimal_lambda =</span> optimal_lambda, </span>
 <span id="cb20-48"><a href="#cb20-48" aria-hidden="true" tabindex="-1"></a>              <span class="at">mean_aucs =</span> mean_aucs))</span>
-<span id="cb20-49"><a href="#cb20-49" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
+<span id="cb20-49"><a href="#cb20-49" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>The cv_and_fit_auc() function performs cross-validation and model fitting to select an optimal regularization parameter (lambda) using AUC as the performance metric. We first fit a model across a range of lambda values using the ncvreg function, which applies a penalized regression technique. The data is split into nfolds subsets for cross-validation, wherein each fold, the function trains a model on the training data and evaluates it on the test data. The AUC for each value of lambda is calculated by looping through the test set and computing predicted probabilities, which are then used to generate the ROC curve. After calculating the mean AUC across all folds for each lambda, the optimal lambda is selected based on the highest average AUC. The function returns the fitted model, the coefficients at the optimal lambda, the selected lambda, and the mean AUCs across folds, providing an effective method for model tuning and evaluation.</p>
 <p>We then fit our models with cv_and_fit_auc() function:</p>
 <div class="cell" data-hash="ch05-regularization_cache/html/unnamed-chunk-10_6cd1ece59d59ff9b289d1a2a7bad3a87">
-<div class="sourceCode" id="cb21"><pre class="sourceCode r cell-code"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a>lasso_results <span class="ot">&lt;-</span> <span class="fu">cv_and_fit_auc</span>(X_train, y_train, <span class="st">&quot;lasso&quot;</span>)</span>
-<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a>scad_results <span class="ot">&lt;-</span> <span class="fu">cv_and_fit_auc</span>(X_train, y_train, <span class="st">&quot;SCAD&quot;</span>)</span>
-<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a>mcp_results <span class="ot">&lt;-</span> <span class="fu">cv_and_fit_auc</span>(X_train, y_train, <span class="st">&quot;MCP&quot;</span>)</span></code></pre></div>
+<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a>lasso_results <span class="ot">&lt;-</span> <span class="fu">cv_and_fit_auc</span>(X_train, y_train, <span class="st">"lasso"</span>)</span>
+<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a>scad_results <span class="ot">&lt;-</span> <span class="fu">cv_and_fit_auc</span>(X_train, y_train, <span class="st">"SCAD"</span>)</span>
+<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a>mcp_results <span class="ot">&lt;-</span> <span class="fu">cv_and_fit_auc</span>(X_train, y_train, <span class="st">"MCP"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>It shall be noted that the computational efficiency of the model fitting depends on the sample size and the dimensionality of the predictors. To speed up the fitting process, some parallel computing techniques are suggested.</p>
 </section>
 <section id="results" class="level3" data-number="4.4">
-<h3 data-number="4.4"><span class="header-section-number">4.4</span> Results</h3>
+<h3 data-number="4.4" class="anchored" data-anchor-id="results"><span class="header-section-number">4.4</span> Results</h3>
 <p>We evaluate our models on the test set using various performance metrics. The function <code>calculate_test_performance()</code> evaluates a binary classification model’s performance by taking model coefficients (<code>coef</code>), test predictors <code>X_test</code>, and true labels (<code>y_test</code>) as inputs. First, we ensure the data formats and dimensions are correct. Then, we calculate linear predictor values and use the logistic function to compute predicted probabilities for each test instance. These probabilities are converted to binary predictions using a threshold of 0.5. Next, the function computes various performance metrics, including accuracy, precision, recall, and F1 score using a confusion matrix, as well as the AUC using the ROC curve to measure the model’s ability to distinguish between classes. Finally, all calculated metrics are returned in a list for easy interpretation, providing a comprehensive evaluation of the model’s predictive performance.</p>
 <div class="cell">
-<div class="sourceCode" id="cb22"><pre class="sourceCode r cell-code"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Function to calculate test performance metrics</span></span>
+<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Function to calculate test performance metrics</span></span>
 <span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a>calculate_test_performance <span class="ot">&lt;-</span> <span class="cf">function</span>(coef, X_test, y_test) {</span>
 <span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Ensure X_test is a matrix</span></span>
 <span id="cb22-4"><a href="#cb22-4" aria-hidden="true" tabindex="-1"></a>  X_test <span class="ot">&lt;-</span> <span class="fu">as.matrix</span>(X_test)</span>
@@ -900,8 +899,8 @@ Check out our previous book! <br> <a href="../../../book1/index.html"><img src="
 <span id="cb22-7"><a href="#cb22-7" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Check that coef length matches the number of columns in X_test + 1 </span></span>
 <span id="cb22-8"><a href="#cb22-8" aria-hidden="true" tabindex="-1"></a>  <span class="co"># (for the intercept)</span></span>
 <span id="cb22-9"><a href="#cb22-9" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> (<span class="fu">length</span>(coef) <span class="sc">!=</span> (<span class="fu">ncol</span>(X_test) <span class="sc">+</span> <span class="dv">1</span>)) {</span>
-<span id="cb22-10"><a href="#cb22-10" aria-hidden="true" tabindex="-1"></a>    <span class="fu">stop</span>(<span class="st">&quot;Length of coef must be equal to the number of predictors </span></span>
-<span id="cb22-11"><a href="#cb22-11" aria-hidden="true" tabindex="-1"></a><span class="st">         plus one for the intercept.&quot;</span>)</span>
+<span id="cb22-10"><a href="#cb22-10" aria-hidden="true" tabindex="-1"></a>    <span class="fu">stop</span>(<span class="st">"Length of coef must be equal to the number of predictors </span></span>
+<span id="cb22-11"><a href="#cb22-11" aria-hidden="true" tabindex="-1"></a><span class="st">         plus one for the intercept."</span>)</span>
 <span id="cb22-12"><a href="#cb22-12" aria-hidden="true" tabindex="-1"></a>  }</span>
 <span id="cb22-13"><a href="#cb22-13" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Initialize vectors to store linear predictors and probabilities</span></span>
 <span id="cb22-14"><a href="#cb22-14" aria-hidden="true" tabindex="-1"></a>  linear_predictors <span class="ot">&lt;-</span> <span class="fu">numeric</span>(<span class="fu">nrow</span>(X_test))</span>
@@ -919,23 +918,23 @@ Check out our previous book! <br> <a href="../../../book1/index.html"><img src="
 <span id="cb22-26"><a href="#cb22-26" aria-hidden="true" tabindex="-1"></a>  predictions <span class="ot">&lt;-</span> <span class="fu">ifelse</span>(probs <span class="sc">&gt;</span> <span class="fl">0.5</span>, <span class="dv">1</span>, <span class="dv">0</span>)</span>
 <span id="cb22-27"><a href="#cb22-27" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Calculate performance metrics</span></span>
 <span id="cb22-28"><a href="#cb22-28" aria-hidden="true" tabindex="-1"></a>  confusion <span class="ot">&lt;-</span> <span class="fu">confusionMatrix</span>(<span class="fu">factor</span>(predictions), <span class="fu">factor</span>(y_test))</span>
-<span id="cb22-29"><a href="#cb22-29" aria-hidden="true" tabindex="-1"></a>  accuracy <span class="ot">&lt;-</span> confusion<span class="sc">$</span>overall[<span class="st">&#39;Accuracy&#39;</span>]</span>
-<span id="cb22-30"><a href="#cb22-30" aria-hidden="true" tabindex="-1"></a>  precision <span class="ot">&lt;-</span> confusion<span class="sc">$</span>byClass[<span class="st">&#39;Pos Pred Value&#39;</span>]</span>
-<span id="cb22-31"><a href="#cb22-31" aria-hidden="true" tabindex="-1"></a>  recall <span class="ot">&lt;-</span> confusion<span class="sc">$</span>byClass[<span class="st">&#39;Sensitivity&#39;</span>]</span>
+<span id="cb22-29"><a href="#cb22-29" aria-hidden="true" tabindex="-1"></a>  accuracy <span class="ot">&lt;-</span> confusion<span class="sc">$</span>overall[<span class="st">'Accuracy'</span>]</span>
+<span id="cb22-30"><a href="#cb22-30" aria-hidden="true" tabindex="-1"></a>  precision <span class="ot">&lt;-</span> confusion<span class="sc">$</span>byClass[<span class="st">'Pos Pred Value'</span>]</span>
+<span id="cb22-31"><a href="#cb22-31" aria-hidden="true" tabindex="-1"></a>  recall <span class="ot">&lt;-</span> confusion<span class="sc">$</span>byClass[<span class="st">'Sensitivity'</span>]</span>
 <span id="cb22-32"><a href="#cb22-32" aria-hidden="true" tabindex="-1"></a>  f1_score <span class="ot">&lt;-</span> <span class="dv">2</span> <span class="sc">*</span> (precision <span class="sc">*</span> recall) <span class="sc">/</span> (precision <span class="sc">+</span> recall)</span>
 <span id="cb22-33"><a href="#cb22-33" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Calculate AUC</span></span>
 <span id="cb22-34"><a href="#cb22-34" aria-hidden="true" tabindex="-1"></a>  roc_curve <span class="ot">&lt;-</span> <span class="fu">roc</span>(y_test, probs, <span class="at">quiet =</span> <span class="cn">TRUE</span>)</span>
 <span id="cb22-35"><a href="#cb22-35" aria-hidden="true" tabindex="-1"></a>  auc <span class="ot">&lt;-</span> <span class="fu">auc</span>(roc_curve)</span>
 <span id="cb22-36"><a href="#cb22-36" aria-hidden="true" tabindex="-1"></a>  <span class="fu">return</span>(<span class="fu">list</span>(<span class="at">accuracy =</span> accuracy, <span class="at">precision =</span> precision, <span class="at">recall =</span> recall, </span>
 <span id="cb22-37"><a href="#cb22-37" aria-hidden="true" tabindex="-1"></a>              <span class="at">f1_score =</span> f1_score, <span class="at">auc =</span> auc))</span>
-<span id="cb22-38"><a href="#cb22-38" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
+<span id="cb22-38"><a href="#cb22-38" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Now, we employ the function <code>calculate_test_performance()</code> with parameter estimates from three different regularization methods.</p>
 <div class="cell">
-<div class="sourceCode" id="cb23"><pre class="sourceCode r cell-code"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Calculate test performance for each method</span></span>
+<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Calculate test performance for each method</span></span>
 <span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a>lasso_performance <span class="ot">&lt;-</span> <span class="fu">calculate_test_performance</span>(lasso_results<span class="sc">$</span>coef, X_test, y_test)</span>
 <span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a>scad_performance <span class="ot">&lt;-</span> <span class="fu">calculate_test_performance</span>(scad_results<span class="sc">$</span>coef, X_test, y_test)</span>
-<span id="cb23-4"><a href="#cb23-4" aria-hidden="true" tabindex="-1"></a>mcp_performance <span class="ot">&lt;-</span> <span class="fu">calculate_test_performance</span>(mcp_results<span class="sc">$</span>coef, X_test, y_test)</span></code></pre></div>
+<span id="cb23-4"><a href="#cb23-4" aria-hidden="true" tabindex="-1"></a>mcp_performance <span class="ot">&lt;-</span> <span class="fu">calculate_test_performance</span>(mcp_results<span class="sc">$</span>coef, X_test, y_test)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Let’s compare the performance of our three models on the test set:</p>
 <pre style="RstyleR"><code>Test Performance Metrics:
@@ -962,13 +961,13 @@ F1 Score:  0.8278146
 AUC:       0.9502024</code></pre>
 <p>All three models perform well, with accuracy above 92% and AUC above 0.95. LASSO slightly outperforms SCAD and MCP in terms of accuracy and AUC, while all three models have the same recall. The high AUC values indicate that all models are good at distinguishing between certified and non-certified students. Furthermore, one of the key advantages of these regularization methods is their ability to perform variable selection. Let’s compare which variables were selected by each method:</p>
 <div class="cell">
-<div class="sourceCode" id="cb25"><pre class="sourceCode r cell-code"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Compare selected variables</span></span>
+<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Compare selected variables</span></span>
 <span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a>compare_selection <span class="ot">&lt;-</span> <span class="cf">function</span>(lasso, scad, mcp) {</span>
 <span id="cb25-3"><a href="#cb25-3" aria-hidden="true" tabindex="-1"></a>  all_vars <span class="ot">&lt;-</span> <span class="fu">unique</span>(<span class="fu">c</span>(<span class="fu">names</span>(lasso), <span class="fu">names</span>(scad), <span class="fu">names</span>(mcp)))</span>
 <span id="cb25-4"><a href="#cb25-4" aria-hidden="true" tabindex="-1"></a>  selection <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">Variable =</span> all_vars,</span>
-<span id="cb25-5"><a href="#cb25-5" aria-hidden="true" tabindex="-1"></a>          <span class="at">LASSO =</span> <span class="fu">ifelse</span>(all_vars <span class="sc">%in%</span> <span class="fu">names</span>(lasso)[lasso <span class="sc">!=</span> <span class="dv">0</span>], <span class="st">&quot;Selected&quot;</span>, <span class="st">&quot;&quot;</span>),</span>
-<span id="cb25-6"><a href="#cb25-6" aria-hidden="true" tabindex="-1"></a>          <span class="at">SCAD =</span> <span class="fu">ifelse</span>(all_vars <span class="sc">%in%</span> <span class="fu">names</span>(scad)[scad <span class="sc">!=</span> <span class="dv">0</span>], <span class="st">&quot;Selected&quot;</span>, <span class="st">&quot;&quot;</span>),</span>
-<span id="cb25-7"><a href="#cb25-7" aria-hidden="true" tabindex="-1"></a>          <span class="at">MCP =</span> <span class="fu">ifelse</span>(all_vars <span class="sc">%in%</span> <span class="fu">names</span>(mcp)[mcp <span class="sc">!=</span> <span class="dv">0</span>], <span class="st">&quot;Selected&quot;</span>, <span class="st">&quot;&quot;</span>))</span>
+<span id="cb25-5"><a href="#cb25-5" aria-hidden="true" tabindex="-1"></a>          <span class="at">LASSO =</span> <span class="fu">ifelse</span>(all_vars <span class="sc">%in%</span> <span class="fu">names</span>(lasso)[lasso <span class="sc">!=</span> <span class="dv">0</span>], <span class="st">"Selected"</span>, <span class="st">""</span>),</span>
+<span id="cb25-6"><a href="#cb25-6" aria-hidden="true" tabindex="-1"></a>          <span class="at">SCAD =</span> <span class="fu">ifelse</span>(all_vars <span class="sc">%in%</span> <span class="fu">names</span>(scad)[scad <span class="sc">!=</span> <span class="dv">0</span>], <span class="st">"Selected"</span>, <span class="st">""</span>),</span>
+<span id="cb25-7"><a href="#cb25-7" aria-hidden="true" tabindex="-1"></a>          <span class="at">MCP =</span> <span class="fu">ifelse</span>(all_vars <span class="sc">%in%</span> <span class="fu">names</span>(mcp)[mcp <span class="sc">!=</span> <span class="dv">0</span>], <span class="st">"Selected"</span>, <span class="st">""</span>))</span>
 <span id="cb25-8"><a href="#cb25-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">return</span>(selection)</span>
 <span id="cb25-9"><a href="#cb25-9" aria-hidden="true" tabindex="-1"></a>}</span>
 <span id="cb25-10"><a href="#cb25-10" aria-hidden="true" tabindex="-1"></a></span>
@@ -976,13 +975,13 @@ AUC:       0.9502024</code></pre>
 <span id="cb25-12"><a href="#cb25-12" aria-hidden="true" tabindex="-1"></a>                                        scad_results<span class="sc">$</span>coef, </span>
 <span id="cb25-13"><a href="#cb25-13" aria-hidden="true" tabindex="-1"></a>                                        mcp_results<span class="sc">$</span>coef)</span>
 <span id="cb25-14"><a href="#cb25-14" aria-hidden="true" tabindex="-1"></a><span class="co"># Print the first 5 rows of the variable_selection data frame</span></span>
-<span id="cb25-15"><a href="#cb25-15" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(<span class="fu">head</span>(variable_selection, <span class="dv">5</span>))</span></code></pre></div>
+<span id="cb25-15"><a href="#cb25-15" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(<span class="fu">head</span>(variable_selection, <span class="dv">5</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Here, we output the first 5 rows of the variable selection by using these three regularization methods where empty means unselected:</p>
-<p>This comparison reveals which predictors are considered important by each method, and the whole results are reported in <a href="#tbl-2">Table <span class="quarto-unresolved-ref">tbl-2</span></a>.</p>
-<div id="tbl-2">
-<table>
-<caption>Table 1<strong>.</strong> Results of variable selection with three different methods</caption>
+<p>This comparison reveals which predictors are considered important by each method, and the whole results are reported in <a href="#tbl-2">Table&nbsp;<span>5.1</span></a>.</p>
+<div id="tbl-2" class="anchored">
+<table class="table">
+<caption>Table&nbsp;1<strong>.</strong> Results of variable selection with three different methods</caption>
 <thead>
 <tr class="header">
 <th></th>
@@ -1383,13 +1382,13 @@ AUC:       0.9502024</code></pre>
 </div>
 <p>Moreover, we can obtain the number of selected variables:</p>
 <div class="cell">
-<div class="sourceCode" id="cb26"><pre class="sourceCode r cell-code"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a>num_vars <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="fu">sum</span>(lasso_results<span class="sc">$</span>coef <span class="sc">!=</span> <span class="dv">0</span>) <span class="sc">-</span> <span class="dv">1</span>,</span>
+<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a>num_vars <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="fu">sum</span>(lasso_results<span class="sc">$</span>coef <span class="sc">!=</span> <span class="dv">0</span>) <span class="sc">-</span> <span class="dv">1</span>,</span>
 <span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a>              <span class="fu">sum</span>(scad_results<span class="sc">$</span>coef <span class="sc">!=</span> <span class="dv">0</span>) <span class="sc">-</span> <span class="dv">1</span>,</span>
 <span id="cb26-3"><a href="#cb26-3" aria-hidden="true" tabindex="-1"></a>              <span class="fu">sum</span>(mcp_results<span class="sc">$</span>coef <span class="sc">!=</span> <span class="dv">0</span>) <span class="sc">-</span> <span class="dv">1</span>)</span>
-<span id="cb26-4"><a href="#cb26-4" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">&quot;</span><span class="sc">\n</span><span class="st">Number of selected variables:</span><span class="sc">\n</span><span class="st">&quot;</span>)</span>
-<span id="cb26-5"><a href="#cb26-5" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">&quot;LASSO:&quot;</span>, num_vars[<span class="dv">1</span>], <span class="st">&quot;</span><span class="sc">\n</span><span class="st">&quot;</span>)</span>
-<span id="cb26-6"><a href="#cb26-6" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">&quot;SCAD:&quot;</span>, num_vars[<span class="dv">2</span>], <span class="st">&quot;</span><span class="sc">\n</span><span class="st">&quot;</span>)</span>
-<span id="cb26-7"><a href="#cb26-7" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">&quot;MCP:&quot;</span>, num_vars[<span class="dv">3</span>], <span class="st">&quot;</span><span class="sc">\n</span><span class="st">&quot;</span>)</span></code></pre></div>
+<span id="cb26-4"><a href="#cb26-4" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">"</span><span class="sc">\n</span><span class="st">Number of selected variables:</span><span class="sc">\n</span><span class="st">"</span>)</span>
+<span id="cb26-5"><a href="#cb26-5" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">"LASSO:"</span>, num_vars[<span class="dv">1</span>], <span class="st">"</span><span class="sc">\n</span><span class="st">"</span>)</span>
+<span id="cb26-6"><a href="#cb26-6" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">"SCAD:"</span>, num_vars[<span class="dv">2</span>], <span class="st">"</span><span class="sc">\n</span><span class="st">"</span>)</span>
+<span id="cb26-7"><a href="#cb26-7" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">"MCP:"</span>, num_vars[<span class="dv">3</span>], <span class="st">"</span><span class="sc">\n</span><span class="st">"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>This comparison shows how aggressive each method is in terms of variable selection. Typically, LASSO tends to select more predictors than SCAD and MCP, which are often more aggressive in their variable selection.</p>
 <p>Based on the provided results, the MCP method demonstrates superior performance in variable selection while maintaining competitive predictive accuracy. MCP selected only 10 variables, significantly fewer than LASSO (36) and SCAD (14), indicating its effectiveness in achieving a more parsimonious model. Despite using fewer predictors, MCP matched SCAD’s performance across all metrics (Accuracy: 0.9210, Precision: 0.8889, Recall: 0.7744, F1 Score: 0.8278, AUC: 0.9502) and was only marginally behind LASSO in accuracy and AUC. This suggests that MCP effectively identified the most influential predictors, resulting in a simpler model with comparable predictive power. The ability to achieve such performance with fewer variables highlights MCP’s strength in balancing model complexity and predictive accuracy, making it the preferable choice for this dataset.</p>
@@ -1398,26 +1397,19 @@ AUC:       0.9502024</code></pre>
 </div>
 </section>
 <section id="implications-for-online-learning" class="level3" data-number="4.5">
-<h3 data-number="4.5"><span class="header-section-number">4.5</span> Implications for Online Learning</h3>
+<h3 data-number="4.5" class="anchored" data-anchor-id="implications-for-online-learning"><span class="header-section-number">4.5</span> Implications for Online Learning</h3>
 <p>The Minimax Concave Penalty (MCP) method identified 10 key predictors for online learning outcomes, offering a concise yet comprehensive model. These predictors reflected the critical role of student engagement, including metrics such as total events, active days, video plays, and chapters accessed. The model also highlighted specific country effects of India, Nigeria, and Spain, suggesting that geographical or cultural backgrounds had an impact on learning outcomes. Notably, the interaction terms between course ID and engagement metrics were selected, indicating that the impact of student engagement varies across different courses. This parsimonious selection of variables provides valuable insights into the most significant factors affecting online learning success.</p>
 <p>These findings have important implications for online education stakeholders. The results underscore the necessity of promoting active participation and regular interaction with course content, particularly video lectures. The model suggests that tailored approaches may be beneficial for students from specific countries, addressing unique challenges or leveraging strengths associated with these geographical contexts. The variation in engagement effects across courses indicates that customized strategies for course design and student support could be more effective than a uniform approach. Interestingly, the absence of demographic variables like gender in the final model implies that engagement metrics are more predictive of success than these demographic variables in this context. These insights can guide educators, course designers, and platform developers to embed desirable elements (e.g., gamification or animation) into video lectures to improve students’ online engagement <span class="citation" data-cites="chans2021gamification looyestyn2017does">[<a href="#ref-chans2021gamification" role="doc-biblioref">30</a>, <a href="#ref-looyestyn2017does" role="doc-biblioref">31</a>]</span>, which may, in turn, help students from diverse geographical regions to complete the course successfully.</p>
 </section>
 </section>
 <section id="conclusion" class="level2" data-number="5">
-<h2 data-number="5"><span class="header-section-number">5</span> Conclusion</h2>
+<h2 data-number="5" class="anchored" data-anchor-id="conclusion"><span class="header-section-number">5</span> Conclusion</h2>
 <p>This chapter has made significant progress in understanding the dynamics of student success in online education, particularly within the edX platform. Through our quantitative analysis employing LASSO, SCAD, and MCP regularization methods, we have successfully identified key factors contributing to obtaining certification in edX courses. The comparative evaluation of these advanced regularization techniques has highlighted their respective strengths in this context, which researchers can easily adapt to construct predictive models for similar contexts in online education.</p>
 <p>Our findings have identified the most crucial predictors of student success, emphasizing key aspects of student engagement, course design, and geographical factors. These insights provide practical guidance for course design and student support. By applying these evidence-based results, course designers, instructors, and platform developers can enhance the online learning experience and potentially improve student outcomes and certification rates. This study lays a strong foundation for optimizing digital learning platforms and supporting diverse learners worldwide as online education evolves.</p>
 <p>Furthermore, in the field of education, regularization methods can help researchers identify the most influential factors impacting various cognitive (e.g., academic achievement, development of generic skills) and affective learning outcomes (e.g., learning engagement, course satisfaction, motivation in learning), even when dealing with numerous potential predictors. In particular, regularization methods are useful in understanding learners’ experiences in online/blended learning via selecting key factors from the large volume of observational data, which records detailed and nuanced learner behaviors in a time-stamped manner.</p>
--->
-Forthcoming
-<style>
-#bibliography, #footnotes {
-display: none;
-}
-</style>
 
 
-
+</section>
 <section id="bibliography" class="level1 unnumbered">
 <h1 class="unnumbered">References</h1>
 <div id="refs" class="references csl-bib-body" role="doc-bibliography">

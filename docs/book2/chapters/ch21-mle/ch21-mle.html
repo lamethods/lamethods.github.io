@@ -6,6 +6,10 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
+<meta name="author" content="Rémi Altamore">
+<meta name="author" content="Clément Roume">
+<meta name="author" content="Anne Teboul">
+<meta name="author" content="Christophe Gernigon">
 <meta name="keywords" content="achievement motivation, approach, avoidance, complex dynamical systems, fractals, learning analytics, long-memory processes, person-specific methods, time series analysis">
 
 <title>Advanced learning analytics methods - 21&nbsp; Detecting Long-Memory Psychological Processes in Academic Settings Using Whittle’s Maximum Likelihood Estimator: An Application with R</title>
@@ -182,6 +186,10 @@ cookieconsent.run({
 <meta name="citation_title" content="[21]{.chapter-number}&nbsp; [Detecting Long-Memory Psychological Processes in Academic Settings Using Whittle’s Maximum Likelihood Estimator: An Application with R]{.chapter-title}">
 <meta name="citation_abstract" content="Person-specific approaches are best suited to account for the complex, dynamic, and idiosyncratic processes from which cognitive, emotional, motivational, relational, and behavioral patterns emerge. Among these approaches, Whittle&amp;amp;#039;s approximation of the Maximum Likelihood Estimator (MLE) enables the detection of long-term memory processes in relatively short time series of data. In this chapter, we outline the principles of Whittle's MLE, illustrate its application—using R—to the motivational dynamics of approach and avoidance in an academic context, and then discuss the theoretical and practical implications of detecting long-memory processes in the field of education and learning.">
 <meta name="citation_keywords" content="achievement motivation, approach, avoidance, complex dynamical systems, fractals, learning analytics, long-memory processes, person-specific methods, time series analysis">
+<meta name="citation_author" content="Rémi Altamore">
+<meta name="citation_author" content="Clément Roume">
+<meta name="citation_author" content="Anne Teboul">
+<meta name="citation_author" content="Christophe Gernigon">
 <meta name="citation_fulltext_html_url" content="https://lamethods.github.io/ch21-mle.html">
 <meta name="citation_language" content="en">
 <meta name="citation_reference" content="citation_title=Rethinking Approach and Avoidance in Achievement Contexts: The Perspective of Dynamical Systems;,citation_abstract=An integrative model of approach and avoidance goals in achievement contexts is proposed based on the concepts and principles of nonlinear dynamical systems. These goals are conceptualized as self-organizing systems in which information relevant to competence expectancies and perceptions of benefit and threat for the self is integrated with respect to either a single coherent state (static integration) or 2 conflicting coherent states (dynamic integration). Mathematical equations depict the emergence of approach and avoidance attractor dynamics from the proposed integration process. The model specifies the conditions under which states of goal involvement will display patterns of resistance (stability), oscillation between approach and avoidance (instability), or reversal (nonlinear change). As a result, this model of approach and avoidance goals equips previous dynamical models of self-regulation with greater social?cognitive substance. It also provides a parsimonious account of achievement motivation and resolves lingering inconsistencies and uncertainties in the achievement goal literature. Moreover, the dynamical systems approach, on which the model is based, provides a heuristic framework for generating new predictions regarding the ebb and flow of approach and avoidance in achievement contexts.;,citation_author=Christophe Gernigon;,citation_author=Robin R. Vallacher;,citation_author=Andrzej Nowak;,citation_author=David E. Conroy;,citation_publication_date=2015-12;,citation_cover_date=2015-12;,citation_year=2015;,citation_fulltext_html_url=https://doi.org/10.1037/gpr0000055;,citation_issue=4;,citation_doi=10.1037/gpr0000055;,citation_issn=1089-2680;,citation_volume=19;,citation_journal_title=Review of General Psychology;">
@@ -466,16 +474,16 @@ cookieconsent.run({
     <h2 id="toc-title">Table of contents</h2>
    
   <ul>
-  <li><a href="#introduction" id="toc-introduction" class="nav-link active" data-scroll-target="#introduction"><span class="toc-section-number">21.1</span>  Introduction</a></li>
-  <li><a href="#principles-of-whittles-maximum-likelihood-estimator-mle" id="toc-principles-of-whittles-maximum-likelihood-estimator-mle" class="nav-link" data-scroll-target="#principles-of-whittles-maximum-likelihood-estimator-mle"><span class="toc-section-number">21.2</span>  Principles of Whittle’s Maximum Likelihood Estimator (MLE)</a></li>
-  <li><a href="#application-of-whittles-mle-to-motivational-dynamics-in-an-academic-context" id="toc-application-of-whittles-mle-to-motivational-dynamics-in-an-academic-context" class="nav-link" data-scroll-target="#application-of-whittles-mle-to-motivational-dynamics-in-an-academic-context"><span class="toc-section-number">21.3</span>  Application of Whittle’s MLE to motivational dynamics in an academic context</a>
+  <li><a href="#introduction" id="toc-introduction" class="nav-link active" data-scroll-target="#introduction"><span class="toc-section-number">1</span>  Introduction</a></li>
+  <li><a href="#principles-of-whittles-maximum-likelihood-estimator-mle" id="toc-principles-of-whittles-maximum-likelihood-estimator-mle" class="nav-link" data-scroll-target="#principles-of-whittles-maximum-likelihood-estimator-mle"><span class="toc-section-number">2</span>  Principles of Whittle’s Maximum Likelihood Estimator (MLE)</a></li>
+  <li><a href="#application-of-whittles-mle-to-motivational-dynamics-in-an-academic-context" id="toc-application-of-whittles-mle-to-motivational-dynamics-in-an-academic-context" class="nav-link" data-scroll-target="#application-of-whittles-mle-to-motivational-dynamics-in-an-academic-context"><span class="toc-section-number">3</span>  Application of Whittle’s MLE to motivational dynamics in an academic context</a>
   <ul class="collapse">
-  <li><a href="#the-dynamical-model-of-approach-and-avoidance-motivation-in-achievement-contexts" id="toc-the-dynamical-model-of-approach-and-avoidance-motivation-in-achievement-contexts" class="nav-link" data-scroll-target="#the-dynamical-model-of-approach-and-avoidance-motivation-in-achievement-contexts"><span class="toc-section-number">21.3.1</span>  The dynamical model of approach and avoidance motivation in achievement contexts</a></li>
-  <li><a href="#analysis-of-the-time-series-of-k-using-r" id="toc-analysis-of-the-time-series-of-k-using-r" class="nav-link" data-scroll-target="#analysis-of-the-time-series-of-k-using-r"><span class="toc-section-number">21.3.2</span>  Analysis of the time series of <span class="math inline">\(k\)</span> using R</a></li>
+  <li><a href="#the-dynamical-model-of-approach-and-avoidance-motivation-in-achievement-contexts" id="toc-the-dynamical-model-of-approach-and-avoidance-motivation-in-achievement-contexts" class="nav-link" data-scroll-target="#the-dynamical-model-of-approach-and-avoidance-motivation-in-achievement-contexts"><span class="toc-section-number">3.1</span>  The dynamical model of approach and avoidance motivation in achievement contexts</a></li>
+  <li><a href="#analysis-of-the-time-series-of-k-using-r" id="toc-analysis-of-the-time-series-of-k-using-r" class="nav-link" data-scroll-target="#analysis-of-the-time-series-of-k-using-r"><span class="toc-section-number">3.2</span>  Analysis of the time series of <span class="math inline">\(k\)</span> using R</a></li>
   </ul></li>
-  <li><a href="#discussion" id="toc-discussion" class="nav-link" data-scroll-target="#discussion"><span class="toc-section-number">21.4</span>  Discussion</a></li>
-  <li><a href="#conclusion" id="toc-conclusion" class="nav-link" data-scroll-target="#conclusion"><span class="toc-section-number">21.5</span>  Conclusion</a></li>
-  <li><a href="#suggested-readings-and-example-papers" id="toc-suggested-readings-and-example-papers" class="nav-link" data-scroll-target="#suggested-readings-and-example-papers"><span class="toc-section-number">21.6</span>  Suggested readings and example papers</a></li>
+  <li><a href="#discussion" id="toc-discussion" class="nav-link" data-scroll-target="#discussion"><span class="toc-section-number">4</span>  Discussion</a></li>
+  <li><a href="#conclusion" id="toc-conclusion" class="nav-link" data-scroll-target="#conclusion"><span class="toc-section-number">5</span>  Conclusion</a></li>
+  <li><a href="#suggested-readings-and-example-papers" id="toc-suggested-readings-and-example-papers" class="nav-link" data-scroll-target="#suggested-readings-and-example-papers"><span class="toc-section-number">6</span>  Suggested readings and example papers</a></li>
   <li><a href="#bibliography" id="toc-bibliography" class="nav-link" data-scroll-target="#bibliography">References</a></li>
   </ul>
 </nav>
@@ -500,6 +508,15 @@ Check out our previous book! <br> <a href="../../../book1/index.html"><img src="
 
 <div class="quarto-title-meta">
 
+    <div>
+    <div class="quarto-title-meta-heading">Authors</div>
+    <div class="quarto-title-meta-contents">
+             <p>Rémi Altamore </p>
+             <p>Clément Roume </p>
+             <p>Anne Teboul </p>
+             <p>Christophe Gernigon </p>
+          </div>
+  </div>
     
   
     
@@ -514,42 +531,41 @@ Check out our previous book! <br> <a href="../../../book1/index.html"><img src="
 
 </header>
 
-<!--
-<section id="introduction" class="level2" data-number="21.1">
-<h2 data-number="21.1"><span class="header-section-number">21.1</span> Introduction</h2>
+<section id="introduction" class="level2" data-number="1">
+<h2 data-number="1" class="anchored" data-anchor-id="introduction"><span class="header-section-number">1</span> Introduction</h2>
 <p>People’s cognitive, emotional, motivational, relational, and behavioral patterns emerge from complex, dynamic, and idiosyncratic processes <span class="citation" data-cites="gernigon_2024b">[<a href="#ref-gernigon_2024b" role="doc-biblioref">1</a>]</span>. Thus, these processes operate in an original way, at an individual level which is the most relevant scale for examining them <span class="citation" data-cites="van_geert_2022">[<a href="#ref-van_geert_2022" role="doc-biblioref">2</a>]</span>. This requires person-specific methods, particularly those based on the analysis of time series of idiographic data <span class="citation" data-cites="saqr_2024">[<a href="#ref-saqr_2024" role="doc-biblioref">3</a>]</span>. Some of these analysis techniques, such as the popular <em>Detrended Fluctuation Analysis</em> (DFA; <span class="citation" data-cites="peng_1993">[<a href="#ref-peng_1993" role="doc-biblioref">4</a>]</span>), can be used to detect whether a variable of interest is randomly fluctuating (white noise<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a>), or follows a movement deviating from its trajectory under the influence of random shocks (Brownian motion<a href="#fn2" class="footnote-ref" id="fnref2" role="doc-noteref"><sup>2</sup></a>), or obey particular auto-correlation structures that are redundant across different time scales and that reveal a kind of memory process in the form of a long-term dependency (1/<span class="math inline">\(f\)</span> noise or pink noise<a href="#fn3" class="footnote-ref" id="fnref3" role="doc-noteref"><sup>3</sup></a>).</p>
 <p>In addition to its ease of implementation, DFA has the advantage of being applicable to either stationary (e.g., white noise, pink noise) or non-stationary signals (Brownian motion). This method is based on a statistical property of fractional Brownian motion <span class="citation" data-cites="mandelbrot_1968">[<a href="#ref-mandelbrot_1968" role="doc-biblioref">5</a>]</span> whereby the size of the variance to the power <span class="math inline">\(𝛼\)</span> is proportional to the sample size. The power value <span class="math inline">\(𝛼\)</span> is the fractal exponent which provides information about the fluctuation structure of the variable of interest. When <span class="math inline">\(𝛼\)</span> is between 0 and 1, the time series is stationary and can be qualified as noise. From 0 to 0.5, the time series is anti-correlated to itself, which means that an increase in the value of the variable is followed by a decrease and vice versa. At 0.5 the series corresponds to white Gaussian noise. From 0.5 to 1 the time series is autocorrelated and displays long-term memory properties. For a <span class="math inline">\(𝛼\)</span> between 1 and 2, the series is non-stationary and is referred to as motion. A value of 1.5 corresponds to ordinary Brownian motion <span class="citation" data-cites="delignieres_2013">[<a href="#ref-delignieres_2013" role="doc-biblioref">6</a>]</span>.</p>
 <p>Despite its great popularity, DFA suffers from reliability issues when confronted with certain empirical data, particularly when the length of the time series to be analyzed is less than 500 data points. Depending on the size and target population of the studies for which this method is to be applied, it may prove very difficult to obtain such series lengths. For example, if we want to analyze walking, 500 steps represent between 10 and 12 minutes of walking, which is difficult to achieve for elderly adults with a loss of autonomy <span class="citation" data-cites="phinyomark_2020">[<a href="#ref-phinyomark_2020" role="doc-biblioref">7</a>]</span>.</p>
 <p>Some methods make it possible to estimate the fractal exponent of shorter time series without being affected by the estimation biases that DFA presents for such series <span class="citation" data-cites="likens_2023 mangalam_2023 phinyomark_2020 roume_2023">[<a href="#ref-phinyomark_2020" role="doc-biblioref">7</a>–<a href="#ref-roume_2023" role="doc-biblioref">10</a>]</span>. This chapter presents one of these methods: Whittle’s approximation of the Maximum Likelihood Estimator (MLE). Whereas the DFA output is estimated via linear regression, Whittle’s estimator is a more sophisticated method that consists of solving an optimization problem <span class="citation" data-cites="beran_2013">[<a href="#ref-beran_2013" role="doc-biblioref">11</a>]</span>. As a comparison, with only 128 data points, Whittle’s MLE gives results twice as accurate as the DFA on 512 data points <span class="citation" data-cites="roume_2023">[<a href="#ref-roume_2023" role="doc-biblioref">10</a>]</span>, the latter offering results that were however already considered satisfactory <span class="citation" data-cites="almurad_2016">[<a href="#ref-almurad_2016" role="doc-biblioref">12</a>]</span>.</p>
 <p>The first part of the chapter is devoted to the presentation of the principles of Whittle’s MLE, as well as their formal implementation. Next, a concrete application of Whittle’s MLE to the study of the dynamics of approach and avoidance motivation in an academic context is offered as an illustration of these principles. This illustration begins with a presentation of the motivational model referred to, continues with the application of Whittle’s MLE to a time series of individual data relating to this model, and ends with a discussion of the result obtained. The chapter concludes with an attempt to reconcile variable-centered nomothetic approaches with person-specific approaches. This reconciliation, potentially capable of resolving the ergodicity issue in psychological science, requires the primacy of person-specific approaches.</p>
 </section>
-<section id="principles-of-whittles-maximum-likelihood-estimator-mle" class="level2" data-number="21.2">
-<h2 data-number="21.2"><span class="header-section-number">21.2</span> Principles of Whittle’s Maximum Likelihood Estimator (MLE)</h2>
+<section id="principles-of-whittles-maximum-likelihood-estimator-mle" class="level2" data-number="2">
+<h2 data-number="2" class="anchored" data-anchor-id="principles-of-whittles-maximum-likelihood-estimator-mle"><span class="header-section-number">2</span> Principles of Whittle’s Maximum Likelihood Estimator (MLE)</h2>
 <p>The general principle of Whittle’s estimator is to find the value of <span class="math inline">\(𝛼\)</span> in the interval [0,1] that maximizes the Whittle’s log-likelihood function accounted for by Equation 1:</p>
 <p><span class="math display">\[
-l_w(\alpha) = -\frac{2}{N} \sum_{j=1}^{m} \left( \ln cT&#39;(\omega_j; \alpha) + \frac{P(\omega_j)}{cT&#39;(\omega_j; \alpha)} \right),\tag{1}
+l_w(\alpha) = -\frac{2}{N} \sum_{j=1}^{m} \left( \ln cT'(\omega_j; \alpha) + \frac{P(\omega_j)}{cT'(\omega_j; \alpha)} \right),\tag{1}
 \]</span></p>
-<p>where <span class="math inline">\(P(\omega_j)\)</span> is the periodogram of the time series <span class="math inline">\(x(j)\)</span> of length <span class="math inline">\(N\)</span>; <span class="math inline">\(\omega_j\)</span> are Fourier’s frequencies defined as <span class="math inline">\(\omega = 2\pi j/N\)</span>; <span class="math inline">\(m\)</span> is the integer part of <span class="math inline">\((N-1)/2\)</span>; <span class="math inline">\(T&#39;(\omega_j; \alpha)\)</span> is the theoretical spectral density; and <span class="math inline">\(c\)</span> is a constant used to adjust the powers of the theoretical spectrum.</p>
+<p>where <span class="math inline">\(P(\omega_j)\)</span> is the periodogram of the time series <span class="math inline">\(x(j)\)</span> of length <span class="math inline">\(N\)</span>; <span class="math inline">\(\omega_j\)</span> are Fourier’s frequencies defined as <span class="math inline">\(\omega = 2\pi j/N\)</span>; <span class="math inline">\(m\)</span> is the integer part of <span class="math inline">\((N-1)/2\)</span>; <span class="math inline">\(T'(\omega_j; \alpha)\)</span> is the theoretical spectral density; and <span class="math inline">\(c\)</span> is a constant used to adjust the powers of the theoretical spectrum.</p>
 <p>In this chapter, we will use the theoretical power spectral density of an ARFIMA (Autoregressive Fractionally Integrated Moving Average<a href="#fn4" class="footnote-ref" id="fnref4" role="doc-noteref"><sup>4</sup></a>) model, which enables the modeling of time series with long memory. ARFIMA models are denoted ARFIMA(<span class="math inline">\(p\)</span>,<span class="math inline">\(d\)</span>,<span class="math inline">\(q\)</span>) with <span class="math inline">\(p\)</span> as the order indicating the number of time lags of the autoregressive model, <span class="math inline">\(q\)</span> as the order of the moving-average model, and <span class="math inline">\(d\)</span> as the fractional integration parameter ranging from -0.5 to 0.5. It corresponds to the exponent <span class="math inline">\(𝛼\)</span> via the conversion: <span class="math inline">\(𝛼\)</span> = <span class="math inline">\(d\)</span> + ½ with <span class="math inline">\(𝛼\)</span> belonging to the interval [0, 1]. The theoretical power spectral density that is used here is that of the ARFIMA(0,<span class="math inline">\(d\)</span>,0) model, which reads as follow:</p>
 <p><span class="math display">\[
-T&#39;(\omega_j; \alpha) = \frac{1}{2\pi} \left( 2 \sin \frac{\omega_j}{2} \right)^{1-2\alpha}. \tag{2}
+T'(\omega_j; \alpha) = \frac{1}{2\pi} \left( 2 \sin \frac{\omega_j}{2} \right)^{1-2\alpha}. \tag{2}
 \]</span></p>
 <p>An algorithm based on Whittle’s estimator can be developed in three steps. The first one combines data pre-processing, via normalization of the time series and then estimation of the periodogram of this series. The second step is the estimation of <span class="math inline">\(α\)</span>. An optimization algorithm is used to find the <span class="math inline">\(α\)</span> value for which the Whittle’s log-likelihood function, <span class="math inline">\(l_w(\alpha)\)</span>, reaches its maximum value. The third step is optional and is carried out only if the <span class="math inline">\(α\)</span> value obtained from the algorithm is that of the upper bound. In this case, the maximum of the <span class="math inline">\(l_w(\alpha)\)</span> function can be considered to belong to the interval [1,2], which means that the time series is probably non-stationary. Indeed, the <span class="math inline">\(l_w(\alpha)\)</span> function is only applicable for stationary signals, with an <span class="math inline">\(𝛼\)</span> value within the interval [0,1]. Nevertheless, non-stationary series can be analyzed by using a differentiated (derivative) version of the original series and then adding 1 to the <span class="math inline">\(𝛼\)</span> value provided by the algorithm <span class="citation" data-cites="diebolt_2005">[<a href="#ref-diebolt_2005" role="doc-biblioref">13</a>]</span>. In summary, the third step consists of differentiating the time series, then applying the first two steps and finally adding 1 to the <span class="math inline">\(𝛼\)</span> value obtained from the algorithm.</p>
 </section>
-<section id="application-of-whittles-mle-to-motivational-dynamics-in-an-academic-context" class="level2" data-number="21.3">
-<h2 data-number="21.3"><span class="header-section-number">21.3</span> Application of Whittle’s MLE to motivational dynamics in an academic context</h2>
-<section id="the-dynamical-model-of-approach-and-avoidance-motivation-in-achievement-contexts" class="level3" data-number="21.3.1">
-<h3 data-number="21.3.1"><span class="header-section-number">21.3.1</span> The dynamical model of approach and avoidance motivation in achievement contexts</h3>
-<p>Motivational states regarding a goal to be achieved are properties emerging from complex dynamical systems. As such, motivational states fluctuate non-linearly, thus exhibiting various patterns such as persistence of effort or its absence, as well as oscillations and even abrupt shifts between motivated and unmotivated states <span class="citation" data-cites="gernigon_2024a gernigon_2015 lopez-pernas_2024b">[<a href="#ref-gernigon_2024a" role="doc-biblioref">14</a>–<a href="#ref-lopez-pernas_2024b" role="doc-biblioref">16</a>]</span>. We will illustrate how Whittle’s MLE can help characterize the dynamics and the complexity of approach and avoidance motivations in an academic context, more specifically with respect to a Ph.D. student’s pursuit of the goal of reaching the defense of their doctoral thesis.</p>
+<section id="application-of-whittles-mle-to-motivational-dynamics-in-an-academic-context" class="level2" data-number="3">
+<h2 data-number="3" class="anchored" data-anchor-id="application-of-whittles-mle-to-motivational-dynamics-in-an-academic-context"><span class="header-section-number">3</span> Application of Whittle’s MLE to motivational dynamics in an academic context</h2>
+<section id="the-dynamical-model-of-approach-and-avoidance-motivation-in-achievement-contexts" class="level3" data-number="3.1">
+<h3 data-number="3.1" class="anchored" data-anchor-id="the-dynamical-model-of-approach-and-avoidance-motivation-in-achievement-contexts"><span class="header-section-number">3.1</span> The dynamical model of approach and avoidance motivation in achievement contexts</h3>
+<p>Motivational states regarding a goal to be achieved are properties emerging from complex dynamical systems. As such, motivational states fluctuate non-linearly, thus exhibiting various patterns such as persistence of effort or its absence, as well as oscillations and even abrupt shifts between motivated and unmotivated states <span class="citation" data-cites="gernigon_2024a gernigon_2015 lopez-pernas_2024b">[<a href="#ref-gernigon_2024a" role="doc-biblioref">14</a>–<a href="#ref-lopez-pernas_2024b" role="doc-biblioref">16</a>]</span>. We will illustrate how Whittle’s MLE can help characterize the dynamics and the complexity of approach and avoidance motivations in an academic context, more specifically with respect to a Ph.D.&nbsp;student’s pursuit of the goal of reaching the defense of their doctoral thesis.</p>
 <p>Based on the complex dynamical system perspective, approach and avoidance motivational states can be conceptualized as being constrained by two competing attractors <span class="citation" data-cites="gernigon_2015">[<a href="#ref-gernigon_2015" role="doc-biblioref">15</a>]</span>. Attractors are sets of states of a system that are more or less strongly attracted and stabilized within a limited number of values, as if—metaphorically—the trajectories of these states (here, the motivational states) were constrained by the valleys of a hilly landscape. According to Tuller et al. <span class="citation" data-cites="tuller_1994">[<a href="#ref-tuller_1994" role="doc-biblioref">17</a>]</span>, the shape of a landscape that may include one or two attractors can be accounted for by the following equation:</p>
 <p><span class="math display">\[
 V(x) = kx - \frac{1}{2} x^2 + \frac{1}{4} x^4, \tag{3}
 \]</span></p>
 <p>where <span class="math inline">\(V(x)\)</span> is the potential function that constrains the different motivational states <span class="math inline">\(x\)</span>; <span class="math inline">\(k\)</span> is the control parameter that specifies the direction and degree of tilt of the graph of <span class="math inline">\(V(x)\)</span> towards approach (when <span class="math inline">\(k\)</span> tends towards +1) and avoidance (when <span class="math inline">\(k\)</span> tends towards –1) motivations (see Figure 1).</p>
 <div class="quarto-figure quarto-figure-center">
-<figure>
-<p><img src="attractor_landscapes.png" class="img-fluid" width="600" /></p>
-<p><figcaption>Approach (Appr.) and avoidance (Avoid.) attractor landscapes as defined by Equation 3 with different values of the control parameter <span class="math inline">\(k\)</span> (from +1 to –1).</figcaption></p>
+<figure class="figure">
+<p><img src="img/attractor_landscapes.png" class="img-fluid figure-img" width="600"></p>
+<p></p><figcaption class="figure-caption">Approach (Appr.) and avoidance (Avoid.) attractor landscapes as defined by Equation 3 with different values of the control parameter <span class="math inline">\(k\)</span> (from +1 to –1).</figcaption><p></p>
 </figure>
 </div>
 <p>The value of the parameter <span class="math inline">\(k\)</span> is itself conceived as resulting from the combination of three social cognitive variables considered to be necessary and sufficient for achievement motivation: Competence expectancies with regard to a goal (e.g., <span class="citation" data-cites="bandura_1997">[<a href="#ref-bandura_1997" role="doc-biblioref">18</a>]</span>), as well as the benefit to the self that the prospect of achieving a goal conveys and the threat to the self associated with the prospect of failure (e.g., <span class="citation" data-cites="crocker_2001">[<a href="#ref-crocker_2001" role="doc-biblioref">19</a>]</span>). These three variables contribute to determining <span class="math inline">\(k\)</span> according to Equation 4:</p>
@@ -557,58 +573,58 @@ V(x) = kx - \frac{1}{2} x^2 + \frac{1}{4} x^4, \tag{3}
 k = (Ce \times Bs) - [Ts \times (1 - Ce)], \tag{4}
 \]</span></p>
 <p>where <span class="math inline">\(Ce\)</span> is the level of competence expectancies, <span class="math inline">\(Bs\)</span> is the potential benefit to the self, and <span class="math inline">\(Ts\)</span> is the potential threat to the self, with <span class="math inline">\(Ce\)</span>, <span class="math inline">\(Bs\)</span>, and <span class="math inline">\(Ts\)</span> <span class="math inline">\(\in\)</span> ]0;1].</p>
-<p>The analysis of the time series of <span class="math inline">\(k\)</span> values using Whittle’s MLE will make it possible to test whether the motivational states of approach and avoidance do emerge from a system of elements (i.e., the internal and environmental antecedents of motivation identified in the literature) interweaving complex interactions. The time series under study comes from data collected from a Ph.D. student who responded every week—over 111 consecutive weeks—to three items related to her goal of completing her doctoral dissertation, a goal she eventually achieved. Each week, each of these three items was drawn at random from the items of each of the three dimensions <span class="math inline">\(Ce\)</span>, <span class="math inline">\(Bs\)</span>, and <span class="math inline">\(Ts\)</span> of Teboul et al.’s <span class="citation" data-cites="teboul_2019">[<a href="#ref-teboul_2019" role="doc-biblioref">20</a>]</span> Approach-Avoidance System Questionnaire. This weekly measurement of <span class="math inline">\(Ce\)</span>, <span class="math inline">\(Bs\)</span>, and <span class="math inline">\(Ts\)</span> enabled <span class="math inline">\(k\)</span> to be calculated for each week.</p>
+<p>The analysis of the time series of <span class="math inline">\(k\)</span> values using Whittle’s MLE will make it possible to test whether the motivational states of approach and avoidance do emerge from a system of elements (i.e., the internal and environmental antecedents of motivation identified in the literature) interweaving complex interactions. The time series under study comes from data collected from a Ph.D.&nbsp;student who responded every week—over 111 consecutive weeks—to three items related to her goal of completing her doctoral dissertation, a goal she eventually achieved. Each week, each of these three items was drawn at random from the items of each of the three dimensions <span class="math inline">\(Ce\)</span>, <span class="math inline">\(Bs\)</span>, and <span class="math inline">\(Ts\)</span> of Teboul et al.’s <span class="citation" data-cites="teboul_2019">[<a href="#ref-teboul_2019" role="doc-biblioref">20</a>]</span> Approach-Avoidance System Questionnaire. This weekly measurement of <span class="math inline">\(Ce\)</span>, <span class="math inline">\(Bs\)</span>, and <span class="math inline">\(Ts\)</span> enabled <span class="math inline">\(k\)</span> to be calculated for each week.</p>
 </section>
-<section id="analysis-of-the-time-series-of-k-using-r" class="level3" data-number="21.3.2">
-<h3 data-number="21.3.2"><span class="header-section-number">21.3.2</span> Analysis of the time series of <span class="math inline">\(k\)</span> using R</h3>
-<section id="libraries-used" class="level4" data-number="21.3.2.1">
-<h4 data-number="21.3.2.1"><span class="header-section-number">21.3.2.1</span> Libraries used</h4>
+<section id="analysis-of-the-time-series-of-k-using-r" class="level3" data-number="3.2">
+<h3 data-number="3.2" class="anchored" data-anchor-id="analysis-of-the-time-series-of-k-using-r"><span class="header-section-number">3.2</span> Analysis of the time series of <span class="math inline">\(k\)</span> using R</h3>
+<section id="libraries-used" class="level4" data-number="3.2.1">
+<h4 data-number="3.2.1" class="anchored" data-anchor-id="libraries-used"><span class="header-section-number">3.2.1</span> Libraries used</h4>
 <p>Whittle’s MLE was originally coded using MATLAB language (see <span class="citation" data-cites="roume_2023">[<a href="#ref-roume_2023" role="doc-biblioref">10</a>]</span>). However, the MATLAB algorithm can be translated into R code using only the <code>stats</code> package, which is a basic package—automatically installed—on R. This package contains a set of useful functions for many statistical calculations. We will use <code>rio</code> to import and load data into R. We will use <code>dplyr</code>, <code>gt</code> and <code>ggplot2</code> packages to easily manipulate and visualize our data (to learn how to use these three packages, readers can refer to the previous edition of the book, see <span class="citation" data-cites="kopra_2024 lopez-pernas_2024a">[<a href="#ref-kopra_2024" role="doc-biblioref">21</a>, <a href="#ref-lopez-pernas_2024a" role="doc-biblioref">22</a>]</span>. These five packages can be installed using the <code>install.packages()</code> function.</p>
 <div class="cell">
-<div class="sourceCode" id="cb1"><pre class="sourceCode r cell-code"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">&quot;stats&quot;</span>)</span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">&quot;rio&quot;</span>)</span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">&quot;dplyr&quot;</span>)</span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">&quot;gt&quot;</span>)</span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">&quot;ggplot2&quot;</span>)</span></code></pre></div>
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">"stats"</span>)</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">"rio"</span>)</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">"dplyr"</span>)</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">"gt"</span>)</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">"ggplot2"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>These packages can then be loaded with the <code>library()</code> function.</p>
 <div class="cell">
-<div class="sourceCode" id="cb2"><pre class="sourceCode r cell-code"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(stats)</span>
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(stats)</span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(rio)</span>
 <span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span>
 <span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(gt)</span>
-<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span></code></pre></div>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
-<section id="data-visualization" class="level4" data-number="21.3.2.2">
-<h4 data-number="21.3.2.2"><span class="header-section-number">21.3.2.2</span> Data visualization</h4>
-<p>First, we load the data with <code>import()</code> function from <code>rio</code> and visualize an extract of them (<a href="#fig-motivation-data">Figure <span class="quarto-unresolved-ref">fig-motivation-data</span></a>) with the function <code>gt_preview()</code>.</p>
+<section id="data-visualization" class="level4" data-number="3.2.2">
+<h4 data-number="3.2.2" class="anchored" data-anchor-id="data-visualization"><span class="header-section-number">3.2.2</span> Data visualization</h4>
+<p>First, we load the data with <code>import()</code> function from <code>rio</code> and visualize an extract of them (<a href="#fig-motivation-data">Figure&nbsp;<span>21.1</span></a>) with the function <code>gt_preview()</code>.</p>
 <div class="cell">
-<div class="sourceCode" id="cb3"><pre class="sourceCode r cell-code"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>MotivationData <span class="ot">&lt;-</span> <span class="fu">import</span>(<span class="fu">paste0</span>(</span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>  <span class="st">&quot;https://github.com/lamethods/data2/raw/main/&quot;</span>,</span>
-<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>  <span class="st">&quot;motivation/Motivation.xlsx&quot;</span></span>
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>MotivationData <span class="ot">&lt;-</span> <span class="fu">import</span>(<span class="fu">paste0</span>(</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>  <span class="st">"https://github.com/lamethods/data2/raw/main/"</span>,</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>  <span class="st">"motivation/Motivation.xlsx"</span></span>
 <span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>))</span>
-<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a><span class="fu">gt_preview</span>(MotivationData, <span class="at">top_n =</span> <span class="dv">8</span>, <span class="at">bottom_n =</span> <span class="dv">1</span>)</span></code></pre></div>
-<div id="fig-motivation-data" class="quarto-figure quarto-figure-center">
-<figure>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a><span class="fu">gt_preview</span>(MotivationData, <span class="at">top_n =</span> <span class="dv">8</span>, <span class="at">bottom_n =</span> <span class="dv">1</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div id="fig-motivation-data" class="quarto-figure quarto-figure-center anchored">
+<figure class="figure">
 
-<div id="itgphlszdy" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
-<style>#itgphlszdy table {
+<div id="gzzcnrolks" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<style>#gzzcnrolks table {
   font-family: system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
-#itgphlszdy thead, #itgphlszdy tbody, #itgphlszdy tfoot, #itgphlszdy tr, #itgphlszdy td, #itgphlszdy th {
+#gzzcnrolks thead, #gzzcnrolks tbody, #gzzcnrolks tfoot, #gzzcnrolks tr, #gzzcnrolks td, #gzzcnrolks th {
   border-style: none;
 }
 
-#itgphlszdy p {
+#gzzcnrolks p {
   margin: 0;
   padding: 0;
 }
 
-#itgphlszdy .gt_table {
+#gzzcnrolks .gt_table {
   display: table;
   border-collapse: collapse;
   line-height: normal;
@@ -634,12 +650,12 @@ k = (Ce \times Bs) - [Ts \times (1 - Ce)], \tag{4}
   border-left-color: #D3D3D3;
 }
 
-#itgphlszdy .gt_caption {
+#gzzcnrolks .gt_caption {
   padding-top: 4px;
   padding-bottom: 4px;
 }
 
-#itgphlszdy .gt_title {
+#gzzcnrolks .gt_title {
   color: #333333;
   font-size: 125%;
   font-weight: initial;
@@ -651,7 +667,7 @@ k = (Ce \times Bs) - [Ts \times (1 - Ce)], \tag{4}
   border-bottom-width: 0;
 }
 
-#itgphlszdy .gt_subtitle {
+#gzzcnrolks .gt_subtitle {
   color: #333333;
   font-size: 85%;
   font-weight: initial;
@@ -663,7 +679,7 @@ k = (Ce \times Bs) - [Ts \times (1 - Ce)], \tag{4}
   border-top-width: 0;
 }
 
-#itgphlszdy .gt_heading {
+#gzzcnrolks .gt_heading {
   background-color: #FFFFFF;
   text-align: center;
   border-bottom-color: #FFFFFF;
@@ -675,13 +691,13 @@ k = (Ce \times Bs) - [Ts \times (1 - Ce)], \tag{4}
   border-right-color: #D3D3D3;
 }
 
-#itgphlszdy .gt_bottom_border {
+#gzzcnrolks .gt_bottom_border {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
 }
 
-#itgphlszdy .gt_col_headings {
+#gzzcnrolks .gt_col_headings {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -696,7 +712,7 @@ k = (Ce \times Bs) - [Ts \times (1 - Ce)], \tag{4}
   border-right-color: #D3D3D3;
 }
 
-#itgphlszdy .gt_col_heading {
+#gzzcnrolks .gt_col_heading {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -716,7 +732,7 @@ k = (Ce \times Bs) - [Ts \times (1 - Ce)], \tag{4}
   overflow-x: hidden;
 }
 
-#itgphlszdy .gt_column_spanner_outer {
+#gzzcnrolks .gt_column_spanner_outer {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -728,15 +744,15 @@ k = (Ce \times Bs) - [Ts \times (1 - Ce)], \tag{4}
   padding-right: 4px;
 }
 
-#itgphlszdy .gt_column_spanner_outer:first-child {
+#gzzcnrolks .gt_column_spanner_outer:first-child {
   padding-left: 0;
 }
 
-#itgphlszdy .gt_column_spanner_outer:last-child {
+#gzzcnrolks .gt_column_spanner_outer:last-child {
   padding-right: 0;
 }
 
-#itgphlszdy .gt_column_spanner {
+#gzzcnrolks .gt_column_spanner {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
@@ -748,11 +764,11 @@ k = (Ce \times Bs) - [Ts \times (1 - Ce)], \tag{4}
   width: 100%;
 }
 
-#itgphlszdy .gt_spanner_row {
+#gzzcnrolks .gt_spanner_row {
   border-bottom-style: hidden;
 }
 
-#itgphlszdy .gt_group_heading {
+#gzzcnrolks .gt_group_heading {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -778,7 +794,7 @@ k = (Ce \times Bs) - [Ts \times (1 - Ce)], \tag{4}
   text-align: left;
 }
 
-#itgphlszdy .gt_empty_group_heading {
+#gzzcnrolks .gt_empty_group_heading {
   padding: 0.5px;
   color: #333333;
   background-color: #FFFFFF;
@@ -793,15 +809,15 @@ k = (Ce \times Bs) - [Ts \times (1 - Ce)], \tag{4}
   vertical-align: middle;
 }
 
-#itgphlszdy .gt_from_md > :first-child {
+#gzzcnrolks .gt_from_md > :first-child {
   margin-top: 0;
 }
 
-#itgphlszdy .gt_from_md > :last-child {
+#gzzcnrolks .gt_from_md > :last-child {
   margin-bottom: 0;
 }
 
-#itgphlszdy .gt_row {
+#gzzcnrolks .gt_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -820,7 +836,7 @@ k = (Ce \times Bs) - [Ts \times (1 - Ce)], \tag{4}
   overflow-x: hidden;
 }
 
-#itgphlszdy .gt_stub {
+#gzzcnrolks .gt_stub {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -833,7 +849,7 @@ k = (Ce \times Bs) - [Ts \times (1 - Ce)], \tag{4}
   padding-right: 5px;
 }
 
-#itgphlszdy .gt_stub_row_group {
+#gzzcnrolks .gt_stub_row_group {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -847,15 +863,15 @@ k = (Ce \times Bs) - [Ts \times (1 - Ce)], \tag{4}
   vertical-align: top;
 }
 
-#itgphlszdy .gt_row_group_first td {
+#gzzcnrolks .gt_row_group_first td {
   border-top-width: 2px;
 }
 
-#itgphlszdy .gt_row_group_first th {
+#gzzcnrolks .gt_row_group_first th {
   border-top-width: 2px;
 }
 
-#itgphlszdy .gt_summary_row {
+#gzzcnrolks .gt_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -865,16 +881,16 @@ k = (Ce \times Bs) - [Ts \times (1 - Ce)], \tag{4}
   padding-right: 5px;
 }
 
-#itgphlszdy .gt_first_summary_row {
+#gzzcnrolks .gt_first_summary_row {
   border-top-style: solid;
   border-top-color: #D3D3D3;
 }
 
-#itgphlszdy .gt_first_summary_row.thick {
+#gzzcnrolks .gt_first_summary_row.thick {
   border-top-width: 2px;
 }
 
-#itgphlszdy .gt_last_summary_row {
+#gzzcnrolks .gt_last_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -884,7 +900,7 @@ k = (Ce \times Bs) - [Ts \times (1 - Ce)], \tag{4}
   border-bottom-color: #D3D3D3;
 }
 
-#itgphlszdy .gt_grand_summary_row {
+#gzzcnrolks .gt_grand_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -894,7 +910,7 @@ k = (Ce \times Bs) - [Ts \times (1 - Ce)], \tag{4}
   padding-right: 5px;
 }
 
-#itgphlszdy .gt_first_grand_summary_row {
+#gzzcnrolks .gt_first_grand_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -904,7 +920,7 @@ k = (Ce \times Bs) - [Ts \times (1 - Ce)], \tag{4}
   border-top-color: #D3D3D3;
 }
 
-#itgphlszdy .gt_last_grand_summary_row_top {
+#gzzcnrolks .gt_last_grand_summary_row_top {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -914,11 +930,11 @@ k = (Ce \times Bs) - [Ts \times (1 - Ce)], \tag{4}
   border-bottom-color: #D3D3D3;
 }
 
-#itgphlszdy .gt_striped {
+#gzzcnrolks .gt_striped {
   background-color: rgba(128, 128, 128, 0.05);
 }
 
-#itgphlszdy .gt_table_body {
+#gzzcnrolks .gt_table_body {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -927,7 +943,7 @@ k = (Ce \times Bs) - [Ts \times (1 - Ce)], \tag{4}
   border-bottom-color: #D3D3D3;
 }
 
-#itgphlszdy .gt_footnotes {
+#gzzcnrolks .gt_footnotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -941,7 +957,7 @@ k = (Ce \times Bs) - [Ts \times (1 - Ce)], \tag{4}
   border-right-color: #D3D3D3;
 }
 
-#itgphlszdy .gt_footnote {
+#gzzcnrolks .gt_footnote {
   margin: 0px;
   font-size: 90%;
   padding-top: 4px;
@@ -950,7 +966,7 @@ k = (Ce \times Bs) - [Ts \times (1 - Ce)], \tag{4}
   padding-right: 5px;
 }
 
-#itgphlszdy .gt_sourcenotes {
+#gzzcnrolks .gt_sourcenotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -964,7 +980,7 @@ k = (Ce \times Bs) - [Ts \times (1 - Ce)], \tag{4}
   border-right-color: #D3D3D3;
 }
 
-#itgphlszdy .gt_sourcenote {
+#gzzcnrolks .gt_sourcenote {
   font-size: 90%;
   padding-top: 4px;
   padding-bottom: 4px;
@@ -972,72 +988,72 @@ k = (Ce \times Bs) - [Ts \times (1 - Ce)], \tag{4}
   padding-right: 5px;
 }
 
-#itgphlszdy .gt_left {
+#gzzcnrolks .gt_left {
   text-align: left;
 }
 
-#itgphlszdy .gt_center {
+#gzzcnrolks .gt_center {
   text-align: center;
 }
 
-#itgphlszdy .gt_right {
+#gzzcnrolks .gt_right {
   text-align: right;
   font-variant-numeric: tabular-nums;
 }
 
-#itgphlszdy .gt_font_normal {
+#gzzcnrolks .gt_font_normal {
   font-weight: normal;
 }
 
-#itgphlszdy .gt_font_bold {
+#gzzcnrolks .gt_font_bold {
   font-weight: bold;
 }
 
-#itgphlszdy .gt_font_italic {
+#gzzcnrolks .gt_font_italic {
   font-style: italic;
 }
 
-#itgphlszdy .gt_super {
+#gzzcnrolks .gt_super {
   font-size: 65%;
 }
 
-#itgphlszdy .gt_footnote_marks {
+#gzzcnrolks .gt_footnote_marks {
   font-size: 75%;
   vertical-align: 0.4em;
   position: initial;
 }
 
-#itgphlszdy .gt_asterisk {
+#gzzcnrolks .gt_asterisk {
   font-size: 100%;
   vertical-align: 0;
 }
 
-#itgphlszdy .gt_indent_1 {
+#gzzcnrolks .gt_indent_1 {
   text-indent: 5px;
 }
 
-#itgphlszdy .gt_indent_2 {
+#gzzcnrolks .gt_indent_2 {
   text-indent: 10px;
 }
 
-#itgphlszdy .gt_indent_3 {
+#gzzcnrolks .gt_indent_3 {
   text-indent: 15px;
 }
 
-#itgphlszdy .gt_indent_4 {
+#gzzcnrolks .gt_indent_4 {
   text-indent: 20px;
 }
 
-#itgphlszdy .gt_indent_5 {
+#gzzcnrolks .gt_indent_5 {
   text-indent: 25px;
 }
 
-#itgphlszdy .katex-display {
+#gzzcnrolks .katex-display {
   display: inline-flex !important;
   margin-bottom: 0.75em !important;
 }
 
-#itgphlszdy div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
+#gzzcnrolks div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
   height: 0px !important;
 }
 </style>
@@ -1107,36 +1123,36 @@ k = (Ce \times Bs) - [Ts \times (1 - Ce)], \tag{4}
   
 </table>
 </div>
-<p><figcaption>Figure 21.1: Preview of motivation data</figcaption></p>
+<p></p><figcaption class="figure-caption"><strong>Figure</strong>&nbsp;1<strong>.</strong> Preview of motivation data</figcaption><p></p>
 </figure>
 </div>
 </div>
-<p>The dataset comprises four columns of length 111: the first column is the number of weeks (‘Week’), the second column is the values of competence expectancies for each week (‘Ce’), the third is the values of potential benefit to the self (‘Bs’) and the last column the values of potential threat to the self (‘Ts’). To calculate the <span class="math inline">\(k\)</span> values according to Equation 4, we use <code>mutate</code> from the <code>dplyr</code> package to create a fifth column and apply the equation for each week (<a href="#fig-motivation-data-col">Figure <span class="quarto-unresolved-ref">fig-motivation-data-col</span></a>).</p>
+<p>The dataset comprises four columns of length 111: the first column is the number of weeks (‘Week’), the second column is the values of competence expectancies for each week (‘Ce’), the third is the values of potential benefit to the self (‘Bs’) and the last column the values of potential threat to the self (‘Ts’). To calculate the <span class="math inline">\(k\)</span> values according to Equation 4, we use <code>mutate</code> from the <code>dplyr</code> package to create a fifth column and apply the equation for each week (<a href="#fig-motivation-data-col">Figure&nbsp;<span>21.2</span></a>).</p>
 <div class="cell">
-<div class="sourceCode" id="cb4"><pre class="sourceCode r cell-code"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>MotivationData <span class="ot">&lt;-</span> MotivationData <span class="sc">%&gt;%</span></span>
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>MotivationData <span class="ot">&lt;-</span> MotivationData <span class="sc">%&gt;%</span></span>
 <span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">K =</span> (Ce <span class="sc">*</span> Bs) <span class="sc">-</span> (Ts <span class="sc">*</span> (<span class="dv">1</span> <span class="sc">-</span> Ce))) </span>
 <span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>k_values <span class="ot">&lt;-</span> (MotivationData<span class="sc">$</span>K) <span class="co"># store K values in a vector</span></span>
-<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a><span class="fu">gt_preview</span>(MotivationData, <span class="at">top_n =</span> <span class="dv">8</span>, <span class="at">bottom_n =</span> <span class="dv">1</span>)</span></code></pre></div>
-<div id="fig-motivation-data-col" class="quarto-figure quarto-figure-center">
-<figure>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a><span class="fu">gt_preview</span>(MotivationData, <span class="at">top_n =</span> <span class="dv">8</span>, <span class="at">bottom_n =</span> <span class="dv">1</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div id="fig-motivation-data-col" class="quarto-figure quarto-figure-center anchored">
+<figure class="figure">
 
-<div id="pysswuqgci" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
-<style>#pysswuqgci table {
+<div id="leirhyvkuy" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<style>#leirhyvkuy table {
   font-family: system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
-#pysswuqgci thead, #pysswuqgci tbody, #pysswuqgci tfoot, #pysswuqgci tr, #pysswuqgci td, #pysswuqgci th {
+#leirhyvkuy thead, #leirhyvkuy tbody, #leirhyvkuy tfoot, #leirhyvkuy tr, #leirhyvkuy td, #leirhyvkuy th {
   border-style: none;
 }
 
-#pysswuqgci p {
+#leirhyvkuy p {
   margin: 0;
   padding: 0;
 }
 
-#pysswuqgci .gt_table {
+#leirhyvkuy .gt_table {
   display: table;
   border-collapse: collapse;
   line-height: normal;
@@ -1162,12 +1178,12 @@ k = (Ce \times Bs) - [Ts \times (1 - Ce)], \tag{4}
   border-left-color: #D3D3D3;
 }
 
-#pysswuqgci .gt_caption {
+#leirhyvkuy .gt_caption {
   padding-top: 4px;
   padding-bottom: 4px;
 }
 
-#pysswuqgci .gt_title {
+#leirhyvkuy .gt_title {
   color: #333333;
   font-size: 125%;
   font-weight: initial;
@@ -1179,7 +1195,7 @@ k = (Ce \times Bs) - [Ts \times (1 - Ce)], \tag{4}
   border-bottom-width: 0;
 }
 
-#pysswuqgci .gt_subtitle {
+#leirhyvkuy .gt_subtitle {
   color: #333333;
   font-size: 85%;
   font-weight: initial;
@@ -1191,7 +1207,7 @@ k = (Ce \times Bs) - [Ts \times (1 - Ce)], \tag{4}
   border-top-width: 0;
 }
 
-#pysswuqgci .gt_heading {
+#leirhyvkuy .gt_heading {
   background-color: #FFFFFF;
   text-align: center;
   border-bottom-color: #FFFFFF;
@@ -1203,13 +1219,13 @@ k = (Ce \times Bs) - [Ts \times (1 - Ce)], \tag{4}
   border-right-color: #D3D3D3;
 }
 
-#pysswuqgci .gt_bottom_border {
+#leirhyvkuy .gt_bottom_border {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
 }
 
-#pysswuqgci .gt_col_headings {
+#leirhyvkuy .gt_col_headings {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -1224,7 +1240,7 @@ k = (Ce \times Bs) - [Ts \times (1 - Ce)], \tag{4}
   border-right-color: #D3D3D3;
 }
 
-#pysswuqgci .gt_col_heading {
+#leirhyvkuy .gt_col_heading {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -1244,7 +1260,7 @@ k = (Ce \times Bs) - [Ts \times (1 - Ce)], \tag{4}
   overflow-x: hidden;
 }
 
-#pysswuqgci .gt_column_spanner_outer {
+#leirhyvkuy .gt_column_spanner_outer {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -1256,15 +1272,15 @@ k = (Ce \times Bs) - [Ts \times (1 - Ce)], \tag{4}
   padding-right: 4px;
 }
 
-#pysswuqgci .gt_column_spanner_outer:first-child {
+#leirhyvkuy .gt_column_spanner_outer:first-child {
   padding-left: 0;
 }
 
-#pysswuqgci .gt_column_spanner_outer:last-child {
+#leirhyvkuy .gt_column_spanner_outer:last-child {
   padding-right: 0;
 }
 
-#pysswuqgci .gt_column_spanner {
+#leirhyvkuy .gt_column_spanner {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
@@ -1276,11 +1292,11 @@ k = (Ce \times Bs) - [Ts \times (1 - Ce)], \tag{4}
   width: 100%;
 }
 
-#pysswuqgci .gt_spanner_row {
+#leirhyvkuy .gt_spanner_row {
   border-bottom-style: hidden;
 }
 
-#pysswuqgci .gt_group_heading {
+#leirhyvkuy .gt_group_heading {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1306,7 +1322,7 @@ k = (Ce \times Bs) - [Ts \times (1 - Ce)], \tag{4}
   text-align: left;
 }
 
-#pysswuqgci .gt_empty_group_heading {
+#leirhyvkuy .gt_empty_group_heading {
   padding: 0.5px;
   color: #333333;
   background-color: #FFFFFF;
@@ -1321,15 +1337,15 @@ k = (Ce \times Bs) - [Ts \times (1 - Ce)], \tag{4}
   vertical-align: middle;
 }
 
-#pysswuqgci .gt_from_md > :first-child {
+#leirhyvkuy .gt_from_md > :first-child {
   margin-top: 0;
 }
 
-#pysswuqgci .gt_from_md > :last-child {
+#leirhyvkuy .gt_from_md > :last-child {
   margin-bottom: 0;
 }
 
-#pysswuqgci .gt_row {
+#leirhyvkuy .gt_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1348,7 +1364,7 @@ k = (Ce \times Bs) - [Ts \times (1 - Ce)], \tag{4}
   overflow-x: hidden;
 }
 
-#pysswuqgci .gt_stub {
+#leirhyvkuy .gt_stub {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -1361,7 +1377,7 @@ k = (Ce \times Bs) - [Ts \times (1 - Ce)], \tag{4}
   padding-right: 5px;
 }
 
-#pysswuqgci .gt_stub_row_group {
+#leirhyvkuy .gt_stub_row_group {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -1375,15 +1391,15 @@ k = (Ce \times Bs) - [Ts \times (1 - Ce)], \tag{4}
   vertical-align: top;
 }
 
-#pysswuqgci .gt_row_group_first td {
+#leirhyvkuy .gt_row_group_first td {
   border-top-width: 2px;
 }
 
-#pysswuqgci .gt_row_group_first th {
+#leirhyvkuy .gt_row_group_first th {
   border-top-width: 2px;
 }
 
-#pysswuqgci .gt_summary_row {
+#leirhyvkuy .gt_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -1393,16 +1409,16 @@ k = (Ce \times Bs) - [Ts \times (1 - Ce)], \tag{4}
   padding-right: 5px;
 }
 
-#pysswuqgci .gt_first_summary_row {
+#leirhyvkuy .gt_first_summary_row {
   border-top-style: solid;
   border-top-color: #D3D3D3;
 }
 
-#pysswuqgci .gt_first_summary_row.thick {
+#leirhyvkuy .gt_first_summary_row.thick {
   border-top-width: 2px;
 }
 
-#pysswuqgci .gt_last_summary_row {
+#leirhyvkuy .gt_last_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1412,7 +1428,7 @@ k = (Ce \times Bs) - [Ts \times (1 - Ce)], \tag{4}
   border-bottom-color: #D3D3D3;
 }
 
-#pysswuqgci .gt_grand_summary_row {
+#leirhyvkuy .gt_grand_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -1422,7 +1438,7 @@ k = (Ce \times Bs) - [Ts \times (1 - Ce)], \tag{4}
   padding-right: 5px;
 }
 
-#pysswuqgci .gt_first_grand_summary_row {
+#leirhyvkuy .gt_first_grand_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1432,7 +1448,7 @@ k = (Ce \times Bs) - [Ts \times (1 - Ce)], \tag{4}
   border-top-color: #D3D3D3;
 }
 
-#pysswuqgci .gt_last_grand_summary_row_top {
+#leirhyvkuy .gt_last_grand_summary_row_top {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1442,11 +1458,11 @@ k = (Ce \times Bs) - [Ts \times (1 - Ce)], \tag{4}
   border-bottom-color: #D3D3D3;
 }
 
-#pysswuqgci .gt_striped {
+#leirhyvkuy .gt_striped {
   background-color: rgba(128, 128, 128, 0.05);
 }
 
-#pysswuqgci .gt_table_body {
+#leirhyvkuy .gt_table_body {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -1455,7 +1471,7 @@ k = (Ce \times Bs) - [Ts \times (1 - Ce)], \tag{4}
   border-bottom-color: #D3D3D3;
 }
 
-#pysswuqgci .gt_footnotes {
+#leirhyvkuy .gt_footnotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -1469,7 +1485,7 @@ k = (Ce \times Bs) - [Ts \times (1 - Ce)], \tag{4}
   border-right-color: #D3D3D3;
 }
 
-#pysswuqgci .gt_footnote {
+#leirhyvkuy .gt_footnote {
   margin: 0px;
   font-size: 90%;
   padding-top: 4px;
@@ -1478,7 +1494,7 @@ k = (Ce \times Bs) - [Ts \times (1 - Ce)], \tag{4}
   padding-right: 5px;
 }
 
-#pysswuqgci .gt_sourcenotes {
+#leirhyvkuy .gt_sourcenotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -1492,7 +1508,7 @@ k = (Ce \times Bs) - [Ts \times (1 - Ce)], \tag{4}
   border-right-color: #D3D3D3;
 }
 
-#pysswuqgci .gt_sourcenote {
+#leirhyvkuy .gt_sourcenote {
   font-size: 90%;
   padding-top: 4px;
   padding-bottom: 4px;
@@ -1500,72 +1516,72 @@ k = (Ce \times Bs) - [Ts \times (1 - Ce)], \tag{4}
   padding-right: 5px;
 }
 
-#pysswuqgci .gt_left {
+#leirhyvkuy .gt_left {
   text-align: left;
 }
 
-#pysswuqgci .gt_center {
+#leirhyvkuy .gt_center {
   text-align: center;
 }
 
-#pysswuqgci .gt_right {
+#leirhyvkuy .gt_right {
   text-align: right;
   font-variant-numeric: tabular-nums;
 }
 
-#pysswuqgci .gt_font_normal {
+#leirhyvkuy .gt_font_normal {
   font-weight: normal;
 }
 
-#pysswuqgci .gt_font_bold {
+#leirhyvkuy .gt_font_bold {
   font-weight: bold;
 }
 
-#pysswuqgci .gt_font_italic {
+#leirhyvkuy .gt_font_italic {
   font-style: italic;
 }
 
-#pysswuqgci .gt_super {
+#leirhyvkuy .gt_super {
   font-size: 65%;
 }
 
-#pysswuqgci .gt_footnote_marks {
+#leirhyvkuy .gt_footnote_marks {
   font-size: 75%;
   vertical-align: 0.4em;
   position: initial;
 }
 
-#pysswuqgci .gt_asterisk {
+#leirhyvkuy .gt_asterisk {
   font-size: 100%;
   vertical-align: 0;
 }
 
-#pysswuqgci .gt_indent_1 {
+#leirhyvkuy .gt_indent_1 {
   text-indent: 5px;
 }
 
-#pysswuqgci .gt_indent_2 {
+#leirhyvkuy .gt_indent_2 {
   text-indent: 10px;
 }
 
-#pysswuqgci .gt_indent_3 {
+#leirhyvkuy .gt_indent_3 {
   text-indent: 15px;
 }
 
-#pysswuqgci .gt_indent_4 {
+#leirhyvkuy .gt_indent_4 {
   text-indent: 20px;
 }
 
-#pysswuqgci .gt_indent_5 {
+#leirhyvkuy .gt_indent_5 {
   text-indent: 25px;
 }
 
-#pysswuqgci .katex-display {
+#leirhyvkuy .katex-display {
   display: inline-flex !important;
   margin-bottom: 0.75em !important;
 }
 
-#pysswuqgci div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
+#leirhyvkuy div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
   height: 0px !important;
 }
 </style>
@@ -1646,72 +1662,72 @@ k = (Ce \times Bs) - [Ts \times (1 - Ce)], \tag{4}
   
 </table>
 </div>
-<p><figcaption>Figure 21.2: Preview of motivation data with additional column</figcaption></p>
+<p></p><figcaption class="figure-caption"><strong>Figure</strong>&nbsp;2<strong>.</strong> Preview of motivation data with additional column</figcaption><p></p>
 </figure>
 </div>
 </div>
 <p>To visualize the temporal dynamics of <span class="math inline">\(k\)</span>, we use <code>ggplot2</code> to create a line plot (see Figure 2).</p>
 <div class="cell" data-layout-align="center">
-<div class="sourceCode" id="cb5"><pre class="sourceCode r cell-code"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(MotivationData, <span class="fu">aes</span>(<span class="at">x =</span> Week, <span class="at">y =</span> K)) <span class="sc">+</span></span>
-<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="at">colour =</span> <span class="st">&quot;turquoise4&quot;</span>, <span class="at">linewidth =</span> <span class="fl">0.8</span>) <span class="sc">+</span></span>
-<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">colour =</span> <span class="st">&quot;magenta&quot;</span>, <span class="at">size =</span> <span class="dv">1</span>) <span class="sc">+</span></span>
-<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">&quot;Week&quot;</span>, <span class="at">y =</span> <span class="st">&quot;k&quot;</span>) <span class="sc">+</span></span>
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(MotivationData, <span class="fu">aes</span>(<span class="at">x =</span> Week, <span class="at">y =</span> K)) <span class="sc">+</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="at">colour =</span> <span class="st">"turquoise4"</span>, <span class="at">linewidth =</span> <span class="fl">0.8</span>) <span class="sc">+</span></span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">colour =</span> <span class="st">"magenta"</span>, <span class="at">size =</span> <span class="dv">1</span>) <span class="sc">+</span></span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"Week"</span>, <span class="at">y =</span> <span class="st">"k"</span>) <span class="sc">+</span></span>
 <span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_x_continuous</span>(<span class="at">breaks =</span> <span class="fu">seq</span>(<span class="dv">0</span>, <span class="dv">110</span>, <span class="at">by =</span> <span class="dv">10</span>)) <span class="sc">+</span></span>
 <span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_y_continuous</span>(<span class="at">breaks =</span> <span class="fu">seq</span>(<span class="sc">-</span><span class="dv">1</span>, <span class="dv">1</span>, <span class="at">by =</span> <span class="fl">0.5</span>)) <span class="sc">+</span></span>
 <span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(</span>
-<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a>    <span class="at">panel.background =</span> <span class="fu">element_rect</span>(<span class="at">fill =</span> <span class="st">&quot;gray95&quot;</span>)</span>
-<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a>  )</span></code></pre></div>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a>    <span class="at">panel.background =</span> <span class="fu">element_rect</span>(<span class="at">fill =</span> <span class="st">"gray95"</span>)</span>
+<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a>  )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
-<figure>
-<p><img src="ch21-mle_files/figure-html/unnamed-chunk-6-1.png" class="img-fluid" width="960" /></p>
-<p><figcaption>Line plot of the evolution of the control parameter of approach and avoidance motivations <span class="math inline">\(k\)</span>.</figcaption></p>
+<figure class="figure">
+<p><img src="img/ch21-mle_files/figure-html/unnamed-chunk-6-1.png" class="img-fluid figure-img" width="960"></p>
+<p></p><figcaption class="figure-caption">Line plot of the evolution of the control parameter of approach and avoidance motivations <span class="math inline">\(k\)</span>.</figcaption><p></p>
 </figure>
 </div>
 </div>
 </div>
-<p>The plot in Figure 2 shows the variations in the student’s motivational state with respect to her goal of defending her Ph.D. thesis. This motivational state is reflected by the value of the parameter <span class="math inline">\(k\)</span> (vertical axis), which determines the inclination of the attractor landscape towards approach (when <span class="math inline">\(k\)</span> tends towards +1) or avoidance (when <span class="math inline">\(k\)</span> tends towards –1). The values of <span class="math inline">\(k\)</span> are characterized by varied non-linear changes over the weeks (horizontal axis). At certain periods, fluctuations in motivational state remain confined within the avoidance attractor (e.g., from week 12 to week 30). At other times, these fluctuations tend to stay within the approach attractor (e.g., from week 93 to week 102). But overall, motivation seems rather unstable, most often oscillating between the two attractors by crossing the value of <span class="math inline">\(k\)</span> = 0. At first glance, motivational variability may look erratic, with no consistent trend over time. Although visual analysis of the data is essential, it is Whittle’s MLE that enables the temporal structure of the variability of this signal to be detected statistically.</p>
+<p>The plot in Figure 2 shows the variations in the student’s motivational state with respect to her goal of defending her Ph.D.&nbsp;thesis. This motivational state is reflected by the value of the parameter <span class="math inline">\(k\)</span> (vertical axis), which determines the inclination of the attractor landscape towards approach (when <span class="math inline">\(k\)</span> tends towards +1) or avoidance (when <span class="math inline">\(k\)</span> tends towards –1). The values of <span class="math inline">\(k\)</span> are characterized by varied non-linear changes over the weeks (horizontal axis). At certain periods, fluctuations in motivational state remain confined within the avoidance attractor (e.g., from week 12 to week 30). At other times, these fluctuations tend to stay within the approach attractor (e.g., from week 93 to week 102). But overall, motivation seems rather unstable, most often oscillating between the two attractors by crossing the value of <span class="math inline">\(k\)</span> = 0. At first glance, motivational variability may look erratic, with no consistent trend over time. Although visual analysis of the data is essential, it is Whittle’s MLE that enables the temporal structure of the variability of this signal to be detected statistically.</p>
 </section>
-<section id="application-of-whittles-mle-algorithm" class="level4" data-number="21.3.2.3">
-<h4 data-number="21.3.2.3"><span class="header-section-number">21.3.2.3</span> Application of Whittle’s MLE algorithm</h4>
+<section id="application-of-whittles-mle-algorithm" class="level4" data-number="3.2.3">
+<h4 data-number="3.2.3" class="anchored" data-anchor-id="application-of-whittles-mle-algorithm"><span class="header-section-number">3.2.3</span> Application of Whittle’s MLE algorithm</h4>
 <p>The first step in Whittle’s MLE algorithm is to estimate the power spectral density (or periodogram) of the vector containing the values of <span class="math inline">\(k\)</span>.</p>
 <div class="cell">
-<div class="sourceCode" id="cb6"><pre class="sourceCode r cell-code"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Power spectral density estimation of vector x</span></span>
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Power spectral density estimation of vector x</span></span>
 <span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> (k_values)</span>
 <span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>X <span class="ot">&lt;-</span> <span class="fu">scale</span>(x)</span>
 <span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>N <span class="ot">&lt;-</span> <span class="fu">length</span>(X)</span>
 <span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>m <span class="ot">&lt;-</span> <span class="fu">floor</span>((N <span class="sc">-</span> <span class="dv">1</span>) <span class="sc">/</span> <span class="dv">2</span>)</span>
 <span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>Y <span class="ot">&lt;-</span> <span class="fu">fft</span>(X) <span class="co"># Fast Discrete Fourier Transform</span></span>
 <span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a>P <span class="ot">&lt;-</span> (<span class="dv">1</span> <span class="sc">/</span> (pi <span class="sc">*</span> N)) <span class="sc">*</span> <span class="fu">abs</span>(Y[<span class="dv">2</span><span class="sc">:</span>(m <span class="sc">+</span> <span class="dv">1</span>)])<span class="sc">^</span><span class="dv">2</span> <span class="co"># Power spectral density estimation</span></span>
-<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a>w <span class="ot">&lt;-</span> (<span class="dv">2</span> <span class="sc">*</span> pi <span class="sc">*</span> (<span class="dv">1</span><span class="sc">:</span>m)) <span class="sc">/</span> N <span class="co"># Fourier frequencies</span></span></code></pre></div>
+<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a>w <span class="ot">&lt;-</span> (<span class="dv">2</span> <span class="sc">*</span> pi <span class="sc">*</span> (<span class="dv">1</span><span class="sc">:</span>m)) <span class="sc">/</span> N <span class="co"># Fourier frequencies</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Firstly, we give the name <code>x</code> to the <code>k_values</code> vector. Then, as a necessary step for the algorithm to work properly, the <code>scale()</code> function standardizes the vector <code>x</code> by setting its mean to 0 and its standard deviation to 1. The value <code>N</code> represents the length of the standardized vector <code>X</code> (here 111). The value <code>m</code> is half the total length of the vector <code>N</code>, minus 1 and rounded down to the nearest integer using the <code>floor()</code> function. The number <code>m</code> represents the number of frequencies used to estimate the power spectral density. The <code>fft()</code> function is an algorithm that calculates the discrete Fourier transform of the standardized vector <code>X</code>, thus adapting the signal <code>X</code> from the time domain to the frequency domain. The calculation of the vector <code>P</code> is used to estimate the periodogram (i.e., power per frequency unit) from the Fourier transform. The vector <code>w</code> represents the Fourier frequencies for <code>m</code> values.</p>
 <p>The next step is to define the Whittle’s likelihood function. To estimate the <span class="math inline">\(α\)</span> value of the signal, Whittle’s MLE compares the empirical periodogram with a theoretical spectral density, here derived from an ARFIMA(0,<span class="math inline">\(d\)</span>,0) model which is a class of models capturing long-term memory processes in time series. The function evaluates how well an ARFIMA(0,<span class="math inline">\(d\)</span>,0) model with a given parameter <span class="math inline">\(α\)</span> matches the observed time series, by comparing their spectral density. This comparison is carried out via a likelihood measure. The aim is to find the <span class="math inline">\(α\)</span> value for which the Whittle’s likelihood function reaches its maximum, thus denoting the best possible fit between the theoretical model and the empirical data.</p>
 <p>To build this function, we first set its arguments.</p>
 <div class="cell">
-<div class="sourceCode" id="cb7"><pre class="sourceCode r cell-code"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Whittle’s log-likelihood function with ARFIMA(0,d,0) theoretical PSD</span></span>
-<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>WLLF <span class="ot">&lt;-</span> <span class="cf">function</span>(a, w, P, N) {</span></code></pre></div>
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Whittle’s log-likelihood function with ARFIMA(0,d,0) theoretical PSD</span></span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>WLLF <span class="ot">&lt;-</span> <span class="cf">function</span>(a, w, P, N) {</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>The <code>a</code> parameter is the <span class="math inline">\(α\)</span> parameter to be estimated, which controls the type of fluctuation (i.e., anti-correlated, random, long-term autocorrelated) in the ARFIMA model. The other three parameters relate to the empirical signal detailed above. The function processing aims to (a) calculate the theoretical spectral density, (b) adjust it to the empirical data, and (c) calculate Whittle’s log-likelihood function between the adjusted theoretical spectral density and the empirical spectral density. The resulting value will be used to assess how well a certain parameter <span class="math inline">\(α\)</span> fits the time series.</p>
 <div class="cell">
-<div class="sourceCode" id="cb8"><pre class="sourceCode r cell-code"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>  Tp <span class="ot">&lt;-</span> (<span class="dv">1</span> <span class="sc">/</span> (<span class="dv">2</span> <span class="sc">*</span> pi)) <span class="sc">*</span> (<span class="dv">2</span> <span class="sc">*</span> <span class="fu">sin</span>(w <span class="sc">/</span> <span class="dv">2</span>))<span class="sc">^</span>(<span class="dv">1</span> <span class="sc">-</span> <span class="dv">2</span> <span class="sc">*</span> a) <span class="co"># ARFIMA theoretical PSD</span></span>
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>  Tp <span class="ot">&lt;-</span> (<span class="dv">1</span> <span class="sc">/</span> (<span class="dv">2</span> <span class="sc">*</span> pi)) <span class="sc">*</span> (<span class="dv">2</span> <span class="sc">*</span> <span class="fu">sin</span>(w <span class="sc">/</span> <span class="dv">2</span>))<span class="sc">^</span>(<span class="dv">1</span> <span class="sc">-</span> <span class="dv">2</span> <span class="sc">*</span> a) <span class="co"># ARFIMA theoretical PSD</span></span>
 <span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>  c <span class="ot">&lt;-</span> <span class="fu">sum</span>(P) <span class="sc">/</span> <span class="fu">sum</span>(Tp)</span>
 <span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>  T <span class="ot">&lt;-</span> c <span class="sc">*</span> Tp <span class="co"># Theoretical PSD adjusted </span></span>
 <span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>  lw <span class="ot">&lt;-</span> <span class="sc">-</span>(<span class="dv">2</span> <span class="sc">/</span> N) <span class="sc">*</span> <span class="fu">sum</span>(<span class="fu">log</span>(T) <span class="sc">+</span> (P <span class="sc">/</span> T)) <span class="co"># Whittle’s log-likelihood</span></span>
 <span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">return</span>(lw)</span>
-<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a><span class="er">}</span></span></code></pre></div>
+<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a><span class="er">}</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>The <code>Tp</code> vector is the theoretical spectral density for an ARFIMA(0,<span class="math inline">\(d\)</span>,0) model. The calculation of <code>c</code> normalizes the theoretical spectral density <code>Tp</code> so that it matches the scale of the empirical spectral density <code>P</code>. The adjusted theoretical spectral density <code>T</code> is obtained by multiplying the normalization factor <code>c</code> by the theoretical spectral density <code>Tp</code>. This adjusted theoretical spectral density is the density to be compared with the empirical spectral density. Next, Whittle’s log-likelihood <code>lw</code>—which measures the likelihood between the adjusted theoretical spectral density and the empirical spectral density—is calculated. The larger the resulting <code>lw</code> value, the larger is the likelihood between the theoretical spectral density and the empirical periodogram. The aim is therefore to find the value of <span class="math inline">\(α\)</span> that maximizes this function.</p>
 <p>The final step is to optimize Whittle’s log-likelihood function to find this <span class="math inline">\(α\)</span> value.</p>
 <div class="cell">
-<div class="sourceCode" id="cb9"><pre class="sourceCode r cell-code"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>A <span class="ot">&lt;-</span> <span class="fu">optimize</span>(<span class="cf">function</span>(a) <span class="fu">WLLF</span>(a, w, P, N), <span class="at">lower =</span> <span class="dv">0</span>, <span class="at">upper =</span> <span class="dv">1</span>, <span class="at">maximum =</span> <span class="cn">TRUE</span>, </span>
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>A <span class="ot">&lt;-</span> <span class="fu">optimize</span>(<span class="cf">function</span>(a) <span class="fu">WLLF</span>(a, w, P, N), <span class="at">lower =</span> <span class="dv">0</span>, <span class="at">upper =</span> <span class="dv">1</span>, <span class="at">maximum =</span> <span class="cn">TRUE</span>, </span>
 <span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>              <span class="at">tol =</span> <span class="fl">0.0001</span>)</span>
-<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>A <span class="ot">&lt;-</span> A<span class="sc">$</span>maximum</span></code></pre></div>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>A <span class="ot">&lt;-</span> A<span class="sc">$</span>maximum</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>The <code>optimize()</code> function is used to find the maximum of a function over a specified interval. Here, <code>a</code> is the parameter <span class="math inline">\(α\)</span> to be estimated and, as detailed above, the function <code>WLLF(a, w, P, N)</code> calculates Whittle’s log-likelihood for a given <span class="math inline">\(α\)</span>. If the series is considered stationary, the value <span class="math inline">\(α\)</span> must lie within the interval [0,1]. Consequently, the lower bound of the interval in which <span class="math inline">\(α\)</span> is to be sought is <code>lower = 0</code> and the upper bound is <code>upper = 1</code>. The argument <code>maximum = TRUE</code> is used to maximize the function. Finally, we specify a tolerance of 0.0001 for the convergence of the optimization algorithm, which controls the precision of the maximum search. Once <code>optimize()</code> has found the maximum of the specified function in the interval, this value is extracted and assigned to <code>A</code>.</p>
 <p>At this stage, a resulting <span class="math inline">\(α\)</span> value very close to 1 (i.e., <span class="math inline">\(α\)</span> <span class="math inline">\(\geq\)</span> 0.9999) may suggest that the time series is non-stationary (i.e., that its mean and variance change over time). As ARFIMA(0,<span class="math inline">\(d\)</span>,0) models are designed for stationary series, an estimate of <span class="math inline">\(α\)</span> very close to 1 could indicate that the initial theoretical model does not represent the time series well. In this specific case, it is possible to work on a differentiated version of the original series and then add 1 to the <span class="math inline">\(α\)</span> value yielded by the algorithm.</p>
 <div class="cell">
-<div class="sourceCode" id="cb10"><pre class="sourceCode r cell-code"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="co"># If the time series is non-stationary</span></span>
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="co"># If the time series is non-stationary</span></span>
 <span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> (A <span class="sc">&gt;=</span> <span class="fl">0.9999</span>) {</span>
 <span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>  XDiff <span class="ot">&lt;-</span> <span class="fu">diff</span>(X)</span>
 <span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a>  YDiff <span class="ot">&lt;-</span> <span class="fu">fft</span>(XDiff)</span>
@@ -1722,15 +1738,15 @@ k = (Ce \times Bs) - [Ts \times (1 - Ce)], \tag{4}
 <span id="cb10-9"><a href="#cb10-9" aria-hidden="true" tabindex="-1"></a>                <span class="at">maximum =</span> <span class="cn">TRUE</span>, <span class="at">tol =</span> <span class="fl">0.0001</span>)</span>
 <span id="cb10-10"><a href="#cb10-10" aria-hidden="true" tabindex="-1"></a>  A <span class="ot">&lt;-</span> A<span class="sc">$</span>maximum</span>
 <span id="cb10-11"><a href="#cb10-11" aria-hidden="true" tabindex="-1"></a>  A <span class="ot">&lt;-</span> A <span class="sc">+</span> <span class="dv">1</span></span>
-<span id="cb10-12"><a href="#cb10-12" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
+<span id="cb10-12"><a href="#cb10-12" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>The <code>if()</code> condition only applies when <code>A</code> is greater than or equal to 0.9999. In this case, we apply a differentiation to the standardized vector <code>X</code> to make it stationary. Next, the remaining steps are similar to those in the previous algorithm, where the aim is to estimate an <span class="math inline">\(α\)</span> value by maximizing Whittle’s log-likelihood function, but this time on the differentiated series. The differentiation of the time series has reduced the order of integration by one degree. Therefore, after estimating <span class="math inline">\(α\)</span> for the differentiated series, 1 is added to compensate for this differentiation.</p>
 <p>With both algorithms implemented, we can now display the <span class="math inline">\(α\)</span> value maximized from Whittle’s log-likelihood function.</p>
 </section>
-<section id="result" class="level4" data-number="21.3.2.4">
-<h4 data-number="21.3.2.4"><span class="header-section-number">21.3.2.4</span> Result</h4>
+<section id="result" class="level4" data-number="3.2.4">
+<h4 data-number="3.2.4" class="anchored" data-anchor-id="result"><span class="header-section-number">3.2.4</span> Result</h4>
 <div class="cell">
-<div class="sourceCode" id="cb11"><pre class="sourceCode r cell-code"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>A</span></code></pre></div>
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>A</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 1.000066</code></pre>
 </div>
@@ -1739,8 +1755,8 @@ k = (Ce \times Bs) - [Ts \times (1 - Ce)], \tag{4}
 </section>
 </section>
 </section>
-<section id="discussion" class="level2" data-number="21.4">
-<h2 data-number="21.4"><span class="header-section-number">21.4</span> Discussion</h2>
+<section id="discussion" class="level2" data-number="4">
+<h2 data-number="4" class="anchored" data-anchor-id="discussion"><span class="header-section-number">4</span> Discussion</h2>
 <p>1/<span class="math inline">\(f\)</span> noise, as an optimal compromise between the uncontrollable disorder of random series and the overly strict order of excessively predictable series, is an intrinsic signature of the dynamics of phenomena emerging from complex interactions <span class="citation" data-cites="delignieres_2012 gilden_2001 west_1990">[<a href="#ref-delignieres_2012" role="doc-biblioref">23</a>–<a href="#ref-west_1990" role="doc-biblioref">25</a>]</span>. Using idiographic methods, researchers have been able to find this dynamic signature in a variety of psychological phenomena or human behaviors that may result from education or training procedures, such as self-esteem <span class="citation" data-cites="delignieres_2004 de_ruiter_2015 wong_2014">[<a href="#ref-delignieres_2004" role="doc-biblioref">26</a>–<a href="#ref-wong_2014" role="doc-biblioref">28</a>]</span>, cognitive performance <span class="citation" data-cites="holden_2009 kello_2007 van_orden_2003">[<a href="#ref-holden_2009" role="doc-biblioref">29</a>–<a href="#ref-van_orden_2003" role="doc-biblioref">31</a>]</span>, language learning <span class="citation" data-cites="lowie_2014">[<a href="#ref-lowie_2014" role="doc-biblioref">32</a>]</span>, motor learning <span class="citation" data-cites="nourrit-lucas_2015">[<a href="#ref-nourrit-lucas_2015" role="doc-biblioref">33</a>]</span>, and motor performance <span class="citation" data-cites="den_hartigh_2015 den_hartigh_2021 delignieres_2009">[<a href="#ref-den_hartigh_2015" role="doc-biblioref">34</a>–<a href="#ref-delignieres_2009" role="doc-biblioref">36</a>]</span>. By employing a person-specific method such as Whittle’s MLE, the present case study offers an empirical validation of the grounding of approach and avoidance motivation as a dynamic and complex phenomenon.</p>
 <p>As an optimal compromise between order and disorder, 1/<span class="math inline">\(f\)</span> noise helps maintain the system’s stability, while endowing it with the flexibility to respond to its environment. This cooperative organization between the preservation of a coherent state and adaptation to environmental influences promotes efficient operation of a system then considered healthy. For example, variability of 1/<span class="math inline">\(f\)</span> noise has been found in young, healthy subjects in their walking rhythm or heart rate, while more predictable or random fluctuations in these variables have been detected in patients and the elderly <span class="citation" data-cites="goldberger_2002 hausdorff_1997">[<a href="#ref-goldberger_2002" role="doc-biblioref">37</a>, <a href="#ref-hausdorff_1997" role="doc-biblioref">38</a>]</span>. Similarly, mood variation has been found to show 1/<span class="math inline">\(f\)</span> noise fluctuations in healthy individuals, whereas it was more organized and predictable in patients with bipolar disorder <span class="citation" data-cites="gottschalk_1995">[<a href="#ref-gottschalk_1995" role="doc-biblioref">39</a>]</span>. Among dyslexic children, greater trial-to-trial random variability was found in a word-naming task, thus revealing less clear examples of 1/<span class="math inline">\(f\)</span> noise in their response times, compared with non-dyslexic children <span class="citation" data-cites="wijnants_2012">[<a href="#ref-wijnants_2012" role="doc-biblioref">40</a>]</span>.</p>
 <p>In the educational realm, and more specifically as regards learning, the development of new competencies has been shown to be associated with 1/<span class="math inline">\(f\)</span> noise variability in performance. For example, in multilingual learning, Lowie et al. <span class="citation" data-cites="lowie_2014">[<a href="#ref-lowie_2014" role="doc-biblioref">32</a>]</span> conducted a repeated word-naming experiment with one participant over a period of six years. During each test session of a total of 26, the participant was asked to name 200 words in his native language (Dutch) and his second language (English). Over the course of the sessions, the improvement of skills in the second language—resulting from repeated practice—led to a series of response times in this second language that was increasingly characterized by 1/<span class="math inline">\(f\)</span> distributions. In addition, 4 test sessions were conducted after a 7-day period of exclusive use of either the native language or the second language. On the one hand, this single-language immersion strengthened the 1/<span class="math inline">\(f\)</span> structure of the response time distributions in the language concerned, particularly when this was the second language. On the other hand, this immersion led to whiter the time series in the language that had not been used. These findings support 1/<span class="math inline">\(f\)</span> noise as an indicator of optimal coordination of a person’s language subsystems.</p>
@@ -1750,25 +1766,18 @@ k = (Ce \times Bs) - [Ts \times (1 - Ce)], \tag{4}
 <p>In terms of practical application, the value of analyzing relatively short time series, such as that offered by Whittle’s MLE, lies in the possibility of tracking the individual trajectories of psychological phenomena important to academic achievement. Today, the development of online course materials makes it possible to collect a large amount of data relating to students’ logins, which can serve as behavioral indicators of their engagement in learning throughout an academic year. This is what López-Pernas and Saqr <span class="citation" data-cites="lopez-pernas_2024b">[<a href="#ref-lopez-pernas_2024b" role="doc-biblioref">16</a>]</span> did on a series of only 18 consecutive courses. Extending this monitoring on more courses would enable the collection of a number of data sufficient to implement Whittle’s MLE. Then, the detection of drifts in the distribution of motivational measures towards white noise or Brownian motion could serve as a warning signal of the risk of academic failure and dropping out, and of the imminent need to deploy individualized support strategies. The implementation of such an individualized monitoring and intervention strategy would be greatly facilitated by the development of algorithms capable of automatically analyzing the time series of data relating to the successive logins and proposing exercises tailored to the needs of each student.</p>
 <p>Like any method, Whittle’s MLE has its own limitations. Although it can be used to analyze shorter series than DFA, Roume <span class="citation" data-cites="roume_2023">[<a href="#ref-roume_2023" role="doc-biblioref">10</a>]</span> has shown, for example, that with 128 data points, errors in classifying the signal as stationary or non-stationary can occur for <span class="math inline">\(α\)</span> values close to 1, and more particularly just above 1. This is why we have considered the <span class="math inline">\(α\)</span> value resulting from the case study—based on 111 data points—presented in this chapter as only acceptable, but not optimal. Consequently, Whittle’s MLE users are encouraged, wherever possible, to analyze longer series. Otherwise, the estimated values can only be used for descriptive purposes, but hardly for statistical inference.</p>
 </section>
-<section id="conclusion" class="level2" data-number="21.5">
-<h2 data-number="21.5"><span class="header-section-number">21.5</span> Conclusion</h2>
+<section id="conclusion" class="level2" data-number="5">
+<h2 data-number="5" class="anchored" data-anchor-id="conclusion"><span class="header-section-number">5</span> Conclusion</h2>
 <p>While variable-centered nomothetic approaches enable the finding of statistical laws concerning large populations or groups, person-specific approaches, such as the present application of Whittle’s MLE, offer access to processes that are by definition intra-individual. In psychology, the laws discovered by variable-centered approaches are rarely ergodic, that is, they are hardly applicable to the person level <span class="citation" data-cites="fisher_2018 hamaker_2023 molenaar_2009 saqr_2024">[<a href="#ref-saqr_2024" role="doc-biblioref">3</a>, <a href="#ref-fisher_2018" role="doc-biblioref">46</a>–<a href="#ref-molenaar_2009" role="doc-biblioref">48</a>]</span>. However, in some ways, person-specific and variable-centered approaches can go hand in hand. While typical dynamics reflecting process causality can be detected by specific time series analyses conducted at the person level, the accumulation of these individual dynamics should enable, at population level, inferential statistics that are comparable to those observed in nomothetic research. As a result, using individual cases as a starting point for generalization may lead to replicating the trends observed by variable-centered approaches, while at the same time accounting for particularities that may even contradict these trends. This way of restoring convergence between person-specific and variable-centered approaches is one promising strategy for solving the ergodicity issue in psychological science <span class="citation" data-cites="gernigon_2024b">[<a href="#ref-gernigon_2024b" role="doc-biblioref">1</a>]</span>.</p>
 </section>
-<section id="suggested-readings-and-example-papers" class="level2" data-number="21.6">
-<h2 data-number="21.6"><span class="header-section-number">21.6</span> Suggested readings and example papers</h2>
+<section id="suggested-readings-and-example-papers" class="level2" data-number="6">
+<h2 data-number="6" class="anchored" data-anchor-id="suggested-readings-and-example-papers"><span class="header-section-number">6</span> Suggested readings and example papers</h2>
 <p>In this chapter, you have seen an introduction and tutorial on how to apply Whittle’s MLE in educational research. In particular, this technique allows the use of shorter series than other more popular techniques, which is an advantage for its use in the educational field as it can be difficult to collect more than 500 data points per series. This technique has not yet been applied to the learning context, but for example to the biomedical field <span class="citation" data-cites="harrar_2013">[<a href="#ref-harrar_2013" role="doc-biblioref">49</a>]</span>.</p>
-<p>Readers interested in time series analysis in the field of learning may refer to the work of Lowie et al. in language learning <span class="citation" data-cites="lowie_2014">[<a href="#ref-lowie_2014" role="doc-biblioref">32</a>]</span> and Nourrit-Lucas et al. in motor learning <span class="citation" data-cites="nourrit-lucas_2015">[<a href="#ref-nourrit-lucas_2015" role="doc-biblioref">33</a>]</span>. In the educational field, the work of Koopmans <span class="citation" data-cites="koopmans_2015 koopmans_2018">[<a href="#ref-koopmans_2015" role="doc-biblioref">50</a>, <a href="#ref-koopmans_2018" role="doc-biblioref">51</a>]</span> also illustrates how school attendance shows dynamics in 1/<span class="math inline">\(f\)</span> noise.</p>
+<p>Readers interested in time series analysis in the field of learning may refer to the work of Lowie et al.&nbsp;in language learning <span class="citation" data-cites="lowie_2014">[<a href="#ref-lowie_2014" role="doc-biblioref">32</a>]</span> and Nourrit-Lucas et al.&nbsp;in motor learning <span class="citation" data-cites="nourrit-lucas_2015">[<a href="#ref-nourrit-lucas_2015" role="doc-biblioref">33</a>]</span>. In the educational field, the work of Koopmans <span class="citation" data-cites="koopmans_2015 koopmans_2018">[<a href="#ref-koopmans_2015" role="doc-biblioref">50</a>, <a href="#ref-koopmans_2018" role="doc-biblioref">51</a>]</span> also illustrates how school attendance shows dynamics in 1/<span class="math inline">\(f\)</span> noise.</p>
 <p>Finally, more broadly, the articles by Hilpert and Marchand <span class="citation" data-cites="hilpert_2018">[<a href="#ref-hilpert_2018" role="doc-biblioref">52</a>]</span> and Koopmans <span class="citation" data-cites="koopmans_2020">[<a href="#ref-koopmans_2020" role="doc-biblioref">53</a>]</span> offer a rich overview of the complex dynamical systems paradigm, its key concepts and the methodologies that can be employed for education.</p>
--->
-Forthcoming
-<style>
-#bibliography, #footnotes {
-display: none;
-}
-</style>
 
 
-
+</section>
 <section id="bibliography" class="level1 unnumbered">
 <h1 class="unnumbered">References</h1>
 <div id="refs" class="references csl-bib-body" role="doc-bibliography">

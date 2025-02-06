@@ -5,11 +5,23 @@ bibliography: references.bib
 number-sections: true
 abstract: "Person-specific approaches are best suited to account for the complex, dynamic, and idiosyncratic processes from which cognitive, emotional, motivational, relational, and behavioral patterns emerge. Among these approaches, Whittle's approximation of the Maximum Likelihood Estimator (MLE) enables the detection of long-term memory processes in relatively short time series of data. In this chapter, we outline the principles of Whittle's MLE, illustrate its application—using R—to the motivational dynamics of approach and avoidance in an academic context, and then discuss the theoretical and practical implications of detecting long-memory processes in the field of education and learning."
 keywords: "achievement motivation, approach, avoidance, complex dynamical systems, fractals, learning analytics, long-memory processes, person-specific methods, time series analysis"
+warning: FALSE
+code-overflow: wrap
+author: 
+   - name: "Rémi Altamore"
+   - name: "Clément Roume"
+   - name: "Anne Teboul"
+   - name: "Christophe Gernigon"
+crossref:
+  fig-title: '**Figure**'
+  fig-labels: arabic
+  title-delim: "**.**"
+abstract-title: "Abstract"
+dpi: 900
+extract-media: "img"
+fig-align: center
 ---
 
-```{=html}
-<!--
-```
 
 ## Introduction
 
@@ -295,12 +307,4 @@ Finally, more broadly, the articles by Hilpert and Marchand [@hilpert_2018] and 
 
 ::: {#refs}
 :::
-```{=html}
--->
-Forthcoming
-<style>
-#bibliography, #footnotes {
-display: none;
-}
-</style>
-```
+

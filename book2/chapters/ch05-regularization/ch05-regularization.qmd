@@ -23,9 +23,6 @@ extract-media: "img"
 fig-align: center
 ---
 
-```{=html}
-<!--
-```
 ## Introduction {#sec:1}
 
 In the past decade, the educational landscape has undergone a seismic
@@ -977,12 +974,3 @@ records detailed and nuanced learner behaviors in a time-stamped manner.
 
 ::: {#refs}
 :::
-```{=html}
--->
-Forthcoming
-<style>
-#bibliography, #footnotes {
-display: none;
-}
-</style>
-```
