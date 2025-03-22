@@ -751,9 +751,16 @@ T = \begin{pmatrix}
 <p>TNA can analyse any data that can be represented as a sequence which has transitions or changes across time. In other words, TNA accepts any categorically ordered event data, e.g., sequence of learning events, states, phases, roles, dialogue moves or interactions to mention a few. This data can come from time-stamped learning management system data, coded interactions data, event-log data or order event data. The data can be in <code>stslist</code> format (sequence object), which is typically created using the <code>seqdef()</code> function from the <code>TraMineR</code> package. In addition, <code>tna</code> accepts wide data format data where each row represents sequence of data and each column is a time point.</p>
 <p>The analysis in this chapter uses the <code>tna</code> R package and other packages that are necessary for data manipulation and plotting <span class="citation" data-cites="tna_package">[<a href="#ref-tna_package" role="doc-biblioref">38</a>]</span>. It is assumed that the reader is familiar with the R programming language. If that is not the case, it is recommended to refer to previous tutorials on the basics of R <span class="citation" data-cites="Tikka2024-ph">[<a href="#ref-Tikka2024-ph" role="doc-biblioref">39</a>]</span>, data cleaning <span class="citation" data-cites="Kopra2024-fx">[<a href="#ref-Kopra2024-fx" role="doc-biblioref">40</a>]</span>, basic statistics <span class="citation" data-cites="Tikka2024-wl">[<a href="#ref-Tikka2024-wl" role="doc-biblioref">41</a>]</span>, and visualization <span class="citation" data-cites="Lopez-Pernas2024-ge">[<a href="#ref-Lopez-Pernas2024-ge" role="doc-biblioref">42</a>]</span>. It is also recommended to have previous knowledge about Markov models <span class="citation" data-cites="helske2024">[<a href="#ref-helske2024" role="doc-biblioref">6</a>]</span>. We have also released a Shiny web application that does not require coding skills, which includes the main features ot <code>tna</code>: <a href="https://sonsoleslp.shinyapps.io/tna-app/">https://sonsoleslp.shinyapps.io/tna-app/</a>.</p>
 <p>In the first step of the analysis, we begin by loading the necessary packages. We will use <code>tidyverse</code> for data manipulation, wrangling, and ensuring the data is clean and organized for analysis <span class="citation" data-cites="tidyverse">[<a href="#ref-tidyverse" role="doc-biblioref">43</a>]</span>. Most importantly, we load the <code>tna</code> package which provides a wide array of functions for estimating, visualizing and manipulating <code>tna</code> models <span class="citation" data-cites="tna_package">[<a href="#ref-tna_package" role="doc-biblioref">38</a>]</span>. Besides loading the required libraries, the next code chunk also loads the data that we are going to use throughout the tutorial, which is a built-in dataset in the <code>tna</code> package (<code>group_regulation</code>) and represents interactions between groups of learners trying to regulate their learning based on the data in this study <span class="citation" data-cites="Saqr2024">[<a href="#ref-Saqr2024" role="doc-biblioref">4</a>]</span>.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Install `tna` if you haven't already</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="co"># install.packages("tna")</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(<span class="st">"tna"</span>)</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(<span class="st">"tidyverse"</span>)</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="fu">data</span>(<span class="st">"group_regulation"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
 <section id="building-tna-model" class="level3" data-number="5.1">
 <h3 data-number="5.1" class="anchored" data-anchor-id="building-tna-model"><span class="header-section-number">5.1</span> Building <code>tna</code> Model</h3>
-<p>TNA analysis starts by building the main TNA object which is called <code>model</code>. A model contains all the information necessary for further analysis e.g., plotting, estimation of centralities, or comparison. To estimate a TNA model we use the function <code>tna()</code> with one argument which is a <code>stslist</code> object (sequence object) usually created by the <code>seqdef()</code> function of <code>TraMiner</code>. However, the <code>tna</code> package can also process event data with the <code>prepare_data()</code> function to first convert such data into a proper format. Furthermore, <code>tna()</code> also accepts standard data frames in wide format (to learn how to create a sequence object you may need to refer to this chapter <span class="citation" data-cites="saqr2024b">[<a href="#ref-saqr2024b" role="doc-biblioref">29</a>]</span>). The function estimates a Markov model from the data where the initial and transition probabilities are estimated directly from the observed initial state probabilities and transition frequencies. The TNA model is structured as a list containing the elements that facilitate the analysis of transition networks, these elements are described below:</p>
+<p>TNA analysis starts by building the main TNA object which is called <code>model</code>. A model contains all the information necessary for further analysis e.g., plotting, estimation of centralities, or comparison. To estimate a TNA model we use the function <code>tna()</code> with one argument which is a <code>stslist</code> object (sequence object) usually created by the <code>seqdef()</code> function of <code>TraMiner</code>. However, the <code>tna</code> package can also process event data with the <code>prepare_data()</code> function to first convert such data into a proper format (learn more about this in: <a href="https://sonsoles.me/tna/articles/prepare_data.html">https://sonsoles.me/tna/articles/prepare_data.html</a>). Furthermore, <code>tna()</code> also accepts standard data frames in wide format (to learn how to create a sequence object you may need to refer to this chapter <span class="citation" data-cites="saqr2024b">[<a href="#ref-saqr2024b" role="doc-biblioref">29</a>]</span>). The function estimates a Markov model from the data where the initial and transition probabilities are estimated directly from the observed initial state probabilities and transition frequencies. The TNA model is structured as a list containing the elements that facilitate the analysis of transition networks, these elements are described below:</p>
 <ul>
 <li><p><strong>Initial Probabilities (<code>inits</code>)</strong>: These define the likelihood of starting in a particular state at the beginning of the process (at the first time point before any transitions happen). In an educational context, an initial probability represents the probability that a student begins in a specific state (such as “engaged” or “motivated”) before any activities or interventions occur. These probabilities provide a snapshot of where students start within the process and help frame the subsequent transitions.</p></li>
 <li><p><strong>Transition Probabilities (<code>weights</code>)</strong>: These describe the likelihood of moving from one state to another at each step in the process. Transition probabilities capture how students transitions, moves or follows between different learning states (engaged, motivated or achiever) or events (e.g., assessment, reading or submission).</p></li>
@@ -762,8 +769,8 @@ T = \begin{pmatrix}
 </ul>
 <p>Together these elements for the basis for analysis and visualization. In the example above we see the TNA network plot with transition probabilities as directed edge weights and the initial probability as the pie (the thin ring around the nodes). In particular, we see video has an initial probability of 1 and all other events have an initial probability of 0. You can use <code>print(model)</code> to get a feel of what it has and how is it structured.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>model <span class="ot">&lt;-</span> <span class="fu">tna</span>(group_regulation)</span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(model)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>model <span class="ot">&lt;-</span> <span class="fu">tna</span>(group_regulation)</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(model)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="cell">
 <div class="cell-output cell-output-stdout">
@@ -803,8 +810,8 @@ Initial Probabilities
 <li><strong>Cut-Off Threshold</strong> (<code>cut = 0.1</code>): Edges with a weight below 0.1 are entirely shown with lighter color.</li>
 </ul>
 <div>
-<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(model)</span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(model, <span class="at">minimum =</span> <span class="fl">0.05</span>, <span class="at">cut =</span> <span class="fl">0.1</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(model)</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(model, <span class="at">minimum =</span> <span class="fl">0.05</span>, <span class="at">cut =</span> <span class="fl">0.1</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div id="fig-visualization" class="cell quarto-layout-panel">
 <figure class="figure">
 <div class="quarto-layout-row quarto-layout-valign-top">
@@ -842,16 +849,16 @@ Initial Probabilities
 </ol>
 <p>Pruning with <code>tna</code> can also be carried out by bootstrapping, which we will demonstrate later.</p>
 <div>
-<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Pruning with different methods (using comparable parameters)</span></span>
-<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>pruned_threshold <span class="ot">&lt;-</span> <span class="fu">prune</span>(model, <span class="at">method =</span> <span class="st">"threshold"</span>, <span class="at">threshold =</span> <span class="fl">0.05</span>)</span>
-<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>pruned_lowest <span class="ot">&lt;-</span> <span class="fu">prune</span>(model, <span class="at">method =</span> <span class="st">"lowest"</span>, <span class="at">lowest =</span> <span class="fl">0.15</span>)</span>
-<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>pruned_disparity <span class="ot">&lt;-</span> <span class="fu">prune</span>(model, <span class="at">method =</span> <span class="st">"disparity"</span>, <span class="at">level =</span> <span class="fl">0.5</span>)</span>
-<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a><span class="co"># Plotting for comparison</span></span>
-<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(pruned_threshold)</span>
-<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(pruned_lowest)</span>
-<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(pruned_disparity)</span>
-<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(model, <span class="at">minimum =</span> <span class="fl">0.05</span>, <span class="at">cut =</span> <span class="fl">0.1</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Pruning with different methods (using comparable parameters)</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>pruned_threshold <span class="ot">&lt;-</span> <span class="fu">prune</span>(model, <span class="at">method =</span> <span class="st">"threshold"</span>, <span class="at">threshold =</span> <span class="fl">0.05</span>)</span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>pruned_lowest <span class="ot">&lt;-</span> <span class="fu">prune</span>(model, <span class="at">method =</span> <span class="st">"lowest"</span>, <span class="at">lowest =</span> <span class="fl">0.15</span>)</span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>pruned_disparity <span class="ot">&lt;-</span> <span class="fu">prune</span>(model, <span class="at">method =</span> <span class="st">"disparity"</span>, <span class="at">level =</span> <span class="fl">0.5</span>)</span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a><span class="co"># Plotting for comparison</span></span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(pruned_threshold)</span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(pruned_lowest)</span>
+<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(pruned_disparity)</span>
+<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(model, <span class="at">minimum =</span> <span class="fl">0.05</span>, <span class="at">cut =</span> <span class="fl">0.1</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div id="fig-pruned" class="cell quarto-layout-panel">
 <figure class="figure">
 <div class="quarto-layout-row quarto-layout-valign-top">
@@ -904,14 +911,14 @@ Initial Probabilities
 <p>In this code, four different calls to the <code>cliques</code> function are made to identify and visualize cliques of varying sizes (with <code>size</code> values of 2, 3, 4, and 5) from a network model named <code>model</code>. Each function call focuses on a different size of cliques, using a specific weight threshold to determine which edges are considered strong enough to form part of a clique. The <code>show_loops</code> argument to <code>plot</code> controls whether self-loops (edges connecting a node to itself) should be displayed in the visual output, but loops are never included in the actual computation of cliques.</p>
 <p>The first function call identifies cliques of size 2, known as dyads (<a href="../ch16-ftna/ch16-ftna.html#fig-dyads">Figure&nbsp;<span>16.5</span></a>), using a weight threshold of 0.1. This means only pairs of nodes that are connected by edges with with transitions weights higher than 0.1 are considered. The second function identifies 3-cliques (<a href="#fig-triads">Figure&nbsp;<span>15.7</span></a>), or triads, using a weight threshold of 0.05 which captures the three fully connected nodes in the network. The third call focuses on 4-node cliques, or quadruples (<a href="#fig-fours">Figure&nbsp;<span>15.8</span></a>), with a lower weight threshold of 0.03. Finally, the fourth call identifies 5-cliques, or quintuples (<a href="#fig-fives">Figure&nbsp;<span>15.9</span></a>), with a weight threshold of 0.1. In this case, the <code>sum_weights = TRUE</code> option means that the sum of the edge weights in both directions between nodes is considered.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Identify 2-cliques (dyads) from the TNA model, excluding loops in the visualization</span></span>
-<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="co"># A clique of size 2 is essentially a pair of connected nodes</span></span>
-<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>cliques_of_two <span class="ot">&lt;-</span> <span class="fu">cliques</span>(</span>
-<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>  model, </span>
-<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">size =</span> <span class="dv">2</span>, </span>
-<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">threshold =</span> <span class="fl">0.1</span>  <span class="co"># Only consider edges with weight &gt; 0.1</span></span>
-<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(cliques_of_two)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Identify 2-cliques (dyads) from the TNA model, excluding loops in the visualization</span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="co"># A clique of size 2 is essentially a pair of connected nodes</span></span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>cliques_of_two <span class="ot">&lt;-</span> <span class="fu">cliques</span>(</span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>  model, </span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">size =</span> <span class="dv">2</span>, </span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">threshold =</span> <span class="fl">0.1</span>  <span class="co"># Only consider edges with weight &gt; 0.1</span></span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(cliques_of_two)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Number of 2-cliques: 5 (weight threshold = 0.1)
 Showing 5 cliques starting from clique number 1
@@ -943,7 +950,7 @@ emotion     0.325   0.077</code></pre>
 </div>
 </div>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(cliques_of_two)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(cliques_of_two)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div id="fig-dyads" class="cell quarto-layout-panel">
 <figure class="figure">
@@ -995,14 +1002,14 @@ emotion     0.325   0.077</code></pre>
 </figure>
 </div>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Identify 3-cliques (triads) from the TNA_Model</span></span>
-<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a><span class="co"># A clique of size 3 means a fully connected triplet of nodes</span></span>
-<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>cliques_of_three <span class="ot">&lt;-</span> <span class="fu">cliques</span>(</span>
-<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>  model, </span>
-<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">size =</span> <span class="dv">3</span>, </span>
-<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">threshold =</span> <span class="fl">0.05</span> <span class="co"># Only consider edges with weight &gt; 0.05</span></span>
-<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(cliques_of_three)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Identify 3-cliques (triads) from the TNA_Model</span></span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a><span class="co"># A clique of size 3 means a fully connected triplet of nodes</span></span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>cliques_of_three <span class="ot">&lt;-</span> <span class="fu">cliques</span>(</span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>  model, </span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">size =</span> <span class="dv">3</span>, </span>
+<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">threshold =</span> <span class="fl">0.05</span> <span class="co"># Only consider edges with weight &gt; 0.05</span></span>
+<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(cliques_of_three)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Number of 3-cliques: 3 (weight threshold = 0.05)
 Showing 3 cliques starting from clique number 1
@@ -1027,7 +1034,7 @@ discuss        0.321      0.084    0.19</code></pre>
 </div>
 </div>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(cliques_of_three)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(cliques_of_three)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div id="fig-triads" class="cell quarto-layout-panel">
 <figure class="figure">
@@ -1061,14 +1068,14 @@ discuss        0.321      0.084    0.19</code></pre>
 </figure>
 </div>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Identify 4-cliques (quadruples) from the TNA_Model</span></span>
-<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a><span class="co"># A clique of size 4 means four nodes that are all mutually connected</span></span>
-<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>cliques_of_four <span class="ot">&lt;-</span> <span class="fu">cliques</span>(</span>
-<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a>  model, </span>
-<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">size =</span> <span class="dv">4</span>, </span>
-<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">threshold =</span> <span class="fl">0.03</span> <span class="co"># Only consider edges with weight &gt; 0.03</span></span>
-<span id="cb11-7"><a href="#cb11-7" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb11-8"><a href="#cb11-8" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(cliques_of_four)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Identify 4-cliques (quadruples) from the TNA_Model</span></span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a><span class="co"># A clique of size 4 means four nodes that are all mutually connected</span></span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>cliques_of_four <span class="ot">&lt;-</span> <span class="fu">cliques</span>(</span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a>  model, </span>
+<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">size =</span> <span class="dv">4</span>, </span>
+<span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">threshold =</span> <span class="fl">0.03</span> <span class="co"># Only consider edges with weight &gt; 0.03</span></span>
+<span id="cb12-7"><a href="#cb12-7" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb12-8"><a href="#cb12-8" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(cliques_of_four)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Number of 4-cliques: 5 (weight threshold = 0.03)
 Showing 5 cliques starting from clique number 1
@@ -1110,7 +1117,7 @@ monitor        0.159      0.058   0.091   0.018</code></pre>
 </div>
 </div>
 <div>
-<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(cliques_of_four)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(cliques_of_four)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell quarto-layout-panel">
 
 </div>
@@ -1165,15 +1172,15 @@ monitor        0.159      0.058   0.091   0.018</code></pre>
 </figure>
 </div>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Identify 5-cliques (quintuples) from the TNA_Model, summing edge weights</span></span>
-<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a><span class="co"># Here, the sum of both directions of an edge must meet the threshold</span></span>
-<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>cliques_of_five <span class="ot">&lt;-</span> <span class="fu">cliques</span>(</span>
-<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a>  model, </span>
-<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">size =</span> <span class="dv">5</span>, </span>
-<span id="cb14-6"><a href="#cb14-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">threshold =</span> <span class="fl">0.015</span>, <span class="co"># Consider edge weights greater than 0.1</span></span>
-<span id="cb14-7"><a href="#cb14-7" aria-hidden="true" tabindex="-1"></a>  <span class="at">sum_weights =</span> <span class="cn">TRUE</span> <span class="co"># Sum edge weights in both directions when evaluating thresholds</span></span>
-<span id="cb14-8"><a href="#cb14-8" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb14-9"><a href="#cb14-9" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(cliques_of_five)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Identify 5-cliques (quintuples) from the TNA_Model, summing edge weights</span></span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a><span class="co"># Here, the sum of both directions of an edge must meet the threshold</span></span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>cliques_of_five <span class="ot">&lt;-</span> <span class="fu">cliques</span>(</span>
+<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a>  model, </span>
+<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">size =</span> <span class="dv">5</span>, </span>
+<span id="cb15-6"><a href="#cb15-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">threshold =</span> <span class="fl">0.015</span>, <span class="co"># Consider edge weights greater than 0.1</span></span>
+<span id="cb15-7"><a href="#cb15-7" aria-hidden="true" tabindex="-1"></a>  <span class="at">sum_weights =</span> <span class="cn">TRUE</span> <span class="co"># Sum edge weights in both directions when evaluating thresholds</span></span>
+<span id="cb15-8"><a href="#cb15-8" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb15-9"><a href="#cb15-9" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(cliques_of_five)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Number of 5-cliques: 126 (weight threshold = 0.015)
 Showing 6 cliques starting from clique number 1
@@ -1228,7 +1235,7 @@ synthesis       0.044   0.071   0.012 0.075    0.0000</code></pre>
 </div>
 </div>
 <div>
-<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(cliques_of_five)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(cliques_of_five)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell quarto-layout-panel">
 
 </div>
@@ -1297,11 +1304,11 @@ synthesis       0.044   0.071   0.012 0.075    0.0000</code></pre>
 <p>Centrality measures are important in identifying the important events, rank their value in certain processes. The <code>tna</code> package has a built-in function <code>centralities()</code> to compute centralities using the appropriate algorithm for a directed probabilistic process. The computation of centralities is simple with just passing the model object (<code>model</code>) to the function. By default, <code>centralities()</code> removes loops from the calculations which can be changed by the user by setting <code>loops=TRUE</code>. Removing the loops would entail that all computation of centralities will be performed without considering self-transitioning or staying in the same state. In that context, out-strength will mean stability of a state, the higher out-strength centrality, the more stable the state is as it less likely to transition to other states and vice versa. In our context, for example, students use adapt (out-strength = 1), means they always follow it by other processes. Whereas, plan has the lowest out-strength = 0.63, meaning that students may repeat planning steps several times before moving on. Please note, that out-strength centrality with <code>loops = TRUE</code> will always be 1 and therefore, will be meaningless to compute in non-pruned networks. In-strength centrality reflects the sum of received transitions and indicates the node is a common pathway that states end in.</p>
 <p>In our example, we see that <code>consensus</code> task received most transitions from other events (in-strength = 2.7). Betweenness centrality (based on randomized shortest paths, RSP) reflects the events that mediate or bridge other transitions. Please note, that in <code>tna</code> it is advisable to consider the Betweenness RSP as it is more appropriate for probabilistic networks. In our example, <code>adapt</code> lied between most other transitions The function also computes several other centrality measures but we won’t discuss them one by one here. Researchers can use <code>?centralities</code> to read the list of possible options. The default ones are shown in <a href="#fig-cents">Figure&nbsp;<span>15.10</span></a>.</p>
 <div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Compute centrality measures for the TNA model</span></span>
-<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>Centralities <span class="ot">&lt;-</span> <span class="fu">centralities</span>(model)</span>
-<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Visualize the centrality measures</span></span>
-<span id="cb17-5"><a href="#cb17-5" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(Centralities)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Compute centrality measures for the TNA model</span></span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>Centralities <span class="ot">&lt;-</span> <span class="fu">centralities</span>(model)</span>
+<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Visualize the centrality measures</span></span>
+<span id="cb18-5"><a href="#cb18-5" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(Centralities)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div id="fig-cents" class="quarto-figure quarto-figure-center anchored">
 <figure class="figure">
@@ -1313,14 +1320,14 @@ synthesis       0.044   0.071   0.012 0.075    0.0000</code></pre>
 </div>
 <p>Furthermore, given that each TNA model can be converted to an <code>igraph</code> object, researchers can compute other centralities if they so wish. In the next code, we compute the hub and authority centralities.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Calculate hub scores and the authority scores for the network</span></span>
-<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>hits_scores <span class="ot">&lt;-</span> igraph<span class="sc">::</span><span class="fu">hits_scores</span>(<span class="fu">as.igraph</span>(model))</span>
-<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a>hub_scores <span class="ot">&lt;-</span> hits_scores<span class="sc">$</span>hub</span>
-<span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a>authority_scores <span class="ot">&lt;-</span> hits_scores<span class="sc">$</span>authority</span>
-<span id="cb18-5"><a href="#cb18-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb18-6"><a href="#cb18-6" aria-hidden="true" tabindex="-1"></a><span class="co"># Print the calculated hub and authority scores for further analysis</span></span>
-<span id="cb18-7"><a href="#cb18-7" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(hub_scores)</span>
-<span id="cb18-8"><a href="#cb18-8" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(authority_scores)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Calculate hub scores and the authority scores for the network</span></span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>hits_scores <span class="ot">&lt;-</span> igraph<span class="sc">::</span><span class="fu">hits_scores</span>(<span class="fu">as.igraph</span>(model))</span>
+<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a>hub_scores <span class="ot">&lt;-</span> hits_scores<span class="sc">$</span>hub</span>
+<span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a>authority_scores <span class="ot">&lt;-</span> hits_scores<span class="sc">$</span>authority</span>
+<span id="cb19-5"><a href="#cb19-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-6"><a href="#cb19-6" aria-hidden="true" tabindex="-1"></a><span class="co"># Print the calculated hub and authority scores for further analysis</span></span>
+<span id="cb19-7"><a href="#cb19-7" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(hub_scores)</span>
+<span id="cb19-8"><a href="#cb19-8" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(authority_scores)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="cell">
 <div class="cell-output cell-output-stdout">
@@ -1337,8 +1344,8 @@ synthesis       0.044   0.071   0.012 0.075    0.0000</code></pre>
 <h5 data-number="5.3.1.2" class="anchored" data-anchor-id="edge-level-measures-1"><span class="header-section-number">5.3.1.2</span> Edge-level measures</h5>
 <p>TNA can also compute edge level measures which would would rank edges according to their importance in the transition model or which transitions bridges other processes. We can do this by using the function <code>betweenness_network</code> which creates a network with betweenness centrality as edges (<a href="#fig-edge-betweenness">Figure&nbsp;<span>15.11</span></a>).</p>
 <div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a>Edge_betweeness <span class="ot">&lt;-</span> <span class="fu">betweenness_network</span>(model)</span>
-<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(Edge_betweeness)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a>Edge_betweeness <span class="ot">&lt;-</span> <span class="fu">betweenness_network</span>(model)</span>
+<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(Edge_betweeness)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div id="fig-edge-betweenness" class="quarto-figure quarto-figure-center anchored">
 <figure class="figure">
@@ -1362,8 +1369,8 @@ synthesis       0.044   0.071   0.012 0.075    0.0000</code></pre>
 </ul>
 <p>The code below identifies and then visualizes community structures within a <code>tna</code> network model. It begins by using the <code>communities()</code> function with the <code>model</code> argument to detect communities. The result is stored in the <code>communities</code> object. Next, the code visualizes these communities using the <code>plot()</code> function, specifying the <code>leading_eigen</code> method for community detection (<a href="../ch17-tna-clusters/ch17-tna-clusters.html#fig-communities">Figure&nbsp;<span>17.3</span></a>). Other algorithms can be specified in the same way, for example to use the spinglass algorithm we could pass the argument <code>method = "spinglass"</code>. Furthermore, the <code>communities</code> object contains the number of communities by each algorithm and the communities assignment.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a>communities <span class="ot">&lt;-</span> <span class="fu">communities</span>(model)</span>
-<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(communities)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a>communities <span class="ot">&lt;-</span> <span class="fu">communities</span>(model)</span>
+<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(communities)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Number of communities found by each algorithm:
         walktrap      fast_greedy       label_prop          infomap edge_betweenness 
@@ -1380,8 +1387,8 @@ Community assignments:
 </div>
 </div>
 <div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a>communities <span class="ot">&lt;-</span> <span class="fu">communities</span>(model)</span>
-<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(communities, <span class="at">method =</span> <span class="st">"leading_eigen"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a>communities <span class="ot">&lt;-</span> <span class="fu">communities</span>(model)</span>
+<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(communities, <span class="at">method =</span> <span class="st">"leading_eigen"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div id="fig-communities" class="quarto-figure quarto-figure-center anchored">
 <figure class="figure">
@@ -1412,12 +1419,12 @@ Community assignments:
 </ul>
 <p>Then we print specifically those edges that we found to be non-significant by the bootstrap (p-value greater than 0.05), offering insights into the stability of the network structure.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Perform bootstrapping on the TNA model with a fixed seed for reproducibility</span></span>
-<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">265</span>)</span>
-<span id="cb25-3"><a href="#cb25-3" aria-hidden="true" tabindex="-1"></a>boot <span class="ot">&lt;-</span> <span class="fu">bootstrap</span>(model, <span class="at">threshold =</span> <span class="fl">0.05</span>)</span>
-<span id="cb25-4"><a href="#cb25-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb25-5"><a href="#cb25-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Print a summary of the bootstrap results</span></span>
-<span id="cb25-6"><a href="#cb25-6" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(<span class="fu">summary</span>(boot))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Perform bootstrapping on the TNA model with a fixed seed for reproducibility</span></span>
+<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">265</span>)</span>
+<span id="cb26-3"><a href="#cb26-3" aria-hidden="true" tabindex="-1"></a>boot <span class="ot">&lt;-</span> <span class="fu">bootstrap</span>(model, <span class="at">threshold =</span> <span class="fl">0.05</span>)</span>
+<span id="cb26-4"><a href="#cb26-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-5"><a href="#cb26-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Print a summary of the bootstrap results</span></span>
+<span id="cb26-6"><a href="#cb26-6" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(<span class="fu">summary</span>(boot))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>   from         to weight p_value   sig ci_lower ci_upper
 2 adapt   cohesion 0.0029       1 FALSE  0.00059   0.0054
@@ -1426,9 +1433,9 @@ Community assignments:
 5 adapt    discuss 0.0714       0  TRUE  0.06370   0.0795
  [ reached 'max' / getOption("max.print") -- omitted 74 rows ]</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb27"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Show the non-significant edges (p-value &gt;= 0.05 in this case)</span></span>
-<span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a><span class="co"># These are edges that are less likely to be stable across bootstrap samples</span></span>
-<span id="cb27-3"><a href="#cb27-3" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(boot, <span class="at">type =</span> <span class="st">"nonsig"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Show the non-significant edges (p-value &gt;= 0.05 in this case)</span></span>
+<span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a><span class="co"># These are edges that are less likely to be stable across bootstrap samples</span></span>
+<span id="cb28-3"><a href="#cb28-3" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(boot, <span class="at">type =</span> <span class="st">"nonsig"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Non-significant Edges
 
@@ -1449,23 +1456,23 @@ Community assignments:
 <p>Let’s look at an example using TNA to compare the transition networks of high achievers and low achievers with data from the <code>group_regulation</code> dataset. First, we create two separate TNA models—one for high achievers and one for low achievers. Then, we use the <code>plot_compare()</code> function to plot a simple comparison between these models, which just subtracts the edge weights without assessing statistical significance (<a href="#fig-permutation-1">Figure&nbsp;<span>15.13 (a)</span></a>).</p>
 <p>To determine the statistical significance of the differences between the two models, a permutation test is performed using the <code>permutation_test()</code> function. The <code>measures="Betweenness"</code> argument specifies that the test also should compute the differences in betweenness centrality. The results of the permutation test are then plotted using the <code>plot()</code> function, which displays the significant differences between the transition networks of high-achievers and low-achievers (<a href="#fig-permutation-2">Figure&nbsp;<span>15.13 (b)</span></a>). Finally, we can use the <code>print()</code> function to print the results of the permutation test or just print specific parts of the results, like the significantly different edges, or centralities.</p>
 <div>
-<div class="sourceCode cell-code" id="cb29"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Create TNA for the high-achievers subset (rows 1 to 1000)</span></span>
-<span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a>Hi <span class="ot">&lt;-</span> <span class="fu">tna</span>(group_regulation[<span class="dv">1</span><span class="sc">:</span><span class="dv">1000</span>, ])</span>
-<span id="cb29-3"><a href="#cb29-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb29-4"><a href="#cb29-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Create TNA for the low-achievers subset (rows 1001 to 2000)</span></span>
-<span id="cb29-5"><a href="#cb29-5" aria-hidden="true" tabindex="-1"></a>Lo <span class="ot">&lt;-</span> <span class="fu">tna</span>(group_regulation[<span class="dv">1001</span><span class="sc">:</span><span class="dv">2000</span>, ])</span>
-<span id="cb29-6"><a href="#cb29-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb29-7"><a href="#cb29-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Plot a comparison of the "Hi" and "Lo" models</span></span>
-<span id="cb29-8"><a href="#cb29-8" aria-hidden="true" tabindex="-1"></a><span class="co"># The 'minimum' parameter is set to 0.001, so edges with weights &gt;= 0.001 are shown</span></span>
-<span id="cb29-9"><a href="#cb29-9" aria-hidden="true" tabindex="-1"></a><span class="fu">plot_compare</span>(Hi, Lo, <span class="at">minimum =</span> <span class="fl">0.01</span>)</span>
-<span id="cb29-10"><a href="#cb29-10" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb29-11"><a href="#cb29-11" aria-hidden="true" tabindex="-1"></a><span class="co"># Run a permutation test to determine statistical significance of differences</span></span>
-<span id="cb29-12"><a href="#cb29-12" aria-hidden="true" tabindex="-1"></a><span class="co"># between "Hi" and "Lo"</span></span>
-<span id="cb29-13"><a href="#cb29-13" aria-hidden="true" tabindex="-1"></a><span class="co"># The 'iter' argument is set to 1000, meaning 1000 permutations are performed</span></span>
-<span id="cb29-14"><a href="#cb29-14" aria-hidden="true" tabindex="-1"></a>Permutation <span class="ot">&lt;-</span> <span class="fu">permutation_test</span>(Hi, Lo, <span class="at">iter =</span> <span class="dv">1000</span>, <span class="at">measures =</span> <span class="st">"Betweenness"</span>)</span>
-<span id="cb29-15"><a href="#cb29-15" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb29-16"><a href="#cb29-16" aria-hidden="true" tabindex="-1"></a><span class="co"># Plot the significant differences identified in the permutation test</span></span>
-<span id="cb29-17"><a href="#cb29-17" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(Permutation, <span class="at">minimum =</span> <span class="fl">0.01</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb30"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Create TNA for the high-achievers subset (rows 1 to 1000)</span></span>
+<span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a>Hi <span class="ot">&lt;-</span> <span class="fu">tna</span>(group_regulation[<span class="dv">1</span><span class="sc">:</span><span class="dv">1000</span>, ])</span>
+<span id="cb30-3"><a href="#cb30-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb30-4"><a href="#cb30-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Create TNA for the low-achievers subset (rows 1001 to 2000)</span></span>
+<span id="cb30-5"><a href="#cb30-5" aria-hidden="true" tabindex="-1"></a>Lo <span class="ot">&lt;-</span> <span class="fu">tna</span>(group_regulation[<span class="dv">1001</span><span class="sc">:</span><span class="dv">2000</span>, ])</span>
+<span id="cb30-6"><a href="#cb30-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb30-7"><a href="#cb30-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Plot a comparison of the "Hi" and "Lo" models</span></span>
+<span id="cb30-8"><a href="#cb30-8" aria-hidden="true" tabindex="-1"></a><span class="co"># The 'minimum' parameter is set to 0.001, so edges with weights &gt;= 0.001 are shown</span></span>
+<span id="cb30-9"><a href="#cb30-9" aria-hidden="true" tabindex="-1"></a><span class="fu">plot_compare</span>(Hi, Lo, <span class="at">minimum =</span> <span class="fl">0.01</span>)</span>
+<span id="cb30-10"><a href="#cb30-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb30-11"><a href="#cb30-11" aria-hidden="true" tabindex="-1"></a><span class="co"># Run a permutation test to determine statistical significance of differences</span></span>
+<span id="cb30-12"><a href="#cb30-12" aria-hidden="true" tabindex="-1"></a><span class="co"># between "Hi" and "Lo"</span></span>
+<span id="cb30-13"><a href="#cb30-13" aria-hidden="true" tabindex="-1"></a><span class="co"># The 'iter' argument is set to 1000, meaning 1000 permutations are performed</span></span>
+<span id="cb30-14"><a href="#cb30-14" aria-hidden="true" tabindex="-1"></a>Permutation <span class="ot">&lt;-</span> <span class="fu">permutation_test</span>(Hi, Lo, <span class="at">iter =</span> <span class="dv">1000</span>, <span class="at">measures =</span> <span class="st">"Betweenness"</span>)</span>
+<span id="cb30-15"><a href="#cb30-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb30-16"><a href="#cb30-16" aria-hidden="true" tabindex="-1"></a><span class="co"># Plot the significant differences identified in the permutation test</span></span>
+<span id="cb30-17"><a href="#cb30-17" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(Permutation, <span class="at">minimum =</span> <span class="fl">0.01</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div id="fig-permutation" class="cell quarto-layout-panel">
 <figure class="figure">
 <div class="quarto-layout-row quarto-layout-valign-top">
@@ -1491,7 +1498,7 @@ Community assignments:
 </div>
 </div>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb30"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(Permutation<span class="sc">$</span>edges<span class="sc">$</span>stats)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb31"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(Permutation<span class="sc">$</span>edges<span class="sc">$</span>stats)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>             edge_name diff_true p_value
 1       adapt -&gt; adapt   0.00000   1.000
@@ -1506,7 +1513,7 @@ Community assignments:
 10   adapt -&gt; cohesion  -0.01476   0.749
  [ reached 'max' / getOption("max.print") -- omitted 71 rows ]</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb32"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(Permutation<span class="sc">$</span>centralities<span class="sc">$</span>stats)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb33"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(Permutation<span class="sc">$</span>centralities<span class="sc">$</span>stats)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>       State  Centrality diff_true p_value
 1      adapt Betweenness        -9   0.220
@@ -1530,8 +1537,8 @@ Community assignments:
 <p>The case-dropping bootstrap results in a series of correlation coefficients that represent the relationship between the centrality measures in the original network and those in the networks with data removed. These coefficients typically range from -1 to 1, where values closer to 1 indicate a strong positive correlation, meaning the centrality rankings remain consistent even when data is omitted. A high average coefficient (e.g., above 0.7) suggests that the centrality measure is stable and reliable; the nodes identified as most central in the original network remain central even when some data are missing. This stability implies that findings about the importance of certain nodes are robust and not heavily influenced by specific data points. If the average correlation coefficient is moderate (e.g., between 0.5 and 0.7), it indicates that there is some variability in the centrality measures when data is removed, however it is still acceptable. A low average correlation coefficient (e.g., below 0.5) points to instability in the centrality measure and the results may not be reliable. This instability could stem from a small sample size or measurement errors in the data. It’s also important to compare the stability of different centrality measures. For example, degree centrality often shows higher stability because it relies on direct connections, whereas betweenness centrality may be less stable due to its dependence on the shortest paths, which can change significantly with the removal of edges or nodes.</p>
 <p>The code below assesses the centrality stability of centrality measures using the function named <code>estimate_centrality_stability()</code> (a shorthand alias <code>estimate_cs()</code> is also provided) which takes the model as the main argument. The results can be plotted in the usual way (<a href="../ch16-ftna/ch16-ftna.html#fig-centrality-stability">Figure&nbsp;<span>16.10</span></a>).</p>
 <div class="cell" data-layout-align="center" data-hash="ch15-tna_cache/html/fig-centrality-stability_85a22efca682bef4bb7724404e3a5876">
-<div class="sourceCode cell-code" id="cb34"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a>Centrality_stability <span class="ot">&lt;-</span> <span class="fu">estimate_centrality_stability</span>(model, <span class="at">detailed =</span> <span class="cn">FALSE</span>)</span>
-<span id="cb34-2"><a href="#cb34-2" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(Centrality_stability)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb35"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a>Centrality_stability <span class="ot">&lt;-</span> <span class="fu">estimate_centrality_stability</span>(model, <span class="at">detailed =</span> <span class="cn">FALSE</span>)</span>
+<span id="cb35-2"><a href="#cb35-2" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(Centrality_stability)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div id="fig-centrality-stability" class="quarto-figure quarto-figure-center anchored">
 <figure class="figure">
