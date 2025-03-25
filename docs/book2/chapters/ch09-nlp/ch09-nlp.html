@@ -23,6 +23,88 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1.6em;
   vertical-align: middle;
 }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { color: #008000; } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { color: #008000; font-weight: bold; } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+}
+.hanging div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}
 </style>
 
 
@@ -91,6 +173,9 @@ cookieconsent.run({
 </script> 
   
 
+<link href="../../site_libs/pagedtable-1.1/css/pagedtable.css" rel="stylesheet">
+<script src="../../site_libs/pagedtable-1.1/js/pagedtable.js"></script>
+
 
 <meta name="twitter:title" content="Advanced learning analytics methods - 9&nbsp; The Use of Natural Language Processing in Learning Analytics">
 <meta name="twitter:description" content="In the educational context, the usage of written text is as equally important as the usage of numerical components for teachers to make informed decisions in their pedagogical strategies.">
@@ -102,6 +187,38 @@ cookieconsent.run({
 <meta name="citation_author" content="Okan Bulut">
 <meta name="citation_fulltext_html_url" content="https://lamethods.github.io/ch09-nlp.html">
 <meta name="citation_language" content="en">
+<meta name="citation_reference" content="citation_title=Natural language processing: Towards a multi-dimensional view of the learning process;,citation_author=Dragan Gašević;,citation_author=Agathe Merceron;,citation_editor=Charles Lang;,citation_editor=George Siemens;,citation_editor=Alyssa Friend Wise;,citation_publication_date=2022;,citation_cover_date=2022;,citation_year=2022;,citation_fulltext_html_url=https://www.solaresearch.org/publications/hla-22/hla22-chapter5/;,citation_doi=10.18608/hla22.005;,citation_inbook_title=undefined;">
+<meta name="citation_reference" content="citation_title=Applied text analysis with python: Enabling language-aware data products with machine learning;,citation_author=Benjamin Bengfort;,citation_author=Rebecca Bilbro;,citation_author=Tony Ojeda;,citation_publication_date=2018;,citation_cover_date=2018;,citation_year=2018;">
+<meta name="citation_reference" content="citation_title=Natural language processing with Python: Analyzing text with the natural language toolkit;,citation_author=Steven Bird;,citation_author=Ewan Klein;,citation_author=Edward Loper;,citation_publication_date=2009;,citation_cover_date=2009;,citation_year=2009;,citation_fulltext_html_url=https://www.nltk.org/book/;,citation_language=en;">
+<meta name="citation_reference" content="citation_title=Latent dirichlet allocation;,citation_author=David M Blei;,citation_publication_date=2003;,citation_cover_date=2003;,citation_year=2003;,citation_volume=3;,citation_language=en;,citation_journal_title=Journal of Machine Learning Researc;">
+<meta name="citation_reference" content="citation_title=A dynamic topic model of learning analytics research.;,citation_author=Michael Derntl;,citation_author=Nikou Günnemann;,citation_author=Ralf Klamma;,citation_publication_date=2013;,citation_cover_date=2013;,citation_year=2013;,citation_conference=Citeseer;">
+<meta name="citation_reference" content="citation_title=Unsupervised modeling for understanding MOOC discussion forums: A learning analytics approach;,citation_author=Aysu Ezen-Can;,citation_author=Kristy Elizabeth Boyer;,citation_author=Shaun Kellogg;,citation_author=Sherry Booth;,citation_publication_date=2015;,citation_cover_date=2015;,citation_year=2015;,citation_fulltext_html_url=https://doi.org/10.1145/2723576.2723589;,citation_doi=10.1145/2723576.2723589;,citation_conference=Association for Computing Machinery;,citation_series_title=LAK ’15;">
+<meta name="citation_reference" content="citation_title=Text mining infrastructure in r;,citation_author=Ingo Feinerer;,citation_author=Kurt Hornik;,citation_author=David Meyer;,citation_publication_date=2008-03;,citation_cover_date=2008-03;,citation_year=2008;,citation_issue=5;,citation_doi=10.18637/jss.v025.i05;,citation_volume=25;,citation_journal_title=Journal of Statistical Software;">
+<meta name="citation_reference" content="citation_title=Tm: Text mining package;,citation_author=Ingo Feinerer;,citation_author=Kurt Hornik;,citation_publication_date=2024;,citation_cover_date=2024;,citation_year=2024;,citation_fulltext_html_url=https://CRAN.R-project.org/package=tm;">
+<meta name="citation_reference" content="citation_title=The handbook of learning analytics;,citation_author=Dragan Gašević;,citation_author=Agathe Merceron;,citation_editor=Charles Lang;,citation_editor=George Siemens;,citation_editor=Alyssa Friend Wise;,citation_publication_date=2022;,citation_cover_date=2022;,citation_year=2022;,citation_fulltext_html_url=https://www.solaresearch.org/publications/hla-22/;,citation_doi=10.18608/hla22;">
+<meta name="citation_reference" content="citation_title=Natural language processing in education;,citation_author=William Goddard;,citation_publication_date=2021-09-07;,citation_cover_date=2021-09-07;,citation_year=2021;,citation_fulltext_html_url=https://itchronicles.com/natural-language-processing-nlp/natural-language-processing-in-education/;,citation_language=en;">
+<meta name="citation_reference" content="citation_title=Topicmodels: An r package for fitting topic models;,citation_author=Bettina Grün;,citation_author=Kurt Hornik;,citation_publication_date=2011;,citation_cover_date=2011;,citation_year=2011;,citation_issue=13;,citation_doi=10.18637/jss.v040.i13;,citation_volume=40;,citation_journal_title=Journal of Statistical Software;">
+<meta name="citation_reference" content="citation_title=Topicmodels: Topic models;,citation_author=Bettina Grün;,citation_author=Kurt Hornik;,citation_publication_date=2024;,citation_cover_date=2024;,citation_year=2024;,citation_fulltext_html_url=https://CRAN.R-project.org/package=topicmodels;">
+<meta name="citation_reference" content="citation_title=The power of feedback;,citation_author=John Hattie;,citation_author=Helen Timperley;,citation_publication_date=2007-03;,citation_cover_date=2007-03;,citation_year=2007;,citation_fulltext_html_url=http://journals.sagepub.com/doi/10.3102/003465430298487;,citation_issue=1;,citation_doi=10.3102/003465430298487;,citation_volume=77;,citation_language=en;,citation_journal_title=Review of Educational Research;">
+<meta name="citation_reference" content="citation_title=Eighth International Conference on Weblogs and Social Media (ICWSM-14);,citation_author=C Hutto;,citation_author=Eric Gilbert;,citation_publication_date=2014-05-16;,citation_cover_date=2014-05-16;,citation_year=2014;,citation_fulltext_html_url=https://github.com/cjhutto/vaderSentiment;,citation_volume=8;,citation_language=en;">
+<meta name="citation_reference" content="citation_title=AcaWriter: A learning analytics tool for formative feedback on academic writing;,citation_author=Simon Knight;,citation_author=Antonette Shibani;,citation_author=Sophie Abel;,citation_author=Andrew Gibson;,citation_author=Philippa Ryan;,citation_author=Nicole Sutton;,citation_author=Raechel Wight;,citation_author=Cherie Lucas;,citation_author=Ágnes Sándor;,citation_author=Kirsty Kitto;,citation_author=Ming Liu;,citation_author=Radhika Vijay Mogarkar;,citation_author=Simon Buckingham Shum;,citation_publication_date=2020-06;,citation_cover_date=2020-06;,citation_year=2020;,citation_fulltext_html_url=https://www.jowr.org/abstracts/vol12_1/Knight_et_al_2020_12_1_abstract.html;,citation_issue=1;,citation_doi=10.17239/jowr-2020.12.01.06;,citation_volume=12;,citation_language=en;,citation_journal_title=Journal of Writing Research;">
+<meta name="citation_reference" content="citation_title=The effectiveness of machine translation in foreign language education: A systematic review and meta-analysis;,citation_author=Sangmin-Michelle Lee;,citation_publication_date=2023-01-02;,citation_cover_date=2023-01-02;,citation_year=2023;,citation_fulltext_html_url=https://www.tandfonline.com/doi/full/10.1080/09588221.2021.1901745;,citation_issue=1-2;,citation_doi=10.1080/09588221.2021.1901745;,citation_volume=36;,citation_language=en;,citation_journal_title=Computer Assisted Language Learning;">
+<meta name="citation_reference" content="citation_title=Natural language generation using deep learning to support MOOC learners;,citation_author=Chenglu Li;,citation_author=Wanli Xing;,citation_publication_date=2021-06;,citation_cover_date=2021-06;,citation_year=2021;,citation_fulltext_html_url=https://link.springer.com/10.1007/s40593-020-00235-x;,citation_issue=2;,citation_doi=10.1007/s40593-020-00235-x;,citation_volume=31;,citation_language=en;,citation_journal_title=International Journal of Artificial Intelligence in Education;">
+<meta name="citation_reference" content="citation_title=Reliability of perplexity to find number of latent topics;,citation_author=Asana Neishabouri;,citation_author=Michel C Desmarais;,citation_publication_date=2020;,citation_cover_date=2020;,citation_year=2020;">
+<meta name="citation_reference" content="citation_title=Using natural language processing to automatically assess feedback quality: Findings from 3 surgical residencies;,citation_author=Erkin Ötleş;,citation_author=Daniel E. Kendrick;,citation_author=Quintin P. Solano;,citation_author=Mary Schuller;,citation_author=Samantha L. Ahle;,citation_author=Mickyas H. Eskender;,citation_author=Emily Carnes;,citation_author=Brian C. George;,citation_publication_date=2021-10;,citation_cover_date=2021-10;,citation_year=2021;,citation_fulltext_html_url=https://journals.lww.com/10.1097/ACM.0000000000004153;,citation_issue=10;,citation_doi=10.1097/ACM.0000000000004153;,citation_volume=96;,citation_language=en;,citation_journal_title=Academic Medicine;">
+<meta name="citation_reference" content="citation_title=Proceedings of the 2014 Conference on Empirical Methods in Natural Language Processing (EMNLP);,citation_author=Jeffrey Pennington;,citation_author=Richard Socher;,citation_author=Christopher Manning;,citation_publication_date=2014;,citation_cover_date=2014;,citation_year=2014;,citation_fulltext_html_url=http://aclweb.org/anthology/D14-1162;,citation_doi=10.3115/v1/D14-1162;,citation_language=en;,citation_conference=Association for Computational Linguistics;">
+<meta name="citation_reference" content="citation_title=An overview on extractive text summarization;,citation_author=Shohreh Rad Rahimi;,citation_author=Ali Toofanzadeh Mozhdehi;,citation_author=Mohamad Abdolahi;,citation_publication_date=2017;,citation_cover_date=2017;,citation_year=2017;,citation_doi=10.1109/KBEI.2017.8324874;">
+<meta name="citation_reference" content="citation_title=Proceedings of the first instructional conference on machine learning;,citation_author=Juan Ramos;,citation_publication_date=2003;,citation_cover_date=2003;,citation_year=2003;,citation_volume=242;,citation_language=en;">
+<meta name="citation_reference" content="citation_title=Sentimentr: Calculate text polarity sentiment;,citation_author=Tyler W. Rinker;,citation_publication_date=2021;,citation_cover_date=2021;,citation_year=2021;,citation_fulltext_html_url=https://github.com/trinker/sentimentr;">
+<meta name="citation_reference" content="citation_title=A comparison of pre-trained word embeddings for sentiment analysis using deep learning;,citation_author=P. Santosh Kumar;,citation_author=Rakesh Bahadur Yadav;,citation_author=Sunita Vikrant Dhavale;,citation_editor=Deepak Gupta;,citation_editor=Ashish Khanna;,citation_editor=Siddhartha Bhattacharyya;,citation_editor=Aboul Ella Hassanien;,citation_editor=Sameer Anand;,citation_editor=Ajay Jaiswal;,citation_publication_date=2021;,citation_cover_date=2021;,citation_year=2021;,citation_fulltext_html_url=http://link.springer.com/10.1007/978-981-15-5113-0_41;,citation_volume=1165;,citation_language=en;,citation_inbook_title=undefined;">
+<meta name="citation_reference" content="citation_title=Exploring the landscape of natural language processing research;,citation_author=Tim Schopf;,citation_author=Karim Arabi;,citation_author=Florian Matthes;,citation_publication_date=2023;,citation_cover_date=2023;,citation_year=2023;,citation_fulltext_html_url=http://arxiv.org/abs/2307.10652;,citation_doi=10.26615/978-954-452-092-2_111;">
+<meta name="citation_reference" content="citation_title=Abstractive text summarization with BART;,citation_author=Abheesht Sharma;,citation_publication_date=2023;,citation_cover_date=2023;,citation_year=2023;,citation_fulltext_html_url=https://keras.io/examples/nlp/abstractive_summarization_with_bart/;,citation_language=en;">
+<meta name="citation_reference" content="citation_title=Tidytext: Text mining and analysis using tidy data principles in r;,citation_author=Julia Silge;,citation_author=David Robinson;,citation_publication_date=2016;,citation_cover_date=2016;,citation_year=2016;,citation_fulltext_html_url=http://dx.doi.org/10.21105/joss.00037;,citation_issue=3;,citation_doi=10.21105/joss.00037;,citation_volume=1;,citation_journal_title=JOSS;">
+<meta name="citation_reference" content="citation_title=lexRankr: Extractive summarization of text with the LexRank algorithm;,citation_author=Adam Spannbauer;,citation_publication_date=2019-03-17;,citation_cover_date=2019-03-17;,citation_year=2019;,citation_fulltext_html_url=https://CRAN.R-project.org/package=lexRankr;">
+<meta name="citation_reference" content="citation_title=Sample size for latent dirichlet allocation of constructed-response items;,citation_author=Jordan M. Wheeler;,citation_author=Allan S. Cohen;,citation_author=Jiawei Xiong;,citation_author=Juyeon Lee;,citation_author=Hye-Jeong Choi;,citation_editor=Marie Wiberg;,citation_editor=Dylan Molenaar;,citation_editor=Jorge González;,citation_editor=Ulf Böckenholt;,citation_editor=Jee-Seon Kim;,citation_publication_date=2021;,citation_cover_date=2021;,citation_year=2021;,citation_fulltext_html_url=https://link.springer.com/10.1007/978-3-030-74772-5_24;,citation_volume=353;,citation_language=en;,citation_inbook_title=undefined;">
+<meta name="citation_reference" content="citation_title=Artificial intelligence: Transforming the future of feedback in education;,citation_author=Tarid Wongvorachan;,citation_author=Ka Wing Lai;,citation_author=Okan Bulut;,citation_author=Yi-Shan Tsai;,citation_author=Guanliang Chen;,citation_publication_date=2022;,citation_cover_date=2022;,citation_year=2022;,citation_journal_title=Journal of Applied Testing Technology;">
+<meta name="citation_reference" content="citation_title=Extracting linguistic signal from item text and its application to modeling item characteristics;,citation_author=Victoria Yaneva;,citation_author=Peter Baldwin;,citation_author=Ha Le An;,citation_author=Christopher Runyon;,citation_editor=Victoria Yaneva;,citation_editor=Matthias Davier;,citation_publication_date=2023;,citation_cover_date=2023;,citation_year=2023;,citation_fulltext_html_url=DOI: 10.4324/9781003278658-14;,citation_inbook_title=undefined;,citation_series_title=Application of educational measurement and assessment;">
+<meta name="citation_reference" content="citation_title=R for data science: Import, tidy, transform, visualize, and model data;,citation_author=Hadley Wickham;,citation_author=Garrett Grolemund;,citation_publication_date=2016;,citation_cover_date=2016;,citation_year=2016;">
 </head>
 
 <body class="nav-sidebar floating nav-fixed">
@@ -327,7 +444,28 @@ cookieconsent.run({
 </nav>
 <!-- margin-sidebar -->
     <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
-        
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Table of contents</h2>
+   
+  <ul>
+  <li><a href="#introduction" id="toc-introduction" class="nav-link active" data-scroll-target="#introduction"><span class="toc-section-number">1</span>  Introduction</a></li>
+  <li><a href="#literature-review" id="toc-literature-review" class="nav-link" data-scroll-target="#literature-review"><span class="toc-section-number">2</span>  Literature Review</a>
+  <ul class="collapse">
+  <li><a href="#foundational-concepts-in-nlp" id="toc-foundational-concepts-in-nlp" class="nav-link" data-scroll-target="#foundational-concepts-in-nlp"><span class="toc-section-number">2.1</span>  Foundational Concepts in NLP</a></li>
+  <li><a href="#the-relevance-of-nlp-in-the-la-context" id="toc-the-relevance-of-nlp-in-the-la-context" class="nav-link" data-scroll-target="#the-relevance-of-nlp-in-the-la-context"><span class="toc-section-number">2.2</span>  The Relevance of NLP in the LA Context</a></li>
+  </ul></li>
+  <li><a href="#tutorial-with-r" id="toc-tutorial-with-r" class="nav-link" data-scroll-target="#tutorial-with-r"><span class="toc-section-number">3</span>  Tutorial with R</a>
+  <ul class="collapse">
+  <li><a href="#text-preprocessing" id="toc-text-preprocessing" class="nav-link" data-scroll-target="#text-preprocessing"><span class="toc-section-number">3.1</span>  Text Preprocessing</a></li>
+  <li><a href="#keyword-identification-with-tf-idf" id="toc-keyword-identification-with-tf-idf" class="nav-link" data-scroll-target="#keyword-identification-with-tf-idf"><span class="toc-section-number">3.2</span>  Keyword Identification with TF-IDF</a></li>
+  <li><a href="#identifying-hidden-themes-with-topic-modeling" id="toc-identifying-hidden-themes-with-topic-modeling" class="nav-link" data-scroll-target="#identifying-hidden-themes-with-topic-modeling"><span class="toc-section-number">3.3</span>  Identifying Hidden Themes with Topic Modeling</a></li>
+  <li><a href="#extracting-the-most-representative-text-instances-with-extractive-text-summarization" id="toc-extracting-the-most-representative-text-instances-with-extractive-text-summarization" class="nav-link" data-scroll-target="#extracting-the-most-representative-text-instances-with-extractive-text-summarization"><span class="toc-section-number">3.4</span>  Extracting the Most Representative Text Instances with Extractive Text Summarization</a></li>
+  <li><a href="#examining-students-perception-with-sentiment-analysis" id="toc-examining-students-perception-with-sentiment-analysis" class="nav-link" data-scroll-target="#examining-students-perception-with-sentiment-analysis"><span class="toc-section-number">3.5</span>  Examining Students’ Perception with Sentiment Analysis</a></li>
+  </ul></li>
+  <li><a href="#concluding-remarks" id="toc-concluding-remarks" class="nav-link" data-scroll-target="#concluding-remarks"><span class="toc-section-number">4</span>  Concluding remarks</a></li>
+  <li><a href="#bibliography" id="toc-bibliography" class="nav-link" data-scroll-target="#bibliography">References</a></li>
+  </ul>
+</nav>
     <div class="quarto-margin-footer"><div class="margin-footer-item">
 <a href="https://github.com/lamethods/code2" target="_blank"> <button class="btn btn-outline-dark"> <svg xmlns="http://www.w3.org/2000/svg" viewbox="0 0 496 512" style="width: 22px;vertical-align: text-top;margin-right: 9px;"> <path d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3 .3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5 .3-6.2 2.3zm44.2-1.7c-2.9 .7-4.9 2.6-4.6 4.9 .3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3 .7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3 .3 2.9 2.3 3.9 1.6 1 3.6 .7 4.3-.7 .7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3 .7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3 .7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z" style="width: 24px;"> </path> </svg>Download code </button> </a>
 <div style="padding: 10px;">
@@ -370,9 +508,726 @@ Check out our previous book! <br> <a href="../../../book1/index.html"><img src="
 
 </header>
 
-<p>Forthcoming</p>
+<section id="introduction" class="level2" data-number="1">
+<h2 data-number="1" class="anchored" data-anchor-id="introduction"><span class="header-section-number">1</span> Introduction</h2>
+<p>In the educational context, using written text is equally important as using numerical components for teachers to make informed decisions in their pedagogical strategies. For example, teachers may use students’ essays rather than a multiple-choice exam to evaluate their writing proficiency. With the increased use of educational technologies in the classroom, utilizing textual data has become more crucial in maximizing the effectiveness of learning analytics (LA) systems <span class="citation" data-cites="allen2022">[<a href="#ref-allen2022" role="doc-biblioref">1</a>]</span>. The use of textual data is made possible through the application of natural language processing (NLP)—an artificial intelligence-driven technique designed to manipulate, transform, and extract insights from text <span class="citation" data-cites="bengfort2018">[<a href="#ref-bengfort2018" role="doc-biblioref">2</a>]</span>. In fact, NLP comprises several subfields that cover its vast capability, from syntactic text processing, reasoning, and text generation <span class="citation" data-cites="schopf2023">[<a href="#ref-schopf2023" role="doc-biblioref">3</a>]</span>.</p>
+<p>In this chapter, we concentrate on selected NLP techniques relevant to LA, including text preprocessing (tokenization, stemming, lemmatization), frequency-based analysis (e.g., Term Frequency-Inverse Document Frequency, or TF-IDF), topic modeling (Latent Dirichlet Allocation, or LDA), text summarization, and sentiment analysis. These techniques are primarily found within fields of study focused on text mining and information extraction—key areas in NLP concerned with generating insights from textual data <span class="citation" data-cites="schopf2023">[<a href="#ref-schopf2023" role="doc-biblioref">3</a>]</span>. Such techniques could be applied to textual data sources within the LA environment, such as student feedback, forum posts, online discussions, and course materials. This application could provide insights into student behaviors, learning patterns, and educational content.</p>
+<p>The chapter starts by discussing foundational concepts and terminologies in NLP, such as lexical, syntax, and corpus. Then, we explain the importance of text preprocessing in NLP and discuss various methods such as tokenization, stemming, lemmatization, and stop word removal. Practical demonstrations of these techniques are provided, leveraging R packages such as tm <span class="citation" data-cites="feinerer2008 feinerer2024">[<a href="#ref-feinerer2008" role="doc-biblioref">4</a>, <a href="#ref-feinerer2024" role="doc-biblioref">5</a>]</span> and tidytext <span class="citation" data-cites="silge2016">[<a href="#ref-silge2016" role="doc-biblioref">6</a>]</span>. After text processing, we move the discussion to the application of NLP for text analysis with techniques such as TF-IDF analysis to identify and visualize keywords and themes across documents.</p>
+<p>Additionally, the discussion extends to the application of topic modeling with LDA through the topicmodels package <span class="citation" data-cites="grün2011 grün2024">[<a href="#ref-grün2011" role="doc-biblioref">7</a>, <a href="#ref-grün2024" role="doc-biblioref">8</a>]</span>. This serves to identify hidden themes using NLP models, thereby augmenting the insights gained from TF-IDF analyses. This progression highlights the evolution from frequency-based analyses to the application of NLP models in theme identification and interpretation. As an alternative approach to extracting key insights from textual data, this chapter explores the utilization of text summarization techniques with the lexRankr package <span class="citation" data-cites="spannbauer2019">[<a href="#ref-spannbauer2019" role="doc-biblioref">9</a>]</span> applied to educational content. Contrasting with the extraction of keyword sets facilitated by TF-IDF and topic modeling methods, text summarization condenses documents into succinct sentences. This application showcases the efficacy of NLP in distilling large volumes of text into concise summaries, thereby enhancing accessibility and comprehension.</p>
+<p>Finally, we discuss and showcase the relevance of sentiment analysis in learning analytics by analyzing sentiment in student feedback using tidytext and sentimentr <span class="citation" data-cites="rinker2021">[<a href="#ref-rinker2021" role="doc-biblioref">10</a>]</span> packages. Information obtained from sentiment analysis could be inferred from students’ perceptions and attitudes regarding the course content, thereby providing more understanding of the pedagogical efficacy of the course. This chapter serves as a comprehensive guide for leveraging NLP techniques in learning analytics using R. This guideline provides readers with the knowledge and tools necessary to analyze and derive insights from textual data in educational contexts.</p>
+</section>
+<section id="literature-review" class="level2" data-number="2">
+<h2 data-number="2" class="anchored" data-anchor-id="literature-review"><span class="header-section-number">2</span> Literature Review</h2>
+<section id="foundational-concepts-in-nlp" class="level3" data-number="2.1">
+<h3 data-number="2.1" class="anchored" data-anchor-id="foundational-concepts-in-nlp"><span class="header-section-number">2.1</span> Foundational Concepts in NLP</h3>
+<p>Formally defined, NLP is a subfield of artificial intelligence that allows computers to understand, interpret, and generate human language to bridge the gap between human communication and computer understanding <span class="citation" data-cites="bengfort2018">[<a href="#ref-bengfort2018" role="doc-biblioref">2</a>]</span>. NLP can transform unstructured text into structured data that can be easily analyzed and utilized for various applications, such as sentiment analysis, machine translation, speech recognition, and text summarization. Textual data in NLP has several levels/aspects/dimensions that can be described by the following terminologies by <span class="citation" data-cites="bengfort2018">[<a href="#ref-bengfort2018" role="doc-biblioref">2</a>]</span> and <span class="citation" data-cites="allen2022">[<a href="#ref-allen2022" role="doc-biblioref">1</a>]</span>.</p>
+<ol type="1">
+<li><p>Tokens: Tokens are the basic units of text, often corresponding to words, phrases, or symbols such as “learn” or “students”;</p></li>
+<li><p>Lexicon: A lexicon is a collection of words and their corresponding meanings. For example, “chemistry”, “space”, “physics”, or “cell” are part of the science lexicon;</p></li>
+<li><p>Semantics: Semantics is concerned with the meaning of words, phrases, and sentences and their relationships within their context;</p></li>
+<li><p>Corpus: A corpus is a large and structured set of texts used for training and evaluating NLP models. It serves as the foundational data for various NLP tasks, providing context and examples for algorithms to learn from. These four terminologies describe textual data from individual words or a collection of words or phrases with their meaning. To illustrate these concepts, consider the sentence ‘Students study cell structures in biology.’</p></li>
+</ol>
+<p><a href="../ch14-rqa/ch14-rqa.html#tbl-1">Table&nbsp;<span>14.1</span></a> displays examples of tokens, lexicon, semantics, and corpus of such a sentence.</p>
+<div id="tbl-1" class="anchored">
+<table class="table">
+<caption>Table&nbsp;1<strong>.</strong> Examples of NLP Terms of a Sentence</caption>
+<colgroup>
+<col style="width: 50%">
+<col style="width: 50%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>NLP Terms</th>
+<th>Examples</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Tokens</td>
+<td>The text is broken into individual units: ‘students,’ ‘study,’ ‘cell,’ ‘structures,’ ‘in,’ and ‘biology.’</td>
+</tr>
+<tr class="even">
+<td>Lexicon</td>
+<td>‘cell’ is defined as the basic structural and functional unit of living organisms</td>
+</tr>
+<tr class="odd">
+<td>Semantics</td>
+<td>‘cell structures’ refers to biological components rather than, for instance, the layout of telecommunications equipment.</td>
+</tr>
+<tr class="even">
+<td>Corpus</td>
+<td>A collection of educational content related to biology</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>Several steps are involved in transforming natural language text to a machine-readable format. These steps, collectively known as text preprocessing, convert raw text into structured data, which is essential for subsequent analysis and modeling as described by <span class="citation" data-cites="bird2009">[<a href="#ref-bird2009" role="doc-biblioref">11</a>]</span> as follows:</p>
+<ol type="1">
+<li><p>Tokenization: Divides text into tokens, the fundamental units of analysis.</p></li>
+<li><p>Normalization: Converts text to a uniform format by removing punctuation, converting text to lowercase, and addressing special characters, ensuring consistency (e.g., “Dog” and “dog” treated equivalently).</p></li>
+<li><p>Lemmatization: Converts words to their root forms based on context, such as “dancer,” “dancing,” and “dances” being reduced to “dance.”</p></li>
+<li><p>Stop Word Removal: Eliminates common, less meaningful words (e.g., “a,” “the”) to focus on more meaningful terms in the text.</p></li>
+</ol>
+<p>When the textual data has been processed and is ready to be analyzed, several analyses can be done to generate insights. Firstly, TF-IDF is a statistical measure used to assess a word’s importance in a document within a corpus. It uses two metrics: term frequency (TF), which counts how often a term appears in a document, and inverse document frequency (IDF), which gauges a term’s significance by examining its rarity across all documents <span class="citation" data-cites="ramos2003">[<a href="#ref-ramos2003" role="doc-biblioref">12</a>]</span>. The TF-IDF value rises with the word’s frequency in a document but is balanced by its prevalence in the corpus <span class="citation" data-cites="ramos2003">[<a href="#ref-ramos2003" role="doc-biblioref">12</a>]</span>. Hence, frequently appearing words are deemed important, but overly common words are considered less significant. For instance, the word “science” in a science corpus would be expected and thus may not provide unique insights.</p>
+<p>Second, the latent Dirichlet allocation (LDA) method is a generative probabilistic model that can extract lists of topics from the document. Specifically, LDA assumes each document is a mixture of topics and identifies topics within a set of documents by assigning a probability distribution over words for each topic <span class="citation" data-cites="blei2003">[<a href="#ref-blei2003" role="doc-biblioref">13</a>]</span>. LDA can extract keywords by identifying highly probable words within specific topics, providing insights into the thematic structure of the text in addition to the keywords identified by the TF-IDF method.</p>
+<p>Third, the text summarization technique serves to condense a long piece of text into a shorter version while preserving its main ideas. There are two main approaches to text summarization: extractive and abstractive. Abstractive text summarization generates new sentences that convey the main ideas of the original text, similar to how humans summarize, through the use of advanced NLP models such as the Bidirectional Autoregressive Transformer <span class="citation" data-cites="sharma2023">[<a href="#ref-sharma2023" role="doc-biblioref">14</a>]</span>. This approach, however, is not the focus of this tutorial as it currently doesn’t have a means of implementation in R. Extractive text summarization, which is covered in this chapter, selects critical sentences or phrases directly from the original text to create a summary by ranking sentences based on features such as sentence position, length, term frequency, and similarity to the title <span class="citation" data-cites="rahimi2017">[<a href="#ref-rahimi2017" role="doc-biblioref">15</a>]</span>.</p>
+<p>Finally, sentiment analysis can determine the emotional tone of the text by classifying it as positive, negative, or neutral. Various NLP models and techniques can be employed for sentiment analysis, including lexicon-based approaches and machine learning models <span class="citation" data-cites="santoshkumar2021">[<a href="#ref-santoshkumar2021" role="doc-biblioref">16</a>]</span>. An example of a lexicon-based approach is the utilization of the Valence Aware Dictionary and sEntiment Reasoner (VADER) model that uses syntactic rules to determine scores from lexical features (e.g., sentiment lexicons) with grammatical and syntactical conventions <span class="citation" data-cites="hutto2014">[<a href="#ref-hutto2014" role="doc-biblioref">17</a>]</span>. An example of the machine learning approach is the utilization of a pre-trained model, such as the global vectors for word representation (GloVe), to predict sentiment categories of the given text <span class="citation" data-cites="pennington2014">[<a href="#ref-pennington2014" role="doc-biblioref">18</a>]</span>. These four techniques extract insights from the textual data at several levels as means of data reduction, from text to keywords to short summary and inferred property of text sentiment.</p>
+</section>
+<section id="the-relevance-of-nlp-in-the-la-context" class="level3" data-number="2.2">
+<h3 data-number="2.2" class="anchored" data-anchor-id="the-relevance-of-nlp-in-the-la-context"><span class="header-section-number">2.2</span> The Relevance of NLP in the LA Context</h3>
+<p>In the LA context, several textual components are involved, ranging from the written curriculum, syllabus, course content, teachers’ written feedback, and even student feedback after the course is completed. Insights drawn from these data sources are valuable in guiding the advancement of educational technologies from the student level (e.g., determining at-risk students) to the task level (e.g., predicting item difficulty) <span class="citation" data-cites="allen2022">[<a href="#ref-allen2022" role="doc-biblioref">1</a>]</span>. NLP can significantly enhance student performance by analyzing their input, such as responses to quizzes or exams, and providing automated feedback <span class="citation" data-cites="li2021">[<a href="#ref-li2021" role="doc-biblioref">19</a>]</span>.</p>
+<p>Feedback generated by NLP can be delivered at various levels: task-level (e.g., providing a direct answer), process-level (e.g., offering verbal hints), and self-regulated learning level (e.g., generating context-relevant feedback to encourage self-reflection) <span class="citation" data-cites="hattie2007 wongvorachan2022">[<a href="#ref-hattie2007" role="doc-biblioref">20</a>, <a href="#ref-wongvorachan2022" role="doc-biblioref">21</a>]</span>. An example of such innovation is AcaWriter, a writing assistance tool that provides real-time feedback on students’ written work, such as essays and reports, focusing on aspects like clarity and conciseness <span class="citation" data-cites="knight2020">[<a href="#ref-knight2020" role="doc-biblioref">22</a>]</span>. Beyond benefiting students, NLP can also assist instructors by evaluating the quality of their written feedback, categorizing it as effective, mediocre, or ineffective <span class="citation" data-cites="ötles2021">[<a href="#ref-ötles2021" role="doc-biblioref">23</a>]</span>. This innovation supports learning on multiple fronts, enhancing both student self-assessment and the effectiveness of instructor feedback.</p>
+<p>Furthermore, NLP can analyze extensive volumes of text from syllabi, course materials, and educational resources such as theses, reducing them to their essential elements that contain only the most relevant information <span class="citation" data-cites="goddard2021">[<a href="#ref-goddard2021" role="doc-biblioref">24</a>]</span>. This distilled information can then inform instructors’ decisions. For instance, instructors may utilize text summarization and topic modeling to condense a corpus of syllabi into topic lists and concise summaries, thereby aiding the course design process by making it more efficient. For example, instructors can use topic modeling to understand themes of student discussions in a text-rich environment such as massive open online courses <span class="citation" data-cites="ezen-can2015">[<a href="#ref-ezen-can2015" role="doc-biblioref">25</a>]</span>. In educational research, topic modeling can also be used to identify clusters of keywords in textual metadata such as abstracts to understand progress of the field <span class="citation" data-cites="derntl2013">[<a href="#ref-derntl2013" role="doc-biblioref">26</a>]</span>.</p>
+<p>NLP can also predict item characteristics, such as item difficulty (represented by the proportion of correctness), mean response time, and item discrimination (i.e., biserial correlation), by analyzing linguistic features like average word length, complex word count, readability, concreteness rating, and word frequency (to identify rare words) <span class="citation" data-cites="yaneva2023">[<a href="#ref-yaneva2023" role="doc-biblioref">27</a>]</span>. This capability enables teachers to assess predicted item properties before implementation, determining whether an item is too difficult, too easy, or appropriately challenging.</p>
+<p>Additionally, NLP can provide machine translation, which is particularly beneficial in scenarios involving second-language learners <span class="citation" data-cites="goddard2021">[<a href="#ref-goddard2021" role="doc-biblioref">24</a>]</span>. Given the prevalence of foreign language learners in modern education, embedding machine translation features in an LA dashboard can increase accessibility to lesson content and enhance feedback comprehension <span class="citation" data-cites="lee2023 wongvorachan2022">[<a href="#ref-wongvorachan2022" role="doc-biblioref">21</a>, <a href="#ref-lee2023" role="doc-biblioref">28</a>]</span>. These examples demonstrate the significant potential of integrating NLP within the LA context to enhance educational practices at multiple levels.This NLP application allows educational institutions to gain deeper insights into student behaviors, optimize curriculum design, and improve feedback and assessment processes.</p>
+</section>
+</section>
+<section id="tutorial-with-r" class="level2" data-number="3">
+<h2 data-number="3" class="anchored" data-anchor-id="tutorial-with-r"><span class="header-section-number">3</span> Tutorial with R</h2>
+<p>We start by installing and importing the following packages:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># install.packages(c("tidytext", "tm", "textstem", "dplyr", "ggplot2", "topicmodels", "lexRankr", "sentimentr", "tidyr"))</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidytext) <span class="co"># for text cleaning and tokenization #https://www.tidytextmining.com/</span></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tm) <span class="co"># for TF-IDF calculation</span></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(textstem) <span class="co">#for text stemming</span></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dplyr) <span class="co">#for pipeline and data management</span></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2) <span class="co">#for plotting</span></span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(topicmodels) <span class="co">#for LDA topic modeling</span></span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(lexRankr) <span class="co">#for text summarization</span></span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(sentimentr) <span class="co">#for sentiment analysis</span></span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyr) <span class="co">#for dataset transformation</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+
+</div>
+<p>The double colon (<code>::</code>) notation is used in our code to identify the package from which each function comes. This approach enhances clarity for readers who may wish to utilize specific functions from the tutorial.</p>
+<section id="text-preprocessing" class="level3" data-number="3.1">
+<h3 data-number="3.1" class="anchored" data-anchor-id="text-preprocessing"><span class="header-section-number">3.1</span> Text Preprocessing</h3>
+<p>In this chapter, we use a dataset consisting of students’ comments on a course evaluation. The dataset can be downloaded from this hyperlink. We first need to import the data into R. This is accomplished using the read.csv function, which reads a file in CSV (comma-separated values) format and creates a data frame. The specific command used is <code>df &lt;- read.csv('df.csv', stringsAsFactors = FALSE)</code>. Here, <code>df.csv</code> is the name of the CSV file containing the students’ comments, and <code>stringsAsFactors = FALSE</code> ensures that text data is imported as strings rather than being converted to factors, which is useful for text analysis.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>df <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="fu">url</span>(</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>  <span class="st">'https://raw.githubusercontent.com/lamethods/data2/refs/heads/main/feedback/df.csv'</span></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>  ), <span class="at">stringsAsFactors =</span> <span class="cn">FALSE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>After importing the data, we can take a quick look at the first few entries by using the head function. The command <code>head(df, 3)</code> returns the first three rows of the data frame, providing an initial glimpse of the comments. In this example, we see three detailed comments on various aspects of the course, such as the interactive sessions, up-to-date content, and the instructor’s responsiveness.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(df,<span class="dv">3</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+
+<div data-pagedtable="false">
+  <script data-pagedtable-source="" type="application/json">
+{"columns":[{"label":[""],"name":["_rn_"],"type":[""],"align":["left"]},{"label":["Student_comment"],"name":[1],"type":["chr"],"align":["left"]}],"data":[{"1":"The course was very informative and engaging. I particularly enjoyed the interactive sessions where we could apply what we learned in practical scenarios. The instructor's enthusiasm made learning fun.","_rn_":"1"},{"1":"I really enjoyed the lectures and the assignments. The course content was relevant and up-to-date, which made it easier to understand current trends in the field. The instructor provided valuable insights and real-world examples.","_rn_":"2"},{"1":"The instructor was very knowledgeable and approachable. Whenever I had questions, they were quick to respond and provided detailed explanations. This greatly enhanced my learning experience.","_rn_":"3"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
+  </script>
+</div>
+</div>
+</div>
+<p>Additionally, the ‘dim’ function is used to check the dimensions of the data frame with the command <code>dim(df)</code>, which in this case returns <code>[1] 100 1</code>. This indicates that the data frame contains 100 rows and 1 column, confirming that we have 100 comments from students to analyze. By importing and briefly inspecting our data, we set the stage for a deeper analysis of students’ feedback, which can provide valuable insights into the strengths and areas for improvement in the course.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">dim</span>(df)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 100   1</code></pre>
+</div>
+</div>
+<p>After importing the dataset into our R environment, we can proceed with text cleaning. This involves transforming and standardizing the raw text to ensure consistency and remove noise, making it easier to extract meaningful insights. First, the comments are tokenized using the <code>unnest_tokens</code> function, which splits each comment into individual words, creating a tidy data frame where each row represents a single word. This is done with the command <code>token &lt;- df %&gt;% unnest_tokens(output = word, input = Student_comment)</code>.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>token <span class="ot">&lt;-</span> df <span class="sc">%&gt;%</span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">unnest_tokens</span>(<span class="at">output =</span> word, <span class="at">input =</span> Student_comment)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Next, all words are converted to lowercase using <code>token$word &lt;- tolower(token$word)</code>, ensuring uniformity by eliminating discrepancies caused by capitalization. The words are then lemmatized with <code>token$word &lt;- lemmatize_words(token$word)</code>, which reduces words to their base or dictionary form. For example, “running” would be reduced to “run”.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>token<span class="sc">$</span>word <span class="ot">&lt;-</span> <span class="fu">tolower</span>(token<span class="sc">$</span>word)</span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>token<span class="sc">$</span>word <span class="ot">&lt;-</span> <span class="fu">lemmatize_words</span>(token<span class="sc">$</span>word)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>To remove common but uninformative words, custom stop words specific to this context, such as “student”, “course”, and “instructor”, are defined and removed from the data. This is accomplished by merging a predefined list of stop words with the custom list and using the <code>anti_join</code> function. Numbers, which are often not useful in text analysis, are removed with <code>token$word &lt;- gsub("\\d+", "", token$word)</code>. Empty tokens resulting from this cleaning are filtered out using <code>token &lt;- token %&gt;% filter(word != "")</code>. Lastly, all punctuation is removed using <code>token$word &lt;- tm::removePunctuation(token$word)</code>, ensuring that only words remain.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>custom_stop_words <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"student"</span>, <span class="st">"course"</span>, <span class="st">"instructor"</span>, <span class="st">"instructors"</span>, <span class="st">"students"</span>)</span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>token <span class="ot">&lt;-</span> token <span class="sc">%&gt;%</span> </span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">anti_join</span>(stop_words <span class="sc">%&gt;%</span> <span class="fu">bind_rows</span>(<span class="fu">tibble</span>(<span class="at">word =</span> custom_stop_words, <span class="at">lexicon =</span> <span class="st">"custom"</span>)))</span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a>token<span class="sc">$</span>word <span class="ot">&lt;-</span> <span class="fu">gsub</span>(<span class="st">"</span><span class="sc">\\</span><span class="st">d+"</span>, <span class="st">""</span>, token<span class="sc">$</span>word) <span class="co"># remove numbers</span></span>
+<span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a>token <span class="ot">&lt;-</span> token <span class="sc">%&gt;%</span> <span class="fu">filter</span>(word <span class="sc">!=</span> <span class="st">""</span>) <span class="co"># remove empty tokens</span></span>
+<span id="cb8-9"><a href="#cb8-9" aria-hidden="true" tabindex="-1"></a>token<span class="sc">$</span>word <span class="ot">&lt;-</span> tm<span class="sc">::</span><span class="fu">removePunctuation</span>(token<span class="sc">$</span>word) <span class="co">#remove all punctuation</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>After these cleaning steps, the dim function shows that we have 842 words (<code>dim(token)</code>), and the head function reveals the first ten cleaned words (<code>head(token, 10)</code>), indicating that the text is now ready for further analysis. This process effectively standardizes the text, reduces noise, and focuses on meaningful content for subsequent NLP tasks.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="fu">dim</span>(token)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 842   1</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(token, <span class="dv">10</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+
+<div data-pagedtable="false">
+  <script data-pagedtable-source="" type="application/json">
+{"columns":[{"label":[""],"name":["_rn_"],"type":[""],"align":["left"]},{"label":["word"],"name":[1],"type":["chr"],"align":["left"]}],"data":[{"1":"informative","_rn_":"1"},{"1":"engage","_rn_":"2"},{"1":"enjoy","_rn_":"3"},{"1":"interactive","_rn_":"4"},{"1":"session","_rn_":"5"},{"1":"apply","_rn_":"6"},{"1":"learn","_rn_":"7"},{"1":"practical","_rn_":"8"},{"1":"scenario","_rn_":"9"},{"1":"instructors","_rn_":"10"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
+  </script>
+</div>
+</div>
+</div>
+</section>
+<section id="keyword-identification-with-tf-idf" class="level3" data-number="3.2">
+<h3 data-number="3.2" class="anchored" data-anchor-id="keyword-identification-with-tf-idf"><span class="header-section-number">3.2</span> Keyword Identification with TF-IDF</h3>
+<p>Keyword identification using TF-IDF is a crucial technique in NLP for identifying the most significant words in a collection of documents. TF-IDF helps to highlight important words that are unique to individual documents within a corpus while downplaying words that are common across multiple documents.</p>
+<p>The process begins with counting the occurrence of each word in each document. This is achieved with the command <code>word_counts &lt;- token %&gt;% count(document = row_number(), word)</code>, which creates a data frame where each row represents the frequency of a word in a specific document.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Count the occurrence of each word in each document</span></span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>word_counts <span class="ot">&lt;-</span> token <span class="sc">%&gt;%</span> <span class="fu">count</span>(<span class="at">document =</span> <span class="fu">row_number</span>(), word)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Next, the raw term frequency, which is the total count of each word across all documents, is calculated using <code>raw_term_frequency &lt;- word_counts %&gt;% count(word)</code>. Following this, the document frequency is determined, which counts the number of documents in which each word appears. This is computed with <code>document_frequency &lt;- word_counts %&gt;% group_by(word) %&gt;% summarise(docs = n_distinct(document))</code>.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Calculate raw term frequency</span></span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>raw_term_frequency <span class="ot">&lt;-</span> word_counts <span class="sc">%&gt;%</span> <span class="fu">count</span>(word)</span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Calculate document frequency</span></span>
+<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a>document_frequency <span class="ot">&lt;-</span> word_counts <span class="sc">%&gt;%</span> <span class="fu">group_by</span>(word) <span class="sc">%&gt;%</span> <span class="fu">summarise</span>(<span class="at">docs =</span> <span class="fu">n_distinct</span>(document))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>The Inverse Document Frequency (IDF) is then calculated. IDF measures how unique or rare a word is across all documents in the corpus. It is calculated as the logarithm of the total number of documents divided by the number of documents containing the word. The TF-IDF score for each word is obtained by multiplying its raw term frequency by its IDF value. This combines the importance of the word in a specific document with its rarity across the corpus.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Calculate IDF</span></span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>idf <span class="ot">&lt;-</span> document_frequency <span class="sc">%&gt;%</span> <span class="fu">mutate</span>(<span class="at">idf =</span> <span class="fu">log</span>(<span class="fu">nrow</span>(word_counts) <span class="sc">/</span> docs))</span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Join raw term frequency and IDF</span></span>
+<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a>tf_idf <span class="ot">&lt;-</span> raw_term_frequency <span class="sc">%&gt;%</span> <span class="fu">inner_join</span>(idf, <span class="at">by =</span> <span class="st">"word"</span>) <span class="sc">%&gt;%</span> <span class="fu">mutate</span>(<span class="at">tf_idf =</span> n <span class="sc">*</span> idf)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>To visualize the results, the top 10 words with the highest TF-IDF values are selected and plotted. This is done by arranging the words in descending order of their TF-IDF scores and selecting the top 10. The selected words are then plotted using a bar chart with the <code>ggplot2</code> <span class="citation" data-cites="wickham2016">[<a href="#ref-wickham2016" role="doc-biblioref">29</a>]</span>, where the words are displayed along the x-axis and their TF-IDF scores on the y-axis.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Plot the top 10 important words</span></span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Select the top 10 words with the highest TF-IDF values</span></span>
+<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a>top_10 <span class="ot">&lt;-</span> tf_idf <span class="sc">%&gt;%</span> <span class="fu">arrange</span>(<span class="fu">desc</span>(tf_idf)) <span class="sc">%&gt;%</span> <span class="fu">head</span>(<span class="dv">10</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Create a bar chart</span></span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(top_10, <span class="fu">aes</span>(<span class="at">x =</span> <span class="fu">reorder</span>(word, tf_idf), <span class="at">y =</span> tf_idf)) <span class="sc">+</span></span>
+<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_bar</span>(<span class="at">stat =</span> <span class="st">"identity"</span>, <span class="at">fill =</span> <span class="st">"steelblue"</span>) <span class="sc">+</span></span>
+<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">coord_flip</span>() <span class="sc">+</span></span>
+<span id="cb16-5"><a href="#cb16-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"Words"</span>, <span class="at">y =</span> <span class="st">"TF-IDF"</span>, <span class="at">title =</span> <span class="st">"Top 10 Words with Highest TF-IDF Values"</span>) <span class="sc">+</span></span>
+<span id="cb16-6"><a href="#cb16-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>The output of this process provides a list of the top 10 words with the highest TF-IDF values. Output 1 and <a href="../ch14-rqa/ch14-rqa.html#fig-1">Figure&nbsp;<span>14.1</span></a> show that words like “learn,” “material,” and “feel” are among the most significant in the student comments, as indicated by their high TF-IDF values. These words are particularly important because they are frequently used in the comments while being relatively unique to specific documents, highlighting their significance in the context of the course evaluation.</p>
+<p><strong>Output</strong> 1. Bar Plot of TF-IDF Based Important Word</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>top_10</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+
+<div data-pagedtable="false">
+  <script data-pagedtable-source="" type="application/json">
+{"columns":[{"label":[""],"name":["_rn_"],"type":[""],"align":["left"]},{"label":["word"],"name":[1],"type":["chr"],"align":["left"]},{"label":["n"],"name":[2],"type":["int"],"align":["right"]},{"label":["docs"],"name":[3],"type":["int"],"align":["right"]},{"label":["idf"],"name":[4],"type":["dbl"],"align":["right"]},{"label":["tf_idf"],"name":[5],"type":["dbl"],"align":["right"]}],"data":[{"1":"learn","2":"39","3":"39","4":"3.072218","5":"119.81652","_rn_":"1"},{"1":"material","2":"33","3":"33","4":"3.239272","5":"106.89599","_rn_":"2"},{"1":"feel","2":"19","3":"19","4":"3.791341","5":"72.03548","_rn_":"3"},{"1":"assignment","2":"18","3":"18","4":"3.845408","5":"69.21735","_rn_":"4"},{"1":"provide","2":"16","3":"16","4":"3.963191","5":"63.41106","_rn_":"5"},{"1":"subject","2":"16","3":"16","4":"3.963191","5":"63.41106","_rn_":"6"},{"1":"understand","2":"16","3":"16","4":"3.963191","5":"63.41106","_rn_":"7"},{"1":"content","2":"14","3":"14","4":"4.096723","5":"57.35412","_rn_":"8"},{"1":"engage","2":"14","3":"14","4":"4.096723","5":"57.35412","_rn_":"9"},{"1":"practical","2":"13","3":"13","4":"4.170831","5":"54.22080","_rn_":"10"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
+  </script>
+</div>
+</div>
+</div>
+<div id="fig-1" class="quarto-figure quarto-figure-center anchored">
+<figure class="figure">
+<p><img src="img/fig1.png" class="img-fluid figure-img"></p>
+<p></p><figcaption class="figure-caption"><strong>Figure</strong>&nbsp;1<strong>.</strong> Bar Plot of TF-IDF Based Important Word</figcaption><p></p>
+</figure>
+</div>
+</section>
+<section id="identifying-hidden-themes-with-topic-modeling" class="level3" data-number="3.3">
+<h3 data-number="3.3" class="anchored" data-anchor-id="identifying-hidden-themes-with-topic-modeling"><span class="header-section-number">3.3</span> Identifying Hidden Themes with Topic Modeling</h3>
+<p>Identifying hidden themes in textual data using Topic Modeling is a powerful technique in NLP that helps uncover the underlying structure and prevalent topics within a collection of documents. One common method for topic modeling is LDA, which assumes that each document is a mixture of several topics and that each topic is a mixture of words with certain probabilities <span class="citation" data-cites="blei2003">[<a href="#ref-blei2003" role="doc-biblioref">13</a>]</span>.</p>
+<p>The process begins with creating a Document-Term Matrix (DTM), which is a matrix where rows represent documents and columns represent words, with the entries indicating the frequency of each word in each document. Next, we set hyperparameters for the LDA model. The alpha parameter controls the distribution of topics within documents, with a higher alpha resulting in a more specific topic distribution per document. These parameters are adjusted through experimentation to achieve the best results. The control_list sets these parameters:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Creating a Document-Term Matrix</span></span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>dtm <span class="ot">&lt;-</span> token <span class="sc">%&gt;%</span></span>
+<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">count</span>(<span class="at">document =</span> <span class="fu">row_number</span>(), word) <span class="sc">%&gt;%</span></span>
+<span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">cast_dtm</span>(document, word, n)</span>
+<span id="cb18-5"><a href="#cb18-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-6"><a href="#cb18-6" aria-hidden="true" tabindex="-1"></a><span class="co"># Adjusting hyperparameters alpha and beta</span></span>
+<span id="cb18-7"><a href="#cb18-7" aria-hidden="true" tabindex="-1"></a>control_list <span class="ot">&lt;-</span> <span class="fu">list</span>(<span class="at">seed =</span> <span class="dv">1234</span>, <span class="at">alpha =</span> <span class="fl">0.1</span>)</span>
+<span id="cb18-8"><a href="#cb18-8" aria-hidden="true" tabindex="-1"></a><span class="co">#higher alpha results in a more specific topic distribution per document.</span></span>
+<span id="cb18-9"><a href="#cb18-9" aria-hidden="true" tabindex="-1"></a><span class="co">#Alpha and k are determined by experimenting</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>We then fit the LDA model to our DTM, specifying the number of topics (k) we want to identify. The optimal number of topics can be determined using various methods such as qualitative interpretation by the researcher or use the perplexity score to evaluate how well the model fits the data. We utilized the perplexity method due to its popularity and simplicity in implementation within the <code>topicmodels</code> package <span class="citation" data-cites="grün2011 neishabouri2020">[<a href="#ref-grün2011" role="doc-biblioref">7</a>, <a href="#ref-neishabouri2020" role="doc-biblioref">30</a>]</span>. Lower perplexity generally indicates a better fit of the LDA variant, determined by the number of topics. In this chapter, we iterated over values of k and selected the number of topics that minimize perplexity.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Loop through various values of k</span></span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>perplexity_values <span class="ot">&lt;-</span> <span class="fu">sapply</span>(<span class="dv">2</span><span class="sc">:</span><span class="dv">10</span>, <span class="cf">function</span>(k) {</span>
+<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a>  model <span class="ot">&lt;-</span> <span class="fu">LDA</span>(dtm, <span class="at">k =</span> k, <span class="at">control =</span> control_list)</span>
+<span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">perplexity</span>(model)</span>
+<span id="cb19-5"><a href="#cb19-5" aria-hidden="true" tabindex="-1"></a>})</span>
+<span id="cb19-6"><a href="#cb19-6" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(<span class="dv">2</span><span class="sc">:</span><span class="dv">10</span>, perplexity_values, <span class="at">type =</span> <span class="st">"b"</span>, <span class="at">xlab =</span> <span class="st">"Number of Topics (k)"</span>, <span class="at">ylab =</span> <span class="st">"Perplexity"</span>)</span>
+<span id="cb19-7"><a href="#cb19-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-8"><a href="#cb19-8" aria-hidden="true" tabindex="-1"></a><span class="co"># Add perplexity value labels above each point</span></span>
+<span id="cb19-9"><a href="#cb19-9" aria-hidden="true" tabindex="-1"></a><span class="fu">text</span>(<span class="dv">2</span><span class="sc">:</span><span class="dv">10</span>, perplexity_values, </span>
+<span id="cb19-10"><a href="#cb19-10" aria-hidden="true" tabindex="-1"></a>     <span class="at">labels =</span> <span class="fu">round</span>(perplexity_values, <span class="dv">2</span>), </span>
+<span id="cb19-11"><a href="#cb19-11" aria-hidden="true" tabindex="-1"></a>     <span class="at">pos =</span> <span class="dv">3</span>,       <span class="co"># Position text above the points</span></span>
+<span id="cb19-12"><a href="#cb19-12" aria-hidden="true" tabindex="-1"></a>     <span class="at">cex =</span> <span class="fl">0.8</span>,     <span class="co"># Text size</span></span>
+<span id="cb19-13"><a href="#cb19-13" aria-hidden="true" tabindex="-1"></a>     <span class="at">col =</span> <span class="st">"red"</span>)   <span class="co"># Text color</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p><a href="../ch13-ega/ch13-ega.html#fig-2">Figure&nbsp;<span>13.2</span></a> shows the value of the perplexity score and the number of topics from LDA. The LDA variant of 3 topics was shown to have the lowest perplexity score (168.71) and therefore, determined as the optimal number of topics.</p>
+<div id="fig-2" class="quarto-figure quarto-figure-center anchored">
+<figure class="figure">
+<p><img src="img/fig2.png" class="img-fluid figure-img"></p>
+<p></p><figcaption class="figure-caption"><strong>Figure</strong>&nbsp;2<strong>.</strong> Perplexity Scores of All LDA Variants</figcaption><p></p>
+</figure>
+</div>
+<p>As informed by the perplexity score, k is set to 3, and the model is fitted using the LDA function from the <code>topicmodels</code> library.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Fitting the LDA Model</span></span>
+<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a>lda_model <span class="ot">&lt;-</span> <span class="fu">LDA</span>(dtm, <span class="at">k =</span> <span class="dv">3</span> <span class="co">#k is the beta parameter</span></span>
+<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a>                 , <span class="at">control =</span> control_list)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>To view the top terms associated with each topic, we extract the probabilities of each word within each topic using the tidy function, which converts the model output into a tidy data frame. We then group these terms by topic, selecting the top 10 words with the highest probabilities (beta values) for each topic. Finally, we visualize the top terms for each topic using a bar chart, which helps in understanding the dominant words within each topic.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="fu">terms</span>(lda_model, <span class="dv">10</span>)</span>
+<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Get the probabilities of each word in each topic</span></span>
+<span id="cb21-4"><a href="#cb21-4" aria-hidden="true" tabindex="-1"></a>lda_terms <span class="ot">&lt;-</span> <span class="fu">tidy</span>(lda_model, <span class="at">matrix =</span> <span class="st">"beta"</span>)</span>
+<span id="cb21-5"><a href="#cb21-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-6"><a href="#cb21-6" aria-hidden="true" tabindex="-1"></a>top_terms <span class="ot">&lt;-</span> lda_terms <span class="sc">%&gt;%</span></span>
+<span id="cb21-7"><a href="#cb21-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(topic) <span class="sc">%&gt;%</span></span>
+<span id="cb21-8"><a href="#cb21-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">top_n</span>(<span class="dv">10</span>, beta) <span class="sc">%&gt;%</span></span>
+<span id="cb21-9"><a href="#cb21-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ungroup</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb21-10"><a href="#cb21-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(topic, <span class="sc">-</span>beta)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Output 2 shows samples of identified key terms within topic 1. The topic column indicates the topic number, the term column lists the top words for each topic, and the beta column shows the probability of each term within the topic. For example, in Topic 1, the most significant words are “learn” and “material,” with beta values of 0.142 and 0.120, respectively. These words are the most representative of Topic 1, indicating the theme of this topic likely revolves around learning and materials.</p>
+<p><a href="../ch13-ega/ch13-ega.html#fig-3">Figure&nbsp;<span>13.3</span></a> shows bar plots of top 10 terms from all 3 topics. Some of the top terms for topic 1 are “learn” and “material”. Some of the top terms for topic 2 are “understand” and “subject”. Some of the top terms for topic 3 are “feel” and “assignment”. By analyzing these top terms, we can infer the central themes of each topic, which provides insights into the main areas of focus in the student comments. This approach helps educators and analysts understand the key themes and issues expressed by students, facilitating data-driven improvements to the course.</p>
+<p><strong>Output</strong> 2. Top 10 Terms from Topic 1</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="co"># View the top terms for each topic</span></span>
+<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(top_terms)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<pre><code># A tibble: 30 × 3
+topic term beta
+&lt;int&gt; &lt;chr&gt; &lt;dbl&gt;
+1 1 learn 0.142
+2 1 material 0.120
+3 1 engage 0.0511
+4 1 practical 0.0474
+5 1 skill 0.0474
+6 1 challenge 0.0328
+7 1 explanation 0.0255
+8 1 lot 0.0219
+9 1 meet 0.0182
+10 1 question 0.0182
+# ℹ 20 more rows
+# ℹ Use `print(n = ...)` to see more rows</code></pre>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="co"># View the top terms for each topic</span></span>
+<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a>top_terms <span class="sc">%&gt;%</span></span>
+<span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">term =</span> <span class="fu">reorder_within</span>(term, beta, topic)) <span class="sc">%&gt;%</span></span>
+<span id="cb24-4"><a href="#cb24-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(beta, term, <span class="at">fill =</span> <span class="fu">factor</span>(topic))) <span class="sc">+</span></span>
+<span id="cb24-5"><a href="#cb24-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_col</span>(<span class="at">show.legend =</span> <span class="cn">FALSE</span>) <span class="sc">+</span></span>
+<span id="cb24-6"><a href="#cb24-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_wrap</span>(<span class="sc">~</span> topic, <span class="at">scales =</span> <span class="st">"free"</span>) <span class="sc">+</span></span>
+<span id="cb24-7"><a href="#cb24-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_y_reordered</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div id="fig-3" class="quarto-figure quarto-figure-center anchored">
+<figure class="figure">
+<p><img src="img/fig3.png" class="img-fluid figure-img"></p>
+<p></p><figcaption class="figure-caption"><strong>Figure</strong>&nbsp;3<strong>.</strong> Bar Plot of Top 10 Terms from All 3 Topics</figcaption><p></p>
+</figure>
+</div>
+</section>
+<section id="extracting-the-most-representative-text-instances-with-extractive-text-summarization" class="level3" data-number="3.4">
+<h3 data-number="3.4" class="anchored" data-anchor-id="extracting-the-most-representative-text-instances-with-extractive-text-summarization"><span class="header-section-number">3.4</span> Extracting the Most Representative Text Instances with Extractive Text Summarization</h3>
+<p>Extractive text summarization is used to identify and extract the most representative sentences from a larger body of text. This technique is particularly useful in educational contexts where we aim to condense student feedback or other textual data into concise summaries that highlight the key points. In R, the <code>lexRankr</code> package <span class="citation" data-cites="spannbauer2019">[<a href="#ref-spannbauer2019" role="doc-biblioref">9</a>]</span> is commonly used to perform this task via the LexRank algorithm, which measures the relative importance of sentences in a document.</p>
+<p>We first start by loading the lexRankr library, which contains functions for text summarization <span class="citation" data-cites="spannbauer2019">[<a href="#ref-spannbauer2019" role="doc-biblioref">9</a>]</span>. Next, we use the lexRank function to summarize student comments. The parameters specify that the function should consider three sentences (<code>n = 3</code>), use PageRank to measure sentence importance, use a weighted graph representation (<code>continuous = TRUE</code>), and treat each sentence as a separate document (<code>sentencesAsDocs = TRUE</code>). Text cleaning options such as removing punctuation and numbers are also set.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="co">#---------------Text Summarization--------------</span></span>
+<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(lexRankr)</span>
+<span id="cb25-3"><a href="#cb25-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-4"><a href="#cb25-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Summarize the text using LexRank</span></span>
+<span id="cb25-5"><a href="#cb25-5" aria-hidden="true" tabindex="-1"></a>summary_result <span class="ot">&lt;-</span> lexRankr<span class="sc">::</span><span class="fu">lexRank</span>(<span class="at">text =</span> df<span class="sc">$</span>Student_comment, <span class="at">docId =</span> <span class="st">"create"</span>, </span>
+<span id="cb25-6"><a href="#cb25-6" aria-hidden="true" tabindex="-1"></a>                                    <span class="at">n =</span> <span class="dv">3</span>,</span>
+<span id="cb25-7"><a href="#cb25-7" aria-hidden="true" tabindex="-1"></a>                                    <span class="at">usePageRank =</span> <span class="cn">TRUE</span>, <span class="co">#to measure relative importance</span></span>
+<span id="cb25-8"><a href="#cb25-8" aria-hidden="true" tabindex="-1"></a>                                    <span class="at">continuous =</span> <span class="cn">TRUE</span>, <span class="co">#use a weighted graph representation of the sentences</span></span>
+<span id="cb25-9"><a href="#cb25-9" aria-hidden="true" tabindex="-1"></a>                                    <span class="at">sentencesAsDocs =</span> <span class="cn">TRUE</span>, <span class="co">#useful for single document extractive summarization </span></span>
+<span id="cb25-10"><a href="#cb25-10" aria-hidden="true" tabindex="-1"></a>                                    <span class="co">#text cleaning</span></span>
+<span id="cb25-11"><a href="#cb25-11" aria-hidden="true" tabindex="-1"></a>                                    <span class="at">removePunc =</span> <span class="cn">TRUE</span>,</span>
+<span id="cb25-12"><a href="#cb25-12" aria-hidden="true" tabindex="-1"></a>                                    <span class="at">removeNum =</span> <span class="cn">TRUE</span>, </span>
+<span id="cb25-13"><a href="#cb25-13" aria-hidden="true" tabindex="-1"></a>                                    <span class="at">toLower =</span> <span class="cn">FALSE</span>, <span class="at">stemWords =</span> <span class="cn">FALSE</span>, <span class="at">rmStopWords =</span> <span class="cn">FALSE</span>, <span class="co">#These are set to false to retain meaning of the sentences</span></span>
+<span id="cb25-14"><a href="#cb25-14" aria-hidden="true" tabindex="-1"></a>                                    <span class="at">Verbose =</span> <span class="cn">TRUE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Parsing text into sentences and tokens...DONE
+Calculating pairwise sentence similarities...DONE
+Applying LexRank...DONE
+Formatting Output...DONE</code></pre>
+</div>
+</div>
+<p>Subsequently, we reorder the top three sentences to appear in the order they were in the original text. The result, <code>ordered_top_3</code>, contains the top three sentences.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb27"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="co">#reorder the top 3 sentences to be in order of appearance in article</span></span>
+<span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a>order_of_appearance <span class="ot">=</span> <span class="fu">order</span>(<span class="fu">as.integer</span>(<span class="fu">gsub</span>(<span class="st">"_"</span>,<span class="st">""</span>,summary_result<span class="sc">$</span>sentenceId)))</span>
+<span id="cb27-3"><a href="#cb27-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-4"><a href="#cb27-4" aria-hidden="true" tabindex="-1"></a><span class="co">#extract sentences in order of appearance</span></span>
+<span id="cb27-5"><a href="#cb27-5" aria-hidden="true" tabindex="-1"></a>ordered_top_3 <span class="ot">=</span> summary_result[order_of_appearance, <span class="st">"sentence"</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Output 3 displays the top three sentences extracted from a larger set of student comments using the LexRank algorithm. These sentences are considered the most representative or important based on their relevance and context within the original text.</p>
+<p><strong>Output</strong> 3. The 3 Most Representative Sentences from the Student Comments</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(ordered_top_3)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "The course content was very relevant to my field."         
+[2] "The assignments were very relevant to the course material."
+[3] "The material was dry, and the instructor was not engaging."</code></pre>
+</div>
+</div>
+<p>The first sentence, “the course content was very relevant to my field.”, highlights a positive aspect of the course, indicating that the material covered was pertinent to the student’s area of study. It suggests that the course content met the expectations and needs of students, providing them with useful knowledge directly applicable to their field.</p>
+<p>The second sentence, “the assignments were very relevant to the course material.”, underscores the alignment between the assignments and the course material. It implies that the tasks assigned to students were well-designed to reinforce the concepts taught in the course, helping students to apply what they learned in practical ways.</p>
+<p>The third sentence, “The material was dry, and the instructor was not engaging.”, contrasts with the positive feedback of the previous sentences by pointing out a negative aspect. This indicates that the course material was uninteresting and that the instructor’s teaching style did not capture the students’ attention. This feedback highlights areas for improvement in course delivery and engagement strategies.</p>
+<p>These three sentences together provide a balanced summary of student feedback, reflecting both strengths and areas for improvement in the course. By including both positive and negative comments, the summary offers a more comprehensive view of the students’ experiences.</p>
+<p>Next, we can extend the summarization process by computing LexRank scores for each sentence in a dataframe. We first add an index column to the original dataframe, facilitating easier reference during analysis.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb30"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Bind Lexrank score to a dataframe</span></span>
+<span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a>df_lexrank <span class="ot">&lt;-</span> <span class="fu">cbind</span>(<span class="at">Index =</span> <span class="dv">1</span><span class="sc">:</span><span class="fu">nrow</span>(df), df)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Then, Text preprocessing is performed to standardize the text for analysis. This includes converting text to lowercase, removing punctuation and numbers, and stripping extra whitespace. These steps ensure that the text is clean and uniform, ready for the next processing stages. However, We did not remove stopwords and perform lemmatization for this task, because it strips away the meaning. This is because we are doing sentence level analysis, not word-level.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb31"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a>clean_text_lexrank <span class="ot">&lt;-</span> df_lexrank <span class="sc">%&gt;%</span></span>
+<span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">Student_comment =</span> <span class="fu">tolower</span>(Student_comment)) <span class="sc">%&gt;%</span>          <span class="co"># Convert to lower case</span></span>
+<span id="cb31-3"><a href="#cb31-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">Student_comment =</span> <span class="fu">removePunctuation</span>(Student_comment)) <span class="sc">%&gt;%</span> <span class="co"># Remove punctuation</span></span>
+<span id="cb31-4"><a href="#cb31-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">Student_comment =</span> <span class="fu">removeNumbers</span>(Student_comment)) <span class="sc">%&gt;%</span> <span class="co">#Remove numbers</span></span>
+<span id="cb31-5"><a href="#cb31-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">Student_comment =</span> <span class="fu">stripWhitespace</span>(Student_comment))       <span class="co"># Strip whitespace</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Subsequently, the cleaned text is broken down into individual sentences (<code>unnest_tokens</code>) and LexRank scores are computed (<code>bind_lexrank</code>). LexRank evaluates each sentence based on its similarity and importance relative to other sentences in the document, producing scores that quantify each sentence’s representativeness.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb32"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Use lexRankr to compute LexRank scores</span></span>
+<span id="cb32-2"><a href="#cb32-2" aria-hidden="true" tabindex="-1"></a>lexrank_result <span class="ot">&lt;-</span> clean_text_lexrank <span class="sc">%&gt;%</span></span>
+<span id="cb32-3"><a href="#cb32-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">unnest_tokens</span>(sentence, Student_comment, <span class="at">token =</span> <span class="st">"sentences"</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb32-4"><a href="#cb32-4" aria-hidden="true" tabindex="-1"></a>  lexRankr<span class="sc">::</span><span class="fu">bind_lexrank</span>(sentence, Index, <span class="at">level =</span> <span class="st">"sentences"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>The computed LexRank scores are used to identify the top five sentences (<code>head(n = 5)</code>) that are most representative of the entire text. These sentences are selected based on their high LexRank scores, indicating their significance within the document. Finally, the output is examined to ensure that it is a dataframe. This dataframe output format can be further analyzed as needed rather than a stand-alone text output.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb33"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Arrange and select top sentences</span></span>
+<span id="cb33-2"><a href="#cb33-2" aria-hidden="true" tabindex="-1"></a>top_sentences <span class="ot">&lt;-</span> lexrank_result <span class="sc">%&gt;%</span></span>
+<span id="cb33-3"><a href="#cb33-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(<span class="fu">desc</span>(lexrank)) <span class="sc">%&gt;%</span></span>
+<span id="cb33-4"><a href="#cb33-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">head</span>(<span class="at">n =</span> <span class="dv">5</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb33-5"><a href="#cb33-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(sentence, lexrank)</span>
+<span id="cb33-6"><a href="#cb33-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb33-7"><a href="#cb33-7" aria-hidden="true" tabindex="-1"></a><span class="co">#double check if our output is really a dataframe</span></span>
+<span id="cb33-8"><a href="#cb33-8" aria-hidden="true" tabindex="-1"></a><span class="fu">class</span>(top_sentences)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "data.frame"</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb35"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a>top_sentences</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+
+<div data-pagedtable="false">
+  <script data-pagedtable-source="" type="application/json">
+{"columns":[{"label":[""],"name":["_rn_"],"type":[""],"align":["left"]},{"label":["sentence"],"name":[1],"type":["chr"],"align":["left"]},{"label":["lexrank"],"name":[2],"type":["dbl"],"align":["right"]}],"data":[{"1":"the course content was very engaging the lectures readings and activities were all interesting and kept me motivated to learn","2":"0.02976320","_rn_":"1"},{"1":"the assignments were very relevant to the course material they helped me apply what i learned in practical tasks and reinforced my understanding","2":"0.02594757","_rn_":"2"},{"1":"i enjoyed the interactive discussions the group activities and discussions were very engaging and helped me learn from my peers","2":"0.02006878","_rn_":"3"},{"1":"the course helped me understand the subject better the explanations were clear and the examples were relevant making the material easy to grasp","2":"0.01932070","_rn_":"4"},{"1":"the instructors enthusiasm made the course enjoyable their passion for the subject was evident and made the learning experience more engaging","2":"0.01870971","_rn_":"5"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
+  </script>
+</div>
+</div>
+</div>
+<p><a href="#tbl-2">Table&nbsp;<span>9.2</span></a> displays the top five sentences along with their corresponding LexRank scores. Each row represents a sentence selected for its importance in summarizing the original text. The “Lexrank score” column displays the numerical score assigned to each sentence by LexRank. Higher scores indicate sentences that are more central or important within the context of the entire document. The results are similar to Output 3, albeit in the table form.</p>
+<div id="tbl-2" class="anchored">
+<table class="table">
+<caption>Table&nbsp;2<strong>.</strong> Top 5 Most Representative Sentences in the Data Frame Format</caption>
+<colgroup>
+<col style="width: 33%">
+<col style="width: 33%">
+<col style="width: 33%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Rank</th>
+<th>Sentence</th>
+<th>Lexrank score</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>1</td>
+<td>the course content was very engaging the lectures readings and activities were all interesting and kept me motivated to learn</td>
+<td>0.02976320</td>
+</tr>
+<tr class="even">
+<td>2</td>
+<td>the assignments were very relevant to the course material they helped me apply what i learned in practical tasks and reinforced my understanding</td>
+<td>0.02594757</td>
+</tr>
+<tr class="odd">
+<td>3</td>
+<td>i enjoyed the interactive discussions the group activities and discussions were very engaging and helped me learn from my peers</td>
+<td>0.02006878</td>
+</tr>
+<tr class="even">
+<td>4</td>
+<td>the course helped me understand the subject better the explanations were clear and the examples were relevant making the material easy to grasp</td>
+<td>0.01932070</td>
+</tr>
+<tr class="odd">
+<td>5</td>
+<td>the instructors enthusiasm made the course enjoyable their passion for the subject was evident and made the learning experience more engaging</td>
+<td>0.01870971</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>By utilizing extractive text summarization with LexRank in R, educators and researchers can efficiently distill meaningful insights from large volumes of textual data, aiding in tasks such as summarizing student feedback, generating concise reviews, or extracting critical information from academic papers. This approach streamlines the process of information retrieval and synthesis, making it a valuable tool in educational and research contexts.</p>
+</section>
+<section id="examining-students-perception-with-sentiment-analysis" class="level3" data-number="3.5">
+<h3 data-number="3.5" class="anchored" data-anchor-id="examining-students-perception-with-sentiment-analysis"><span class="header-section-number">3.5</span> Examining Students’ Perception with Sentiment Analysis</h3>
+<p>Sentiment analysis, also known as opinion mining, is a technique used to identify and extract subjective information from text data <span class="citation" data-cites="santoshkumar2021">[<a href="#ref-santoshkumar2021" role="doc-biblioref">16</a>]</span>; It involves determining the emotional tone behind a series of words to understand the attitudes, opinions, and emotions expressed within the text. This process is particularly useful in analyzing feedback, reviews, and opinionated posts, as it helps in understanding public sentiment towards products, services, or events.</p>
+<section id="sentence-level-sentiment-analysis" class="level4" data-number="3.5.1">
+<h4 data-number="3.5.1" class="anchored" data-anchor-id="sentence-level-sentiment-analysis"><span class="header-section-number">3.5.1</span> Sentence-Level Sentiment Analysis</h4>
+<p>Sentence-level sentiment analysis evaluates the sentiment expressed within individual sentences, providing insights into the overall emotional tone conveyed by the text. This analysis allows for a more detailed understanding of specific feedback elements. The process involves several steps as follows:</p>
+<p>First, textual data needs to be preprocessed to ensure consistency in the data. The <code>mutate()</code> function is used to convert all text to lowercase (<code>tolower()</code>) and remove punctuation (<code>removePunctuation()</code>) from each student comment in the dataframe <code>df</code>. This standardizes the format and removes irrelevant characters, preparing the text for sentiment analysis.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb36"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a>clean_text_sentiment <span class="ot">&lt;-</span> df <span class="sc">%&gt;%</span></span>
+<span id="cb36-2"><a href="#cb36-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">Student_comment =</span> <span class="fu">tolower</span>(Student_comment)) <span class="sc">%&gt;%</span>          <span class="co"># Convert to lower case</span></span>
+<span id="cb36-3"><a href="#cb36-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">Student_comment =</span> <span class="fu">removePunctuation</span>(Student_comment)) <span class="co"># Remove punctuation</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Subsequently, the <code>sentiment()</code> function from the <code>sentimentr</code> package <span class="citation" data-cites="rinker2021">[<a href="#ref-rinker2021" role="doc-biblioref">10</a>]</span> is then applied to compute sentiment scores (sentiment) for each individual student comment. This function uses a sentiment lexicon to assign numerical values representing the positivity or negativity of each comment. The <code>unnest()</code> function is used to expand the sentiment scores into separate rows, ensuring each sentiment score is associated with its respective comment.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb37"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Perform sentiment analysis</span></span>
+<span id="cb37-2"><a href="#cb37-2" aria-hidden="true" tabindex="-1"></a>sentiment_result <span class="ot">&lt;-</span> clean_text_sentiment <span class="sc">%&gt;%</span></span>
+<span id="cb37-3"><a href="#cb37-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">sentiment =</span> <span class="fu">sentiment</span>(Student_comment)) <span class="sc">%&gt;%</span></span>
+<span id="cb37-4"><a href="#cb37-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">unnest</span>(<span class="at">cols =</span> <span class="fu">c</span>(sentiment))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Next, sentiment scores are categorized into three distinct sentiment categories (“Positive,” “Negative,” or “Neutral”) based on predefined thresholds using case_when(). Sentences with sentiment scores above 0.1 are categorized as positive, those below -0.1 as negative, and the rest as neutral. This categorization helps in understanding the overall sentiment expressed in each student comment.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb38"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Categorize sentiment</span></span>
+<span id="cb38-2"><a href="#cb38-2" aria-hidden="true" tabindex="-1"></a>sentiment_result <span class="ot">&lt;-</span> sentiment_result <span class="sc">%&gt;%</span></span>
+<span id="cb38-3"><a href="#cb38-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">sentiment_category =</span> <span class="fu">case_when</span>(</span>
+<span id="cb38-4"><a href="#cb38-4" aria-hidden="true" tabindex="-1"></a>    sentiment <span class="sc">&gt;</span> <span class="fl">0.1</span> <span class="sc">~</span> <span class="st">"Positive"</span>,</span>
+<span id="cb38-5"><a href="#cb38-5" aria-hidden="true" tabindex="-1"></a>    sentiment <span class="sc">&lt;</span> <span class="sc">-</span><span class="fl">0.1</span> <span class="sc">~</span> <span class="st">"Negative"</span>,</span>
+<span id="cb38-6"><a href="#cb38-6" aria-hidden="true" tabindex="-1"></a>    <span class="cn">TRUE</span> <span class="sc">~</span> <span class="st">"Neutral"</span></span>
+<span id="cb38-7"><a href="#cb38-7" aria-hidden="true" tabindex="-1"></a>  ))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Finally, the top five sentences (<code>top_positive</code>, <code>top_negative</code>, <code>top_neutral</code>) for each sentiment category are selected based on their sentiment scores. These sentences represent the most positively, negatively, and neutrally perceived comments within the dataset. They are combined into a single dataframe (<code>top_sentiments</code>) for further analysis or reporting. Results from the <code>top_sentiment</code> can also be visualized to provide comprehensive understandings.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb39"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Select top 5 for each category</span></span>
+<span id="cb39-2"><a href="#cb39-2" aria-hidden="true" tabindex="-1"></a>top_positive <span class="ot">&lt;-</span> sentiment_result <span class="sc">%&gt;%</span></span>
+<span id="cb39-3"><a href="#cb39-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(sentiment_category <span class="sc">==</span> <span class="st">"Positive"</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb39-4"><a href="#cb39-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(<span class="fu">desc</span>(sentiment)) <span class="sc">%&gt;%</span></span>
+<span id="cb39-5"><a href="#cb39-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">head</span>(<span class="dv">5</span>)</span>
+<span id="cb39-6"><a href="#cb39-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb39-7"><a href="#cb39-7" aria-hidden="true" tabindex="-1"></a>top_negative <span class="ot">&lt;-</span> sentiment_result <span class="sc">%&gt;%</span></span>
+<span id="cb39-8"><a href="#cb39-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(sentiment_category <span class="sc">==</span> <span class="st">"Negative"</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb39-9"><a href="#cb39-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(sentiment) <span class="sc">%&gt;%</span></span>
+<span id="cb39-10"><a href="#cb39-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">head</span>(<span class="dv">5</span>)</span>
+<span id="cb39-11"><a href="#cb39-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb39-12"><a href="#cb39-12" aria-hidden="true" tabindex="-1"></a>top_neutral <span class="ot">&lt;-</span> sentiment_result <span class="sc">%&gt;%</span></span>
+<span id="cb39-13"><a href="#cb39-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(sentiment_category <span class="sc">==</span> <span class="st">"Neutral"</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb39-14"><a href="#cb39-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(<span class="fu">desc</span>(<span class="fu">abs</span>(sentiment))) <span class="sc">%&gt;%</span></span>
+<span id="cb39-15"><a href="#cb39-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">head</span>(<span class="dv">5</span>)</span>
+<span id="cb39-16"><a href="#cb39-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb39-17"><a href="#cb39-17" aria-hidden="true" tabindex="-1"></a>top_sentiments <span class="ot">&lt;-</span> <span class="fu">bind_rows</span>(top_positive, top_negative, top_neutral)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb40"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb40-1"><a href="#cb40-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Visualize the results</span></span>
+<span id="cb40-2"><a href="#cb40-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(top_sentiments, <span class="fu">aes</span>(<span class="at">x =</span> <span class="fu">reorder</span>(Student_comment, sentiment), <span class="at">y =</span> sentiment, <span class="at">fill =</span> sentiment_category)) <span class="sc">+</span></span>
+<span id="cb40-3"><a href="#cb40-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_bar</span>(<span class="at">stat =</span> <span class="st">"identity"</span>, <span class="at">position =</span> <span class="st">"dodge"</span>) <span class="sc">+</span></span>
+<span id="cb40-4"><a href="#cb40-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">coord_flip</span>() <span class="sc">+</span></span>
+<span id="cb40-5"><a href="#cb40-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Top Positive, Negative, and Neutral Sentiments"</span>,</span>
+<span id="cb40-6"><a href="#cb40-6" aria-hidden="true" tabindex="-1"></a>       <span class="at">x =</span> <span class="st">"Comments"</span>,</span>
+<span id="cb40-7"><a href="#cb40-7" aria-hidden="true" tabindex="-1"></a>       <span class="at">y =</span> <span class="st">"Sentiment Score"</span>,</span>
+<span id="cb40-8"><a href="#cb40-8" aria-hidden="true" tabindex="-1"></a>       <span class="at">fill =</span> <span class="st">"Sentiment Category"</span>) <span class="sc">+</span>  </span>
+<span id="cb40-9"><a href="#cb40-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_fill_manual</span>(<span class="at">values =</span> <span class="fu">c</span>(<span class="st">"Positive"</span> <span class="ot">=</span> <span class="st">"limegreen"</span>, <span class="st">"Negative"</span> <span class="ot">=</span> <span class="st">"salmon"</span>, <span class="st">"Neutral"</span> <span class="ot">=</span> <span class="st">"skyblue"</span>)) <span class="sc">+</span></span>
+<span id="cb40-10"><a href="#cb40-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Output 4 and <a href="../ch13-ega/ch13-ega.html#fig-4">Figure&nbsp;<span>13.4</span></a> provide a structured summary of the sentiment analysis results at the sentence level. Each row in the data frame represents a sentence along with its associated sentiment score. An instance of a positive comment is “<em>the instructor was very supportive and encouraging. their positive and willingness to help made the learning experience much more enjoyable</em>”. An instance of a neutral comment is “<em>I learned a few new things from the course, however I felt that the material could have been presented in a more interesting way</em>”. An instance of a negative comment is “<em>the instructor was not very helpful whenever I had questions; they were slow to respond and did not provide useful answers</em>”. This detailed breakdown allows educators or analysts to easily identify and interpret the sentiments expressed in student feedback, highlighting specific areas of praise or concern.</p>
+<p><strong>Output</strong> 4. Sentence-Level Sentiment Scores and Categories of Students’ Course Evaluation</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb41"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb41-1"><a href="#cb41-1" aria-hidden="true" tabindex="-1"></a>top_sentiments</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+
+<div data-pagedtable="false">
+  <script data-pagedtable-source="" type="application/json">
+{"columns":[{"label":["Student_comment"],"name":[1],"type":["chr"],"align":["left"]},{"label":["element_id"],"name":[2],"type":["int"],"align":["right"]},{"label":["sentence_id"],"name":[3],"type":["int"],"align":["right"]},{"label":["word_count"],"name":[4],"type":["int"],"align":["right"]},{"label":["sentiment"],"name":[5],"type":["dbl"],"align":["right"]},{"label":["sentiment_category"],"name":[6],"type":["chr"],"align":["left"]}],"data":[{"1":"the instructor was very supportive and encouraging their positive attitude and willingness to help made the learning experience much more enjoyable","2":"35","3":"1","4":"21","5":"2.18436108","6":"Positive"},{"1":"the instructor was very enthusiastic and engaging their passion for the subject was evident and it made the learning experience much more enjoyable","2":"54","3":"1","4":"23","5":"1.65977474","6":"Positive"},{"1":"the instructor was very knowledgeable and approachable whenever i had questions they were quick to respond and provided detailed explanations this greatly enhanced my learning experience","2":"3","3":"1","4":"26","5":"1.46694869","6":"Positive"},{"1":"i found the course to be very motivating the material was interesting and the instructors enthusiasm made me excited to learn more","2":"50","3":"1","4":"22","5":"1.42631279","6":"Positive"},{"1":"the instructor was very helpful and supportive they were always available to answer questions and provide additional support when needed","2":"64","3":"1","4":"20","5":"1.29021122","6":"Positive"},{"1":"the assignments were too challenging and unclear i often felt lost and unsure of what was expected of me","2":"86","3":"1","4":"19","5":"-0.63089327","6":"Negative"},{"1":"the course was a waste of time i did not learn anything valuable and the material was not relevant to my needs","2":"100","3":"1","4":"22","5":"-0.60762204","6":"Negative"},{"1":"the course did not meet my expectations the content was shallow and the teaching methods were not effective","2":"90","3":"1","4":"18","5":"-0.56568542","6":"Negative"},{"1":"the feedback on assignments was not helpful the comments were vague and did not provide constructive guidance","2":"92","3":"1","4":"17","5":"-0.55783194","6":"Negative"},{"1":"the instructor was not very helpful whenever i had questions they were slow to respond and did not provide useful answers","2":"83","3":"1","4":"21","5":"-0.45825757","6":"Negative"},{"1":"the course was too fastpaced i struggled to keep up with the material and felt overwhelmed","2":"96","3":"1","4":"16","5":"-0.10000000","6":"Neutral"},{"1":"i learned a few new things from the course however i felt that the material could have been presented in a more interesting way","2":"76","3":"1","4":"24","5":"0.09389711","6":"Neutral"},{"1":"the instructor was not engaging their lectures were monotone and did not capture my interest","2":"99","3":"1","4":"15","5":"-0.05163978","6":"Neutral"},{"1":"the course was neither too difficult nor too easy it was manageable but i didnt feel particularly challenged or motivated","2":"77","3":"1","4":"20","5":"0.04454247","6":"Neutral"},{"1":"i found some parts of the course useful however there were times when the material felt repetitive and could have been more concise","2":"72","3":"1","4":"23","5":"0.02304084","6":"Neutral"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
+  </script>
+</div>
+</div>
+</div>
+<div id="fig-4" class="quarto-figure quarto-figure-center anchored">
+<figure class="figure">
+<p><img src="img/fig4.png" class="img-fluid figure-img"></p>
+<p></p><figcaption class="figure-caption"><strong>Figure</strong>&nbsp;4<strong>.</strong> Sentiment Bar Plot of Students’ Course Evaluation as Sentences</figcaption><p></p>
+</figure>
+</div>
+</section>
+<section id="word-level-sentiment-analysis" class="level4" data-number="3.5.2">
+<h4 data-number="3.5.2" class="anchored" data-anchor-id="word-level-sentiment-analysis"><span class="header-section-number">3.5.2</span> Word-Level Sentiment Analysis</h4>
+<p>Furthermore, sentiment analysis can also be performed on individual words to examine a smaller unit of textual data that may provide insights in terms of specific keywords that students have toward a course. After text preprocessing, the text is tokenized into individual words (token) and sentiment scores (sentiment) are computed for each word using the <code>sentiment()</code> function. This function assigns sentiment scores to each word based on its lexical properties, capturing the emotional connotations associated with specific vocabulary choices.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb42"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb42-1"><a href="#cb42-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Perform sentiment analysis</span></span>
+<span id="cb42-2"><a href="#cb42-2" aria-hidden="true" tabindex="-1"></a>sentiment_result <span class="ot">&lt;-</span> token <span class="sc">%&gt;%</span></span>
+<span id="cb42-3"><a href="#cb42-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">sentiment =</span> <span class="fu">sentiment</span>(word)) <span class="sc">%&gt;%</span></span>
+<span id="cb42-4"><a href="#cb42-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">unnest</span>(<span class="at">cols =</span> <span class="fu">c</span>(sentiment))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Similar to sentence-level analysis, sentiment scores for individual words are categorized into “Positive,” “Negative,” or “Neutral” using <code>case_when()</code>. This categorization allows for the identification of words that contribute positively, negatively, or neutrally to the overall sentiment conveyed by student comments. To handle duplicate words across different comments, the data is aggregated using <code>group_by()</code> and <code>summarize()</code> functions. This step calculates the average sentiment score (<code>avg_sentiment</code>) for each unique word across different sentiment categories, along with the frequency count of each word.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb43"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb43-1"><a href="#cb43-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Categorize sentiment</span></span>
+<span id="cb43-2"><a href="#cb43-2" aria-hidden="true" tabindex="-1"></a>sentiment_result <span class="ot">&lt;-</span> sentiment_result <span class="sc">%&gt;%</span></span>
+<span id="cb43-3"><a href="#cb43-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">sentiment_category =</span> <span class="fu">case_when</span>(</span>
+<span id="cb43-4"><a href="#cb43-4" aria-hidden="true" tabindex="-1"></a>    sentiment <span class="sc">&gt;</span> <span class="fl">0.1</span> <span class="sc">~</span> <span class="st">"Positive"</span>,</span>
+<span id="cb43-5"><a href="#cb43-5" aria-hidden="true" tabindex="-1"></a>    sentiment <span class="sc">&lt;</span> <span class="sc">-</span><span class="fl">0.1</span> <span class="sc">~</span> <span class="st">"Negative"</span>,</span>
+<span id="cb43-6"><a href="#cb43-6" aria-hidden="true" tabindex="-1"></a>    <span class="cn">TRUE</span> <span class="sc">~</span> <span class="st">"Neutral"</span></span>
+<span id="cb43-7"><a href="#cb43-7" aria-hidden="true" tabindex="-1"></a>  ))</span>
+<span id="cb43-8"><a href="#cb43-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb43-9"><a href="#cb43-9" aria-hidden="true" tabindex="-1"></a><span class="co">#Aggregate the data by word to get unique words and their corresponding average sentiment scores.</span></span>
+<span id="cb43-10"><a href="#cb43-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb43-11"><a href="#cb43-11" aria-hidden="true" tabindex="-1"></a>aggregated_sentiments <span class="ot">&lt;-</span> sentiment_result <span class="sc">%&gt;%</span></span>
+<span id="cb43-12"><a href="#cb43-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(word, sentiment_category) <span class="sc">%&gt;%</span></span>
+<span id="cb43-13"><a href="#cb43-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarize</span>(</span>
+<span id="cb43-14"><a href="#cb43-14" aria-hidden="true" tabindex="-1"></a>    <span class="at">avg_sentiment =</span> <span class="fu">mean</span>(sentiment),</span>
+<span id="cb43-15"><a href="#cb43-15" aria-hidden="true" tabindex="-1"></a>    <span class="at">count =</span> <span class="fu">n</span>(),</span>
+<span id="cb43-16"><a href="#cb43-16" aria-hidden="true" tabindex="-1"></a>    <span class="at">.groups =</span> <span class="st">'drop'</span></span>
+<span id="cb43-17"><a href="#cb43-17" aria-hidden="true" tabindex="-1"></a>  )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Finally, the top five words (<code>top_positive</code>, <code>top_negative</code>, <code>top_neutral</code>) for each sentiment category are selected based on their average sentiment scores (<code>avg_sentiment</code>). These words provide insights into the specific vocabulary choices that contribute positively, negatively, or neutrally to the overall sentiment expressed in student feedback.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb44"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb44-1"><a href="#cb44-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Select top 5 for each category</span></span>
+<span id="cb44-2"><a href="#cb44-2" aria-hidden="true" tabindex="-1"></a>top_positive <span class="ot">&lt;-</span> aggregated_sentiments <span class="sc">%&gt;%</span></span>
+<span id="cb44-3"><a href="#cb44-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(sentiment_category <span class="sc">==</span> <span class="st">"Positive"</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb44-4"><a href="#cb44-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(<span class="fu">desc</span>(avg_sentiment)) <span class="sc">%&gt;%</span></span>
+<span id="cb44-5"><a href="#cb44-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">head</span>(<span class="dv">5</span>)</span>
+<span id="cb44-6"><a href="#cb44-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb44-7"><a href="#cb44-7" aria-hidden="true" tabindex="-1"></a>top_negative <span class="ot">&lt;-</span> aggregated_sentiments <span class="sc">%&gt;%</span></span>
+<span id="cb44-8"><a href="#cb44-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(sentiment_category <span class="sc">==</span> <span class="st">"Negative"</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb44-9"><a href="#cb44-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(avg_sentiment) <span class="sc">%&gt;%</span></span>
+<span id="cb44-10"><a href="#cb44-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">head</span>(<span class="dv">5</span>)</span>
+<span id="cb44-11"><a href="#cb44-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb44-12"><a href="#cb44-12" aria-hidden="true" tabindex="-1"></a>top_neutral <span class="ot">&lt;-</span> aggregated_sentiments <span class="sc">%&gt;%</span></span>
+<span id="cb44-13"><a href="#cb44-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(sentiment_category <span class="sc">==</span> <span class="st">"Neutral"</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb44-14"><a href="#cb44-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(<span class="fu">desc</span>(<span class="fu">abs</span>(avg_sentiment))) <span class="sc">%&gt;%</span></span>
+<span id="cb44-15"><a href="#cb44-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">head</span>(<span class="dv">5</span>)</span>
+<span id="cb44-16"><a href="#cb44-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb44-17"><a href="#cb44-17" aria-hidden="true" tabindex="-1"></a>top_sentiments <span class="ot">&lt;-</span> <span class="fu">bind_rows</span>(top_positive, top_negative, top_neutral)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Output 5 and <a href="../ch13-ega/ch13-ega.html#fig-5">Figure&nbsp;<span>13.5</span></a> presents a concise summary of sentiment expressed by specific words within the student comments. Each row in the data frame includes a word (<code>word</code>), its sentiment category (<code>sentiment_category</code>), average sentiment score (<code>avg_sentiment</code>), and frequency count (<code>count</code>). An instance of a positive comment is “enjoyable”. An instance of a neutral comment is “prepare”. An instance of a negative comment is “confuse”. This detailed breakdown enables educators or analysts to identify key words that influence the overall sentiment of student feedback, facilitating targeted improvements or interventions based on specific linguistic cues.</p>
+<p><strong>Output</strong> 5. Word-Level Sentiment Scores and Categories of Students’ Course Evaluation</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb45"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb45-1"><a href="#cb45-1" aria-hidden="true" tabindex="-1"></a>top_sentiments</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+
+<div data-pagedtable="false">
+  <script data-pagedtable-source="" type="application/json">
+{"columns":[{"label":["word"],"name":[1],"type":["chr"],"align":["left"]},{"label":["sentiment_category"],"name":[2],"type":["chr"],"align":["left"]},{"label":["avg_sentiment"],"name":[3],"type":["dbl"],"align":["right"]},{"label":["count"],"name":[4],"type":["int"],"align":["right"]}],"data":[{"1":"achieve","2":"Positive","3":"1.00","4":"2"},{"1":"approachable","2":"Positive","3":"1.00","4":"1"},{"1":"concise","2":"Positive","3":"1.00","4":"2"},{"1":"constructive","2":"Positive","3":"1.00","4":"2"},{"1":"enjoyable","2":"Positive","3":"1.00","4":"3"},{"1":"disappoint","2":"Negative","3":"-1.00","4":"1"},{"1":"issue","2":"Negative","3":"-1.00","4":"1"},{"1":"shallow","2":"Negative","3":"-1.00","4":"1"},{"1":"bore","2":"Negative","3":"-0.75","4":"1"},{"1":"confuse","2":"Negative","3":"-0.75","4":"3"},{"1":"build","2":"Neutral","3":"0.10","4":"2"},{"1":"cater","2":"Neutral","3":"-0.10","4":"1"},{"1":"develop","2":"Neutral","3":"0.10","4":"5"},{"1":"prefer","2":"Neutral","3":"0.10","4":"1"},{"1":"prepare","2":"Neutral","3":"0.10","4":"1"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
+  </script>
+</div>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb46"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb46-1"><a href="#cb46-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Visualize the results</span></span>
+<span id="cb46-2"><a href="#cb46-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(top_sentiments, <span class="fu">aes</span>(<span class="at">x =</span> <span class="fu">reorder</span>(word, avg_sentiment), <span class="at">y =</span> avg_sentiment, <span class="at">fill =</span> sentiment_category)) <span class="sc">+</span></span>
+<span id="cb46-3"><a href="#cb46-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_bar</span>(<span class="at">stat =</span> <span class="st">"identity"</span>, <span class="at">position =</span> <span class="st">"dodge"</span>) <span class="sc">+</span></span>
+<span id="cb46-4"><a href="#cb46-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">coord_flip</span>() <span class="sc">+</span></span>
+<span id="cb46-5"><a href="#cb46-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Top Positive, Negative, and Neutral Sentiments"</span>,</span>
+<span id="cb46-6"><a href="#cb46-6" aria-hidden="true" tabindex="-1"></a>       <span class="at">x =</span> <span class="st">"Comments"</span>,</span>
+<span id="cb46-7"><a href="#cb46-7" aria-hidden="true" tabindex="-1"></a>       <span class="at">y =</span> <span class="st">"Sentiment Score"</span>,</span>
+<span id="cb46-8"><a href="#cb46-8" aria-hidden="true" tabindex="-1"></a>       <span class="at">fill =</span> <span class="st">"Sentiment Category"</span>) <span class="sc">+</span>  </span>
+<span id="cb46-9"><a href="#cb46-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_fill_manual</span>(<span class="at">values =</span> <span class="fu">c</span>(<span class="st">"Positive"</span> <span class="ot">=</span> <span class="st">"limegreen"</span>, <span class="st">"Negative"</span> <span class="ot">=</span> <span class="st">"salmon"</span>, <span class="st">"Neutral"</span> <span class="ot">=</span> <span class="st">"skyblue"</span>)) <span class="sc">+</span></span>
+<span id="cb46-10"><a href="#cb46-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div id="fig-5" class="quarto-figure quarto-figure-center anchored">
+<figure class="figure">
+<p><img src="img/fig5.png" class="img-fluid figure-img"></p>
+<p></p><figcaption class="figure-caption"><strong>Figure</strong>&nbsp;5<strong>.</strong> Sentiment Bar Plot of Students’ Course Evaluation as Words</figcaption><p></p>
+</figure>
+</div>
+<p>By utilizing both sentence-level and word-level sentiment analysis techniques in R, educators and analysts can gain insights into the emotional responses and opinions expressed within textual data. These analyses empower informed decision-making and facilitate effective improvements in educational settings based on insights derived from student feedback.</p>
+</section>
+</section>
+</section>
+<section id="concluding-remarks" class="level2" data-number="4">
+<h2 data-number="4" class="anchored" data-anchor-id="concluding-remarks"><span class="header-section-number">4</span> Concluding remarks</h2>
+<p>Understanding the various textual elements within a LA context is pivotal to advancing educational technologies and enhancing data-informed decisions. This chapter discussed the advanced application of NLP techniques to analyze and interpret complex educational data. The application of methods such as text preprocessing, TF-IDF, topic modeling, text summarization, and sentiment analysis yields deeper insights into the patterns that are only available from textual data.</p>
+<p>The application of these NLP techniques allows educators to identify key words, themes, and inferred sentiment in data sources such as student feedback, course materials, reference documents, and other textual data, thereby facilitating more informed decision-making and teaching strategy development. For instance, analyzing sentiment in a large number of student feedback in large-scale settings such as massive open online courses can reveal attitudes towards course content without the need to manually inspect each and every data point; This application can aid in the refinement of pedagogical approaches. Similarly, topic modeling and text summarization can streamline curriculum design by distilling large volumes of text such as historical documents into manageable insights.</p>
+<p>Ultimately, the integration of NLP in learning analytics provides useful tools for understanding and enhancing the educational experience. These methods enable the extraction of information from unstructured data, offering new avenues for improving teaching strategies, supporting student learning, and optimizing educational outcomes. By employing these advanced NLP techniques, educational institutions can better navigate the complexities of modern education and foster environments conducive to effective learning and teaching.</p>
 
 
+</section>
+<section id="bibliography" class="level1 unnumbered">
+<h1 class="unnumbered">References</h1>
+<div id="refs" class="references csl-bib-body" role="doc-bibliography">
+<div id="ref-allen2022" class="csl-entry" role="doc-biblioentry">
+<div class="csl-left-margin">1. </div><div class="csl-right-inline">Gašević D, Merceron A (2022) <a href="https://doi.org/10.18608/hla22.005">Natural language processing: Towards a multi-dimensional view of the learning process</a>. In: Lang C, Siemens G, Wise AF (eds) 2nd ed. SOLAR, pp 46–53</div>
+</div>
+<div id="ref-bengfort2018" class="csl-entry" role="doc-biblioentry">
+<div class="csl-left-margin">2. </div><div class="csl-right-inline">Bengfort B, Bilbro R, Ojeda T (2018) Applied text analysis with python: Enabling language-aware data products with machine learning, First edition. O’Reilly Media, Inc, Sebastopol, CA</div>
+</div>
+<div id="ref-schopf2023" class="csl-entry" role="doc-biblioentry">
+<div class="csl-left-margin">3. </div><div class="csl-right-inline">Schopf T, Arabi K, Matthes F (2023) <a href="https://doi.org/10.26615/978-954-452-092-2_111">Exploring the landscape of natural language processing research</a>. pp 1034–1045</div>
+</div>
+<div id="ref-feinerer2008" class="csl-entry" role="doc-biblioentry">
+<div class="csl-left-margin">4. </div><div class="csl-right-inline">Feinerer I, Hornik K, Meyer D (2008) Text mining infrastructure in r. Journal of Statistical Software 25:154. https://doi.org/<a href="https://doi.org/10.18637/jss.v025.i05">10.18637/jss.v025.i05</a></div>
+</div>
+<div id="ref-feinerer2024" class="csl-entry" role="doc-biblioentry">
+<div class="csl-left-margin">5. </div><div class="csl-right-inline">Feinerer I, Hornik K (2024) <a href="https://CRAN.R-project.org/package=tm">Tm: Text mining package</a></div>
+</div>
+<div id="ref-silge2016" class="csl-entry" role="doc-biblioentry">
+<div class="csl-left-margin">6. </div><div class="csl-right-inline">Silge J, Robinson D (2016) Tidytext: Text mining and analysis using tidy data principles in r. JOSS 1: https://doi.org/<a href="https://doi.org/10.21105/joss.00037">10.21105/joss.00037</a></div>
+</div>
+<div id="ref-grün2011" class="csl-entry" role="doc-biblioentry">
+<div class="csl-left-margin">7. </div><div class="csl-right-inline">Grün B, Hornik K (2011) Topicmodels: An r package for fitting topic models. Journal of Statistical Software 40:130. https://doi.org/<a href="https://doi.org/10.18637/jss.v040.i13">10.18637/jss.v040.i13</a></div>
+</div>
+<div id="ref-grün2024" class="csl-entry" role="doc-biblioentry">
+<div class="csl-left-margin">8. </div><div class="csl-right-inline">Grün B, Hornik K (2024) <a href="https://CRAN.R-project.org/package=topicmodels">Topicmodels: Topic models</a></div>
+</div>
+<div id="ref-spannbauer2019" class="csl-entry" role="doc-biblioentry">
+<div class="csl-left-margin">9. </div><div class="csl-right-inline">Spannbauer A (2019) <a href="https://CRAN.R-project.org/package=lexRankr">lexRankr: Extractive summarization of text with the LexRank algorithm</a></div>
+</div>
+<div id="ref-rinker2021" class="csl-entry" role="doc-biblioentry">
+<div class="csl-left-margin">10. </div><div class="csl-right-inline">Rinker TW (2021) <a href="https://github.com/trinker/sentimentr">Sentimentr: Calculate text polarity sentiment</a>. Buffalo, New York</div>
+</div>
+<div id="ref-bird2009" class="csl-entry" role="doc-biblioentry">
+<div class="csl-left-margin">11. </div><div class="csl-right-inline">Bird S, Klein E, Loper E (2009) <a href="https://www.nltk.org/book/">Natural language processing with Python: Analyzing text with the natural language toolkit</a>. O’Reilly Media, Inc.</div>
+</div>
+<div id="ref-ramos2003" class="csl-entry" role="doc-biblioentry">
+<div class="csl-left-margin">12. </div><div class="csl-right-inline">Ramos J (2003) Proceedings of the first instructional conference on machine learning</div>
+</div>
+<div id="ref-blei2003" class="csl-entry" role="doc-biblioentry">
+<div class="csl-left-margin">13. </div><div class="csl-right-inline">Blei DM (2003) Latent dirichlet allocation. Journal of Machine Learning Researc 3:993–1022</div>
+</div>
+<div id="ref-sharma2023" class="csl-entry" role="doc-biblioentry">
+<div class="csl-left-margin">14. </div><div class="csl-right-inline">Sharma A (2023) <a href="https://keras.io/examples/nlp/abstractive_summarization_with_bart/">Abstractive text summarization with BART</a></div>
+</div>
+<div id="ref-rahimi2017" class="csl-entry" role="doc-biblioentry">
+<div class="csl-left-margin">15. </div><div class="csl-right-inline">Rahimi SR, Mozhdehi AT, Abdolahi M (2017) <a href="https://doi.org/10.1109/KBEI.2017.8324874">An overview on extractive text summarization</a>. pp 0054–0062</div>
+</div>
+<div id="ref-santoshkumar2021" class="csl-entry" role="doc-biblioentry">
+<div class="csl-left-margin">16. </div><div class="csl-right-inline">Santosh Kumar P, Yadav RB, Dhavale SV (2021) <a href="http://link.springer.com/10.1007/978-981-15-5113-0_41">A comparison of pre-trained word embeddings for sentiment analysis using deep learning</a>. In: Gupta D, Khanna A, Bhattacharyya S, Hassanien AE, Anand S, Jaiswal A (eds). Springer Singapore, Singapore, pp 525–537</div>
+</div>
+<div id="ref-hutto2014" class="csl-entry" role="doc-biblioentry">
+<div class="csl-left-margin">17. </div><div class="csl-right-inline">Hutto C, Gilbert E (2014) <a href="https://github.com/cjhutto/vaderSentiment">Eighth International Conference on Weblogs and Social Media (ICWSM-14)</a>. Ann Arbor, MI</div>
+</div>
+<div id="ref-pennington2014" class="csl-entry" role="doc-biblioentry">
+<div class="csl-left-margin">18. </div><div class="csl-right-inline">Pennington J, Socher R, Manning C (2014) <a href="https://doi.org/10.3115/v1/D14-1162">Proceedings of the 2014 Conference on Empirical Methods in Natural Language Processing (EMNLP)</a>. Association for Computational Linguistics, Doha, Qatar, pp 1532–1543</div>
+</div>
+<div id="ref-li2021" class="csl-entry" role="doc-biblioentry">
+<div class="csl-left-margin">19. </div><div class="csl-right-inline">Li C, Xing W (2021) Natural language generation using deep learning to support MOOC learners. International Journal of Artificial Intelligence in Education 31:186–214. https://doi.org/<a href="https://doi.org/10.1007/s40593-020-00235-x">10.1007/s40593-020-00235-x</a></div>
+</div>
+<div id="ref-hattie2007" class="csl-entry" role="doc-biblioentry">
+<div class="csl-left-margin">20. </div><div class="csl-right-inline">Hattie J, Timperley H (2007) The power of feedback. Review of Educational Research 77:81–112. https://doi.org/<a href="https://doi.org/10.3102/003465430298487">10.3102/003465430298487</a></div>
+</div>
+<div id="ref-wongvorachan2022" class="csl-entry" role="doc-biblioentry">
+<div class="csl-left-margin">21. </div><div class="csl-right-inline">Wongvorachan T, Lai KW, Bulut O, Tsai Y-S, Chen G (2022) Artificial intelligence: Transforming the future of feedback in education. Journal of Applied Testing Technology 95116</div>
+</div>
+<div id="ref-knight2020" class="csl-entry" role="doc-biblioentry">
+<div class="csl-left-margin">22. </div><div class="csl-right-inline">Knight S, Shibani A, Abel S, Gibson A, Ryan P, Sutton N, Wight R, Lucas C, Sándor Á, Kitto K, Liu M, Mogarkar RV, Buckingham Shum S (2020) AcaWriter: A learning analytics tool for formative feedback on academic writing. Journal of Writing Research 12:141–186. https://doi.org/<a href="https://doi.org/10.17239/jowr-2020.12.01.06">10.17239/jowr-2020.12.01.06</a></div>
+</div>
+<div id="ref-ötles2021" class="csl-entry" role="doc-biblioentry">
+<div class="csl-left-margin">23. </div><div class="csl-right-inline">Ötleş E, Kendrick DE, Solano QP, Schuller M, Ahle SL, Eskender MH, Carnes E, George BC (2021) Using natural language processing to automatically assess feedback quality: Findings from 3 surgical residencies. Academic Medicine 96:1457–1460. https://doi.org/<a href="https://doi.org/10.1097/ACM.0000000000004153">10.1097/ACM.0000000000004153</a></div>
+</div>
+<div id="ref-goddard2021" class="csl-entry" role="doc-biblioentry">
+<div class="csl-left-margin">24. </div><div class="csl-right-inline">Goddard W (2021) <a href="https://itchronicles.com/natural-language-processing-nlp/natural-language-processing-in-education/">Natural language processing in education</a></div>
+</div>
+<div id="ref-ezen-can2015" class="csl-entry" role="doc-biblioentry">
+<div class="csl-left-margin">25. </div><div class="csl-right-inline">Ezen-Can A, Boyer KE, Kellogg S, Booth S (2015) <a href="https://doi.org/10.1145/2723576.2723589">Unsupervised modeling for understanding MOOC discussion forums: A learning analytics approach</a>. Association for Computing Machinery, New York, NY, USA, p 146150</div>
+</div>
+<div id="ref-derntl2013" class="csl-entry" role="doc-biblioentry">
+<div class="csl-left-margin">26. </div><div class="csl-right-inline">Derntl M, Günnemann N, Klamma R (2013) A dynamic topic model of learning analytics research. Citeseer</div>
+</div>
+<div id="ref-yaneva2023" class="csl-entry" role="doc-biblioentry">
+<div class="csl-left-margin">27. </div><div class="csl-right-inline">Yaneva V, Baldwin P, Le An H, Runyon C (2023) <a href="https://DOI: 10.4324/9781003278658-14">Extracting linguistic signal from item text and its application to modeling item characteristics</a>. In: Yaneva V, Davier M von (eds). Routledge, New York, p 167182</div>
+</div>
+<div id="ref-lee2023" class="csl-entry" role="doc-biblioentry">
+<div class="csl-left-margin">28. </div><div class="csl-right-inline">Lee S-M (2023) The effectiveness of machine translation in foreign language education: A systematic review and meta-analysis. Computer Assisted Language Learning 36:103–125. https://doi.org/<a href="https://doi.org/10.1080/09588221.2021.1901745">10.1080/09588221.2021.1901745</a></div>
+</div>
+<div id="ref-wickham2016" class="csl-entry" role="doc-biblioentry">
+<div class="csl-left-margin">29. </div><div class="csl-right-inline">Wickham H, Grolemund G (2016) R for data science: Import, tidy, transform, visualize, and model data, First edition. O’Reilly, Sebastopol, CA</div>
+</div>
+<div id="ref-neishabouri2020" class="csl-entry" role="doc-biblioentry">
+<div class="csl-left-margin">30. </div><div class="csl-right-inline">Neishabouri A, Desmarais MC (2020) Reliability of perplexity to find number of latent topics</div>
+</div>
+</div>
+</section>
 
 </main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
