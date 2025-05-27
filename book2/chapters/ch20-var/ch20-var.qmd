@@ -248,7 +248,7 @@ As we said before, the output of the `mlGraphicalVAR` model includes several com
 
 The code below applies the de-trending function to assess any trends in the data for each person and in case they are present, the functions de-trends these variables. Then, `mlGraphicalVAR` is used to estimate the models as explained above, one for each person.
 
-```{r include=FALSE, cache = TRUE}
+```{r,  warning=F, message = F, results = F, cache = TRUE}
 detrended <- detrender(data = df, vars = Vars, timevar = "Day", groupvar = "name")
 
 # Fit the mlgraphicalVAR model to the data from 'all students with 'lambda_beta' to 0.1 to apply moderate regularization 
