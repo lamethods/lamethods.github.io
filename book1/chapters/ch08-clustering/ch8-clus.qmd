@@ -770,6 +770,21 @@ silhouettes <- data.frame(K=2:K,
 
 In @fig-silall, we plot these silhouettes against $K$ using `matplot()`, omitting the code to do so for brevity.
 
+```{r}
+silhouettes_long <- silhouettes |>
+  pivot_longer(cols = -K, names_to = "Method", values_to = "ASW")
+
+ggplot(silhouettes_long, aes(x = K, y = ASW, color = Method)) +
+  geom_line(size = 1) +
+  geom_point(size = 2) +
+  labs(title = "Average Silhouette Width (ASW) by Clustering Method and K",
+       x = "Number of Clusters (K)",
+       y = "Average Silhouette Width (ASW)",
+       color = "Clustering Method") +
+  theme_minimal() +
+  theme(legend.position = "bottom")
+```
+
 ```{r, echo=FALSE, fig.height=4.125, fig.width=5.5}
 #| label: "fig-silall"
 #| fig-cap: "ASW criterion values plotted against $K$ for $K$-Means, $K$-medoids (with the Euclidean, Manhattan, Minkowski ($p=3$), and Gower distances), and agglomerative hierarchical clustering based on Euclidean distance and the Ward criterion."
