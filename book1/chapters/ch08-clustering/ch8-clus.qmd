@@ -698,7 +698,7 @@ Thereafter, one simply extracts the resulting partition by invoking `cutree()` w
 hc_ward2 <- cutree(hc_euclidean_ward, h=45)
 ```
 
-The object `hc_ward2` is now simply an vector indicating the cluster-membership of each observation in the data set. We show only the first few, for brevity, and then tabulate this vector to compute the cluster sizes. However, interpretation of these clusters is more difficult than in the case of $K$-Means and $K$-Medoids, as there is no centroid or medoid prototype with which to characterise each cluster.
+The object `hc_ward2` is now simply a vector indicating the cluster-membership of each observation in the data set. We show only the first few, for brevity, and then tabulate this vector to compute the cluster sizes. However, interpretation of these clusters is more difficult than in the case of $K$-Means and $K$-Medoids, as there is no centroid or medoid prototype with which to characterise each cluster.
 
 ```{r}
 head(hc_ward2)
