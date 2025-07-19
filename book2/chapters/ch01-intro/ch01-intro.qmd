@@ -109,21 +109,21 @@ achievers or potential dropouts. The chapter begins by illustrating the
 process with a Random Forest classifier, relying on engagement
 indicators to distinguish between high and low achievers. It covers the
 entire modeling workflow, including data preparation, model training,
-and evaluation with performance metrics, and Goes beyond the classic ML
+and evaluation with performance metrics, and goes beyond the classic ML
 prediction algorithms. Chapter 5 [@Li_Han_Guo_Wu_2025] introduces
 advanced regularization techniques—Least Absolute Shrinkage and
 Selection Operator (LASSO), Smoothly Clipped Absolute Deviation (SCAD),
 and Minimax Concave Penalty (MCP)—to construct predictive models. These
-methods are particularly useful when dealing with a large number of
+methods are useful when dealing with a large number of
 potential predictors, enabling the selection of the most relevant
 variables to create effective and interpretable models. As such, Chapter
-5 is particularly useful in scenarios with complex and high-dimensional
+5 is useful in scenarios with complex and high-dimensional
 data.
 
 The focus is then shifted to XAI as a solution to address some of the
 issues that arise from applying AI in
 education [@Saqr_López-Pernas_2024b]. A key barrier to AI adoption is
-the "opaque" nature of many ML models, which can —and actually do—
+the "opaque" nature of many ML models, which can —and actually does—
 hinder trust, fairness, and accountability. To address this issue,
 explainability methods are essential for making predictions —such as
 identifying at-risk students, grading essays, or detecting plagiarism—
@@ -143,7 +143,7 @@ and explores three widely used techniques: Break Down plots, SHAP
 (SHapley Additive exPlanations), and LIME (Local Interpretable
 Model-agnostic Explanations).
 
-These techniques are essential to understand why a certain decision has
+The aforementioned techniques are essential to understand why a certain decision has
 been made, e.g., why a student has been flagged as “at-risk”, why an
 essay has been marked as “excellent”, or why an assignment has been
 labeled as “plagiarized”.
@@ -444,8 +444,7 @@ actionable insights.
 
 To address this challenge, recent advancements in AI, particularly LLMs,
 have demonstrated significant potential in automating the interpretation
-of unstructured data [@Oliveira_Song_Saqr_López-Pernas_2025]. These
-models can extract meaningful patterns from text and synthesize
+of unstructured data [@Oliveira_Song_Saqr_López-Pernas_2025]. LLMs can extract meaningful patterns from text and synthesize
 multimodal information. Some chapters of the book deal with the problem
 of automatically synthesizing or coding textual
 information [@López-Pernas_Misiejuk_Saqr_2025;@Wongvorachan_Bulut_2025a].
@@ -498,7 +497,7 @@ instance, learning analytics enhanced learning platforms like LEAF
 automatically conduct statistical modeling to extract the effectiveness
 of teaching-learning cases  [@Kuromiya_Majumdar_Ogata_2020] and
 extract students' learning patterns  [@Yang_Chen_Ogata_2021] to aim
-for precision education. One particularly promising direction is the
+for precision education. One  promising direction is the
 development of hybrid human-AI systems that combine the computational
 power and pattern recognition capabilities of AI with the contextual
 understanding, ethical judgment, and adaptability of human
@@ -539,12 +538,12 @@ plots to help interpret and communicate findings effectively. You can
 access the companion code repository at:
 
 
-\faGithub{} [https://github.com/lamethods/data2](https://github.com/lamethods/data2) 
+\faGithub{} [https://github.com/lamethods/code2](https://github.com/lamethods/code2) 
 
 Moreover, the data used to demonstrate the methods in most of the
 chapters have been made available in the following repository:
 
-\faGithub{} [https://github.com/lamethods/code2](https://github.com/lamethods/code2)  
+\faGithub{} [https://github.com/lamethods/data2](https://github.com/lamethods/data2)  
 
 
 

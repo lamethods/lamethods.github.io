@@ -90,7 +90,7 @@ component-dominant structure. In component-dominant structures, the
 components themselves in their accumulation, are assumed to define the
 behavior of the system [@López-Pernas_Saqr_2024]. Therefore, the
 focus in complex systems shifts from analyzing components in isolation
-to the whole system and to understanding the interactions between them
+to the whole system  to understanding the interactions between them
 [@Hilpert_Marchand_2018;@Saqr_Schreuder_López-Pernas_2024]. The
 effects of interactions—rather than the individual components
 themselves—become more significant in determining the system's behavior.
@@ -158,7 +158,7 @@ progresses, regresses or interacts with the context and environment.
 These dynamical aspects, while prevalent in our theories and practice,
 have remained hardly straightforward to capture with existing methods or
 interpret with existing theoretical frameworks. Recently, serious work
-has been done to renew theories within CDS see for instance
+has been done to renew theories within CDS; see, for instance, 
 [@Symonds_Kaplan_Upadyaya_Aro_Torsney_Skinner_Eccles_2024].
 
 Using a CDS lens has resulted in significant breakthroughs in other

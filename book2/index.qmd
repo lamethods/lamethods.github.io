@@ -24,7 +24,7 @@ include-after-body:
 
 <img src="cover2.jpg" alt="Cover"  style="float:left;max-width: min(100%,17em);margin: 0px 20px 0px 0px;">
 <p>
-This is the website for the book **“Advanced learning analytics methods: AI, precision and complexity”** which will be published by Springer in 2025.
+This is the website for the book **“Advanced learning analytics methods: AI, precision and complexity”** which will be published by [Springer](https://link.springer.com/book/9783031953644) in 2025.
 </p>
 
 

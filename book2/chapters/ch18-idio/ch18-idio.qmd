@@ -59,7 +59,7 @@ individualized learning, nor can it account for the complexity of
 learning or individual differences
 [@Jovanović_Saqr_Joksimović_Gašević_2021].
 
-In garish contrast to the one-size-fits-all approach, person-specific
+In stark contrast to the one-size-fits-all approach, person-specific
 methods aim to precisely model each individual, from their own data,
 find the distinct unique peculiarities of each, and tailor models to
 their own needs to deliver accurate and adaptive learning experiences
@@ -111,7 +111,7 @@ represents the summary or the average level of engagement that most
 students are assumed to revolve around
 [@Beltz_Wright_Sprague_Molenaar_2016;@Molenaar_Campbell_2009;@Saqr_Schreuder_López-Pernas_2024].
 
-![The nomothetic approach (A) focuses on between-person variability where data is collected from a group of different people to create a cross-section average. The within-person approach focuses on within-person variability where data is collected from the same people several times and variance is computed compared to the same person's previous state (note the arrows directions), still we get the average of many people (B). The idiographic approach focuses on within-person variability of a single person and each is studied separately (C).](image1.png){#fig-nomothetic width=5.5in}
+![The nomothetic approach (A) focuses on between-person variability where data is collected from a group of different people to create a cross-section average. The within-person approach focuses on within-person variability where data is collected from the same people several times and variance is computed compared to the same person's previous state (note the arrow directions), still we get the average of many people (B). The idiographic approach focuses on within-person variability of a single person and each is studied separately (C).](image1.png){#fig-nomothetic width=5.5in}
 
 
 Similarly, the variable-centered approach is another type of
@@ -160,13 +160,13 @@ that affect them [@Saqr_2024]. We can also identify the patterns and
 trends within the person, highlighting how different contexts or
 situations can impact the person’s behavior. To summarize, the
 within-person approach collects data from a person or multiple persons
-over several time points, and analyses how variables change within
+over several time points, and analyzes how variables change within
 individuals over time.
 
 When within-person research addresses a single person, it is referred to
 as idiographic (N=1 or single subject)
 [@Beck_Jackson_2021a;@López-Pernas_Kayaduman_Vogelsmeier_Saqr_2025;@Saqr_Dever_López-Pernas_2025;@Saqr_Tlili_López-Pernas_2025].
-**One** can say that it is a special case of within-person analysis and
+One can say that it is a special case of within-person analysis and
 in fact, the dominant one. As shown in @fig-nomothetic C, idiographic research
 collects data from a single person and seeks to give person-specific
 insights about that exact person
@@ -176,7 +176,7 @@ and every person separately as a whole unit of analysis. Therefore,
 findings through idiographic methods cannot be expected to generalize to
 other persons.
 
-It is worth mentioning that not all within-person-analysis is
+It is worth mentioning that not all within-person analysis is
 idiographic, some of it averages across students to create average
 within-person variance and therefore, it is not idiographic (because we
 have data from more than one student).
@@ -206,7 +206,7 @@ A key theoretical framework to understand the between/within-person
 mechanisms is the theory of ergodicity
 [@Molenaar_2004;@Molenaar_Campbell_2009]. In short, a group-level
 variance of a variable (e.g., motivation) generalizes to an
-individual-level trend if and only the variable meets the ergodicity
+individual-level trend if and only if the variable meets the ergodicity
 conditions [@Molenaar_Campbell_2009;@Piccirillo_Rodebaugh_2019].
 
 1.  **Homogeneity** means people are similar or homogeneous with no
@@ -231,7 +231,7 @@ in particular
 
 Ecological fallacy refers to the logical error of biased inferences
 about individuals based on aggregate data from groups or populations. In
-other words, thinking that between-person transfers ***as is*** at an
+other words, thinking that between-person transfers as-is at an
 individual level. This fallacy occurs when researchers assume that the
 observed relationships at the group level hold true for all individuals
 within that group, leading to potentially misleading conclusions
@@ -261,7 +261,7 @@ To grasp the idea of ecological fallacy even more, let us consider the
 following scenario, known as Simpson’s paradox
 [@Kievit_Frankenhuis_Waldorp_Borsboom_2013]. Simpson’s paradox
 occurs when the direction of a relationship at the group-level is the
-opposite than at the person-level, e.g., increases on average and
+opposite of that at the person-level, e.g., increases on average and
 decreases for the individual.
 
 @fig-homework shows the simulated relationship between homework scores and
@@ -594,7 +594,7 @@ such types of data for within-person, idiographic analysis.
 
 The most classical —yet still impactful— method for within-person
 analysis is the P-technique. The original P-technique developed in
-1940’s is essentially a factor analysis applied to data obtained from a
+1940s is essentially a factor analysis applied to data obtained from a
 single individual, while to date several extensions have been proposed
 to deal with more nuanced information of temporal changes. The factor
 analysis approach has an advantage over other network analysis

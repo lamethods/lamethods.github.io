@@ -22,10 +22,10 @@ extract-media: "img"
 
 ## **Introduction**
 
-AI has a long and rich history in education. In fact, artificial
-intelligence in education predates several other technologies and
-disciplines e.g., online learning. Among the first examples of
-artificial intelligence applications in education is the creation of the
+Artificial intelligence (AI) has a long and rich history in education. 
+In fact, AI in education predates several other technologies and
+disciplines, e.g., online learning. Among the first examples of
+AI applications in education is the creation of the
 PLATO system at the University of Illinois around the 1960s which
 allowed for interactive learning and automated feedback
 [@Cope_Kalantzis_2023]. While PLATO was limited in scope, it laid
@@ -35,8 +35,8 @@ importantly, interest started to grow in developing intelligent tutoring
 systems (ITS) and AI powered educational solutions
 [@Cope_Kalantzis_2023].
 
-However, it was not until the early 1980s when the field of artificial
-intelligence in education saw its major milestone with the launch of the
+However, it was not until the early 1980s when the field of AI in education 
+saw its major milestone with the launch of the
 first International Conference on Artificial Intelligence in Education
 (AIED) which was held in Montreal [@Chaudhry_Kazim_2022]. AIED
 conference brought together researchers from both AI and educational
@@ -46,7 +46,7 @@ the fields of AI and education, which led to several significant
 developments in intelligent tutoring systems, adaptive learning
 technologies, and educational software [@Guan_Mou_Jiang_2020].
 
-The last two decades have witnessed several remarkable and fast paced
+The last two decades have witnessed several remarkable and fast-paced
 developments in the field of AIED fueled by the rapid adoption of the
 internet, the increase in computation power and advances in methodology
 [@Mustafa_Tlili_Lampropoulos_Huang_Jandrić_Zhao_Salha_Xu_Panda_Kinshuk_et_al_2024]. Such advances led to the birth of learning analytics as a
@@ -91,11 +91,11 @@ trust these technologies
 Moreover, the adoption of fairness-aware machine learning practices and
 inclusive design principles can help mitigate biases, ensuring that
 AI-driven solutions support equitable outcomes for all learners. These
-considerations are particularly relevant when it comes to personalized
+considerations are relevant when it comes to personalized
 education, where the promise of tailored interventions must be balanced
 with a commitment to fairness and transparency.
 
-This chapter explores the current state of artificial intelligence in
+This chapter explores the current state of AI in
 education, as well as explainable AI (XAI). AI and XAI techniques and
 tools are illustrated in the subsequent tutorials in the book and this
 chapter provides an introduction for the reader to have an overarching
@@ -131,7 +131,7 @@ individual learners’ needs, preferences, and readiness, and it can be
 implemented through various methods and technologies
 [@Taylor_Yeung_Bashet_2021]. For example, adaptive systems
 implement personalized learning by constructing a model of each learner
-using artificial intelligence and machine learning as well as continuous
+using AI and machine learning as well as continuous
 data collection of students’ activities and performance
 [@Taylor_Yeung_Bashet_2021]. According to Zhong [@Zhong_2023],
 personalized learning has been mainly implemented through learning
@@ -172,7 +172,7 @@ security [@Andrejevic_Selwyn_2020]. Furthermore, the accuracy of
 emotion recognition algorithms and the potential for cultural or
 individual biases remain critical challenges to address.
 
-### Intelligent tutoring systems ITS)
+### Intelligent tutoring systems (ITS)
 
 Closely related to adaptive systems are Intelligent Tutoring Systems
 (ITSs). ITSs use AI techniques to provide personalized tutoring based on
@@ -300,7 +300,7 @@ facial recognition systems [@McCallum_2024], exposing the urgent need
 to address the unintended consequences of AI in our daily lives. These
 incidents highlight not only the limitations of AI but also the opaque
 nature of many of these systems, which makes identifying and mitigating
-bias a significant challenge. Explainable AI (XAI) emerges as a
+bias a significant challenge. XAI emerges as a
 promising solution to shed light on the 'black box' of AI
 decision-making. In a nutshell, XAI can be defined as a set of methods
 and tools that enables humans to understand the outcomes of AI models
@@ -378,7 +378,7 @@ predict students’ grades.
 
 :::
 
-In education, intrinsically explainable algorithms are particularly
+In education, intrinsically explainable algorithms are 
 valuable when transparency is a priority. For instance, a linear or
 logistic regression model predicting a student’s grade based on
 attendance and participation provides a clear and intuitive explanation
@@ -775,7 +775,7 @@ problematic conclusions. Such an approach would improve the reliability
 of AI predictions and also ensure that AI serves as an aid rather than a
 substitute for human expertise. It also further emphasizes the central
 role of critical AI literacy where AI decisions are understood and
-cortically evaluated.
+critically evaluated.
 
 ### Evaluative AI: A New Perspective on XAI
 
@@ -806,7 +806,7 @@ importance of developing students’ evaluative judgment —the ability to
 appraise AI outputs and processes critically. Evaluative AI can not only
 enhance transparency but also support the critical engagement required
 for students and educators to maintain autonomy over AI-augmented
-decisions.Advocates for evaluative AI recognize, however, that
+decisions. Advocates for evaluative AI recognize, however, that
 this novel paradigm poses an additional cognitive load on the
 decision-makers compared with usual XAI recommendation-driven outputs,
 although not as much as having no explanations whatsoever
@@ -823,7 +823,7 @@ decision-making based on evaluative AI is easy to envision for classic
 regression or classification models in which the outcome is heavily
 constrained, it is not as straightforward to picture in the context of
 generative AI where the possibilities are endless and therefore the need
-for users’ evaluative judgmentis greater
+for users’ evaluative judgment is greater
 [@Bearman_Tai_Dawson_Boud_Ajjawi_2024].
 
 ## Conclusion
