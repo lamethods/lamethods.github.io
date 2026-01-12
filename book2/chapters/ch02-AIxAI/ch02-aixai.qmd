@@ -18,6 +18,10 @@ keywords: "artificial intelligence, explainable AI, education, learning analytic
 dpi: 900
 bibliography: ./references.bib
 extract-media: "img"
+citation:
+    page: "17-39"
+    doi: "10.1007/978-3-031-95365-1_2"
+
 ---
 
 ## **Introduction**

@@ -122,7 +122,10 @@ cookieconsent.run({
 <meta name="citation_author" content="Hibiki Ito">
 <meta name="citation_author" content="Sonsoles López-Pernas">
 <meta name="citation_fulltext_html_url" content="https://lamethods.github.io/ch18-idio.html">
+<meta name="citation_doi" content="10.1007/978-3-031-95365-1_18">
 <meta name="citation_language" content="en">
+<meta name="citation_firstpage" content="521">
+<meta name="citation_lastpage" content="545">
 <meta name="citation_reference" content="citation_title=Smartphone-tracked digital markers of momentary subjective stress in college students: Idiographic machine learning analysis;,citation_author=George Aalbers;,citation_author=Andrew T. Hendrickson;,citation_author=Mariek Mp Vanden Abeele;,citation_author=Loes Keijsers;,citation_publication_date=2023-03;,citation_cover_date=2023-03;,citation_year=2023;,citation_issn=2291-5222;,citation_volume=11;,citation_journal_title=JMIR mHealth and uHealth;,citation_publisher=JMIR Publications Inc.;">
 <meta name="citation_reference" content="citation_title=Past, present, and future directions of learning analytics research for students with disabilities;,citation_author=Clare Baek;,citation_author=Stephen J. Aguilar;,citation_publication_date=2023-11;,citation_cover_date=2023-11;,citation_year=2023;,citation_issue=6;,citation_issn=1539-1523;,citation_volume=55;,citation_journal_title=Journal of research on technology in education;,citation_publisher=Informa UK Limited;">
 <meta name="citation_reference" content="citation_title=Why can’t we be more idiographic in our research?;,citation_author=David H. Barlow;,citation_author=Matthew K. Nock;,citation_publication_date=2009-01;,citation_cover_date=2009-01;,citation_year=2009;,citation_issue=1;,citation_issn=1745-6916;,citation_volume=4;,citation_journal_title=Perspectives on psychological science: a journal of the Association for Psychological Science;,citation_publisher=SAGE Publications;">
@@ -393,7 +396,7 @@ cookieconsent.run({
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../chapters/ch19-three-levels/ch19-three-levels.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">19</span>&nbsp; <span class="chapter-title">Heterogeneity</span></a>
+  <a href="../../chapters/ch19-three-levels/ch19-three-levels.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">19</span>&nbsp; <span class="chapter-title">Three levels of analysis</span></a>
   </div>
 </li>
           <li class="sidebar-item">
@@ -1022,7 +1025,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
   </div>
   <div class="nav-page nav-page-next">
       <a href="../../chapters/ch19-three-levels/ch19-three-levels.html" class="pagination-link">
-        <span class="nav-page-text"><span class="chapter-number">19</span>&nbsp; <span class="chapter-title">Heterogeneity</span></span> <i class="bi bi-arrow-right-short"></i>
+        <span class="nav-page-text"><span class="chapter-number">19</span>&nbsp; <span class="chapter-title">Three levels of analysis</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>
@@ -1033,7 +1036,11 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
   </div>
 </footer>
 <script>
-  document.querySelector(".quarto-title").innerHTML =  '<div class="badge bs-warning bg-warning text-dark" style="float:right;">Pre-print</div>' +  document.querySelector(".quarto-title").innerHTML
+  var authors = document.querySelectorAll('meta[name="author"]')
+  var firstpage = document.querySelector('meta[name="citation_firstpage"]').content
+  var lastpage = document.querySelector('meta[name="citation_lastpage"]').content
+  var doi = document.querySelector('meta[name="citation_doi"]').content
+  document.querySelector(".quarto-title").innerHTML =  `<div style="float:right;"><a target="_blank" href="https://link.springer.com/content/pdf/${doi}"><button class="btn btn-sm btn-outline-danger"><span class="bi-file-pdf"></span>&nbsp;PDF</button></a></div>`  + document.querySelector(".quarto-title").innerHTML
   var keywords = document.querySelector('meta[name="keywords"]')
   if (keywords && keywords.content) {
     document.getElementById("title-block-header").innerHTML = document.getElementById("title-block-header").innerHTML + 
@@ -1044,16 +1051,16 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
   function insertAfter(referenceNode, newNode) {
       referenceNode.parentNode.insertBefore(newNode, referenceNode.nextSibling);
   }
-  var authors = document.querySelectorAll('meta[name="author"]')
+
   if (authors) {
     var authorlist = Array.from(authors).map(e=>e.content).reduce((accum, curr) =>  accum + curr + ", ", "","").replace(/\,\s$/,"")
     var citt = `<div class="card border-primary mb-3" style=;">
       <div class="card-header bg-primary">To cite this chapter</div>
       <div class="card-body small">
-        <p class="card-text">${authorlist} (2025).
+        <p class="card-text">${authorlist} (2024).
         <b>${document.getElementsByClassName("chapter-title")[0].innerText}</b>. 
-        In M. Saqr & S. López-Pernas (Eds.), <i>Advanced Learning Analytics Methods: AI, Precision and Complexity</i> 
-        (in – press). Springer. <a href="${window.location.href}">${window.location.href}</a></p>
+        In M. Saqr & S. López-Pernas (Eds.), <i>Advanced Learning Analytics Methods: AI, Precision and Complexity</i>  &nbsp;
+         (pp. ${firstpage}-${lastpage}).Springer, Cham. doi: <a href="https://doi.org/${doi}">${doi}</a></p>
       </div>
     </div>`;
     insertAfter(document.getElementsByTagName("HEADER")[1],new DOMParser().parseFromString(citt, 'text/html').body.childNodes[0])

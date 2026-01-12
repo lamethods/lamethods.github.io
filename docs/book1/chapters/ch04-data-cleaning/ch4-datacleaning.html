@@ -1410,7 +1410,11 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
   </div>
 </footer>
 <script>
-  document.querySelector(".quarto-title").innerHTML =  /*'<div class="badge bs-warning bg-warning text-dark" style="float:right;">Pre-print</div>' + */ document.querySelector(".quarto-title").innerHTML
+  var authors = document.querySelectorAll('meta[name="author"]')
+  var firstpage = document.querySelector('meta[name="citation_firstpage"]').content
+  var lastpage = document.querySelector('meta[name="citation_lastpage"]').content
+  var doi = document.querySelector('meta[name="citation_doi"]').content
+  document.querySelector(".quarto-title").innerHTML =  `<div style="float:right;"><a target="_blank" href="https://link.springer.com/content/pdf/${doi}"><button class="btn btn-sm btn-outline-danger"><span class="bi-file-pdf"></span>&nbsp;PDF</button></a></div>`  + document.querySelector(".quarto-title").innerHTML
   var keywords = document.querySelector('meta[name="keywords"]')
   if (keywords && keywords.content) {
     document.getElementById("title-block-header").innerHTML = document.getElementById("title-block-header").innerHTML + 
@@ -1421,10 +1425,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
   function insertAfter(referenceNode, newNode) {
       referenceNode.parentNode.insertBefore(newNode, referenceNode.nextSibling);
   }
-  var authors = document.querySelectorAll('meta[name="author"]')
-  var firstpage = document.querySelector('meta[name="citation_firstpage"]').content
-  var lastpage = document.querySelector('meta[name="citation_lastpage"]').content
-  var doi = document.querySelector('meta[name="citation_doi"]').content
+  
   if (authors) {
     var authorlist = Array.from(authors).map(e=>e.content).reduce((accum, curr) =>  accum + curr + ", ", "","").replace(/\,\s$/,"")
     var citt = `<div class="card border-primary mb-3" style=;">

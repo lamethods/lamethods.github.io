@@ -20,6 +20,9 @@ editor: source
 bibliography: ../references.bib
 keep-tex: true
 extract-media: "img"
+citation:
+    page: "41-78"
+    doi: "10.1007/978-3-031-95365-1_3"
 ---
 
 ## Introduction

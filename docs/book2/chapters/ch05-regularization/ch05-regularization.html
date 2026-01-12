@@ -191,7 +191,10 @@ cookieconsent.run({
 <meta name="citation_author" content="Jiesi Guo">
 <meta name="citation_author" content="Jinran Wu">
 <meta name="citation_fulltext_html_url" content="https://lamethods.github.io/ch05-regularization.html">
+<meta name="citation_doi" content="10.1007/978-3-031-95365-1_5">
 <meta name="citation_language" content="en">
+<meta name="citation_firstpage" content="113">
+<meta name="citation_lastpage" content="134">
 <meta name="citation_reference" content="citation_title=Regression shrinkage and selection via the LASSO;,citation_author=Robert Tibshirani;,citation_publication_date=1996;,citation_cover_date=1996;,citation_year=1996;,citation_issue=1;,citation_volume=58;,citation_journal_title=Journal of the Royal Statistical Society Series B: Statistical Methodology;,citation_publisher=Oxford University Press;">
 <meta name="citation_reference" content="citation_title=Statistical learning with sparsity;,citation_author=Trevor Hastie;,citation_author=Robert Tibshirani;,citation_author=Martin Wainwright;,citation_publication_date=2015;,citation_cover_date=2015;,citation_year=2015;,citation_issue=143;,citation_volume=143;,citation_journal_title=Monographs on Statistics and Applied Probability;">
 <meta name="citation_reference" content="citation_title=Variable selection via nonconcave penalized likelihood and its oracle properties;,citation_author=Jianqing Fan;,citation_author=Runze Li;,citation_publication_date=2001;,citation_cover_date=2001;,citation_year=2001;,citation_issue=456;,citation_volume=96;,citation_journal_title=Journal of the American Statistical Association;,citation_publisher=Taylor &amp;amp;amp; Francis;">
@@ -425,7 +428,7 @@ cookieconsent.run({
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../chapters/ch19-three-levels/ch19-three-levels.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">19</span>&nbsp; <span class="chapter-title">Heterogeneity</span></a>
+  <a href="../../chapters/ch19-three-levels/ch19-three-levels.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">19</span>&nbsp; <span class="chapter-title">Three levels of analysis</span></a>
   </div>
 </li>
           <li class="sidebar-item">
@@ -710,7 +713,7 @@ Check out our previous book! <br> <a href="../../../book1/index.html"><img src="
 <div class="cell-output-display">
 <div id="fig-cert-rates" class="quarto-figure quarto-figure-center anchored">
 <figure class="figure">
-<p><img src="img/ch05-regularization_files/figure-html/fig-cert-rates-1.png" class="img-fluid figure-img" width="960"></p>
+<p><img src="img/ch05-regularization_files/figure-html/fig-cert-rates-1.png" class="img-fluid figure-img" width="7200"></p>
 <p></p><figcaption class="figure-caption"><strong>Figure</strong>&nbsp;1<strong>.</strong> The visualization of the certification rates by course, gender, and exploration status</figcaption><p></p>
 </figure>
 </div>
@@ -766,7 +769,7 @@ Check out our previous book! <br> <a href="../../../book1/index.html"><img src="
 <div class="cell-output-display">
 <div id="fig-boxplot" class="quarto-figure quarto-figure-center anchored">
 <figure class="figure">
-<p><img src="img/ch05-regularization_files/figure-html/fig-boxplot-1.png" class="img-fluid figure-img" width="480"></p>
+<p><img src="img/ch05-regularization_files/figure-html/fig-boxplot-1.png" class="img-fluid figure-img" width="5400"></p>
 <p></p><figcaption class="figure-caption"><strong>Figure</strong>&nbsp;2<strong>.</strong> The visualization of the certification outcomes by <code>nevents</code>, <code>ndays_act</code>, <code>nchapters</code>, <code>nplay_video</code>, and <code>nforum_posts</code></figcaption><p></p>
 </figure>
 </div>
@@ -1662,7 +1665,11 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
   </div>
 </footer>
 <script>
-  document.querySelector(".quarto-title").innerHTML =  '<div class="badge bs-warning bg-warning text-dark" style="float:right;">Pre-print</div>' +  document.querySelector(".quarto-title").innerHTML
+  var authors = document.querySelectorAll('meta[name="author"]')
+  var firstpage = document.querySelector('meta[name="citation_firstpage"]').content
+  var lastpage = document.querySelector('meta[name="citation_lastpage"]').content
+  var doi = document.querySelector('meta[name="citation_doi"]').content
+  document.querySelector(".quarto-title").innerHTML =  `<div style="float:right;"><a target="_blank" href="https://link.springer.com/content/pdf/${doi}"><button class="btn btn-sm btn-outline-danger"><span class="bi-file-pdf"></span>&nbsp;PDF</button></a></div>`  + document.querySelector(".quarto-title").innerHTML
   var keywords = document.querySelector('meta[name="keywords"]')
   if (keywords && keywords.content) {
     document.getElementById("title-block-header").innerHTML = document.getElementById("title-block-header").innerHTML + 
@@ -1673,16 +1680,16 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
   function insertAfter(referenceNode, newNode) {
       referenceNode.parentNode.insertBefore(newNode, referenceNode.nextSibling);
   }
-  var authors = document.querySelectorAll('meta[name="author"]')
+
   if (authors) {
     var authorlist = Array.from(authors).map(e=>e.content).reduce((accum, curr) =>  accum + curr + ", ", "","").replace(/\,\s$/,"")
     var citt = `<div class="card border-primary mb-3" style=;">
       <div class="card-header bg-primary">To cite this chapter</div>
       <div class="card-body small">
-        <p class="card-text">${authorlist} (2025).
+        <p class="card-text">${authorlist} (2024).
         <b>${document.getElementsByClassName("chapter-title")[0].innerText}</b>. 
-        In M. Saqr & S. López-Pernas (Eds.), <i>Advanced Learning Analytics Methods: AI, Precision and Complexity</i> 
-        (in – press). Springer. <a href="${window.location.href}">${window.location.href}</a></p>
+        In M. Saqr & S. López-Pernas (Eds.), <i>Advanced Learning Analytics Methods: AI, Precision and Complexity</i>  &nbsp;
+         (pp. ${firstpage}-${lastpage}).Springer, Cham. doi: <a href="https://doi.org/${doi}">${doi}</a></p>
       </div>
     </div>`;
     insertAfter(document.getElementsByTagName("HEADER")[1],new DOMParser().parseFromString(citt, 'text/html').body.childNodes[0])

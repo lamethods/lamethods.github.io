@@ -19,6 +19,9 @@ keywords: "learning analytics, explainable artificial intelligence, LM studio, g
 dpi: 900
 bibliography: references.bib
 extract-media: "img"
+citation:
+    page: "261-286"
+    doi: "10.1007/978-3-031-95365-1_11"
 ---
 
 ## Introduction

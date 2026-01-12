@@ -20,6 +20,9 @@ abstract-title: "Abstract"
 dpi: 900
 extract-media: "img"
 fig-align: center
+citation:
+    page: "547-563"
+    doi: "10.1007/978-3-031-95365-1_21"
 ---
 
 

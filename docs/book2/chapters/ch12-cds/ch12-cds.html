@@ -129,7 +129,10 @@ cookieconsent.run({
 <meta name="citation_author" content="Gwen Marchand">
 <meta name="citation_author" content="Avi Kaplan">
 <meta name="citation_fulltext_html_url" content="https://lamethods.github.io/ch12-cds.html">
+<meta name="citation_doi" content="10.1007/978-3-031-95365-1_12">
 <meta name="citation_language" content="en">
+<meta name="citation_firstpage" content="289">
+<meta name="citation_lastpage" content="311">
 <meta name="citation_reference" content="citation_title=On the existence of potential landscape in the evolution of complex systems;,citation_author=Ping Ao;,citation_author=Chulan Kwon;,citation_author=Hong Qian;,citation_publication_date=2007-03;,citation_cover_date=2007-03;,citation_year=2007;,citation_fulltext_html_url=https://onlinelibrary.wiley.com/doi/abs/10.1002/cplx.20171;,citation_issue=4;,citation_doi=10.1002/cplx.20171;,citation_issn=1099-0526;,citation_volume=12;,citation_journal_title=Complexity;,citation_publisher=Wiley;">
 <meta name="citation_reference" content="citation_title=From the origin of life to pandemics: Emergent phenomena in complex systems;,citation_author=Oriol Artime;,citation_author=Manlio De Domenico;,citation_publication_date=2022-07;,citation_cover_date=2022-07;,citation_year=2022;,citation_fulltext_html_url=https://royalsocietypublishing.org/doi/10.1098/rsta.2020.0410;,citation_issue=2227;,citation_doi=10.1098/rsta.2020.0410;,citation_issn=1364-503X;,citation_volume=380;,citation_journal_title=Philosophical transactions. Series A, Mathematical, physical, and engineering sciences;,citation_publisher=The Royal Society;">
 <meta name="citation_reference" content="citation_title=How nature works: The science of self-organized criticality;,citation_author=Per Bak;,citation_publication_date=1999-04;,citation_cover_date=1999-04;,citation_year=1999;,citation_fulltext_html_url=https://link.springer.com/book/10.1007/978-1-4757-5426-1;,citation_doi=10.1007/978-1-4757-5426-1;,citation_isbn=9780387987385;">
@@ -403,7 +406,7 @@ cookieconsent.run({
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../chapters/ch19-three-levels/ch19-three-levels.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">19</span>&nbsp; <span class="chapter-title">Heterogeneity</span></a>
+  <a href="../../chapters/ch19-three-levels/ch19-three-levels.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">19</span>&nbsp; <span class="chapter-title">Three levels of analysis</span></a>
   </div>
 </li>
           <li class="sidebar-item">
@@ -1038,7 +1041,11 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
   </div>
 </footer>
 <script>
-  document.querySelector(".quarto-title").innerHTML =  '<div class="badge bs-warning bg-warning text-dark" style="float:right;">Pre-print</div>' +  document.querySelector(".quarto-title").innerHTML
+  var authors = document.querySelectorAll('meta[name="author"]')
+  var firstpage = document.querySelector('meta[name="citation_firstpage"]').content
+  var lastpage = document.querySelector('meta[name="citation_lastpage"]').content
+  var doi = document.querySelector('meta[name="citation_doi"]').content
+  document.querySelector(".quarto-title").innerHTML =  `<div style="float:right;"><a target="_blank" href="https://link.springer.com/content/pdf/${doi}"><button class="btn btn-sm btn-outline-danger"><span class="bi-file-pdf"></span>&nbsp;PDF</button></a></div>`  + document.querySelector(".quarto-title").innerHTML
   var keywords = document.querySelector('meta[name="keywords"]')
   if (keywords && keywords.content) {
     document.getElementById("title-block-header").innerHTML = document.getElementById("title-block-header").innerHTML + 
@@ -1049,16 +1056,16 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
   function insertAfter(referenceNode, newNode) {
       referenceNode.parentNode.insertBefore(newNode, referenceNode.nextSibling);
   }
-  var authors = document.querySelectorAll('meta[name="author"]')
+
   if (authors) {
     var authorlist = Array.from(authors).map(e=>e.content).reduce((accum, curr) =>  accum + curr + ", ", "","").replace(/\,\s$/,"")
     var citt = `<div class="card border-primary mb-3" style=;">
       <div class="card-header bg-primary">To cite this chapter</div>
       <div class="card-body small">
-        <p class="card-text">${authorlist} (2025).
+        <p class="card-text">${authorlist} (2024).
         <b>${document.getElementsByClassName("chapter-title")[0].innerText}</b>. 
-        In M. Saqr & S. López-Pernas (Eds.), <i>Advanced Learning Analytics Methods: AI, Precision and Complexity</i> 
-        (in – press). Springer. <a href="${window.location.href}">${window.location.href}</a></p>
+        In M. Saqr & S. López-Pernas (Eds.), <i>Advanced Learning Analytics Methods: AI, Precision and Complexity</i>  &nbsp;
+         (pp. ${firstpage}-${lastpage}).Springer, Cham. doi: <a href="https://doi.org/${doi}">${doi}</a></p>
       </div>
     </div>`;
     insertAfter(document.getElementsByTagName("HEADER")[1],new DOMParser().parseFromString(citt, 'text/html').body.childNodes[0])

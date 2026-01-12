@@ -19,6 +19,9 @@ dpi: 900
 editor: source
 bibliography: references.bib
 extract-media: "img"
+citation:
+    page: "565-593"
+    doi: "10.1007/978-3-031-95365-1_22"
 ---
 
 ## Introduction
@@ -435,7 +438,7 @@ Then, to do the estimation, we begin by initializing the `h2o` cluster with `h2o
 
 Our dataset has a name field `name` that identifies each student dataset. Here, we use `unique(synthetic_data$name)` to extract all distinct names and later isolate their data. We will later use the list of `dataset_names` to loop through each person’s data. Inside the loop, we start by filtering the current person's  data. Given that the name is not a predictor, we need to remove the name column too, we do so by using `filtered_data <- synthetic_data %>% filter(name == specific_name)` to isolate the rows for the individual currently being processed, and `select(-name)` to remove the `name` column since it’s no longer needed in the modeling process. After we have filtered the data for the currently modeled student, it needs to be converted to `h2o`’s data frame format. For that we use the function `as.h2o(filtered_data)` as we did before in the individual model. The next steps are familiar by now, and entail splitting the data into training and testing datasets using `h2o.splitFrame(data = h2o_data, ratios = 0.8, seed = 256)`. We split the data here into 80% for training and 20% for testing (so the the model can be evaluated on new unseen data). We also seed `seed = 256` to ensure that the split remains consistent if we run the model again.
 
-Next, we run `h2o.automl()` for that student to automatically train multiple ML models on the individual’s training data. We use the `predictors` list with all the input features (the self-regulated learning variables and phone activity data), and `response_variable` is set to `learning` the outcome we want to predict. We also set `max_runtime_secs = 300` to specify how long the AutoML process runs for each individual, please that this number is used here for demonstration purposes and you are advised to use higher numbers.
+Next, we run `h2o.automl()` for that student to automatically train multiple ML models on the individual’s training data. We use the `predictors` list with all the input features (the self-regulated learning variables and phone activity data), and `response_variable` is set to `learning` the outcome we want to predict. We also set `max_runtime_secs = 300` to specify how long the AutoML process runs for each individual, please note that this number is used here for demonstration purposes and you are advised to use higher numbers.
 
 Having trained the model, we can get the best model using `h2o.get_best_model(automl_model)` to retrieve the best-performing model for the individual. This model is chosen based on its performance (and more specifically based on RMSE which is the default criterion). The next step, we evaluate the model performance on the test data (the unseen data) using `h2o.performance(best_model, newdata = test_data_h2o).`
 

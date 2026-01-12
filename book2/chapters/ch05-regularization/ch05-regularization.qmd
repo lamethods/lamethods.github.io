@@ -21,6 +21,9 @@ dpi: 900
 bibliography: refs.bib
 extract-media: "img"
 fig-align: center
+citation:
+    page: "113-134"
+    doi: "10.1007/978-3-031-95365-1_5"
 ---
 
 ## Introduction {#sec:1}
@@ -411,7 +414,7 @@ the distribution and relationships within our data. We use visualization
 techniques with two R packages "ggplot2"  [@wickham2011ggplot2] and
 "patchwork"  [@pedersen2019package] to gain these insights.
 
-```{r, fig.width = 10, fig.height = 5}
+```{r, fig.width = 8, fig.height = 4, fig.dpi = 900}
 #| label: fig-cert-rates
 #| fig-cap: "The visualization of the certification rates by course, gender, and exploration status"
 # Certification rates by course
@@ -461,7 +464,7 @@ In addition, different from the former visualization for binary and
 categorical variables, here, we also create boxplots to visualize the
 relationship between certification and various numeric variables:
 
-``` {r, fig.width = 5, fig.height = 3}
+``` {r, fig.width = 6, fig.height = 5, fig.dpi = 900}
 #| label: fig-boxplot
 #| fig-cap: "The visualization of the certification outcomes by `nevents`, `ndays_act`, `nchapters`, `nplay_video`, and `nforum_posts`"
 

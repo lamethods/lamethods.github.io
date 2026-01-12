@@ -18,6 +18,9 @@ dpi: 900
 execute:
     warning: FALSE
 bibliography: references.bib
+citation:
+    page: "353-370"
+    doi: "10.1007/978-3-031-95365-1_14"
 ---
 
 ## Introduction

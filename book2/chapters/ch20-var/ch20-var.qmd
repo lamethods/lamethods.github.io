@@ -22,6 +22,9 @@ extract-media: "img"
 fig-align: center
 fig-width: 5
 fig-height: 5
+citation:
+    page: "521-545"
+    doi: "10.1007/978-3-031-95365-1_20"
 ---
 
 ## Introduction

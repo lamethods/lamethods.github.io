@@ -124,7 +124,10 @@ cookieconsent.run({
 <meta name="citation_author" content="Mohammed Saqr">
 <meta name="citation_author" content="Sonsoles López-Pernas">
 <meta name="citation_fulltext_html_url" content="https://lamethods.github.io/ch08-llms.html">
+<meta name="citation_doi" content="10.1007/978-3-031-95365-1_8">
 <meta name="citation_language" content="en">
+<meta name="citation_firstpage" content="191">
+<meta name="citation_lastpage" content="205">
 <meta name="citation_reference" content="citation_title=From text to video with AI: The rise and potential of sora in education and libraries;,citation_author=Adebowale Jeremy Adetayo;,citation_author=Augustine I. Enamudu;,citation_author=Folashade Munirat Lawal;,citation_author=Abiodun Olusegun Odunewu;,citation_publication_date=2024-03;,citation_cover_date=2024-03;,citation_year=2024;,citation_fulltext_html_url=https://www.emerald.com/insight/content/doi/10.1108/lhtn-02-2024-0028/full/html;,citation_doi=10.1108/lhtn-02-2024-0028;,citation_issn=0741-9058;,citation_journal_title=Library hi tech news;,citation_publisher=Emerald;">
 <meta name="citation_reference" content="citation_title=Using large language models to simulate multiple humans and replicate human subject studies;,citation_author=Gati V. Aher;,citation_author=Rosa I. Arriaga;,citation_author=Adam Tauman Kalai;,citation_editor=Andreas Krause;,citation_editor=Emma Brunskill;,citation_editor=Kyunghyun Cho;,citation_editor=Barbara Engelhardt;,citation_editor=Sivan Sabato;,citation_editor=Jonathan Scarlett;,citation_publication_date=2023;,citation_cover_date=2023;,citation_year=2023;,citation_fulltext_html_url=https://proceedings.mlr.press/v202/aher23a.html;,citation_volume=202;,citation_conference_title=Proceedings of the 40th international conference on machine learning;,citation_conference=PMLR;,citation_series_title=Proceedings of machine learning research;">
 <meta name="citation_reference" content="citation_title=Leveraging language models and automatic summarization in online programming learning environments;,citation_author=Carlos Areces;,citation_author=Luciana Benotti;,citation_author=Franco Bulgarelli;,citation_author=Emilia Echeveste;,citation_author=Nadia Finzi;,citation_publication_date=2024-08;,citation_cover_date=2024-08;,citation_year=2024;,citation_fulltext_html_url=https://dl.acm.org/doi/full/10.1145/3653323;,citation_issue=8;,citation_doi=10.1145/3653323;,citation_issn=0001-0782;,citation_volume=67;,citation_journal_title=Communications of the ACM;,citation_publisher=Association for Computing Machinery (ACM);">
@@ -375,7 +378,7 @@ cookieconsent.run({
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../chapters/ch19-three-levels/ch19-three-levels.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">19</span>&nbsp; <span class="chapter-title">Heterogeneity</span></a>
+  <a href="../../chapters/ch19-three-levels/ch19-three-levels.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">19</span>&nbsp; <span class="chapter-title">Three levels of analysis</span></a>
   </div>
 </li>
           <li class="sidebar-item">
@@ -976,7 +979,11 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
   </div>
 </footer>
 <script>
-  document.querySelector(".quarto-title").innerHTML =  '<div class="badge bs-warning bg-warning text-dark" style="float:right;">Pre-print</div>' +  document.querySelector(".quarto-title").innerHTML
+  var authors = document.querySelectorAll('meta[name="author"]')
+  var firstpage = document.querySelector('meta[name="citation_firstpage"]').content
+  var lastpage = document.querySelector('meta[name="citation_lastpage"]').content
+  var doi = document.querySelector('meta[name="citation_doi"]').content
+  document.querySelector(".quarto-title").innerHTML =  `<div style="float:right;"><a target="_blank" href="https://link.springer.com/content/pdf/${doi}"><button class="btn btn-sm btn-outline-danger"><span class="bi-file-pdf"></span>&nbsp;PDF</button></a></div>`  + document.querySelector(".quarto-title").innerHTML
   var keywords = document.querySelector('meta[name="keywords"]')
   if (keywords && keywords.content) {
     document.getElementById("title-block-header").innerHTML = document.getElementById("title-block-header").innerHTML + 
@@ -987,16 +994,16 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
   function insertAfter(referenceNode, newNode) {
       referenceNode.parentNode.insertBefore(newNode, referenceNode.nextSibling);
   }
-  var authors = document.querySelectorAll('meta[name="author"]')
+
   if (authors) {
     var authorlist = Array.from(authors).map(e=>e.content).reduce((accum, curr) =>  accum + curr + ", ", "","").replace(/\,\s$/,"")
     var citt = `<div class="card border-primary mb-3" style=;">
       <div class="card-header bg-primary">To cite this chapter</div>
       <div class="card-body small">
-        <p class="card-text">${authorlist} (2025).
+        <p class="card-text">${authorlist} (2024).
         <b>${document.getElementsByClassName("chapter-title")[0].innerText}</b>. 
-        In M. Saqr & S. López-Pernas (Eds.), <i>Advanced Learning Analytics Methods: AI, Precision and Complexity</i> 
-        (in – press). Springer. <a href="${window.location.href}">${window.location.href}</a></p>
+        In M. Saqr & S. López-Pernas (Eds.), <i>Advanced Learning Analytics Methods: AI, Precision and Complexity</i>  &nbsp;
+         (pp. ${firstpage}-${lastpage}).Springer, Cham. doi: <a href="https://doi.org/${doi}">${doi}</a></p>
       </div>
     </div>`;
     insertAfter(document.getElementsByTagName("HEADER")[1],new DOMParser().parseFromString(citt, 'text/html').body.childNodes[0])

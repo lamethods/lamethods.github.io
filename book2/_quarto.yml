@@ -72,7 +72,7 @@ book:
       chapters: 
         - text: "Within-person analysis"
           file: chapters/ch18-idio/ch18-idio.qmd
-        - text: "Heterogeneity"
+        - text: "Three levels of analysis"
           file: chapters/ch19-three-levels/ch19-three-levels.qmd
         - text: "Vector Autoregression and uSEM"
           file: chapters/ch20-var/ch20-var.qmd
@@ -110,7 +110,11 @@ format:
     include-after-body:
       text: |
         <script>
-          document.querySelector(".quarto-title").innerHTML =  '<div class="badge bs-warning bg-warning text-dark" style="float:right;">Pre-print</div>' +  document.querySelector(".quarto-title").innerHTML
+          var authors = document.querySelectorAll('meta[name="author"]')
+          var firstpage = document.querySelector('meta[name="citation_firstpage"]').content
+          var lastpage = document.querySelector('meta[name="citation_lastpage"]').content
+          var doi = document.querySelector('meta[name="citation_doi"]').content
+          document.querySelector(".quarto-title").innerHTML =  `<div style="float:right;"><a target="_blank" href="https://link.springer.com/content/pdf/${doi}"><button class="btn btn-sm btn-outline-danger"><span class="bi-file-pdf"></span>&nbsp;PDF</button></a></div>`  + document.querySelector(".quarto-title").innerHTML
           var keywords = document.querySelector('meta[name="keywords"]')
           if (keywords && keywords.content) {
             document.getElementById("title-block-header").innerHTML = document.getElementById("title-block-header").innerHTML + 
@@ -121,16 +125,16 @@ format:
           function insertAfter(referenceNode, newNode) {
               referenceNode.parentNode.insertBefore(newNode, referenceNode.nextSibling);
           }
-          var authors = document.querySelectorAll('meta[name="author"]')
+
           if (authors) {
             var authorlist = Array.from(authors).map(e=>e.content).reduce((accum, curr) =>  accum + curr + ", ", "","").replace(/\,\s$/,"")
             var citt = `<div class="card border-primary mb-3" style=;">
               <div class="card-header bg-primary">To cite this chapter</div>
               <div class="card-body small">
-                <p class="card-text">${authorlist} (2025).
+                <p class="card-text">${authorlist} (2024).
                 <b>${document.getElementsByClassName("chapter-title")[0].innerText}</b>. 
-                In M. Saqr & S. López-Pernas (Eds.), <i>Advanced Learning Analytics Methods: AI, Precision and Complexity</i> 
-                (in – press). Springer. <a href="${window.location.href}">${window.location.href}</a></p>
+                In M. Saqr & S. López-Pernas (Eds.), <i>Advanced Learning Analytics Methods: AI, Precision and Complexity</i>  &nbsp;
+                 (pp. ${firstpage}-${lastpage}).Springer, Cham. doi: <a href="https://doi.org/${doi}">${doi}</a></p>
               </div>
             </div>`;
             insertAfter(document.getElementsByTagName("HEADER")[1],new DOMParser().parseFromString(citt, 'text/html').body.childNodes[0])
