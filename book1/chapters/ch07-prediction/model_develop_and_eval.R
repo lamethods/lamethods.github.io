@@ -115,7 +115,7 @@ get_regression_evaluation_measures <- function(model, train_ds, test_data) {
   R2 <- 1 - RSS/TSS
   
   #RMSE = sqrt(RSS/N)
-  RMSE <- sqrt(RSS/nrow(test_ds))
+  RMSE <- sqrt(RSS/nrow(test_data))
   
   #MAE = avg(abs(predicted - actual))
   MAE <- mean(abs(predicted_vals - actual_vals))
