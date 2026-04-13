@@ -1562,9 +1562,38 @@ Community assignments:
 <p>In a way, TNA can be thought of as combining the temporal aspects of process mining with the analytical power of network theory to offer researchers a robust tool for understanding the complex dynamics of learning processes. The use of graph representation enhances PM by enabling researchers to examine the role of specific events in shaping learning processes through centrality measures. For example, measures such as betweenness centrality highlight nodes that bridge transitions, while in-degree centrality identifies events that receive the most transitions. Edge-level centralities provide further insights into the underlying dynamics of transitions, offering a deeper understanding of how learning unfolds. These measures and capabilities are hardly present in process mining with some exceptions like fuzzy miner, yet they are rather few, incomplete and not easy to interpret <span class="citation" data-cites="pan2021">[<a href="#ref-pan2021" role="doc-biblioref">45</a>]</span>. Also, TNA employs community detection to explore events that co-occur, revealing patterns that reflect behaviors and strategies. On the other hand, PM enhances network analysis by enabling the identification of clusters representing typical transition patterns, which are widely used to capture students’ tactics and strategies. However, TNA offers more than combination of either methods. The incorporation of bootstrapping provides a rigorous way to assess model stability and filter out unreliable connections. Similarly, permutation and case-dropping for assessing statistical inferences of models.</p>
 <p>A significant contribution of TNA is its incorporation of robust statistical validation techniques. The implementation of bootstrapping methods addresses a critical gap in current process mining and network analysis approaches in education. This advancement enables identification of significant transitions through confidence intervals and p-values, helps filter out spurious connections leading to more reliable models, provides a framework for assessing the generalizability of findings, and supports more rigorous hypothesis testing and theory validation. Furthermore, TNA’s ability to systematically compare different learning processes through permutation testing represents a methodological advance over simple visual comparison. Permutation allows researchers to identify statistically significant differences between learning processes across different contexts.</p>
 <p>However, several limitations should be considered when applying TNA. The method assumes Markovian properties, which may not fully capture some aspects of learning processes (refer to <span class="citation" data-cites="LABOOK2_Chapter_16">[<a href="#ref-LABOOK2_Chapter_16" role="doc-biblioref">25</a>]</span> for a frequency-based approach). Interpretation of network measures requires careful consideration of the educational context, and the approach may be computationally intensive for very large datasets. Additionally, some network measures may not be meaningful in fully connected networks. Future research should focus on developing additional validation techniques specific to educational contexts, extending the method to handle multi-level and longitudinal data, investigating the integration of TNA with other analytical approaches, creating user-friendly tools and guidelines for educational practitioners, and exploring applications in different educational domains and contexts.</p>
+<div class="position-fixed bottom-0 start-0 p-3" style="z-index: 9999">
+  <div id="tutorialToast" class="toast border-0" role="alert">
+    
+    <!-- Header -->
+    <div class="toast-header text-bg-info bg-info">
+      <strong class="me-auto">New TNA Tutorials</strong>
+      <button type="button" class="btn-close" data-bs-dismiss="toast"></button>
+    </div>
+      <div class="toast-body">
+      <ul>
+      <li><a href="https://sonsoles.me/posts/tna-data/">Data preparation</a></li>
+      <li><a href="https://sonsoles.me/posts/tna-tutorial/"> Step-by-step TNA tutorial</a></li>
+      <li><a href="https://sonsoles.me/posts/tna-group/">Multi-group analysis</a></li>
+      <li><a href="https://sonsoles.me/posts/tna-clustering/">Clustering with TNA</a></li>
+      </ul>
+    </div>
+    </div>
+  </div>
+</section></main></div>
+
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+    var toastEl = document.getElementById('tutorialToast');
+    var toast = new bootstrap.Toast(toastEl, {
+      autohide: false
+    });
+    toast.show();
+  });
+</script>
 
 
-</section>
+
 <section id="bibliography" class="level1 unnumbered">
 <h1 class="unnumbered">References</h1>
 <div id="refs" class="references csl-bib-body" role="doc-bibliography">
@@ -1706,7 +1735,7 @@ Community assignments:
 </div>
 </section>
 
-</main> <!-- /main -->
+ <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
 window.document.addEventListener("DOMContentLoaded", function (event) {
   const toggleBodyColorMode = (bsSheetEl) => {
@@ -1852,7 +1881,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       </a>
   </div>
 </nav>
-</div> <!-- /content -->
+ <!-- /content -->
 <footer class="footer">
   <div class="nav-footer">
       <div class="nav-footer-center"><div class="cookie-consent-footer"><a href="#" id="open_preferences_center">Cookie Preferences</a></div></div>

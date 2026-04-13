@@ -1615,9 +1615,9 @@ plan     0.1856 0.920</code></pre>
 
 Community assignments:
        node walktrap fast_greedy label_prop infomap edge_betweenness leading_eigen spinglass
-1     adapt        1           1          1       1                1             1         2
-2  cohesion        1           2          1       1                1             3         1
-3 consensus        1           3          1       1                1             2         3
+1     adapt        1           1          1       1                1             1         3
+2  cohesion        1           2          1       1                1             3         2
+3 consensus        1           3          1       1                1             2         1
  [ reached 'max' / getOption("max.print") -- omitted 6 rows ]</code></pre>
 </div>
 </div>
@@ -1725,9 +1725,38 @@ Community assignments:
 <h2 data-number="7" class="anchored" data-anchor-id="conclusion"><span class="header-section-number">7</span> Conclusion</h2>
 <p>This chapter presented FTNA as a flexible and robust approach to analyzing temporal data of learning processes. FTNA is a novel tool for analyzing complex learning processes. Its flexibility, scalability, and straightforward modeling of transition frequencies make it well-suited for exploring and comparing learning dynamics across varied educational contexts. Unlike traditional Transition Network Analysis (TNA) <span class="citation" data-cites="LABOOK2_Chapter_15">[<a href="#ref-LABOOK2_Chapter_15" role="doc-biblioref">2</a>]</span>, which models transitions probabilistically based on Markov assumptions, FTNA focuses on the absolute frequency of transitions between states, offering a straightforward representation of learning dynamics without conditioning on prior states. This method is particularly advantageous where dependencies span multiple steps, such as collaborative learning or complex problem-solving tasks or for contexts with rare transitions, small sample sizes, or processes.</p>
 <p>What makes FTNA stand out in comparison to existing techniques is its statistical rigor. In that, FTNA allows meaningful comparisons across different datasets or conditions with permutation. Statistical validation methods, such as bootstrapping increase the rigor of FTNA and provide a validation method for the resulting models. Additionally, FTNA inherits the network capabilities of TNA, such as centrality measures and pattern detection <span class="citation" data-cites="LABOOK2_Chapter_17">[<a href="#ref-LABOOK2_Chapter_17" role="doc-biblioref">18</a>]</span> which offer a deeper understanding of structural relationships within the learning process.</p>
+<div class="position-fixed bottom-0 start-0 p-3" style="z-index: 9999">
+  <div id="tutorialToast" class="toast border-0" role="alert">
+    
+    <!-- Header -->
+    <div class="toast-header text-bg-info bg-info">
+      <strong class="me-auto">New TNA Tutorials</strong>
+      <button type="button" class="btn-close" data-bs-dismiss="toast"></button>
+    </div>
+      <div class="toast-body">
+      <ul>
+      <li><a href="https://sonsoles.me/posts/tna-data/">Data preparation</a></li>
+      <li><a href="https://sonsoles.me/posts/tna-tutorial/"> Step-by-step TNA tutorial</a></li>
+      <li><a href="https://sonsoles.me/posts/tna-group/">Multi-group analysis</a></li>
+      <li><a href="https://sonsoles.me/posts/tna-clustering/">Clustering with TNA</a></li>
+      </ul>
+    </div>
+    </div>
+  </div>
+</section></main></div>
+
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+    var toastEl = document.getElementById('tutorialToast');
+    var toast = new bootstrap.Toast(toastEl, {
+      autohide: false
+    });
+    toast.show();
+  });
+</script>
 
 
-</section>
+
 <section id="bibliography" class="level1 unnumbered">
 <h1 class="unnumbered">References</h1>
 <div id="refs" class="references csl-bib-body" role="doc-bibliography">
@@ -1812,7 +1841,7 @@ Community assignments:
 </div>
 </section>
 
-</main> <!-- /main -->
+ <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
 window.document.addEventListener("DOMContentLoaded", function (event) {
   const toggleBodyColorMode = (bsSheetEl) => {
@@ -1958,7 +1987,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       </a>
   </div>
 </nav>
-</div> <!-- /content -->
+ <!-- /content -->
 <footer class="footer">
   <div class="nav-footer">
       <div class="nav-footer-center"><div class="cookie-consent-footer"><a href="#" id="open_preferences_center">Cookie Preferences</a></div></div>

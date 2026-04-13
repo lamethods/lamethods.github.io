@@ -174,6 +174,12 @@ cookieconsent.run({
 </script> 
   
 
+<script src="../../site_libs/kePrint-0.0.1/kePrint.js"></script>
+<link href="../../site_libs/lightable-0.0.1/lightable.css" rel="stylesheet">
+<link href="../../site_libs/pagedtable-1.1/css/pagedtable.css" rel="stylesheet">
+<script src="../../site_libs/pagedtable-1.1/js/pagedtable.js"></script>
+
+
 <meta name="twitter:title" content="Advanced learning analytics methods - 17&nbsp; Mining Patterns and Clusters with Transition Network Analysis: A Heterogeneity Approach">
 <meta name="twitter:description" content="In this chapter, we demonstrate how we can identify and study clusters within Transition Network Analysis (TNA) to reveal the underlying heterogeneity in learners' behavioral patterns.">
 <meta name="twitter:card" content="summary">
@@ -266,25 +272,9 @@ cookieconsent.run({
 <meta name="citation_reference" content="citation_title=Behavioural science is unlikely to change the world without a heterogeneity revolution;,citation_abstract=In the past decade, behavioural science has gained influence in policymaking but suffered a crisis of confidence in the replicability of its findings. Here, we describe a nascent heterogeneity revolution that we believe these twin historical trends have triggered. This revolution will be defined by the recognition that most treatment effects are heterogeneous, so the variation in effect estimates across studies that defines the replication crisis is to be expected as long as heterogeneous effects are studied without a systematic approach to sampling and moderation. When studied systematically, heterogeneity can be leveraged to build more complete theories of causal mechanism that could inform nuanced and dependable guidance to policymakers. We recommend investment in shared research infrastructure to make it feasible to study behavioural interventions in heterogeneous and generalizable samples, and suggest low-cost steps researchers can take immediately to avoid being misled by heterogeneity and begin to learn from it instead.;,citation_author=Christopher J Bryan;,citation_author=Elizabeth Tipton;,citation_author=David S Yeager;,citation_publication_date=2021-08;,citation_cover_date=2021-08;,citation_year=2021;,citation_fulltext_html_url=http://dx.doi.org/10.1038/s41562-021-01143-3;,citation_issue=8;,citation_doi=10.1038/s41562-021-01143-3;,citation_issn=2397-3374;,citation_pmid=34294901;,citation_volume=5;,citation_journal_title=Nat. Hum. Behav.;,citation_publisher=Springer Science; Business Media LLC;">
 <meta name="citation_reference" content="citation_title=Latent class modeling with covariates: Two improved three-step approaches;,citation_abstract=Researchers using latent class (LC) analysis often proceed using the following three steps: (1) an LC model is built for a set of response variables, (2) subjects are assigned to LCs based on their posterior class membership probabilities, and (3) the association between the assigned class membership and external variables is investigated using simple cross-tabulations or multinomial logistic regression analysis. Bolck, Croon, and Hagenaars (2004) demonstrated that such a three-step approach underestimates the associations between covariates and class membership. They proposed resolving this problem by means of a specific correction method that involves modifying the third step. In this article, I extend the correction method of Bolck, Croon, and Hagenaars by showing that it involves maximizing a weighted log-likelihood function for clustered data. This conceptualization makes it possible to apply the method not only with categorical but also with continuous explanatory variables, to obtain correct tests using complex sampling variance estimation methods, and to implement it in standard software for logistic regression analysis. In addition, a new maximum likelihood (ML)—based correction method is proposed, which is more direct in the sense that it does not require analyzing weighted data. This new three-step ML method can be easily implemented in software for LC analysis. The reported simulation study shows that both correction methods perform very well in the sense that their parameter estimates and their SEs can be trusted, except for situations with very poorly separated classes. The main advantage of the ML method compared with the Bolck, Croon, and Hagenaars approach is that it is much more efficient and almost as efficient as one-step ML estimation.;,citation_author=Jeroen K Vermunt;,citation_publication_date=2010;,citation_cover_date=2010;,citation_year=2010;,citation_issue=4;,citation_doi=10.1093/pan/mpq025;,citation_issn=1047-1987,1476-4989;,citation_volume=18;,citation_journal_title=Polit. Anal.;,citation_publisher=Cambridge University Press (CUP);">
 <meta name="citation_reference" content="citation_title=Social network analysis: A primer, a guide and a tutorial in R;,citation_abstract=AbstractThis chapter introduces the concept and methods of social network analysis (SNA) with a detailed guide to analysis with real world data using the R programming language. The chapter first introduces the basic concepts and types of networks. Then the chapter goes through a detailed step by step analysis of networks, computation of graph level measures as well as centralities with a concise interpretation in a collaborative environment. The chapter concludes with a discussion of network analysis, next steps as well as a list of further readings.;,citation_author=Mohammed Saqr;,citation_author=Sonsoles López-Pernas;,citation_author=Miguel Ángel Conde-González;,citation_author=Ángel Hernández-García;,citation_publication_date=2024;,citation_cover_date=2024;,citation_year=2024;,citation_fulltext_html_url=http://dx.doi.org/10.1007/978-3-031-54464-4_15;,citation_doi=10.1007/978-3-031-54464-4\_15;,citation_isbn=9783031544637,9783031544644;,citation_inbook_title=Learning analytics methods and tutorials;">
-</head><body class="nav-sidebar floating nav-fixed">\usepackage{booktabs}
-\usepackage{longtable}
-\usepackage{array}
-\usepackage{multirow}
-\usepackage{wrapfig}
-\usepackage{float}
-\usepackage{colortbl}
-\usepackage{pdflscape}
-\usepackage{tabu}
-\usepackage{threeparttable}
-\usepackage{threeparttablex}
-\usepackage[normalem]{ulem}
-\usepackage{makecell}
-\usepackage{xcolor}
+</head>
 
-
-
-
-
+<body class="nav-sidebar floating nav-fixed">
 
 <div id="quarto-search-results"></div>
   <header id="quarto-header" class="headroom fixed-top">
@@ -1009,7 +999,187 @@ Check out our previous book! <br> <a href="../../../book1/index.html"><img src="
 </div>
 <div class="cell">
 <div class="cell-output-display">
+<div id="tbl-cent-table" class="anchored">
 
+<table class=" lightable-minimal" style="font-family: &quot;Trebuchet MS&quot;, verdana, sans-serif; margin-left: auto; margin-right: auto;"><caption>Table&nbsp;3.  Centrality measures for each cluster </caption>
+ <thead>
+<tr>
+<th style="empty-cells: hide;" colspan="1"></th>
+<th style="padding-bottom:0; padding-left:3px;padding-right:3px;text-align: center; font-weight: bold; " colspan="4"><div style="border-bottom: 2px solid #00000050; ">Betweenness</div></th>
+<th style="padding-bottom:0; padding-left:3px;padding-right:3px;text-align: center; font-weight: bold; " colspan="4"><div style="border-bottom: 2px solid #00000050; ">InStrength</div></th>
+<th style="padding-bottom:0; padding-left:3px;padding-right:3px;text-align: center; font-weight: bold; " colspan="4"><div style="border-bottom: 2px solid #00000050; ">OutStrength</div></th>
+</tr>
+  <tr>
+   <th style="text-align:left;"> State </th>
+   <th style="text-align:right;"> 1. Soc. trig. </th>
+   <th style="text-align:right;"> 2. Arg. trig. </th>
+   <th style="text-align:right;"> 3. Fac. dis. </th>
+   <th style="text-align:right;"> 4. Inf. trig. </th>
+   <th style="text-align:right;"> 1. Soc. trig. </th>
+   <th style="text-align:right;"> 2. Arg. trig. </th>
+   <th style="text-align:right;"> 3. Fac. dis. </th>
+   <th style="text-align:right;"> 4. Inf. trig. </th>
+   <th style="text-align:right;"> 1. Soc. trig. </th>
+   <th style="text-align:right;"> 2. Arg. trig. </th>
+   <th style="text-align:right;"> 3. Fac. dis. </th>
+   <th style="text-align:right;"> 4. Inf. trig. </th>
+  </tr>
+ </thead>
+<tbody>
+  <tr>
+   <td style="text-align:left;"> Agree </td>
+   <td style="text-align:right;"> 15 </td>
+   <td style="text-align:right;"> 9 </td>
+   <td style="text-align:right;"> 0 </td>
+   <td style="text-align:right;"> 9 </td>
+   <td style="text-align:right;"> 0.70 </td>
+   <td style="text-align:right;"> 0.32 </td>
+   <td style="text-align:right;"> 0.76 </td>
+   <td style="text-align:right;"> 0.73 </td>
+   <td style="text-align:right;"> 1.00 </td>
+   <td style="text-align:right;"> 0.98 </td>
+   <td style="text-align:right;"> 1.00 </td>
+   <td style="text-align:right;"> 1.00 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> Argue </td>
+   <td style="text-align:right;"> 21 </td>
+   <td style="text-align:right;"> 22 </td>
+   <td style="text-align:right;"> 0 </td>
+   <td style="text-align:right;"> 40 </td>
+   <td style="text-align:right;"> 0.94 </td>
+   <td style="text-align:right;"> 1.34 </td>
+   <td style="text-align:right;"> 0.80 </td>
+   <td style="text-align:right;"> 0.99 </td>
+   <td style="text-align:right;"> 0.95 </td>
+   <td style="text-align:right;"> 0.92 </td>
+   <td style="text-align:right;"> 0.90 </td>
+   <td style="text-align:right;"> 0.94 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> Disagree </td>
+   <td style="text-align:right;"> 0 </td>
+   <td style="text-align:right;"> 0 </td>
+   <td style="text-align:right;"> 14 </td>
+   <td style="text-align:right;"> 0 </td>
+   <td style="text-align:right;"> 0.10 </td>
+   <td style="text-align:right;"> 0.04 </td>
+   <td style="text-align:right;"> 0.04 </td>
+   <td style="text-align:right;"> 0.06 </td>
+   <td style="text-align:right;"> 1.00 </td>
+   <td style="text-align:right;"> 1.00 </td>
+   <td style="text-align:right;"> 1.00 </td>
+   <td style="text-align:right;"> 1.00 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> Discuss </td>
+   <td style="text-align:right;"> 0 </td>
+   <td style="text-align:right;"> 0 </td>
+   <td style="text-align:right;"> 0 </td>
+   <td style="text-align:right;"> 0 </td>
+   <td style="text-align:right;"> 3.05 </td>
+   <td style="text-align:right;"> 3.26 </td>
+   <td style="text-align:right;"> 2.41 </td>
+   <td style="text-align:right;"> 4.08 </td>
+   <td style="text-align:right;"> 0.73 </td>
+   <td style="text-align:right;"> 0.63 </td>
+   <td style="text-align:right;"> 0.52 </td>
+   <td style="text-align:right;"> 0.57 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> Evaluate </td>
+   <td style="text-align:right;"> 15 </td>
+   <td style="text-align:right;"> 24 </td>
+   <td style="text-align:right;"> 17 </td>
+   <td style="text-align:right;"> 3 </td>
+   <td style="text-align:right;"> 0.58 </td>
+   <td style="text-align:right;"> 0.69 </td>
+   <td style="text-align:right;"> 0.46 </td>
+   <td style="text-align:right;"> 0.60 </td>
+   <td style="text-align:right;"> 0.98 </td>
+   <td style="text-align:right;"> 0.94 </td>
+   <td style="text-align:right;"> 1.00 </td>
+   <td style="text-align:right;"> 1.00 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> Facilitate </td>
+   <td style="text-align:right;"> 22 </td>
+   <td style="text-align:right;"> 0 </td>
+   <td style="text-align:right;"> 40 </td>
+   <td style="text-align:right;"> 16 </td>
+   <td style="text-align:right;"> 1.12 </td>
+   <td style="text-align:right;"> 0.04 </td>
+   <td style="text-align:right;"> 0.97 </td>
+   <td style="text-align:right;"> 0.05 </td>
+   <td style="text-align:right;"> 0.35 </td>
+   <td style="text-align:right;"> 0.47 </td>
+   <td style="text-align:right;"> 0.26 </td>
+   <td style="text-align:right;"> 0.26 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> Organize </td>
+   <td style="text-align:right;"> 15 </td>
+   <td style="text-align:right;"> 0 </td>
+   <td style="text-align:right;"> 20 </td>
+   <td style="text-align:right;"> 5 </td>
+   <td style="text-align:right;"> 0.09 </td>
+   <td style="text-align:right;"> 0.10 </td>
+   <td style="text-align:right;"> 0.29 </td>
+   <td style="text-align:right;"> 0.01 </td>
+   <td style="text-align:right;"> 0.66 </td>
+   <td style="text-align:right;"> 0.93 </td>
+   <td style="text-align:right;"> 0.19 </td>
+   <td style="text-align:right;"> 1.00 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> Question </td>
+   <td style="text-align:right;"> 0 </td>
+   <td style="text-align:right;"> 9 </td>
+   <td style="text-align:right;"> 2 </td>
+   <td style="text-align:right;"> 3 </td>
+   <td style="text-align:right;"> 0.25 </td>
+   <td style="text-align:right;"> 0.36 </td>
+   <td style="text-align:right;"> 0.14 </td>
+   <td style="text-align:right;"> 0.59 </td>
+   <td style="text-align:right;"> 0.90 </td>
+   <td style="text-align:right;"> 0.87 </td>
+   <td style="text-align:right;"> 0.85 </td>
+   <td style="text-align:right;"> 1.00 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> Share </td>
+   <td style="text-align:right;"> 1 </td>
+   <td style="text-align:right;"> 22 </td>
+   <td style="text-align:right;"> 2 </td>
+   <td style="text-align:right;"> 15 </td>
+   <td style="text-align:right;"> 0.26 </td>
+   <td style="text-align:right;"> 0.42 </td>
+   <td style="text-align:right;"> 0.29 </td>
+   <td style="text-align:right;"> 0.20 </td>
+   <td style="text-align:right;"> 1.00 </td>
+   <td style="text-align:right;"> 1.00 </td>
+   <td style="text-align:right;"> 1.00 </td>
+   <td style="text-align:right;"> 1.00 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> Socialize </td>
+   <td style="text-align:right;"> 1 </td>
+   <td style="text-align:right;"> 8 </td>
+   <td style="text-align:right;"> 2 </td>
+   <td style="text-align:right;"> 18 </td>
+   <td style="text-align:right;"> 1.34 </td>
+   <td style="text-align:right;"> 2.04 </td>
+   <td style="text-align:right;"> 1.29 </td>
+   <td style="text-align:right;"> 1.43 </td>
+   <td style="text-align:right;"> 0.85 </td>
+   <td style="text-align:right;"> 0.87 </td>
+   <td style="text-align:right;"> 0.73 </td>
+   <td style="text-align:right;"> 0.98 </td>
+  </tr>
+</tbody>
+</table>
+
+</div>
 </div>
 </div>
 <!-- ## Comparing clusters -->
@@ -1231,9 +1401,38 @@ Check out our previous book! <br> <a href="../../../book1/index.html"><img src="
 <p>In this chapter, we have demonstrated how to identify clusters of transition networks, within the scope of TNA. We have illustrated this process for MMM clustering as well as for other forms of clustering. We have also showcased the features of TNA related to centralities, communities, and cliques, which provides as with a rich toolkit to study the heterogeneity of relational dynamics. Centrality measures, for instance, allow us to identify central states or transitions that shape the flow of behaviors or interactions. Influential nodes can vary significantly across subgroups, representing the diversity in how processes unfold.</p>
 <p>Similarly, communities within the network can uncover tightly connected groups of transitions that represent cohesive patterns, dynamics, or strategies. These sub-networks might reveal distinct behavioral tendencies or shared practices that are specific to certain groups or contexts. Cliques, as smaller subsets of closely interconnected transitions, provide yet another layer of detail, capturing unique micro-patterns that might otherwise go overlooked.</p>
 <p>Understanding the different patterns that can be identified from transition networks and how they prevail or differ among clusters, provides a comprehensive view on learning processes from a heterogeneity lens. In other words, identifying and studying different subgroups help us move beyond simplistic, one-size-fits-all interpretations to recognize the complexity and diversity inherent in behavior and interaction. Such interpretations have the potential to advance learning theories and support the design of interventions or policies that are sensitive to the diverse ways individuals and groups experience and respond to learning processes, which is one of the driving goals of learning analytics research. Embracing heterogeneity constitutes a step forward in ensuring that findings are equitable and capture diversity.</p>
+<div class="position-fixed bottom-0 start-0 p-3" style="z-index: 9999">
+  <div id="tutorialToast" class="toast border-0" role="alert">
+    
+    <!-- Header -->
+    <div class="toast-header text-bg-info bg-info">
+      <strong class="me-auto">New TNA Tutorials</strong>
+      <button type="button" class="btn-close" data-bs-dismiss="toast"></button>
+    </div>
+      <div class="toast-body">
+      <ul>
+      <li><a href="https://sonsoles.me/posts/tna-data/">Data preparation</a></li>
+      <li><a href="https://sonsoles.me/posts/tna-tutorial/"> Step-by-step TNA tutorial</a></li>
+      <li><a href="https://sonsoles.me/posts/tna-group/">Multi-group analysis</a></li>
+      <li><a href="https://sonsoles.me/posts/tna-clustering/">Clustering with TNA</a></li>
+      </ul>
+    </div>
+    </div>
+  </div>
+</section></main></div>
+
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+    var toastEl = document.getElementById('tutorialToast');
+    var toast = new bootstrap.Toast(toastEl, {
+      autohide: false
+    });
+    toast.show();
+  });
+</script>
 
 
-</section>
+
 <section id="bibliography" class="level1 unnumbered">
 <h1 class="unnumbered">References</h1>
 <div id="refs" class="references csl-bib-body" role="doc-bibliography">
@@ -1324,7 +1523,7 @@ Check out our previous book! <br> <a href="../../../book1/index.html"><img src="
 </div>
 </section>
 
-</main> <!-- /main -->
+ <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
 window.document.addEventListener("DOMContentLoaded", function (event) {
   const toggleBodyColorMode = (bsSheetEl) => {
@@ -1470,7 +1669,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       </a>
   </div>
 </nav>
-</div> <!-- /content -->
+ <!-- /content -->
 <footer class="footer">
   <div class="nav-footer">
       <div class="nav-footer-center"><div class="cookie-consent-footer"><a href="#" id="open_preferences_center">Cookie Preferences</a></div></div>

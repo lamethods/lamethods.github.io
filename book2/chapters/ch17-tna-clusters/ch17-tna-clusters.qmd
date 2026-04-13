@@ -294,10 +294,9 @@ pivot_wider(cents, names_from = "Group",
             names_prefix = "Group", values_from = 3:5) |> 
   kbl(col.names = c(names(cents)[2],
                     rep(c("1. Soc. trig.", "2. Arg. trig.", 
-                          "3. Fac. dis.", "Inf. trig."),3)),
-      digits = 2, format = "latex", linesep = "", booktabs = T) %>%
+                          "3. Fac. dis.", "4. Inf. trig."),3)),
+      digits = 2,linesep = "", booktabs = T) %>%
   kable_minimal() %>%
-  kable_styling(latex_options="scale_down") %>%
   add_header_above(c(" " = 1, "Betweenness" = 4, 
                      "InStrength" = 4, "OutStrength" = 4), bold = T)
 ```
@@ -420,7 +419,37 @@ Similarly, communities within the network can uncover tightly connected groups o
 
 Understanding the different patterns that can be identified from transition networks and how they prevail or differ among clusters, provides a comprehensive view on learning processes from a heterogeneity lens. In other words, identifying and studying different subgroups help us move beyond simplistic, one-size-fits-all interpretations to recognize the complexity and diversity inherent in behavior and interaction. Such interpretations have the potential to advance learning theories and support the design of interventions or policies that are sensitive to the diverse ways individuals and groups experience and respond to learning processes, which is one of the driving goals of learning analytics research. Embracing heterogeneity constitutes a step forward in ensuring that findings are equitable and capture diversity.
 
+```{=html}
+<div class="position-fixed bottom-0 start-0 p-3" style="z-index: 9999">
+  <div id="tutorialToast" class="toast border-0" role="alert">
+    
+    <!-- Header -->
+    <div class="toast-header text-bg-info bg-info">
+      <strong class="me-auto">New TNA Tutorials</strong>
+      <button type="button" class="btn-close" data-bs-dismiss="toast"></button>
+    </div>
+      <div class="toast-body">
+      <ul>
+      <li><a href="https://sonsoles.me/posts/tna-data/">Data preparation</a></li>
+      <li><a href="https://sonsoles.me/posts/tna-tutorial/"> Step-by-step TNA tutorial</a></li>
+      <li><a href="https://sonsoles.me/posts/tna-group/">Multi-group analysis</a></li>
+      <li><a href="https://sonsoles.me/posts/tna-clustering/">Clustering with TNA</a></li>
+      </ul>
+    </div>
+    </div>
+  </div>
+</div>
 
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+    var toastEl = document.getElementById('tutorialToast');
+    var toast = new bootstrap.Toast(toastEl, {
+      autohide: false
+    });
+    toast.show();
+  });
+</script>
+```
 
 ::: {#refs}
 :::
