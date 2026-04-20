@@ -671,7 +671,8 @@ explained in more detail below:
 All built models and their evaluation measures are stored (in `models` and
 `eval_measures` lists) so that they can later be compared.
 
-Going now into details of each step, we start with the creation of a
+In the *feature_creation* R script we can see the details of each step. 
+We start with the creation of a
 dataset to be used for predictive modelling in week *k*. This is done by
 first computing all features based on the logged events data
 (`events_data`) up to the week *k*, and then adding the course outcome
